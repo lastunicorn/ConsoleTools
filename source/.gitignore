@@ -4,3 +4,4 @@ obj/
 *.user
 packages/
 *.TMP
+*.nupkg

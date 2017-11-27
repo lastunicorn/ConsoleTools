@@ -7,7 +7,7 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</licenseUrl>
-    <projectUrl>https://github.com/lastunicorn/WindTools</projectUrl>
+    <projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>It contains helpers to write colored texts at the Console and write tables to the console.</releaseNotes>

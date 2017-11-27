@@ -1,4 +1,4 @@
-﻿// WindConsole
+﻿// WindTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,9 +17,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.WindTools
 {
-    public static partial class WindConsole
+    public static partial class CustomConsole
     {
         private const ConsoleColor SuccessColor = ConsoleColor.Green;
         private const ConsoleColor WarningColor = ConsoleColor.Yellow;

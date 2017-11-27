@@ -1,4 +1,4 @@
-﻿// WindConsole
+﻿// WindTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,54 +16,54 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.WindTools
 {
-    public partial class WindConsole
+    public partial class CustomConsole
     {
-        public static void WriteColor(ConsoleColor color, string text)
+        public static void WriteEmphasies(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = EmphasiesColor;
             Console.Write(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteColor(ConsoleColor color, string format, params object[] arg)
+        public static void WriteEmphasies(string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = EmphasiesColor;
             Console.Write(format, arg);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteColor(ConsoleColor color, object o)
+        public static void WriteEmphasies(object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = EmphasiesColor;
             Console.Write(o);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineColor(ConsoleColor color, string text)
+        public static void WriteLineEmphasies(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = EmphasiesColor;
             Console.WriteLine(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineColor(ConsoleColor color, string text, params object[] arg)
+        public static void WriteLineEmphasies(string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.WriteLine(text, arg);
+            Console.ForegroundColor = EmphasiesColor;
+            Console.WriteLine(format, arg);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineColor(ConsoleColor color, object o)
+        public static void WriteLineEmphasies(object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
+            Console.ForegroundColor = EmphasiesColor;
             Console.WriteLine(o);
             Console.ForegroundColor = oldColor;
         }

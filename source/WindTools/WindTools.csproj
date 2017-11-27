@@ -7,8 +7,8 @@
     <ProjectGuid>{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools</AssemblyName>
+    <RootNamespace>DustInTheWind.WindTools</RootNamespace>
+    <AssemblyName>DustInTheWind.WindTools</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,16 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\AssemblyInfo.Shared.cs">
+    <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="WindConsole.WriteEmphasies.cs" />
-    <Compile Include="WindConsole.WriteError.cs" />
-    <Compile Include="WindConsole.General.cs" />
-    <Compile Include="WindConsole.WriteNormal.cs" />
-    <Compile Include="WindConsole.WriteSuccess.cs" />
-    <Compile Include="WindConsole.WriteWarning.cs" />
-    <Compile Include="WindConsole.WriteColors.cs" />
+    <Compile Include="TabularData\Cell.cs" />
+    <Compile Include="TabularData\Column.cs" />
+    <Compile Include="TabularData\ConsoleTablePrinter.cs" />
+    <Compile Include="TabularData\HorizontalAlignment.cs" />
+    <Compile Include="TabularData\ITablePrinter.cs" />
+    <Compile Include="TabularData\MultilineText.cs" />
+    <Compile Include="TabularData\Row.cs" />
+    <Compile Include="TabularData\Size.cs" />
+    <Compile Include="TabularData\StringTablePrinter.cs" />
+    <Compile Include="TabularData\Table.cs" />
+    <Compile Include="TabularData\TableDimensions.cs" />
+    <Compile Include="CustomConsole.WriteEmphasies.cs" />
+    <Compile Include="CustomConsole.WriteError.cs" />
+    <Compile Include="CustomConsole.General.cs" />
+    <Compile Include="CustomConsole.WriteNormal.cs" />
+    <Compile Include="CustomConsole.WriteSuccess.cs" />
+    <Compile Include="CustomConsole.WriteWarning.cs" />
+    <Compile Include="CustomConsole.WriteColors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

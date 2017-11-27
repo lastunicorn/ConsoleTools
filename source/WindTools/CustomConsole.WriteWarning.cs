@@ -1,4 +1,4 @@
-﻿// WindConsole
+﻿// WindTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,9 +16,9 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.WindTools
 {
-    public partial class WindConsole
+    public partial class CustomConsole
     {
         public static void WriteWarning(string text)
         {

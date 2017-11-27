@@ -1,4 +1,4 @@
-﻿// WindConsole
+﻿// WindTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,54 +16,54 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.WindTools
 {
-    public partial class WindConsole
+    public partial class CustomConsole
     {
-        public static void WriteSuccess(string text)
+        public static void WriteColor(ConsoleColor color, string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
+            Console.ForegroundColor = color;
             Console.Write(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteSuccess(string format, params object[] arg)
+        public static void WriteColor(ConsoleColor color, string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
+            Console.ForegroundColor = color;
             Console.Write(format, arg);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteSuccess(object o)
+        public static void WriteColor(ConsoleColor color, object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
+            Console.ForegroundColor = color;
             Console.Write(o);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineSuccess(string text)
+        public static void WriteLineColor(ConsoleColor color, string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
+            Console.ForegroundColor = color;
             Console.WriteLine(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineSuccess(string format, params object[] arg)
+        public static void WriteLineColor(ConsoleColor color, string text, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
-            Console.WriteLine(format, arg);
+            Console.ForegroundColor = color;
+            Console.WriteLine(text, arg);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineSuccess(object o)
+        public static void WriteLineColor(ConsoleColor color, object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = SuccessColor;
+            Console.ForegroundColor = color;
             Console.WriteLine(o);
             Console.ForegroundColor = oldColor;
         }

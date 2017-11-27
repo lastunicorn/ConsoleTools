@@ -1,4 +1,4 @@
-﻿// WindConsole
+﻿// WindTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,55 +16,39 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.WindTools
 {
-    public partial class WindConsole
+    public partial class CustomConsole
     {
-        public static void WriteEmphasies(string text)
+        public static void WriteError(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
+            Console.ForegroundColor = ErrorColor;
             Console.Write(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteEmphasies(string format, params object[] arg)
+        public static void WriteLineError(string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
-            Console.Write(format, arg);
-            Console.ForegroundColor = oldColor;
-        }
-
-        public static void WriteEmphasies(object o)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
-            Console.Write(o);
-            Console.ForegroundColor = oldColor;
-        }
-
-        public static void WriteLineEmphasies(string text)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
+            Console.ForegroundColor = ErrorColor;
             Console.WriteLine(text);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineEmphasies(string format, params object[] arg)
+        public static void WriteLineError(object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
-            Console.WriteLine(format, arg);
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(o);
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineEmphasies(object o)
+        public static void WriteError(Exception ex)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = EmphasiesColor;
-            Console.WriteLine(o);
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(ex);
             Console.ForegroundColor = oldColor;
         }
     }

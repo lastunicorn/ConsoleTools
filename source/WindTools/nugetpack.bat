@@ -1,0 +1,1 @@
+nuget pack WindTools.csproj -Prop Configuration=Release

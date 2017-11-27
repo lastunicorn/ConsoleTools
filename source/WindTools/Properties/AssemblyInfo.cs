@@ -1,4 +1,4 @@
-﻿// WindTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -20,8 +20,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindConsole")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("ConsoleTools")]
+[assembly: AssemblyDescription("This is a set of tools for the .net Console.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
 

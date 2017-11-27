@@ -1,4 +1,4 @@
-﻿// WindTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyCompany("Dust in the Wind")]
-[assembly: AssemblyProduct("Wind Console")]
+[assembly: AssemblyProduct("Wind Tools")]
 [assembly: AssemblyCopyright("Copyright © Dust in the Wind 2017")]
 [assembly: AssemblyTrademark("")]
 

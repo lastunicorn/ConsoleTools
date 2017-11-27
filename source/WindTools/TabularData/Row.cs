@@ -1,4 +1,4 @@
-// WindTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.WindTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
     /// Represents a row in the <see cref="Table"/> class.

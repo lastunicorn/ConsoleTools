@@ -736,7 +736,7 @@ namespace DustInTheWind.ConsoleTools.Musical
         /// Playes a musical not at the speaker.
         /// </summary>
         /// <param name="note">The musical to be played.</param>
-        /// <param name="duration">The time duration for which to play the note.</param>
+        /// <param name="duration">The time duration in milliseconds for which to play the note.</param>
         public static void Play(MusicalNote note, int duration)
         {
             double frequency = GetFrequency(note);

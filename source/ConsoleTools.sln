@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools", "ConsoleTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Tests", "ConsoleTools.Tests\ConsoleTools.Tests.csproj", "{54D61983-996F-436E-A265-01C616099367}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Musical", "ConsoleTools.Demo.Musical\ConsoleTools.Demo.Musical.csproj", "{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{54D61983-996F-436E-A265-01C616099367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54D61983-996F-436E-A265-01C616099367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54D61983-996F-436E-A265-01C616099367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

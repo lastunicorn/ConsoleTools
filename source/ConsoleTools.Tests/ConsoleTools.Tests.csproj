@@ -63,9 +63,14 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="MultilineTextTests.cs" />
-    <Compile Include="TablePaddingTests.cs" />
-    <Compile Include="TableTests.cs" />
+    <Compile Include="MultilineTextTests\ConstructorTests.cs" />
+    <Compile Include="TableTests\CellAlignmentTests.cs" />
+    <Compile Include="MultilineTextTests\MultilineTextTests.cs" />
+    <Compile Include="TableTests\TablePaddingTests.cs" />
+    <Compile Include="TableTests\ConstructorTests.cs" />
+    <Compile Include="TableTests\LinesBetweenRowsTests.cs" />
+    <Compile Include="TableTests\TitleTests.cs" />
+    <Compile Include="TableTests\CellMultilineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +86,7 @@
       <Name>ConsoleTools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

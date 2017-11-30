@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests.TableTests
 {
     [TestFixture]
     public class TablePaddingTests

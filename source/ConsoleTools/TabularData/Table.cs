@@ -87,6 +87,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public bool DisplayColumnHeaders { get; set; }
 
         /// <summary>
+        /// Gets the row at the specified index.
+        /// </summary>
+        /// <param name="rowIndex">The zero-based index of the row to get.</param>
+        /// <returns>The row at the specified index.</returns>
+        public Row this[int rowIndex] => rows[rowIndex];
+
+        /// <summary>
+        /// Gets the cell at the specified location.
+        /// </summary>
+        /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
+        /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
+        /// <returns>The cell at the specified location.</returns>
+        public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
+        
+        /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
         /// </summary>
         public Table()
@@ -118,21 +133,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             PaddingLeft = 1;
             PaddingRight = 1;
         }
-
-        /// <summary>
-        /// Gets the row at the specified index.
-        /// </summary>
-        /// <param name="rowIndex">The zero-based index of the row to get.</param>
-        /// <returns>The row at the specified index.</returns>
-        public Row this[int rowIndex] => rows[rowIndex];
-
-        /// <summary>
-        /// Gets the cell at the specified location.
-        /// </summary>
-        /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
-        /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
-        /// <returns>The cell at the specified location.</returns>
-        public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Adds a new row to the current table.
@@ -552,6 +552,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
 
             return value.ToString();
+        }
+
+        public void SetCellAlignment(int rowIndex, int columnIndex, HorizontalAlignment alignment)
+        {
+            Row row = rows[rowIndex];
+            Cell cell = row[columnIndex];
+
+            cell.HorizontalAlignment = alignment;
         }
     }
 }

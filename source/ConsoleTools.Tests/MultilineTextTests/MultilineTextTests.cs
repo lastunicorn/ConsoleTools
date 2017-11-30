@@ -18,30 +18,11 @@ using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests.MultilineTextTests
 {
     [TestFixture]
     public class MultilineTextTests
     {
-        [Test]
-        public void TestConstructor1()
-        {
-            MultilineText multilineText = new MultilineText(null as string);
-
-            Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-            Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-            Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
-        }
-        [Test]
-        public void TestConstructor2()
-        {
-            MultilineText multilineText = new MultilineText(string.Empty);
-
-            Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-            Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-            Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
-        }
-
         [Test]
         public void TestOneLineSize()
         {

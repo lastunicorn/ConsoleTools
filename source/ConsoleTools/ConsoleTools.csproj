@@ -37,6 +37,11 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="Guard\ApplicationLevelGuardian.cs" />
+    <Compile Include="Guard\Guardian.cs" />
+    <Compile Include="Guard\GuardLevel.cs" />
+    <Compile Include="Guard\IGuardian.cs" />
+    <Compile Include="Guard\MachineLevelGuardian.cs" />
     <Compile Include="Musical\MusicalNote.cs" />
     <Compile Include="Musical\Sound.cs" />
     <Compile Include="TabularData\Cell.cs" />

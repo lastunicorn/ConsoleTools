@@ -457,18 +457,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     }
                 }
 
+                tablePrinter.WriteLine();
+
                 if (DrawLinesBetweenRows)
-                {
-                    tablePrinter.WriteLine();
                     tablePrinter.WriteLineBorder(rowSeparator);
-                }
             }
 
             if (!DrawLinesBetweenRows)
-            {
-                tablePrinter.WriteLine();
                 tablePrinter.WriteLineBorder(rowSeparator);
-            }
         }
 
         private string BuildCellContent(TableDimensions dimensions, int rowIndex, int columnIndex, Cell cell, int rowLineIndex)
@@ -495,7 +491,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 case HorizontalAlignment.Center:
                     int totalSpaces = cellInnerWidth - cell.Content.Size.Width;
                     //int leftSpaces = (int)Math.Floor(totalSpaces / 2);
-                    int rightSpaces = (int) Math.Ceiling((double) totalSpaces / 2);
+                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
                     innerContent = cell.Content.Lines[rowLineIndex]
                         .PadLeft(cellInnerWidth - rightSpaces, ' ')
                         .PadRight(cellInnerWidth, ' ');

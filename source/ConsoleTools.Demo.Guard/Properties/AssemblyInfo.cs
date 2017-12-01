@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConsoleTools.Demo.Musical")]
+[assembly: AssemblyTitle("ConsoleTools.Demo.Guard")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f4123f22-2503-4ddb-bf04-8ca87c3facda")]
+[assembly: Guid("64fbfc9e-c9a4-46c6-84ed-6a8a811ecfbc")]

@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
         public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
         /// </summary>
@@ -208,8 +208,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                     dimensions.ColumnsWidth.Add(0);
 
-                    int cellWidth = 0;
-                    int cellHeight = 0;
+                    int cellWidth;
+                    int cellHeight;
 
                     if (column.Header != null)
                     {
@@ -219,6 +219,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     else
                     {
                         cellWidth = PaddingLeft + PaddingRight;
+                        cellHeight = 0;
                     }
 
                     if (dimensions.ColumnsWidth[i] < cellWidth)
@@ -260,8 +261,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                         dimensions.ColumnsWidth.Add(0);
                     }
 
-                    int cellWidth = 0;
-                    int cellHeight = 0;
+                    int cellWidth;
+                    int cellHeight;
 
                     if (cell.Content != null)
                     {
@@ -271,6 +272,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     else
                     {
                         cellWidth = PaddingLeft + PaddingRight;
+                        cellHeight = 0;
                     }
 
                     if (dimensions.ColumnsWidth[j] < cellWidth)
@@ -341,12 +343,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 // Write top border
                 tablePrinter.WriteLineBorder("+" + string.Empty.PadRight(dimensions.Width - 2, '-') + "+");
 
+                int cellInnerWidth = dimensions.Width - PaddingLeft - PaddingRight - 2;
+
                 // Write title
                 for (int i = 0; i < Title.Size.Height; i++)
                 {
-                    tablePrinter.WriteBorder("| ");
-                    tablePrinter.WriteTitle(Title.Lines[i].PadRight(dimensions.Width - 4, ' '));
-                    tablePrinter.WriteLineBorder(" |");
+                    tablePrinter.WriteBorder("|");
+
+                    string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
+                    string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
+                    string innerContent = Title.Lines[i].PadRight(cellInnerWidth, ' ');
+
+                    tablePrinter.WriteTitle(leftPadding + innerContent + rightPadding);
+                    tablePrinter.WriteLineBorder("|");
                 }
             }
 

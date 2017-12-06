@@ -37,11 +37,17 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="CustomConsole.WriteAligned.cs" />
     <Compile Include="Guard\ApplicationLevelGuardian.cs" />
     <Compile Include="Guard\Guardian.cs" />
     <Compile Include="Guard\GuardLevel.cs" />
     <Compile Include="Guard\IGuardian.cs" />
     <Compile Include="Guard\MachineLevelGuardian.cs" />
+    <Compile Include="MenuControl\IMenuItem.cs" />
+    <Compile Include="MenuControl\LabelMenuItem.cs" />
+    <Compile Include="MenuControl\SelectableMenu.cs" />
+    <Compile Include="MenuControl\SpaceMenuItem.cs" />
+    <Compile Include="MenuControl\YesNoMenuItem.cs" />
     <Compile Include="Musical\MusicalNote.cs" />
     <Compile Include="Musical\Sound.cs" />
     <Compile Include="HorizontalAlign.cs" />
@@ -65,6 +71,7 @@
     <Compile Include="CustomConsole.WriteColors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

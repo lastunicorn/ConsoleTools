@@ -87,6 +87,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public bool DisplayColumnHeaders { get; set; }
 
         /// <summary>
+        /// Gets the row at the specified index.
+        /// </summary>
+        /// <param name="rowIndex">The zero-based index of the row to get.</param>
+        /// <returns>The row at the specified index.</returns>
+        public Row this[int rowIndex] => rows[rowIndex];
+
+        /// <summary>
+        /// Gets the cell at the specified location.
+        /// </summary>
+        /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
+        /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
+        /// <returns>The cell at the specified location.</returns>
+        public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
         /// </summary>
         public Table()
@@ -118,21 +133,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             PaddingLeft = 1;
             PaddingRight = 1;
         }
-
-        /// <summary>
-        /// Gets the row at the specified index.
-        /// </summary>
-        /// <param name="rowIndex">The zero-based index of the row to get.</param>
-        /// <returns>The row at the specified index.</returns>
-        public Row this[int rowIndex] => rows[rowIndex];
-
-        /// <summary>
-        /// Gets the cell at the specified location.
-        /// </summary>
-        /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
-        /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
-        /// <returns>The cell at the specified location.</returns>
-        public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Adds a new row to the current table.
@@ -208,8 +208,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                     dimensions.ColumnsWidth.Add(0);
 
-                    int cellWidth = 0;
-                    int cellHeight = 0;
+                    int cellWidth;
+                    int cellHeight;
 
                     if (column.Header != null)
                     {
@@ -219,6 +219,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     else
                     {
                         cellWidth = PaddingLeft + PaddingRight;
+                        cellHeight = 0;
                     }
 
                     if (dimensions.ColumnsWidth[i] < cellWidth)
@@ -260,8 +261,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                         dimensions.ColumnsWidth.Add(0);
                     }
 
-                    int cellWidth = 0;
-                    int cellHeight = 0;
+                    int cellWidth;
+                    int cellHeight;
 
                     if (cell.Content != null)
                     {
@@ -271,6 +272,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     else
                     {
                         cellWidth = PaddingLeft + PaddingRight;
+                        cellHeight = 0;
                     }
 
                     if (dimensions.ColumnsWidth[j] < cellWidth)
@@ -341,12 +343,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 // Write top border
                 tablePrinter.WriteLineBorder("+" + string.Empty.PadRight(dimensions.Width - 2, '-') + "+");
 
+                int cellInnerWidth = dimensions.Width - PaddingLeft - PaddingRight - 2;
+
                 // Write title
                 for (int i = 0; i < Title.Size.Height; i++)
                 {
-                    tablePrinter.WriteBorder("| ");
-                    tablePrinter.WriteTitle(Title.Lines[i].PadRight(dimensions.Width - 4, ' '));
-                    tablePrinter.WriteLineBorder(" |");
+                    tablePrinter.WriteBorder("|");
+
+                    string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
+                    string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
+                    string innerContent = Title.Lines[i].PadRight(cellInnerWidth, ' ');
+
+                    tablePrinter.WriteTitle(leftPadding + innerContent + rightPadding);
+                    tablePrinter.WriteLineBorder("|");
                 }
             }
 
@@ -457,18 +466,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     }
                 }
 
+                tablePrinter.WriteLine();
+
                 if (DrawLinesBetweenRows)
-                {
-                    tablePrinter.WriteLine();
                     tablePrinter.WriteLineBorder(rowSeparator);
-                }
             }
 
             if (!DrawLinesBetweenRows)
-            {
-                tablePrinter.WriteLine();
                 tablePrinter.WriteLineBorder(rowSeparator);
-            }
         }
 
         private string BuildCellContent(TableDimensions dimensions, int rowIndex, int columnIndex, Cell cell, int rowLineIndex)
@@ -495,7 +500,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 case HorizontalAlignment.Center:
                     int totalSpaces = cellInnerWidth - cell.Content.Size.Width;
                     //int leftSpaces = (int)Math.Floor(totalSpaces / 2);
-                    int rightSpaces = (int) Math.Ceiling((double) totalSpaces / 2);
+                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
                     innerContent = cell.Content.Lines[rowLineIndex]
                         .PadLeft(cellInnerWidth - rightSpaces, ' ')
                         .PadRight(cellInnerWidth, ' ');
@@ -556,6 +561,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
 
             return value.ToString();
+        }
+
+        public void SetCellAlignment(int rowIndex, int columnIndex, HorizontalAlignment alignment)
+        {
+            Row row = rows[rowIndex];
+            Cell cell = row[columnIndex];
+
+            cell.HorizontalAlignment = alignment;
         }
     }
 }

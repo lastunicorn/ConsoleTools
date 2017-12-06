@@ -4,15 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{F4123F22-2503-4DDB-BF04-8CA87C3FACDA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools</AssemblyName>
+    <RootNamespace>DustInTheWind.ConsoleTools.Demo.Musical</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Demo.Musical</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -37,33 +41,17 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="Guard\ApplicationLevelGuardian.cs" />
-    <Compile Include="Guard\Guardian.cs" />
-    <Compile Include="Guard\GuardLevel.cs" />
-    <Compile Include="Guard\IGuardian.cs" />
-    <Compile Include="Guard\MachineLevelGuardian.cs" />
-    <Compile Include="Musical\MusicalNote.cs" />
-    <Compile Include="Musical\Sound.cs" />
-    <Compile Include="HorizontalAlign.cs" />
-    <Compile Include="TabularData\Cell.cs" />
-    <Compile Include="TabularData\Column.cs" />
-    <Compile Include="TabularData\ConsoleTablePrinter.cs" />
-    <Compile Include="TabularData\HorizontalAlignment.cs" />
-    <Compile Include="TabularData\ITablePrinter.cs" />
-    <Compile Include="TabularData\MultilineText.cs" />
-    <Compile Include="TabularData\Row.cs" />
-    <Compile Include="TabularData\Size.cs" />
-    <Compile Include="TabularData\StringTablePrinter.cs" />
-    <Compile Include="TabularData\Table.cs" />
-    <Compile Include="TabularData\TableDimensions.cs" />
-    <Compile Include="CustomConsole.WriteEmphasies.cs" />
-    <Compile Include="CustomConsole.WriteError.cs" />
-    <Compile Include="CustomConsole.General.cs" />
-    <Compile Include="CustomConsole.WriteNormal.cs" />
-    <Compile Include="CustomConsole.WriteSuccess.cs" />
-    <Compile Include="CustomConsole.WriteWarning.cs" />
-    <Compile Include="CustomConsole.WriteColors.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
+      <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
+      <Name>ConsoleTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

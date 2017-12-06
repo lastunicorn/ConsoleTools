@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    internal class SpaceMenuItem<T> : IMenuItem<T>
+    public class SpaceMenuItem<T> : IMenuItem<T>
     {
         public int Id => -1;
 

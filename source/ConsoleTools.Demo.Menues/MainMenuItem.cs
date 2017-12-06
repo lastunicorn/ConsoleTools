@@ -14,21 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
-    public interface IMenuItem<out T>
+    internal enum MainMenuItem
     {
-        int Id { get; }
-        string Text { get; set; }
-        T Value { get; }
-        bool IsVisible { get; }
-        HorizontalAlign HorizontalAlign { get; set; }
-        bool IsSelectable { get; }
-        ConsoleKey? Key { get; set; }
-
-        void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign);
-        bool BeforeSelect();
+        None,
+        NewGame,
+        ResumeGame,
+        SaveGame,
+        LoadGame,
+        Settings,
+        Help,
+        Credits,
+        Exit
     }
 }

@@ -20,7 +20,7 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    internal class SelectableMenu<T> : List<IMenuItem<T>>
+    public class SelectableMenu<T> : List<IMenuItem<T>>
     {
         private readonly int screenWidth = Console.BufferWidth;
 

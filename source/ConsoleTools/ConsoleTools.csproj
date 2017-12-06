@@ -37,6 +37,7 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="HorizontalAlign.cs" />
     <Compile Include="TabularData\Cell.cs" />
     <Compile Include="TabularData\Column.cs" />
     <Compile Include="TabularData\ConsoleTablePrinter.cs" />
@@ -56,6 +57,9 @@
     <Compile Include="CustomConsole.WriteWarning.cs" />
     <Compile Include="CustomConsole.WriteColors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomConsole.WriteAligned.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

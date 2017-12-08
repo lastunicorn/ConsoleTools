@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    public class LabelMenuItem<T> : IMenuItem<T>
+    public class LabelMenuItem : IMenuItem
     {
         protected int lastX = -1;
         protected int lastY = -1;
@@ -26,28 +26,19 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         public int Id { get; set; }
         public string Text { get; set; }
-        public T Value { get; set; }
 
         public int PaddingLeft { get; set; }
         public int PaddingRight { get; set; }
         public HorizontalAlign HorizontalAlign { get; set; }
         public bool IsSelectable { get; set; }
-        public ConsoleKey? Key { get; set; }
+        public ConsoleKey? ShortcutKey { get; set; }
 
         public bool IsVisible => VisibilityProvider == null || VisibilityProvider();
 
         public Func<bool> VisibilityProvider { get; set; }
-
+        
         public LabelMenuItem()
-            : this(null, default(T))
         {
-        }
-
-        public LabelMenuItem(string text, T value)
-        {
-            Text = text;
-            Value = value;
-
             PaddingLeft = 1;
             PaddingRight = 1;
 
@@ -109,6 +100,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public virtual bool BeforeSelect()
         {
             return true;
+        }
+
+        public virtual void Execute()
+        {
         }
     }
 }

@@ -15,20 +15,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
 {
-    public interface IMenuItem
+    internal class NewGameMenuItem : LabelMenuItem
     {
-        int Id { get; }
-        string Text { get; set; }
-        bool IsVisible { get; }
-        HorizontalAlign HorizontalAlign { get; set; }
-        bool IsSelectable { get; }
-        ConsoleKey? ShortcutKey { get; set; }
+        private readonly GameBoard gameBoard;
 
-        void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign);
-        bool BeforeSelect();
-        void Execute();
+        public NewGameMenuItem(GameBoard gameBoard)
+        {
+            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            this.gameBoard = gameBoard;
+
+            Text = "New Game";
+            HorizontalAlign = HorizontalAlign.Center;
+        }
+
+        public override void Execute()
+        {
+            gameBoard.StartGame();
+        }
     }
 }

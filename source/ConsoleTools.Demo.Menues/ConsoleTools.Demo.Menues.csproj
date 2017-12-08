@@ -40,7 +40,15 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="MainMenuItem.cs" />
+    <Compile Include="GameBoard.cs" />
+    <Compile Include="MenuItems\CreditsMenuItem.cs" />
+    <Compile Include="MenuItems\ExitMenuItem.cs" />
+    <Compile Include="MenuItems\HelpMenuItem.cs" />
+    <Compile Include="MenuItems\LoadGameMenuItem.cs" />
+    <Compile Include="MenuItems\NewGameMenuItem.cs" />
+    <Compile Include="MenuItems\ResumeGameMenuItem.cs" />
+    <Compile Include="MenuItems\SaveGameMenuItem.cs" />
+    <Compile Include="MenuItems\SettingsMenuItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

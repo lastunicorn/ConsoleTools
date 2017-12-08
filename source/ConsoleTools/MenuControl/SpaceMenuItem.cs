@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    public class SpaceMenuItem<T> : IMenuItem<T>
+    public class SpaceMenuItem : IMenuItem
     {
         public int Id => -1;
 
@@ -27,9 +27,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             get { return string.Empty; }
             set { }
         }
-
-        public T Value => default(T);
-
+        
         public bool IsVisible { get; }
 
         public HorizontalAlign HorizontalAlign { get; set; }
@@ -41,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         public bool IsSelectable => false;
 
-        public ConsoleKey? Key
+        public ConsoleKey? ShortcutKey
         {
             get { return null; }
             set { }
@@ -54,6 +52,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public virtual bool BeforeSelect()
         {
             return true;
+        }
+
+        public void Execute()
+        {
         }
     }
 }

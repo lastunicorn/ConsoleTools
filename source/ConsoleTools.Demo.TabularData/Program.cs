@@ -81,7 +81,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
                     return new CellPaddingFlow();
 
                 default:
-                    throw new Exception("Invalid choice!");
+                    throw new ApplicationException("Invalid choice!");
             }
         }
 
@@ -97,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             bool success = int.TryParse(inputRaw, out input);
 
             if (!success)
-                throw new Exception("Invalid value. Please choose a number.");
+                throw new ApplicationException("Invalid value. Please choose a number.");
 
             return input;
         }

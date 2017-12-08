@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.ComponentModel;
+using System.Threading;
+using DustInTheWind.ConsoleTools.Demo.Menues.MenuItems;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues
@@ -23,68 +27,68 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
     /// </summary>
     internal static class Program
     {
+        private static GameBoard gameBoard;
+        private static SelectableMenu menu;
+
         private static void Main()
         {
-            bool isGameInProgress = false;
+            //string a = ConsoleReader.ReadLine();
 
-            SelectableMenu<MainMenuItem>
-            menu = new SelectableMenu<MainMenuItem>
+            //CustomConsole.Write(a);
+            //CustomConsole.Pause();
+
+
+
+
+
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(80, 1024);
+
+            Console.CancelKeyPress += HandleCancelKeyPress;
+
+            gameBoard = new GameBoard();
+            gameBoard.Exiting += HandleGameBoardExiting;
+
+            menu = new SelectableMenu
             {
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "New game",
-                    Value = MainMenuItem.NewGame,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Resume game",
-                    Value = MainMenuItem.ResumeGame,
-                    VisibilityProvider = ()=> isGameInProgress,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Save game",
-                    Value = MainMenuItem.SaveGame,
-                    VisibilityProvider = ()=> isGameInProgress,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Load game",
-                    Value = MainMenuItem.LoadGame,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new SpaceMenuItem<MainMenuItem>(),
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Settings",
-                    Value = MainMenuItem.Settings,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Help",
-                    Value = MainMenuItem.Help,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Credits",
-                    Value = MainMenuItem.Credits,
-                    HorizontalAlign = HorizontalAlign.Center
-                },
-                new SpaceMenuItem<MainMenuItem>(),
-                new LabelMenuItem<MainMenuItem>
-                {
-                    Text = "Exit",
-                    Value = MainMenuItem.Exit,
-                    HorizontalAlign = HorizontalAlign.Center
-                }
+                new NewGameMenuItem(gameBoard),
+                new ResumeGameMenuItem(gameBoard),
+                new SaveGameMenuItem(gameBoard),
+                new LoadGameMenuItem(),
+
+                new SpaceMenuItem(),
+
+                new SettingsMenuItem(),
+                new HelpMenuItem(),
+                new CreditsMenuItem(),
+
+                new SpaceMenuItem(),
+
+                new ExitMenuItem(gameBoard)
             };
 
-            MainMenuItem selectedItem = menu.Display();
+            while (!gameBoard.IsExitRequested)
+            {
+                IMenuItem menuItem = menu.Display();
+                menuItem?.Execute();
+            }
+
+            CustomConsole.WriteLineEmphasies("Bye2 !");
+
+            CustomConsole.Pause();
+        }
+
+        private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            gameBoard.RequestExit();
+            menu.Close();
+        }
+
+        private static void HandleGameBoardExiting(object sender, CancelEventArgs e)
+        {
+            CustomConsole.WriteLineEmphasies("Bye !");
         }
     }
 }

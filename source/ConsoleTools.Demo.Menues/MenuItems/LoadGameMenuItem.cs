@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,21 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
 {
-    public interface IMenuItem
+    internal class LoadGameMenuItem : LabelMenuItem
     {
-        int Id { get; }
-        string Text { get; set; }
-        bool IsVisible { get; }
-        HorizontalAlign HorizontalAlign { get; set; }
-        bool IsSelectable { get; }
-        ConsoleKey? ShortcutKey { get; set; }
+        public LoadGameMenuItem()
+        {
+            Text = "Load Game";
+            HorizontalAlign = HorizontalAlign.Center;
+        }
 
-        void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign);
-        bool BeforeSelect();
-        void Execute();
+        public override void Execute()
+        {
+            CustomConsole.WriteLineSuccess("Game loaded successfully");
+        }
     }
 }

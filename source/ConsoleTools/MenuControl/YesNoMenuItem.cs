@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    internal class YesNoMenuItem<T> : LabelMenuItem<T>
+    internal class YesNoMenuItem : LabelMenuItem
     {
         public string QuestionText { get; set; }
 

@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -34,21 +33,32 @@ namespace DustInTheWind.ConsoleTools
             Console.WriteLine();
         }
 
-        public static int Ask(Dictionary<int, string> items, string question = "Your choice: ")
+        /// <summary>
+        /// Displays a question to the user and wait for a char answer.
+        /// The answer is the char associated with the first key the user presses.
+        /// </summary>
+        /// <param name="question">The question to be displayed to the user.</param>
+        /// <returns>The answer received from the user.</returns>
+        public static char QuestionChar(string question)
         {
-            foreach (KeyValuePair<int, string> item in items)
-                Console.WriteLine($"{item.Key} - {item.Value}");
+            Console.Write(question);
 
-            while (true)
-            {
-                Console.WriteLine();
-                Console.Write(question);
-                string inputValueRaw = Console.ReadLine();
+            ConsoleKeyInfo key = Console.ReadKey();
+            WriteLine();
 
-                int inputValue;
-                if (int.TryParse(inputValueRaw, out inputValue))
-                    return inputValue;
-            }
+            return key.KeyChar;
+        }
+
+        /// <summary>
+        /// Displays a question to the user and wait for a string answer.
+        /// The answer is finished with Enter.
+        /// </summary>
+        /// <param name="question">The question to be displayed to the user.</param>
+        /// <returns>The answer received from the user.</returns>
+        public static string QuestionString(string question)
+        {
+            Console.Write(question);
+            return Console.ReadLine();
         }
     }
 }

@@ -32,13 +32,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
         private static void Main()
         {
-            //string a = ConsoleReader.ReadLine();
-
-            //CustomConsole.Write(a);
-            //CustomConsole.Pause();
-
-
-
             Console.SetWindowSize(80, 50);
             Console.SetBufferSize(80, 1024);
 
@@ -58,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
                 menu.SelectedItem?.Execute();
             }
 
-            CustomConsole.WriteLineEmphasies("Bye 2 !");
+            CustomConsole.WriteLineEmphasies("Bye!");
 
             CustomConsole.Pause();
         }
@@ -69,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
             {
                 new NewGameMenuItem(gameBoard),
                 new SaveGameMenuItem(gameBoard),
-                new LoadGameMenuItem(),
+                new LoadGameMenuItem(gameBoard),
 
                 new SpaceMenuItem(),
 
@@ -91,7 +84,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
         private static void HandleApplicationExiting(object sender, CancelEventArgs e)
         {
             menu.RequestClose();
-            CustomConsole.WriteLineEmphasies("Bye 1 !");
+            gameBoard.StopGame();
         }
     }
 }

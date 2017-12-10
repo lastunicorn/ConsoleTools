@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private int screenWidth;
         private int firstLineIndex;
         private int menuHight;
-        private bool isCloseRequested;
+        private volatile bool isCloseRequested;
 
         public IMenuItem SelectedItem { get; private set; }
         public int? SelectedIndex { get; private set; }
@@ -123,7 +123,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 menuItems.SelectNone();
                 menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
-                
+
                 int firstLineAfterMenu = firstLineIndex + menuHight;
                 Console.SetCursorPosition(0, firstLineAfterMenu);
                 Console.CursorVisible = initialCursorVisible;

@@ -31,5 +31,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
             IsGameStarted = false;
             CustomConsole.WriteLineSuccess("Current game stoped");
         }
+
+        public void LoadGame()
+        {
+            IsGameStarted = true;
+            CustomConsole.WriteLineSuccess("Game loaded successfully");
+        }
     }
 }

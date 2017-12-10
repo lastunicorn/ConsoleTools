@@ -19,14 +19,11 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
 {
-    internal class SaveGameMenuItem : LabelMenuItem
+    internal class SaveGameMenuItem : YesNoMenuItem
     {
-        private readonly GameBoard gameBoard;
-
         public SaveGameMenuItem(GameBoard gameBoard)
         {
             if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
 
             Text = "Save Game";
             HorizontalAlign = HorizontalAlign.Center;

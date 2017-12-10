@@ -24,11 +24,19 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     {
         private int? currentIndex;
 
+        public MenuItemCollection(IEnumerable<IMenuItem> menuItems)
+            : base(menuItems)
+        {
+        }
+
         public int? CurrentIndex
         {
             get { return currentIndex; }
             private set
             {
+                if (value < 0 || value >= Count)
+                    throw new IndexOutOfRangeException();
+
                 int? previousIndex = currentIndex;
                 currentIndex = value;
 
@@ -37,70 +45,51 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
-        public IMenuItem CurrentItem
-        {
-            get
-            {
-                if (currentIndex.HasValue && currentIndex >= 0 && currentIndex < Count)
-                    return this[currentIndex.Value];
-
-                return null;
-            }
-        }
+        public IMenuItem CurrentItem => currentIndex.HasValue
+            ? this[currentIndex.Value]
+            : null;
 
         public event EventHandler<CurrentIndexChangedEventArgs> CurrentIndexChanged;
-        
+
         public bool ExistSelectableItems
         {
             get
             {
                 int selectableItemsCount = this
-                    .Count(x => x != null && x.IsVisible && !(x is SpaceMenuItem));
+                    .Count(x => x != null && x.IsVisible && x.IsSelectable);
 
                 return selectableItemsCount > 0;
             }
         }
 
-        public int? VisibleSelectedIndex
+        public int? VisibleCurrentIndex
         {
             get
             {
-                if (!currentIndex.HasValue)
+                if (!currentIndex.HasValue || !CurrentItem.IsVisible)
                     return null;
 
-                int spaceMenuItemCount = this
-                    .OfType<SpaceMenuItem>()
-                    .Where(x => x.IsVisible)
-                    .Take(currentIndex.Value)
-                    .Count();
-
-                return currentIndex.Value - spaceMenuItemCount;
+                return this
+                    .Take(currentIndex.Value + 1)
+                    .Count(x => x != null && x.IsVisible);
             }
+        }
+
+        public int? CalculateVisibleIndex(IMenuItem menuItem)
+        {
+            int index = IndexOf(menuItem);
+
+            if (index == -1 || !menuItem.IsVisible)
+                return null;
+
+            return this
+                .Take(index)
+                .Count(x => x != null && x.IsVisible);
         }
 
         public void ModeToPrevious()
         {
             CurrentIndex = GetPreviousItemIndex();
-        }
-
-        public void ModeToNext()
-        {
-            CurrentIndex = GetNextItemIndex();
-        }
-
-        private int GetFirstItemIndex()
-        {
-            int index = -1;
-
-            foreach (IMenuItem menuItem in this)
-            {
-                index++;
-
-                if (menuItem != null && menuItem.IsVisible && !(menuItem is SpaceMenuItem))
-                    return index;
-            }
-
-            return index;
         }
 
         private int? GetPreviousItemIndex()
@@ -113,11 +102,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 IMenuItem menuItem = this[i];
 
-                if (menuItem != null && menuItem.IsVisible && !(menuItem is SpaceMenuItem))
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
                     return i;
             }
 
             return CurrentIndex;
+        }
+
+        public void ModeToNext()
+        {
+            CurrentIndex = GetNextItemIndex();
         }
 
         private int? GetNextItemIndex()
@@ -130,11 +124,31 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 IMenuItem menuItem = this[i];
 
-                if (menuItem != null && menuItem.IsVisible && !(menuItem is SpaceMenuItem))
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
                     return i;
             }
 
             return CurrentIndex;
+        }
+
+        public void SelectFirst()
+        {
+            CurrentIndex = GetFirstItemIndex();
+        }
+
+        private int GetFirstItemIndex()
+        {
+            int index = -1;
+
+            foreach (IMenuItem menuItem in this)
+            {
+                index++;
+
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                    return index;
+            }
+
+            return index;
         }
 
         protected virtual void OnCurrentIndexChanged(CurrentIndexChangedEventArgs e)
@@ -142,9 +156,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             CurrentIndexChanged?.Invoke(this, e);
         }
 
-        public void SelectFirst()
+        public void Reset()
         {
-            CurrentIndex = GetFirstItemIndex();
+            CurrentIndex = null;
         }
 
         public void SelectNone()
@@ -160,7 +174,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 index++;
 
-                if (x != null && x.IsVisible && x.ShortcutKey != null && x.ShortcutKey == consoleKey)
+                if (x != null && x.IsVisible && x.IsSelectable && x.ShortcutKey != null && x.ShortcutKey == consoleKey)
                 {
                     CurrentIndex = index;
                     return true;

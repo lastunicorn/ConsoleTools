@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
         private static SelectableMenu CreateMenu()
         {
-            return new SelectableMenu(new MenuItemCollection
+            return new SelectableMenu(new IMenuItem[]
             {
                 new NewGameMenuItem(gameBoard),
                 new SaveGameMenuItem(gameBoard),

@@ -51,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         public virtual bool BeforeSelect()
         {
-            return true;
+            return false;
         }
 
         public void Execute()

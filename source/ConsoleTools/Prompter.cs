@@ -84,6 +84,7 @@ namespace DustInTheWind.ConsoleTools
 
             // Read the command typed by the user.
             string commandText = Console.ReadLine();
+            Console.WriteLine();
 
             // Parse the command typed by the user.
             UserCommand command = UserCommand.Parse(commandText);

@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,24 +15,15 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.MenuControl;
+using System.ComponentModel;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    internal class ResumeGameMenuItem : LabelMenuItem
+    public interface IExitController
     {
-        public ResumeGameMenuItem(GameBoard gameBoard)
-        {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-
-            Text = "Resume Game";
-            HorizontalAlign = HorizontalAlign.Center;
-            VisibilityProvider = () => !gameBoard.IsGameStarted;
-        }
-
-        public override void Execute()
-        {
-            CustomConsole.WriteLineSuccess("Game resumed successfully");
-        }
+        bool IsExitRequested { get; }
+        event EventHandler<CancelEventArgs> Exiting;
+        event EventHandler ExitCanceled;
+        void RequestExit();
     }
 }

@@ -21,20 +21,21 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
 {
     internal class ExitMenuItem : LabelMenuItem
     {
-        private readonly GameBoard gameBoard;
+        private readonly ApplicationState applicationState;
 
-        public ExitMenuItem(GameBoard gameBoard)
+        public ExitMenuItem(ApplicationState applicationState)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
+            this.applicationState = applicationState;
 
             Text = "Exit";
             HorizontalAlign = HorizontalAlign.Center;
+            ShortcutKey = ConsoleKey.X;
         }
 
         public override void Execute()
         {
-            gameBoard.RequestExit();
+            applicationState.RequestExit();
         }
     }
 }

@@ -16,7 +16,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading;
 using DustInTheWind.ConsoleTools.Demo.Menues.MenuItems;
 using DustInTheWind.ConsoleTools.MenuControl;
 
@@ -27,6 +26,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
     /// </summary>
     internal static class Program
     {
+        private static ApplicationState applicationState;
         private static GameBoard gameBoard;
         private static SelectableMenu menu;
 
@@ -39,56 +39,59 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
 
 
-
-
             Console.SetWindowSize(80, 50);
             Console.SetBufferSize(80, 1024);
 
             Console.CancelKeyPress += HandleCancelKeyPress;
 
-            gameBoard = new GameBoard();
-            gameBoard.Exiting += HandleGameBoardExiting;
+            applicationState = new ApplicationState();
+            applicationState.Exiting += HandleApplicationExiting;
 
-            menu = new SelectableMenu
+            gameBoard = new GameBoard();
+
+            menu = CreateMenu();
+            menu.SelectFirstByDefault = false;
+
+            while (!applicationState.IsExitRequested)
+            {
+                menu.Display();
+                menu.SelectedItem?.Execute();
+            }
+
+            CustomConsole.WriteLineEmphasies("Bye 2 !");
+
+            CustomConsole.Pause();
+        }
+
+        private static SelectableMenu CreateMenu()
+        {
+            return new SelectableMenu
             {
                 new NewGameMenuItem(gameBoard),
-                new ResumeGameMenuItem(gameBoard),
                 new SaveGameMenuItem(gameBoard),
                 new LoadGameMenuItem(),
 
                 new SpaceMenuItem(),
 
                 new SettingsMenuItem(),
-                new HelpMenuItem(),
                 new CreditsMenuItem(),
 
                 new SpaceMenuItem(),
 
-                new ExitMenuItem(gameBoard)
+                new ExitMenuItem(applicationState)
             };
-
-            while (!gameBoard.IsExitRequested)
-            {
-                IMenuItem menuItem = menu.Display();
-                menuItem?.Execute();
-            }
-
-            CustomConsole.WriteLineEmphasies("Bye2 !");
-
-            CustomConsole.Pause();
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
-
-            gameBoard.RequestExit();
-            menu.Close();
+            applicationState.RequestExit();
         }
 
-        private static void HandleGameBoardExiting(object sender, CancelEventArgs e)
+        private static void HandleApplicationExiting(object sender, CancelEventArgs e)
         {
-            CustomConsole.WriteLineEmphasies("Bye !");
+            menu.RequestClose();
+            CustomConsole.WriteLineEmphasies("Bye 1 !");
         }
     }
 }

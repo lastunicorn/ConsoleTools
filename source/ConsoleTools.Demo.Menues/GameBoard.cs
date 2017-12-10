@@ -14,18 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.ComponentModel;
-
 namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
     internal class GameBoard
     {
-        public bool IsExitRequested { get; private set; }
         public bool IsGameStarted { get; private set; }
-
-        public event EventHandler<CancelEventArgs> Exiting;
-        public event EventHandler ExitCanceled;
 
         public void StartGame()
         {
@@ -37,27 +30,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
         {
             IsGameStarted = false;
             CustomConsole.WriteLineSuccess("Current game stoped");
-        }
-
-        public void RequestExit()
-        {
-            CancelEventArgs e = new CancelEventArgs();
-            OnExiting(e);
-
-            if (e.Cancel)
-                OnExitCanceled();
-            else
-                IsExitRequested = true;
-        }
-
-        protected virtual void OnExiting(CancelEventArgs e)
-        {
-            Exiting?.Invoke(this, e);
-        }
-
-        protected virtual void OnExitCanceled()
-        {
-            ExitCanceled?.Invoke(this, EventArgs.Empty);
         }
     }
 }

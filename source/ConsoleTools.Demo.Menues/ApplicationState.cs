@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,21 +14,38 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.ComponentModel;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
-    internal class HelpMenuItem : LabelMenuItem
+    internal class ApplicationState : IExitController
     {
-        public HelpMenuItem()
+        public bool IsExitRequested { get; private set; }
+
+        public event EventHandler<CancelEventArgs> Exiting;
+        public event EventHandler ExitCanceled;
+
+        protected virtual void OnExiting(CancelEventArgs e)
         {
-            Text = "Help";
-            HorizontalAlign = HorizontalAlign.Center;
+            Exiting?.Invoke(this, e);
         }
 
-        public override void Execute()
+        protected virtual void OnExitCanceled()
         {
-            CustomConsole.WriteLineSuccess("Display Help");
+            ExitCanceled?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void RequestExit()
+        {
+            CancelEventArgs e = new CancelEventArgs();
+            OnExiting(e);
+
+            if (e.Cancel)
+                OnExitCanceled();
+            else
+                IsExitRequested = true;
         }
     }
 }

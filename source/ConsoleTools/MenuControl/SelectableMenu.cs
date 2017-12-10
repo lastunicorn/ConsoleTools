@@ -23,12 +23,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 {
     /// <summary>
     /// Features:
-    /// - Displays the menu items vertically in a list
-    /// - Selects a menu item using up/down keys
-    /// - Selects a menu item using a shortcut key
-    /// - Align the menu items inside the menu
-    /// - Enable/Disable menu items
-    /// - Display/Hide menu items
+    ///     - Displays the menu items vertically in a list
+    ///     - Selects a menu item using up/down keys
+    ///     - Selects a menu item using a shortcut key
+    ///     - Align the menu items inside the menu
+    ///     - Enable/Disable menu items
+    ///     - Display/Hide menu items
     /// </summary>
     public class SelectableMenu : List<IMenuItem>
     {
@@ -44,39 +44,31 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public int SelectedIndex { get; private set; }
         public HorizontalAlign ItemsHorizontalAlign { get; set; }
         public IMenuItem SelectedItem { get; private set; }
+        public bool SelectFirstByDefault { get; set; } = true;
 
-        public IMenuItem Display()
+        public void Display()
         {
             isCloseRequested = false;
 
-            return RunWithoutCursor(() =>
+            RunWithoutCursor(() =>
             {
-                try
-                {
-                    visibleMenuItems = this
-                        .Where(x => x != null && x.IsVisible)
-                        .ToList();
+                visibleMenuItems = this
+                    .Where(x => x != null && x.IsVisible)
+                    .ToList();
 
-                    List<IMenuItem> selectableItems = visibleMenuItems
-                        .Where(x => !(x is SpaceMenuItem))
-                        .ToList();
+                List<IMenuItem> selectableItems = visibleMenuItems
+                    .Where(x => !(x is SpaceMenuItem))
+                    .ToList();
 
-                    if (selectableItems.Count == 0)
-                        throw new ApplicationException("There are no menu items to be displayed.");
+                if (selectableItems.Count == 0)
+                    throw new ApplicationException("There are no menu items to be displayed.");
 
-                    DisplayMenuItems();
-                    return ReadUserSelection();
-                }
-                finally
-                {
-                    DrawItem(currentIndex, false);
-
-                    Console.SetCursorPosition(0, rowAfterMenu);
-                }
+                DisplayMenuItems();
+                ReadUserSelection();
             });
         }
 
-        private T RunWithoutCursor<T>(Func<T> action)
+        private void RunWithoutCursor(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
@@ -85,54 +77,37 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
             try
             {
-                return action.Invoke();
+                action.Invoke();
             }
             finally
             {
+                DrawItem(currentIndex, false);
+
+                Console.SetCursorPosition(0, rowAfterMenu);
                 Console.CursorVisible = initialCursorVisible;
             }
         }
 
-        public void Close()
+        public void RequestClose()
         {
             isCloseRequested = true;
         }
 
-        public IMenuItem Resume()
+        public void Resume()
         {
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
+            RunWithoutCursor(() =>
             {
                 DrawItem(currentIndex, true);
-                return ReadUserSelection();
-            }
-            finally
-            {
-                DrawItem(currentIndex, false);
-
-                Console.SetCursorPosition(0, rowAfterMenu);
-                Console.CursorVisible = initialCursorVisible;
-            }
+                ReadUserSelection();
+            });
         }
 
         public void Refresh()
         {
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
+            RunWithoutCursor(() =>
             {
                 DrawItem(currentIndex, true);
-            }
-            finally
-            {
-                DrawItem(currentIndex, false);
-
-                Console.SetCursorPosition(0, rowAfterMenu);
-                Console.CursorVisible = initialCursorVisible;
-            }
+            });
         }
 
         private void DisplayMenuItems()
@@ -142,29 +117,22 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
             rowAfterMenu = Console.CursorTop;
 
-            bool itemWasSelected = false;
-            currentIndex = -1;
-
             for (int i = 0; i < visibleMenuItems.Count; i++)
-            {
-                bool isSelect = !itemWasSelected && !(visibleMenuItems[i] is SpaceMenuItem);
+                DrawItem(i, false);
 
-                DrawItem(i, isSelect);
+            currentIndex = SelectFirstByDefault
+                ? GetFirstItemIndex()
+                : -1;
 
-                if (isSelect)
-                {
-                    itemWasSelected = true;
-                    currentIndex = i;
-                }
-            }
+            DrawItem(currentIndex, true);
         }
 
-        private IMenuItem ReadUserSelection()
+        private void ReadUserSelection()
         {
             while (true)
             {
                 if (isCloseRequested)
-                    return null;
+                    return;
 
                 if (!Console.KeyAvailable)
                 {
@@ -186,6 +154,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                     case ConsoleKey.Enter:
                         {
+                            if (currentIndex == -1)
+                                continue;
+
                             IMenuItem selectedItem = visibleMenuItems[currentIndex];
 
                             bool allow = selectedItem.IsSelectable && selectedItem.BeforeSelect();
@@ -198,7 +169,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                                 SelectedIndex = currentIndex - spaceMenuItemCount;
                                 SelectedItem = selectedItem;
-                                return selectedItem;
+                                return;
                             }
                         }
                         break;
@@ -219,7 +190,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                                     SelectedIndex = currentIndex - spaceMenuItemCount;
                                     SelectedItem = selectedItem;
-                                    return selectedItem;
+                                    return;
                                 }
                             }
                         }
@@ -235,7 +206,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 return;
 
             DrawItem(currentIndex, false);
-            currentIndex = GetPreviousItemIndex();
+            currentIndex = previousIndex;
             DrawItem(currentIndex, true);
         }
 
@@ -250,10 +221,21 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             DrawItem(currentIndex, true);
         }
 
+        private int GetFirstItemIndex()
+        {
+            for (int i = 0; i < visibleMenuItems.Count; i++)
+            {
+                if (!(visibleMenuItems[i] is SpaceMenuItem))
+                    return i;
+            }
+
+            return -1;
+        }
+
         private int GetPreviousItemIndex()
         {
             int startIndex = currentIndex == -1
-                   ? visibleMenuItems.Count
+                   ? visibleMenuItems.Count - 1
                    : currentIndex - 1;
 
             for (int i = startIndex; i >= 0; i--)

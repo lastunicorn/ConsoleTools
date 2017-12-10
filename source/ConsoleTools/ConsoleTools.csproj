@@ -44,9 +44,11 @@
     <Compile Include="Guard\GuardLevel.cs" />
     <Compile Include="Guard\IGuardian.cs" />
     <Compile Include="Guard\MachineLevelGuardian.cs" />
+    <Compile Include="MenuControl\CurrentIndexChangedEventArgs.cs" />
     <Compile Include="MenuControl\IExitController.cs" />
     <Compile Include="MenuControl\IMenuItem.cs" />
     <Compile Include="MenuControl\LabelMenuItem.cs" />
+    <Compile Include="MenuControl\MenuItemCollection.cs" />
     <Compile Include="MenuControl\SelectableMenu.cs" />
     <Compile Include="MenuControl\SpaceMenuItem.cs" />
     <Compile Include="MenuControl\YesNoMenuItem.cs" />

@@ -32,48 +32,75 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// </summary>
     public class SelectableMenu : List<IMenuItem>
     {
+        private readonly MenuItemCollection menuItems;
         private readonly int screenWidth = Console.BufferWidth;
-
-        private List<IMenuItem> visibleMenuItems;
-        private int currentIndex = -1;
 
         private int rowAfterMenu;
 
         private bool isCloseRequested;
 
-        public int SelectedIndex { get; private set; }
+        public int? SelectedIndex { get; private set; }
         public HorizontalAlign ItemsHorizontalAlign { get; set; }
         public IMenuItem SelectedItem { get; private set; }
         public bool SelectFirstByDefault { get; set; } = true;
+
+        public SelectableMenu(MenuItemCollection menuItems)
+        {
+            if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
+            this.menuItems = menuItems;
+        }
+
+        private void HandleCurrentIndexChanged(object sender, CurrentIndexChangedEventArgs e)
+        {
+            if (e.PreviousIndex.HasValue)
+                DrawMenuItem(e.PreviousIndex.Value, false);
+
+            if (e.CurrentIndex.HasValue)
+                DrawMenuItem(e.CurrentIndex.Value, true);
+        }
 
         public void Display()
         {
             isCloseRequested = false;
 
-            RunWithoutCursor(() =>
+            Run(() =>
             {
-                visibleMenuItems = this
-                    .Where(x => x != null && x.IsVisible)
-                    .ToList();
-
-                List<IMenuItem> selectableItems = visibleMenuItems
-                    .Where(x => !(x is SpaceMenuItem))
-                    .ToList();
-
-                if (selectableItems.Count == 0)
+                if (!menuItems.ExistSelectableItems)
                     throw new ApplicationException("There are no menu items to be displayed.");
 
-                DisplayMenuItems();
+                DrawMenuItems();
+
+                if (SelectFirstByDefault)
+                    menuItems.SelectFirst();
+                else
+                    menuItems.SelectNone();
+
                 ReadUserSelection();
             });
         }
 
-        private void RunWithoutCursor(Action action)
+        public void Resume()
+        {
+            Run(() =>
+            {
+                Refresh();
+                ReadUserSelection();
+            });
+        }
+
+        public void Refresh()
+        {
+            DrawMenuItem(menuItems.CurrentIndex, true);
+        }
+
+        private void Run(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
             bool initialCursorVisible = Console.CursorVisible;
             Console.CursorVisible = false;
+
+            menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
             try
             {
@@ -81,7 +108,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
             finally
             {
-                DrawItem(currentIndex, false);
+                menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
+
+                DrawMenuItem(menuItems.CurrentIndex, false);
 
                 Console.SetCursorPosition(0, rowAfterMenu);
                 Console.CursorVisible = initialCursorVisible;
@@ -93,38 +122,56 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             isCloseRequested = true;
         }
 
-        public void Resume()
+        private void DrawMenuItems()
         {
-            RunWithoutCursor(() =>
-            {
-                DrawItem(currentIndex, true);
-                ReadUserSelection();
-            });
-        }
+            List<IMenuItem> visibleMenuItems = menuItems
+                .Where(x => x != null && x.IsVisible)
+                .ToList();
 
-        public void Refresh()
-        {
-            RunWithoutCursor(() =>
-            {
-                DrawItem(currentIndex, true);
-            });
-        }
-
-        private void DisplayMenuItems()
-        {
             for (int i = 0; i < visibleMenuItems.Count; i++)
                 Console.WriteLine();
 
             rowAfterMenu = Console.CursorTop;
 
-            for (int i = 0; i < visibleMenuItems.Count; i++)
-                DrawItem(i, false);
+            for (int i = 0; i < menuItems.Count; i++)
+                DrawMenuItem(i, false);
+        }
 
-            currentIndex = SelectFirstByDefault
-                ? GetFirstItemIndex()
-                : -1;
+        private void DrawMenuItem(int? index, bool selected)
+        {
+            if (index == null)
+                return;
 
-            DrawItem(currentIndex, true);
+            IMenuItem menuItemToDraw = null;
+            int visibleCount = 0;
+            int visibleIndex = -1;
+
+            for (int i = 0; i < menuItems.Count; i++)
+            {
+                IMenuItem menuItem = menuItems[i];
+
+                if (menuItem == null || !menuItem.IsVisible)
+                    continue;
+
+                visibleCount++;
+
+                if (i == index.Value)
+                {
+                    visibleIndex = visibleCount - 1;
+                    menuItemToDraw = menuItem;
+                }
+            }
+
+            if (visibleIndex >= 0)
+            {
+                int x = screenWidth / 2 - 2;
+                int y = rowAfterMenu - visibleCount + visibleIndex;
+
+                Console.SetCursorPosition(0, y);
+                Console.Write(new string(' ', Console.BufferWidth - 1));
+
+                menuItemToDraw.Display(x, y, selected, ItemsHorizontalAlign);
+            }
         }
 
         private void ReadUserSelection()
@@ -145,29 +192,24 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        HandleUpArrawPressed();
+                        menuItems.ModeToPrevious();
                         break;
 
                     case ConsoleKey.DownArrow:
-                        HandleDownArrowPressed();
+                        menuItems.ModeToNext();
                         break;
 
                     case ConsoleKey.Enter:
                         {
-                            if (currentIndex == -1)
+                            if (menuItems.CurrentIndex == -1)
                                 continue;
 
-                            IMenuItem selectedItem = visibleMenuItems[currentIndex];
+                            IMenuItem selectedItem = menuItems.CurrentItem;
 
                             bool allow = selectedItem.IsSelectable && selectedItem.BeforeSelect();
                             if (allow)
                             {
-                                int spaceMenuItemCount = visibleMenuItems
-                                    .Take(currentIndex)
-                                    .OfType<SpaceMenuItem>()
-                                    .Count();
-
-                                SelectedIndex = currentIndex - spaceMenuItemCount;
+                                SelectedIndex = menuItems.VisibleSelectedIndex;
                                 SelectedItem = selectedItem;
                                 return;
                             }
@@ -176,110 +218,27 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                     default:
                         {
-                            IMenuItem selectedItem = visibleMenuItems.FirstOrDefault(x => x.ShortcutKey != null && x.ShortcutKey == keyInfo.Key);
+                            bool success = menuItems.SelectItem(keyInfo.Key);
 
-                            if (selectedItem != null)
+                            if (!success)
+                                break;
+
+                            IMenuItem selectedItem = menuItems.CurrentItem;
+
+                            if (selectedItem == null)
+                                break;
+
+                            bool allow = selectedItem.IsSelectable && selectedItem.BeforeSelect();
+                            if (allow)
                             {
-                                bool allow = selectedItem.IsSelectable && selectedItem.BeforeSelect();
-                                if (allow)
-                                {
-                                    int spaceMenuItemCount = visibleMenuItems
-                                        .Take(currentIndex)
-                                        .OfType<SpaceMenuItem>()
-                                        .Count();
-
-                                    SelectedIndex = currentIndex - spaceMenuItemCount;
-                                    SelectedItem = selectedItem;
-                                    return;
-                                }
+                                SelectedIndex = menuItems.VisibleSelectedIndex;
+                                SelectedItem = selectedItem;
+                                return;
                             }
                         }
                         break;
                 }
             }
-        }
-
-        private void HandleUpArrawPressed()
-        {
-            int previousIndex = GetPreviousItemIndex();
-            if (previousIndex == currentIndex)
-                return;
-
-            DrawItem(currentIndex, false);
-            currentIndex = previousIndex;
-            DrawItem(currentIndex, true);
-        }
-
-        private void HandleDownArrowPressed()
-        {
-            int nextIndex = GetNextItemIndex();
-            if (nextIndex == currentIndex)
-                return;
-
-            DrawItem(currentIndex, false);
-            currentIndex = nextIndex;
-            DrawItem(currentIndex, true);
-        }
-
-        private int GetFirstItemIndex()
-        {
-            for (int i = 0; i < visibleMenuItems.Count; i++)
-            {
-                if (!(visibleMenuItems[i] is SpaceMenuItem))
-                    return i;
-            }
-
-            return -1;
-        }
-
-        private int GetPreviousItemIndex()
-        {
-            int startIndex = currentIndex == -1
-                   ? visibleMenuItems.Count - 1
-                   : currentIndex - 1;
-
-            for (int i = startIndex; i >= 0; i--)
-            {
-                if (visibleMenuItems[i] is SpaceMenuItem)
-                    continue;
-
-                return i;
-            }
-
-            return currentIndex;
-        }
-
-        private int GetNextItemIndex()
-        {
-            int startIndex = currentIndex == -1
-                   ? 0
-                   : currentIndex + 1;
-
-            for (int i = startIndex; i < visibleMenuItems.Count; i++)
-            {
-                if (visibleMenuItems[i] is SpaceMenuItem)
-                    continue;
-
-                return i;
-            }
-
-            return currentIndex;
-        }
-
-        private void DrawItem(int menuIndex, bool selected)
-        {
-            if (menuIndex == -1)
-                return;
-
-            IMenuItem menuItem = visibleMenuItems[menuIndex];
-
-            int x = screenWidth / 2 - 2;
-            int y = rowAfterMenu - visibleMenuItems.Count + menuIndex;
-
-            Console.SetCursorPosition(0, y);
-            Console.Write(new string(' ', Console.BufferWidth - 1));
-
-            menuItem.Display(x, y, selected, ItemsHorizontalAlign);
         }
     }
 }

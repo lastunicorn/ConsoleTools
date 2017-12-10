@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
         private static SelectableMenu CreateMenu()
         {
-            return new SelectableMenu
+            return new SelectableMenu(new MenuItemCollection
             {
                 new NewGameMenuItem(gameBoard),
                 new SaveGameMenuItem(gameBoard),
@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
                 new SpaceMenuItem(),
 
                 new ExitMenuItem(applicationState)
-            };
+            });
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

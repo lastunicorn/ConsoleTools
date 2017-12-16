@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Menues", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Prompter", "ConsoleTools.Demo.Prompter\ConsoleTools.Demo.Prompter.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Spinners", "ConsoleTools.Demo.ProgressSpinner\ConsoleTools.Demo.Spinners.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

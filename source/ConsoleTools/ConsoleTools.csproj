@@ -56,6 +56,15 @@
     <Compile Include="Musical\Sound.cs" />
     <Compile Include="HorizontalAlign.cs" />
     <Compile Include="NewCommandEventArgs.cs" />
+    <Compile Include="Spinners\ArrowTemplate.cs" />
+    <Compile Include="Spinners\BarTemplate.cs" />
+    <Compile Include="Spinners\BubbleTemplate.cs" />
+    <Compile Include="Spinners\ProgressSpinner.cs" />
+    <Compile Include="Spinners\DotTemplate.cs" />
+    <Compile Include="Spinners\FanTemplate.cs" />
+    <Compile Include="Spinners\ITemplate.cs" />
+    <Compile Include="Spinners\SquareDotTemplate.cs" />
+    <Compile Include="Spinners\TemplateBase.cs" />
     <Compile Include="Prompter.cs" />
     <Compile Include="TabularData\Cell.cs" />
     <Compile Include="TabularData\Column.cs" />

@@ -15,10 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace ConsoleTools.Demo.Prompter
+namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
     internal class Program
     {

@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConsoleTools.Demo.Prompter")]
+[assembly: AssemblyTitle("ConsoleTools.Demo.ProgressSpinner")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a76a253f-e01f-4e5b-80f0-dbbc8b257905")]
+[assembly: Guid("47d36ac9-80a3-45c5-8dc4-de804c21aba9")]

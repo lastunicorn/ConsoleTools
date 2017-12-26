@@ -20,21 +20,23 @@ namespace DustInTheWind.ConsoleTools
 {
     public class Prompter
     {
+        private volatile bool exitWasRequested;
+
         /// <summary>
         /// Gets the text displayed as a prompter.
         /// </summary>
-        public static string PrompterText { get; } = "> ";
+        public string PrompterText { get; } = "> ";
 
         /// <summary>
         /// Event raised when the user writes a new command at the console.
         /// </summary>
-        public static event EventHandler<NewCommandEventArgs> NewCommand;
+        public event EventHandler<NewCommandEventArgs> NewCommand;
 
         /// <summary>
         /// Raises the NewCommand event.
         /// </summary>
         /// <param name="e">An NewCommandEventArgs that contains the event data.</param>
-        public static void OnNewCommand(NewCommandEventArgs e)
+        public void OnNewCommand(NewCommandEventArgs e)
         {
             NewCommand?.Invoke(null, e);
         }
@@ -45,9 +47,9 @@ namespace DustInTheWind.ConsoleTools
         /// The infinite loop that reads commands can be stopped only by setting the Exit property
         /// of the NewCommandEventArgs object received in the callback method of the NewCommand event.
         /// </summary>
-        public static void WaitForUserCommand()
+        public void WaitForUserCommand()
         {
-            bool exitloop = false;
+            exitWasRequested = false;
 
             do
             {
@@ -60,11 +62,11 @@ namespace DustInTheWind.ConsoleTools
                     OnNewCommand(eva);
 
                     if (eva.Exit)
-                        exitloop = true;
+                        exitWasRequested = true;
                 }
                 catch { }
             }
-            while (!exitloop);
+            while (!exitWasRequested);
         }
 
         /// <summary>
@@ -73,24 +75,25 @@ namespace DustInTheWind.ConsoleTools
         /// Observation! The current thread is blocked until the user finishes to type the command.
         /// </summary>
         /// <returns>The command typed by the user.</returns>
-        public static UserCommand GetUserCommand()
+        private UserCommand GetUserCommand()
         {
             // Check if the cursor is at the begining of the line.
             if (Console.CursorLeft != 0)
                 Console.WriteLine();
 
-            // Display the prompter.
             Console.Write(PrompterText);
-
-            // Read the command typed by the user.
             string commandText = Console.ReadLine();
             Console.WriteLine();
 
-            // Parse the command typed by the user.
-            UserCommand command = UserCommand.Parse(commandText);
+            return UserCommand.Parse(commandText);
+        }
 
-            // Return the command typed by the user.
-            return command;
+        /// <summary>
+        /// Sets the exit flag. The Prompter's loop will exit next time when it checks the exit flag.
+        /// </summary>
+        public void RequestExit()
+        {
+            exitWasRequested = true;
         }
     }
 }

@@ -15,6 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools
@@ -27,44 +29,44 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets the name of the command.
         /// </summary>
-        public string CommandName { get; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the list of parameters associated with the current command.
         /// </summary>
-        public string[] Parameters { get; }
+        public IReadOnlyCollection<UserCommandParameter> Parameters { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCommand"/> class with
         /// the command name and the list of parameters.
         /// </summary>
-        /// <param name="commandName">The name of the command.</param>
+        /// <param name="name">The name of the command.</param>
         /// <param name="parameters">The list of parameters associated with the command.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public UserCommand(string commandName, string[] parameters)
+        public UserCommand(string name, IEnumerable<UserCommandParameter> parameters)
         {
-            if (commandName == null) throw new ArgumentNullException(nameof(commandName));
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
-            CommandName = commandName;
+            Name = name;
 
             if (parameters == null)
             {
-                Parameters = new string[0];
+                Parameters = new List<UserCommandParameter>(0).AsReadOnly();
             }
             else
             {
                 if (parameters.Any(x => x == null))
                     throw new ArgumentException("The parameters can not be null.", nameof(parameters));
 
-                Parameters = parameters;
+                Parameters = parameters.ToList().AsReadOnly();
             }
         }
 
         /// <summary>
         /// Represents an empty command. Command name is empty string and contains no parameters.
         /// </summary>
-        public static UserCommand Empty { get; } = new UserCommand(string.Empty, new string[0]);
+        public static UserCommand Empty { get; } = new UserCommand(string.Empty, new UserCommandParameter[0]);
 
         /// <summary>
         /// Parses a string and creates a new instance of the <see cref="UserCommand"/> from it.
@@ -76,22 +78,34 @@ namespace DustInTheWind.ConsoleTools
         {
             if (commandText == null) throw new ArgumentNullException(nameof(commandText));
 
-            string[] tmp = commandText.ToLower().Split(' ');
+            string[] commandChunks = commandText.ToLower().Split(' ');
 
-            string[] parameters;
+            UserCommandParameter[] parameters;
 
-            string commandName = tmp.Length > 0
-                ? tmp[0]
+            string commandName = commandChunks.Length > 0
+                ? commandChunks[0]
                 : string.Empty;
 
-            if (tmp.Length > 1)
+            if (commandChunks.Length > 1)
             {
-                parameters = new string[tmp.Length - 1];
-                Array.Copy(tmp, 1, parameters, 0, parameters.Length);
+                parameters = new UserCommandParameter[commandChunks.Length - 1];
+
+                for (int i = 1; i < commandChunks.Length; i++)
+                {
+                    string[] paramChunks = commandChunks[i].Split(' ');
+                    string paramName = paramChunks.Length > 0 ? paramChunks[0] : string.Empty;
+                    string paramValue = paramChunks.Length > 1 ? paramChunks[1] : string.Empty;
+
+                    parameters[i - 1] = new UserCommandParameter
+                    {
+                        Name = paramName,
+                        Value = paramValue
+                    };
+                }
             }
             else
             {
-                parameters = new string[0];
+                parameters = new UserCommandParameter[0];
             }
 
             return new UserCommand(commandName, parameters);
@@ -103,8 +117,7 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>The sting representation of the current instance.</returns>
         public override string ToString()
         {
-            //return "Command: " + this.commandName + " Parameters: { " + string.Join(" } { ", this.parameters) + " }";
-            return CommandName + " " + string.Join(" ", Parameters);
+            return Name + " " + string.Join(" ", (IEnumerable<UserCommandParameter>)Parameters);
         }
     }
 }

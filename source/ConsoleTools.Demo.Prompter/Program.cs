@@ -23,13 +23,15 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
     {
         private static void Main()
         {
-            DustInTheWind.ConsoleTools.Prompter.NewCommand += ui_NewCommand;
-            DustInTheWind.ConsoleTools.Prompter.WaitForUserCommand();
+            ConsoleTools.Prompter prompter = new ConsoleTools.Prompter();
+            prompter.NewCommand += ui_NewCommand;
+
+            prompter.WaitForUserCommand();
         }
 
         private static void ui_NewCommand(object sender, NewCommandEventArgs e)
         {
-            switch (e.Command.CommandName)
+            switch (e.Command.Name)
             {
                 case "q":
                 case "quit":

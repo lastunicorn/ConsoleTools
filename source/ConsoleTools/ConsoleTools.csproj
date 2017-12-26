@@ -37,6 +37,8 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="InputControls\ListInputControl.cs" />
+    <Compile Include="InputControls\TextInputControl.cs" />
     <Compile Include="UserCommandParameter.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="CustomConsole.WriteAligned.cs" />

@@ -190,172 +190,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
-        /// Calculates and returns the dimensions of the current instance of the <see cref="Table"/> displayed in text mode.
-        /// </summary>
-        /// <returns>The dimensions of the current instance of the <see cref="Table"/> displayed in text mode.</returns>
-        private TableDimensions CalculateTableDimensions()
-        {
-            TableDimensions dimensions = new TableDimensions
-            {
-                Width = MinWidth > 0 ? MinWidth : 0
-            };
-
-            int longRowWidth = 0;
-
-            // Calculate table title row width.
-
-            int titleRowWidth = 0;
-
-            if (DisplayBorder)
-                titleRowWidth += 1;
-
-            titleRowWidth += PaddingLeft;
-
-            if (Title != null)
-                titleRowWidth += Title.Size.Width;
-
-            titleRowWidth += PaddingRight;
-
-            if (DisplayBorder)
-                titleRowWidth += 1;
-
-
-            if (dimensions.Width < titleRowWidth)
-                dimensions.Width = titleRowWidth;
-
-            // Calculate the header dimensions.
-
-            if (DisplayColumnHeaders)
-            {
-                int headerRowWidth = 0;
-                int headerRowHeight = 0;
-
-                // The table left border
-                if (DisplayBorder)
-                    headerRowWidth += 1;
-
-                for (int i = 0; i < Columns.Count; i++)
-                {
-                    Column column = Columns[i];
-
-                    dimensions.ColumnsWidth.Add(0);
-
-                    int cellWidth;
-                    int cellHeight;
-
-                    if (column.Header != null)
-                    {
-                        cellWidth = PaddingLeft + column.Header.Size.Width + PaddingRight;
-                        cellHeight = column.Header.Size.Height;
-                    }
-                    else
-                    {
-                        cellWidth = PaddingLeft + PaddingRight;
-                        cellHeight = 0;
-                    }
-
-                    if (dimensions.ColumnsWidth[i] < cellWidth)
-                    {
-                        dimensions.ColumnsWidth[i] = cellWidth;
-                        headerRowWidth += cellWidth;
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            headerRowWidth += 1;
-                    }
-                    else
-                    {
-                        headerRowWidth += dimensions.ColumnsWidth[i] + 1; // The cell width + cell right border
-                    }
-
-                    if (headerRowHeight < cellHeight)
-                        headerRowHeight = cellHeight;
-                }
-
-                dimensions.HeaderHeight = headerRowHeight;
-
-                if (longRowWidth < headerRowWidth) longRowWidth = headerRowWidth;
-            }
-
-            //
-
-            for (int i = 0; i < rows.Count; i++)
-            {
-                Row row = rows[i];
-
-                int rowWidth = 0;
-                int rowHeight = 0;
-
-                // The table left border
-                if (DisplayBorder)
-                    rowWidth += 1;
-
-                for (int j = 0; j < row.Cells.Count; j++)
-                {
-                    Cell cell = row.Cells[j];
-
-                    if (j == dimensions.ColumnsWidth.Count)
-                        dimensions.ColumnsWidth.Add(0);
-
-                    int cellWidth;
-                    int cellHeight;
-
-                    if (cell.Content != null)
-                    {
-                        cellWidth = PaddingLeft + cell.Content.Size.Width + PaddingRight;
-                        cellHeight = cell.Content.Size.Height;
-                    }
-                    else
-                    {
-                        cellWidth = PaddingLeft + PaddingRight;
-                        cellHeight = 0;
-                    }
-
-                    if (dimensions.ColumnsWidth[j] < cellWidth)
-                    {
-                        dimensions.ColumnsWidth[j] = cellWidth;
-                        rowWidth += cellWidth;
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            rowWidth += 1;
-                    }
-                    else
-                    {
-                        rowWidth += dimensions.ColumnsWidth[j];
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            rowWidth += 1;
-                    }
-
-                    if (rowHeight < cellHeight)
-                        rowHeight = cellHeight;
-                }
-
-                dimensions.RowsHeight.Add(rowHeight);
-
-                if (longRowWidth < rowWidth)
-                    longRowWidth = rowWidth;
-            }
-
-            if (dimensions.Width < longRowWidth)
-            {
-                dimensions.Width = longRowWidth;
-            }
-            else if (dimensions.Width > longRowWidth)
-            {
-                int diff = dimensions.Width - longRowWidth;
-                int colCount = dimensions.ColumnsWidth.Count;
-
-                for (int i = 0; i < diff; i++)
-                    dimensions.ColumnsWidth[i % colCount]++;
-            }
-
-            return dimensions;
-        }
-
-        /// <summary>
         /// Returns the string representation of the current instance.
         /// </summary>
         /// <returns>The string representation of the current instance.</returns>
@@ -369,7 +203,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void Render(ITablePrinter tablePrinter)
         {
-            TableDimensions dimensions = CalculateTableDimensions();
+            TableDimensions dimensions = new TableDimensions
+            {
+                MinWidth = MinWidth,
+                DisplayBorder = DisplayBorder,
+                DisplayColumnHeaders = DisplayColumnHeaders,
+                PaddingLeft = PaddingLeft,
+                PaddingRight = PaddingRight,
+                Title = Title,
+                Columns = Columns,
+                Rows = rows
+            };
+            dimensions.CalculateTableDimensions();
+
             string rowSeparator = GetRowSeparatorBorder(dimensions);
 
             DrawTableTitle(tablePrinter, dimensions);
@@ -388,7 +234,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     tablePrinter.WriteLineBorder(titleTopBorder);
                 }
 
-                int cellInnerWidth = dimensions.Width - PaddingLeft - PaddingRight;
+                int cellInnerWidth = dimensions.CalculatedWidth - PaddingLeft - PaddingRight;
 
                 if (DisplayBorder)
                     cellInnerWidth -= 2;
@@ -430,11 +276,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawColumnHeaders(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
         {
-            if (!DisplayColumnHeaders || dimensions.HeaderHeight == 0)
+            if (!DisplayColumnHeaders || dimensions.CalculatedHeaderHeight == 0)
                 return;
 
             // Write header cells
-            for (int headerLineIndex = 0; headerLineIndex < dimensions.HeaderHeight; headerLineIndex++)
+            for (int headerLineIndex = 0; headerLineIndex < dimensions.CalculatedHeaderHeight; headerLineIndex++)
             {
                 if (DisplayBorder)
                     tablePrinter.WriteBorder(Border.Left);
@@ -470,9 +316,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             bool headerHasContent = headerLineIndex < column.Header.Size.Height;
 
             if (!headerHasContent)
-                return string.Empty.PadRight(dimensions.ColumnsWidth[columnIndex], ' ');
+                return string.Empty.PadRight(dimensions.CalculatedColumnsWidth[columnIndex], ' ');
 
-            int cellInnerWidth = dimensions.ColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
+            int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
             string innerContent;
 
             HorizontalAlignment alignment = ColumnHeaderHorizontalAlignment(columnIndex);
@@ -525,7 +371,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 Row row = rows[rowIndex];
 
-                for (int rowLineIndex = 0; rowLineIndex < dimensions.RowsHeight[rowIndex]; rowLineIndex++)
+                for (int rowLineIndex = 0; rowLineIndex < dimensions.CalculatedRowsHeight[rowIndex]; rowLineIndex++)
                 {
                     if (rowLineIndex > 0)
                         tablePrinter.WriteLine();
@@ -572,9 +418,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         private string BuildCellContent(TableDimensions dimensions, int rowIndex, int columnIndex, Cell cell, int rowLineIndex)
         {
             if (rowLineIndex >= cell.Content.Size.Height)
-                return string.Empty.PadRight(dimensions.ColumnsWidth[columnIndex], ' ');
+                return string.Empty.PadRight(dimensions.CalculatedColumnsWidth[columnIndex], ' ');
 
-            int cellInnerWidth = dimensions.ColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
+            int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
             string innerContent;
 
             HorizontalAlignment alignment = CellHorizontalAlignment(rowIndex, columnIndex);
@@ -640,7 +486,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             StringBuilder value = new StringBuilder();
 
             value.Append(Border.TopLeft);
-            value.Append(string.Empty.PadRight(tableDimensions.Width - 2, Border.Top));
+            value.Append(string.Empty.PadRight(tableDimensions.CalculatedWidth - 2, Border.Top));
             value.Append(Border.TopRight);
 
             return value.ToString();
@@ -652,12 +498,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.LeftIntersection);
 
-            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
+            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
             {
-                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
+                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Top));
 
-                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
                     ? Border.TopIntersection
                     : Border.RightIntersection;
 
@@ -679,12 +525,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.LeftIntersection);
 
-            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
+            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
             {
-                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
+                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Horizontal));
 
-                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
                     ? Border.MiddleIntersection
                     : Border.RightIntersection;
 
@@ -700,12 +546,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.TopLeft);
 
-            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
+            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
             {
-                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
+                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Top));
 
-                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
                     ? Border.TopIntersection
                     : Border.TopRight;
 
@@ -721,12 +567,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.BottomLeft);
 
-            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
+            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
             {
-                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
+                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Bottom));
 
-                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
                     ? Border.BottomIntersection
                     : Border.BottomRight;
 

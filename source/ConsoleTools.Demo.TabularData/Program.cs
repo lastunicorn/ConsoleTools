@@ -80,6 +80,15 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
                 case 5:
                     return new CellPaddingFlow();
 
+                case 11:
+                    return new SingleLineBorderFlow();
+
+                case 22:
+                    return new DoubleLineBorderFlow();
+
+                case 33:
+                    return new SimpleBorderFlow();
+
                 default:
                     throw new ApplicationException("Invalid choice!");
             }
@@ -109,6 +118,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             CustomConsole.WriteLine("3 - Multiline cell content");
             CustomConsole.WriteLine("4 - Draw lines between rows");
             CustomConsole.WriteLine("5 - Cell padding");
+            CustomConsole.WriteLine("11 - Single-line Border");
+            CustomConsole.WriteLine("22 - Double-line Border");
+            CustomConsole.WriteLine("33 - Simple Border");
             CustomConsole.WriteLine("0 - Exit");
         }
 

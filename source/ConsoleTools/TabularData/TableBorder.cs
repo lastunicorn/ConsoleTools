@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     public struct TableBorder
     {
+        public static readonly TableBorder SimpleBorder = new TableBorder("+-+|+-+|+++++|-");
+        public static readonly TableBorder SingleLineBorder = new TableBorder("┌─┐│┘─└│┬┤┴├┼│─");
+        public static readonly TableBorder DoubleLineBorder = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+
         public readonly char TopLeft;
         public readonly char Top;
         public readonly char TopRight;

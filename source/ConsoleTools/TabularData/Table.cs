@@ -84,6 +84,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public int MinWidth { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value that specifies if thew column headers are displayed.
+        /// </summary>
         public bool DisplayColumnHeaders { get; set; }
 
         /// <summary>
@@ -101,8 +104,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <returns>The cell at the specified location.</returns>
         public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
 
+        /// <summary>
+        /// Gets or sets a value that specifies if the borders are visible.
+        /// </summary>
         public bool DisplayBorder { get; set; }
 
+        /// <summary>
+        /// Gets or sets the table borders.
+        /// </summary>
         public TableBorder Border { get; set; }
 
         /// <summary>
@@ -195,19 +204,35 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             // Calculate table title row width.
 
-            int titleRowWidth = 1 + PaddingLeft + PaddingRight + 1;
+            int titleRowWidth = 0;
+
+            if (DisplayBorder)
+                titleRowWidth += 1;
+
+            titleRowWidth += PaddingLeft;
+
             if (Title != null)
-            {
                 titleRowWidth += Title.Size.Width;
-            }
-            if (dimensions.Width < titleRowWidth) dimensions.Width = titleRowWidth;
+
+            titleRowWidth += PaddingRight;
+
+            if (DisplayBorder)
+                titleRowWidth += 1;
+
+
+            if (dimensions.Width < titleRowWidth)
+                dimensions.Width = titleRowWidth;
 
             // Calculate the header dimensions.
 
             if (DisplayColumnHeaders)
             {
-                int headerRowWidth = 1; // The table left border
+                int headerRowWidth = 0;
                 int headerRowHeight = 0;
+
+                // The table left border
+                if (DisplayBorder)
+                    headerRowWidth += 1;
 
                 for (int i = 0; i < Columns.Count; i++)
                 {
@@ -232,7 +257,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     if (dimensions.ColumnsWidth[i] < cellWidth)
                     {
                         dimensions.ColumnsWidth[i] = cellWidth;
-                        headerRowWidth += cellWidth + 1; // The cell width + cell right border
+                        headerRowWidth += cellWidth;
+
+                        // The cell right border
+                        if (DisplayBorder)
+                            headerRowWidth += 1;
                     }
                     else
                     {
@@ -240,9 +269,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     }
 
                     if (headerRowHeight < cellHeight)
-                    {
                         headerRowHeight = cellHeight;
-                    }
                 }
 
                 dimensions.HeaderHeight = headerRowHeight;
@@ -256,17 +283,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 Row row = rows[i];
 
-                int rowWidth = 1; // The table left border
+                int rowWidth = 0;
                 int rowHeight = 0;
+
+                // The table left border
+                if (DisplayBorder)
+                    rowWidth += 1;
 
                 for (int j = 0; j < row.Cells.Count; j++)
                 {
                     Cell cell = row.Cells[j];
 
                     if (j == dimensions.ColumnsWidth.Count)
-                    {
                         dimensions.ColumnsWidth.Add(0);
-                    }
 
                     int cellWidth;
                     int cellHeight;
@@ -285,22 +314,29 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     if (dimensions.ColumnsWidth[j] < cellWidth)
                     {
                         dimensions.ColumnsWidth[j] = cellWidth;
-                        rowWidth += cellWidth + 1; // The cell width + cell right border
+                        rowWidth += cellWidth;
+
+                        // The cell right border
+                        if (DisplayBorder)
+                            rowWidth += 1;
                     }
                     else
                     {
-                        rowWidth += dimensions.ColumnsWidth[j] + 1; // The cell width + cell right border
+                        rowWidth += dimensions.ColumnsWidth[j];
+
+                        // The cell right border
+                        if (DisplayBorder)
+                            rowWidth += 1;
                     }
 
                     if (rowHeight < cellHeight)
-                    {
                         rowHeight = cellHeight;
-                    }
                 }
 
                 dimensions.RowsHeight.Add(rowHeight);
 
-                if (longRowWidth < rowWidth) longRowWidth = rowWidth;
+                if (longRowWidth < rowWidth)
+                    longRowWidth = rowWidth;
             }
 
             if (dimensions.Width < longRowWidth)
@@ -313,9 +349,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 int colCount = dimensions.ColumnsWidth.Count;
 
                 for (int i = 0; i < diff; i++)
-                {
                     dimensions.ColumnsWidth[i % colCount]++;
-                }
             }
 
             return dimensions;
@@ -348,31 +382,49 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (Title.Size.Height > 0)
             {
                 // Write top border
-                tablePrinter.WriteLineBorder(Border.TopLeft + string.Empty.PadRight(dimensions.Width - 2, Border.Top) + Border.TopRight);
+                if (DisplayBorder)
+                {
+                    string titleTopBorder = GetTitleTopBorder(dimensions);
+                    tablePrinter.WriteLineBorder(titleTopBorder);
+                }
 
-                int cellInnerWidth = dimensions.Width - PaddingLeft - PaddingRight - 2;
+                int cellInnerWidth = dimensions.Width - PaddingLeft - PaddingRight;
+
+                if (DisplayBorder)
+                    cellInnerWidth -= 2;
 
                 // Write title
                 for (int i = 0; i < Title.Size.Height; i++)
                 {
-                    tablePrinter.WriteBorder(Border.Left);
+                    if (DisplayBorder)
+                        tablePrinter.WriteBorder(Border.Left);
 
                     string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
                     string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
                     string innerContent = Title.Lines[i].PadRight(cellInnerWidth, ' ');
 
                     tablePrinter.WriteTitle(leftPadding + innerContent + rightPadding);
-                    tablePrinter.WriteLineBorder(Border.Right);
+
+                    if (DisplayBorder)
+                        tablePrinter.WriteLineBorder(Border.Right);
+                    else
+                        tablePrinter.WriteLine();
                 }
 
                 // Write bottom border <=> header top border
-                string titleRowSeparator = GetTitleRowSeparator(dimensions);
-                tablePrinter.WriteLineBorder(titleRowSeparator);
+                if (DisplayBorder)
+                {
+                    string titleRowSeparator = GetTitleRowSeparator(dimensions);
+                    tablePrinter.WriteLineBorder(titleRowSeparator);
+                }
             }
             else
             {
-                string rowTopBorder = GetRowTopBorder(dimensions);
-                tablePrinter.WriteLineBorder(rowTopBorder);
+                if (DisplayBorder)
+                {
+                    string rowTopBorder = GetRowTopBorder(dimensions);
+                    tablePrinter.WriteLineBorder(rowTopBorder);
+                }
             }
         }
 
@@ -384,7 +436,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
             // Write header cells
             for (int headerLineIndex = 0; headerLineIndex < dimensions.HeaderHeight; headerLineIndex++)
             {
-                tablePrinter.WriteBorder(Border.Left);
+                if (DisplayBorder)
+                    tablePrinter.WriteBorder(Border.Left);
 
                 for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
                 {
@@ -392,18 +445,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                     tablePrinter.WriteHeader(content);
 
-                    char cellBorderRight = columnIndex < Columns.Count - 1
-                        ? Border.Vertical
-                        : Border.Right;
+                    if (DisplayBorder)
+                    {
+                        char cellBorderRight = columnIndex < Columns.Count - 1
+                            ? Border.Vertical
+                            : Border.Right;
 
-                    tablePrinter.WriteBorder(cellBorderRight);
+                        tablePrinter.WriteBorder(cellBorderRight);
+                    }
                 }
 
                 tablePrinter.WriteLine();
             }
 
             // Write bottom border <=> first row top border
-            tablePrinter.WriteLineBorder(rowSeparator);
+            if (DisplayBorder)
+                tablePrinter.WriteLineBorder(rowSeparator);
         }
 
         private string BuildHeaderContent(TableDimensions dimensions, int columnIndex, int headerLineIndex)
@@ -470,9 +527,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                 for (int rowLineIndex = 0; rowLineIndex < dimensions.RowsHeight[rowIndex]; rowLineIndex++)
                 {
-                    if (rowLineIndex > 0) tablePrinter.WriteLine();
+                    if (rowLineIndex > 0)
+                        tablePrinter.WriteLine();
 
-                    tablePrinter.WriteBorder(Border.Left);
+                    if (DisplayBorder)
+                        tablePrinter.WriteBorder(Border.Left);
 
                     for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
                     {
@@ -481,25 +540,31 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                         tablePrinter.WriteNormal(content);
 
-                        char cellBorderRight = columnIndex < Columns.Count - 1
-                            ? Border.Vertical
-                            : Border.Right;
+                        if (DisplayBorder)
+                        {
+                            char cellBorderRight = columnIndex < Columns.Count - 1
+                                ? Border.Vertical
+                                : Border.Right;
 
-                        tablePrinter.WriteBorder(cellBorderRight);
+                            tablePrinter.WriteBorder(cellBorderRight);
+                        }
                     }
                 }
 
                 tablePrinter.WriteLine();
 
-                if (rowIndex < rows.Count - 1)
+                if (DisplayBorder)
                 {
-                    if (DrawLinesBetweenRows)
-                        tablePrinter.WriteLineBorder(rowSeparator);
-                }
-                else
-                {
-                    string rowBottomBorder = GetRowBottomBorder(dimensions);
-                    tablePrinter.WriteLineBorder(rowBottomBorder);
+                    if (rowIndex < rows.Count - 1)
+                    {
+                        if (DrawLinesBetweenRows)
+                            tablePrinter.WriteLineBorder(rowSeparator);
+                    }
+                    else
+                    {
+                        string rowBottomBorder = GetRowBottomBorder(dimensions);
+                        tablePrinter.WriteLineBorder(rowBottomBorder);
+                    }
                 }
             }
         }
@@ -570,10 +635,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return alignment;
         }
 
+        private string GetTitleTopBorder(TableDimensions tableDimensions)
+        {
+            StringBuilder value = new StringBuilder();
+
+            value.Append(Border.TopLeft);
+            value.Append(string.Empty.PadRight(tableDimensions.Width - 2, Border.Top));
+            value.Append(Border.TopRight);
+
+            return value.ToString();
+        }
+
         private string GetTitleRowSeparator(TableDimensions tableDimensions)
         {
-            if (tableDimensions == null) throw new ArgumentNullException(nameof(tableDimensions));
-
             StringBuilder value = new StringBuilder();
 
             value.Append(Border.LeftIntersection);
@@ -601,8 +675,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <exception cref="ArgumentNullException"></exception>
         private string GetRowSeparatorBorder(TableDimensions tableDimensions)
         {
-            if (tableDimensions == null) throw new ArgumentNullException(nameof(tableDimensions));
-
             StringBuilder value = new StringBuilder();
 
             value.Append(Border.LeftIntersection);
@@ -624,8 +696,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private string GetRowTopBorder(TableDimensions tableDimensions)
         {
-            if (tableDimensions == null) throw new ArgumentNullException(nameof(tableDimensions));
-
             StringBuilder value = new StringBuilder();
 
             value.Append(Border.TopLeft);
@@ -647,8 +717,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private string GetRowBottomBorder(TableDimensions tableDimensions)
         {
-            if (tableDimensions == null) throw new ArgumentNullException(nameof(tableDimensions));
-
             StringBuilder value = new StringBuilder();
 
             value.Append(Border.BottomLeft);

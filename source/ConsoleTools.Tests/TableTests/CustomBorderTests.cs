@@ -21,7 +21,7 @@ using NUnit.Framework.SyntaxHelpers;
 namespace DustInTheWind.ConsoleTools.Tests.TableTests
 {
     [TestFixture]
-    public class BorderTests
+    public class CustomBorderTests
     {
         [Test]
         public void render_simple_table_with_custom_border()

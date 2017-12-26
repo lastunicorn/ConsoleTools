@@ -32,9 +32,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             sb.Append(text);
         }
 
+        public void WriteBorder(char c)
+        {
+            sb.Append(c);
+        }
+
         public void WriteLineBorder(string text)
         {
             sb.AppendLine(text);
+        }
+
+        public void WriteLineBorder(char c)
+        {
+            sb.AppendLine(c.ToString());
         }
 
         public void WriteTitle(string text)

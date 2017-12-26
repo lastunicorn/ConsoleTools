@@ -66,6 +66,7 @@
     <Compile Include="MultilineTextTests\ConstructorTests.cs" />
     <Compile Include="TableTests\CellAlignmentTests.cs" />
     <Compile Include="MultilineTextTests\MultilineTextTests.cs" />
+    <Compile Include="TableTests\BorderTests.cs" />
     <Compile Include="TableTests\TablePaddingTests.cs" />
     <Compile Include="TableTests\ConstructorTests.cs" />
     <Compile Include="TableTests\LinesBetweenRowsTests.cs" />

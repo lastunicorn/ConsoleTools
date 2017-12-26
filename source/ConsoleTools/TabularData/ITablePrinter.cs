@@ -19,7 +19,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
     public interface ITablePrinter
     {
         void WriteBorder(string text);
+        void WriteBorder(char c);
         void WriteLineBorder(string text);
+        void WriteLineBorder(char c);
 
         void WriteTitle(string text);
         void WriteLineTitle(string text);

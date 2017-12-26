@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 
             const string expected =
 @"+-------------------------------+
-| My Title                      |
+|  My Title                     |
 +----------+---------+----------+
 |  1234567 |  123456 |  one two |
 |  1       |  asd    |  asas    |
@@ -84,7 +84,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 
             const string expected =
 @"+----------------------------------+
-| My Title                         |
+|  My Title                        |
 +-----------+----------+-----------+
 |  1234567  |  123456  |  one two  |
 |  1        |  asd     |  asas     |

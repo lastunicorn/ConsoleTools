@@ -14,24 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    public class TextInputControl
+    public class TextOutputControl
     {
         public string Separator { get; set; } = ": ";
-        public string DefaultValue { get; set; } = string.Empty;
+        public int LeftPadding = 0;
 
-        public string Read(string label)
+        public void Write(string label, string value)
         {
+            if (LeftPadding > 0)
+            {
+                string leftPadding = new string(' ', LeftPadding);
+                CustomConsole.Write(leftPadding);
+            }
+
             CustomConsole.WriteEmphasies(label);
             CustomConsole.WriteEmphasies(Separator);
-            string value = Console.ReadLine();
-
-            return string.IsNullOrEmpty(value)
-                ? DefaultValue
-                : value;
+            CustomConsole.WriteLine(value);
         }
     }
 }

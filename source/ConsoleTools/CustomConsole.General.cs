@@ -39,12 +39,12 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="question">The question to be displayed to the user.</param>
         /// <returns>The answer received from the user.</returns>
-        public static char QuestionChar(string question)
+        public static char ReadChar(string question)
         {
             Console.Write(question);
 
             ConsoleKeyInfo key = Console.ReadKey();
-            WriteLine();
+            Console.WriteLine();
 
             return key.KeyChar;
         }

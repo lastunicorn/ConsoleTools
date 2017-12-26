@@ -36,7 +36,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
                 case "q":
                 case "quit":
                 case "exit":
-                    if (CustomConsole.QuestionChar("Are you sure? [y/n] ") == 'y')
+                    const string question = "Are you sure? [y/n] ";
+                    char answer = CustomConsole.ReadChar(question);
+                    if (answer == 'y')
                     {
                         CustomConsole.WriteLine();
                         CustomConsole.WriteLine("Bye!");

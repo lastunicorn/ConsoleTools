@@ -25,8 +25,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         public List<string> Read(string label)
         {
-            Console.Write(label);
-            Console.WriteLine(Separator);
+            CustomConsole.WriteEmphasies(label);
+            CustomConsole.WriteLineEmphasies(Separator);
 
             List<string> values = new List<string>();
 

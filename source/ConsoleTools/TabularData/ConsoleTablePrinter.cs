@@ -38,9 +38,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Write(text, BorderColor);
         }
 
+        public void WriteBorder(char c)
+        {
+            Write(c, BorderColor);
+        }
+
         public void WriteLineBorder(string text)
         {
             WriteLine(text, BorderColor);
+        }
+
+        public void WriteLineBorder(char c)
+        {
+            WriteLine(c, BorderColor);
         }
 
         public void WriteTitle(string text)
@@ -86,11 +96,27 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Console.ForegroundColor = oldColor;
         }
 
+        private static void Write(char c, ConsoleColor color)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.Write(c);
+            Console.ForegroundColor = oldColor;
+        }
+
         private static void WriteLine(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
             Console.WriteLine(text);
+            Console.ForegroundColor = oldColor;
+        }
+
+        private static void WriteLine(char c, ConsoleColor color)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(c);
             Console.ForegroundColor = oldColor;
         }
     }

@@ -607,10 +607,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.LeftIntersection);
 
-            foreach (int columnWidth in tableDimensions.ColumnsWidth)
+            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
             {
+                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Horizontal));
-                value.Append(Border.RightIntersection);
+
+                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                    ? Border.MiddleIntersection
+                    : Border.RightIntersection;
+
+                value.Append(columnBorderRight);
             }
 
             return value.ToString();
@@ -624,10 +630,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             value.Append(Border.TopLeft);
 
-            foreach (int columnWidth in tableDimensions.ColumnsWidth)
+            for (int columnIndex = 0; columnIndex < tableDimensions.ColumnsWidth.Count; columnIndex++)
             {
+                int columnWidth = tableDimensions.ColumnsWidth[columnIndex];
                 value.Append(string.Empty.PadRight(columnWidth, Border.Top));
-                value.Append(Border.TopRight);
+
+                char columnBorderRight = columnIndex < tableDimensions.ColumnsWidth.Count - 1
+                    ? Border.TopIntersection
+                    : Border.TopRight;
+
+                value.Append(columnBorderRight);
             }
 
             return value.ToString();

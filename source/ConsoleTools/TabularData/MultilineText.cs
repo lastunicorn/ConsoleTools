@@ -122,16 +122,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 }
             }
         }
-
-        public MultilineText(List<string> lines)
+        
+        public MultilineText(IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException(nameof(lines));
 
-            RawText = string.Join(string.Empty, lines);
-            Lines = lines.AsReadOnly();
+            List<string> linesAsList = lines.ToList();
 
-            int width = lines.Max(x => x.Length);
-            int height = lines.Count;
+            RawText = string.Join(string.Empty, linesAsList);
+            Lines = linesAsList.AsReadOnly();
+
+            int width = linesAsList.Max(x => x.Length);
+            int height = linesAsList.Count;
             Size = new Size(width, height);
         }
 
@@ -157,6 +159,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public override int GetHashCode()
         {
             return RawText.GetHashCode();
+        }
+
+        public static implicit operator MultilineText(string text)
+        {
+            return new MultilineText(text);
+        }
+
+        public static implicit operator MultilineText(List<string> lines)
+        {
+            return new MultilineText(lines);
+        }
+
+        public static implicit operator List<string>(MultilineText multilineText)
+        {
+            return multilineText.Lines.ToList();
         }
     }
 }

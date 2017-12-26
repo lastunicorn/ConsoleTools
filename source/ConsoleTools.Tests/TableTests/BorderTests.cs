@@ -24,30 +24,27 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
     public class BorderTests
     {
         [Test]
-        public void render_Table_with_stars_for_all_borders()
+        public void render_simple_table_with_custom_border()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
-            table.Border = new TableBorder("***************");
+            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @"***********************
-* My Title            *
-***********************
-* one   * ichi * eins *
-* two   * ni   * zwei *
-* three * san  * drei *
-***********************
+                    @"╔═══════╦══════╦══════╗
+║ one   ║ ichi ║ eins ║
+║ two   ║ ni   ║ zwei ║
+║ three ║ san  ║ drei ║
+╚═══════╩══════╩══════╝
 ";
 
             Assert.That(table.ToString(), Is.EqualTo(expected));
         }
 
         [Test]
-        public void render_Table_with_custom_border()
+        public void render_table_with_custom_border_and_title()
         {
             Table table = new Table();
             table.Title = new MultilineText("My Title");
@@ -64,6 +61,61 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 ║ two   ║ ni   ║ zwei ║
 ║ three ║ san  ║ drei ║
 ╚═══════╩══════╩══════╝
+";
+
+            Assert.That(table.ToString(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void render_table_with_custom_border_and_headers()
+        {
+            Table table = new Table();
+            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+            table.DisplayColumnHeaders = true;
+            table.Columns.Add(new Column("One"));
+            table.Columns.Add(new Column("Two"));
+            table.Columns.Add(new Column("Three"));
+            table.AddRow(new[] { "one", "ichi", "eins" });
+            table.AddRow(new[] { "two", "ni", "zwei" });
+            table.AddRow(new[] { "three", "san", "drei" });
+
+            string expected =
+                @"╔═══════╦══════╦═══════╗
+║ One   ║ Two  ║ Three ║
+╠═══════╬══════╬═══════╣
+║ one   ║ ichi ║ eins  ║
+║ two   ║ ni   ║ zwei  ║
+║ three ║ san  ║ drei  ║
+╚═══════╩══════╩═══════╝
+";
+
+            Assert.That(table.ToString(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void render_table_with_custom_border_title_and_headers()
+        {
+            Table table = new Table();
+            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+            table.Title = new MultilineText("My Title");
+            table.DisplayColumnHeaders = true;
+            table.Columns.Add(new Column("One"));
+            table.Columns.Add(new Column("Two"));
+            table.Columns.Add(new Column("Three"));
+            table.AddRow(new[] { "one", "ichi", "eins" });
+            table.AddRow(new[] { "two", "ni", "zwei" });
+            table.AddRow(new[] { "three", "san", "drei" });
+
+            string expected =
+                @"╔══════════════════════╗
+║ My Title             ║
+╠═══════╦══════╦═══════╣
+║ One   ║ Two  ║ Three ║
+╠═══════╬══════╬═══════╣
+║ one   ║ ichi ║ eins  ║
+║ two   ║ ni   ║ zwei  ║
+║ three ║ san  ║ drei  ║
+╚═══════╩══════╩═══════╝
 ";
 
             Assert.That(table.ToString(), Is.EqualTo(expected));

@@ -28,19 +28,11 @@ namespace DustInTheWind.ConsoleTools
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLineError(string text)
+        public static void WriteError(string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = ErrorColor;
-            Console.WriteLine(text);
-            Console.ForegroundColor = oldColor;
-        }
-
-        public static void WriteLineError(object o)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = ErrorColor;
-            Console.WriteLine(o);
+            Console.Write(format, arg);
             Console.ForegroundColor = oldColor;
         }
 
@@ -49,6 +41,38 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = ErrorColor;
             Console.WriteLine(ex);
+            Console.ForegroundColor = oldColor;
+        }
+
+        public static void WriteError(object o)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(o);
+            Console.ForegroundColor = oldColor;
+        }
+
+        public static void WriteLineError(string text)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(text);
+            Console.ForegroundColor = oldColor;
+        }
+
+        public static void WriteLineError(string format, params object[] arg)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(format, arg);
+            Console.ForegroundColor = oldColor;
+        }
+
+        public static void WriteLineError(object o)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = ErrorColor;
+            Console.WriteLine(o);
             Console.ForegroundColor = oldColor;
         }
     }

@@ -32,33 +32,5 @@ namespace DustInTheWind.ConsoleTools
             Console.ReadKey(true);
             Console.WriteLine();
         }
-
-        /// <summary>
-        /// Displays a question to the user and wait for a char answer.
-        /// The answer is the char associated with the first key the user presses.
-        /// </summary>
-        /// <param name="question">The question to be displayed to the user.</param>
-        /// <returns>The answer received from the user.</returns>
-        public static char ReadChar(string question)
-        {
-            Console.Write(question);
-
-            ConsoleKeyInfo key = Console.ReadKey();
-            Console.WriteLine();
-
-            return key.KeyChar;
-        }
-
-        /// <summary>
-        /// Displays a question to the user and wait for a string answer.
-        /// The answer is finished with Enter.
-        /// </summary>
-        /// <param name="question">The question to be displayed to the user.</param>
-        /// <returns>The answer received from the user.</returns>
-        public static string QuestionString(string question)
-        {
-            Console.Write(question);
-            return Console.ReadLine();
-        }
     }
 }

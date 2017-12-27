@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,32 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    public class TextInputControl
+    public enum YesNoAnswer
     {
-        public string Separator { get; set; } = ":";
-        public int SpaceAfterLabel { get; set; } = 1;
-        public string DefaultValue { get; set; } = string.Empty;
-
-        public string Read(string label)
-        {
-            CustomConsole.WriteEmphasies(label);
-            CustomConsole.WriteEmphasies(Separator);
-
-            if (SpaceAfterLabel > 0)
-            {
-                string space = new string(' ', SpaceAfterLabel);
-                Console.Write(space);
-            }
-
-            string value = Console.ReadLine();
-
-            return string.IsNullOrEmpty(value)
-                ? DefaultValue
-                : value;
-        }
+        Cancel,
+        Yes,
+        No
     }
 }

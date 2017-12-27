@@ -15,15 +15,18 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
     internal class Program
     {
+        private static ConsoleTools.Prompter prompter;
+
         private static void Main()
         {
-            ConsoleTools.Prompter prompter = new ConsoleTools.Prompter();
+            prompter = new ConsoleTools.Prompter();
             prompter.NewCommand += ui_NewCommand;
 
             prompter.WaitForUserCommand();
@@ -36,52 +39,101 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
                 case "q":
                 case "quit":
                 case "exit":
-                    const string question = "Are you sure? [y/n] ";
-                    char answer = CustomConsole.ReadChar(question);
-                    if (answer == 'y')
-                    {
-                        CustomConsole.WriteLine();
-                        CustomConsole.WriteLine("Bye!");
-                        e.Exit = true;
-                    }
-                    else
-                    {
-                        CustomConsole.WriteLine();
-                    }
+                    e.Exit = AskToExit();
                     break;
 
                 case "help":
-                    CustomConsole.WriteLine("Valid commands: whales, help, q, quit, exit");
-                    CustomConsole.WriteLine();
+                    DisplayHelp();
 
                     break;
 
                 case "whale":
                 case "whales":
-                    Table table = new Table("Whales");
+                    DisplayWhales();
+                    break;
 
-                    table.Columns.Add(new Column("Name"));
-                    table.Columns.Add(new Column("Population"));
-                    table.Columns.Add(new Column("Weight"));
-
-                    table.DisplayColumnHeaders = true;
-
-                    table.AddRow(new[] { "Blue whale", "10,000-25,000", "50-150 tonnes" });
-                    table.AddRow(new[] { "Humpback whale", "80,000", "25–30 tonnes" });
-                    table.AddRow(new[] { "Killer whale", "100,000", "4.5 tonnes" });
-                    table.AddRow(new[] { "Beluga", "100,000", "1.5 tonnes" });
-                    table.AddRow(new[] { "Narwhal", "25,000", "900-1,500 kilograms" });
-                    table.AddRow(new[] { "Sperm whale", "200,000–2,000,000", "25–50 tonnes" });
-
-                    CustomConsole.WriteLine(table.ToString());
-                    CustomConsole.WriteLine();
+                case "prompter":
+                    ChangePrompter();
                     break;
 
                 default:
-                    CustomConsole.WriteLine("Unknown command: " + e.Command, ConsoleColor.DarkYellow);
-                    CustomConsole.WriteLine();
+                    HandleUnknownCommand(e);
                     break;
             }
+        }
+
+        private static bool AskToExit()
+        {
+            YesNoControl yesNoControl = new YesNoControl("Are you sure?")
+            {
+                DefaultOption = YesNoAnswer.Yes
+            };
+
+            YesNoAnswer answer = yesNoControl.ReadAnswer();
+
+            if (answer == YesNoAnswer.Yes)
+            {
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLine("Bye!");
+                return true;
+            }
+
+            CustomConsole.WriteLine();
+            return false;
+        }
+
+        private static void DisplayHelp()
+        {
+            CustomConsole.WriteLineEmphasies("Valid commands:");
+            CustomConsole.WriteLine();
+            
+            CustomConsole.WriteEmphasies("  - whale, whales   ");
+            CustomConsole.WriteLine("- Displays a table with whales.");
+
+            CustomConsole.WriteEmphasies("  - prompter        ");
+            CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
+
+            CustomConsole.WriteEmphasies("  - help            ");
+            CustomConsole.WriteLine("- Displays this help page");
+
+            CustomConsole.WriteEmphasies("  - quit, q, exit   ");
+            CustomConsole.WriteLine("- Exits the application.");
+
+            CustomConsole.WriteLine();
+        }
+
+        private static void DisplayWhales()
+        {
+            Table table = new Table("Whales");
+
+            table.Columns.Add(new Column("Name"));
+            table.Columns.Add(new Column("Population"));
+            table.Columns.Add(new Column("Weight"));
+
+            table.DisplayColumnHeaders = true;
+
+            table.AddRow(new[] { "Blue whale", "10,000-25,000", "50-150 tonnes" });
+            table.AddRow(new[] { "Humpback whale", "80,000", "25–30 tonnes" });
+            table.AddRow(new[] { "Killer whale", "100,000", "4.5 tonnes" });
+            table.AddRow(new[] { "Beluga", "100,000", "1.5 tonnes" });
+            table.AddRow(new[] { "Narwhal", "25,000", "900-1,500 kilograms" });
+            table.AddRow(new[] { "Sperm whale", "200,000–2,000,000", "25–50 tonnes" });
+
+            CustomConsole.WriteLine(table.ToString());
+            CustomConsole.WriteLine();
+        }
+
+        private static void ChangePrompter()
+        {
+            TextInputControl textInputControl = new TextInputControl();
+            string newPrompterText = textInputControl.Read("Prompter Text");
+            prompter.PrompterText = newPrompterText;
+        }
+
+        private static void HandleUnknownCommand(NewCommandEventArgs e)
+        {
+            CustomConsole.WriteLineError("Unknown command: " + e.Command, ConsoleColor.DarkYellow);
+            CustomConsole.WriteLine();
         }
     }
 }

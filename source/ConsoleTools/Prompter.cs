@@ -25,7 +25,13 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets the text displayed as a prompter.
         /// </summary>
-        public string PrompterText { get; } = "> ";
+        public string PrompterText { get; set; } = string.Empty;
+
+        public string PrompterArrow { get; set; } = ">";
+
+        public int LeftMargin { get; set; } = 0;
+
+        public int RightMargin { get; set; } = 1;
 
         /// <summary>
         /// Event raised when the user writes a new command at the console.
@@ -81,7 +87,24 @@ namespace DustInTheWind.ConsoleTools
             if (Console.CursorLeft != 0)
                 Console.WriteLine();
 
-            Console.Write(PrompterText);
+            if (LeftMargin > 0)
+            {
+                string leftMargin = new string(' ', LeftMargin);
+                Console.Write(leftMargin);
+            }
+
+            if (!string.IsNullOrEmpty(PrompterText))
+                Console.Write(PrompterText);
+
+            if (!string.IsNullOrEmpty(PrompterArrow))
+                Console.Write(PrompterArrow);
+
+            if (RightMargin > 0)
+            {
+                string rightMargin = new string(' ', RightMargin);
+                Console.Write(rightMargin);
+            }
+
             string commandText = Console.ReadLine();
             Console.WriteLine();
 

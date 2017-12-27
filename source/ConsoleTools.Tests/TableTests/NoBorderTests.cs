@@ -16,7 +16,6 @@
 
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace DustInTheWind.ConsoleTools.Tests.TableTests
 {
@@ -33,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @" one    ichi  eins 
+@" one    ichi  eins 
  two    ni    zwei 
  three  san   drei 
 ";
@@ -52,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @" My Title          
+@" My Title          
  one    ichi  eins 
  two    ni    zwei 
  three  san   drei 

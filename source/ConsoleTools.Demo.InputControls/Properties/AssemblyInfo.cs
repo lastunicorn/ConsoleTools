@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DustInTheWind.ConsoleTools.Demo.Menues")]
+[assembly: AssemblyTitle("DustInTheWind.ConsoleTools.Demo.InputControls")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("25d924e6-d62a-4f33-9ce4-2e09ba2a4fc2")]
+[assembly: Guid("61aa97af-a87a-4eb2-af78-cb4067c80704")]

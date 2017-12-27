@@ -16,7 +16,6 @@
 
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace DustInTheWind.ConsoleTools.Tests.TableTests
 {
@@ -33,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                    @"╔═══════╦══════╦══════╗
+@"╔═══════╦══════╦══════╗
 ║ one   ║ ichi ║ eins ║
 ║ two   ║ ni   ║ zwei ║
 ║ three ║ san  ║ drei ║
@@ -54,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @"╔═════════════════════╗
+@"╔═════════════════════╗
 ║ My Title            ║
 ╠═══════╦══════╦══════╣
 ║ one   ║ ichi ║ eins ║
@@ -80,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @"╔═══════╦══════╦═══════╗
+@"╔═══════╦══════╦═══════╗
 ║ One   ║ Two  ║ Three ║
 ╠═══════╬══════╬═══════╣
 ║ one   ║ ichi ║ eins  ║
@@ -107,7 +106,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-                @"╔══════════════════════╗
+@"╔══════════════════════╗
 ║ My Title             ║
 ╠═══════╦══════╦═══════╣
 ║ One   ║ Two  ║ Three ║

@@ -16,7 +16,6 @@
 
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
 
 namespace DustInTheWind.ConsoleTools.Tests.MultilineTextTests
 {

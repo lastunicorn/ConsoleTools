@@ -49,6 +49,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                     Console.SetCursorPosition(cursorLeft, cursorTop);
                     string emptyText = new string(' ', leftpart.Length);
                     Console.Write(emptyText);
+                    Console.SetCursorPosition(cursorLeft, cursorTop);
                     break;
                 }
 

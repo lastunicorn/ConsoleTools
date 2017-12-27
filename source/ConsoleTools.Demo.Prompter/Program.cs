@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.TabularData;
 
@@ -26,6 +27,14 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
         private static void Main()
         {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Prompter");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+
+            CustomConsole.WriteEmphasies("Note: ");
+            CustomConsole.WriteLine("type 'help' for a list of commands.");
+            CustomConsole.WriteLine();
+
             prompter = new ConsoleTools.Prompter();
             prompter.NewCommand += ui_NewCommand;
 
@@ -60,6 +69,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
                     HandleUnknownCommand(e);
                     break;
             }
+
+            CustomConsole.WriteLine();
         }
 
         private static bool AskToExit()
@@ -86,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
         {
             CustomConsole.WriteLineEmphasies("Valid commands:");
             CustomConsole.WriteLine();
-            
+
             CustomConsole.WriteEmphasies("  - whale, whales   ");
             CustomConsole.WriteLine("- Displays a table with whales.");
 
@@ -98,8 +109,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
             CustomConsole.WriteEmphasies("  - quit, q, exit   ");
             CustomConsole.WriteLine("- Exits the application.");
-
-            CustomConsole.WriteLine();
         }
 
         private static void DisplayWhales()
@@ -112,28 +121,74 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
             table.DisplayColumnHeaders = true;
 
-            table.AddRow(new[] { "Blue whale", "10,000-25,000", "50-150 tonnes" });
-            table.AddRow(new[] { "Humpback whale", "80,000", "25–30 tonnes" });
-            table.AddRow(new[] { "Killer whale", "100,000", "4.5 tonnes" });
-            table.AddRow(new[] { "Beluga", "100,000", "1.5 tonnes" });
-            table.AddRow(new[] { "Narwhal", "25,000", "900-1,500 kilograms" });
-            table.AddRow(new[] { "Sperm whale", "200,000–2,000,000", "25–50 tonnes" });
+            IEnumerable<Whale> whales = CreateWhales();
+
+            foreach (Whale whale in whales)
+            {
+                table.AddRow(new[]
+                {
+                  whale.Name,
+                  whale.Count,
+                  whale.Weight
+                });
+            }
 
             CustomConsole.WriteLine(table.ToString());
-            CustomConsole.WriteLine();
         }
 
         private static void ChangePrompter()
         {
             TextInputControl textInputControl = new TextInputControl();
-            string newPrompterText = textInputControl.Read("Prompter Text");
+            string newPrompterText = textInputControl.Read("New Prompter Text");
             prompter.PrompterText = newPrompterText;
         }
 
         private static void HandleUnknownCommand(NewCommandEventArgs e)
         {
             CustomConsole.WriteLineError("Unknown command: " + e.Command, ConsoleColor.DarkYellow);
-            CustomConsole.WriteLine();
+        }
+
+        private static IEnumerable<Whale> CreateWhales()
+        {
+            return new List<Whale>
+            {
+                new Whale
+                {
+                    Name = "Blue whale",
+                    Count = "10,000-25,000",
+                    Weight = "50-150 tonnes"
+                },
+                new Whale
+                {
+                    Name = "Humpback whale",
+                    Count = "80,000",
+                    Weight = "25–30 tonnes"
+                },
+                new Whale
+                {
+                    Name = "Killer whale",
+                    Count = "100,000",
+                    Weight = "4.5 tonnes"
+                },
+                new Whale
+                {
+                    Name = "Beluga",
+                    Count = "100,000",
+                    Weight = "1.5 tonnes"
+                },
+                new Whale
+                {
+                    Name = "Narwhal",
+                    Count = "25,000",
+                    Weight = "900-1,500 kilograms"
+                },
+                new Whale
+                {
+                    Name = "Sperm whale",
+                    Count = "200,000–2,000,000",
+                    Weight = "25–50 tonnes"
+                }
+            };
         }
     }
 }

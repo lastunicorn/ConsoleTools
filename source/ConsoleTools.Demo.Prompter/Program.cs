@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             prompter = new ConsoleTools.Prompter();
             prompter.NewCommand += ui_NewCommand;
 
-            prompter.WaitForUserCommand();
+            prompter.Run();
         }
 
         private static void ui_NewCommand(object sender, NewCommandEventArgs e)

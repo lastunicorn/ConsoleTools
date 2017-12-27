@@ -20,18 +20,22 @@ namespace DustInTheWind.ConsoleTools
 {
     public class Prompter
     {
-        private volatile bool exitWasRequested;
+        private volatile bool stopWasRequested;
 
         /// <summary>
-        /// Gets the text displayed as a prompter.
+        /// Gets or sets the text displayed in the prompter.
         /// </summary>
-        public string PrompterText { get; set; } = string.Empty;
+        public string PrompterText { get; set; }
 
-        public string PrompterArrow { get; set; } = ">";
+        /// <summary>
+        /// Gets or sets the glyph displayed after the prompter text.
+        /// </summary>
+        public string PrompterGlyph { get; set; } = ">";
 
-        public int LeftMargin { get; set; } = 0;
+        public int SpaceBeforePrompter { get; set; } = 0;
+        public int SpaceAfterPrompter { get; set; } = 1;
 
-        public int RightMargin { get; set; } = 1;
+        public bool EnsureBeginOfLine { get; set; } = true;
 
         /// <summary>
         /// Event raised when the user writes a new command at the console.
@@ -39,9 +43,9 @@ namespace DustInTheWind.ConsoleTools
         public event EventHandler<NewCommandEventArgs> NewCommand;
 
         /// <summary>
-        /// Raises the NewCommand event.
+        /// Raises the <see cref="NewCommand"/> event.
         /// </summary>
-        /// <param name="e">An NewCommandEventArgs that contains the event data.</param>
+        /// <param name="e">An <see cref="NewCommandEventArgs"/> that contains the event data.</param>
         public void OnNewCommand(NewCommandEventArgs e)
         {
             NewCommand?.Invoke(null, e);
@@ -49,61 +53,39 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Continously read from the console new commands.
-        /// After a command is obtained from the console, the NewCommand event is raised.
-        /// The infinite loop that reads commands can be stopped only by setting the Exit property
-        /// of the NewCommandEventArgs object received in the callback method of the NewCommand event.
+        /// After a command is obtained from the console, the <see cref="NewCommand"/> event is raised.
+        /// The infinite loop that reads commands can be stopped only by setting the Exit property in the
+        /// <see cref="NewCommand"/> event or by calling the <see cref="RequestStop"/> method.
         /// </summary>
-        public void WaitForUserCommand()
+        public void Run()
         {
-            exitWasRequested = false;
+            stopWasRequested = false;
 
             do
             {
-                UserCommand command = GetUserCommand();
+                DisplayWholePrompter();
 
-                NewCommandEventArgs eva = new NewCommandEventArgs(command);
+                string commandText = Console.ReadLine();
+                Console.WriteLine();
+
+                UserCommand command = UserCommand.Parse(commandText);
 
                 try
                 {
+                    NewCommandEventArgs eva = new NewCommandEventArgs(command);
                     OnNewCommand(eva);
 
                     if (eva.Exit)
-                        exitWasRequested = true;
+                        stopWasRequested = true;
                 }
                 catch { }
             }
-            while (!exitWasRequested);
+            while (!stopWasRequested);
         }
 
-        /// <summary>
-        /// Displays a prompter and invites the user to type a command.
-        /// The command is finished with an Enter.
-        /// Observation! The current thread is blocked until the user finishes to type the command.
-        /// </summary>
-        /// <returns>The command typed by the user.</returns>
-        private UserCommand GetUserCommand()
+        public UserCommand RunOnce()
         {
-            // Check if the cursor is at the begining of the line.
-            if (Console.CursorLeft != 0)
-                Console.WriteLine();
-
-            if (LeftMargin > 0)
-            {
-                string leftMargin = new string(' ', LeftMargin);
-                Console.Write(leftMargin);
-            }
-
-            if (!string.IsNullOrEmpty(PrompterText))
-                Console.Write(PrompterText);
-
-            if (!string.IsNullOrEmpty(PrompterArrow))
-                Console.Write(PrompterArrow);
-
-            if (RightMargin > 0)
-            {
-                string rightMargin = new string(' ', RightMargin);
-                Console.Write(rightMargin);
-            }
+            DisplayWholePrompter();
 
             string commandText = Console.ReadLine();
             Console.WriteLine();
@@ -111,12 +93,38 @@ namespace DustInTheWind.ConsoleTools
             return UserCommand.Parse(commandText);
         }
 
-        /// <summary>
-        /// Sets the exit flag. The Prompter's loop will exit next time when it checks the exit flag.
-        /// </summary>
-        public void RequestExit()
+        protected virtual void DisplayWholePrompter()
         {
-            exitWasRequested = true;
+            // Move the cursor at the beginning of a new line if necessary.
+            if (EnsureBeginOfLine && Console.CursorLeft != 0)
+                Console.WriteLine();
+
+            if (SpaceBeforePrompter > 0)
+            {
+                string leftMargin = new string(' ', SpaceBeforePrompter);
+                Console.Write(leftMargin);
+            }
+
+            if (!string.IsNullOrEmpty(PrompterText))
+                Console.Write(PrompterText);
+
+            if (!string.IsNullOrEmpty(PrompterGlyph))
+                Console.Write(PrompterGlyph);
+
+            if (SpaceAfterPrompter > 0)
+            {
+                string rightMargin = new string(' ', SpaceAfterPrompter);
+                Console.Write(rightMargin);
+            }
+        }
+
+        /// <summary>
+        /// Sets the stop flag.
+        /// The Prompter's loop will exit next time when it checks the stop flag.
+        /// </summary>
+        public void RequestStop()
+        {
+            stopWasRequested = true;
         }
     }
 }

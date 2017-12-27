@@ -20,7 +20,8 @@ ListOutputControl
 - Customizable items indentation.
 
 QuestionControl
-- Displays a question and waits for an answer from the user. Can read a string, char, int, long answer.
+- Displays a question and waits for an answer from the user.
+- Can read string, char, int, long.
 
 TextInputControl
 TextOutputControl
@@ -47,6 +48,11 @@ CustomConsole Write
 --------------------------------------------------------------------------------
 
 Prompter
+- Displays a prompter text and expects the user to write a command.
+- Customizable prompter text.
+- Customizable prompter glyph.
+- Customizable space before and after the prompter.
+- EnsureBeginOfLine - If the curson is not at the begin of the line, the prompter is displayed on the next line.
 
 --------------------------------------------------------------------------------
 

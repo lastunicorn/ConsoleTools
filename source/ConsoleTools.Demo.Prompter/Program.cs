@@ -14,10 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Demo.Prompter.Controllers;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
@@ -35,160 +32,47 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             CustomConsole.WriteLine("type 'help' for a list of commands.");
             CustomConsole.WriteLine();
 
+            StartDemo();
+        }
+
+        private static void StartDemo()
+        {
             prompter = new ConsoleTools.Prompter();
-            prompter.NewCommand += ui_NewCommand;
+            prompter.NewCommand += HandleNewCommand;
 
             prompter.Run();
         }
 
-        private static void ui_NewCommand(object sender, NewCommandEventArgs e)
+        private static void HandleNewCommand(object sender, NewCommandEventArgs e)
         {
-            switch (e.Command.Name)
+            IController controller = CreateController(e.Command);
+
+            controller.Execute();
+            CustomConsole.WriteLine();
+        }
+
+        private static IController CreateController(UserCommand command)
+        {
+            switch (command.Name)
             {
                 case "q":
                 case "quit":
                 case "exit":
-                    e.Exit = AskToExit();
-                    break;
+                    return new ExitController(prompter);
 
                 case "help":
-                    DisplayHelp();
-
-                    break;
+                    return new HelpController();
 
                 case "whale":
                 case "whales":
-                    DisplayWhales();
-                    break;
+                    return new WhaleController();
 
                 case "prompter":
-                    ChangePrompter();
-                    break;
+                    return new PrompterController(prompter);
 
                 default:
-                    HandleUnknownCommand(e);
-                    break;
+                    return new UnknownCommandController(command);
             }
-
-            CustomConsole.WriteLine();
-        }
-
-        private static bool AskToExit()
-        {
-            YesNoControl yesNoControl = new YesNoControl("Are you sure?")
-            {
-                DefaultOption = YesNoAnswer.Yes
-            };
-
-            YesNoAnswer answer = yesNoControl.ReadAnswer();
-
-            if (answer == YesNoAnswer.Yes)
-            {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("Bye!");
-                return true;
-            }
-
-            CustomConsole.WriteLine();
-            return false;
-        }
-
-        private static void DisplayHelp()
-        {
-            CustomConsole.WriteLineEmphasies("Valid commands:");
-            CustomConsole.WriteLine();
-
-            CustomConsole.WriteEmphasies("  - whale, whales   ");
-            CustomConsole.WriteLine("- Displays a table with whales.");
-
-            CustomConsole.WriteEmphasies("  - prompter        ");
-            CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
-
-            CustomConsole.WriteEmphasies("  - help            ");
-            CustomConsole.WriteLine("- Displays this help page");
-
-            CustomConsole.WriteEmphasies("  - quit, q, exit   ");
-            CustomConsole.WriteLine("- Exits the application.");
-        }
-
-        private static void DisplayWhales()
-        {
-            Table table = new Table("Whales");
-
-            table.Columns.Add(new Column("Name"));
-            table.Columns.Add(new Column("Population"));
-            table.Columns.Add(new Column("Weight"));
-
-            table.DisplayColumnHeaders = true;
-
-            IEnumerable<Whale> whales = CreateWhales();
-
-            foreach (Whale whale in whales)
-            {
-                table.AddRow(new[]
-                {
-                  whale.Name,
-                  whale.Count,
-                  whale.Weight
-                });
-            }
-
-            CustomConsole.WriteLine(table.ToString());
-        }
-
-        private static void ChangePrompter()
-        {
-            TextInputControl textInputControl = new TextInputControl();
-            string newPrompterText = textInputControl.Read("New Prompter Text");
-            prompter.PrompterText = newPrompterText;
-        }
-
-        private static void HandleUnknownCommand(NewCommandEventArgs e)
-        {
-            CustomConsole.WriteLineError("Unknown command: " + e.Command, ConsoleColor.DarkYellow);
-        }
-
-        private static IEnumerable<Whale> CreateWhales()
-        {
-            return new List<Whale>
-            {
-                new Whale
-                {
-                    Name = "Blue whale",
-                    Count = "10,000-25,000",
-                    Weight = "50-150 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Humpback whale",
-                    Count = "80,000",
-                    Weight = "25–30 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Killer whale",
-                    Count = "100,000",
-                    Weight = "4.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Beluga",
-                    Count = "100,000",
-                    Weight = "1.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Narwhal",
-                    Count = "25,000",
-                    Weight = "900-1,500 kilograms"
-                },
-                new Whale
-                {
-                    Name = "Sperm whale",
-                    Count = "200,000–2,000,000",
-                    Weight = "25–50 tonnes"
-                }
-            };
         }
     }
 }

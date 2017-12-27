@@ -48,7 +48,8 @@ CustomConsole Write
 --------------------------------------------------------------------------------
 
 Prompter
-- Displays a prompter text and expects the user to write a command.
+- Displays a prompter and waits for the user to write a command.
+- Can run once, to read a single command and then stop or cand run in a loop, to read commands until a stop 
 - Customizable prompter text.
 - Customizable prompter glyph.
 - Customizable space before and after the prompter.

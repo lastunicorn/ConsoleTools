@@ -38,6 +38,11 @@ ProgressSpinner
 --------------------------------------------------------------------------------
 
 Table
+- Displays tabular data on columns and rows.
+- Optional table title.
+- Optional column headers.
+- Optional border.
+- Three types of borders: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
 
 ConsoleReader
 

@@ -94,7 +94,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         {
             Table table = new Table
             {
-                Title = new MultilineText("My Title")
+                Title = "My Title"
             };
 
             table.AddRow(new[] { "123", "qwe", "one two" });
@@ -118,7 +118,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void TestColumnHorizontalAlign()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
+            table.Title = "My Title";
+            table.DisplayColumnHeaders = false;
 
             Column col = new Column("Col1");
             col.HorizontalAlignment = HorizontalAlignment.Right;
@@ -151,7 +152,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void TestCellHorizontalAlign2()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
+            table.Title = "My Title";
 
             table.AddRow(new[] { "1234567", "123456", "one two" });
             table.AddRow(new[] { new Cell("1", HorizontalAlignment.Center), new Cell("asd", HorizontalAlignment.Center), new Cell("asas") });

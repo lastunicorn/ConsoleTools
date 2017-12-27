@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void render_simple_table_with_custom_border()
         {
             Table table = new Table();
-            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+            table.Border = TableBorder.DoubleLineBorder;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -46,8 +46,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void render_table_with_custom_border_and_title()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
-            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+            table.Title = "My Title";
+            table.Border = TableBorder.DoubleLineBorder;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void render_table_with_custom_border_and_headers()
         {
             Table table = new Table();
-            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+            table.Border = TableBorder.DoubleLineBorder;
             table.DisplayColumnHeaders = true;
             table.Columns.Add(new Column("One"));
             table.Columns.Add(new Column("Two"));
@@ -95,8 +95,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void render_table_with_custom_border_title_and_headers()
         {
             Table table = new Table();
-            table.Border = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
-            table.Title = new MultilineText("My Title");
+            table.Border = TableBorder.DoubleLineBorder;
+            table.Title = "My Title";
             table.DisplayColumnHeaders = true;
             table.Columns.Add(new Column("One"));
             table.Columns.Add(new Column("Two"));

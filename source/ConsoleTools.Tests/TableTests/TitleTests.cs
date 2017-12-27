@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
@@ -26,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void title_is_shorter_than_row()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
+            table.Title = "My Title";
             table.AddRow(new[] { "asd", "qwe", "zxczxc" });
 
             string actual = table.ToString();
@@ -45,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void title_is_longer_than_row()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title My Title My Title My Title");
+            table.Title = "My Title My Title My Title My Title";
             table.AddRow(new[] { "asd", "qwe", "zxczxc" });
 
             string expected =
@@ -63,10 +64,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void multiline_title()
         {
             Table table = new Table();
-            table.Title = new MultilineText(@"My Title1
-My Title2
-My Title3
-My Title4");
+            table.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };
             table.AddRow(new[] { "asd", "qwe", "zxczxc" });
 
             string expected =

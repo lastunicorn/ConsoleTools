@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -32,12 +31,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the padding applyed to the left side of every cell.
         /// </summary>
-        public int PaddingLeft { get; set; }
+        public int PaddingLeft { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the padding applyed to the right side of every cell.
         /// </summary>
-        public int PaddingRight { get; set; }
+        public int PaddingRight { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the padding applyed to the right and left side of every cell.
@@ -52,12 +51,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets a value that specifies if border lines should be drawn between rows.
         /// </summary>
-        public bool DrawLinesBetweenRows { get; set; }
+        public bool DrawLinesBetweenRows { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
+        public HorizontalAlignment HorizontalAlignment { get; set; } = DefaultHorizontalAlignment;
 
         /// <summary>
         /// Gets the list of columns contained by the current table.
@@ -87,7 +86,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets a value that specifies if thew column headers are displayed.
         /// </summary>
-        public bool DisplayColumnHeaders { get; set; }
+        public bool DisplayColumnHeaders { get; set; } = true;
 
         /// <summary>
         /// Gets the row at the specified index.
@@ -107,20 +106,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets a value that specifies if the borders are visible.
         /// </summary>
-        public bool DisplayBorder { get; set; }
+        public bool DisplayBorder { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the table borders.
         /// </summary>
-        public TableBorder Border { get; set; }
+        public TableBorder Border { get; set; } = TableBorder.PlusMinusBorder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
         /// </summary>
         public Table()
-            : this(MultilineText.Empty)
         {
-
+            Title = MultilineText.Empty;
         }
 
         /// <summary>
@@ -128,8 +126,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// the table title.
         /// </summary>
         public Table(string title)
-            : this(new MultilineText(title))
         {
+            Title = (title == null)
+                ? MultilineText.Empty
+                : new MultilineText(title);
         }
 
         /// <summary>
@@ -139,15 +139,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public Table(MultilineText title)
         {
             Title = title ?? MultilineText.Empty;
-
-            HorizontalAlignment = DefaultHorizontalAlignment;
-            DrawLinesBetweenRows = false;
-            DisplayColumnHeaders = false;
-            PaddingLeft = 1;
-            PaddingRight = 1;
-
-            DisplayBorder = true;
-            Border = new TableBorder("+-+|+-+|+++++|-");
         }
 
         /// <summary>
@@ -216,25 +207,27 @@ namespace DustInTheWind.ConsoleTools.TabularData
             };
             dimensions.CalculateTableDimensions();
 
-            string rowSeparator = GetRowSeparatorBorder(dimensions);
+            string rowSeparator = Border.GenerateDataRowSeparatorBorder(dimensions);
 
-            DrawTableTitle(tablePrinter, dimensions);
-            DrawColumnHeaders(tablePrinter, dimensions, rowSeparator);
-            DrawRows(tablePrinter, dimensions, rowSeparator);
+            DrawTableTitleRow(tablePrinter, dimensions);
+            DrawColumnHeadersRow(tablePrinter, dimensions, rowSeparator);
+            DrawDataRows(tablePrinter, dimensions, rowSeparator);
         }
 
-        private void DrawTableTitle(ITablePrinter tablePrinter, TableDimensions dimensions)
+        private void DrawTableTitleRow(ITablePrinter tablePrinter, TableDimensions dimensions)
         {
-            if (Title.Size.Height > 0)
+            bool existsTitle = Title.Size.Height > 0;
+
+            if (existsTitle)
             {
                 // Write top border
                 if (DisplayBorder)
                 {
-                    string titleTopBorder = GetTitleTopBorder(dimensions);
+                    string titleTopBorder = Border.GenerateTitleTopBorder(dimensions);
                     tablePrinter.WriteLineBorder(titleTopBorder);
                 }
 
-                int cellInnerWidth = dimensions.CalculatedWidth - PaddingLeft - PaddingRight;
+                int cellInnerWidth = dimensions.CalculatedTotalWidth - PaddingLeft - PaddingRight;
 
                 if (DisplayBorder)
                     cellInnerWidth -= 2;
@@ -260,27 +253,48 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 // Write bottom border <=> header top border
                 if (DisplayBorder)
                 {
-                    string titleRowSeparator = GetTitleRowSeparator(dimensions);
-                    tablePrinter.WriteLineBorder(titleRowSeparator);
+                    if (Columns.Count > 0 && DisplayColumnHeaders)
+                    {
+                        string border = Border.GenerateTitleHeaderSeparator(dimensions);
+                        tablePrinter.WriteLineBorder(border);
+                    }
+                    else if (rows.Count > 0)
+                    {
+                        string border = Border.GenerateTitleDataSeparator(dimensions);
+                        tablePrinter.WriteLineBorder(border);
+                    }
+                    else
+                    {
+                        string border = Border.GenerateTitleBottomBorder(dimensions);
+                        tablePrinter.WriteLineBorder(border);
+                    }
                 }
             }
             else
             {
                 if (DisplayBorder)
                 {
-                    string rowTopBorder = GetRowTopBorder(dimensions);
-                    tablePrinter.WriteLineBorder(rowTopBorder);
+                    if (Columns.Count > 0 && DisplayColumnHeaders)
+                    {
+                        string border = Border.GenerateHeaderTopBorder(dimensions);
+                        tablePrinter.WriteLineBorder(border);
+                    }
+                    else if (rows.Count > 0)
+                    {
+                        string border = Border.GenerateDataRowTopBorder(dimensions);
+                        tablePrinter.WriteLineBorder(border);
+                    }
                 }
             }
         }
 
-        private void DrawColumnHeaders(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
+        private void DrawColumnHeadersRow(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
         {
-            if (!DisplayColumnHeaders || dimensions.CalculatedHeaderHeight == 0)
+            if (!DisplayColumnHeaders || dimensions.CalculatedHeaderRowHeight == 0)
                 return;
 
             // Write header cells
-            for (int headerLineIndex = 0; headerLineIndex < dimensions.CalculatedHeaderHeight; headerLineIndex++)
+            for (int headerLineIndex = 0; headerLineIndex < dimensions.CalculatedHeaderRowHeight; headerLineIndex++)
             {
                 if (DisplayBorder)
                     tablePrinter.WriteBorder(Border.Left);
@@ -306,7 +320,17 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             // Write bottom border <=> first row top border
             if (DisplayBorder)
-                tablePrinter.WriteLineBorder(rowSeparator);
+            {
+                if (RowCount == 0)
+                {
+                    string border = Border.GenerateHeaderBottomBorder(dimensions);
+                    tablePrinter.WriteLineBorder(border);
+                }
+                else
+                {
+                    tablePrinter.WriteLineBorder(rowSeparator);
+                }
+            }
         }
 
         private string BuildHeaderContent(TableDimensions dimensions, int columnIndex, int headerLineIndex)
@@ -326,8 +350,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             switch (alignment)
             {
                 default:
-                case HorizontalAlignment.Default:
-                case HorizontalAlignment.Left:
                     innerContent = column.Header.Lines[headerLineIndex].PadRight(cellInnerWidth, ' ');
                     break;
 
@@ -365,7 +387,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return alignment;
         }
 
-        private void DrawRows(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
+        private void DrawDataRows(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
         {
             for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
@@ -408,7 +430,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     }
                     else
                     {
-                        string rowBottomBorder = GetRowBottomBorder(dimensions);
+                        string rowBottomBorder = Border.GenerateDataRowBottomBorder(dimensions);
                         tablePrinter.WriteLineBorder(rowBottomBorder);
                     }
                 }
@@ -427,8 +449,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             switch (alignment)
             {
                 default:
-                case HorizontalAlignment.Default:
-                case HorizontalAlignment.Left:
                     innerContent = cell.Content.Lines[rowLineIndex].PadRight(cellInnerWidth, ' ');
                     break;
 
@@ -479,107 +499,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
 
             return alignment;
-        }
-
-        private string GetTitleTopBorder(TableDimensions tableDimensions)
-        {
-            StringBuilder value = new StringBuilder();
-
-            value.Append(Border.TopLeft);
-            value.Append(string.Empty.PadRight(tableDimensions.CalculatedWidth - 2, Border.Top));
-            value.Append(Border.TopRight);
-
-            return value.ToString();
-        }
-
-        private string GetTitleRowSeparator(TableDimensions tableDimensions)
-        {
-            StringBuilder value = new StringBuilder();
-
-            value.Append(Border.LeftIntersection);
-
-            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
-            {
-                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                value.Append(string.Empty.PadRight(columnWidth, Border.Top));
-
-                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
-                    ? Border.TopIntersection
-                    : Border.RightIntersection;
-
-                value.Append(columnBorderRight);
-            }
-
-            return value.ToString();
-        }
-
-        /// <summary>
-        /// Returns the line border between two rows.
-        /// </summary>
-        /// <param name="tableDimensions">The <see cref="TableDimensions"/> instance used to create the border line.</param>
-        /// <returns>The line border between two rows</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private string GetRowSeparatorBorder(TableDimensions tableDimensions)
-        {
-            StringBuilder value = new StringBuilder();
-
-            value.Append(Border.LeftIntersection);
-
-            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
-            {
-                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                value.Append(string.Empty.PadRight(columnWidth, Border.Horizontal));
-
-                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
-                    ? Border.MiddleIntersection
-                    : Border.RightIntersection;
-
-                value.Append(columnBorderRight);
-            }
-
-            return value.ToString();
-        }
-
-        private string GetRowTopBorder(TableDimensions tableDimensions)
-        {
-            StringBuilder value = new StringBuilder();
-
-            value.Append(Border.TopLeft);
-
-            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
-            {
-                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                value.Append(string.Empty.PadRight(columnWidth, Border.Top));
-
-                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
-                    ? Border.TopIntersection
-                    : Border.TopRight;
-
-                value.Append(columnBorderRight);
-            }
-
-            return value.ToString();
-        }
-
-        private string GetRowBottomBorder(TableDimensions tableDimensions)
-        {
-            StringBuilder value = new StringBuilder();
-
-            value.Append(Border.BottomLeft);
-
-            for (int columnIndex = 0; columnIndex < tableDimensions.CalculatedColumnsWidth.Count; columnIndex++)
-            {
-                int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                value.Append(string.Empty.PadRight(columnWidth, Border.Bottom));
-
-                char columnBorderRight = columnIndex < tableDimensions.CalculatedColumnsWidth.Count - 1
-                    ? Border.BottomIntersection
-                    : Border.BottomRight;
-
-                value.Append(columnBorderRight);
-            }
-
-            return value.ToString();
         }
 
         public void SetCellAlignment(int rowIndex, int columnIndex, HorizontalAlignment alignment)

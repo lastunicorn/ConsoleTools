@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void TestMultilineCellContent()
         {
             Table table = new Table();
-            table.Title = new MultilineText(@"My Title");
+            table.Title = "My Title";
             table.AddRow(new[] { "asd\nas", "qwe", "zxczxc\nasas\nerrr r r" });
 
             string expected =

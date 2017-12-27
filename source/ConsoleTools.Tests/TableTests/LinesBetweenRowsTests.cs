@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void three_rows_without_lines_between_them()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
+            table.Title = "My Title";
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void three_rows_with_lines_between_them()
         {
             Table table = new Table();
-            table.Title = new MultilineText("My Title");
+            table.Title = "My Title";
             table.DrawLinesBetweenRows = true;
 
             table.AddRow(new[] { "one", "ichi", "eins" });

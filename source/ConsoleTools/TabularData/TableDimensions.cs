@@ -14,15 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
     /// Represents the dimensions of a table displayed in text mode.
     /// </summary>
-    internal class TableDimensions
+    public class TableDimensions
     {
+        #region Input data
+
         /// <summary>
         /// Gets or sets the minimum width of the table.
         /// </summary>
@@ -63,25 +67,37 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public List<Row> Rows { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width of the table.
-        /// </summary>
-        public int CalculatedWidth { get; private set; }
+        #endregion
+
+        #region Calculated Data
+
+        public int CalculatedTitleRowWidth { get; private set; }
 
         /// <summary>
-        /// Gets or sets the height of the header.
+        /// Gets the total width of the table calculated by the current instance.
         /// </summary>
-        public int CalculatedHeaderHeight { get; private set; }
+        public int CalculatedTotalWidth { get; private set; }
 
         /// <summary>
-        /// Gets a list containing the widths of the columns.
+        /// Gets the height of the header calculated by the current instance.
+        /// </summary>
+        public int CalculatedHeaderRowHeight { get; private set; }
+
+        public int CalculatedHeaderRowWidth { get; private set; }
+
+        /// <summary>
+        /// Gets a list containing the calculated widths of the columns.
         /// </summary>
         public List<int> CalculatedColumnsWidth { get; } = new List<int>();
 
         /// <summary>
-        /// Gets a list containing the heights of the rows.
+        /// Gets a list containing the calculated heights of the rows.
         /// </summary>
         public List<int> CalculatedRowsHeight { get; } = new List<int>();
+
+        private int longestDataRowWidth;
+
+        #endregion
 
         /// <summary>
         /// Calculates and returns the dimensions of the current instance of the <see cref="Table"/> displayed in text mode.
@@ -89,91 +105,124 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <returns>The dimensions of the current instance of the <see cref="Table"/> displayed in text mode.</returns>
         public void CalculateTableDimensions()
         {
-            CalculatedWidth = MinWidth > 0 ? MinWidth : 0;
+            ClearAll();
 
-            int longRowWidth = 0;
+            CalculateTitleRowDimensions();
+            CalculateHeaderRowDimensions();
 
-            // Calculate table title row width.
+            if (Rows.Count > 0)
+                CalculateDataRowsDimensions();
 
-            int titleRowWidth = 0;
+            CalculateTotalWidth();
+
+            InflateColumnWidthIfNeeded();
+        }
+
+        private void ClearAll()
+        {
+            CalculatedTotalWidth = 0;
+
+            CalculatedTitleRowWidth = 0;
+
+            CalculatedHeaderRowHeight = 0;
+            CalculatedHeaderRowWidth = 0;
+
+            CalculatedColumnsWidth.Clear();
+            CalculatedRowsHeight.Clear();
+
+            longestDataRowWidth = 0;
+        }
+
+        private void CalculateTotalWidth()
+        {
+            if (CalculatedTotalWidth < MinWidth)
+                CalculatedTotalWidth = MinWidth;
+
+            if (CalculatedTotalWidth < CalculatedTitleRowWidth)
+                CalculatedTotalWidth = CalculatedTitleRowWidth;
+
+            if (CalculatedTotalWidth < CalculatedHeaderRowWidth)
+                CalculatedTotalWidth = CalculatedHeaderRowWidth;
+
+            if (CalculatedTotalWidth < longestDataRowWidth)
+                CalculatedTotalWidth = longestDataRowWidth;
+        }
+
+        private void CalculateTitleRowDimensions()
+        {
+            if (Title == null || Title.Size.Height == 0)
+                return;
 
             if (DisplayBorder)
-                titleRowWidth += 1;
+                CalculatedTitleRowWidth += 1;
 
-            titleRowWidth += PaddingLeft;
+            CalculatedTitleRowWidth += PaddingLeft;
 
             if (Title != null)
-                titleRowWidth += Title.Size.Width;
+                CalculatedTitleRowWidth += Title.Size.Width;
 
-            titleRowWidth += PaddingRight;
+            CalculatedTitleRowWidth += PaddingRight;
 
             if (DisplayBorder)
-                titleRowWidth += 1;
+                CalculatedTitleRowWidth += 1;
+        }
 
+        private void CalculateHeaderRowDimensions()
+        {
+            if (Columns.Count <= 0 || !DisplayColumnHeaders)
+                return;
 
-            if (CalculatedWidth < titleRowWidth)
-                CalculatedWidth = titleRowWidth;
+            // The table left border
+            if (DisplayBorder)
+                CalculatedHeaderRowWidth += 1;
 
-            // Calculate the header dimensions.
-
-            if (DisplayColumnHeaders)
+            for (int i = 0; i < Columns.Count; i++)
             {
-                int headerRowWidth = 0;
-                int headerRowHeight = 0;
+                Column column = Columns[i];
 
-                // The table left border
-                if (DisplayBorder)
-                    headerRowWidth += 1;
+                CalculatedColumnsWidth.Add(0);
 
-                for (int i = 0; i < Columns.Count; i++)
+                int cellWidth;
+                int cellHeight;
+
+                if (column.Header != null)
                 {
-                    Column column = Columns[i];
-
-                    CalculatedColumnsWidth.Add(0);
-
-                    int cellWidth;
-                    int cellHeight;
-
-                    if (column.Header != null)
-                    {
-                        cellWidth = PaddingLeft + column.Header.Size.Width + PaddingRight;
-                        cellHeight = column.Header.Size.Height;
-                    }
-                    else
-                    {
-                        cellWidth = PaddingLeft + PaddingRight;
-                        cellHeight = 0;
-                    }
-
-                    if (CalculatedColumnsWidth[i] < cellWidth)
-                    {
-                        CalculatedColumnsWidth[i] = cellWidth;
-                        headerRowWidth += cellWidth;
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            headerRowWidth += 1;
-                    }
-                    else
-                    {
-                        headerRowWidth += CalculatedColumnsWidth[i] + 1; // The cell width + cell right border
-                    }
-
-                    if (headerRowHeight < cellHeight)
-                        headerRowHeight = cellHeight;
+                    cellWidth = PaddingLeft + column.Header.Size.Width + PaddingRight;
+                    cellHeight = column.Header.Size.Height;
+                }
+                else
+                {
+                    cellWidth = PaddingLeft + PaddingRight;
+                    cellHeight = 0;
                 }
 
-                CalculatedHeaderHeight = headerRowHeight;
+                if (CalculatedColumnsWidth[i] < cellWidth)
+                {
+                    CalculatedColumnsWidth[i] = cellWidth;
+                    CalculatedHeaderRowWidth += cellWidth;
 
-                if (longRowWidth < headerRowWidth) longRowWidth = headerRowWidth;
+                    // The cell right border
+                    if (DisplayBorder)
+                        CalculatedHeaderRowWidth += 1;
+                }
+                else
+                {
+                    CalculatedHeaderRowWidth += CalculatedColumnsWidth[i];
+
+                    // The cell right border
+                    if (DisplayBorder)
+                        CalculatedHeaderRowWidth += 1;
+                }
+
+                if (CalculatedHeaderRowHeight < cellHeight)
+                    CalculatedHeaderRowHeight = cellHeight;
             }
+        }
 
-            //
-
-            for (int i = 0; i < Rows.Count; i++)
+        private void CalculateDataRowsDimensions()
+        {
+            foreach (Row row in Rows)
             {
-                Row row = Rows[i];
-
                 int rowWidth = 0;
                 int rowHeight = 0;
 
@@ -226,17 +275,23 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                 CalculatedRowsHeight.Add(rowHeight);
 
-                if (longRowWidth < rowWidth)
-                    longRowWidth = rowWidth;
+                if (longestDataRowWidth < rowWidth)
+                    longestDataRowWidth = rowWidth;
             }
+        }
 
-            if (CalculatedWidth < longRowWidth)
+        private void InflateColumnWidthIfNeeded()
+        {
+            if (CalculatedColumnsWidth.Count == 0)
+                return;
+
+            int columnsTotalWidth = CalculatedColumnsWidth.Sum();
+            if (DisplayBorder)
+                columnsTotalWidth += CalculatedColumnsWidth.Count + 1;
+
+            if (columnsTotalWidth < CalculatedTotalWidth)
             {
-                CalculatedWidth = longRowWidth;
-            }
-            else if (CalculatedWidth > longRowWidth)
-            {
-                int diff = CalculatedWidth - longRowWidth;
+                int diff = CalculatedTotalWidth - columnsTotalWidth;
                 int colCount = CalculatedColumnsWidth.Count;
 
                 for (int i = 0; i < diff; i++)

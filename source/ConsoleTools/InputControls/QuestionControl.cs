@@ -21,12 +21,6 @@ namespace DustInTheWind.ConsoleTools.InputControls
     public class QuestionControl
     {
         public int SpaceAfterQuestion { get; set; } = 1;
-        public string QuestionText { get; set; }
-
-        public QuestionControl(string questionText)
-        {
-            QuestionText = questionText;
-        }
 
         /// <summary>
         /// Displays the question to the user and waits for a string answer.
@@ -34,15 +28,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         /// <param name="defaultResponse"></param>
         /// <returns></returns>
-        public string ReadString(string defaultResponse = "")
+        public string ReadString(string questionText, string defaultResponse = "")
         {
-            Console.Write(QuestionText);
-
-            if (SpaceAfterQuestion > 0)
-            {
-                string space = new string(' ', SpaceAfterQuestion);
-                Console.Write(space);
-            }
+            DisplayQuestion(questionText);
 
             string value = Console.ReadLine();
 
@@ -57,15 +45,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         /// <param name="defaultResponse"></param>
         /// <returns></returns>
-        public char ReadChar(char defaultResponse = '\0')
+        public char ReadChar(string questionText, char defaultResponse = '\0')
         {
-            Console.Write(QuestionText);
-
-            if (SpaceAfterQuestion > 0)
-            {
-                string space = new string(' ', SpaceAfterQuestion);
-                Console.Write(space);
-            }
+            DisplayQuestion(questionText);
 
             ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
             Console.WriteLine();
@@ -76,15 +58,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 : consoleKeyInfo.KeyChar;
         }
 
-        public int ReadInt32(int defaultResponse = 0)
+        public int ReadInt32(string questionText, int defaultResponse = 0)
         {
-            Console.Write(QuestionText);
-
-            if (SpaceAfterQuestion > 0)
-            {
-                string space = new string(' ', SpaceAfterQuestion);
-                Console.Write(space);
-            }
+            DisplayQuestion(questionText);
 
             string rawValue = Console.ReadLine();
             return string.IsNullOrEmpty(rawValue)
@@ -92,20 +68,25 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 : int.Parse(rawValue);
         }
 
-        public long ReadInt64(long defaultResponse = 0)
+        public long ReadInt64(string questionText, long defaultResponse = 0)
         {
-            Console.Write(QuestionText);
+            DisplayQuestion(questionText);
+
+            string rawValue = Console.ReadLine();
+            return string.IsNullOrEmpty(rawValue)
+                ? defaultResponse
+                : long.Parse(rawValue);
+        }
+
+        private void DisplayQuestion(string questionText)
+        {
+            Console.Write(questionText);
 
             if (SpaceAfterQuestion > 0)
             {
                 string space = new string(' ', SpaceAfterQuestion);
                 Console.Write(space);
             }
-
-            string rawValue = Console.ReadLine();
-            return string.IsNullOrEmpty(rawValue)
-                ? defaultResponse
-                : long.Parse(rawValue);
         }
     }
 }

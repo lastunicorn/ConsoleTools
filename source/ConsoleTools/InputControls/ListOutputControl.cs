@@ -22,14 +22,22 @@ namespace DustInTheWind.ConsoleTools.InputControls
     public class ListOutputControl
     {
         public string Separator { get; set; } = ":";
+        public bool DisplaySeparator { get; set; } = true;
         public int ItemsIndentation { get; set; } = 1;
         public string Bullet { get; set; } = "-";
-        public int BulletSpace { get; set; } = 1;
+        public int SpaceAfterBullet { get; set; } = 1;
 
         public void Write(string label, IEnumerable<string> items)
         {
-            CustomConsole.WriteEmphasies(label);
-            CustomConsole.WriteLineEmphasies(Separator);
+            if (label != null)
+            {
+                CustomConsole.WriteEmphasies(label);
+
+                if (Separator != null && DisplaySeparator)
+                    CustomConsole.WriteLineEmphasies(Separator);
+                else
+                    CustomConsole.WriteLine();
+            }
 
             string leftpart = BuildItemLeftPart();
 
@@ -54,9 +62,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
             {
                 sb.Append(Bullet);
 
-                if (BulletSpace > 0)
+                if (SpaceAfterBullet > 0)
                 {
-                    string bulletSpace = new string(' ', BulletSpace);
+                    string bulletSpace = new string(' ', SpaceAfterBullet);
                     sb.Append(bulletSpace);
                 }
             }

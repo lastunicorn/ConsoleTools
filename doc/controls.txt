@@ -1,20 +1,54 @@
 Guardian
+- This class ensures that an instance of itself with the same name can not be created twice.
+
+--------------------------------------------------------------------------------
 
 ListInputControl
+- Reads a list of items from the Console until the user inserts an empty string.
+- Optionally displays a label at the top of the list.
+- Optionally displays a separator (default ':') after the label.
+- Customizable bullet.
+- Customizable space after the bullet.
+- Customizable items indentation.
+
 ListOutputControl
+- Displays a list of items to the Console.
+- Optionally displays a label at the top of the list.
+- Optionally displays a separator (default ':') after the label.
+- Customizable bullet.
+- Customizable space after the bullet.
+- Customizable items indentation.
+
 QuestionControl
+- Displays a question and waits for an answer from the user. Can read a string, char, int, long answer.
+
 TextInputControl
 TextOutputControl
 YesNoControl
 
+--------------------------------------------------------------------------------
+
 Sound
 
+--------------------------------------------------------------------------------
+
 ProgressSpinner
+
+--------------------------------------------------------------------------------
 
 Table
 
 ConsoleReader
 
-CustomConsole
+--------------------------------------------------------------------------------
+
+CustomConsole Write
+
+--------------------------------------------------------------------------------
 
 Prompter
+
+--------------------------------------------------------------------------------
+
+SelectableMenu
+TextMenu

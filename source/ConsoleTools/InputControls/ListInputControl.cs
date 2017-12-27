@@ -20,17 +20,28 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Reads a list of items from the Console.
+    /// </summary>
     public class ListInputControl
     {
         public string Separator { get; set; } = ":";
+        public bool DisplaySeparator { get; set; } = true;
         public int ItemsIndentation { get; set; } = 1;
         public string Bullet { get; set; } = "-";
-        public int BulletSpace { get; set; } = 1;
+        public int SpaceAfterBullet { get; set; } = 1;
 
-        public List<string> Read(string label)
+        public List<string> Read(string label = null)
         {
-            CustomConsole.WriteEmphasies(label);
-            CustomConsole.WriteLineEmphasies(Separator);
+            if (label != null)
+            {
+                CustomConsole.WriteEmphasies(label);
+
+                if (Separator != null && DisplaySeparator)
+                    CustomConsole.WriteLineEmphasies(Separator);
+                else
+                    CustomConsole.WriteLine();
+            }
 
             List<string> values = new List<string>();
 
@@ -73,9 +84,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
             {
                 sb.Append(Bullet);
 
-                if (BulletSpace > 0)
+                if (SpaceAfterBullet > 0)
                 {
-                    string bulletSpace = new string(' ', BulletSpace);
+                    string bulletSpace = new string(' ', SpaceAfterBullet);
                     sb.Append(bulletSpace);
                 }
             }

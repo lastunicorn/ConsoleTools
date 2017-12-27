@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 using NUnit.Framework.SyntaxHelpers;
@@ -24,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Tests.MultilineTextTests
     public class ConstructorTests
     {
         [Test]
-        public void TestConstructor1()
+        public void Constructor_with_null_string()
         {
             MultilineText multilineText = new MultilineText(null as string);
 
@@ -32,10 +33,21 @@ namespace DustInTheWind.ConsoleTools.Tests.MultilineTextTests
             Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
             Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
         }
+
         [Test]
-        public void TestConstructor2()
+        public void Constructor_with_empty_string()
         {
             MultilineText multilineText = new MultilineText(string.Empty);
+
+            Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
+            Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
+            Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
+        }
+
+        [Test]
+        public void Constructor_with_empty_list()
+        {
+            MultilineText multilineText = new MultilineText(new List<string>());
 
             Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
             Assert.That(multilineText.Lines.Count, Is.EqualTo(0));

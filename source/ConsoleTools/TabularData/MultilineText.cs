@@ -122,7 +122,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 }
             }
         }
-        
+
         public MultilineText(IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException(nameof(lines));
@@ -132,7 +132,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             RawText = string.Join(string.Empty, linesAsList);
             Lines = linesAsList.AsReadOnly();
 
-            int width = linesAsList.Max(x => x.Length);
+            int width = linesAsList.Count == 0
+                ? 0
+                : linesAsList.Max(x => x.Length);
             int height = linesAsList.Count;
             Size = new Size(width, height);
         }

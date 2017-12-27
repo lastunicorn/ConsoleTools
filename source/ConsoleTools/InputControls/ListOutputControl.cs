@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
             foreach (string value in items)
             {
                 CustomConsole.Write(leftpart);
-                CustomConsole.WriteLine(" - " + value);
+                CustomConsole.WriteLine(value);
             }
         }
 

@@ -35,6 +35,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int Height { get; }
 
         public static Size Empty { get; } = new Size(0, 0);
+        
+        public bool IsEmpty => Width == 0 && Height == 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size"/> structure with

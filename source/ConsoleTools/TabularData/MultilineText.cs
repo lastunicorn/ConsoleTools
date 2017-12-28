@@ -43,6 +43,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public static MultilineText Empty { get; } = new MultilineText(string.Empty);
 
+        public bool IsEmpty => Size.IsEmpty;
+
         /// <summary>
         /// Used only internaly when splitting the string in multiple lines.
         /// </summary>

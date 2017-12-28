@@ -17,17 +17,17 @@
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TableTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 {
     [TestFixture]
-    public class SpecialCaseBorderTests_LongTitle
+    public class SpecialCaseBorderTests_ShortTitle
     {
         [Test]
         public void all()
         {
             Table table = new Table();
             table.Border = TableBorder.DoubleLineBorder;
-            table.Title = "This is a title longer than the rows";
+            table.Title = "Short Title";
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
             table.Columns.Add(new Column("Header 3"));
@@ -36,15 +36,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-@"╔══════════════════════════════════════╗
-║ This is a title longer than the rows ║
-╠════════════╦════════════╦════════════╣
-║ Header 1   ║ Header 2   ║ Header 3   ║
-╠════════════╬════════════╬════════════╣
-║ one        ║ ichi       ║ eins       ║
-║ two        ║ ni         ║ zwei       ║
-║ three      ║ san        ║ drei       ║
-╚════════════╩════════════╩════════════╝
+@"╔════════════════════════════════╗
+║ Short Title                    ║
+╠══════════╦══════════╦══════════╣
+║ Header 1 ║ Header 2 ║ Header 3 ║
+╠══════════╬══════════╬══════════╣
+║ one      ║ ichi     ║ eins     ║
+║ two      ║ ni       ║ zwei     ║
+║ three    ║ san      ║ drei     ║
+╚══════════╩══════════╩══════════╝
 ";
 
             CustomAssert.TableRender(table, expected);
@@ -79,20 +79,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void no_header()
         {
             Table table = new Table();
-            table.Title = "This is a title longer than the rows";
+            table.Title = "Short Title";
             table.Border = TableBorder.DoubleLineBorder;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-@"╔══════════════════════════════════════╗
-║ This is a title longer than the rows ║
-╠═════════════╦════════════╦═══════════╣
-║ one         ║ ichi       ║ eins      ║
-║ two         ║ ni         ║ zwei      ║
-║ three       ║ san        ║ drei      ║
-╚═════════════╩════════════╩═══════════╝
+@"╔═════════════════════╗
+║ Short Title         ║
+╠═══════╦══════╦══════╣
+║ one   ║ ichi ║ eins ║
+║ two   ║ ni   ║ zwei ║
+║ three ║ san  ║ drei ║
+╚═══════╩══════╩══════╝
 ";
 
             CustomAssert.TableRender(table, expected);
@@ -102,18 +102,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void no_data()
         {
             Table table = new Table();
-            table.Title = "This is a title longer than the rows";
+            table.Title = "Short Title";
             table.Border = TableBorder.DoubleLineBorder;
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
             table.Columns.Add(new Column("Header 3"));
 
             string expected =
-@"╔══════════════════════════════════════╗
-║ This is a title longer than the rows ║
-╠════════════╦════════════╦════════════╣
-║ Header 1   ║ Header 2   ║ Header 3   ║
-╚════════════╩════════════╩════════════╝
+@"╔════════════════════════════════╗
+║ Short Title                    ║
+╠══════════╦══════════╦══════════╣
+║ Header 1 ║ Header 2 ║ Header 3 ║
+╚══════════╩══════════╩══════════╝
 ";
 
             CustomAssert.TableRender(table, expected);
@@ -161,13 +161,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         public void only_title()
         {
             Table table = new Table();
-            table.Title = "This is a title longer than the rows";
+            table.Title = "Short Title";
             table.Border = TableBorder.DoubleLineBorder;
 
             string expected =
-@"╔══════════════════════════════════════╗
-║ This is a title longer than the rows ║
-╚══════════════════════════════════════╝
+@"╔═════════════╗
+║ Short Title ║
+╚═════════════╝
 ";
 
             CustomAssert.TableRender(table, expected);

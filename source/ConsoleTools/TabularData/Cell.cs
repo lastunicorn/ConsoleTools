@@ -17,7 +17,7 @@
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    ///     Represents a cell that contains a text.
+    /// Represents a table cell that contains data.
     /// </summary>
     public class Cell
     {
@@ -25,6 +25,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets or sets the content of the cell.
         /// </summary>
         public MultilineText Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets the row that contains the current cell.
+        /// </summary>
+        public Row ParentRow { get; set; }
+
+        public bool IsEmpty => Content == null || Content.IsEmpty;
 
         /// <summary>
         /// Gets or sets the horizontal alignment of the content displayed in the cell.
@@ -78,6 +85,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment = horizontalAlignment;
         }
 
+        public override string ToString()
+        {
+            return Content?.ToString() ?? string.Empty;
+        }
+
         public static implicit operator Cell(string text)
         {
             MultilineText multilineText = new MultilineText(text);
@@ -86,7 +98,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public static implicit operator string(Cell cell)
         {
-            return cell.Content.ToString();
+            return cell.Content?.ToString() ?? string.Empty;
         }
     }
 }

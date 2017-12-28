@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TableTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 {
     [TestFixture]
     public class TitleTests

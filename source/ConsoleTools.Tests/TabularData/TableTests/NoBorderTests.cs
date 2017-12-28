@@ -17,54 +17,44 @@
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TableTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 {
     [TestFixture]
-    public class LinesBetweenRowsTests
+    public class NoBorderTests
     {
         [Test]
-        public void three_rows_without_lines_between_them()
+        public void render_simple_table_without_border()
         {
             Table table = new Table();
-            table.Title = "My Title";
+            table.DisplayBorder = false;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-@"+---------------------+
-| My Title            |
-+-------+------+------+
-| one   | ichi | eins |
-| two   | ni   | zwei |
-| three | san  | drei |
-+-------+------+------+
+@" one    ichi  eins 
+ two    ni    zwei 
+ three  san   drei 
 ";
 
             CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void three_rows_with_lines_between_them()
+        public void render_table_with_title_and_no_border()
         {
             Table table = new Table();
+            table.DisplayBorder = false;
             table.Title = "My Title";
-            table.DrawLinesBetweenRows = true;
-
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
 
             string expected =
-@"+---------------------+
-| My Title            |
-+-------+------+------+
-| one   | ichi | eins |
-+-------+------+------+
-| two   | ni   | zwei |
-+-------+------+------+
-| three | san  | drei |
-+-------+------+------+
+@" My Title          
+ one    ichi  eins 
+ two    ni    zwei 
+ three  san   drei 
 ";
 
             CustomAssert.TableRender(table, expected);

@@ -17,43 +17,19 @@
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TableTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 {
     [TestFixture]
-    public class CellAlignmentPerTableTests
+    public class CellAlignmentPerColumnTests
     {
         [Test]
-        public void whole_table_is_aligned_to_Right_without_explicit_columns()
+        public void column_0_is_aligned_to_Right()
         {
             Table table = new Table("This is a cell alignment test");
-            table.DisplayColumnHeaders = false;
-            table.CellHorizontalAlignment = HorizontalAlignment.Right;
-
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new[] { "1,0", "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
-
-            string expected =
-@"+-------------------------------+
-| This is a cell alignment test |
-+----------+----------+---------+
-|      0,0 |      0,1 |     0,2 |
-|      1,0 |      1,1 |     1,2 |
-|      2,0 |      2,1 |     2,2 |
-+----------+----------+---------+
-";
-
-            CustomAssert.TableRender(table, expected);
-        }
-        [Test]
-        public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
-        {
-            Table table = new Table("This is a cell alignment test");
-            table.DisplayColumnHeaders = false;
-            table.CellHorizontalAlignment = HorizontalAlignment.Right;
             table.DisplayColumnHeaders = false;
 
             Column column0 = new Column("Col 0");
+            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
             table.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
@@ -70,9 +46,42 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
-|      0,0 |      0,1 |     0,2 |
-|      1,0 |      1,1 |     1,2 |
-|      2,0 |      2,1 |     2,2 |
+|      0,0 | 0,1      | 0,2     |
+|      1,0 | 1,1      | 1,2     |
+|      2,0 | 2,1      | 2,2     |
++----------+----------+---------+
+";
+
+            CustomAssert.TableRender(table, expected);
+        }
+
+        [Test]
+        public void column_0_is_aligned_to_Right_and_cell_1_0_is_aligned_to_Left()
+        {
+            Table table = new Table("This is a cell alignment test");
+            table.DisplayColumnHeaders = false;
+
+            Column column0 = new Column("Col 0");
+            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
+            table.Columns.Add(column0);
+
+            Column column1 = new Column("Col 1");
+            table.Columns.Add(column1);
+
+            Column column2 = new Column("Col 2");
+            table.Columns.Add(column2);
+
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+
+            string expected =
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+|      0,0 | 0,1      | 0,2     |
+| 1,0      | 1,1      | 1,2     |
+|      2,0 | 2,1      | 2,2     |
 +----------+----------+---------+
 ";
 

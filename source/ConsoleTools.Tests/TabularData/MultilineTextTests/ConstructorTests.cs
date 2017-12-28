@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.MultilineTextTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.MultilineTextTests
 {
     [TestFixture]
     public class ConstructorTests

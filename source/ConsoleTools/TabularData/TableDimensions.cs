@@ -75,6 +75,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         #region Calculated Data
 
+        /// <summary>
+        /// Gets the title row width calculated by the current instance.
+        /// </summary>
         public int CalculatedTitleRowWidth { get; private set; }
 
         /// <summary>
@@ -87,6 +90,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public int CalculatedHeaderRowHeight { get; private set; }
 
+        /// <summary>
+        /// Gets the header row width calculated by the current instance.
+        /// </summary>
         public int CalculatedHeaderRowWidth { get; private set; }
 
         /// <summary>
@@ -111,15 +117,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             ClearAll();
 
-            CalculateTitleRowDimensions();
-            CalculateHeaderRowDimensions();
+            bool isTitleVisible = Title != null && Title.Size.Height != 0 && DisplayTitle;
+            if (isTitleVisible)
+                CalculateTitleRowDimensions();
 
-            if (Rows.Count > 0)
+            bool isColumnHeaderRowVisible = Columns.Count > 0 && DisplayColumnHeaders;
+            if (isColumnHeaderRowVisible)
+                CalculateHeaderRowDimensions();
+
+            bool areDataRowsVisible = Rows.Count > 0;
+            if (areDataRowsVisible)
                 CalculateDataRowsDimensions();
 
             CalculateTotalWidth();
 
-            InflateColumnWidthIfNeeded();
+            ExpandColumnsIfNeeded();
         }
 
         private void ClearAll()
@@ -137,28 +149,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
             longestDataRowWidth = 0;
         }
 
-        private void CalculateTotalWidth()
-        {
-            if (CalculatedTotalWidth < MinWidth)
-                CalculatedTotalWidth = MinWidth;
-
-            if (CalculatedTotalWidth < CalculatedTitleRowWidth)
-                CalculatedTotalWidth = CalculatedTitleRowWidth;
-
-            if (CalculatedTotalWidth < CalculatedHeaderRowWidth)
-                CalculatedTotalWidth = CalculatedHeaderRowWidth;
-
-            if (CalculatedTotalWidth < longestDataRowWidth)
-                CalculatedTotalWidth = longestDataRowWidth;
-        }
-
         private void CalculateTitleRowDimensions()
         {
-            bool isTitleVisible = Title != null && Title.Size.Height != 0 && DisplayTitle;
-
-            if (!isTitleVisible)
-                return;
-
             if (DisplayBorder)
                 CalculatedTitleRowWidth += 1;
 
@@ -175,9 +167,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void CalculateHeaderRowDimensions()
         {
-            if (Columns.Count <= 0 || !DisplayColumnHeaders)
-                return;
-
             // The table left border
             if (DisplayBorder)
                 CalculatedHeaderRowWidth += 1;
@@ -286,7 +275,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
         }
 
-        private void InflateColumnWidthIfNeeded()
+        private void CalculateTotalWidth()
+        {
+            if (CalculatedTotalWidth < MinWidth)
+                CalculatedTotalWidth = MinWidth;
+
+            if (CalculatedTotalWidth < CalculatedTitleRowWidth)
+                CalculatedTotalWidth = CalculatedTitleRowWidth;
+
+            if (CalculatedTotalWidth < CalculatedHeaderRowWidth)
+                CalculatedTotalWidth = CalculatedHeaderRowWidth;
+
+            if (CalculatedTotalWidth < longestDataRowWidth)
+                CalculatedTotalWidth = longestDataRowWidth;
+        }
+
+        private void ExpandColumnsIfNeeded()
         {
             if (CalculatedColumnsWidth.Count == 0)
                 return;

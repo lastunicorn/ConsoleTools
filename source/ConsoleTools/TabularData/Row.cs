@@ -47,7 +47,24 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Cells = new List<Cell>();
 
             if (cells != null)
-                Cells.AddRange(cells);
+            {
+                foreach (Cell cell in cells)
+                {
+                    if (cell == null)
+                    {
+                        Cell newCell = new Cell(null)
+                        {
+                            ParentRow = this
+                        };
+                        Cells.Add(newCell);
+                    }
+                    else
+                    {
+                        cell.ParentRow = this;
+                        Cells.Add(cell);
+                    }
+                }
+            }
         }
 
         /// <summary>

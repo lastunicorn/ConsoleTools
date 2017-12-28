@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
 {
     public class ProgressSpinner : IDisposable
     {
-        private readonly ITemplate template;
+        private readonly ISpinnerTemplate template;
         private bool isDisposed;
         private readonly Timer timer;
 
@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             set { timer.Interval = value; }
         }
 
-        public ProgressSpinner(ITemplate template)
+        public ProgressSpinner(ISpinnerTemplate template)
         {
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;

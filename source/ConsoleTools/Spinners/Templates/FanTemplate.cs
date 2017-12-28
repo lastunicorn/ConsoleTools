@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Spinners
+namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public enum FilledBehavior
+    public class FanTemplate : SequenceTemplateBase
     {
-        SuddenEmpty,
-        EmptyFromEnd,
-        EmptyFromStart
+        public FanTemplate()
+            : base(new[] { "+", "x" })
+        {
+        }
     }
 }

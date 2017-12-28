@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
     internal class Worker
     {
         public TimeSpan WorkInterval { get; set; }
-        public ITemplate SpinnerTemplate { get; set; }
+        public ISpinnerTemplate SpinnerTemplate { get; set; }
         public int SpinnerStepMilliseconds { get; set; }
 
         public void Run()

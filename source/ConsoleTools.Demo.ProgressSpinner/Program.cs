@@ -16,6 +16,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Spinners;
+using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Demo.Spinners
 {
@@ -48,13 +49,14 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             CustomConsole.WriteLine("1  - arrow");
             CustomConsole.WriteLine("2  - stick");
             CustomConsole.WriteLine("3  - bubble");
-            CustomConsole.WriteLine("4  - half rotate");
-            CustomConsole.WriteLine("5  - fan");
-            CustomConsole.WriteLine("6  - fill (dot, empty from start) - default");
-            CustomConsole.WriteLine("7  - fill (dot, empty from end)");
-            CustomConsole.WriteLine("8  - fill (dot, sudden empty)");
-            CustomConsole.WriteLine("9  - fill (dot, with borders)");
-            CustomConsole.WriteLine("10 - fill (block, length: 10 chars, step: 100ms)");
+            CustomConsole.WriteLine("4  - half-block rotate");
+            CustomConsole.WriteLine("5  - half-block vertical");
+            CustomConsole.WriteLine("6  - fan");
+            CustomConsole.WriteLine("11 - fill (dot, empty from start) - default");
+            CustomConsole.WriteLine("12 - fill (dot, empty from end)");
+            CustomConsole.WriteLine("13 - fill (dot, sudden empty)");
+            CustomConsole.WriteLine("14 - fill (dot, with borders)");
+            CustomConsole.WriteLine("15 - fill (block, length: 10 chars, step: 100ms)");
             CustomConsole.WriteLine("0 - exit");
 
             CustomConsole.WriteLine();
@@ -93,46 +95,53 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     case "4":
                         return new Worker
                         {
-                            SpinnerTemplate = new HalfRotateTemplate(),
+                            SpinnerTemplate = new HalfBlockRotateTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
                     case "5":
                         return new Worker
                         {
-                            SpinnerTemplate = new FanTemplate(),
+                            SpinnerTemplate = new HalfBlockBlinkTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
                     case "6":
                         return new Worker
                         {
+                            SpinnerTemplate = new FanTemplate(),
+                            SpinnerStepMilliseconds = 400,
+                            WorkInterval = TimeSpan.FromSeconds(5)
+                        };
+                    case "11":
+                        return new Worker
+                        {
                             SpinnerTemplate = new FillTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
-                    case "7":
+                    case "12":
                         return new Worker
                         {
                             SpinnerTemplate = new FillTemplate { FilledBehavior = FilledBehavior.EmptyFromEnd },
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
-                    case "8":
+                    case "13":
                         return new Worker
                         {
                             SpinnerTemplate = new FillTemplate { FilledBehavior = FilledBehavior.SuddenEmpty },
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
-                    case "9":
+                    case "14":
                         return new Worker
                         {
                             SpinnerTemplate = new FillTemplate { ShowBorders = true },
                             SpinnerStepMilliseconds = 400,
                             WorkInterval = TimeSpan.FromSeconds(5)
                         };
-                    case "10":
+                    case "15":
                         return new Worker
                         {
                             SpinnerTemplate = new FillTemplate('▓', 10),

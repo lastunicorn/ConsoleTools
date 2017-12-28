@@ -16,9 +16,9 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Spinners
+namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class SequenceTemplateBase : ITemplate
+    public class SequenceTemplateBase : ISpinnerTemplate
     {
         private int counter;
         private readonly string[] sequence;
@@ -31,11 +31,14 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
         public void Reset()
         {
-            counter = 0;
+            counter = -1;
         }
 
         public string GetCurrent()
         {
+            if (counter == -1)
+                counter = 0;
+
             return sequence[counter];
         }
 

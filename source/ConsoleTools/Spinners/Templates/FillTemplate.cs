@@ -16,9 +16,9 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Spinners
+namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class FillTemplate : ITemplate
+    public class FillTemplate : ISpinnerTemplate
     {
         private readonly char fillChar;
         private readonly int length;

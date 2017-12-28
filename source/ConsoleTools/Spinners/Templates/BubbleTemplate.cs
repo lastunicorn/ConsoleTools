@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Spinners
+namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public interface ITemplate
+    public class BubbleTemplate : SequenceTemplateBase
     {
-        void Reset();
-        string GetNext();
-        string GetCurrent();
+        public BubbleTemplate()
+            : base(new[] { ".", "o", "0", "o" })
+        {
+        }
     }
 }

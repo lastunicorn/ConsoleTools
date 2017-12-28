@@ -119,5 +119,35 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 
             CustomAssert.TableRender(table, expected);
         }
+
+        [Test]
+        public void render_table_with_digit_and_letter_border()
+        {
+            Table table = new Table();
+            table.Border = new TableBorder("1234567890abcde");
+            table.Title = "My Title";
+            table.DisplayColumnHeaders = true;
+            table.Padding = 3;
+            table.Columns.Add(new Column("One"));
+            table.Columns.Add(new Column("Two"));
+            table.Columns.Add(new Column("Three"));
+            table.AddRow(new[] { "one", "ichi", "eins" });
+            table.AddRow(new[] { "two", "ni", "zwei" });
+            table.AddRow(new[] { "three", "san", "drei" });
+
+            string expected =
+@"122222222222222222222222222222222223
+8   My Title                       4
+beeeeeeeeeee9eeeeeeeeee9eeeeeeeeeee0
+8   One     d   Two    d   Three   4
+beeeeeeeeeeeceeeeeeeeeeceeeeeeeeeee0
+8   one     d   ichi   d   eins    4
+8   two     d   ni     d   zwei    4
+8   three   d   san    d   drei    4
+766666666666a6666666666a666666666665
+";
+
+            CustomAssert.TableRender(table, expected);
+        }
     }
 }

@@ -27,6 +27,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public MultilineText Title { get; set; }
 
         /// <summary>
+        /// Gets or sets a value that specifies if the title is displayed.
+        /// </summary>
+        public bool DisplayTitle { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the padding applyed to the left side of every cell.
         /// </summary>
         public int PaddingLeft { get; set; } = 1;
@@ -82,7 +87,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int MinWidth { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that specifies if thew column headers are displayed.
+        /// Gets or sets a value that specifies if the column headers are displayed.
         /// </summary>
         public bool DisplayColumnHeaders { get; set; } = true;
 
@@ -192,311 +197,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void Render(ITablePrinter tablePrinter)
         {
-            TableDimensions tableDimensions = new TableDimensions
+            TableRenderer tableRenderer = new TableRenderer
             {
-                MinWidth = MinWidth,
+                Title = Title,
+                DisplayTitle = DisplayTitle,
+                Columns = Columns,
+                Rows = rows,
+                Border = Border,
                 DisplayBorder = DisplayBorder,
-                DisplayColumnHeaders = DisplayColumnHeaders,
+                DrawLinesBetweenRows = DrawLinesBetweenRows,
+                MinWidth=MinWidth,
                 PaddingLeft = PaddingLeft,
                 PaddingRight = PaddingRight,
-                Title = Title,
-                Columns = Columns,
-                Rows = rows
+                DisplayColumnHeaders = DisplayColumnHeaders,
+                CellHorizontalAlignment = CellHorizontalAlignment
             };
-            tableDimensions.CalculateTableDimensions();
-            
-            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
-            {
-                Columns = Columns,
-                Rows = rows,
-                TableLevelCellAlignment = CellHorizontalAlignment
-            };
-
-            string rowSeparator = Border.GenerateDataRowSeparatorBorder(tableDimensions);
-
-            DrawTableTitleRow(tablePrinter, tableDimensions);
-            DrawColumnHeadersRow(tablePrinter, tableDimensions, rowSeparator);
-            DrawDataRows(tablePrinter, tableDimensions, rowSeparator);
-        }
-
-        private void DrawTableTitleRow(ITablePrinter tablePrinter, TableDimensions dimensions)
-        {
-            bool existsTitle = Title.Size.Height > 0;
-
-            if (existsTitle)
-            {
-                // Write top border
-                if (DisplayBorder)
-                {
-                    string titleTopBorder = Border.GenerateTitleTopBorder(dimensions);
-                    tablePrinter.WriteLineBorder(titleTopBorder);
-                }
-
-                int cellInnerWidth = dimensions.CalculatedTotalWidth - PaddingLeft - PaddingRight;
-
-                if (DisplayBorder)
-                    cellInnerWidth -= 2;
-
-                // Write title
-                for (int i = 0; i < Title.Size.Height; i++)
-                {
-                    if (DisplayBorder)
-                        tablePrinter.WriteBorder(Border.Left);
-
-                    string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-                    string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-                    string innerContent = Title.Lines[i].PadRight(cellInnerWidth, ' ');
-
-                    tablePrinter.WriteTitle(leftPadding + innerContent + rightPadding);
-
-                    if (DisplayBorder)
-                        tablePrinter.WriteLineBorder(Border.Right);
-                    else
-                        tablePrinter.WriteLine();
-                }
-
-                // Write bottom border <=> header top border
-                if (DisplayBorder)
-                {
-                    if (Columns.Count > 0 && DisplayColumnHeaders)
-                    {
-                        string border = Border.GenerateTitleHeaderSeparator(dimensions);
-                        tablePrinter.WriteLineBorder(border);
-                    }
-                    else if (rows.Count > 0)
-                    {
-                        string border = Border.GenerateTitleDataSeparator(dimensions);
-                        tablePrinter.WriteLineBorder(border);
-                    }
-                    else
-                    {
-                        string border = Border.GenerateTitleBottomBorder(dimensions);
-                        tablePrinter.WriteLineBorder(border);
-                    }
-                }
-            }
-            else
-            {
-                if (DisplayBorder)
-                {
-                    if (Columns.Count > 0 && DisplayColumnHeaders)
-                    {
-                        string border = Border.GenerateHeaderTopBorder(dimensions);
-                        tablePrinter.WriteLineBorder(border);
-                    }
-                    else if (rows.Count > 0)
-                    {
-                        string border = Border.GenerateDataRowTopBorder(dimensions);
-                        tablePrinter.WriteLineBorder(border);
-                    }
-                }
-            }
-        }
-
-        private void DrawColumnHeadersRow(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
-        {
-            if (!DisplayColumnHeaders || dimensions.CalculatedHeaderRowHeight == 0)
-                return;
-
-            // Write header cells
-            for (int headerLineIndex = 0; headerLineIndex < dimensions.CalculatedHeaderRowHeight; headerLineIndex++)
-            {
-                if (DisplayBorder)
-                    tablePrinter.WriteBorder(Border.Left);
-
-                for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
-                {
-                    string content = BuildHeaderContent(dimensions, columnIndex, headerLineIndex);
-
-                    tablePrinter.WriteHeader(content);
-
-                    if (DisplayBorder)
-                    {
-                        char cellBorderRight = columnIndex < Columns.Count - 1
-                            ? Border.Vertical
-                            : Border.Right;
-
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
-                }
-
-                tablePrinter.WriteLine();
-            }
-
-            // Write bottom border <=> first row top border
-            if (DisplayBorder)
-            {
-                if (RowCount == 0)
-                {
-                    string border = Border.GenerateHeaderBottomBorder(dimensions);
-                    tablePrinter.WriteLineBorder(border);
-                }
-                else
-                {
-                    tablePrinter.WriteLineBorder(rowSeparator);
-                }
-            }
-        }
-
-        private string BuildHeaderContent(TableDimensions dimensions, int columnIndex, int headerLineIndex)
-        {
-            Column column = Columns[columnIndex];
-
-            bool headerHasContent = headerLineIndex < column.Header.Size.Height;
-
-            if (!headerHasContent)
-                return string.Empty.PadRight(dimensions.CalculatedColumnsWidth[columnIndex], ' ');
-
-            int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
-            string innerContent;
-
-            HorizontalAlignment alignment = CalculateColumnHeaderCellHorizontalAlignment(columnIndex);
-
-            switch (alignment)
-            {
-                case HorizontalAlignment.Left:
-                    innerContent = column.Header.Lines[headerLineIndex].PadRight(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Right:
-                    innerContent = column.Header.Lines[headerLineIndex].PadLeft(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int totalSpaces = cellInnerWidth - column.Header.Size.Width;
-                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-                    innerContent = column.Header.Lines[headerLineIndex].PadLeft(cellInnerWidth - rightSpaces, ' ').PadRight(cellInnerWidth, ' ');
-                    break;
-
-                default:
-                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
-            }
-
-            string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-            string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-
-            return leftPadding + innerContent + rightPadding;
-        }
-
-        private HorizontalAlignment CalculateColumnHeaderCellHorizontalAlignment(int columnIndex)
-        {
-            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
-            {
-                Columns = Columns,
-                Rows = rows,
-                TableLevelCellAlignment = CellHorizontalAlignment
-            };
-
-            return alignmentCalculator.CalcualteHeaderCellAlignment(columnIndex);
-        }
-
-        private void DrawDataRows(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
-        {
-            for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
-            {
-                Row row = rows[rowIndex];
-
-                for (int rowLineIndex = 0; rowLineIndex < dimensions.CalculatedRowsHeight[rowIndex]; rowLineIndex++)
-                {
-                    if (rowLineIndex > 0)
-                        tablePrinter.WriteLine();
-
-                    if (DisplayBorder)
-                        tablePrinter.WriteBorder(Border.Left);
-
-                    for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
-                    {
-                        Cell cell = row.Cells[columnIndex];
-                        string content = BuildCellContent(dimensions, rowIndex, columnIndex, cell, rowLineIndex);
-
-                        tablePrinter.WriteNormal(content);
-
-                        if (DisplayBorder)
-                        {
-                            char cellBorderRight = columnIndex < Columns.Count - 1
-                                ? Border.Vertical
-                                : Border.Right;
-
-                            tablePrinter.WriteBorder(cellBorderRight);
-                        }
-                    }
-                }
-
-                tablePrinter.WriteLine();
-
-                if (DisplayBorder)
-                {
-                    if (rowIndex < rows.Count - 1)
-                    {
-                        if (DrawLinesBetweenRows)
-                            tablePrinter.WriteLineBorder(rowSeparator);
-                    }
-                    else
-                    {
-                        string rowBottomBorder = Border.GenerateDataRowBottomBorder(dimensions);
-                        tablePrinter.WriteLineBorder(rowBottomBorder);
-                    }
-                }
-            }
-        }
-
-        private string BuildCellContent(TableDimensions dimensions, int rowIndex, int columnIndex, Cell cell, int rowLineIndex)
-        {
-            if (rowLineIndex >= cell.Content.Size.Height)
-                return string.Empty.PadRight(dimensions.CalculatedColumnsWidth[columnIndex], ' ');
-
-            int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
-            string innerContent;
-
-            HorizontalAlignment alignment = CalculateCellHorizontalAlignment(rowIndex, columnIndex);
-
-            switch (alignment)
-            {
-                case HorizontalAlignment.Left:
-                    innerContent = cell.Content.Lines[rowLineIndex].PadRight(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Right:
-                    innerContent = cell.Content.Lines[rowLineIndex].PadLeft(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int totalSpaces = cellInnerWidth - cell.Content.Size.Width;
-                    //int leftSpaces = (int)Math.Floor(totalSpaces / 2);
-                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-                    innerContent = cell.Content.Lines[rowLineIndex]
-                        .PadLeft(cellInnerWidth - rightSpaces, ' ')
-                        .PadRight(cellInnerWidth, ' ');
-                    break;
-
-                default:
-                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
-            }
-
-            string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-            string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-
-            return leftPadding + innerContent + rightPadding;
-        }
-
-        private HorizontalAlignment CalculateCellHorizontalAlignment(int rowIndex, int columnIndex)
-        {
-            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
-            {
-                Columns = Columns,
-                Rows = rows,
-                TableLevelCellAlignment = CellHorizontalAlignment
-            };
-
-            return alignmentCalculator.CalcualteDataCellAlignment(rowIndex, columnIndex);
-        }
-
-        public void SetCellAlignment(int rowIndex, int columnIndex, HorizontalAlignment alignment)
-        {
-            Row row = rows[rowIndex];
-            Cell cell = row[columnIndex];
-
-            cell.HorizontalAlignment = alignment;
+            tableRenderer.Render(tablePrinter);
         }
     }
 }

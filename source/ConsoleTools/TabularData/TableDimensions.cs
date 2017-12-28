@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,11 +37,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public bool DisplayBorder { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that specifies if thew column headers are displayed.
-        /// </summary>
-        public bool DisplayColumnHeaders { get; set; }
-
-        /// <summary>
         /// Gets or sets the padding applyed to the left side of every cell.
         /// </summary>
         public int PaddingLeft { get; set; }
@@ -58,9 +52,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public MultilineText Title { get; set; }
 
         /// <summary>
+        /// Gets or sets a value that specifies if the title is displayed.
+        /// </summary>
+        public bool DisplayTitle { get; set; }
+
+        /// <summary>
         /// Gets the list of columns contained by the current table.
         /// </summary>
         public List<Column> Columns { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if thew column headers are displayed.
+        /// </summary>
+        public bool DisplayColumnHeaders { get; set; }
 
         /// <summary>
         /// The list of rows contained by the current table.
@@ -150,7 +154,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void CalculateTitleRowDimensions()
         {
-            if (Title == null || Title.Size.Height == 0)
+            bool isTitleVisible = Title != null && Title.Size.Height != 0 && DisplayTitle;
+
+            if (!isTitleVisible)
                 return;
 
             if (DisplayBorder)

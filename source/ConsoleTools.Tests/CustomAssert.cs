@@ -14,12 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter
+using System;
+using DustInTheWind.ConsoleTools.TabularData;
+using NUnit.Framework;
+
+namespace DustInTheWind.ConsoleTools.Tests
 {
-    internal class Whale
+    internal static class CustomAssert
     {
-        public string Name { get; set; }
-        public string Count { get; set; }
-        public string Weight { get; set; }
+        public static void TableRender(Table table, string expected)
+        {
+            string actual = table.ToString();
+
+            Console.WriteLine("actual:");
+            Console.WriteLine(actual);
+            Console.WriteLine("expected:");
+            Console.WriteLine(expected);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }

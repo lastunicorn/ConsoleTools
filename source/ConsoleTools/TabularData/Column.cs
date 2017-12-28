@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
+        public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
@@ -41,18 +41,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Initializes a new instance of the <see cref="Column"/> class with
         /// the a name and the horizontal alignment applyed to the cells represented by the column.
         /// </summary>
-        public Column(string header, HorizontalAlignment horizontalAlignment)
-            : this(new MultilineText(header), horizontalAlignment)
+        public Column(string header, HorizontalAlignment cellHorizontalAlignment)
+            : this(new MultilineText(header), cellHorizontalAlignment)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
         /// </summary>
-        public Column(MultilineText header, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
+        public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment = HorizontalAlignment.Default)
         {
             Header = header;
-            HorizontalAlignment = horizontalAlignment;
+            CellHorizontalAlignment = cellHorizontalAlignment;
         }
     }
 }

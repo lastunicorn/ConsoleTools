@@ -52,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             Assert.That(table.PaddingLeft, Is.EqualTo(2));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
             Assert.That(table.Padding, Is.EqualTo(-1));
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(2));
             Assert.That(table.Padding, Is.EqualTo(-1));
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             Assert.That(table.PaddingLeft, Is.EqualTo(2));
             Assert.That(table.PaddingRight, Is.EqualTo(2));
             Assert.That(table.Padding, Is.EqualTo(2));
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
     }
 }

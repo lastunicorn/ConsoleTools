@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Demo.Prompter.Ocean;
 using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
@@ -28,15 +29,20 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
         private static void DisplayWhales()
         {
+            WhaleProvider whaleProvider = new WhaleProvider();
+            IEnumerable<Whale> whales = whaleProvider.CreateWhales();
+
+            Table table = CreateTable(whales);
+            CustomConsole.WriteLine(table.ToString());
+        }
+
+        private static Table CreateTable(IEnumerable<Whale> whales)
+        {
             Table table = new Table("Whales");
 
             table.Columns.Add(new Column("Name"));
             table.Columns.Add(new Column("Population"));
             table.Columns.Add(new Column("Weight"));
-
-            table.DisplayColumnHeaders = true;
-
-            IEnumerable<Whale> whales = CreateWhales();
 
             foreach (Whale whale in whales)
             {
@@ -48,50 +54,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
                 });
             }
 
-            CustomConsole.WriteLine(table.ToString());
-        }
-
-        private static IEnumerable<Whale> CreateWhales()
-        {
-            return new List<Whale>
-            {
-                new Whale
-                {
-                    Name = "Blue whale",
-                    Count = "10,000-25,000",
-                    Weight = "50-150 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Humpback whale",
-                    Count = "80,000",
-                    Weight = "25–30 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Killer whale",
-                    Count = "100,000",
-                    Weight = "4.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Beluga",
-                    Count = "100,000",
-                    Weight = "1.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Narwhal",
-                    Count = "25,000",
-                    Weight = "900-1,500 kilograms"
-                },
-                new Whale
-                {
-                    Name = "Sperm whale",
-                    Count = "200,000–2,000,000",
-                    Weight = "25–50 tonnes"
-                }
-            };
+            return table;
         }
     }
 }

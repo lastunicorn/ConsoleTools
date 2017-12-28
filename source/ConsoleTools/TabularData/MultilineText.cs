@@ -177,5 +177,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             return multilineText.Lines.ToList();
         }
+
+        public static implicit operator string(MultilineText multilineText)
+        {
+            return string.Join(Environment.NewLine, multilineText.Lines);
+        }
     }
 }

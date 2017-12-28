@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
  three  san   drei 
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
  three  san   drei 
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
     }
 }

@@ -37,8 +37,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
         public Cell(string text)
-            : this(new MultilineText(text))
         {
+            Content = new MultilineText(text);
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -48,8 +49,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="text">The text displayed in the cell.</param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
         public Cell(string text, HorizontalAlignment horizontalAlignment)
-            : this(new MultilineText(text), horizontalAlignment)
         {
+            Content = new MultilineText(text);
+            HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -58,20 +60,33 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="text"></param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public Cell(MultilineText text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
+        public Cell(MultilineText text, HorizontalAlignment horizontalAlignment)
         {
             Content = text;
             HorizontalAlignment = horizontalAlignment;
         }
 
         public Cell(object content)
-            : this(new MultilineText(content.ToString()))
         {
+            Content = new MultilineText(content.ToString());
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         public Cell(object content, HorizontalAlignment horizontalAlignment)
-            : this(new MultilineText(content.ToString()), horizontalAlignment)
         {
+            Content = new MultilineText(content.ToString());
+            HorizontalAlignment = horizontalAlignment;
+        }
+
+        public static implicit operator Cell(string text)
+        {
+            MultilineText multilineText = new MultilineText(text);
+            return new Cell(multilineText);
+        }
+
+        public static implicit operator string(Cell cell)
+        {
+            return cell.Content.ToString();
         }
     }
 }

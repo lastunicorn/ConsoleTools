@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
             Table table = new Table();
 
             Assert.That(table.Title, Is.EqualTo(MultilineText.Empty));
-            Assert.That(table.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Left));
+            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
@@ -40,11 +40,10 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         [Test]
         public void TestConstructor2()
         {
-            string tableTitle = "My Title";
-            Table table = new Table(tableTitle);
+            Table table = new Table("My Title");
 
-            Assert.That(table.Title, Is.EqualTo(new MultilineText(tableTitle)));
-            Assert.That(table.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Left));
+            Assert.That(table.Title, Is.EqualTo(new MultilineText("My Title")));
+            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
@@ -56,12 +55,10 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         [Test]
         public void TestConstructor3()
         {
-            MultilineText tableTitle = new MultilineText("My Title");
+            Table table = new Table(new MultilineText("My Title"));
 
-            Table table = new Table(tableTitle);
-
-            Assert.That(table.Title, Is.EqualTo(tableTitle));
-            Assert.That(table.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Left));
+            Assert.That(table.Title, Is.EqualTo(new MultilineText("My Title")));
+            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));

@@ -27,19 +27,19 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
         {
             Table table = new Table();
             table.Title = "My Title";
-            table.AddRow(new[] { "asd\nas", "qwe", "zxczxc\nasas\nerrr r r" });
+            table.AddRow(new[] { "first line\nsecond line", "single line", "one\ntwo\nthree" });
 
             string expected =
-@"+----------------------+
-| My Title             |
-+-----+-----+----------+
-| asd | qwe | zxczxc   |
-| as  |     | asas     |
-|     |     | errr r r |
-+-----+-----+----------+
+                @"+-----------------------------------+
+| My Title                          |
++-------------+-------------+-------+
+| first line  | single line | one   |
+| second line |             | two   |
+|             |             | three |
++-------------+-------------+-------+
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="InputControls\TextOutputControl.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
     <Compile Include="InputControls\YesNoControl.cs" />
+    <Compile Include="TabularData\AlignmentCalculator.cs" />
     <Compile Include="TabularData\TableBorder.cs" />
     <Compile Include="UserCommandParameter.cs" />
     <Compile Include="ConsoleReader.cs" />

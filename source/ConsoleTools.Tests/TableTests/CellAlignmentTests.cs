@@ -23,129 +23,171 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
     public class CellAlignmentTests
     {
         [Test]
-        public void default_alignment()
+        public void by_default_cell_content_is_aligned_to_left()
         {
-            Table table = new Table("Cell Alignment Tests");
-            table.AddRow(new[] { "1", "2", "3" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
 
             string expected =
-@"+----------------------+
-| Cell Alignment Tests |
-+-------+-------+------+
-| 1     | 2     | 3    |
-+-------+-------+------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
++----------+----------+---------+
 ";
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void cell_1_1_has_alignment_Left()
+        public void cell_0_1_is_alignment_Default_after_cell_creation()
         {
-            Table table = new Table("Cell Alignment Tests");
-            table.AddRow(new[] { "1", "2", "3" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table[0][1].HorizontalAlignment = HorizontalAlignment.Default;
+
+            string expected =
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
++----------+----------+---------+
+";
+            CustomAssert.TableRender(table, expected);
+        }
+
+        [Test]
+        public void cell_0_1_is_alignment_Left_after_cell_creation()
+        {
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
             table[0][1].HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
-@"+----------------------+
-| Cell Alignment Tests |
-+-------+-------+------+
-| 1     | 2     | 3    |
-+-------+-------+------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
++----------+----------+---------+
 ";
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void cell_1_1_has_alignment_Center()
+        public void cell_0_1_is_alignment_Center_after_cell_creation()
         {
-            Table table = new Table("Cell Alignment Tests");
-            table.AddRow(new[] { "1", "2", "3" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
             table[0][1].HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
-@"+----------------------+
-| Cell Alignment Tests |
-+-------+-------+------+
-| 1     |   2   | 3    |
-+-------+-------+------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      |   0,1    | 0,2     |
++----------+----------+---------+
 ";
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void cell_1_1_has_alignment_Right()
+        public void cell_0_1_is_alignment_Right_after_cell_creation()
         {
-            Table table = new Table("Cell Alignment Tests");
-            table.AddRow(new[] { "1", "2", "3" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
             table[0][1].HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
-@"+----------------------+
-| Cell Alignment Tests |
-+-------+-------+------+
-| 1     |     2 | 3    |
-+-------+-------+------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      |      0,1 | 0,2     |
++----------+----------+---------+
 ";
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void TestCellHorizontalAlign1()
+        public void cell_1_1_is_alignment_Default_at_cell_creation()
         {
-            Table table = new Table
-            {
-                Title = "My Title"
-            };
-
-            table.AddRow(new[] { "123", "qwe", "one two" });
-            table.AddRow(new[] { new Cell("1", HorizontalAlignment.Right), new Cell("asd"), new Cell("asas") });
-            table.AddRow(new[] { "12", "a", "errr" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
+            table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
-@"+---------------------+
-| My Title            |
-+-----+-----+---------+
-| 123 | qwe | one two |
-|   1 | asd | asas    |
-| 12  | a   | errr    |
-+-----+-----+---------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
+| 1,0      | 1,1      | 1,2     |
+| 2,0      | 2,1      | 2,2     |
++----------+----------+---------+
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
-        public void TestColumnHorizontalAlign()
+        public void cell_1_1_is_alignment_Left_at_cell_creation()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.DisplayColumnHeaders = false;
-
-            Column col = new Column("Col1");
-            col.HorizontalAlignment = HorizontalAlignment.Right;
-            table.Columns.Add(col);
-
-            col = new Column("Col2");
-            table.Columns.Add(col);
-
-            col = new Column("Col3");
-            table.Columns.Add(col);
-
-            table.AddRow(new[] { "123", "qwe", "one two" });
-            table.AddRow(new[] { new Cell("1", HorizontalAlignment.Left), new Cell("asd"), new Cell("asas") });
-            table.AddRow(new[] { "12", "a", "errr" });
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
-@"+---------------------+
-| My Title            |
-+-----+-----+---------+
-| 123 | qwe | one two |
-| 1   | asd | asas    |
-|  12 | a   | errr    |
-+-----+-----+---------+
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
+| 1,0      | 1,1      | 1,2     |
+| 2,0      | 2,1      | 2,2     |
++----------+----------+---------+
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
+        }
+
+        [Test]
+        public void cell_1_1_is_alignment_Center_at_cell_creation()
+        {
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
+            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+
+            string expected =
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
+|   1,0    | 1,1      | 1,2     |
+| 2,0      | 2,1      | 2,2     |
++----------+----------+---------+
+";
+
+            CustomAssert.TableRender(table, expected);
+        }
+
+        [Test]
+        public void cell_1_1_is_alignment_Right_at_cell_creation()
+        {
+            Table table = new Table("This is a cell alignment test");
+            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
+            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+
+            string expected =
+@"+-------------------------------+
+| This is a cell alignment test |
++----------+----------+---------+
+| 0,0      | 0,1      | 0,2     |
+|      1,0 | 1,1      | 1,2     |
+| 2,0      | 2,1      | 2,2     |
++----------+----------+---------+
+";
+
+            CustomAssert.TableRender(table, expected);
         }
 
         [Test]
@@ -168,7 +210,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TableTests
 +---------+--------+---------+
 ";
 
-            Assert.That(table.ToString(), Is.EqualTo(expected));
+            CustomAssert.TableRender(table, expected);
         }
     }
 }

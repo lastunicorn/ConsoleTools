@@ -44,6 +44,13 @@ Table
 - Optional border.
 - Three types of borders: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
 
+Obs: when content is aligned to center and there is an odd number of spaces, the content is aligned slightly to the left.
+
+todo:
+- add data binding. automatically generare columns and rows based on the 
+
+--------------------------------------------------------------------------------
+
 ConsoleReader
 
 --------------------------------------------------------------------------------

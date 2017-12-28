@@ -66,7 +66,11 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="TableTests\CellMultilineTests.cs" />
+    <Compile Include="CustomAssert.cs" />
     <Compile Include="MultilineTextTests\ConstructorTests.cs" />
+    <Compile Include="TableTests\CellAlignmentPerTableTests.cs" />
+    <Compile Include="TableTests\CellAlignmentPerColumnTests.cs" />
     <Compile Include="TableTests\SpecialCaseBorder.LongTitle.Tests.cs" />
     <Compile Include="TableTests\SpecialCaseBorder.ShortTitle.Tests.cs" />
     <Compile Include="TableTests\NoBorderTests.cs" />
@@ -77,7 +81,6 @@
     <Compile Include="TableTests\ConstructorTests.cs" />
     <Compile Include="TableTests\LinesBetweenRowsTests.cs" />
     <Compile Include="TableTests\TitleTests.cs" />
-    <Compile Include="TableTests\CellMultilineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

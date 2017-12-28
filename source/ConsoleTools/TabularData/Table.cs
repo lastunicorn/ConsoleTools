@@ -21,8 +21,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     public class Table
     {
-        private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Left;
-
         /// <summary>
         /// Gets or sets the title of the current instance of the <see cref="Table"/>.
         /// </summary>
@@ -56,7 +54,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; } = DefaultHorizontalAlignment;
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets the list of columns contained by the current table.
@@ -194,7 +192,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void Render(ITablePrinter tablePrinter)
         {
-            TableDimensions dimensions = new TableDimensions
+            TableDimensions tableDimensions = new TableDimensions
             {
                 MinWidth = MinWidth,
                 DisplayBorder = DisplayBorder,
@@ -205,13 +203,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 Columns = Columns,
                 Rows = rows
             };
-            dimensions.CalculateTableDimensions();
+            tableDimensions.CalculateTableDimensions();
+            
+            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
+            {
+                Columns = Columns,
+                Rows = rows,
+                TableLevelCellAlignment = CellHorizontalAlignment
+            };
 
-            string rowSeparator = Border.GenerateDataRowSeparatorBorder(dimensions);
+            string rowSeparator = Border.GenerateDataRowSeparatorBorder(tableDimensions);
 
-            DrawTableTitleRow(tablePrinter, dimensions);
-            DrawColumnHeadersRow(tablePrinter, dimensions, rowSeparator);
-            DrawDataRows(tablePrinter, dimensions, rowSeparator);
+            DrawTableTitleRow(tablePrinter, tableDimensions);
+            DrawColumnHeadersRow(tablePrinter, tableDimensions, rowSeparator);
+            DrawDataRows(tablePrinter, tableDimensions, rowSeparator);
         }
 
         private void DrawTableTitleRow(ITablePrinter tablePrinter, TableDimensions dimensions)
@@ -345,11 +350,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
             string innerContent;
 
-            HorizontalAlignment alignment = ColumnHeaderHorizontalAlignment(columnIndex);
+            HorizontalAlignment alignment = CalculateColumnHeaderCellHorizontalAlignment(columnIndex);
 
             switch (alignment)
             {
-                default:
+                case HorizontalAlignment.Left:
                     innerContent = column.Header.Lines[headerLineIndex].PadRight(cellInnerWidth, ' ');
                     break;
 
@@ -362,6 +367,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
                     innerContent = column.Header.Lines[headerLineIndex].PadLeft(cellInnerWidth - rightSpaces, ' ').PadRight(cellInnerWidth, ' ');
                     break;
+
+                default:
+                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
             }
 
             string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
@@ -370,21 +378,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return leftPadding + innerContent + rightPadding;
         }
 
-        private HorizontalAlignment ColumnHeaderHorizontalAlignment(int columnIndex)
+        private HorizontalAlignment CalculateColumnHeaderCellHorizontalAlignment(int columnIndex)
         {
-            HorizontalAlignment alignment = HorizontalAlignment.Default;
-
-            if (columnIndex < Columns.Count)
-                alignment = Columns[columnIndex].HorizontalAlignment;
-
-            if (alignment == HorizontalAlignment.Default)
+            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
             {
-                alignment = HorizontalAlignment == HorizontalAlignment.Default
-                    ? HorizontalAlignment.Left
-                    : DefaultHorizontalAlignment;
-            }
+                Columns = Columns,
+                Rows = rows,
+                TableLevelCellAlignment = CellHorizontalAlignment
+            };
 
-            return alignment;
+            return alignmentCalculator.CalcualteHeaderCellAlignment(columnIndex);
         }
 
         private void DrawDataRows(ITablePrinter tablePrinter, TableDimensions dimensions, string rowSeparator)
@@ -445,10 +448,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             int cellInnerWidth = dimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
             string innerContent;
 
-            HorizontalAlignment alignment = CellHorizontalAlignment(rowIndex, columnIndex);
+            HorizontalAlignment alignment = CalculateCellHorizontalAlignment(rowIndex, columnIndex);
+
             switch (alignment)
             {
-                default:
+                case HorizontalAlignment.Left:
                     innerContent = cell.Content.Lines[rowLineIndex].PadRight(cellInnerWidth, ' ');
                     break;
 
@@ -464,6 +468,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
                         .PadLeft(cellInnerWidth - rightSpaces, ' ')
                         .PadRight(cellInnerWidth, ' ');
                     break;
+
+                default:
+                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
             }
 
             string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
@@ -472,33 +479,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return leftPadding + innerContent + rightPadding;
         }
 
-        /// <summary>
-        /// Returns the horizontal alignment of a cell from the current instance of the <see cref="Table"/>.
-        /// </summary>
-        /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
-        /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
-        /// <returns>The horizontal alignment of the cell.</returns>
-        private HorizontalAlignment CellHorizontalAlignment(int rowIndex, int columnIndex)
+        private HorizontalAlignment CalculateCellHorizontalAlignment(int rowIndex, int columnIndex)
         {
-            HorizontalAlignment alignment = rows[rowIndex][columnIndex].HorizontalAlignment;
-
-            if (alignment == HorizontalAlignment.Default)
+            AlignmentCalculator alignmentCalculator = new AlignmentCalculator
             {
-                Column column = Columns.Count > columnIndex ? Columns[columnIndex] : null;
-                if (column != null)
-                {
-                    alignment = column.HorizontalAlignment;
-                }
+                Columns = Columns,
+                Rows = rows,
+                TableLevelCellAlignment = CellHorizontalAlignment
+            };
 
-                if (alignment == HorizontalAlignment.Default)
-                {
-                    alignment = HorizontalAlignment == HorizontalAlignment.Default
-                        ? HorizontalAlignment.Left
-                        : DefaultHorizontalAlignment;
-                }
-            }
-
-            return alignment;
+            return alignmentCalculator.CalcualteDataCellAlignment(rowIndex, columnIndex);
         }
 
         public void SetCellAlignment(int rowIndex, int columnIndex, HorizontalAlignment alignment)

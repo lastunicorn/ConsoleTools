@@ -34,6 +34,11 @@ Sound
 --------------------------------------------------------------------------------
 
 ProgressSpinner
+- Displays a progress-like visual bar that moves continuously. It can be used for background jobs for which the remaining work cannot be predicted.
+- Supports templates that control the aspect of the spinner (the displayed text for each frame).
+- Can change the interval time of the frames.
+
+Note: It does not support changing colors while spinning.
 
 --------------------------------------------------------------------------------
 

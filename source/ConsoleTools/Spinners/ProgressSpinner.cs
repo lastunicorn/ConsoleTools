@@ -19,12 +19,24 @@ using System.Timers;
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
+    /// <summary>
+    /// Displays a progress-like visual bar that moves continuously.
+    /// It can be used for background jobs for which the remaining work cannot be predicted.
+    /// It supports templates that control the aspect of the spinner (the displayed text for each frame).
+    /// </summary>
+    /// <remarks>
+    /// It does not support changing colors while spinning.
+    /// </remarks>
     public class ProgressSpinner : IDisposable
     {
         private readonly ISpinnerTemplate template;
         private bool isDisposed;
         private readonly Timer timer;
 
+        /// <summary>
+        /// Gets or sets the time interval of the frames.
+        /// It can speed up or slow down the animation.
+        /// </summary>
         public double StepMiliseconds
         {
             get { return timer.Interval; }
@@ -45,6 +57,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
             Turn();
         }
 
+        /// <summary>
+        /// Displays the spinner and runs it until the <see cref="Stop"/> method is called.
+        /// </summary>
         public void Start()
         {
             if (isDisposed)
@@ -57,6 +72,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
             timer.Start();
         }
 
+        /// <summary>
+        /// Stops the animation of the spinner and erases it from the screen by writting sapces over it.
+        /// </summary>
         public void Stop()
         {
             if (isDisposed)

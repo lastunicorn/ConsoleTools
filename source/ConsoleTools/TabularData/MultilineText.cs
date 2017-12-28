@@ -131,7 +131,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             List<string> linesAsList = lines.ToList();
 
-            RawText = string.Join(string.Empty, linesAsList);
+            RawText = string.Join(Environment.NewLine, linesAsList);
             Lines = linesAsList.AsReadOnly();
 
             int width = linesAsList.Count == 0
@@ -170,6 +170,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return new MultilineText(text);
         }
 
+        public static implicit operator string(MultilineText multilineText)
+        {
+            return string.Join(Environment.NewLine, multilineText.Lines);
+        }
+
         public static implicit operator MultilineText(List<string> lines)
         {
             return new MultilineText(lines);
@@ -178,11 +183,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public static implicit operator List<string>(MultilineText multilineText)
         {
             return multilineText.Lines.ToList();
-        }
-
-        public static implicit operator string(MultilineText multilineText)
-        {
-            return string.Join(Environment.NewLine, multilineText.Lines);
         }
     }
 }

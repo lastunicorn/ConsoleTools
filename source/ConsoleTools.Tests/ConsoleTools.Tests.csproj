@@ -66,6 +66,8 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
+    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
     <Compile Include="TabularData\RowTests.cs" />
     <Compile Include="TabularData\TableTests\CellMultilineTests.cs" />
     <Compile Include="CustomAssert.cs" />

@@ -25,12 +25,18 @@ namespace DustInTheWind.ConsoleTools.Spinners
         private bool isDisposed;
         private readonly Timer timer;
 
+        public double StepMiliseconds
+        {
+            get { return timer.Interval; }
+            set { timer.Interval = value; }
+        }
+
         public ProgressSpinner(ITemplate template)
         {
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;
 
-            timer = new Timer(500);
+            timer = new Timer(400);
             timer.Elapsed += HandleTimerElapsed;
         }
 

@@ -14,13 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class DotTemplate : TemplateBase
+    public class SequenceTemplateBase : ITemplate
     {
-        public DotTemplate()
-            : base(new[] { ".   ", "..  ", "... ", "...." })
+        private int counter;
+        private readonly string[] sequence;
+
+        protected SequenceTemplateBase(string[] sequence)
         {
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            this.sequence = sequence;
+        }
+
+        public void Reset()
+        {
+            counter = 0;
+        }
+
+        public string GetCurrent()
+        {
+            return sequence[counter];
+        }
+
+        public string GetNext()
+        {
+            counter++;
+
+            if (counter >= sequence.Length)
+                counter = 0;
+
+            return sequence[counter];
         }
     }
 }

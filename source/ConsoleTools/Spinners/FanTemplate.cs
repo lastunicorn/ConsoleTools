@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class FanTemplate : TemplateBase
+    public class FanTemplate : SequenceTemplateBase
     {
         public FanTemplate()
             : base(new[] { "+", "x" })

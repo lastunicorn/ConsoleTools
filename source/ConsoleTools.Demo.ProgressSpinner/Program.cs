@@ -22,8 +22,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
 {
     internal class Program
     {
-        private static bool exitWesRequested;
-        private static readonly TimeSpan AsyncWorkTime = TimeSpan.FromSeconds(5);
+        private static bool exitWasRequested;
+        private static readonly TimeSpan AsyncWorkTime = TimeSpan.FromSeconds(8);
 
         private static void Main()
         {
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             CustomConsole.WriteLine("-------------------------------------------------------------------------------");
             CustomConsole.WriteLine();
 
-            while (!exitWesRequested)
+            while (!exitWasRequested)
             {
                 ITemplate template = CreateSpinnerTemplate();
 
@@ -66,12 +66,16 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
 
         private static ITemplate CreateSpinnerTemplate()
         {
-            CustomConsole.WriteLine("1 - arrow");
-            CustomConsole.WriteLine("2 - bar");
-            CustomConsole.WriteLine("3 - bubble");
-            CustomConsole.WriteLine("4 - dot");
-            CustomConsole.WriteLine("5 - fan");
-            CustomConsole.WriteLine("6 - square dot");
+            CustomConsole.WriteLine("1  - arrow");
+            CustomConsole.WriteLine("2  - stick");
+            CustomConsole.WriteLine("3  - bubble");
+            CustomConsole.WriteLine("4  - half rotate");
+            CustomConsole.WriteLine("5  - fan");
+            CustomConsole.WriteLine("6  - fill (dot, empty from start) - default");
+            CustomConsole.WriteLine("7  - fill (dot, empty from end)");
+            CustomConsole.WriteLine("8  - fill (dot, sudden empty)");
+            CustomConsole.WriteLine("9  - fill (dot, with borders)");
+            CustomConsole.WriteLine("10 - fill (block, length 7)");
             CustomConsole.WriteLine("0 - exit");
 
             CustomConsole.WriteLine();
@@ -84,15 +88,19 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 switch (rawValue)
                 {
                     case "0":
-                        exitWesRequested = true;
+                        exitWasRequested = true;
                         return null;
 
                     case "1": return new ArrowTemplate();
-                    case "2": return new BarTemplate();
+                    case "2": return new StickTemplate();
                     case "3": return new BubbleTemplate();
-                    case "4": return new DotTemplate();
+                    case "4": return new HalfRotateTemplate();
                     case "5": return new FanTemplate();
-                    case "6": return new SquareDotTemplate();
+                    case "6": return new FillTemplate();
+                    case "7": return new FillTemplate { FilledBehavior = FilledBehavior.EmptyFromEnd };
+                    case "8": return new FillTemplate { FilledBehavior = FilledBehavior.SuddenEmpty };
+                    case "9": return new FillTemplate { ShowBorders = true };
+                    case "10": return new FillTemplate('▓', 7);
                 }
             }
         }

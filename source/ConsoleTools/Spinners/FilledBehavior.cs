@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,10 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class BarTemplate : TemplateBase
+    public enum FilledBehavior
     {
-        public BarTemplate()
-            : base(new[] { "/", "-", "\\", "|" })
-        {
-        }
+        SuddenEmpty,
+        EmptyFromEnd,
+        EmptyFromStart
     }
 }

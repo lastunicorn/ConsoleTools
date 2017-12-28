@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class BubbleTemplate : TemplateBase
+    public class BubbleTemplate : SequenceTemplateBase
     {
         public BubbleTemplate()
             : base(new[] { ".", "o", "0", "o" })

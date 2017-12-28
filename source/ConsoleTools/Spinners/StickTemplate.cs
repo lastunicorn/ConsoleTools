@@ -16,10 +16,10 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class SquareDotTemplate : TemplateBase
+    public class StickTemplate : SequenceTemplateBase
     {
-        public SquareDotTemplate()
-            : base(new[] { "[.   ]", "[..  ]", "[... ]", "[....]", "[ ...]", "[  ..]", "[   .]", "[    ]" })
+        public StickTemplate()
+            : base(new[] { "/", "-", "\\", "|" })
         {
         }
     }

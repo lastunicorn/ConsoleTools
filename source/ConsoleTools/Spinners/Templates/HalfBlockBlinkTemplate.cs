@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class HalfBlockBlinkTemplate : SequenceTemplateBase
+    public class HalfBlockBlinkTemplate : SequenceTemplate
     {
         public HalfBlockBlinkTemplate()
             : base(new[] { "▄", "▀" })

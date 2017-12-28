@@ -18,12 +18,12 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class SequenceTemplateBase : ISpinnerTemplate
+    public class SequenceTemplate : ISpinnerTemplate
     {
         private int counter;
         private readonly string[] sequence;
 
-        protected SequenceTemplateBase(string[] sequence)
+        protected SequenceTemplate(string[] sequence)
         {
             if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             this.sequence = sequence;

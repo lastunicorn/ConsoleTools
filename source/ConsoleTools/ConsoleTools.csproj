@@ -77,7 +77,7 @@
     <Compile Include="Spinners\ProgressSpinner.cs" />
     <Compile Include="Spinners\Templates\FanTemplate.cs" />
     <Compile Include="Spinners\ISpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\SequenceTemplateBase.cs" />
+    <Compile Include="Spinners\Templates\SequenceTemplate.cs" />
     <Compile Include="Prompter.cs" />
     <Compile Include="TabularData\Cell.cs" />
     <Compile Include="TabularData\Column.cs" />

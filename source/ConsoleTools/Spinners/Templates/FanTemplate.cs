@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class FanTemplate : SequenceTemplateBase
+    public class FanTemplate : SequenceTemplate
     {
         public FanTemplate()
             : base(new[] { "+", "x" })

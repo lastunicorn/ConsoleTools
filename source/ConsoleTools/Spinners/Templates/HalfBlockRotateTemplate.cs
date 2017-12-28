@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class HalfBlockRotateTemplate : SequenceTemplateBase
+    public class HalfBlockRotateTemplate : SequenceTemplate
     {
         public HalfBlockRotateTemplate()
             : base(new[] { "▄", "▌", "▀", "▐" })

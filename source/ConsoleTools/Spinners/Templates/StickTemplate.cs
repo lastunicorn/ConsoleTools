@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class StickTemplate : SequenceTemplateBase
+    public class StickTemplate : SequenceTemplate
     {
         public StickTemplate()
             : base(new[] { "/", "-", "\\", "|" })

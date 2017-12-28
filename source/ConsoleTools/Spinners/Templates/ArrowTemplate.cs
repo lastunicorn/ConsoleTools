@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class ArrowTemplate : SequenceTemplateBase
+    public class ArrowTemplate : SequenceTemplate
     {
         public ArrowTemplate()
             : base(new[] { "v", "<", "^", ">" })

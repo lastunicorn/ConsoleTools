@@ -153,6 +153,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
 
+            row.ParentTable = this;
             rows.Add(row);
         }
 
@@ -164,7 +165,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            rows.Add(new Row(cells));
+            Row row = new Row(cells)
+            {
+                ParentTable = this
+            };
+            rows.Add(row);
         }
 
         /// <summary>
@@ -175,10 +180,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (texts == null) throw new ArgumentNullException(nameof(texts));
 
-            Row row = new Row();
+            Row row = new Row
+            {
+                ParentTable = this
+            };
 
             foreach (string text in texts)
-                row.Cells.Add(new Cell(text));
+                row.AddCell(new Cell(text));
 
             rows.Add(row);
         }
@@ -206,7 +214,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 Border = Border,
                 DisplayBorder = DisplayBorder,
                 DrawLinesBetweenRows = DrawLinesBetweenRows,
-                MinWidth=MinWidth,
+                MinWidth = MinWidth,
                 PaddingLeft = PaddingLeft,
                 PaddingRight = PaddingRight,
                 DisplayColumnHeaders = DisplayColumnHeaders,

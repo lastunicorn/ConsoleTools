@@ -267,9 +267,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     if (DisplayBorder)
                         tablePrinter.WriteBorder(Border.Left);
 
-                    for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
+                    for (int columnIndex = 0; columnIndex < row.CellCount; columnIndex++)
                     {
-                        Cell cell = row.Cells[columnIndex];
+                        Cell cell = row[columnIndex];
                         string content = BuildCellContent(rowIndex, columnIndex, cell, rowLineIndex);
 
                         tablePrinter.WriteNormal(content);

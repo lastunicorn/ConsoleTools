@@ -27,13 +27,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the list of cells contained by the row.
         /// </summary>
-        public List<Cell> Cells { get; }
+        private readonly List<Cell> cells = new List<Cell>();
+
+        public Table ParentTable { get; set; }
+
+        public int CellCount => cells.Count;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Row"/> class with default values.
         /// </summary>
         public Row()
-            : this(null)
         {
         }
 
@@ -44,26 +47,30 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
         public Row(Cell[] cells)
         {
-            Cells = new List<Cell>();
-
             if (cells != null)
+                AddCells(cells);
+        }
+
+        private void AddCells(IEnumerable<Cell> cells)
+        {
+            foreach (Cell cell in cells)
+                AddCell(cell);
+        }
+
+        public void AddCell(Cell cell)
+        {
+            if (cell == null)
             {
-                foreach (Cell cell in cells)
+                Cell newCell = new Cell(null)
                 {
-                    if (cell == null)
-                    {
-                        Cell newCell = new Cell(null)
-                        {
-                            ParentRow = this
-                        };
-                        Cells.Add(newCell);
-                    }
-                    else
-                    {
-                        cell.ParentRow = this;
-                        Cells.Add(cell);
-                    }
-                }
+                    ParentRow = this
+                };
+                cells.Add(newCell);
+            }
+            else
+            {
+                cell.ParentRow = this;
+                cells.Add(cell);
             }
         }
 
@@ -75,8 +82,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Cell this[int index]
         {
-            get { return Cells[index]; }
-            set { Cells[index] = value; }
+            get { return cells[index]; }
+            set { cells[index] = value; }
         }
     }
 }

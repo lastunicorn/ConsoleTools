@@ -225,31 +225,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 if (DisplayBorder)
                     rowWidth += 1;
 
-                for (int j = 0; j < row.Cells.Count; j++)
+                for (int j = 0; j < row.CellCount; j++)
                 {
-                    Cell cell = row.Cells[j];
+                    Cell cell = row[j];
+
+                    Size cellSize = cell.CalculateDimensions();
 
                     if (j == CalculatedColumnsWidth.Count)
                         CalculatedColumnsWidth.Add(0);
 
-                    int cellWidth;
-                    int cellHeight;
-
-                    if (cell.Content != null)
+                    if (CalculatedColumnsWidth[j] < cellSize.Width)
                     {
-                        cellWidth = PaddingLeft + cell.Content.Size.Width + PaddingRight;
-                        cellHeight = cell.Content.Size.Height;
-                    }
-                    else
-                    {
-                        cellWidth = PaddingLeft + PaddingRight;
-                        cellHeight = 0;
-                    }
-
-                    if (CalculatedColumnsWidth[j] < cellWidth)
-                    {
-                        CalculatedColumnsWidth[j] = cellWidth;
-                        rowWidth += cellWidth;
+                        CalculatedColumnsWidth[j] = cellSize.Width;
+                        rowWidth += cellSize.Width;
 
                         // The cell right border
                         if (DisplayBorder)
@@ -264,8 +252,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                             rowWidth += 1;
                     }
 
-                    if (rowHeight < cellHeight)
-                        rowHeight = cellHeight;
+                    if (rowHeight < cellSize.Height)
+                        rowHeight = cellSize.Height;
                 }
 
                 CalculatedRowsHeight.Add(rowHeight);

@@ -42,12 +42,13 @@ Table
 - Optional table title.
 - Optional column headers.
 - Optional border.
-- Three types of borders: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
+- Three types of borders out-of-the-box: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
+- Custom borders.
 
 Obs: when content is aligned to center and there is an odd number of spaces, the content is aligned slightly to the left.
 
 todo:
-- add data binding. automatically generare columns and rows based on the 
+- add data binding. automatically generare columns and rows based on the property names.
 
 --------------------------------------------------------------------------------
 
@@ -65,7 +66,7 @@ Prompter
 - Customizable prompter text.
 - Customizable prompter glyph.
 - Customizable space before and after the prompter.
-- EnsureBeginOfLine - If the curson is not at the begin of the line, the prompter is displayed on the next line.
+- EnsureBeginOfLine - If the curson is not at the begin of the line when the prompter must be displayed, the prompter is displayed on the next line.
 
 --------------------------------------------------------------------------------
 

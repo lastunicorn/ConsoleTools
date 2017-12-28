@@ -85,6 +85,38 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment = horizontalAlignment;
         }
 
+        public Size CalculateDimensions()
+        {
+            int cellWidth;
+            int cellHeight;
+
+            int paddingLeft = CalculatePaddingLeft();
+            int paddingRight = CalculatePaddingRight();
+
+            if (IsEmpty)
+            {
+                cellWidth = paddingLeft + paddingRight;
+                cellHeight = 0;
+            }
+            else
+            {
+                cellWidth = paddingLeft + Content.Size.Width + paddingRight;
+                cellHeight = Content.Size.Height;
+            }
+
+            return new Size(cellWidth, cellHeight);
+        }
+
+        private int CalculatePaddingLeft()
+        {
+            return ParentRow?.ParentTable?.PaddingLeft ?? 0;
+        }
+
+        private int CalculatePaddingRight()
+        {
+            return ParentRow?.ParentTable?.PaddingRight ?? 0;
+        }
+
         public override string ToString()
         {
             return Content?.ToString() ?? string.Empty;

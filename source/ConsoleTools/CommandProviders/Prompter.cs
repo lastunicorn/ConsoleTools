@@ -80,13 +80,17 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             do
             {
                 DisplayWholePrompter();
-
+                
                 string commandText = Console.ReadLine();
+
+                if (commandText == null)
+                    break;
+
+                if (commandText.Length == 0)
+                    continue;
+
                 UserCommand command = UserCommand.Parse(commandText);
 
-                if (command.IsEmpty)
-                    continue;
-                
                 Console.WriteLine();
 
                 try

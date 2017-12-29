@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
@@ -25,10 +24,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
     {
         private readonly ICommandProvider commandProvider;
         private readonly Router router;
-
-        public event EventHandler<CancelEventArgs> Exiting;
-        public event EventHandler ExitCanceled;
-
+        
         public ConsoleApplication()
         {
             commandProvider = new Prompter();
@@ -44,32 +40,13 @@ namespace DustInTheWind.ConsoleTools.Mvc
 
         public void Run()
         {
-            Console.CancelKeyPress += HandleCancelKeyPress;
-
             commandProvider.Run();
         }
 
-        private void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        public void Exit()
         {
-            e.Cancel = true;
-            RequestExit();
+            commandProvider.RequestStop();
         }
-
-        public void RequestExit()
-        {
-            CancelEventArgs e = new CancelEventArgs();
-            OnExiting(e);
-
-            if (e.Cancel)
-                OnExitCanceled();
-            else
-                commandProvider.RequestStop();
-        }
-
-        //public void Exit()
-        //{
-        //    commandProvider.RequestStop();
-        //}
 
         private void HandleNewCommand(object sender, NewCommandEventArgs e)
         {
@@ -90,16 +67,6 @@ namespace DustInTheWind.ConsoleTools.Mvc
             {
                 CustomConsole.WriteLine();
             }
-        }
-
-        protected virtual void OnExiting(CancelEventArgs e)
-        {
-            Exiting?.Invoke(this, e);
-        }
-
-        protected virtual void OnExitCanceled()
-        {
-            ExitCanceled?.Invoke(this, EventArgs.Empty);
         }
     }
 }

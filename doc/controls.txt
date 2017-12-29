@@ -76,6 +76,15 @@ Prompter
 --------------------------------------------------------------------------------
 
 SelectableMenu
+Features:
+    - Displays the menu items vertically in a list.
+    - Selects a menu item using up/down keys.
+    - Selects a menu item using a shortcut key.
+    - Horizontaly align the menu items inside the menu (Left, Center, Right).
+    - Enable/Disable menu items.
+    - Display/Hide menu items.
+
+
 TextMenu
 
 --------------------------------------------------------------------------------
@@ -88,3 +97,6 @@ Console MVC
 - Routing table - to associate a command text with a controller (execution flow).
 - Optional dependency resolver - If none is provided, the controllers must have parameterless constructors.
 	Exceptions: Without a dependency resolver, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.
+
+todo:
+- handle Ctrl+C

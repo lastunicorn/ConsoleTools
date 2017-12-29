@@ -16,7 +16,6 @@
 
 using System;
 using DustInTheWind.ConsoleTools;
-using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Mvc;
 
@@ -24,12 +23,12 @@ namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
 {
     internal class ExitController : IController
     {
-        private readonly ICommandProvider commandProvider;
+        private readonly ConsoleApplication consoleApplication;
 
-        public ExitController(ICommandProvider commandProvider)
+        public ExitController(ConsoleApplication consoleApplication)
         {
-            if (commandProvider == null) throw new ArgumentNullException(nameof(commandProvider));
-            this.commandProvider = commandProvider;
+            if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
+            this.consoleApplication = consoleApplication;
         }
 
         public void Execute()
@@ -50,7 +49,7 @@ namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Bye!");
-                commandProvider.RequestStop();
+                consoleApplication.Exit();
             }
             else
             {

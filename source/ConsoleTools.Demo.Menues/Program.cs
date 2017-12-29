@@ -18,6 +18,7 @@ using System;
 using System.ComponentModel;
 using DustInTheWind.ConsoleTools.Demo.Menues.MenuItems;
 using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues
 {

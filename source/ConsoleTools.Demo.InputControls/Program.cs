@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {

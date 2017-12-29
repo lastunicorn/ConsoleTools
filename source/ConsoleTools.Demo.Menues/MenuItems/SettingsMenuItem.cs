@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
 {

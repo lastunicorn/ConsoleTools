@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
     public class LabelMenuItem : IMenuItem
     {

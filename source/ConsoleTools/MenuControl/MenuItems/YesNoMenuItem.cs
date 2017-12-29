@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,22 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using System;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
-    internal class CreditsMenuItem : LabelMenuItem
+    public class YesNoMenuItem : LabelMenuItem
     {
-        public CreditsMenuItem()
-        {
-            Text = "Credits";
-            HorizontalAlign = HorizontalAlign.Center;
-        }
+        public string QuestionText { get; set; }
 
-        public override void Execute()
+        public override bool BeforeSelect()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
+            string message = QuestionText + " [Y/n]";
+            Console.Write(message);
+            ConsoleKeyInfo key = Console.ReadKey(true);
+
+            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
+            Console.Write(new string(' ', message.Length));
+
+            bool allow = key.Key == ConsoleKey.Y || key.Key == ConsoleKey.Enter;
+            return allow && base.BeforeSelect();
         }
     }
 }

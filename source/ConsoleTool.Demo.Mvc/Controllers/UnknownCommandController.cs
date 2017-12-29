@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,47 +15,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools;
+using DustInTheWind.ConsoleTools.CommandProviders;
+using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
 {
-    public class SpaceMenuItem : IMenuItem
+    internal class UnknownCommandController : IController
     {
-        public int Id => -1;
+        private readonly UserCommand command;
 
-        public string Text
+        public UnknownCommandController(UserCommand command)
         {
-            get { return string.Empty; }
-            set { }
-        }
-        
-        public bool IsVisible { get; }
-
-        public HorizontalAlign HorizontalAlign { get; set; }
-
-        public SpaceMenuItem()
-        {
-            IsVisible = true;
-        }
-
-        public bool IsSelectable => false;
-
-        public ConsoleKey? ShortcutKey
-        {
-            get { return null; }
-            set { }
-        }
-
-        public void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign)
-        {
-        }
-
-        public virtual bool BeforeSelect()
-        {
-            return false;
+            if (command == null) throw new ArgumentNullException(nameof(command));
+            this.command = command;
         }
 
         public void Execute()
         {
+            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
         }
     }
 }

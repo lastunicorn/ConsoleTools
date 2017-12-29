@@ -14,26 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTool.Demo.Mvc.Ocean
 {
-    public class YesNoMenuItem : LabelMenuItem
+    internal class Whale
     {
-        public string QuestionText { get; set; }
-
-        public override bool BeforeSelect()
-        {
-            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
-            string message = QuestionText + " [Y/n]";
-            Console.Write(message);
-            ConsoleKeyInfo key = Console.ReadKey(true);
-
-            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
-            Console.Write(new string(' ', message.Length));
-
-            bool allow = key.Key == ConsoleKey.Y || key.Key == ConsoleKey.Enter;
-            return allow && base.BeforeSelect();
-        }
+        public string Name { get; set; }
+        public string Count { get; set; }
+        public string Weight { get; set; }
     }
 }

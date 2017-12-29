@@ -67,6 +67,8 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public static UserCommand Empty { get; } = new UserCommand(string.Empty, new UserCommandParameter[0]);
 
+        public bool IsEmpty => string.IsNullOrEmpty(Name) && Parameters.Count == 0;
+
         /// <summary>
         /// Parses a string and creates a new instance of the <see cref="UserCommand"/> from it.
         /// </summary>
@@ -116,7 +118,7 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>The sting representation of the current instance.</returns>
         public override string ToString()
         {
-            return Name + " " + string.Join(" ", (IEnumerable<UserCommandParameter>)Parameters);
+            return Name + " " + string.Join(" ", Parameters);
         }
     }
 }

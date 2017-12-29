@@ -16,6 +16,7 @@
 
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.Prompter.Ocean;
+using DustInTheWind.ConsoleTools.Mvc;
 using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers

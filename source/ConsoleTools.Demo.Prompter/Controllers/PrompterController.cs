@@ -16,6 +16,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {

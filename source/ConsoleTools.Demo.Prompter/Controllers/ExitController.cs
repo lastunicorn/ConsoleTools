@@ -16,17 +16,18 @@
 
 using System;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class ExitController : IController
     {
-        private readonly ConsoleTools.Prompter prompter;
+        private readonly ConsoleApplication consoleApplication;
 
-        public ExitController(ConsoleTools.Prompter prompter)
+        public ExitController(ConsoleApplication consoleApplication)
         {
-            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
-            this.prompter = prompter;
+            if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
+            this.consoleApplication = consoleApplication;
         }
 
         public void Execute()
@@ -47,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Bye!");
-                prompter.RequestStop();
+                consoleApplication.Exit();
             }
             else
             {

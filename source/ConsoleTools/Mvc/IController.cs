@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter
+namespace DustInTheWind.ConsoleTools.Mvc
 {
-    internal interface IController
+    public interface IController
     {
         void Execute();
     }

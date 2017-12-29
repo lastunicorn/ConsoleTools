@@ -16,21 +16,25 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
+namespace DustInTheWind.ConsoleTools.Mvc
 {
-    internal class UnknownCommandController : IController
+    public class Route
     {
-        private readonly UserCommand command;
+        public string CommandName { get; }
+        public Type ControllerType { get; }
 
-        public UnknownCommandController(UserCommand command)
+        public Route(string commandName, Type controllerType)
         {
-            if (command == null) throw new ArgumentNullException(nameof(command));
-            this.command = command;
-        }
+            if (commandName == null) throw new ArgumentNullException(nameof(commandName));
+            if (controllerType == null) throw new ArgumentNullException(nameof(controllerType));
 
-        public void Execute()
-        {
-            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
+            bool typeIsController = typeof(IController).IsAssignableFrom(controllerType);
+
+            if (!typeIsController)
+                throw new ArgumentException("Controller type must implement IController interface.", nameof(controllerType));
+
+            CommandName = commandName;
+            ControllerType = controllerType;
         }
     }
 }

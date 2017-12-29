@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.Prompter.Controllers;
+using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
     internal class Program
     {
-        private static ConsoleTools.Prompter prompter;
-
         private static void Main()
         {
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Prompter");
@@ -37,43 +37,21 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
         private static void StartDemo()
         {
-            prompter = new ConsoleTools.Prompter();
-            prompter.NewCommand += HandleNewCommand;
+            ConsoleApplication consoleApplication = new ConsoleApplication();
 
-            prompter.Run();
-        }
-
-        private static void HandleNewCommand(object sender, NewCommandEventArgs e)
-        {
-            IController controller = CreateController(e.Command);
-
-            controller.Execute();
-            CustomConsole.WriteLine();
-        }
-
-        private static IController CreateController(UserCommand command)
-        {
-            switch (command.Name)
+            List<Route> routes = new List<Route>
             {
-                case "q":
-                case "quit":
-                case "exit":
-                    return new ExitController(prompter);
+                new Route("q", typeof(ExitController)),
+                new Route("quit", typeof(ExitController)),
+                new Route("exit", typeof(ExitController)),
+                new Route("help", typeof(HelpController)),
+                new Route("whale", typeof(WhaleController)),
+                new Route("whales", typeof(WhaleController)),
+                new Route("prompter", typeof(PrompterController))
+            };
+            consoleApplication.ConfigureRoutes(routes);
 
-                case "help":
-                    return new HelpController();
-
-                case "whale":
-                case "whales":
-                    return new WhaleController();
-
-                case "prompter":
-                    return new PrompterController(prompter);
-
-                default:
-                    return new UnknownCommandController(command);
-            }
+            consoleApplication.Run();
         }
     }
 }
-

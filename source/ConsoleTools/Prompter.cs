@@ -66,9 +66,12 @@ namespace DustInTheWind.ConsoleTools
                 DisplayWholePrompter();
 
                 string commandText = Console.ReadLine();
-                Console.WriteLine();
-
                 UserCommand command = UserCommand.Parse(commandText);
+
+                if (command.IsEmpty)
+                    continue;
+                
+                Console.WriteLine();
 
                 try
                 {
@@ -78,7 +81,10 @@ namespace DustInTheWind.ConsoleTools
                     if (eva.Exit)
                         stopWasRequested = true;
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    CustomConsole.WriteError(ex);
+                }
             }
             while (!stopWasRequested);
         }

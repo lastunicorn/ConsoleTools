@@ -42,6 +42,7 @@
     </Compile>
     <Compile Include="Controllers\ExitController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\UnknownCommandController.cs" />
     <Compile Include="Ocean\WhaleProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Controllers\PrompterController.cs" />

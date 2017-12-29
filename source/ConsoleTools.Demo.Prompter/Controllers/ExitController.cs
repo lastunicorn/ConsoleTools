@@ -22,12 +22,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class ExitController : IController
     {
-        private readonly ConsoleApplication consoleApplication;
+        private readonly CommandProviders.Prompter prompter;
 
-        public ExitController(ConsoleApplication consoleApplication)
+        public ExitController(CommandProviders.Prompter prompter)
         {
-            if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
-            this.consoleApplication = consoleApplication;
+            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
+            this.prompter = prompter;
         }
 
         public void Execute()
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Bye!");
-                consoleApplication.Exit();
+                prompter.RequestStop();
             }
             else
             {

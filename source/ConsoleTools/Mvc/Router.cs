@@ -18,24 +18,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Input;
+using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
     public class Router
     {
         private readonly ConsoleApplication consoleApplication;
-        private readonly Prompter prompter;
+        private readonly ICommandProvider commandProvider;
 
         public List<Route> Routes { get; } = new List<Route>();
 
-        public Router(ConsoleApplication consoleApplication, Prompter prompter)
+        public Router(ConsoleApplication consoleApplication, ICommandProvider commandProvider)
         {
             if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
-            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
+            if (commandProvider == null) throw new ArgumentNullException(nameof(commandProvider));
 
             this.consoleApplication = consoleApplication;
-            this.prompter = prompter;
+            this.commandProvider = commandProvider;
         }
 
         public IController CreateController(UserCommand command)
@@ -65,9 +65,9 @@ namespace DustInTheWind.ConsoleTools.Mvc
                     {
                         if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ConsoleApplication)))
                             parameters.Add(consoleApplication);
-                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(Prompter)))
-                            parameters.Add(prompter);
-                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ICommand)))
+                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ICommandProvider)))
+                            parameters.Add(commandProvider);
+                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(UserCommand)))
                             parameters.Add(command);
                         else
                         {

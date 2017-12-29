@@ -14,25 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Provides data for NewCommand event.
+    /// Represents a parameter for the <see cref="UserCommand"/> class.
     /// </summary>
-    public class NewCommandEventArgs : EventArgs
+    public class UserCommandParameter
     {
-        public UserCommand Command { get; }
-
-        public bool Exit { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the parameter.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NewCommandEventArgs"/> class.
+        /// Gets or sets the value of the parameter.
         /// </summary>
-        public NewCommandEventArgs(UserCommand command)
+        public string Value { get; set; }
+
+        public override string ToString()
         {
-            Command = command;
+            return Name + "=" + Value;
         }
     }
 }

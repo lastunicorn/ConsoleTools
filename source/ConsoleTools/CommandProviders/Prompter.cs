@@ -16,9 +16,12 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
-    public class Prompter
+    /// <summary>
+    /// Reads commands from the console.
+    /// </summary>
+    public class Prompter : ICommandProvider
     {
         private volatile bool stopWasRequested;
 
@@ -32,9 +35,20 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public string PrompterGlyph { get; set; } = ">";
 
+        /// <summary>
+        /// Gets or sets the count of spaces to be displayed before the prompter (text + glyph).
+        /// </summary>
         public int SpaceBeforePrompter { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the count of spaces to be displayed after the prompter (text + glyph), before the user can write his command.
+        /// </summary>
         public int SpaceAfterPrompter { get; set; } = 1;
 
+        /// <summary>
+        /// Gets or sets a value that specifies if the prompter should always be displayed at the beginning of the line.
+        /// If this value is <c>true</c> and the cursor is not at the beginning of the line, a new line is written before displaying the prompter.
+        /// </summary>
         public bool EnsureBeginOfLine { get; set; } = true;
 
         /// <summary>
@@ -54,8 +68,10 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Continously read from the console new commands.
         /// After a command is obtained from the console, the <see cref="NewCommand"/> event is raised.
-        /// The infinite loop that reads commands can be stopped only by setting the Exit property in the
-        /// <see cref="NewCommand"/> event or by calling the <see cref="RequestStop"/> method.
+        /// The <see cref="Run"/> method blocks the current execution thread.
+        /// The infinite loop that reads commands can be stopped
+        /// by setting the <see cref="NewCommandEventArgs.Exit"/> property in the <see cref="NewCommand"/> event
+        /// or by calling the <see cref="RequestStop"/> method.
         /// </summary>
         public void Run()
         {
@@ -89,6 +105,10 @@ namespace DustInTheWind.ConsoleTools
             while (!stopWasRequested);
         }
 
+        /// <summary>
+        /// Reads a single command (<see cref="UserCommand"/>) from the console and returns it.
+        /// </summary>
+        /// <returns>A <see cref="UserCommand"/> object containing the command typed by the user.</returns>
         public UserCommand RunOnce()
         {
             DisplayWholePrompter();

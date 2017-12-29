@@ -16,6 +16,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {

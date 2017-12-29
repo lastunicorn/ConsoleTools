@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Mvc;
 
@@ -22,12 +23,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class PrompterController : IController
     {
-        private readonly ConsoleTools.Prompter prompter;
+        private readonly CommandProviders.Prompter prompter;
 
-        public PrompterController(ConsoleTools.Prompter prompter)
+        public PrompterController(ICommandProvider prompter)
         {
             if (prompter == null) throw new ArgumentNullException(nameof(prompter));
-            this.prompter = prompter;
+            this.prompter = prompter as CommandProviders.Prompter;
         }
 
         public void Execute()

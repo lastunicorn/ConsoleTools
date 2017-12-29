@@ -16,20 +16,21 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
     public class ConsoleApplication
     {
-        private readonly Prompter prompter;
+        private readonly ICommandProvider commandProvider;
         private readonly Router router;
 
         public ConsoleApplication()
         {
-            prompter = new Prompter();
-            prompter.NewCommand += HandleNewCommand;
+            commandProvider = new Prompter();
+            commandProvider.NewCommand += HandleNewCommand;
 
-            router = new Router(this, prompter);
+            router = new Router(this, commandProvider);
         }
 
         public void ConfigureRoutes(IEnumerable<Route> routes)
@@ -39,12 +40,12 @@ namespace DustInTheWind.ConsoleTools.Mvc
 
         public void Run()
         {
-            prompter.Run();
+            commandProvider.Run();
         }
 
         public void Exit()
         {
-            prompter.RequestStop();
+            commandProvider.RequestStop();
         }
 
         private void HandleNewCommand(object sender, NewCommandEventArgs e)

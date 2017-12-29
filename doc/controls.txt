@@ -67,13 +67,24 @@ CustomConsole Write
 
 Prompter
 - Displays a prompter and waits for the user to write a command.
-- Can run once, to read a single command and then stop or cand run in a loop, to read commands until a stop 
+- Can read a single command and then stop or cand run in a loop, to read commands until the Stop method is called.
 - Customizable prompter text.
 - Customizable prompter glyph.
-- Customizable space before and after the prompter.
+- Customizable amount of space before and after the prompter.
 - EnsureBeginOfLine - If the curson is not at the begin of the line when the prompter must be displayed, the prompter is displayed on the next line.
 
 --------------------------------------------------------------------------------
 
 SelectableMenu
 TextMenu
+
+--------------------------------------------------------------------------------
+
+Console MVC
+- Provides an easy way to implement execution flows for each command.
+- Configurable CommandProvider
+	- can be a prompter where the user types a command.
+	- can be a menu from which the user selects an item.
+- Routing table - to associate a command text with a controller (execution flow).
+- Optional dependency resolver - If none is provided, the controllers must have parameterless constructors.
+	Exceptions: Without a dependency resolver, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.

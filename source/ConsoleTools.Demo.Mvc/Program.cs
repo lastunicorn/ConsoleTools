@@ -15,10 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTool.Demo.Mvc.Controllers;
+using DustInTheWind.ConsoleTools.Demo.Mvc.Controllers;
 using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc
+namespace DustInTheWind.ConsoleTools.Demo.Mvc
 {
     internal static class Program
     {

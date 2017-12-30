@@ -26,6 +26,17 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         public string Read(string label)
         {
+            DisplayLabel(label);
+
+            string value = Console.ReadLine();
+
+            return string.IsNullOrEmpty(value)
+                ? DefaultValue
+                : value;
+        }
+
+        private void DisplayLabel(string label)
+        {
             CustomConsole.WriteEmphasies(label);
             CustomConsole.WriteEmphasies(Separator);
 
@@ -34,12 +45,6 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 string space = new string(' ', SpaceAfterLabel);
                 Console.Write(space);
             }
-
-            string value = Console.ReadLine();
-
-            return string.IsNullOrEmpty(value)
-                ? DefaultValue
-                : value;
         }
     }
 }

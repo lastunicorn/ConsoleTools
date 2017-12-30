@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Ocean
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Ocean
 {
     internal class WhaleProvider
     {

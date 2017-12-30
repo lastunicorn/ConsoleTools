@@ -89,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 if (commandText.Length == 0)
                     continue;
 
-                UserCommand command = UserCommand.Parse(commandText);
+                CliCommand command = CliCommand.Parse(commandText);
 
                 Console.WriteLine();
 
@@ -110,17 +110,17 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         }
 
         /// <summary>
-        /// Reads a single command (<see cref="UserCommand"/>) from the console and returns it.
+        /// Reads a single command (<see cref="CliCommand"/>) from the console and returns it.
         /// </summary>
-        /// <returns>A <see cref="UserCommand"/> object containing the command typed by the user.</returns>
-        public UserCommand RunOnce()
+        /// <returns>A <see cref="CliCommand"/> object containing the command typed by the user.</returns>
+        public CliCommand RunOnce()
         {
             DisplayWholePrompter();
 
             string commandText = Console.ReadLine();
             Console.WriteLine();
 
-            return UserCommand.Parse(commandText);
+            return CliCommand.Parse(commandText);
         }
 
         protected virtual void DisplayWholePrompter()

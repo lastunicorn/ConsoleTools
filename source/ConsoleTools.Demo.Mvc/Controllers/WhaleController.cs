@@ -15,12 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTool.Demo.Mvc.Ocean;
-using DustInTheWind.ConsoleTools;
+using DustInTheWind.ConsoleTools.Demo.Mvc.Ocean;
 using DustInTheWind.ConsoleTools.Mvc;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
     internal class WhaleController : IController
     {

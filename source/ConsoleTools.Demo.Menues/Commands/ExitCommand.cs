@@ -15,24 +15,23 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.Mvc;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
-    internal class UnknownCommandController : IController
+    internal class ExitCommand : ICommand
     {
-        private readonly CliCommand command;
+        private readonly ApplicationState applicationState;
 
-        public UnknownCommandController(CliCommand command)
+        public ExitCommand(ApplicationState applicationState)
         {
-            if (command == null) throw new ArgumentNullException(nameof(command));
-            this.command = command;
+            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
+            this.applicationState = applicationState;
         }
 
         public void Execute()
         {
-            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
+            applicationState.RequestExit();
         }
     }
 }

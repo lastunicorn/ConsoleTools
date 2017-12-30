@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
@@ -22,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
     {
         public string QuestionText { get; set; }
 
-        public override bool BeforeSelect()
+        protected override void OnBeforeSelect(CancelEventArgs e)
         {
             Console.SetCursorPosition(lastX + lastLength + 1, lastY);
             string message = QuestionText + " [Y/n]";
@@ -33,7 +34,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             Console.Write(new string(' ', message.Length));
 
             bool allow = key.Key == ConsoleKey.Y || key.Key == ConsoleKey.Enter;
-            return allow && base.BeforeSelect();
+            e.Cancel |= !allow;
+
+            base.OnBeforeSelect(e);
         }
     }
 }

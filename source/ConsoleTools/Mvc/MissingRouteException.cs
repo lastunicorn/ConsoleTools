@@ -24,21 +24,21 @@ namespace DustInTheWind.ConsoleTools.Mvc
     {
         private const string DefaultMessage = "There is no route declared for command {0}.";
 
-        public UserCommand Command { get; }
+        public CliCommand Command { get; }
 
-        public MissingRouteException(UserCommand command)
+        public MissingRouteException(CliCommand command)
             : base(string.Format(DefaultMessage, command.Name))
         {
             Command = command;
         }
 
-        public MissingRouteException(UserCommand command, string message)
+        public MissingRouteException(CliCommand command, string message)
             : base(message)
         {
             Command = command;
         }
 
-        public MissingRouteException(UserCommand command, string message, Exception innerException)
+        public MissingRouteException(CliCommand command, string message, Exception innerException)
             : base(message, innerException)
         {
             Command = command;

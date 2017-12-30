@@ -15,21 +15,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
-    internal class CreditsMenuItem : LabelMenuItem
+    internal class SaveGameCommand : ICommand
     {
-        public CreditsMenuItem()
+        public void Execute()
         {
-            Text = "Credits";
-            HorizontalAlign = HorizontalAlign.Center;
-        }
-
-        public override void Execute()
-        {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            CustomConsole.WriteLineSuccess("Game saved successfully");
         }
     }
 }

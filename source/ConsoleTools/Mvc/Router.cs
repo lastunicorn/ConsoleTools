@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
             this.commandProvider = commandProvider;
         }
 
-        public IController CreateController(UserCommand command)
+        public IController CreateController(CliCommand command)
         {
             Route route = Routes.FirstOrDefault(x => x.CommandName == command.Name);
 
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
                             parameters.Add(consoleApplication);
                         else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ICommandProvider)))
                             parameters.Add(commandProvider);
-                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(UserCommand)))
+                        else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(CliCommand)))
                             parameters.Add(command);
                         else
                         {

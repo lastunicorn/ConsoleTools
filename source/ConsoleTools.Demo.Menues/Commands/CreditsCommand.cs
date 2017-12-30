@@ -14,25 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.Mvc;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
-    internal class UnknownCommandController : IController
+    internal class CreditsCommand : ICommand
     {
-        private readonly CliCommand command;
-
-        public UnknownCommandController(CliCommand command)
-        {
-            if (command == null) throw new ArgumentNullException(nameof(command));
-            this.command = command;
-        }
-
         public void Execute()
         {
-            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
+            CustomConsole.WriteLineSuccess("Display Credits");
         }
     }
 }

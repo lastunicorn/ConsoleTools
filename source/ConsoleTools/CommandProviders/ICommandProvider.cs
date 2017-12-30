@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         event EventHandler<NewCommandEventArgs> NewCommand;
 
         /// <summary>
-        /// Continously creates new commands (<see cref="UserCommand"/>).
+        /// Continously creates new commands (<see cref="CliCommand"/>).
         /// After a command is created, the <see cref="NewCommand"/> event is raised.
         /// The <see cref="Run"/> method blocks the current execution thread.
         /// The infinite loop that creates commands can be stopped
@@ -36,10 +36,10 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         void Run();
 
         /// <summary>
-        /// Creates a single command (<see cref="UserCommand"/>) and returns it.
+        /// Creates a single command (<see cref="CliCommand"/>) and returns it.
         /// </summary>
-        /// <returns>A <see cref="UserCommand"/> object containing the new command.</returns>
-        UserCommand RunOnce();
+        /// <returns>A <see cref="CliCommand"/> object containing the new command.</returns>
+        CliCommand RunOnce();
 
         /// <summary>
         /// Sets the stop flag.

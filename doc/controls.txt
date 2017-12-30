@@ -53,7 +53,7 @@ Table
 Obs: when content is aligned to center and there is an odd number of spaces, the content is aligned slightly to the left.
 
 todo:
-- add data binding. automatically generare columns and rows based on the property names.
+- Add data binding - Automatically generate columns and rows based on the property names.
 
 --------------------------------------------------------------------------------
 
@@ -76,22 +76,31 @@ Prompter
 --------------------------------------------------------------------------------
 
 SelectableMenu
+Displays a menu, asks the user to select an item by choosing it with up/down arrow keys and closes the menu.
+The chosen item is exposed by the SelectedItem property.
 Features:
-    - Displays the menu items vertically in a list.
-    - Selects a menu item using up/down keys.
-    - Selects a menu item using a shortcut key.
-    - Horizontaly align the menu items inside the menu (Left, Center, Right).
+    - List display - Displays the menu items vertically in a list.
+    - Up/Down navigation - Selects a menu item using up/down keys.
+    - Shortcut key selection - Selects a menu item using a shortcut key.
+    - Items Horizontal alignment - Horizontally align the menu items inside the menu (Left, Center, Right).
     - Enable/Disable menu items.
     - Display/Hide menu items.
+todo:
+- Initially selected item - By setting the SelectedIndex or SelectedItem properties before displaying the menu, 
+- Menu horizontal alignment - Align the menu in the console (Left, Center, Right).
+- Menu item Commands - Attach Commands to menu items.
+- Circular navigation - When reaching the top item go to the bottom item. When reaching the bottom item go to the top item.
 
+--------------------------------------------------------------------------------
 
 TextMenu
+Displays a menu, asks the user to select an item by typing its id and returns the id.
 
 --------------------------------------------------------------------------------
 
 Console MVC
 - Provides an easy way to implement execution flows for each command.
-- Configurable CommandProvider
+- Configurable CommandProvider (the module used to receive commands from the user)
 	- can be a prompter where the user types a command.
 	- can be a menu from which the user selects an item.
 - Routing table - to associate a command text with a controller (execution flow).
@@ -99,4 +108,5 @@ Console MVC
 	Exceptions: Without a dependency resolver, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.
 
 todo:
-- handle Ctrl+C
+- Ctrl+C handling
+- Ctrl+Z handling

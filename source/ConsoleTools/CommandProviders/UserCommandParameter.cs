@@ -17,7 +17,7 @@
 namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Represents a parameter for the <see cref="UserCommand"/> class.
+    /// Represents a parameter for the <see cref="CliCommand"/> class.
     /// </summary>
     public class UserCommandParameter
     {

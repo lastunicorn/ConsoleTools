@@ -39,12 +39,33 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private int menuHight;
         private volatile bool isCloseRequested;
 
+        /// <summary>
+        /// Gets the item that is currently selected.
+        /// </summary>
         public IMenuItem SelectedItem { get; private set; }
+
+        /// <summary>
+        /// Gets the index of the selected menu item.
+        /// The index is calculated based on the visible list of items.
+        /// </summary>
         public int? SelectedIndex { get; private set; }
 
+        /// <summary>
+        /// Specifies the horizontal alignment for the items displayed inside the menu. 
+        /// </summary>
         public HorizontalAlign ItemsHorizontalAlign { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the first item is automatically selected when the menu is displayed.
+        /// </summary>
         public bool SelectFirstByDefault { get; set; } = true;
 
+        /// <inheritdoc />
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.SelectableMenu" /> class with
+        /// the list of items.
+        /// </summary>
+        /// <param name="menuItems">The list of items to be displayed by the menu.</param>
         public SelectableMenu(IEnumerable<IMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
@@ -60,6 +81,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 DrawMenuItem(e.CurrentIndex.Value, true);
         }
 
+        /// <summary>
+        /// Displays the menu and waits for the user to choose an item.
+        /// This method blocks until the user chooses an item.
+        /// </summary>
         public void Display()
         {
             Reset();
@@ -76,6 +101,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 ReadUserSelection();
             });
+
+            SelectedItem?.Command?.Execute();
         }
 
         private void Reset()
@@ -130,6 +157,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
+        /// <summary>
+        /// This method does not immediately close the menu.
+        /// It just sets an internal flag that asks the menu to close itself when it can.
+        /// </summary>
         public void RequestClose()
         {
             isCloseRequested = true;
@@ -189,11 +220,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        menuItems.ModeToPrevious();
+                        menuItems.MoveToPrevious();
                         break;
 
                     case ConsoleKey.DownArrow:
-                        menuItems.ModeToNext();
+                        menuItems.MoveToNext();
                         break;
 
                     case ConsoleKey.Enter:
@@ -214,7 +245,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             IMenuItem selectedItem = menuItems.CurrentItem;
 
-            bool allow = selectedItem.IsSelectable && selectedItem.BeforeSelect();
+            if (selectedItem?.IsSelectable != true)
+                return;
+
+            bool allow = selectedItem.Select();
 
             if (!allow)
                 return;

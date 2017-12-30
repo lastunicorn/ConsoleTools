@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools;
-using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.Mvc;
-
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Ocean
 {
-    internal class UnknownCommandController : IController
+    internal class Whale
     {
-        private readonly UserCommand command;
-
-        public UnknownCommandController(UserCommand command)
-        {
-            if (command == null) throw new ArgumentNullException(nameof(command));
-            this.command = command;
-        }
-
-        public void Execute()
-        {
-            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
-        }
+        public string Name { get; set; }
+        public string Count { get; set; }
+        public string Weight { get; set; }
     }
 }

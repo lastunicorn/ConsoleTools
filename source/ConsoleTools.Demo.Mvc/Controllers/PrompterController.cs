@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,31 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.CommandProviders;
+using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
-    internal class NewGameMenuItem : LabelMenuItem
+    internal class PrompterController : IController
     {
-        private readonly GameBoard gameBoard;
+        private readonly Prompter prompter;
 
-        public NewGameMenuItem(GameBoard gameBoard)
+        public PrompterController(ICommandProvider prompter)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
-
-            Text = "New Game";
-            HorizontalAlign = HorizontalAlign.Center;
+            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
+            this.prompter = prompter as Prompter;
         }
 
-        public override void Execute()
+        public void Execute()
         {
-            gameBoard.StartGame();
+            ChangePrompter();
+        }
+
+        private void ChangePrompter()
+        {
+            TextInputControl textInputControl = new TextInputControl();
+            prompter.PrompterText = textInputControl.Read("New Prompter Text");
         }
     }
 }

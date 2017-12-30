@@ -16,7 +16,7 @@
 
 using System;
 using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.Menues.MenuItems;
+using DustInTheWind.ConsoleTools.Demo.Menues.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
@@ -33,6 +33,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
         private static void Main()
         {
+            DisplayApplicationHeader();
+
             Console.SetWindowSize(80, 50);
             Console.SetBufferSize(80, 1024);
 
@@ -48,8 +50,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
             while (!applicationState.IsExitRequested)
             {
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine();
+
                 menu.Display();
-                menu.SelectedItem?.Execute();
             }
 
             CustomConsole.WriteLineEmphasies("Bye!");
@@ -57,23 +62,73 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
             CustomConsole.Pause();
         }
 
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Menues");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("This demo shows how the SelectableMenu can be used.");
+            CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
+            CustomConsole.WriteLine("Press Enter key to select an item.");
+            CustomConsole.WriteLine();
+        }
+
         private static SelectableMenu CreateMenu()
         {
-            return new SelectableMenu(new IMenuItem[]
+            SelectableMenu selectableMenu = new SelectableMenu(new IMenuItem[]
             {
-                new NewGameMenuItem(gameBoard),
-                new SaveGameMenuItem(gameBoard),
-                new LoadGameMenuItem(gameBoard),
+                new LabelMenuItem
+                {
+                    Text = "New Game",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    Command = new NewGameCommand(gameBoard)
+                },
+                new YesNoMenuItem
+                {
+                    Text = "Save Game",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    VisibilityProvider = () => gameBoard.IsGameStarted,
+                    Command = new SaveGameCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "Load Game",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    Command = new LoadGameCommand(gameBoard)
+                },
+
+                new SpaceMenuItem(),
+                
+                new LabelMenuItem
+                {
+                    Text = "Settings",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    Command = new SettingsCommand()
+                }, 
+                new LabelMenuItem
+                {
+                    Text = "Credits",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    Command = new CreditsCommand()
+                },
 
                 new SpaceMenuItem(),
 
-                new SettingsMenuItem(),
-                new CreditsMenuItem(),
-
-                new SpaceMenuItem(),
-
-                new ExitMenuItem(applicationState)
+                new LabelMenuItem
+                {
+                    Text = "Exit",
+                    HorizontalAlign = HorizontalAlign.Center,
+                    ShortcutKey = ConsoleKey.X,
+                    Command = new ExitCommand(applicationState)
+                }
             });
+
+            // You can play with the following values.
+
+            // This automatically selects the first item when the menu is displayed.
+            //selectableMenu.SelectFirstByDefault = true;
+
+            return selectableMenu;
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

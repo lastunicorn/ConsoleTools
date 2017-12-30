@@ -15,25 +15,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.CommandProviders;
+using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
-    internal class SaveGameMenuItem : YesNoMenuItem
+    internal class UnknownCommandController : IController
     {
-        public SaveGameMenuItem(GameBoard gameBoard)
-        {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+        private readonly CliCommand command;
 
-            Text = "Save Game";
-            HorizontalAlign = HorizontalAlign.Center;
-            VisibilityProvider = () => gameBoard.IsGameStarted;
+        public UnknownCommandController(CliCommand command)
+        {
+            if (command == null) throw new ArgumentNullException(nameof(command));
+            this.command = command;
         }
 
-        public override void Execute()
+        public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Game saved successfully");
+            CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
         }
     }
 }

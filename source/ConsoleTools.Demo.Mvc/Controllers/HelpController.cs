@@ -14,32 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
-    internal class PrompterController : IController
+    internal class HelpController : IController
     {
-        private readonly Prompter prompter;
-
-        public PrompterController(ICommandProvider prompter)
-        {
-            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
-            this.prompter = prompter as Prompter;
-        }
-
         public void Execute()
         {
-            ChangePrompter();
+            DisplayHelp();
         }
 
-        private void ChangePrompter()
+        private static void DisplayHelp()
         {
-            TextInputControl textInputControl = new TextInputControl();
-            prompter.PrompterText = textInputControl.Read("New Prompter Text");
+            CustomConsole.WriteLineEmphasies("Valid commands:");
+            CustomConsole.WriteLine();
+
+            CustomConsole.WriteEmphasies("  - whale, whales   ");
+            CustomConsole.WriteLine("- Displays a table with whales.");
+
+            CustomConsole.WriteEmphasies("  - prompter        ");
+            CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
+
+            CustomConsole.WriteEmphasies("  - help            ");
+            CustomConsole.WriteLine("- Displays this help page");
+
+            CustomConsole.WriteEmphasies("  - quit, q, exit   ");
+            CustomConsole.WriteLine("- Exits the application.");
         }
     }
 }

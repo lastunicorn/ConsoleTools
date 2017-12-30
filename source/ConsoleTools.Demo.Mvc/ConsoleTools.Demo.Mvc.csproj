@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}</ProjectGuid>
+    <ProjectGuid>{C808EC10-9F3B-4AED-9443-8873977E06F6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools.Demo.Menues</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Demo.Menues</AssemblyName>
+    <RootNamespace>DustInTheWind.ConsoleTools.Demo.Mvc</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Demo.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -40,14 +40,13 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="ApplicationState.cs" />
-    <Compile Include="GameBoard.cs" />
-    <Compile Include="Commands\CreditsCommand.cs" />
-    <Compile Include="Commands\ExitCommand.cs" />
-    <Compile Include="Commands\LoadGameCommand.cs" />
-    <Compile Include="Commands\NewGameCommand.cs" />
-    <Compile Include="Commands\SaveGameCommand.cs" />
-    <Compile Include="Commands\SettingsCommand.cs" />
+    <Compile Include="Controllers\ExitController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\PrompterController.cs" />
+    <Compile Include="Controllers\UnknownCommandController.cs" />
+    <Compile Include="Controllers\WhaleController.cs" />
+    <Compile Include="Ocean\Whale.cs" />
+    <Compile Include="Ocean\WhaleProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

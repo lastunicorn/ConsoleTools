@@ -16,6 +16,9 @@
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
+    /// <summary>
+    /// This class represents all the business models that can exists in a real application.
+    /// </summary>
     internal class GameBoard
     {
         public bool IsGameStarted { get; private set; }
@@ -28,8 +31,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
 
         public void StopGame()
         {
-            IsGameStarted = false;
-            CustomConsole.WriteLineSuccess("Current game stoped");
+            if (IsGameStarted)
+            {
+                IsGameStarted = false;
+                CustomConsole.WriteLineSuccess("Current game stoped");
+            }
         }
 
         public void LoadGame()

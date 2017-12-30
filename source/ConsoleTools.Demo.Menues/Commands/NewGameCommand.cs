@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,27 +16,22 @@
 
 using System;
 using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
-    internal class ExitMenuItem : LabelMenuItem
+    internal class NewGameCommand : ICommand
     {
-        private readonly ApplicationState applicationState;
+        private readonly GameBoard gameBoard;
 
-        public ExitMenuItem(ApplicationState applicationState)
+        public NewGameCommand(GameBoard gameBoard)
         {
-            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
-            this.applicationState = applicationState;
-
-            Text = "Exit";
-            HorizontalAlign = HorizontalAlign.Center;
-            ShortcutKey = ConsoleKey.X;
+            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            this.gameBoard = gameBoard;
         }
 
-        public override void Execute()
+        public void Execute()
         {
-            applicationState.RequestExit();
+            gameBoard.StartGame();
         }
     }
 }

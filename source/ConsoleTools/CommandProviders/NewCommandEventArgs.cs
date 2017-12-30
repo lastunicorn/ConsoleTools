@@ -24,9 +24,9 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     public class NewCommandEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the new <see cref="UserCommand"/> object.
+        /// Gets the new <see cref="CliCommand"/> object.
         /// </summary>
-        public UserCommand Command { get; }
+        public CliCommand Command { get; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the <see cref="ICommandProvider"/> must be stopped after the current command.
@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Initializes a new instance of the <see cref="NewCommandEventArgs"/> class.
         /// </summary>
-        public NewCommandEventArgs(UserCommand command)
+        public NewCommandEventArgs(CliCommand command)
         {
             Command = command;
         }

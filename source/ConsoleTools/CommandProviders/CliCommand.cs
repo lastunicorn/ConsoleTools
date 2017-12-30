@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Represents a command typed by the user at the prompter created by <see cref="Prompter"/> class.
     /// </summary>
-    public class UserCommand
+    public class CliCommand
     {
         /// <summary>
         /// Gets the name of the command.
@@ -36,14 +36,14 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         public IReadOnlyCollection<UserCommandParameter> Parameters { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserCommand"/> class with
+        /// Initializes a new instance of the <see cref="CliCommand"/> class with
         /// the command name and the list of parameters.
         /// </summary>
         /// <param name="name">The name of the command.</param>
         /// <param name="parameters">The list of parameters associated with the command.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public UserCommand(string name, IEnumerable<UserCommandParameter> parameters)
+        public CliCommand(string name, IEnumerable<UserCommandParameter> parameters)
         {
             if (name == null) throw new ArgumentNullException(nameof(name));
 
@@ -65,17 +65,17 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Represents an empty command. Command name is empty string and contains no parameters.
         /// </summary>
-        public static UserCommand Empty { get; } = new UserCommand(string.Empty, new UserCommandParameter[0]);
+        public static CliCommand Empty { get; } = new CliCommand(string.Empty, new UserCommandParameter[0]);
 
         public bool IsEmpty => string.IsNullOrEmpty(Name) && Parameters.Count == 0;
 
         /// <summary>
-        /// Parses a string and creates a new instance of the <see cref="UserCommand"/> from it.
+        /// Parses a string and creates a new instance of the <see cref="CliCommand"/> from it.
         /// </summary>
         /// <param name="commandText">The string representation of a command.</param>
-        /// <returns>A new instance of <see cref="UserCommand"/> created from the string receives as parameter.</returns>
+        /// <returns>A new instance of <see cref="CliCommand"/> created from the string receives as parameter.</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static UserCommand Parse(string commandText)
+        public static CliCommand Parse(string commandText)
         {
             if (commandText == null) throw new ArgumentNullException(nameof(commandText));
 
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 parameters = new UserCommandParameter[0];
             }
 
-            return new UserCommand(commandName, parameters);
+            return new CliCommand(commandName, parameters);
         }
 
         /// <summary>

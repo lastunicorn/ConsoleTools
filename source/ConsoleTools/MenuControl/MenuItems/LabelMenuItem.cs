@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
@@ -27,24 +28,18 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         public int Id { get; set; }
         public string Text { get; set; }
 
-        public int PaddingLeft { get; set; }
-        public int PaddingRight { get; set; }
-        public HorizontalAlign HorizontalAlign { get; set; }
-        public bool IsSelectable { get; set; }
+        public int PaddingLeft { get; set; } = 1;
+        public int PaddingRight { get; set; } = 1;
+        public HorizontalAlign HorizontalAlign { get; set; } = HorizontalAlign.Left;
+        public bool IsSelectable { get; set; } = true;
         public ConsoleKey? ShortcutKey { get; set; }
+        public ICommand Command { get; set; }
 
         public bool IsVisible => VisibilityProvider == null || VisibilityProvider();
 
         public Func<bool> VisibilityProvider { get; set; }
-        
-        public LabelMenuItem()
-        {
-            PaddingLeft = 1;
-            PaddingRight = 1;
 
-            HorizontalAlign = HorizontalAlign.Left;
-            IsSelectable = true;
-        }
+        public event EventHandler<CancelEventArgs> BeforeSelect;
 
         public void Display(int x, int y, bool selected, HorizontalAlign horizontalAlign = HorizontalAlign.Default)
         {
@@ -97,13 +92,17 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             }
         }
 
-        public virtual bool BeforeSelect()
+        public bool Select()
         {
-            return true;
+            CancelEventArgs args = new CancelEventArgs();
+            OnBeforeSelect(args);
+
+            return !args.Cancel;
         }
 
-        public virtual void Execute()
+        protected virtual void OnBeforeSelect(CancelEventArgs e)
         {
+            BeforeSelect?.Invoke(this, e);
         }
     }
 }

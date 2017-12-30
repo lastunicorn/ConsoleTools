@@ -15,19 +15,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.MenuItems
+namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
-    internal class SettingsMenuItem : LabelMenuItem
+    internal class SettingsCommand : ICommand
     {
-        public SettingsMenuItem()
-        {
-            Text = "Settings";
-            HorizontalAlign = HorizontalAlign.Center;
-        }
-
-        public override void Execute()
+        public void Execute()
         {
             CustomConsole.WriteLineSuccess("Display Settings");
         }

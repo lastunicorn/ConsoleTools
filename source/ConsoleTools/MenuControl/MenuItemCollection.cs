@@ -87,7 +87,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 .Count(x => x != null && x.IsVisible);
         }
 
-        public void ModeToPrevious()
+        public void MoveToPrevious()
         {
             CurrentIndex = GetPreviousItemIndex();
         }
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return CurrentIndex;
         }
 
-        public void ModeToNext()
+        public void MoveToNext()
         {
             CurrentIndex = GetNextItemIndex();
         }

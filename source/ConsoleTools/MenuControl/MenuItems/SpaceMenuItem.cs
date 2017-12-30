@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
@@ -27,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             get { return string.Empty; }
             set { }
         }
-        
+
         public bool IsVisible { get; }
 
         public HorizontalAlign HorizontalAlign { get; set; }
@@ -45,17 +46,26 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             set { }
         }
 
+        public ICommand Command { get; set; }
+
+        public event EventHandler<CancelEventArgs> BeforeSelect;
+
         public void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign)
         {
         }
 
-        public virtual bool BeforeSelect()
+        public bool Select()
         {
-            return false;
+            CancelEventArgs args = new CancelEventArgs();
+            OnBeforeSelect(args);
+
+            return !args.Cancel;
         }
 
-        public void Execute()
+        protected virtual void OnBeforeSelect(CancelEventArgs e)
         {
+            e.Cancel = true;
+            BeforeSelect?.Invoke(this, e);
         }
     }
 }

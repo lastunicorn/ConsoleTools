@@ -27,6 +27,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
         private static void Main()
         {
+            DisplayApplicationHeader();
+            StartDemo();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Prompter");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
@@ -34,8 +40,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             CustomConsole.WriteEmphasies("Note: ");
             CustomConsole.WriteLine("type 'help' for a list of commands.");
             CustomConsole.WriteLine();
-
-            StartDemo();
         }
 
         private static void StartDemo()
@@ -63,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             }
         }
 
-        private static IController CreateController(UserCommand command)
+        private static IController CreateController(CliCommand command)
         {
             switch (command.Name)
             {

@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Ocean
+namespace ConsoleTools.Demo.TextMenu
 {
-    internal class Whale
+    internal class Program
     {
-        public string Name { get; set; }
-        public string Count { get; set; }
-        public string Weight { get; set; }
+        private static void Main()
+        {
+
+        }
     }
 }

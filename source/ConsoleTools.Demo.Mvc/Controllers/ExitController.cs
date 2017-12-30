@@ -15,11 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Mvc;
 
-namespace DustInTheWind.ConsoleTool.Demo.Mvc.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
     internal class ExitController : IController
     {

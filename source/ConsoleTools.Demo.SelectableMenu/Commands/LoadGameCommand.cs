@@ -14,17 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands
 {
-    internal class SettingsCommand : ICommand
+    internal class LoadGameCommand : ICommand
     {
+        private readonly GameBoard gameBoard;
+
         public bool IsActive => true;
+
+        public LoadGameCommand(GameBoard gameBoard)
+        {
+            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            this.gameBoard = gameBoard;
+        }
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Settings");
+            gameBoard.LoadGame();
         }
     }
 }

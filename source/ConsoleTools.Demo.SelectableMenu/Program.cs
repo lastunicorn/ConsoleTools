@@ -16,17 +16,17 @@
 
 using System;
 using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.Menues.Commands;
+using DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues
+namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 {
     internal static class Program
     {
         private static ApplicationState applicationState;
         private static GameBoard gameBoard;
-        private static SelectableMenu menu;
+        private static MenuControl.SelectableMenu menu;
 
         private static void Main()
         {
@@ -70,9 +70,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues
             CustomConsole.WriteLine();
         }
 
-        private static SelectableMenu CreateMenu()
+        private static MenuControl.SelectableMenu CreateMenu()
         {
-            SelectableMenu selectableMenu = new SelectableMenu(new IMenuItem[]
+            MenuControl.SelectableMenu selectableMenu = new MenuControl.SelectableMenu(new IMenuItem[]
             {
                 new LabelMenuItem
                 {

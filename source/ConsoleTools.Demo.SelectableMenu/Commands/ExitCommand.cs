@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,23 +17,23 @@
 using System;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands
 {
-    internal class NewGameCommand : ICommand
+    internal class ExitCommand : ICommand
     {
-        private readonly GameBoard gameBoard;
+        private readonly ApplicationState applicationState;
 
         public bool IsActive => true;
 
-        public NewGameCommand(GameBoard gameBoard)
+        public ExitCommand(ApplicationState applicationState)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
+            this.applicationState = applicationState;
         }
 
         public void Execute()
         {
-            gameBoard.StartGame();
+            applicationState.RequestExit();
         }
     }
 }

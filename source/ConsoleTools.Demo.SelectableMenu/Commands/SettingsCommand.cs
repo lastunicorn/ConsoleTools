@@ -16,15 +16,15 @@
 
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands
 {
-    internal class SaveGameCommand : ICommand
+    internal class SettingsCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Game saved successfully");
+            CustomConsole.WriteLineSuccess("Display Settings");
         }
     }
 }

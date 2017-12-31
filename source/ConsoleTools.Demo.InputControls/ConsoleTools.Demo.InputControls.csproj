@@ -40,6 +40,10 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="Commands\ListInputCommand.cs" />
+    <Compile Include="Commands\ListOutputCommand.cs" />
+    <Compile Include="Commands\TextInputCommand.cs" />
+    <Compile Include="Commands\TextOutputCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

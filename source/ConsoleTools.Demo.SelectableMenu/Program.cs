@@ -61,7 +61,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Menues");
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - SelectableMenu");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how the SelectableMenu can be used.");

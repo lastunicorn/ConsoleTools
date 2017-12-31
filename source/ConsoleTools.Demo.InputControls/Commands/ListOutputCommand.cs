@@ -14,23 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.TabularData;
+using System;
+using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Flows
+namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class MultilineTitleFlow : IFlow
+    internal class ListOutputCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
-            Table table = new Table("If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)");
+            ListOutputControl listOutputControl = new ListOutputControl();
 
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
-
-            CustomConsole.WriteLine(table.ToString());
+            string[] colorNames = Enum.GetNames(typeof(ConsoleColor));
+            listOutputControl.Write("Colors", colorNames);
         }
     }
 }

@@ -94,7 +94,7 @@ todo:
 --------------------------------------------------------------------------------
 
 TextMenu
-Displays a menu, asks the user to select an item by typing its id and executes the command associated with the item.
+Displays a menu that asks the user to select an item by typing its id and executes the command associated with the item.
 Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
 
 --------------------------------------------------------------------------------

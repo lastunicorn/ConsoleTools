@@ -23,13 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
     {
         private static void Main()
         {
-            CustomConsole.WriteLineEmphasies("Progress spinner demo");
-            CustomConsole.WriteLine("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Step 1: Select a template for the spinner.");
-            CustomConsole.WriteLine("Step 2: The application will simulate an asyn work and display the spinner.");
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
+            DisplayApplicationHeader();
 
             while (true)
             {
@@ -41,6 +35,17 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 CustomConsole.WriteLine();
                 worker.Run();
             }
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Progress spinner");
+            CustomConsole.WriteLine("===============================================================================");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("Step 1: Select a template for the spinner.");
+            CustomConsole.WriteLine("Step 2: The application will simulate an asyn work and display the spinner.");
+            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+            CustomConsole.WriteLine();
         }
 
         private static Worker CreateWorker()

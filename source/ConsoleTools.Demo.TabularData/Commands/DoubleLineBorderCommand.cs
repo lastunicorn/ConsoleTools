@@ -14,15 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Flows
+namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 {
-    internal class SingleLineBorderFlow : IFlow
+    internal class DoubleLineBorderCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
-            Table table = new Table("Single-line Border");
+            Table table = new Table("Double-line Border");
             table.Columns.Add(new Column("One"));
             table.Columns.Add(new Column("Two"));
             table.Columns.Add(new Column("Three"));
@@ -33,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Flows
             table.AddRow(new[] { "4,1", "4,2", "4,3", "4,4" });
             table.DrawLinesBetweenRows = true;
             table.DisplayColumnHeaders = true;
-            table.Border = TableBorder.SingleLineBorder;
+            table.Border = TableBorder.DoubleLineBorder;
 
             CustomConsole.WriteLine(table.ToString());
         }

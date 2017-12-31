@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Musical
     {
         private static void Main()
         {
-            DisplayGreeting();
+            DisplayApplicationHeader();
 
             CustomConsole.WriteLine("The sound is playing.");
             PlayGreetingSound();
@@ -32,39 +32,20 @@ namespace DustInTheWind.ConsoleTools.Demo.Musical
             CustomConsole.Pause();
         }
 
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Musical");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("This demo shows how to make sounds in Console.");
+            CustomConsole.WriteLine();
+        }
+
         private static void PlayGreetingSound()
         {
             Sound.Play(MusicalNote.C4, 150);
             Sound.Play(MusicalNote.D4, 150);
             Sound.Play(MusicalNote.E4, 150);
-        }
-
-        private static void DisplayGreeting()
-        {
-            string greeting = BuildGreeting();
-
-            CustomConsole.WriteLineEmphasies(greeting);
-            CustomConsole.WriteLineEmphasies("===============================================================================");
-            CustomConsole.WriteLine();
-        }
-
-        private static string BuildGreeting()
-        {
-            TimeSpan dayTime = DateTime.Now.TimeOfDay;
-
-            if (dayTime < TimeSpan.FromHours(5))
-                return "Hello, " + Environment.UserDomainName + "! It is a beautifull night! Is'n it?";
-
-            if (dayTime < TimeSpan.FromHours(12))
-                return "Good morning, " + Environment.UserDomainName + "! I wish you a beautiful day!";
-
-            if (dayTime < TimeSpan.FromHours(18))
-                return "Good afternoon, " + Environment.UserDomainName + "!";
-
-            if (dayTime < TimeSpan.FromHours(24))
-                return "Good evening, " + Environment.UserDomainName + "!";
-
-            return "Hello, " + Environment.UserDomainName + "!";
         }
     }
 }

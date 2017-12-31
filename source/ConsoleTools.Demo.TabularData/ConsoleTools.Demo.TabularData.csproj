@@ -47,15 +47,14 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="Flows\CellPaddingFlow.cs" />
-    <Compile Include="Flows\DoubleLineBorderFlow.cs" />
-    <Compile Include="Flows\DrawLinesBetweenRowsFlow.cs" />
-    <Compile Include="Flows\LongShortTitleFlow.cs" />
-    <Compile Include="Flows\MultilineCellFlow.cs" />
-    <Compile Include="Flows\MultilineTitleFlow.cs" />
-    <Compile Include="Flows\SimpleBorderFlow.cs" />
-    <Compile Include="Flows\SingleLineBorderFlow.cs" />
-    <Compile Include="IFlow.cs" />
+    <Compile Include="Commands\CellPaddingCommand.cs" />
+    <Compile Include="Commands\DoubleLineBorderCommand.cs" />
+    <Compile Include="Commands\DrawLinesBetweenRowsCommand.cs" />
+    <Compile Include="Commands\LongShortTitleCommand.cs" />
+    <Compile Include="Commands\MultilineCellCommand.cs" />
+    <Compile Include="Commands\MultilineTitleCommand.cs" />
+    <Compile Include="Commands\SimpleBorderCommand.cs" />
+    <Compile Include="Commands\SingleLineBorderCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

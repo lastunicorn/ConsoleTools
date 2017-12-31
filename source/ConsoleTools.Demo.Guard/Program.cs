@@ -25,13 +25,13 @@ namespace DustInTheWind.ConsoleTools.Demo.Guard
 
         private static int Main()
         {
-            DisplayGreeting();
+            DisplayApplicationHeader();
 
             try
             {
                 // Ensure that the application is started only once on the current machine.
                 guardian = new Guardian("Alez", GuardLevel.Machine);
-                
+
                 CustomConsole.WriteLineSuccess("The application was successfully started.");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("But this application cannot be started twice.");
@@ -56,32 +56,15 @@ namespace DustInTheWind.ConsoleTools.Demo.Guard
             return 0;
         }
 
-        private static void DisplayGreeting()
+        private static void DisplayApplicationHeader()
         {
-            string greeting = BuildGreeting();
-
-            CustomConsole.WriteLineEmphasies(greeting);
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Guard");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-        }
-
-        private static string BuildGreeting()
-        {
-            TimeSpan dayTime = DateTime.Now.TimeOfDay;
-
-            if (dayTime < TimeSpan.FromHours(5))
-                return "Hello, " + Environment.UserDomainName + "! It is a beautifull night! Is'n it?";
-
-            if (dayTime < TimeSpan.FromHours(12))
-                return "Good morning, " + Environment.UserDomainName + "! I wish you a beautiful day!";
-
-            if (dayTime < TimeSpan.FromHours(18))
-                return "Good afternoon, " + Environment.UserDomainName + "!";
-
-            if (dayTime < TimeSpan.FromHours(24))
-                return "Good evening, " + Environment.UserDomainName + "!";
-
-            return "Hello, " + Environment.UserDomainName + "!";
+            CustomConsole.WriteLine("This demo shows the usage of the Guardian class.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+            CustomConsole.WriteLine();
         }
     }
 }

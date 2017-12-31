@@ -16,7 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Demo.InputControls.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
@@ -24,54 +24,65 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
     internal static class Program
     {
-        private static bool exitWasRequested;
-
         private static void Main()
         {
             Console.SetBufferSize(80, 1024);
 
-            IEnumerable<IMenuItem> menuItems = CreateMenuItems();
+            DisplayApplicationHeader();
 
-            SelectableMenu menu = new SelectableMenu(menuItems)
+            SelectableMenu menu = CreateMenu();
+
+            while (true)
             {
-                ItemsHorizontalAlign = HorizontalAlign.Center,
-                SelectFirstByDefault = true
-            };
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine();
 
-            exitWasRequested = false;
-
-            while (!exitWasRequested)
-            {
                 menu.Display();
 
-                HandleUserSelection(menu);
+                CustomConsole.WriteLine();
+
+                if (menu.SelectedItem?.Id == 0)
+                    break;
             }
         }
 
-        private static IEnumerable<IMenuItem> CreateMenuItems()
+        private static void DisplayApplicationHeader()
         {
-            return new List<IMenuItem>
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - InputControls");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("This demo shows the usage of the input controls (text and list).");
+            CustomConsole.WriteLine();
+        }
+
+        private static SelectableMenu CreateMenu()
+        {
+            IEnumerable<IMenuItem> menuItems = new List<IMenuItem>
             {
                 new LabelMenuItem
                 {
                     Id = 1,
-                    Text = "TextInputControl"
+                    Text = "TextInputControl",
+                    Command = new TextInputCommand()
                 },
                 new LabelMenuItem
                 {
                     Id = 2,
-                    Text = "ListInputControl"
+                    Text = "ListInputControl",
+                    Command = new ListInputCommand()
                 },
                 new SpaceMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 3,
-                    Text = "TextOutputControl"
+                    Text = "TextOutputControl",
+                    Command = new TextOutputCommand()
                 },
                 new LabelMenuItem
                 {
                     Id = 4,
-                    Text = "ListOutputControl"
+                    Text = "ListOutputControl",
+                    Command = new ListOutputCommand()
                 },
                 new SpaceMenuItem(),
                 new LabelMenuItem
@@ -80,58 +91,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                     Text = "Exit"
                 }
             };
-        }
 
-        private static void HandleUserSelection(SelectableMenu menu)
-        {
-            switch (menu.SelectedItem.Id)
+            return new SelectableMenu(menuItems)
             {
-                case 0:
-                    exitWasRequested = true;
-                    break;
-
-                case 1:
-                    {
-                        TextInputControl textInputControl = new TextInputControl();
-                        string firstName = textInputControl.Read("First Name");
-                        string lastName = textInputControl.Read("Last Name");
-
-                        CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
-                        break;
-                    }
-
-                case 2:
-                    {
-                        ListInputControl listInputControl = new ListInputControl();
-                        List<string> beverages = listInputControl.Read("What are your prefered beverages");
-
-                        CustomConsole.WriteLine();
-                        CustomConsole.Write("Beverages you like: ");
-                        CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
-                        break;
-                    }
-
-                case 3:
-                    {
-                        TextOutputControl textOutputControl = new TextOutputControl();
-                        textOutputControl.Write("First Name", "John");
-                        textOutputControl.Write("Last Name", "Doe");
-                        textOutputControl.Write("Age", "25");
-                        break;
-                    }
-
-                case 4:
-                    {
-                        ListOutputControl listOutputControl = new ListOutputControl();
-
-                        string[] colorNames = Enum.GetNames(typeof(ConsoleColor));
-                        listOutputControl.Write("Colors", colorNames);
-
-                        break;
-                    }
-            }
-
-            CustomConsole.WriteLine();
+                ItemsHorizontalAlign = HorizontalAlign.Center,
+                SelectFirstByDefault = true
+            };
         }
     }
 }

@@ -14,12 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Flows
+namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 {
-    internal class CellPaddingFlow : IFlow
+    internal class CellPaddingCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
             DisplayDefaultPaddingExample();

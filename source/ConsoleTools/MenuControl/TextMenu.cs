@@ -20,6 +20,12 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
+    /// <summary>
+    /// Displays a menu that asks the user to select an item by typing its id and executes the command associated with the item.
+    /// </summary>
+    /// <remarks>
+    /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
+    /// </remarks>
     public class TextMenu
     {
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
@@ -42,6 +48,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public int SpaceAfterQuestion { get; set; } = 1;
 
         /// <summary>
+        /// Gets or sets the text displayed when the user chooses an inexistent option.
+        /// </summary>
+        public string InvalidOptionText { get; set; } = "Invalid option.";
+
+        /// <summary>
+        /// Gets or sets the text displayed when the user chooses an option that is disabled.
+        /// </summary>
+        public string OptionDisabledText { get; set; } = "Option is disabled.";
+
+        /// <summary>
         /// Gets the item that was selected by the user.
         /// </summary>
         public TextMenuItem SelectedItem { get; private set; }
@@ -52,6 +68,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         public int? SelectedVisibleIndex { get; private set; }
 
+        /// <summary>
+        /// Gets the index of the selected menu item.
+        /// </summary>
         public int? SelectedIndex { get; private set; }
 
         /// <summary>
@@ -131,14 +150,14 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
                 {
-                    CustomConsole.WriteLineWarning("Invalid option.");
+                    CustomConsole.WriteLineWarning(InvalidOptionText);
                     Console.WriteLine();
                     continue;
                 }
 
                 if (!selectedMenuItem.IsSelectable)
                 {
-                    CustomConsole.WriteLineWarning("Option is disabled.");
+                    CustomConsole.WriteLineWarning(OptionDisabledText);
                     Console.WriteLine();
                     continue;
                 }

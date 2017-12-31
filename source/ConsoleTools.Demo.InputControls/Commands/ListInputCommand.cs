@@ -14,10 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData
+using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.MenuControl;
+
+namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal interface IFlow
+    internal class ListInputCommand : ICommand
     {
-        void Execute();
+        public bool IsActive => true;
+
+        public void Execute()
+        {
+            ListInputControl listInputControl = new ListInputControl();
+            List<string> beverages = listInputControl.Read("What are your prefered beverages");
+
+            CustomConsole.WriteLine();
+            CustomConsole.Write("Beverages you like: ");
+            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
+        }
     }
 }

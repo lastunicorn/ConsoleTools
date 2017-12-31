@@ -14,26 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Flows
+namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 {
-    internal class DoubleLineBorderFlow : IFlow
+    internal class DrawLinesBetweenRowsCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
-            Table table = new Table("Double-line Border");
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
-            table.Columns.Add(new Column("Four"));
-            table.AddRow(new[] { "1,1", "1,2", "1,3", "1,4" });
-            table.AddRow(new[] { "2,1", "2,2", "2,3", "2,4" });
-            table.AddRow(new[] { "3,1", "3,2", "3,3", "3,4" });
-            table.AddRow(new[] { "4,1", "4,2", "4,3", "4,4" });
+            Table table = new Table("DrawLinesBetweenRows = true");
+            table.AddRow(new[] { "This is a multiline row:\nline one\nline two\nline three", "1\n2\n3" });
+            table.AddRow(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
             table.DrawLinesBetweenRows = true;
-            table.DisplayColumnHeaders = true;
-            table.Border = TableBorder.DoubleLineBorder;
 
             CustomConsole.WriteLine(table.ToString());
         }

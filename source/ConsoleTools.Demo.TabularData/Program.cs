@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Demo.TabularData.Flows;
+using DustInTheWind.ConsoleTools.Demo.TabularData.Commands;
+using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {
@@ -23,133 +23,93 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
     {
         private static void Main()
         {
-            DisplayGreeting();
+            DisplayApplicationHeader();
+
+            TextMenu menu = CreateMenu();
 
             while (true)
             {
-                IFlow flow = AskUserToChooseFlow();
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine();
 
-                if (flow == null)
-                    return;
+                menu.Display();
 
-                flow.Execute();
+                if (menu.SelectedItem?.Id == "0")
+                    break;
             }
         }
 
-        private static IFlow AskUserToChooseFlow()
+        private static TextMenu CreateMenu()
         {
-            int errorCount = 0;
-
-            while (true)
-            {
-                if (errorCount % 3 == 0)
-                    DisplayMenu();
-
-                try
+            TextMenuItem[] menuItems = {
+                new TextMenuItem
                 {
-                    int selection = ReadUserSelection();
-                    return CreateFlow(selection);
-                }
-                catch (Exception ex)
+                    Id = "1",
+                    Text = "Long/short titles",
+                    Command = new LongShortTitleCommand()
+                },
+                new TextMenuItem
                 {
-                    CustomConsole.WriteLineError(ex.Message);
-                    errorCount++;
+                    Id = "2",
+                    Text = "Multiline titles",
+                    Command = new MultilineTitleCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "3",
+                    Text = "Multiline cell content",
+                    Command = new MultilineCellCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "4",
+                    Text = "Draw lines between rows",
+                    Command = new DrawLinesBetweenRowsCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "5",
+                    Text = "Cell padding",
+                    Command = new CellPaddingCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "11",
+                    Text = "Single-line Border",
+                    Command = new SingleLineBorderCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "22",
+                    Text = "Double-line Border",
+                    Command = new DoubleLineBorderCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "33",
+                    Text = "Simple Border",
+                    Command = new SimpleBorderCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "0",
+                    Text = "Exit"
                 }
-            }
-        }
+            };
 
-        private static IFlow CreateFlow(int selection)
-        {
-            switch (selection)
+            return new TextMenu(menuItems)
             {
-                case 0:
-                    return null;
-
-                case 1:
-                    return new LongShortTitleFlow();
-
-                case 2:
-                    return new MultilineTitleFlow();
-
-                case 3:
-                    return new MultilineCellFlow();
-
-                case 4:
-                    return new DrawLinesBetweenRowsFlow();
-
-                case 5:
-                    return new CellPaddingFlow();
-
-                case 11:
-                    return new SingleLineBorderFlow();
-
-                case 22:
-                    return new DoubleLineBorderFlow();
-
-                case 33:
-                    return new SimpleBorderFlow();
-
-                default:
-                    throw new ApplicationException("Invalid choice!");
-            }
+                QuestionText = "Make your choice"
+            };
         }
 
-        private static int ReadUserSelection()
+        private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteEmphasies("Make your choice> ");
-
-            string inputRaw = Console.ReadLine();
-            CustomConsole.WriteLine();
-
-            int input;
-            bool success = int.TryParse(inputRaw, out input);
-
-            if (!success)
-                throw new ApplicationException("Invalid value. Please choose a number.");
-
-            return input;
-        }
-
-        private static void DisplayMenu()
-        {
-            CustomConsole.WriteLine("1 - Long/short titles");
-            CustomConsole.WriteLine("2 - Multiline titles");
-            CustomConsole.WriteLine("3 - Multiline cell content");
-            CustomConsole.WriteLine("4 - Draw lines between rows");
-            CustomConsole.WriteLine("5 - Cell padding");
-            CustomConsole.WriteLine("11 - Single-line Border");
-            CustomConsole.WriteLine("22 - Double-line Border");
-            CustomConsole.WriteLine("33 - Simple Border");
-            CustomConsole.WriteLine("0 - Exit");
-        }
-
-        private static void DisplayGreeting()
-        {
-            string greeting = BuildGreeting();
-
-            CustomConsole.WriteLineEmphasies(greeting);
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - TabularData");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-        }
-
-        private static string BuildGreeting()
-        {
-            TimeSpan dayTime = DateTime.Now.TimeOfDay;
-
-            if (dayTime < TimeSpan.FromHours(5))
-                return "Hello, " + Environment.UserDomainName + "! It is a beautifull night! Is'n it?";
-
-            if (dayTime < TimeSpan.FromHours(12))
-                return "Good morning, " + Environment.UserDomainName + "! I wish you a beautiful day!";
-
-            if (dayTime < TimeSpan.FromHours(18))
-                return "Good afternoon, " + Environment.UserDomainName + "!";
-
-            if (dayTime < TimeSpan.FromHours(24))
-                return "Good evening, " + Environment.UserDomainName + "!";
-
-            return "Hello, " + Environment.UserDomainName + "!";
+            CustomConsole.WriteLine("This demo shows how to display data in tables.");
+            CustomConsole.WriteLine();
         }
     }
 }

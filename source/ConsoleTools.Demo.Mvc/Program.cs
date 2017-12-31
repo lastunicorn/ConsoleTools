@@ -24,6 +24,21 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc
     {
         private static void Main()
         {
+            DisplayApplicationHeader();
+            RunDemo();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Mvc");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("This demo shows the usage of the MVC frameworkfor Console.");
+            CustomConsole.WriteLine();
+        }
+
+        private static void RunDemo()
+        {
             ConsoleApplication consoleApplication = new ConsoleApplication();
 
             List<Route> routes = new List<Route>

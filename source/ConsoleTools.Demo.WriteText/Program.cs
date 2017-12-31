@@ -22,9 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
     {
         private static void Main()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
-            CustomConsole.WriteLine();
+            DisplayApplicationHeader();
 
             try
             {
@@ -51,6 +49,13 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
                 CustomConsole.WriteLine("Did you like our demo? :)");
                 CustomConsole.Pause();
             }
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
+            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
         }
     }
 }

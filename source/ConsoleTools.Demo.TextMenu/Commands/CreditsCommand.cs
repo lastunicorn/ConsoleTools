@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
     internal class CreditsCommand : ICommand
     {

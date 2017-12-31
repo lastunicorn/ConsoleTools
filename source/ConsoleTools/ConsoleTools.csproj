@@ -46,6 +46,7 @@
     <Compile Include="InputControls\YesNoControl.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />
     <Compile Include="MenuControl\ICommand.cs" />
+    <Compile Include="MenuControl\TextMenuItem.cs" />
     <Compile Include="Mvc\ConsoleApplication.cs" />
     <Compile Include="Mvc\IController.cs" />
     <Compile Include="Mvc\MissingRouteException.cs" />

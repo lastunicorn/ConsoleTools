@@ -20,6 +20,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
     internal class SaveGameCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
             CustomConsole.WriteLineSuccess("Game saved successfully");

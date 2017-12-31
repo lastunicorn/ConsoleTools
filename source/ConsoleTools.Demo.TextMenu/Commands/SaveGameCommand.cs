@@ -14,17 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using DustInTheWind.ConsoleTools.Demo.Menues;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class SaveGameCommand : ICommand
     {
-        public bool IsActive => true;
+        private readonly GameBoard gameBoard;
+
+        public SaveGameCommand(GameBoard gameBoard)
+        {
+            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            this.gameBoard = gameBoard;
+        }
+
+        public bool IsActive => gameBoard.IsGameStarted;
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            CustomConsole.WriteLineSuccess("Game saved successfully");
         }
     }
 }

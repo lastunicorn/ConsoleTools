@@ -14,26 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.MenuControl;
-
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
-    internal class NewGameCommand : ICommand
+    /// <summary>
+    /// This class represents all the business models that can exists in a real application.
+    /// </summary>
+    internal class GameBoard
     {
-        private readonly GameBoard gameBoard;
+        public bool IsGameStarted { get; private set; }
 
-        public bool IsActive => true;
-
-        public NewGameCommand(GameBoard gameBoard)
+        public void StartGame()
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            IsGameStarted = true;
+            CustomConsole.WriteLineSuccess("New game started");
         }
 
-        public void Execute()
+        public void StopGame()
         {
-            gameBoard.StartGame();
+            if (IsGameStarted)
+            {
+                IsGameStarted = false;
+                CustomConsole.WriteLineSuccess("Current game stoped");
+            }
+        }
+
+        public void LoadGame()
+        {
+            IsGameStarted = true;
+            CustomConsole.WriteLineSuccess("Game loaded successfully");
         }
     }
 }

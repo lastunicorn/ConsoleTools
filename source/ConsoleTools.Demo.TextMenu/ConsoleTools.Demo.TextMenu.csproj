@@ -7,8 +7,8 @@
     <ProjectGuid>{03611F6A-F799-4A07-8288-41BD4BD21C1A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleTools.Demo.TextMenu</RootNamespace>
-    <AssemblyName>ConsoleTools.Demo.TextMenu</AssemblyName>
+    <RootNamespace>DustInTheWind.ConsoleTools.Demo.TextMenu</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Demo.TextMenu</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,19 +35,31 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Shared.cs">
+      <Link>Properties\AssemblyInfo.Shared.cs</Link>
+    </Compile>
+    <Compile Include="ApplicationState.cs" />
+    <Compile Include="Commands\CloseGameCommand.cs" />
+    <Compile Include="Commands\CreditsCommand.cs" />
+    <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Commands\LoadGameCommand.cs" />
+    <Compile Include="Commands\NewGameCommand.cs" />
+    <Compile Include="Commands\SaveGameCommand.cs" />
+    <Compile Include="Commands\SettingsCommand.cs" />
+    <Compile Include="GameBoard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
+      <Project>{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}</Project>
+      <Name>ConsoleTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

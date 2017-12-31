@@ -15,25 +15,32 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.MenuControl
 {
-    internal class NewGameCommand : ICommand
+    public class TextMenuItem
     {
-        private readonly GameBoard gameBoard;
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public bool IsVisible { get; set; } = true;
+        public bool Enabled { get; set; } = true;
+        public ICommand Command { get; set; }
 
-        public bool IsActive => true;
+        public bool IsSelectable => (Command != null && Command.IsActive) || (Command == null && Enabled);
 
-        public NewGameCommand(GameBoard gameBoard)
+        public void Display()
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            if (IsSelectable)
+                CustomConsole.Write($"{Id} - {Text}");
+            else
+                CustomConsole.WriteColor(ConsoleColor.DarkGray, $"{Id} - {Text}");
         }
 
-        public void Execute()
+        public bool Select()
         {
-            gameBoard.StartGame();
+            Command?.Execute();
+
+            return true;
         }
     }
 }

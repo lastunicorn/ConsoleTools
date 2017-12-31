@@ -15,25 +15,37 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
-    internal class NewGameCommand : ICommand
+    internal class ApplicationState : IExitController
     {
-        private readonly GameBoard gameBoard;
+        public bool IsExitRequested { get; private set; }
 
-        public bool IsActive => true;
+        public event EventHandler<CancelEventArgs> Exiting;
+        public event EventHandler ExitCanceled;
 
-        public NewGameCommand(GameBoard gameBoard)
+        protected virtual void OnExiting(CancelEventArgs e)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            Exiting?.Invoke(this, e);
         }
 
-        public void Execute()
+        protected virtual void OnExitCanceled()
         {
-            gameBoard.StartGame();
+            ExitCanceled?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void RequestExit()
+        {
+            CancelEventArgs e = new CancelEventArgs();
+            OnExiting(e);
+
+            if (e.Cancel)
+                OnExitCanceled();
+            else
+                IsExitRequested = true;
         }
     }
 }

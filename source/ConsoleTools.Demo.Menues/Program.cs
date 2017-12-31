@@ -22,9 +22,6 @@ using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.Menues
 {
-    /// <summary>
-    /// This demo is not finished yet.
-    /// </summary>
     internal static class Program
     {
         private static ApplicationState applicationState;

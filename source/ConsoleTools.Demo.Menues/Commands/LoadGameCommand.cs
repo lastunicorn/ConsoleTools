@@ -23,6 +23,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
     {
         private readonly GameBoard gameBoard;
 
+        public bool IsActive => true;
+
         public LoadGameCommand(GameBoard gameBoard)
         {
             if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));

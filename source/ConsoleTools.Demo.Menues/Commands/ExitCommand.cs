@@ -23,6 +23,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
     {
         private readonly ApplicationState applicationState;
 
+        public bool IsActive => true;
+
         public ExitCommand(ApplicationState applicationState)
         {
             if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));

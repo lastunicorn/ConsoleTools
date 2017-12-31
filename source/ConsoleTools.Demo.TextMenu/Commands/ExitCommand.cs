@@ -14,17 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class ExitCommand : ICommand
     {
+        private readonly ApplicationState applicationState;
+
         public bool IsActive => true;
+
+        public ExitCommand(ApplicationState applicationState)
+        {
+            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
+            this.applicationState = applicationState;
+        }
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            applicationState.RequestExit();
         }
     }
 }

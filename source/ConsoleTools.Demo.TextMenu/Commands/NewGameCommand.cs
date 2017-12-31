@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,17 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using DustInTheWind.ConsoleTools.Demo.Menues;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class NewGameCommand : ICommand
     {
+        private readonly GameBoard gameBoard;
+
         public bool IsActive => true;
+
+        public NewGameCommand(GameBoard gameBoard)
+        {
+            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            this.gameBoard = gameBoard;
+        }
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            gameBoard.StartGame();
         }
     }
 }

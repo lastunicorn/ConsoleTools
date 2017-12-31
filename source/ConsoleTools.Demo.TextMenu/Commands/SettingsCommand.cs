@@ -16,15 +16,15 @@
 
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class SettingsCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            CustomConsole.WriteLineSuccess("Display Settings");
         }
     }
 }

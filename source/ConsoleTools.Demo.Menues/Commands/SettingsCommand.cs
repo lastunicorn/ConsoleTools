@@ -20,6 +20,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Menues.Commands
 {
     internal class SettingsCommand : ICommand
     {
+        public bool IsActive => true;
+
         public void Execute()
         {
             CustomConsole.WriteLineSuccess("Display Settings");

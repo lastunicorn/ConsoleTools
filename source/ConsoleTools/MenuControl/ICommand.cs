@@ -18,6 +18,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 {
     public interface ICommand
     {
+        bool IsActive { get; }
         void Execute();
     }
 }

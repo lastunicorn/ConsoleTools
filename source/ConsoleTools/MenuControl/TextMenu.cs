@@ -16,12 +16,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
     public class TextMenu
     {
-        private readonly Dictionary<string, string> menuItems;
+        private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
         /// <summary>
         /// Gets or sets the text displayed after the menu to ask the user to choose an item.
@@ -41,45 +42,114 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public int SpaceAfterQuestion { get; set; } = 1;
 
         /// <summary>
+        /// Gets the item that was selected by the user.
+        /// </summary>
+        public TextMenuItem SelectedItem { get; private set; }
+
+        /// <summary>
+        /// Gets the index of the selected menu item.
+        /// The index is calculated based on the visible list of items.
+        /// </summary>
+        public int? SelectedVisibleIndex { get; private set; }
+
+        public int? SelectedIndex { get; private set; }
+
+        /// <summary>
         /// Initialize a new instace of the <see cref="TextMenu"/> calss with
         /// the list of items to be displayed.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
-        public TextMenu(IDictionary<string, string> menuItems)
+        public TextMenu(IEnumerable<TextMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
-            this.menuItems = new Dictionary<string, string>(menuItems);
+
+            this.menuItems.AddRange(menuItems);
         }
 
         /// <summary>
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        public string Display()
+        public void Display()
         {
+            Reset();
             DrawMenu();
+            ReadUserSelection();
 
-            return ReadUserSelection();
+            SelectedItem?.Select();
+        }
+
+        private void Reset()
+        {
+            SelectedIndex = null;
+            SelectedVisibleIndex = null;
+            SelectedItem = null;
         }
 
         private void DrawMenu()
         {
-            foreach (KeyValuePair<string, string> item in menuItems)
-                Console.WriteLine($"{item.Key} - {item.Value}");
+            IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
+                .Where(x => x.IsVisible);
+
+            bool existsItems = false;
+
+            foreach (TextMenuItem menuItem in menuItemsToDisplay)
+            {
+                existsItems = true;
+
+                if (menuItem.IsVisible)
+                {
+                    menuItem.Display();
+                    CustomConsole.WriteLine();
+                }
+            }
+
+            if (!existsItems)
+                throw new ApplicationException("There are no menu items to be displayed.");
         }
 
-        private string ReadUserSelection()
+        private void ReadUserSelection()
         {
+            Console.WriteLine();
+
             while (true)
             {
-                Console.WriteLine();
                 DisplayQuestion();
 
                 string inputValue = Console.ReadLine();
+
+                if (inputValue == null)
+                    return;
+
+                if (inputValue.Length == 0)
+                    continue;
+
                 Console.WriteLine();
 
-                if (inputValue != null && menuItems.ContainsKey(inputValue))
-                    return inputValue;
+                TextMenuItem selectedMenuItem = menuItems
+                    .FirstOrDefault(x => x.Id == inputValue);
+
+                if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
+                {
+                    CustomConsole.WriteLineWarning("Invalid option.");
+                    Console.WriteLine();
+                    continue;
+                }
+
+                if (!selectedMenuItem.IsSelectable)
+                {
+                    CustomConsole.WriteLineWarning("Option is disabled.");
+                    Console.WriteLine();
+                    continue;
+                }
+
+                SelectedItem = selectedMenuItem;
+                SelectedIndex = menuItems.IndexOf(selectedMenuItem);
+                SelectedVisibleIndex = menuItems
+                    .Take(SelectedIndex.Value)
+                    .Count(x => x != null && x.IsVisible);
+
+                return;
             }
         }
 

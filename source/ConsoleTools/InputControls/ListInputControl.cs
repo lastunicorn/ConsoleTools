@@ -23,27 +23,78 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Reads a list of items from the Console.
     /// </summary>
-    public class ListInputControl
+    public class ListInputControl<T>
     {
-        public string Separator { get; set; } = ":";
-        public bool DisplaySeparator { get; set; } = true;
+        private readonly Label labelControl = new Label
+        {
+            MarginLeft = 0,
+            MarginRight = 0
+        };
+
+        public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the separator to be displayed after the label.
+        /// </summary>
+        public string Separator
+        {
+            get { return labelControl.Separator; }
+            set { labelControl.Separator = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the seaparator must be displayed after the label.
+        /// Default value: true.
+        /// </summary>
+        public bool DisplaySeparator
+        {
+            get { return labelControl.DisplaySeparator; }
+            set { labelControl.DisplaySeparator = value; }
+        }
+
         public int ItemsIndentation { get; set; } = 1;
         public string Bullet { get; set; } = "-";
         public int SpaceAfterBullet { get; set; } = 1;
 
-        public List<string> Read(string label = null)
-        {
-            if (label != null)
-            {
-                CustomConsole.WriteEmphasies(label);
+        /// <summary>
+        /// Gets or sets the text to be displayed when the value provided by the user
+        /// cannot be converted into the requested type.
+        /// The requested type is provided as parameter {0}.
+        /// </summary>
+        public string TypeValidationErrorMessage { get; set; } = "The input value must be an {0} type.";
 
-                if (Separator != null && DisplaySeparator)
-                    CustomConsole.WriteLineEmphasies(Separator);
-                else
-                    CustomConsole.WriteLine();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListInputControl{T}"/> class.
+        /// </summary>
+        public ListInputControl()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListInputControl{T}"/> class with
+        /// the label to be displayed when the user is requested to provide the values.
+        /// </summary>
+        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
+        public ListInputControl(string label)
+        {
+            Label = label;
+        }
+
+        public List<T> Read()
+        {
+            if (Label != null)
+            {
+                labelControl.Text = Label;
+                labelControl.Display();
+                CustomConsole.WriteLine();
             }
 
-            List<string> values = new List<string>();
+            return ReadAllValues();
+        }
+
+        private List<T> ReadAllValues()
+        {
+            List<T> values = new List<T>();
 
             string leftpart = BuildItemLeftPart();
 
@@ -53,9 +104,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 int cursorTop = Console.CursorTop;
 
                 CustomConsole.Write(leftpart);
-                string value = Console.ReadLine();
+                string rawValue = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(rawValue))
                 {
                     Console.SetCursorPosition(cursorLeft, cursorTop);
                     string emptyText = new string(' ', leftpart.Length);
@@ -64,10 +115,23 @@ namespace DustInTheWind.ConsoleTools.InputControls
                     break;
                 }
 
-                values.Add(value);
+                try
+                {
+                    T value = ConvertRawValue(rawValue);
+                    values.Add(value);
+                }
+                catch
+                {
+                    CustomConsole.WriteLineError(TypeValidationErrorMessage, typeof(T));
+                }
             }
 
             return values;
+        }
+
+        private static T ConvertRawValue(string value)
+        {
+            return (T)Convert.ChangeType(value, typeof(T));
         }
 
         private string BuildItemLeftPart()

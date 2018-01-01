@@ -10,7 +10,7 @@ Description:
 ListInputControl
 --------------------------------------------------------------------------------
 Description:
-- Reads a list of items from the Console input.
+- Reads a list of values from the Console input.
 - Stops when an empty string is encountered.
 
 Features:
@@ -19,10 +19,10 @@ Features:
 - Customizable bullet - The bullet that is displayed in front of each item.
 - Customizable space amount after the bullet.
 - Customizable items indentation.
+- Generic control - Reads any type of data.
+- Custom type error message - When the input string cannot be converted into the requested type.
 
 Todo:
-- Read items of type: char, int, long, float, double, DateTime, TimeSpan.
-- Display validation error.
 - Custom validation mechanism.
 
 
@@ -45,14 +45,14 @@ TextInputControl
 --------------------------------------------------------------------------------
 Description:
 - Reads a value from the Console input.
-- The control is generic. It can be instantiated to read any type of value.
 
 Features:
 - Custom label - Displays a label at the top of the list.
 - Custom label separator - Displays a separator (default ':') after the label.
 - Custom space amount between label and value.
 - Custom default value to be used if the user types Enter (string empty).
-- Custom error message for transforming the input string into the requested type.
+- Custom type error message - When the input string cannot be converted into the requested type.
+- Generic control - Reads any type of data.
 
 
 --------------------------------------------------------------------------------

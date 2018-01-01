@@ -96,10 +96,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         {
             while (true)
             {
-                labelControl.Text = DisplayDefaultValue && AcceptDefaultValue
-                    ? $"{Label} ({DefaultValue})"
-                    : Label;
-                labelControl.Display();
+                DisplayLabel();
 
                 string rawValue = Console.ReadLine();
 
@@ -115,6 +112,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
                     CustomConsole.WriteLineError(TypeValidationErrorMessage, typeof(T));
                 }
             }
+        }
+
+        private void DisplayLabel()
+        {
+            labelControl.Text = DisplayDefaultValue && AcceptDefaultValue
+                ? $"{Label} ({DefaultValue})"
+                : Label;
+            labelControl.Display();
         }
 
         private static T ConvertRawValue(string value)

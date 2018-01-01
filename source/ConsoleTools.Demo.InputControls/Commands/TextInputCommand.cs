@@ -41,8 +41,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
             CustomConsole.WriteLine("You are {0} years old.", age);
-            CustomConsole.WriteLine("Your birthday: {0}.", birthday);
-            CustomConsole.WriteLine("Your height: {0}.", height);
+            CustomConsole.WriteLine("Your birthday is {0}.", birthday);
+            CustomConsole.WriteLine("Your height is {0}.", height);
         }
     }
 }

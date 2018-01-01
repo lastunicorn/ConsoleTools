@@ -14,24 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools.Spinners
 {
-    public class TextOutputControl
+    public enum ValuePosition
     {
-        private readonly Label label = new Label();
-
-        public string Separator
-        {
-            get { return label.Separator; }
-            set { label.Separator = value; }
-        }
-
-        public void Write(string label, string value)
-        {
-            this.label.Text = label;
-            this.label.Display();
-
-            CustomConsole.WriteLine(value);
-        }
+        Left,
+        Right
     }
 }

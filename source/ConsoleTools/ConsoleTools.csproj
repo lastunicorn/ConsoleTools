@@ -37,6 +37,7 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="InputControls\Label.cs" />
     <Compile Include="InputControls\ListInputControl.cs" />
     <Compile Include="InputControls\ListOutputControl.cs" />
     <Compile Include="InputControls\QuestionControl.cs" />
@@ -53,10 +54,13 @@
     <Compile Include="Mvc\MissingRouteException.cs" />
     <Compile Include="Mvc\Route.cs" />
     <Compile Include="Mvc\Router.cs" />
+    <Compile Include="Spinners\ProgressBar.cs" />
     <Compile Include="Spinners\Templates\FilledBehavior.cs" />
     <Compile Include="Spinners\Templates\FillTemplate.cs" />
     <Compile Include="Spinners\Templates\HalfBlockBlinkTemplate.cs" />
     <Compile Include="Spinners\Templates\HalfBlockRotateTemplate.cs" />
+    <Compile Include="Spinners\ValueAlignment.cs" />
+    <Compile Include="Spinners\ValuePosition.cs" />
     <Compile Include="TabularData\AlignmentCalculator.cs" />
     <Compile Include="TabularData\TableBorder.cs" />
     <Compile Include="TabularData\TableRenderer.cs" />

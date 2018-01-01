@@ -20,31 +20,32 @@ namespace DustInTheWind.ConsoleTools.InputControls
 {
     public class TextInputControl
     {
-        public string Separator { get; set; } = ":";
-        public int SpaceAfterLabel { get; set; } = 1;
+        private readonly Label label = new Label();
+
+        public string Separator
+        {
+            get { return label.Separator; }
+            set { label.Separator = value; }
+        }
+
+        public int SpaceAfterLabel
+        {
+            get { return label.MarginRight; }
+            set { label.MarginRight = value; }
+        }
+
         public string DefaultValue { get; set; } = string.Empty;
 
         public string Read(string label)
         {
-            DisplayLabel(label);
+            this.label.Text = label;
+            this.label.Display();
 
             string value = Console.ReadLine();
 
             return string.IsNullOrEmpty(value)
                 ? DefaultValue
                 : value;
-        }
-
-        private void DisplayLabel(string label)
-        {
-            CustomConsole.WriteEmphasies(label);
-            CustomConsole.WriteEmphasies(Separator);
-
-            if (SpaceAfterLabel > 0)
-            {
-                string space = new string(' ', SpaceAfterLabel);
-                Console.Write(space);
-            }
         }
     }
 }

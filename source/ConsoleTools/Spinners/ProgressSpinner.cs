@@ -16,6 +16,7 @@
 
 using System;
 using System.Timers;
+using DustInTheWind.ConsoleTools.InputControls;
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
@@ -32,6 +33,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         private readonly ISpinnerTemplate template;
         private bool isDisposed;
         private readonly Timer timer;
+        private readonly Label label = new Label();
+
+        public string Text
+        {
+            get { return label.Text; }
+            set { label.Text = value; }
+        }
+
+        public string TextSeparator
+        {
+            get { return label.Separator; }
+            set { label.Separator = value; }
+        }
 
         /// <summary>
         /// Gets or sets the time interval of the frames.
@@ -47,6 +61,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;
+
+            label.Text = "Please wait";
 
             timer = new Timer(400);
             timer.Elapsed += HandleTimerElapsed;
@@ -67,6 +83,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             template.Reset();
             Console.CursorVisible = false;
+
+            label.Display();
 
             Turn();
             timer.Start();

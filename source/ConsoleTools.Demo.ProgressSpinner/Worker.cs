@@ -31,13 +31,13 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             using (ProgressSpinner progressSpinner = new ProgressSpinner(SpinnerTemplate))
             {
                 progressSpinner.StepMiliseconds = SpinnerStepMilliseconds;
+                progressSpinner.Text = "Doing some work";
 
-                CustomConsole.Write("Doing some work: ");
                 progressSpinner.Start();
 
                 try
                 {
-                    // Symulate work
+                    // Simulate work
                     Thread.Sleep(WorkInterval);
                 }
                 finally

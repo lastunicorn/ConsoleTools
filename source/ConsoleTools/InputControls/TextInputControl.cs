@@ -18,34 +18,113 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    public class TextInputControl
+    /// <summary>
+    /// Reads a value from the Console input.
+    /// </summary>
+    /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
+    public class TextInputControl<T>
     {
-        private readonly Label label = new Label();
+        private readonly Label labelControl = new Label();
 
+        /// <summary>
+        /// Gets or sets the label text to be displayed before the user types the value.
+        /// </summary>
+        public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the separator to be displayed after the label.
+        /// </summary>
         public string Separator
         {
-            get { return label.Separator; }
-            set { label.Separator = value; }
+            get { return labelControl.Separator; }
+            set { labelControl.Separator = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the amount of space to be displayed between the label and the value.
+        /// </summary>
         public int SpaceAfterLabel
         {
-            get { return label.MarginRight; }
-            set { label.MarginRight = value; }
+            get { return labelControl.MarginRight; }
+            set { labelControl.MarginRight = value; }
         }
 
-        public string DefaultValue { get; set; } = string.Empty;
+        /// <summary>
+        /// Gets or sets the default value to be returned if the user just types enter (string empty).
+        /// </summary>
+        public T DefaultValue { get; set; }
 
-        public string Read(string label)
+        /// <summary>
+        /// Gets or sets a value that specifies if the default value is allowed to be used.
+        /// </summary>
+        public bool AcceptDefaultValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the default value must be displayed in the label.
+        /// </summary>
+        public bool DisplayDefaultValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text to be displayed when the value provided by the user
+        /// cannot be converted into the requested type.
+        /// The requested type is provided as parameter {0}.
+        /// </summary>
+        public string TypeValidationErrorMessage { get; set; } = "The input value must be an {0} type.";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextInputControl{T}"/> class.
+        /// </summary>
+        public TextInputControl()
         {
-            this.label.Text = label;
-            this.label.Display();
+        }
 
-            string value = Console.ReadLine();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextInputControl{T}"/> class with
+        /// the label to be displayed when the user is requested to provide the value.
+        /// </summary>
+        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
+        public TextInputControl(string label)
+        {
+            Label = label;
+        }
 
-            return string.IsNullOrEmpty(value)
-                ? DefaultValue
-                : value;
+        /// <summary>
+        /// Displays the label and waits for the user to provide a value.
+        /// </summary>
+        /// <returns></returns>
+        public T Read()
+        {
+            while (true)
+            {
+                labelControl.Text = DisplayDefaultValue && AcceptDefaultValue
+                    ? $"{Label} ({DefaultValue})"
+                    : Label;
+                labelControl.Display();
+
+                string rawValue = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(rawValue) && AcceptDefaultValue)
+                    return DefaultValue;
+
+                try
+                {
+                    return ConvertRawValue(rawValue);
+                }
+                catch
+                {
+                    CustomConsole.WriteLineError(TypeValidationErrorMessage, typeof(T));
+                }
+            }
+        }
+
+        private static T ConvertRawValue(string value)
+        {
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
+
+        public static T QuickRead(string label)
+        {
+            return new TextInputControl<T>(label).Read();
         }
     }
 }

@@ -1,48 +1,125 @@
+--------------------------------------------------------------------------------
 Guardian
+--------------------------------------------------------------------------------
+Description:
 - This class ensures that an instance of itself with the same name can not be created twice.
+- It is useful to ensure that a single instance of the application is running.
+
 
 --------------------------------------------------------------------------------
-
 ListInputControl
-- Reads a list of items from the Console until the user inserts an empty string.
-- Optionally displays a label at the top of the list.
-- Optionally displays a separator (default ':') after the label.
-- Customizable bullet.
-- Customizable space after the bullet.
+--------------------------------------------------------------------------------
+Description:
+- Reads a list of items from the Console input.
+- Stops when an empty string is encountered.
+
+Features:
+- Optional label - Displays a label at the top of the list.
+- Customizable label separator - Displays a separator (default ':') after the label.
+- Customizable bullet - The bullet that is displayed in front of each item.
+- Customizable space amount after the bullet.
 - Customizable items indentation.
 
+Todo:
+- Read items of type: char, int, long, float, double, DateTime, TimeSpan.
+- Display validation error.
+- Custom validation mechanism.
+
+
+--------------------------------------------------------------------------------
 ListOutputControl
-- Displays a list of items to the Console.
-- Optionally displays a label at the top of the list.
-- Optionally displays a separator (default ':') after the label.
-- Customizable bullet.
-- Customizable space after the bullet.
-- Customizable items indentation.
+--------------------------------------------------------------------------------
+Description:
+- Displays a list of items to the Console output.
 
+Features:
+- Optional label - Displays a label at the top of the list.
+- Custom label separator - Displays a separator (default ':') after the label.
+- Custom bullet - The bullet that is displayed in front of each item.
+- Custom space amount after the bullet.
+- Custom items indentation.
+
+
+--------------------------------------------------------------------------------
+TextInputControl
+--------------------------------------------------------------------------------
+Description:
+- Reads a value from the Console input.
+- The control is generic. It can be instantiated to read any type of value.
+
+Features:
+- Custom label - Displays a label at the top of the list.
+- Custom label separator - Displays a separator (default ':') after the label.
+- Custom space amount between label and value.
+- Custom default value to be used if the user types Enter (string empty).
+- Custom error message for transforming the input string into the requested type.
+
+
+--------------------------------------------------------------------------------
+TextOutputControl
+--------------------------------------------------------------------------------
+Description:
+- Displays a value to the Console outut.
+
+Features:
+- Custom label - The label displayed before the value.
+- Custom label separator - Displays a separator (default ':') between the label and the value.
+- Custom space amount between label and value.
+- Writes any type of values. The ToString method is called to convert the value to a text.
+
+Todo:
+- Accept format-args values. (?) Do I need this?
+
+
+--------------------------------------------------------------------------------
 QuestionControl
+--------------------------------------------------------------------------------
+Description:
 - Displays a question and waits for an answer from the user.
+
+Features:
 - Can read string, char, int, long.
 
-TextInputControl
-TextOutputControl
+Todo:
+- Read float, double, DateTime, TimeSpan.
+- Display validation error.
+- Custom validation mechanism.
+
+
+--------------------------------------------------------------------------------
 YesNoControl
-
 --------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
 Sound
-
 --------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
 ProgressSpinner
+--------------------------------------------------------------------------------
 - Displays a progress-like visual bar that moves continuously. It can be used for background jobs for which the remaining work cannot be predicted.
 - Supports templates that control the aspect of the spinner (the displayed text for each frame).
 - Can change the interval time of the frames.
 
 Note: It does not support changing colors while spinning.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+ProgressBar
+--------------------------------------------------------------------------------
+- Displays a progress bar and the associated value.
+- Custom Value positioning: left or right.
+- Custom unit of measurement.
+- Custom label text.
+- Custom value range.
+- Option available to allow values outside range.
+
+
+--------------------------------------------------------------------------------
 Table
+--------------------------------------------------------------------------------
 - Displays tabular data on columns and rows.
 - Optional table title.
 - Optional column headers.
@@ -55,17 +132,20 @@ Obs: when content is aligned to center and there is an odd number of spaces, the
 todo:
 - Add data binding - Automatically generate columns and rows based on the property names.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 ConsoleReader
-
 --------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
 CustomConsole Write
-
 --------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
 Prompter
+--------------------------------------------------------------------------------
 - Displays a prompter and waits for the user to write a command.
 - Can read a single command and then stop or cand run in a loop, to read commands until the Stop method is called.
 - Customizable prompter text.
@@ -73,9 +153,10 @@ Prompter
 - Customizable amount of space before and after the prompter.
 - EnsureBeginOfLine - If the curson is not at the begin of the line when the prompter must be displayed, the prompter is displayed on the next line.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 SelectableMenu
+--------------------------------------------------------------------------------
 Displays a menu, asks the user to select an item by choosing it with up/down arrow keys and closes the menu.
 The chosen item is exposed by the SelectedItem property.
 Features:
@@ -91,15 +172,17 @@ todo:
 - Menu item Commands - Attach Commands to menu items.
 - Circular navigation - When reaching the top item go to the bottom item. When reaching the bottom item go to the top item.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 TextMenu
+--------------------------------------------------------------------------------
 Displays a menu that asks the user to select an item by typing its id and executes the command associated with the item.
 Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 Console MVC
+--------------------------------------------------------------------------------
 - Provides an easy way to implement execution flows for each command.
 - Configurable CommandProvider (the module used to receive commands from the user)
 	- can be a prompter where the user types a command.

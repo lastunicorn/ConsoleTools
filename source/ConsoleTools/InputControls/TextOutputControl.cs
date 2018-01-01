@@ -16,20 +16,38 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Displays a value to the Console outut.
+    /// </summary>
     public class TextOutputControl
     {
-        private readonly Label label = new Label();
+        private readonly Label labelControl = new Label();
 
+        /// <summary>
+        /// Gets or sets the separator to be displayed after the label.
+        /// </summary>
         public string Separator
         {
-            get { return label.Separator; }
-            set { label.Separator = value; }
+            get { return labelControl.Separator; }
+            set { labelControl.Separator = value; }
         }
 
-        public void Write(string label, string value)
+        /// <summary>
+        /// Gets or sets the amount of space to be displayed between the label and the value.
+        /// </summary>
+        public int SpaceAfterLabel
         {
-            this.label.Text = label;
-            this.label.Display();
+            get { return labelControl.MarginRight; }
+            set { labelControl.MarginRight = value; }
+        }
+
+        /// <summary>
+        /// Writes a value to the Console output.
+        /// </summary>
+        public void Write<T>(string label, T value)
+        {
+            labelControl.Text = label;
+            labelControl.Display();
 
             CustomConsole.WriteLine(value);
         }

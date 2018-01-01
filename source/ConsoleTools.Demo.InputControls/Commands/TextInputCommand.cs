@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
@@ -25,11 +26,23 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            TextInputControl textInputControl = new TextInputControl();
-            string firstName = textInputControl.Read("First Name");
-            string lastName = textInputControl.Read("Last Name");
+            TextInputControl<string> firstNameInputControl = new TextInputControl<string>("First Name");
+            TextInputControl<string> lastNameInputControl = new TextInputControl<string>("Last Name");
+            TextInputControl<int> ageInputControl = new TextInputControl<int>("Age");
+            TextInputControl<DateTime> birthdayInputControl = new TextInputControl<DateTime>("Birthday");
+            TextInputControl<float> heightInputControl = new TextInputControl<float>("Height (float)");
 
+            string firstName = firstNameInputControl.Read();
+            string lastName = lastNameInputControl.Read();
+            int age = ageInputControl.Read();
+            DateTime birthday = birthdayInputControl.Read();
+            float height = heightInputControl.Read();
+
+            CustomConsole.WriteLine();
             CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            CustomConsole.WriteLine("You are {0} years old.", age);
+            CustomConsole.WriteLine("Your birthday: {0}.", birthday);
+            CustomConsole.WriteLine("Your height: {0}.", height);
         }
     }
 }

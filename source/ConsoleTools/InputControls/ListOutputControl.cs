@@ -21,18 +21,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
 {
     public class ListOutputControl
     {
-        private readonly Label label = new Label();
+        private readonly Label labelControl = new Label();
 
         public string Separator
         {
-            get { return label.Separator; }
-            set { label.Separator = value; }
+            get { return labelControl.Separator; }
+            set { labelControl.Separator = value; }
         }
 
         public bool DisplaySeparator
         {
-            get { return label.DisplaySeparator; }
-            set { label.DisplaySeparator = value; }
+            get { return labelControl.DisplaySeparator; }
+            set { labelControl.DisplaySeparator = value; }
         }
 
         public int ItemsIndentation { get; set; } = 1;
@@ -43,8 +43,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
         {
             if (label != null)
             {
-                this.label.Text = label;
-                this.label.Display();
+                labelControl.Text = label;
+                labelControl.Display();
                 CustomConsole.WriteLine();
             }
 

@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace DustInTheWind.ConsoleTools.Guard
 {
-    public class MachineLevelGuardian : IGuardian
+    public class MachineLevelGuardian
     {
         /// <summary>
         /// The <see cref="Mutex"/> object used to ensure that only one instance
@@ -38,8 +38,6 @@ namespace DustInTheWind.ConsoleTools.Guard
         /// the level at which will have efect.
         /// </summary>
         /// <param name="name">The name that identifies the instance that will be created.</param>
-        /// <param name="guardLevel">The level at which the new instance will have efect.</param>
-        /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ApplicationException"></exception>
         public MachineLevelGuardian(string name)

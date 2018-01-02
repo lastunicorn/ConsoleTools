@@ -68,10 +68,6 @@
     <Compile Include="CommandProviders\UserCommandParameter.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="CustomConsole.WriteAligned.cs" />
-    <Compile Include="Guard\ApplicationLevelGuardian.cs" />
-    <Compile Include="Guard\Guardian.cs" />
-    <Compile Include="Guard\GuardLevel.cs" />
-    <Compile Include="Guard\IGuardian.cs" />
     <Compile Include="Guard\MachineLevelGuardian.cs" />
     <Compile Include="MenuControl\CurrentIndexChangedEventArgs.cs" />
     <Compile Include="MenuControl\IExitController.cs" />

@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Guard
 {
     internal class Program
     {
-        private static Guardian guardian;
+        private static MachineLevelGuardian guardian;
 
         private static int Main()
         {
@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Guard
             try
             {
                 // Ensure that the application is started only once on the current machine.
-                guardian = new Guardian("Alez", GuardLevel.Machine);
+                guardian = new MachineLevelGuardian("Alez");
 
                 CustomConsole.WriteLineSuccess("The application was successfully started.");
                 CustomConsole.WriteLine();

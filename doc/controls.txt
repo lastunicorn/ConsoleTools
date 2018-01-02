@@ -1,9 +1,9 @@
 --------------------------------------------------------------------------------
-Guardian
+MachineLevelGuardian
 --------------------------------------------------------------------------------
 Description:
-- This class ensures that an instance of itself with the same name can not be created twice.
-- It is useful to ensure that a single instance of the application is running.
+- This class ensures that an instance of itself with the same name can not be created on different processes on same machine.
+- It is useful to ensure that a single instance of the application is running on the current machine.
 
 
 --------------------------------------------------------------------------------
@@ -172,10 +172,10 @@ Features:
 - Show/Hide menu items.
 - Commands - Can attach Commands to menu items that will be executed when the menu item is selected.
 - Menu horizontal alignment - Align the menu in the console (Left, Center, Right).
+- Circular navigation - When reaching the top item go to the bottom item. When reaching the bottom item go to the top item.
 
 Todo:
 - Initially selected item - By setting the SelectedIndex or SelectedItem properties before displaying the menu.
-- Circular navigation - When reaching the top item go to the bottom item. When reaching the bottom item go to the top item.
 
 
 --------------------------------------------------------------------------------

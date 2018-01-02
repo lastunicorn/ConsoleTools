@@ -146,8 +146,11 @@ CustomConsole Write
 --------------------------------------------------------------------------------
 Prompter
 --------------------------------------------------------------------------------
+Description:
 - Displays a prompter and waits for the user to write a command.
-- Can read a single command and then stop or cand run in a loop, to read commands until the Stop method is called.
+
+Features:
+- Read a single command or run in a loop, to read commands until the Stop method is called.
 - Customizable prompter text.
 - Customizable prompter glyph.
 - Customizable amount of space before and after the prompter.
@@ -157,19 +160,21 @@ Prompter
 --------------------------------------------------------------------------------
 SelectableMenu
 --------------------------------------------------------------------------------
-Displays a menu, asks the user to select an item by choosing it with up/down arrow keys and closes the menu.
-The chosen item is exposed by the SelectedItem property.
+Description:
+A menu in which the user can navigate by using the up/down arrow keys.
+
 Features:
-    - List display - Displays the menu items vertically in a list.
-    - Up/Down navigation - Selects a menu item using up/down keys.
-    - Shortcut key selection - Selects a menu item using a shortcut key.
-    - Items Horizontal alignment - Horizontally align the menu items inside the menu (Left, Center, Right).
-    - Enable/Disable menu items.
-    - Display/Hide menu items.
-todo:
-- Initially selected item - By setting the SelectedIndex or SelectedItem properties before displaying the menu, 
+- List display - Displays the menu items vertically in a list.
+- Up/Down navigation - Selects a menu item using up/down keys.
+- Shortcut key selection - Selects a menu item using a shortcut key.
+- Items horizontal alignment - Horizontally align the menu items inside the menu (Left, Center, Right).
+- Enable/Disable menu items.
+- Show/Hide menu items.
+- Commands - Can attach Commands to menu items that will be executed when the menu item is selected.
 - Menu horizontal alignment - Align the menu in the console (Left, Center, Right).
-- Menu item Commands - Attach Commands to menu items.
+
+Todo:
+- Initially selected item - By setting the SelectedIndex or SelectedItem properties before displaying the menu.
 - Circular navigation - When reaching the top item go to the bottom item. When reaching the bottom item go to the top item.
 
 

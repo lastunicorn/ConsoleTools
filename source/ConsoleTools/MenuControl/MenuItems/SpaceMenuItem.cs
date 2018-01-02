@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
@@ -31,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 
         public bool IsVisible { get; }
 
-        public HorizontalAlign HorizontalAlign { get; set; }
+        public HorizontalAlignment HorizontalAlignment { get; set; }
 
         public SpaceMenuItem()
         {
@@ -48,9 +49,14 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 
         public ICommand Command { get; set; }
 
+        public SelectableMenu ParentMenu { get; set; }
+
+        public int PaddingLeft { get; set; } = 0;
+        public int PaddingRight { get; set; } = 0;
+
         public event EventHandler<CancelEventArgs> BeforeSelect;
 
-        public void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign)
+        public void Display(Size size, bool highlighted)
         {
         }
 
@@ -60,6 +66,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             OnBeforeSelect(args);
 
             return !args.Cancel;
+        }
+
+        public Size Measure()
+        {
+            return new Size(PaddingLeft + PaddingRight, 1);
         }
 
         protected virtual void OnBeforeSelect(CancelEventArgs e)

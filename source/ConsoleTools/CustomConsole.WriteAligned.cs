@@ -15,14 +15,15 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools
 {
     public static partial class CustomConsole
     {
-        public static void Write(string text, ConsoleColor color, HorizontalAlign horizontalAlign)
+        public static void Write(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
         {
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlign);
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
 
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -30,9 +31,9 @@ namespace DustInTheWind.ConsoleTools
             Console.ForegroundColor = oldColor;
         }
 
-        public static void WriteLine(string text, ConsoleColor color, HorizontalAlign horizontalAlign)
+        public static void WriteLine(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
         {
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlign);
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
 
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -40,28 +41,28 @@ namespace DustInTheWind.ConsoleTools
             Console.ForegroundColor = oldColor;
         }
 
-        private static int CalculateStartPosition(string text, HorizontalAlign horizontalAlign)
+        private static int CalculateStartPosition(string text, HorizontalAlignment horizontalAlignment)
         {
             int startPosition;
 
-            switch (horizontalAlign)
+            switch (horizontalAlignment)
             {
-                case HorizontalAlign.Left:
+                case HorizontalAlignment.Left:
                     startPosition = 0;
                     break;
 
-                case HorizontalAlign.Center:
+                case HorizontalAlignment.Center:
                     int bufferCenter = Console.BufferWidth / 2 - 2;
                     startPosition = bufferCenter - text.Length / 2;
                     break;
 
-                case HorizontalAlign.Right:
+                case HorizontalAlignment.Right:
                     int bufferRight = Console.BufferWidth - 1;
                     startPosition = bufferRight - text.Length;
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(horizontalAlign), horizontalAlign, null);
+                    throw new ArgumentOutOfRangeException(nameof(horizontalAlignment), horizontalAlignment, null);
             }
             return startPosition;
         }

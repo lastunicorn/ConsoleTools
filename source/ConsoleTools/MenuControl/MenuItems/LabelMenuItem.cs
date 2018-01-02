@@ -16,11 +16,15 @@
 
 using System;
 using System.ComponentModel;
+using System.Text;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
     public class LabelMenuItem : IMenuItem
     {
+        private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
+
         protected int lastX = -1;
         protected int lastY = -1;
         protected int lastLength = -1;
@@ -30,10 +34,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 
         public int PaddingLeft { get; set; } = 1;
         public int PaddingRight { get; set; } = 1;
-        public HorizontalAlign HorizontalAlign { get; set; } = HorizontalAlign.Left;
+        public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
         public bool IsSelectable { get; set; } = true;
         public ConsoleKey? ShortcutKey { get; set; }
         public ICommand Command { get; set; }
+        public SelectableMenu ParentMenu { get; set; }
 
         public bool IsVisible => VisibilityProvider == null || VisibilityProvider();
 
@@ -41,55 +46,78 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 
         public event EventHandler<CancelEventArgs> BeforeSelect;
 
-        public void Display(int x, int y, bool selected, HorizontalAlign horizontalAlign = HorizontalAlign.Default)
+        public void Display(Size size, bool highlighted)
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+            StringBuilder calculatedText = CalculateText();
 
-            try
+            HorizontalAlignment calculatedHorizontalAlignment = CalculatedHorizontalAlignment();
+
+            int emptySpace = size.Width - calculatedText.Length;
+
+            lastX = Console.CursorLeft;
+            lastY = Console.CursorTop;
+
+            switch (calculatedHorizontalAlignment)
             {
-                Console.ForegroundColor = selected ? initialBackgroundColor : initialForegroundColor;
-                Console.BackgroundColor = selected ? initialForegroundColor : initialBackgroundColor;
+                default:
+                    if (highlighted)
+                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                    else
+                        CustomConsole.Write(calculatedText.ToString());
 
-                string line = Text;
+                    CustomConsole.Write(new string(' ', emptySpace));
+                    break;
 
-                if (PaddingLeft > 0)
-                    line = new string(' ', PaddingLeft) + line;
+                case HorizontalAlignment.Center:
+                    int leftEmptySpace = emptySpace / 2;
+                    CustomConsole.Write(new string(' ', leftEmptySpace));
 
-                if (PaddingRight > 0)
-                    line = line + new string(' ', PaddingRight);
+                    if (highlighted)
+                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                    else
+                        CustomConsole.Write(calculatedText.ToString());
 
-                HorizontalAlign calculatedHorizontalAlign = horizontalAlign == HorizontalAlign.Default
-                    ? HorizontalAlign
-                    : horizontalAlign;
+                    int rightEmptySpace = emptySpace - leftEmptySpace;
+                    CustomConsole.Write(new string(' ', rightEmptySpace));
+                    break;
 
-                switch (calculatedHorizontalAlign)
-                {
-                    case HorizontalAlign.Default:
-                    case HorizontalAlign.Left:
-                        break;
+                case HorizontalAlignment.Right:
+                    CustomConsole.Write(new string(' ', emptySpace));
 
-                    case HorizontalAlign.Center:
-                        x = x - line.Length / 2;
-                        break;
-
-                    case HorizontalAlign.Right:
-                        x = x - line.Length;
-                        break;
-                }
-
-                Console.SetCursorPosition(x, y);
-                Console.Write(line);
-
-                lastX = x;
-                lastY = y;
-                lastLength = line.Length;
+                    if (highlighted)
+                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                    else
+                        CustomConsole.Write(calculatedText.ToString());
+                    break;
             }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
+
+            lastLength = calculatedText.Length;
+        }
+
+        private StringBuilder CalculateText()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (PaddingLeft > 0)
+                sb.Append(new string(' ', PaddingLeft));
+
+            sb.Append(Text);
+
+            if (PaddingRight > 0)
+                sb.Append(new string(' ', PaddingRight));
+
+            return sb;
+        }
+
+        private HorizontalAlignment CalculatedHorizontalAlignment()
+        {
+            if (HorizontalAlignment != HorizontalAlignment.Default)
+                return HorizontalAlignment;
+
+            if (ParentMenu != null && ParentMenu.ItemsHorizontalAlignment != HorizontalAlignment.Default)
+                return ParentMenu.ItemsHorizontalAlignment;
+
+            return DefaultHorizontalAlignment;
         }
 
         public bool Select()
@@ -98,6 +126,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             OnBeforeSelect(args);
 
             return !args.Cancel;
+        }
+
+        public Size Measure()
+        {
+            StringBuilder calculatedText = CalculateText();
+            return new Size(calculatedText.Length, 1);
         }
 
         protected virtual void OnBeforeSelect(CancelEventArgs e)

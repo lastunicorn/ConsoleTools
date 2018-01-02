@@ -16,7 +16,7 @@
 
 using System.Globalization;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Represents the size of a rectangle.

@@ -54,6 +54,7 @@
     <Compile Include="Mvc\MissingRouteException.cs" />
     <Compile Include="Mvc\Route.cs" />
     <Compile Include="Mvc\Router.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Spinners\ProgressBar.cs" />
     <Compile Include="Spinners\Templates\FilledBehavior.cs" />
     <Compile Include="Spinners\Templates\FillTemplate.cs" />
@@ -82,7 +83,6 @@
     <Compile Include="MenuControl\MenuItems\YesNoMenuItem.cs" />
     <Compile Include="Musical\MusicalNote.cs" />
     <Compile Include="Musical\Sound.cs" />
-    <Compile Include="HorizontalAlign.cs" />
     <Compile Include="CommandProviders\NewCommandEventArgs.cs" />
     <Compile Include="Spinners\Templates\ArrowTemplate.cs" />
     <Compile Include="Spinners\Templates\StickTemplate.cs" />
@@ -95,11 +95,11 @@
     <Compile Include="TabularData\Cell.cs" />
     <Compile Include="TabularData\Column.cs" />
     <Compile Include="TabularData\ConsoleTablePrinter.cs" />
-    <Compile Include="TabularData\HorizontalAlignment.cs" />
+    <Compile Include="HorizontalAlignment.cs" />
     <Compile Include="TabularData\ITablePrinter.cs" />
     <Compile Include="TabularData\MultilineText.cs" />
     <Compile Include="TabularData\Row.cs" />
-    <Compile Include="TabularData\Size.cs" />
+    <Compile Include="Size.cs" />
     <Compile Include="TabularData\StringTablePrinter.cs" />
     <Compile Include="TabularData\Table.cs" />
     <Compile Include="TabularData\TableDimensions.cs" />

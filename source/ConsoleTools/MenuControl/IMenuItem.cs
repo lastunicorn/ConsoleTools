@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
@@ -24,14 +25,18 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         int Id { get; }
         string Text { get; set; }
         bool IsVisible { get; }
-        HorizontalAlign HorizontalAlign { get; set; }
+        HorizontalAlignment HorizontalAlignment { get; set; }
         bool IsSelectable { get; }
         ConsoleKey? ShortcutKey { get; set; }
         ICommand Command { get; set; }
+        SelectableMenu ParentMenu { get; set; }
+        int PaddingLeft { get; set; }
+        int PaddingRight { get; set; }
 
         event EventHandler<CancelEventArgs> BeforeSelect;
 
-        void Display(int x, int y, bool selected, HorizontalAlign itemsHorizontalAlign);
+        void Display(Size size, bool highlighted);
         bool Select();
+        Size Measure();
     }
 }

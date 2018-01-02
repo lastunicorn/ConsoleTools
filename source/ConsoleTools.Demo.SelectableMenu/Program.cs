@@ -19,6 +19,7 @@ using System.ComponentModel;
 using DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 {
@@ -77,20 +78,17 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
                 new LabelMenuItem
                 {
                     Text = "New Game",
-                    HorizontalAlign = HorizontalAlign.Center,
                     Command = new NewGameCommand(gameBoard)
                 },
                 new YesNoMenuItem
                 {
                     Text = "Save Game",
-                    HorizontalAlign = HorizontalAlign.Center,
                     VisibilityProvider = () => gameBoard.IsGameStarted,
                     Command = new SaveGameCommand()
                 },
                 new LabelMenuItem
                 {
                     Text = "Load Game",
-                    HorizontalAlign = HorizontalAlign.Center,
                     Command = new LoadGameCommand(gameBoard)
                 },
 
@@ -99,13 +97,11 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
                 new LabelMenuItem
                 {
                     Text = "Settings",
-                    HorizontalAlign = HorizontalAlign.Center,
                     Command = new SettingsCommand()
                 }, 
                 new LabelMenuItem
                 {
                     Text = "Credits",
-                    HorizontalAlign = HorizontalAlign.Center,
                     Command = new CreditsCommand()
                 },
 
@@ -114,7 +110,6 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
                 new LabelMenuItem
                 {
                     Text = "Exit",
-                    HorizontalAlign = HorizontalAlign.Center,
                     ShortcutKey = ConsoleKey.X,
                     Command = new ExitCommand(applicationState)
                 }
@@ -124,6 +119,10 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 
             // This automatically selects the first item when the menu is displayed.
             //selectableMenu.SelectFirstByDefault = true;
+
+            // 
+            //selectableMenu.HorizontalAlignment = HorizontalAlignment.Left;
+            //selectableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
 
             return selectableMenu;
         }

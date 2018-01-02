@@ -67,5 +67,21 @@ namespace DustInTheWind.ConsoleTools
             Console.WriteLine(o);
             Console.ForegroundColor = oldColor;
         }
+
+        //
+
+        public static void WriteColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+        {
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = foregroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            Console.Write(text);
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
+        }
     }
 }

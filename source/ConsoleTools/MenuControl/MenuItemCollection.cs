@@ -24,11 +24,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     {
         private int? currentIndex;
 
-        public MenuItemCollection(IEnumerable<IMenuItem> menuItems)
-            : base(menuItems)
-        {
-        }
-
         public int? CurrentIndex
         {
             get { return currentIndex; }
@@ -49,31 +44,21 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             ? this[currentIndex.Value]
             : null;
 
+        public int? CurrentVisibleIndex
+        {
+            get
+            {
+                IMenuItem currentItem = CurrentItem;
+
+                return currentItem == null
+                    ? null
+                    : CalculateVisibleIndex(currentItem);
+            }
+        }
+
+        public int SelectableItemsCount => this.Count(x => x != null && x.IsVisible && x.IsSelectable);
+
         public event EventHandler<CurrentIndexChangedEventArgs> CurrentIndexChanged;
-
-        public bool ExistSelectableItems
-        {
-            get
-            {
-                int selectableItemsCount = this
-                    .Count(x => x != null && x.IsVisible && x.IsSelectable);
-
-                return selectableItemsCount > 0;
-            }
-        }
-
-        public int? VisibleCurrentIndex
-        {
-            get
-            {
-                if (!currentIndex.HasValue || !CurrentItem.IsVisible)
-                    return null;
-
-                return this
-                    .Take(currentIndex.Value + 1)
-                    .Count(x => x != null && x.IsVisible);
-            }
-        }
 
         public int? CalculateVisibleIndex(IMenuItem menuItem)
         {

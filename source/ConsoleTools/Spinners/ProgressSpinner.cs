@@ -40,13 +40,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             get { return label.Text; }
             set { label.Text = value; }
         }
-
-        public string TextSeparator
-        {
-            get { return label.Separator; }
-            set { label.Separator = value; }
-        }
-
+        
         /// <summary>
         /// Gets or sets the time interval of the frames.
         /// It can speed up or slow down the animation.

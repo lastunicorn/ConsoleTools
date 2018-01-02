@@ -20,7 +20,7 @@ Features:
 - Customizable space amount after the bullet.
 - Customizable items indentation.
 - Generic control - Reads any type of data.
-- Custom type error message - When the input string cannot be converted into the requested type.
+- Custom error message for type validation - When the value cannot be converted into the requested type.
 
 Todo:
 - Custom validation mechanism.

@@ -22,19 +22,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     public class ListOutputControl
     {
         private readonly Label labelControl = new Label();
-
-        public string Separator
-        {
-            get { return labelControl.Separator; }
-            set { labelControl.Separator = value; }
-        }
-
-        public bool DisplaySeparator
-        {
-            get { return labelControl.DisplaySeparator; }
-            set { labelControl.DisplaySeparator = value; }
-        }
-
+        
         public int ItemsIndentation { get; set; } = 1;
         public string Bullet { get; set; } = "-";
         public int SpaceAfterBullet { get; set; } = 1;

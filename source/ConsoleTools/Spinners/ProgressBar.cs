@@ -95,13 +95,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             get { return label.Text; }
             set { label.Text = value; }
         }
-
-        public string TextSeparator
-        {
-            get { return label.Separator; }
-            set { label.Separator = value; }
-        }
-
+        
         public char BarBackground { get; set; } = '.';
         public char BarChar { get; set; } = '█';
 

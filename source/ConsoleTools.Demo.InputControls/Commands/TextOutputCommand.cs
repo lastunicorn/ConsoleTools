@@ -26,9 +26,10 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         public void Execute()
         {
             TextOutputControl textOutputControl = new TextOutputControl();
-            textOutputControl.Write("First Name", "John");
-            textOutputControl.Write("Last Name", "Doe");
-            textOutputControl.Write("Age", "25");
+
+            textOutputControl.Write("First Name:", "John");
+            textOutputControl.Write("Last Name:", "Doe");
+            textOutputControl.Write("Age:", "25");
         }
     }
 }

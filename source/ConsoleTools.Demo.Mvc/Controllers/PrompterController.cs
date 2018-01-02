@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 
         private void ChangePrompter()
         {
-            TextInputControl<string> textInputControl = new TextInputControl<string>("New Prompter Text");
+            TextInputControl<string> textInputControl = new TextInputControl<string>("New Prompter Text:");
             prompter.PrompterText = textInputControl.Read();
         }
     }

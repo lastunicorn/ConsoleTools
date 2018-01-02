@@ -32,26 +32,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         };
 
         public string Label { get; set; }
-
-        /// <summary>
-        /// Gets or sets the separator to be displayed after the label.
-        /// </summary>
-        public string Separator
-        {
-            get { return labelControl.Separator; }
-            set { labelControl.Separator = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the seaparator must be displayed after the label.
-        /// Default value: true.
-        /// </summary>
-        public bool DisplaySeparator
-        {
-            get { return labelControl.DisplaySeparator; }
-            set { labelControl.DisplaySeparator = value; }
-        }
-
+        
         public int ItemsIndentation { get; set; } = 1;
         public string Bullet { get; set; } = "-";
         public int SpaceAfterBullet { get; set; } = 1;

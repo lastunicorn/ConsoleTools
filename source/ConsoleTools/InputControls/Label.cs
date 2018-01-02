@@ -24,8 +24,6 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public int MarginRight { get; set; } = 1;
 
         public string Text { get; set; }
-        public string Separator { get; set; } = ":";
-        public bool DisplaySeparator { get; set; } = true;
 
         public void Display()
         {
@@ -33,10 +31,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 DisplayLeftMargin();
 
             CustomConsole.WriteEmphasies(Text);
-
-            if (Separator != null && DisplaySeparator)
-                CustomConsole.WriteEmphasies(Separator);
-
+            
             if (MarginRight > 0)
                 DisplayRightMargin();
         }

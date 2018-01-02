@@ -26,11 +26,11 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            TextInputControl<string> firstNameInputControl = new TextInputControl<string>("First Name");
-            TextInputControl<string> lastNameInputControl = new TextInputControl<string>("Last Name");
-            TextInputControl<int> ageInputControl = new TextInputControl<int>("Age");
-            TextInputControl<DateTime> birthdayInputControl = new TextInputControl<DateTime>("Birthday");
-            TextInputControl<float> heightInputControl = new TextInputControl<float>("Height (float)");
+            TextInputControl<string> firstNameInputControl = new TextInputControl<string>("First Name:");
+            TextInputControl<string> lastNameInputControl = new TextInputControl<string>("Last Name:");
+            TextInputControl<int> ageInputControl = new TextInputControl<int>("Age:");
+            TextInputControl<DateTime> birthdayInputControl = new TextInputControl<DateTime>("Birthday:");
+            TextInputControl<float> heightInputControl = new TextInputControl<float>("Height (float):");
 
             string firstName = firstNameInputControl.Read();
             string lastName = lastNameInputControl.Read();

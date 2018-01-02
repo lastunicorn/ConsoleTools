@@ -30,16 +30,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// Gets or sets the label text to be displayed before the user types the value.
         /// </summary>
         public string Label { get; set; }
-
-        /// <summary>
-        /// Gets or sets the separator to be displayed after the label.
-        /// </summary>
-        public string Separator
-        {
-            get { return labelControl.Separator; }
-            set { labelControl.Separator = value; }
-        }
-
+        
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
         /// </summary>
@@ -58,12 +49,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// Gets or sets a value that specifies if the default value is allowed to be used.
         /// </summary>
         public bool AcceptDefaultValue { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the default value must be displayed in the label.
-        /// </summary>
-        public bool DisplayDefaultValue { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the text to be displayed when the value provided by the user
         /// cannot be converted into the requested type.
@@ -116,8 +102,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         private void DisplayLabel()
         {
-            labelControl.Text = DisplayDefaultValue && AcceptDefaultValue
-                ? $"{Label} ({DefaultValue})"
+            labelControl.Text = AcceptDefaultValue
+                ? string.Format(Label, DefaultValue)
                 : Label;
             labelControl.Display();
         }

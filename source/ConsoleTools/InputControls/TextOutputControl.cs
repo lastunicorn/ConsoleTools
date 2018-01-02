@@ -22,16 +22,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     public class TextOutputControl
     {
         private readonly Label labelControl = new Label();
-
-        /// <summary>
-        /// Gets or sets the separator to be displayed after the label.
-        /// </summary>
-        public string Separator
-        {
-            get { return labelControl.Separator; }
-            set { labelControl.Separator = value; }
-        }
-
+        
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
         /// </summary>

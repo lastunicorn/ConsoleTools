@@ -59,7 +59,7 @@ Features:
 TextOutputControl
 --------------------------------------------------------------------------------
 Description:
-- Displays a value to the Console outut.
+- Displays a value to the Console output.
 
 Features:
 - Custom label - The label displayed before the value.
@@ -154,7 +154,7 @@ Features:
 - Customizable prompter text.
 - Customizable prompter glyph.
 - Customizable amount of space before and after the prompter.
-- EnsureBeginOfLine - If the curson is not at the begin of the line when the prompter must be displayed, the prompter is displayed on the next line.
+- EnsureBeginOfLine - If the cursor is not at the begin of the line when the prompter must be displayed, the prompter is displayed on the next line.
 
 
 --------------------------------------------------------------------------------
@@ -164,9 +164,9 @@ Description:
 A menu in which the user can navigate by using the up/down arrow keys.
 
 Features:
-- List display - Displays the menu items vertically in a list.
-- Up/Down navigation - Selects a menu item using up/down keys.
-- Shortcut key selection - Selects a menu item using a shortcut key.
+- List display - Display the menu items vertically in a list.
+- Up/Down navigation - Select a menu item using up/down keys.
+- Shortcut key selection - Select a menu item using a shortcut key.
 - Items horizontal alignment - Horizontally align the menu items inside the menu (Left, Center, Right).
 - Enable/Disable menu items.
 - Show/Hide menu items.
@@ -181,7 +181,8 @@ Todo:
 --------------------------------------------------------------------------------
 TextMenu
 --------------------------------------------------------------------------------
-Displays a menu that asks the user to select an item by typing its id and executes the command associated with the item.
+Displays a list of items and asks the user to select one by typing its id.
+When a item is selected, if it has an associated command, it is executed.
 Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
 
 

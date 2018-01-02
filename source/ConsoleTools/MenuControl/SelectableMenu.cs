@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
@@ -33,9 +32,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// </summary>
     public class SelectableMenu
     {
-        private readonly MenuItemCollection menuItems;
-
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
+
+        private readonly MenuItemCollection menuItems;
 
         private volatile bool isCloseRequested;
         private Size menuSize;
@@ -52,6 +51,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         public int? SelectedIndex { get; private set; }
 
+        /// <summary>
+        /// Specifies the horizontal alignment of the menu relative to the Console Buffer.
+        /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
         /// <summary>
@@ -63,6 +65,17 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Gets or sets a value that specifies if the first item is automatically selected when the menu is displayed.
         /// </summary>
         public bool SelectFirstByDefault { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a vlue that specifies if circular selection is allowed.
+        /// When reaching the first item go to the last item.
+        /// When reaching the last item go to the first item.
+        /// </summary>
+        public bool AllowCircularSelection
+        {
+            get { return menuItems.AllowCircularSelection; }
+            set { menuItems.AllowCircularSelection = value; }
+        }
 
         /// <inheritdoc />
         /// <summary>
@@ -100,17 +113,30 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             Reset();
 
-            Run(() =>
+            RunWithoutCursor(() =>
             {
-                if (menuItems.SelectableItemsCount == 0)
-                    throw new ApplicationException("There are no menu items to be displayed.");
+                menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
-                DrawMenu();
+                try
+                {
+                    if (menuItems.SelectableItemsCount == 0)
+                        throw new ApplicationException("There are no menu items to be displayed.");
 
-                if (SelectFirstByDefault)
-                    menuItems.SelectFirst();
+                    DrawMenu();
 
-                ReadUserSelection();
+                    if (SelectFirstByDefault)
+                        menuItems.SelectFirst();
+
+                    ReadUserSelection();
+                }
+                finally
+                {
+                    menuItems.SelectNone();
+                    menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
+
+                    int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
+                    Console.SetCursorPosition(0, firstLineAfterMenu);
+                }
             });
 
             SelectedItem?.Command?.Execute();
@@ -131,10 +157,23 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         public void Resume()
         {
-            Run(() =>
+            RunWithoutCursor(() =>
             {
-                Refresh();
-                ReadUserSelection();
+                menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
+
+                try
+                {
+                    Refresh();
+                    ReadUserSelection();
+                }
+                finally
+                {
+                    menuItems.SelectNone();
+                    menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
+
+                    int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
+                    Console.SetCursorPosition(0, firstLineAfterMenu);
+                }
             });
 
             SelectedItem?.Command?.Execute();
@@ -145,12 +184,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             DrawMenuItem(menuItems.CurrentIndex);
         }
 
-        private void Run(Action action)
+        private void RunWithoutCursor(Action action)
         {
             bool initialCursorVisible = Console.CursorVisible;
             Console.CursorVisible = false;
-
-            menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
             try
             {
@@ -158,11 +195,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
             finally
             {
-                menuItems.SelectNone();
-                menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
-
-                int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
-                Console.SetCursorPosition(0, firstLineAfterMenu);
                 Console.CursorVisible = initialCursorVisible;
             }
         }
@@ -180,7 +212,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             menuSize = CalculateMenuDimensions();
 
-            // Wite empty lines
+            // Write empty lines
             for (int i = 0; i < menuSize.Height; i++)
                 Console.WriteLine();
 

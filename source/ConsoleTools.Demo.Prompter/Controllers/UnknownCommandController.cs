@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Mvc;
 
@@ -30,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             this.command = command;
         }
 
-        public void Execute()
+        public void Execute(IReadOnlyCollection<UserCommandParameter> parameters)
         {
             CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
         }

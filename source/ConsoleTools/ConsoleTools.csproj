@@ -108,6 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MenuControl\TextMenu.cs" />
     <Compile Include="CommandProviders\CliCommand.cs" />
+    <Compile Include="ThreeStageFile.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

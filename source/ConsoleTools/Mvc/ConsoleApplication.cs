@@ -58,7 +58,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
             try
             {
                 IController controller = router.CreateController(e.Command);
-                controller.Execute();
+                controller.Execute(e.Command.Parameters);
             }
             catch (MissingRouteException ex)
             {

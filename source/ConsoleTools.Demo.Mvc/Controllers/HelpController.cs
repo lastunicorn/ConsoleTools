@@ -14,13 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 {
     internal class HelpController : IController
     {
-        public void Execute()
+        public void Execute(IReadOnlyCollection<UserCommandParameter> parameters)
         {
             DisplayHelp();
         }

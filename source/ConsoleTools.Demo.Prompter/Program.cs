@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             try
             {
                 IController controller = CreateController(e.Command);
-                controller.Execute();
+                controller.Execute(e.Command.Parameters);
             }
             catch (Exception ex)
             {

@@ -14,10 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.CommandProviders;
+
 namespace DustInTheWind.ConsoleTools.Mvc
 {
     public interface IController
     {
-        void Execute();
+        void Execute(IReadOnlyCollection<UserCommandParameter> parameters);
     }
 }

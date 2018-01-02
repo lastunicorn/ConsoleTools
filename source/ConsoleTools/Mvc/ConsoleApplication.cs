@@ -24,7 +24,12 @@ namespace DustInTheWind.ConsoleTools.Mvc
     {
         private readonly ICommandProvider commandProvider;
         private readonly Router router;
-        
+
+        public IServiceProvider ServiceProvider
+        {
+            set { router.ServiceProvider = value; }
+        }
+
         public ConsoleApplication()
         {
             commandProvider = new Prompter();

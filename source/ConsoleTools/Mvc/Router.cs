@@ -29,6 +29,8 @@ namespace DustInTheWind.ConsoleTools.Mvc
 
         public List<Route> Routes { get; } = new List<Route>();
 
+        public IServiceProvider ServiceProvider { get; set; }
+
         public Router(ConsoleApplication consoleApplication, ICommandProvider commandProvider)
         {
             if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
@@ -47,6 +49,13 @@ namespace DustInTheWind.ConsoleTools.Mvc
 
             Type controllerType = route.ControllerType;
 
+            return ServiceProvider == null
+                ? InstatiateController(command, controllerType)
+                : (IController)ServiceProvider.GetService(controllerType);
+        }
+
+        private IController InstatiateController(CliCommand command, Type controllerType)
+        {
             ConstructorInfo[] constructors = controllerType.GetConstructors();
 
             // Search for parameterless constructor

@@ -64,14 +64,14 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         {
             NewCommand?.Invoke(null, e);
         }
-
+        
         /// <summary>
         /// Continously read from the console new commands.
-        /// After a command is obtained from the console, the <see cref="NewCommand"/> event is raised.
-        /// The <see cref="Run"/> method blocks the current execution thread.
+        /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
+        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Run" /> method blocks the current execution thread.
         /// The infinite loop that reads commands can be stopped
-        /// by setting the <see cref="NewCommandEventArgs.Exit"/> property in the <see cref="NewCommand"/> event
-        /// or by calling the <see cref="RequestStop"/> method.
+        /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
+        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestStop" /> method.
         /// </summary>
         public void Run()
         {
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             do
             {
                 DisplayWholePrompter();
-                
+
                 string commandText = Console.ReadLine();
 
                 if (commandText == null)

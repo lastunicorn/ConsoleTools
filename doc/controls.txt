@@ -15,7 +15,6 @@ Description:
 
 Features:
 - Optional label - Displays a label at the top of the list.
-- Customizable label separator - Displays a separator (default ':') after the label.
 - Customizable bullet - The bullet that is displayed in front of each item.
 - Customizable space amount after the bullet.
 - Customizable items indentation.
@@ -34,7 +33,6 @@ Description:
 
 Features:
 - Optional label - Displays a label at the top of the list.
-- Custom label separator - Displays a separator (default ':') after the label.
 - Custom bullet - The bullet that is displayed in front of each item.
 - Custom space amount after the bullet.
 - Custom items indentation.
@@ -48,7 +46,6 @@ Description:
 
 Features:
 - Custom label - Displays a label at the top of the list.
-- Custom label separator - Displays a separator (default ':') after the label.
 - Custom space amount between label and value.
 - Custom default value to be used if the user types Enter (string empty).
 - Custom type error message - When the input string cannot be converted into the requested type.
@@ -63,27 +60,11 @@ Description:
 
 Features:
 - Custom label - The label displayed before the value.
-- Custom label separator - Displays a separator (default ':') between the label and the value.
 - Custom space amount between label and value.
 - Writes any type of values. The ToString method is called to convert the value to a text.
 
 Todo:
 - Accept format-args values. (?) Do I need this?
-
-
---------------------------------------------------------------------------------
-QuestionControl
---------------------------------------------------------------------------------
-Description:
-- Displays a question and waits for an answer from the user.
-
-Features:
-- Can read string, char, int, long.
-
-Todo:
-- Read float, double, DateTime, TimeSpan.
-- Display validation error.
-- Custom validation mechanism.
 
 
 --------------------------------------------------------------------------------
@@ -99,7 +80,10 @@ Sound
 --------------------------------------------------------------------------------
 ProgressSpinner
 --------------------------------------------------------------------------------
+Description:
 - Displays a progress-like visual bar that moves continuously. It can be used for background jobs for which the remaining work cannot be predicted.
+
+Features:
 - Supports templates that control the aspect of the spinner (the displayed text for each frame).
 - Can change the interval time of the frames.
 
@@ -109,7 +93,10 @@ Note: It does not support changing colors while spinning.
 --------------------------------------------------------------------------------
 ProgressBar
 --------------------------------------------------------------------------------
+Description:
 - Displays a progress bar and the associated value.
+
+Features:
 - Custom Value positioning: left or right.
 - Custom unit of measurement.
 - Custom label text.
@@ -120,7 +107,10 @@ ProgressBar
 --------------------------------------------------------------------------------
 Table
 --------------------------------------------------------------------------------
+Description:
 - Displays tabular data on columns and rows.
+
+Features:
 - Optional table title.
 - Optional column headers.
 - Optional border.
@@ -194,8 +184,8 @@ Console MVC
 	- can be a prompter where the user types a command.
 	- can be a menu from which the user selects an item.
 - Routing table - to associate a command text with a controller (execution flow).
-- Optional dependency resolver - If none is provided, the controllers must have parameterless constructors.
-	Exceptions: Without a dependency resolver, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.
+- Optional service provider - If none is provided, the controllers must have parameterless constructors.
+	Exceptions: Without a service provider, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.
 
 todo:
 - Ctrl+C handling

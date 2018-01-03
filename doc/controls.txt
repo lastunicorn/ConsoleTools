@@ -20,9 +20,11 @@ Features:
 - Customizable items indentation.
 - Generic control - Reads any type of data.
 - Custom error message for type validation - When the value cannot be converted into the requested type.
+- Custom color for the label.
 
 Todo:
 - Custom validation mechanism.
+- Custom background color for the label.
 
 
 --------------------------------------------------------------------------------
@@ -36,6 +38,10 @@ Features:
 - Custom bullet - The bullet that is displayed in front of each item.
 - Custom space amount after the bullet.
 - Custom items indentation.
+- Custom color for the label.
+
+Todo:
+- Custom background color for the label.
 
 
 --------------------------------------------------------------------------------
@@ -125,18 +131,25 @@ Features:
 
 Obs: when content is aligned to center and there is an odd number of spaces, the content is aligned slightly to the left.
 
-todo:
+Todo:
 - Add data binding - Automatically generate columns and rows based on the property names.
 
 
 --------------------------------------------------------------------------------
 ConsoleReader
 --------------------------------------------------------------------------------
+Small tool written by JSQuareD - https://stackoverflow.com/questions/57615/how-to-add-a-timeout-to-console-readline/57655#57655
 
 
 --------------------------------------------------------------------------------
 CustomConsole Write
 --------------------------------------------------------------------------------
+Description:
+- A number of methods that helps writing text to the console.
+
+Features:
+- Specialized methods to write Normal, Warning, Error and Emphasised text.
+- Specialized methods to write a text using a specified foreground and background colors.
 
 
 --------------------------------------------------------------------------------
@@ -144,6 +157,7 @@ Prompter
 --------------------------------------------------------------------------------
 Description:
 - Displays a prompter and waits for the user to write a command.
+- Useful when writing a stateful cli application in which the user can write commands to the console.
 
 Features:
 - Read a single command or run in a loop, to read commands until the Stop method is called.
@@ -157,10 +171,10 @@ Features:
 SelectableMenu
 --------------------------------------------------------------------------------
 Description:
-A menu in which the user can navigate by using the up/down arrow keys.
+- A menu in which the user can navigate by using the up/down arrow keys.
 
 Features:
-- List display - Display the menu items vertically in a list.
+- Items display vertically - Display the menu items vertically in a list.
 - Up/Down navigation - Select a menu item using up/down keys.
 - Shortcut key selection - Select a menu item using a shortcut key.
 - Items horizontal alignment - Horizontally align the menu items inside the menu (Left, Center, Right).
@@ -193,7 +207,7 @@ Console MVC
 - Optional service provider - If none is provided, the controllers must have parameterless constructors.
 	Exceptions: Without a service provider, the controller's constructors can still have as parameters the ConsoleApplication, the ICommandProvider and the ICommand.
 
-todo:
+Todo:
 - Ctrl+C handling
 - Ctrl+Z handling
 

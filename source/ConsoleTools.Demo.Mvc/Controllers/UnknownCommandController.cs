@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Mvc;
 
@@ -31,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
             this.command = command;
         }
 
-        public void Execute(IReadOnlyCollection<UserCommandParameter> parameters)
+        public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)
         {
             CustomConsole.WriteLineError("Unknown command: " + command, ConsoleColor.DarkYellow);
         }

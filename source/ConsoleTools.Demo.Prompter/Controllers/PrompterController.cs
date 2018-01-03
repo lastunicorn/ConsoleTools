@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Mvc;
@@ -32,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             this.prompter = prompter;
         }
 
-        public void Execute(IReadOnlyCollection<UserCommandParameter> parameters)
+        public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)
         {
             ChangePrompter();
         }

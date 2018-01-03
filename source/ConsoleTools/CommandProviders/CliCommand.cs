@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.CommandProviders
@@ -33,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Gets the list of parameters associated with the current command.
         /// </summary>
-        public IReadOnlyCollection<UserCommandParameter> Parameters { get; }
+        public ReadOnlyCollection<UserCommandParameter> Parameters { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CliCommand"/> class with

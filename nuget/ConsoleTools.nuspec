@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ConsoleTools</id>
+    <version>0.0.1</version>
+    <authors>Dust in the Wind</authors>
+    <owners>Dust in the Wind</owners>
+    <projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of tools and "controls" for the .net Console.</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2017 Dust in the Wind</copyright>
+    <tags>console cli prompter menu progressbar spinner table read write</tags>
+  </metadata>
+</package>

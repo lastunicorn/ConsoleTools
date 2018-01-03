@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBar
 
             RunDemo();
 
-            CustomConsole.Pause();
+            Pause.DisplayDefault();
         }
 
         private static void DisplayApplicationHeader()

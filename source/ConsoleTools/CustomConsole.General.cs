@@ -20,17 +20,24 @@ namespace DustInTheWind.ConsoleTools
 {
     public static partial class CustomConsole
     {
-        private const ConsoleColor SuccessColor = ConsoleColor.Green;
-        private const ConsoleColor WarningColor = ConsoleColor.Yellow;
-        private const ConsoleColor ErrorColor = ConsoleColor.Red;
-        private const ConsoleColor EmphasiesColor = ConsoleColor.White;
+        /// <summary>
+        /// Gets or sets the color used to write Success messages.
+        /// </summary>
+        public static ConsoleColor SuccessColor { get; set; } = ConsoleColor.Green;
 
-        public static void Pause()
-        {
-            Console.WriteLine();
-            Console.Write("Press any key to continue...");
-            Console.ReadKey(true);
-            Console.WriteLine();
-        }
+        /// <summary>
+        /// Gets or sets the color used to write Warning messages.
+        /// </summary>
+        public static ConsoleColor WarningColor { get; set; } = ConsoleColor.Yellow;
+
+        /// <summary>
+        /// Gets or sets the color used to write Error messages.
+        /// </summary>
+        public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.Red;
+
+        /// <summary>
+        /// Gets or sets the color used to write Emphasiesed messages.
+        /// </summary>
+        public static ConsoleColor EmphasiesColor { get; set; } = ConsoleColor.White;
     }
 }

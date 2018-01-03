@@ -20,12 +20,19 @@ using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Exception thrown when there is no route for the command provided by the user.
+    /// </summary>
     public class MissingRouteException : Exception
     {
         private const string DefaultMessage = "There is no route declared for command {0}.";
 
+        /// <summary>
+        /// Gets the command for which no route exists.
+        /// </summary>
         public CliCommand Command { get; }
-
+        
         public MissingRouteException(CliCommand command)
             : base(string.Format(DefaultMessage, command.Name))
         {

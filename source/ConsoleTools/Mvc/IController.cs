@@ -19,8 +19,14 @@ using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
+    /// <summary>
+    /// Represents the code that will be executed for a specific command.
+    /// </summary>
     public interface IController
     {
+        /// <summary>
+        /// Executes the current instance.
+        /// </summary>
         void Execute(ReadOnlyCollection<UserCommandParameter> parameters);
     }
 }

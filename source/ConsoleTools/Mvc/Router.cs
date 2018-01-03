@@ -50,11 +50,11 @@ namespace DustInTheWind.ConsoleTools.Mvc
             Type controllerType = route.ControllerType;
 
             return ServiceProvider == null
-                ? InstatiateController(command, controllerType)
+                ? InstatiateControllerByReflection(command, controllerType)
                 : (IController)ServiceProvider.GetService(controllerType);
         }
 
-        private IController InstatiateController(CliCommand command, Type controllerType)
+        private IController InstatiateControllerByReflection(CliCommand command, Type controllerType)
         {
             ConstructorInfo[] constructors = controllerType.GetConstructors();
 

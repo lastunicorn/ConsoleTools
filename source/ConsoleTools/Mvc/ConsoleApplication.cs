@@ -20,16 +20,31 @@ using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
+    /// <summary>
+    /// Represents the console application that processes commands.
+    /// </summary>
     public class ConsoleApplication
     {
         private readonly ICommandProvider commandProvider;
         private readonly Router router;
 
+        /// <summary>
+        /// Gets or sets the <see cref="IServiceProvider"/> that is used to create the controllers.
+        /// </summary>
         public IServiceProvider ServiceProvider
         {
+            get { return router.ServiceProvider; }
             set { router.ServiceProvider = value; }
         }
 
+        /// <summary>
+        /// Gets the routes used to map a command to a controller that will be executed.
+        /// </summary>
+        public List<Route> Routes => router.Routes;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleApplication"/> class.
+        /// </summary>
         public ConsoleApplication()
         {
             commandProvider = new Prompter();
@@ -38,16 +53,18 @@ namespace DustInTheWind.ConsoleTools.Mvc
             router = new Router(this, commandProvider);
         }
 
-        public void ConfigureRoutes(IEnumerable<Route> routes)
-        {
-            router.Routes.AddRange(routes);
-        }
-
+        /// <summary>
+        /// Starts to process commands.
+        /// This method blocks until the application is stopped.
+        /// </summary>
         public void Run()
         {
             commandProvider.Run();
         }
 
+        /// <summary>
+        /// Stops processing commands and exits the <see cref="Run"/> method.
+        /// </summary>
         public void Exit()
         {
             commandProvider.RequestStop();

@@ -19,18 +19,21 @@ using System;
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Reads a value from the Console input.
+    /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
     public class TextInputControl<T>
     {
-        private readonly Label labelControl = new Label();
+        private readonly Label labelControl = new Label
+        {
+            ForegroundColor = CustomConsole.EmphasiesColor
+        };
 
         /// <summary>
         /// Gets or sets the label text to be displayed before the user types the value.
         /// </summary>
         public string Label { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
         /// </summary>
@@ -38,6 +41,15 @@ namespace DustInTheWind.ConsoleTools.InputControls
         {
             get { return labelControl.MarginRight; }
             set { labelControl.MarginRight = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the color used to display the label text.
+        /// </summary>
+        public ConsoleColor? LabelColor
+        {
+            get { return labelControl.ForegroundColor; }
+            set { labelControl.ForegroundColor = value; }
         }
 
         /// <summary>
@@ -49,13 +61,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// Gets or sets a value that specifies if the default value is allowed to be used.
         /// </summary>
         public bool AcceptDefaultValue { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the text to be displayed when the value provided by the user
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
         /// </summary>
-        public string TypeValidationErrorMessage { get; set; } = "The input value must be an {0} type.";
+        public string TypeValidationErrorMessage { get; set; } = "The input value must be a {0} type.";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextInputControl{T}"/> class.
@@ -77,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Displays the label and waits for the user to provide a value.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The value read from the console.</returns>
         public T Read()
         {
             while (true)
@@ -113,6 +125,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
+        /// <summary>
+        /// Reads a value from the console using a <see cref="TextInputControl{T}"/> with default configuration.
+        /// </summary>
+        /// <param name="label">The label text to be displayed.</param>
+        /// <returns>The value read from the console.</returns>
         public static T QuickRead(string label)
         {
             return new TextInputControl<T>(label).Read();

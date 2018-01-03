@@ -18,11 +18,26 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
+    /// <summary>
+    /// Represents a mapping between a command and the type of the controller that can process the command.
+    /// </summary>
     public class Route
     {
+        /// <summary>
+        /// Gets the name of the command mapped by the current instance.
+        /// </summary>
         public string CommandName { get; }
+
+        /// <summary>
+        /// Gets the type of the controller that will handle the command.
+        /// </summary>
         public Type ControllerType { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Route"/> class with
+        /// the command name that is mapped and the controller type that will handle the command.
+        /// The controller must implement the <see cref="IController"/> interface.
+        /// </summary>
         public Route(string commandName, Type controllerType)
         {
             if (commandName == null) throw new ArgumentNullException(nameof(commandName));

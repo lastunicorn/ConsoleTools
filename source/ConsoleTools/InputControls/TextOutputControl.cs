@@ -14,15 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a value to the Console outut.
+    /// Displays a value to the console.
     /// </summary>
     public class TextOutputControl
     {
-        private readonly Label labelControl = new Label();
-        
+        private readonly Label labelControl = new Label
+        {
+            ForegroundColor = CustomConsole.EmphasiesColor
+        };
+
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
         /// </summary>
@@ -30,6 +35,15 @@ namespace DustInTheWind.ConsoleTools.InputControls
         {
             get { return labelControl.MarginRight; }
             set { labelControl.MarginRight = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the color used to display the label text.
+        /// </summary>
+        public ConsoleColor? LabelColor
+        {
+            get { return labelControl.ForegroundColor; }
+            set { labelControl.ForegroundColor = value; }
         }
 
         /// <summary>
@@ -41,6 +55,17 @@ namespace DustInTheWind.ConsoleTools.InputControls
             labelControl.Display();
 
             CustomConsole.WriteLine(value);
+        }
+
+        /// <summary>
+        /// Reads a value from the console using a <see cref="TextOutputControl"/> with default configuration.
+        /// </summary>
+        /// <param name="label">The label text to be displayed.</param>
+        /// <param name="value">The value to be displayed.</param>
+        /// <returns>The value read from the console.</returns>
+        public static void QuickWrite<T>(string label, T value)
+        {
+            new TextOutputControl().Write(label, value);
         }
     }
 }

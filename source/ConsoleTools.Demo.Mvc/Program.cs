@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc
         {
             ConsoleApplication consoleApplication = new ConsoleApplication();
 
-            List<Route> routes = new List<Route>
+            consoleApplication.Routes.AddRange(new[]
             {
                 new Route("q", typeof(ExitController)),
                 new Route("quit", typeof(ExitController)),
@@ -50,9 +50,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc
                 new Route("whale", typeof(WhaleController)),
                 new Route("whales", typeof(WhaleController)),
                 new Route("prompter", typeof(PrompterController))
-            };
-
-            consoleApplication.ConfigureRoutes(routes);
+            });
 
             consoleApplication.Run();
         }

@@ -21,20 +21,44 @@ using System.Text;
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Reads a list of items from the Console.
+    /// Reads a list of values from the console.
     /// </summary>
     public class ListInputControl<T>
     {
         private readonly Label labelControl = new Label
         {
             MarginLeft = 0,
-            MarginRight = 0
+            MarginRight = 0,
+            ForegroundColor = CustomConsole.EmphasiesColor
         };
 
+        /// <summary>
+        /// Gets or sets the label text to be displayed before the user types the values.
+        /// </summary>
         public string Label { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the color used to display the label.
+        /// </summary>
+        public ConsoleColor? LabelColor
+        {
+            get { return labelControl.ForegroundColor; }
+            set { labelControl.ForegroundColor = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of spaces by which the items are indented.
+        /// </summary>
         public int ItemsIndentation { get; set; } = 1;
+
+        /// <summary>
+        /// Gets or sets the bullet character displayed in front of each item that is read.
+        /// </summary>
         public string Bullet { get; set; } = "-";
+
+        /// <summary>
+        /// Gets or sets the number of spaced displayed after the bullet, before the user types the value.
+        /// </summary>
         public int SpaceAfterBullet { get; set; } = 1;
 
         /// <summary>
@@ -61,6 +85,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
             Label = label;
         }
 
+        /// <summary>
+        /// Displays the label and waits for the user to type the values.
+        /// The control reads values until the user inserts an empty string.
+        /// </summary>
+        /// <returns>The list with the values provided by the user.</returns>
         public List<T> Read()
         {
             if (Label != null)
@@ -137,6 +166,16 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Reads a list of values from the console using a <see cref="ListInputControl{T}"/> with default configuration.
+        /// </summary>
+        /// <param name="label">The label text to be displayed.</param>
+        /// <returns>The value read from the console.</returns>
+        public static List<T> QuickRead(string label = null)
+        {
+            return new ListInputControl<T>(label).Read();
         }
     }
 }

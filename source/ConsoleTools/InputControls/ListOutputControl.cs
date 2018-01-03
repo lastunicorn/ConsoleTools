@@ -14,20 +14,52 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Displays a list of values to the console.
+    /// </summary>
     public class ListOutputControl
     {
-        private readonly Label labelControl = new Label();
-        
+        private readonly Label labelControl = new Label
+        {
+            ForegroundColor = CustomConsole.EmphasiesColor
+        };
+
+        /// <summary>
+        /// Gets or sets the color used to display the label.
+        /// </summary>
+        public ConsoleColor? LabelColor
+        {
+            get { return labelControl.ForegroundColor; }
+            set { labelControl.ForegroundColor = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of spaces by which the items are indented.
+        /// </summary>
         public int ItemsIndentation { get; set; } = 1;
+
+        /// <summary>
+        /// Gets or sets the bullet character displayed in front of each item that is read.
+        /// </summary>
         public string Bullet { get; set; } = "-";
+
+        /// <summary>
+        /// Gets or sets the number of spaced displayed after the bullet, before the user types the value.
+        /// </summary>
         public int SpaceAfterBullet { get; set; } = 1;
 
-        public void Write(string label, IEnumerable<string> items)
+        /// <summary>
+        /// Writes the label and the specifid list of values to the console.
+        /// </summary>
+        /// <param name="label">The label text to be displayed before the list.</param>
+        /// <param name="items">The list of items to be displayed.</param>
+        public void Write<T>(string label, IEnumerable<T> items)
         {
             if (label != null)
             {
@@ -38,7 +70,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
             string leftpart = BuildItemLeftPart();
 
-            foreach (string value in items)
+            foreach (T value in items)
             {
                 CustomConsole.Write(leftpart);
                 CustomConsole.WriteLine(value);
@@ -67,6 +99,17 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Reads a list of values from the console using a <see cref="ListOutputControl"/> with default configuration.
+        /// </summary>
+        /// <param name="label">The label text to be displayed.</param>
+        /// <param name="values">The list of values to be displayed.</param>
+        /// <returns>The value read from the console.</returns>
+        public static void QuickWrite<T>(string label, IEnumerable<T> values)
+        {
+            new ListOutputControl().Write(label, values);
         }
     }
 }

@@ -50,6 +50,10 @@ Features:
 - Custom default value to be used if the user types Enter (string empty).
 - Custom type error message - When the input string cannot be converted into the requested type.
 - Generic control - Reads any type of data.
+- Custom color for the label.
+
+Todo:
+- Custom background color for the label.
 
 
 --------------------------------------------------------------------------------
@@ -62,9 +66,11 @@ Features:
 - Custom label - The label displayed before the value.
 - Custom space amount between label and value.
 - Writes any type of values. The ToString method is called to convert the value to a text.
+- Custom color for the label.
 
 Todo:
 - Accept format-args values. (?) Do I need this?
+- Custom background color for the label.
 
 
 --------------------------------------------------------------------------------
@@ -190,3 +196,15 @@ Console MVC
 todo:
 - Ctrl+C handling
 - Ctrl+Z handling
+
+
+--------------------------------------------------------------------------------
+Pause
+--------------------------------------------------------------------------------
+Description:
+- Displays a message to the Console and waits for the user to press any key.
+
+Features:
+- Custom text message
+- Custom key that unlocks the pause. - Or any key if none is provided.
+- Can hide cursor while pausing.

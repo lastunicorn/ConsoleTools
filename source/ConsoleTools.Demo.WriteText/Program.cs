@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Did you like our demo? :)");
-                CustomConsole.Pause();
+                Pause.DisplayDefault();
             }
         }
 

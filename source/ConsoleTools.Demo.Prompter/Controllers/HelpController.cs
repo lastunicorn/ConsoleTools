@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Mvc;
 
@@ -22,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class HelpController : IController
     {
-        public void Execute(IReadOnlyCollection<UserCommandParameter> parameters)
+        public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)
         {
             DisplayHelp();
         }

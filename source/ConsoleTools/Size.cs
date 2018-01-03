@@ -34,8 +34,14 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public int Height { get; }
 
+        /// <summary>
+        /// Gets the empty size: width = 0, height = 0
+        /// </summary>
         public static Size Empty { get; } = new Size(0, 0);
-        
+
+        /// <summary>
+        /// Gets a value that specifies if the current instance represents the empty size (width = 0, height = 0)
+        /// </summary>
         public bool IsEmpty => Width == 0 && Height == 0;
 
         /// <summary>

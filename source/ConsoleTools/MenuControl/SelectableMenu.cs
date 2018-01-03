@@ -146,7 +146,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             isCloseRequested = false;
 
-            menuLocation = Location.Empty;
+            menuLocation = Location.Origin;
             menuSize = Size.Empty;
 
             SelectedIndex = null;

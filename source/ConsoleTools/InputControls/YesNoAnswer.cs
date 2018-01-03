@@ -16,10 +16,24 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Contains the answers that can be returned by the <see cref="YesNoControl"/>.
+    /// </summary>
     public enum YesNoAnswer
     {
+        /// <summary>
+        /// The user canceled the action.
+        /// </summary>
         Cancel,
+
+        /// <summary>
+        /// The user accepted.
+        /// </summary>
         Yes,
+
+        /// <summary>
+        /// The user refused.
+        /// </summary>
         No
     }
 }

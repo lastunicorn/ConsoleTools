@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
-                if (value.Length == 0) throw new ArgumentException("Please provide a question text.", nameof(value));
+                if (value.Length == 0) throw new ArgumentException("The question text cannot be null or empty string.", nameof(value));
 
                 questionText = value;
             }

@@ -15,12 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Globalization;
-using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Represents the size of a rectangle.
+    /// Represents a location in the 2D plane.
     /// Imutable.
     /// </summary>
     public struct Location
@@ -35,16 +34,22 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public int Top { get; }
 
-        public static Location Empty { get; } = new Location(0, 0);
-
-        public bool IsEmpty => Left == 0 && Top == 0;
+        /// <summary>
+        /// Gets the origin location: left = 0, top = 0
+        /// </summary>
+        public static Location Origin { get; } = new Location(0, 0);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Size"/> structure with
+        /// Gets a value that specifies if the current instance is the origin (left = 0, top = 0)
+        /// </summary>
+        public bool IsOrigin => Left == 0 && Top == 0;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Location"/> structure with
         /// the left and top values.
         /// </summary>
-        /// <param name="left">The left component of the size.</param>
-        /// <param name="top">The top component of the size.</param>
+        /// <param name="left">The left component of the location.</param>
+        /// <param name="top">The top component of the location.</param>
         public Location(int left, int top)
         {
             Left = left;
@@ -58,11 +63,11 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
-            if (!(obj is Size))
+            if (!(obj is Location))
                 return false;
 
-            Size size = (Size)obj;
-            return size.Width == Left && size.Height == Top;
+            Location location = (Location)obj;
+            return location.Left == Left && location.Top == Top;
         }
 
         /// <summary>

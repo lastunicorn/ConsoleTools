@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void all()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Title = "This is a title longer than the rows";
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void no_title()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
             table.Columns.Add(new Column("Header 3"));
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "This is a title longer than the rows";
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -103,7 +103,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "This is a title longer than the rows";
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
             table.Columns.Add(new Column("Header 3"));
@@ -123,7 +123,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void only_data()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -143,7 +143,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void only_header()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Columns.Add(new Column("Header 1"));
             table.Columns.Add(new Column("Header 2"));
             table.Columns.Add(new Column("Header 3"));
@@ -162,7 +162,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "This is a title longer than the rows";
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected =
 @"╔══════════════════════════════════════╗
@@ -177,7 +177,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void no_title_no_header_no_data()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected = string.Empty;
 

@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "4,1", "4,2", "4,3", "4,4" });
             table.DrawLinesBetweenRows = true;
             table.DisplayColumnHeaders = true;
-            table.Border = TableBorder.SingleLineBorder;
+            table.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
             CustomConsole.WriteLine(table.ToString());
         }

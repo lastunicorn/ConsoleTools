@@ -21,6 +21,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
+        /// <summary>
+        /// Gets or sets the text displayed in the header.
+        /// </summary>
         public MultilineText Header { get; set; }
 
         /// <summary>

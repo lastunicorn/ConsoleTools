@@ -20,36 +20,106 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
-    public class TableBorder
+    /// <summary>
+    /// Represents a border template that can be applied on a <see cref="Table"/> instance.
+    /// </summary>
+    public class BorderTemplate
     {
-        public static readonly TableBorder PlusMinusBorder = new TableBorder("+-+|+-+|+++++|-");
-        public static readonly TableBorder SingleLineBorder = new TableBorder("┌─┐│┘─└│┬┤┴├┼│─");
-        public static readonly TableBorder DoubleLineBorder = new TableBorder("╔═╗║╝═╚║╦╣╩╠╬║═");
+        /// <summary>
+        /// Gets an instance of the <see cref="BorderTemplate"/> that uses '+' and '-' characters to render the border.
+        /// </summary>
+        public static BorderTemplate PlusMinusBorderTemplate { get; } = new BorderTemplate("+-+|+-+|+++++|-");
 
-        public readonly char TopLeft;
-        public readonly char Top;
-        public readonly char TopRight;
-        public readonly char Right;
-        public readonly char BottomRight;
-        public readonly char Bottom;
-        public readonly char BottomLeft;
-        public readonly char Left;
+        /// <summary>
+        /// Gets an instance of the <see cref="BorderTemplate"/> that uses single line ASCII characters to render the border.
+        /// </summary>
+        public static BorderTemplate SingleLineBorderTemplate { get; } = new BorderTemplate("┌─┐│┘─└│┬┤┴├┼│─");
 
-        public readonly char TopIntersection;
-        public readonly char RightIntersection;
-        public readonly char BottomIntersection;
-        public readonly char LeftIntersection;
-        public readonly char MiddleIntersection;
+        /// <summary>
+        /// Gets an instance of the <see cref="BorderTemplate"/> that uses double line ASCII characters to render the border.
+        /// </summary>
+        public static BorderTemplate DoubleLineBorderTemplate { get; } = new BorderTemplate("╔═╗║╝═╚║╦╣╩╠╬║═");
 
-        public readonly char Vertical;
-        public readonly char Horizontal;
+        /// <summary>
+        /// Gets the character used to render the top left corner.
+        /// </summary>
+        public char TopLeft { get; }
+        /// <summary>
+        /// Gets the character used to render the top border.
+        /// </summary>
+        public char Top { get; }
+        /// <summary>
+        /// Gets the character used to render the top right corner.
+        /// </summary>
+        public char TopRight { get; }
+        /// <summary>
+        /// Gets the character used to render the right border.
+        /// </summary>
+        public char Right { get; }
+        /// <summary>
+        /// Gets the character used to render the bottom right corner.
+        /// </summary>
+        public char BottomRight { get; }
+        /// <summary>
+        /// Gets the character used to render the bottom border.
+        /// </summary>
+        public char Bottom { get; }
+        /// <summary>
+        /// Gets the character used to render the bottom left corner.
+        /// </summary>
+        public char BottomLeft { get; }
+        /// <summary>
+        /// Gets the character used to render the left border.
+        /// </summary>
+        public char Left { get; }
 
-        public TableBorder(string values)
+        /// <summary>
+        /// Gets the character used to render the intersection between the top outer border and an internal vertical border.
+        /// </summary>
+        public char TopIntersection { get; }
+        /// <summary>
+        /// Gets the character used to render the intersection between the right outer border and an internal horizontal border.
+        /// </summary>
+        public char RightIntersection { get; }
+        /// <summary>
+        /// Gets the character used to render the intersection between the bottom outer border and an internal vertical border.
+        /// </summary>
+        public char BottomIntersection { get; }
+        /// <summary>
+        /// Gets the character used to render the intersection between the left outer border and an internal horizontal border.
+        /// </summary>
+        public char LeftIntersection { get; }
+        /// <summary>
+        /// Gets the character used to render the intersection between two internal borders: a vertical and a horizontal one.
+        /// </summary>
+        public char MiddleIntersection { get; }
+
+        /// <summary>
+        /// Gets the character used to render an internal vertical border.
+        /// </summary>
+        public char Vertical { get; }
+        /// <summary>
+        /// Gets the character used to render an internal horizontal border.
+        /// </summary>
+        public char Horizontal { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BorderTemplate"/> class with
+        /// a string of length 15 that containing all the characters needed to render the border.
+        /// </summary>
+        /// <param name="values">
+        /// The string of length 15 that containing all the characters needed to render the border.
+        /// The string must contain the characters in the following order:
+        /// top-left, top, top-right, right, bottom-right, bottom, bottom-left, left,
+        /// top-intersection, right-intersection, bottom-intersection, left-intersection, middle-intersection,
+        /// vertical, horizontal.
+        /// </param>
+        public BorderTemplate(string values)
         {
             if (values == null) throw new ArgumentNullException(nameof(values));
 
             if (values.Length != 15)
-                throw new ArgumentException("Please provide 15 characters for the border in order: top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, top-intersection, right-intersection, bottom-intersection, left-intersection, middle-intersection, vertical, horizontal.", nameof(values));
+                throw new ArgumentException("Please provide 15 characters for the border in the following order: top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, top-intersection, right-intersection, bottom-intersection, left-intersection, middle-intersection, vertical, horizontal.", nameof(values));
 
             TopLeft = values[0];
             Top = values[1];
@@ -70,7 +140,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Horizontal = values[14];
         }
 
-        public TableBorder(char topLeft, char top, char topRight, char right, char bottomRight, char bottom, char bottomLeft, char left,
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BorderTemplate"/> class with
+        /// all the characters needed to render the border.
+        /// </summary>
+        public BorderTemplate(char topLeft, char top, char topRight, char right, char bottomRight, char bottom, char bottomLeft, char left,
             char topIntersection, char rightIntersection, char bottomIntersection, char leftIntersection, char middleIntersection,
             char vertical, char horizontal)
         {

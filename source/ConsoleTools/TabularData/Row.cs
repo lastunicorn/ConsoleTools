@@ -29,8 +29,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         private readonly List<Cell> cells = new List<Cell>();
 
+        /// <summary>
+        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Row"/> instance.
+        /// </summary>
         public Table ParentTable { get; set; }
 
+        /// <summary>
+        /// Gets the number of cells contained by the current instance.
+        /// </summary>
         public int CellCount => cells.Count;
 
         /// <summary>
@@ -47,16 +53,17 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
         public Row(Cell[] cells)
         {
-            if (cells != null)
-                AddCells(cells);
-        }
+            if (cells == null)
+                return;
 
-        private void AddCells(IEnumerable<Cell> cells)
-        {
             foreach (Cell cell in cells)
                 AddCell(cell);
         }
 
+        /// <summary>
+        /// Adds a new cell to the current instace of <see cref="Row"/>.
+        /// </summary>
+        /// <param name="cell"></param>
         public void AddCell(Cell cell)
         {
             if (cell == null)

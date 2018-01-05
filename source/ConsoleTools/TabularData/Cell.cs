@@ -31,6 +31,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Row ParentRow { get; set; }
 
+        /// <summary>
+        /// Gets a value that specified if the cell contains no data.
+        /// </summary>
         public bool IsEmpty => Content == null || Content.IsEmpty;
 
         /// <summary>
@@ -73,18 +76,29 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment = horizontalAlignment;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// an object representing the content.
+        /// </summary>
         public Cell(object content)
         {
             Content = new MultilineText(content.ToString());
             HorizontalAlignment = HorizontalAlignment.Default;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// an object representing the content and its horizontal alignment.
+        /// </summary>
         public Cell(object content, HorizontalAlignment horizontalAlignment)
         {
             Content = new MultilineText(content.ToString());
             HorizontalAlignment = horizontalAlignment;
         }
 
+        /// <summary>
+        /// Returns the size of the cell, including the padding.
+        /// </summary>
         public Size CalculateDimensions()
         {
             int cellWidth;
@@ -117,6 +131,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return ParentRow?.ParentTable?.PaddingRight ?? 0;
         }
 
+        /// <summary>
+        /// Returns the string representation of the content of the cell.
+        /// </summary>
         public override string ToString()
         {
             return Content?.ToString() ?? string.Empty;

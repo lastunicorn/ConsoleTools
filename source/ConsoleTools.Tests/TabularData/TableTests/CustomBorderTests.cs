@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void render_simple_table_with_custom_border()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "My Title";
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void render_table_with_custom_border_and_headers()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.DisplayColumnHeaders = true;
             table.Columns.Add(new Column("One"));
             table.Columns.Add(new Column("Two"));
@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void render_table_with_custom_border_title_and_headers()
         {
             Table table = new Table();
-            table.Border = TableBorder.DoubleLineBorder;
+            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Title = "My Title";
             table.DisplayColumnHeaders = true;
             table.Columns.Add(new Column("One"));
@@ -124,7 +124,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void render_table_with_digit_and_letter_border()
         {
             Table table = new Table();
-            table.Border = new TableBorder("1234567890abcde");
+            table.BorderTemplate = new BorderTemplate("1234567890abcde");
             table.Title = "My Title";
             table.DisplayColumnHeaders = true;
             table.Padding = 3;

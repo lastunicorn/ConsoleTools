@@ -19,6 +19,9 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// A control that renders a table with data into the console.
+    /// </summary>
     public class Table
     {
         /// <summary>
@@ -114,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the table borders.
         /// </summary>
-        public TableBorder Border { get; set; } = TableBorder.PlusMinusBorder;
+        public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Table"/> class.
@@ -203,6 +206,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return tablePrinter.ToString();
         }
 
+        /// <summary>
+        /// Renders the current instance into the specified <see cref="ITablePrinter"/>.
+        /// </summary>
+        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instacne used to render the data.</param>
         public void Render(ITablePrinter tablePrinter)
         {
             TableRenderer tableRenderer = new TableRenderer
@@ -211,7 +218,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
                 Rows = rows,
-                Border = Border,
+                BorderTemplate = BorderTemplate,
                 DisplayBorder = DisplayBorder,
                 DrawLinesBetweenRows = DrawLinesBetweenRows,
                 MinWidth = MinWidth,

@@ -41,8 +41,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Size Size { get; }
 
+        /// <summary>
+        /// Gets an instance of the <see cref="MultilineText"/> containing no text.
+        /// </summary>
         public static MultilineText Empty { get; } = new MultilineText(string.Empty);
 
+        /// <summary>
+        /// Gets a value that specifies if the current instance contains no text.
+        /// </summary>
         public bool IsEmpty => Size.IsEmpty;
 
         /// <summary>
@@ -125,6 +131,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultilineText"/> class with
+        /// the list of lines.
+        /// </summary>
         public MultilineText(IEnumerable<string> lines)
         {
             if (lines == null) throw new ArgumentNullException(nameof(lines));

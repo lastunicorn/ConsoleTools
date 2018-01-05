@@ -20,6 +20,13 @@ namespace DustInTheWind.ConsoleTools
 {
     public static partial class CustomConsole
     {
+        /// <summary>
+        /// Writes the specified text to the standard output stream.
+        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="color">The foreground color used to write the text.</param>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         public static void Write(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
@@ -30,6 +37,13 @@ namespace DustInTheWind.ConsoleTools
             Console.ForegroundColor = oldColor;
         }
 
+        /// <summary>
+        /// Writes the specified text to the standard output stream, followed by the current line terminator.
+        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="color">The foreground color used to write the text.</param>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         public static void WriteLine(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);

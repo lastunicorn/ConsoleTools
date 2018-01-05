@@ -18,6 +18,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools
 {
+    /// <summary>
+    /// Contains a set of methods that help to write text to the standard output stream.
+    /// </summary>
     public static partial class CustomConsole
     {
         /// <summary>

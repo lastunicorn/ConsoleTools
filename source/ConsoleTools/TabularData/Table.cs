@@ -82,7 +82,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// The list of rows contained by the current table.
         /// </summary>
-        private readonly List<Row> rows = new List<Row>();
+        private readonly List<DataRow> rows = new List<DataRow>();
 
         /// <summary>
         /// Gets the number of rows contained by the current instance of the <see cref="Table"/>.
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="rowIndex">The zero-based index of the row to get.</param>
         /// <returns>The row at the specified index.</returns>
-        public Row this[int rowIndex] => rows[rowIndex];
+        public DataRow this[int rowIndex] => rows[rowIndex];
 
         /// <summary>
         /// Gets the cell at the specified location.
@@ -175,7 +175,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="row">The row to be added.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void AddRow(Row row)
+        public void AddRow(DataRow row)
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
 
@@ -191,7 +191,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            Row row = new Row(cells)
+            DataRow row = new DataRow(cells)
             {
                 ParentTable = this
             };
@@ -206,7 +206,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (texts == null) throw new ArgumentNullException(nameof(texts));
 
-            Row row = new Row
+            DataRow row = new DataRow
             {
                 ParentTable = this
             };

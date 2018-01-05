@@ -97,7 +97,7 @@
     <Compile Include="HorizontalAlignment.cs" />
     <Compile Include="TabularData\ITablePrinter.cs" />
     <Compile Include="TabularData\MultilineText.cs" />
-    <Compile Include="TabularData\Row.cs" />
+    <Compile Include="TabularData\DataRow.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="TabularData\StringTablePrinter.cs" />
     <Compile Include="TabularData\Table.cs" />

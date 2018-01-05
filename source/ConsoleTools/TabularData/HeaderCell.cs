@@ -16,6 +16,9 @@
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// Represents the cell that contains a column header.
+    /// </summary>
     public class HeaderCell : CellBase
     {
         /// <summary>

@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public ColumnList Columns { get; set; }
         public bool DisplayColumnHeaders { get; set; }
 
-        public List<Row> Rows { get; set; }
+        public List<DataRow> Rows { get; set; }
 
         public BorderTemplate BorderTemplate { get; set; }
         public bool DisplayBorder { get; set; }
@@ -166,7 +166,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 List<int> cellWidths = tableDimensions.CalculatedColumnsWidth;
                 int rowHeight = tableDimensions.CalculatedRowsHeight[rowIndex];
 
-                Row row = Rows[rowIndex];
+                DataRow row = Rows[rowIndex];
                 row.Render(tablePrinter, cellWidths, rowHeight);
 
                 if (DisplayBorder)

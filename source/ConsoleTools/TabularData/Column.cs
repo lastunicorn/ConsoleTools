@@ -49,8 +49,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// the a header.
         /// </summary>
         public Column(string header)
-            : this(new MultilineText(header))
         {
+            headerCell = new HeaderCell
+            {
+                Content = header,
+                ParentColumn = this
+            };
+            CellHorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -58,17 +63,36 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// the a name and the horizontal alignment applyed to the cells represented by the column.
         /// </summary>
         public Column(string header, HorizontalAlignment cellHorizontalAlignment)
-            : this(new MultilineText(header), cellHorizontalAlignment)
         {
+            headerCell = new HeaderCell
+            {
+                Content = header,
+                ParentColumn = this
+            };
+            CellHorizontalAlignment = cellHorizontalAlignment;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
         /// </summary>
-        public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment = HorizontalAlignment.Default)
+        public Column(MultilineText header)
         {
             headerCell = new HeaderCell(header)
             {
+                Content = header,
+                ParentColumn = this
+            };
+            CellHorizontalAlignment = HorizontalAlignment.Default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Column"/> class.
+        /// </summary>
+        public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment)
+        {
+            headerCell = new HeaderCell(header)
+            {
+                Content = header,
                 ParentColumn = this
             };
             CellHorizontalAlignment = cellHorizontalAlignment;

@@ -16,6 +16,9 @@
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// Represents a cell that contains data.
+    /// </summary>
     public class DataCell : CellBase
     {
         /// <summary>
@@ -26,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the row that contains the current cell.
         /// </summary>
-        public Row ParentRow { get; set; }
+        public DataRow ParentRow { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataCell" /> class with
@@ -128,7 +131,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
         {
-            Row row = ParentRow;
+            DataRow row = ParentRow;
             return row?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 

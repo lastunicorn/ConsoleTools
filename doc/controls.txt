@@ -128,7 +128,8 @@ Description:
 - Displays tabular data on columns and rows.
 
 Features:
-- Optional table title.
+- Optional table title. - The title row can be displayed or not. If the title is null, the title row is hidden.
+- Title horizontal alignment. - The title text can be aligned to left, center or right, inside the title row.
 - Optional column headers.
 - Optional border.
 - Custom border template. Three types of borders are provided out-of-the-box: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
@@ -139,7 +140,6 @@ Obs: when content is aligned to center and there is an odd number of spaces, the
 
 Todo:
 - Add data binding - Automatically generate columns and rows based on the property names.
-- Title horizontal alignment
 
 
 --------------------------------------------------------------------------------

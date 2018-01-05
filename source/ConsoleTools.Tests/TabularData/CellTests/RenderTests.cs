@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
                 PaddingLeft = 2,
                 PaddingRight = 0
             };
-            Row row = new Row();
+            DataRow row = new DataRow();
             table.AddRow(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
                 PaddingLeft = 0,
                 PaddingRight = 2
             };
-            Row row = new Row();
+            DataRow row = new DataRow();
             table.AddRow(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);

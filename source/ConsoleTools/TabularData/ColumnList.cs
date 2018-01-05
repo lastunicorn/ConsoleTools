@@ -21,24 +21,45 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// Represents the columns from a table.
+    /// </summary>
     public class ColumnList : IEnumerable<Column>
     {
         private readonly Table parentTable;
 
         private readonly List<Column> columns = new List<Column>();
 
+        /// <summary>
+        /// Gets the number of columns contained in the current instance.
+        /// </summary>
         public int Count => columns.Count;
 
+        /// <summary>
+        /// Gets the <see cref="Column"/> at the specified index.
+        /// If the index is outside of the bounds of the list, <c>null</c> is returned.
+        /// </summary>
+        /// <param name="columnIndex">The index of the <see cref="Column"/> to return.</param>
+        /// <returns>The <see cref="Column"/> at the specified index.</returns>
         public Column this[int columnIndex] => columnIndex >= 0 && columnIndex < columns.Count
                 ? columns[columnIndex]
                 : null;
         
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColumnList"/> class with
+        /// the table that owns it.
+        /// </summary>
+        /// <param name="parentTable">The table that owns the new instance.</param>
         public ColumnList(Table parentTable)
         {
             if (parentTable == null) throw new ArgumentNullException(nameof(parentTable));
             this.parentTable = parentTable;
         }
 
+        /// <summary>
+        /// Adds a new <see cref="Column"/> to the end of the list.
+        /// </summary>
+        /// <param name="column">The <see cref="Column"/> instance to be added.</param>
         public void Add(Column column)
         {
             if (column == null) throw new ArgumentNullException(nameof(column));

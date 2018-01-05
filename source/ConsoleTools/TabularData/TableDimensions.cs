@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// The list of rows contained by the current table.
         /// </summary>
-        public List<Row> Rows { get; set; }
+        public List<DataRow> Rows { get; set; }
 
         #endregion
 
@@ -216,7 +216,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void CalculateDataRowsDimensions()
         {
-            foreach (Row row in Rows)
+            foreach (DataRow row in Rows)
             {
                 int rowWidth = 0;
                 int rowHeight = 0;

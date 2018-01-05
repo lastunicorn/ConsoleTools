@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// <summary>
     /// Represents a row in the <see cref="Table"/> class.
     /// </summary>
-    public class Row
+    public class DataRow
     {
         /// <summary>
         /// Gets the list of cells contained by the row.
@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         private readonly List<DataCell> cells = new List<DataCell>();
 
         /// <summary>
-        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Row"/> instance.
+        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="DataRow"/> instance.
         /// </summary>
         public Table ParentTable { get; set; }
 
@@ -41,23 +41,23 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int CellCount => cells.Count;
 
         /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance of the <see cref="Row"/>.
+        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance of the <see cref="DataRow"/>.
         /// </summary>
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Row"/> class with default values.
+        /// Initializes a new instance of the <see cref="DataRow"/> class with default values.
         /// </summary>
-        public Row()
+        public DataRow()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Row"/> class with
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
         /// the list of cells.
         /// </summary>
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
-        public Row(DataCell[] cells)
+        public DataRow(DataCell[] cells)
         {
             if (cells == null)
                 return;
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
-        /// Adds a new cell to the current instace of <see cref="Row"/>.
+        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
         /// </summary>
         /// <param name="cell"></param>
         public void AddCell(DataCell cell)
@@ -115,21 +115,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 })
                 .ToList();
 
-            bool displayBorder = ParentTable?.DisplayBorder ?? true;
             BorderTemplate borderTemplate = ParentTable?.BorderTemplate;
+
+            bool displayBorder = borderTemplate != null && ParentTable?.DisplayBorder == true;
 
             for (int rowLineIndex = 0; rowLineIndex < minHeight; rowLineIndex++)
             {
-                if (displayBorder && borderTemplate != null)
+                if (displayBorder)
                     tablePrinter.WriteBorder(borderTemplate.Left);
 
                 for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
                 {
                     string content = cellContents[columnIndex][rowLineIndex];
-
                     tablePrinter.WriteNormal(content);
 
-                    if (displayBorder && borderTemplate != null)
+                    if (displayBorder)
                     {
                         char cellBorderRight = columnIndex < cells.Count - 1
                             ? borderTemplate.Vertical

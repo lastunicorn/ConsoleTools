@@ -138,6 +138,7 @@ Obs: when content is aligned to center and there is an odd number of spaces, the
 
 Todo:
 - Add data binding - Automatically generate columns and rows based on the property names.
+- Title horizontal alignment
 
 
 --------------------------------------------------------------------------------

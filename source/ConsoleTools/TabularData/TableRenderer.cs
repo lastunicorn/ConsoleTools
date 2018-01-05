@@ -20,13 +20,13 @@ using System.Collections.ObjectModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
-    public class TableRenderer
+    internal class TableRenderer
     {
         private TableDimensions tableDimensions;
         private AlignmentCalculator alignmentCalculator;
         private string rowSeparator;
-
-        public MultilineText Title { get; set; }
+        
+        public TitleRow TitleRow { get; set; }
         public bool DisplayTitle { get; set; }
 
         public ReadOnlyCollection<Column> Columns { get; set; }
@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int PaddingRight { get; set; }
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
-        private bool IsTitleVisible => Title != null && Title.Size.Height > 0 && DisplayTitle;
+        private bool IsTitleVisible => TitleRow?.Text != null && TitleRow?.Text.Size.Height > 0 && DisplayTitle;
         private bool IsColumnHeaderRowVisible => DisplayColumnHeaders && tableDimensions.CalculatedHeaderRowHeight != 0;
         private bool AreDataRowsVisible => Rows.Count > 0;
 
@@ -72,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DisplayColumnHeaders = DisplayColumnHeaders,
                 PaddingLeft = PaddingLeft,
                 PaddingRight = PaddingRight,
-                Title = Title,
+                Title = TitleRow.Text,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
                 Rows = Rows
@@ -91,7 +91,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawTableTopBorder(ITablePrinter tablePrinter)
         {
-            bool existsTitle = Title != null && Title.Size.Height > 0 && DisplayTitle;
+            bool existsTitle = TitleRow?.Text != null && TitleRow?.Text.Size.Height > 0 && DisplayTitle;
             if (existsTitle)
             {
                 string titleTopBorder = BorderTemplate.GenerateTitleTopBorder(tableDimensions);
@@ -117,38 +117,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawTitleRow(ITablePrinter tablePrinter)
         {
-            int cellInnerWidth = tableDimensions.CalculatedTotalWidth - PaddingLeft - PaddingRight;
-
-            if (DisplayBorder)
-                cellInnerWidth -= 2;
-
-            // Write title
-            for (int titleLineIndex = 0; titleLineIndex < Title.Size.Height; titleLineIndex++)
-            {
-                if (DisplayBorder)
-                    tablePrinter.WriteBorder(BorderTemplate.Left);
-
-                string content = BuildTitleCellContent(titleLineIndex, cellInnerWidth);
-                tablePrinter.WriteTitle(content);
-
-                if (DisplayBorder)
-                    tablePrinter.WriteBorder(BorderTemplate.Right);
-
-                tablePrinter.WriteLine();
-            }
+            TitleRow.Render(tableDimensions.CalculatedTotalWidth, tablePrinter);
 
             // Write bottom border <=> header top border
             if (DisplayBorder)
                 DrawHorizontalBorderAfterTitle(tablePrinter);
-        }
-
-        private string BuildTitleCellContent(int titleLineIndex, int cellInnerWidth)
-        {
-            string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-            string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-            string innerContent = Title.Lines[titleLineIndex].PadRight(cellInnerWidth, ' ');
-
-            return string.Concat(leftPadding, innerContent, rightPadding);
         }
 
         private void DrawHorizontalBorderAfterTitle(ITablePrinter tablePrinter)
@@ -274,7 +247,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     {
                         Cell cell = row[columnIndex];
                         int cellWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                        string content = cell.Render(cellWidth, rowLineIndex);
+                        string content = cell.Render(rowLineIndex, cellWidth);
 
                         tablePrinter.WriteNormal(content);
 

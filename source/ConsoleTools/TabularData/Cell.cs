@@ -150,10 +150,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Returns a single line from the cell including the paddings.
         /// </summary>
-        /// <param name="minWidth">The minimum width of the cell.</param>
         /// <param name="lineIndex">The line to be generated.</param>
+        /// <param name="minWidth">The minimum width of the cell.</param>
         /// <returns>A <see cref="string"/> representing a single line from the cell.</returns>
-        public string Render(int minWidth, int lineIndex)
+        public string Render(int lineIndex, int minWidth)
         {
             int paddingLeftLength = CalculatePaddingLeft();
             int paddingRightLength = CalculatePaddingRight();

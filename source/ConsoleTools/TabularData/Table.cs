@@ -25,10 +25,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Table
     {
+        private readonly TitleRow titleRow;
+
         /// <summary>
         /// Gets or sets the title of the current instance of the <see cref="Table"/>.
         /// </summary>
-        public MultilineText Title { get; set; }
+        public MultilineText Title
+        {
+            get { return titleRow.Text; }
+            set { titleRow.Text = value; }
+        }
 
         /// <summary>
         /// Gets or sets a value that specifies if the title is displayed.
@@ -130,7 +136,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table()
         {
-            Title = MultilineText.Empty;
+            titleRow = new TitleRow
+            {
+                ParentTable = this
+            };
         }
 
         /// <summary>
@@ -139,9 +148,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(string title)
         {
-            Title = (title == null)
-                ? MultilineText.Empty
-                : new MultilineText(title);
+            titleRow = new TitleRow(title)
+            {
+                ParentTable = this
+            };
         }
 
         /// <summary>
@@ -150,7 +160,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(MultilineText title)
         {
-            Title = title ?? MultilineText.Empty;
+            titleRow = new TitleRow(title)
+            {
+                ParentTable = this
+            };
         }
 
         public void AddColumn(Column column)
@@ -228,7 +241,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             TableRenderer tableRenderer = new TableRenderer
             {
-                Title = Title,
+                TitleRow = titleRow,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
                 Rows = rows,

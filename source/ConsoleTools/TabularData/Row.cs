@@ -40,6 +40,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int CellCount => cells.Count;
 
         /// <summary>
+        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance of the <see cref="Row"/>.
+        /// </summary>
+        public HorizontalAlignment CellHorizontalAlignment { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Row"/> class with default values.
         /// </summary>
         public Row()
@@ -68,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (cell == null)
             {
-                Cell newCell = new Cell(null)
+                Cell newCell = new Cell
                 {
                     ParentRow = this
                 };
@@ -96,7 +101,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int? IndexOfCell(Cell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
-            return indexOfCell == -1 ? (int?) null : indexOfCell;
+            return indexOfCell == -1 ? (int?)null : indexOfCell;
         }
     }
 }

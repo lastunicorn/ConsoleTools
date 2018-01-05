@@ -133,6 +133,8 @@ Features:
 - Optional border.
 - Three types of borders out-of-the-box: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
 - Custom borders.
+- Data cell horizontal alignment (at cell, row, column, table level)
+- Header cell horizontal alignment (at cell, column, table level)
 
 Obs: when content is aligned to center and there is an odd number of spaces, the content is aligned slightly to the left.
 

@@ -25,10 +25,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            Table table = new Table("DrawLinesBetweenRows = true");
+            Table table = new Table("DisplayBorderBetweenRows = true");
             table.AddRow(new[] { "This is a multiline row:\nline one\nline two\nline three", "1\n2\n3" });
             table.AddRow(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
-            table.DrawLinesBetweenRows = true;
+            table.DisplayBorderBetweenRows = true;
 
             CustomConsole.WriteLine(table.ToString());
         }

@@ -49,7 +49,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "My Title";
-            table.DrawLinesBetweenRows = true;
+            table.DisplayBorderBetweenRows = true;
 
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });

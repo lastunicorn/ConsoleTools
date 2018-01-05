@@ -14,18 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class TableRenderer
     {
         private TableDimensions tableDimensions;
-        private AlignmentCalculator alignmentCalculator;
         private string rowSeparator;
-        
+
         public TitleRow TitleRow { get; set; }
         public bool DisplayTitle { get; set; }
 
@@ -78,13 +77,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 Rows = Rows
             };
             tableDimensions.CalculateTableDimensions();
-
-            alignmentCalculator = new AlignmentCalculator
-            {
-                Columns = Columns,
-                Rows = Rows,
-                TableLevelCellAlignment = CellHorizontalAlignment
-            };
 
             rowSeparator = BorderTemplate.GenerateDataRowSeparatorBorder(tableDimensions);
         }
@@ -145,17 +137,25 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawColumnHeadersRow(ITablePrinter tablePrinter)
         {
-            // Write header cells
-            for (int headerLineIndex = 0; headerLineIndex < tableDimensions.CalculatedHeaderRowHeight; headerLineIndex++)
+            int rowHeight = tableDimensions.CalculatedHeaderRowHeight;
+
+            List<List<string>> cellContents = Columns
+                .Select((x, i) =>
+                {
+                    int columnWidth = tableDimensions.CalculatedColumnsWidth[i];
+                    return x.RenderHeader(columnWidth, rowHeight);
+                })
+                .ToList();
+
+
+            for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
             {
                 if (DisplayBorder)
                     tablePrinter.WriteBorder(BorderTemplate.Left);
 
                 for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
                 {
-                    string content = BuildHeaderCellContent(columnIndex, headerLineIndex);
-                    //int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                    //string content = Columns[columnIndex].RenderHeader(columnWidth, headerLineIndex);
+                    string content = cellContents[columnIndex][headerLineIndex];
                     tablePrinter.WriteHeader(content);
 
                     if (DisplayBorder)
@@ -176,46 +176,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DrawHorizontalBorderAfterHeader(tablePrinter);
         }
 
-        private string BuildHeaderCellContent(int columnIndex, int headerLineIndex)
-        {
-            Column column = Columns[columnIndex];
-
-            bool headerHasContent = headerLineIndex < column.Header.Size.Height;
-
-            if (!headerHasContent)
-                return string.Empty.PadRight(tableDimensions.CalculatedColumnsWidth[columnIndex], ' ');
-
-            int cellInnerWidth = tableDimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
-            string innerContent;
-
-            HorizontalAlignment alignment = alignmentCalculator.CalcualteHeaderCellAlignment(columnIndex);
-
-            switch (alignment)
-            {
-                case HorizontalAlignment.Left:
-                    innerContent = column.Header.Lines[headerLineIndex].PadRight(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Right:
-                    innerContent = column.Header.Lines[headerLineIndex].PadLeft(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int totalSpaces = cellInnerWidth - column.Header.Size.Width;
-                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-                    innerContent = column.Header.Lines[headerLineIndex].PadLeft(cellInnerWidth - rightSpaces, ' ').PadRight(cellInnerWidth, ' ');
-                    break;
-
-                default:
-                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
-            }
-
-            string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-            string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-
-            return leftPadding + innerContent + rightPadding;
-        }
-
         private void DrawHorizontalBorderAfterHeader(ITablePrinter tablePrinter)
         {
             if (Rows.Count == 0)
@@ -233,50 +193,58 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             for (int rowIndex = 0; rowIndex < Rows.Count; rowIndex++)
             {
-                Row row = Rows[rowIndex];
-
-                for (int rowLineIndex = 0; rowLineIndex < tableDimensions.CalculatedRowsHeight[rowIndex]; rowLineIndex++)
-                {
-                    if (rowLineIndex > 0)
-                        tablePrinter.WriteLine();
-
-                    if (DisplayBorder)
-                        tablePrinter.WriteBorder(BorderTemplate.Left);
-
-                    for (int columnIndex = 0; columnIndex < row.CellCount; columnIndex++)
-                    {
-                        Cell cell = row[columnIndex];
-                        int cellWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                        string content = cell.Render(rowLineIndex, cellWidth);
-
-                        tablePrinter.WriteNormal(content);
-
-                        if (DisplayBorder)
-                        {
-                            char cellBorderRight = columnIndex < Columns.Count - 1
-                                ? BorderTemplate.Vertical
-                                : BorderTemplate.Right;
-
-                            tablePrinter.WriteBorder(cellBorderRight);
-                        }
-                    }
-                }
-
-                tablePrinter.WriteLine();
+                DrawDataRow(tablePrinter, rowIndex);
 
                 if (DisplayBorder)
+                    DrarHorizontalBorderAfterDataRow(tablePrinter, rowIndex);
+            }
+        }
+
+        private void DrawDataRow(ITablePrinter tablePrinter, int rowIndex)
+        {
+            Row row = Rows[rowIndex];
+
+            for (int rowLineIndex = 0; rowLineIndex < tableDimensions.CalculatedRowsHeight[rowIndex]; rowLineIndex++)
+            {
+                if (rowLineIndex > 0)
+                    tablePrinter.WriteLine();
+
+                if (DisplayBorder)
+                    tablePrinter.WriteBorder(BorderTemplate.Left);
+
+                for (int columnIndex = 0; columnIndex < row.CellCount; columnIndex++)
                 {
-                    if (rowIndex < Rows.Count - 1)
+                    Cell cell = row[columnIndex];
+                    int cellWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
+                    string content = cell.RenderLine(rowLineIndex, cellWidth);
+
+                    tablePrinter.WriteNormal(content);
+
+                    if (DisplayBorder)
                     {
-                        if (DrawLinesBetweenRows)
-                            tablePrinter.WriteLineBorder(rowSeparator);
-                    }
-                    else
-                    {
-                        string rowBottomBorder = BorderTemplate.GenerateDataRowBottomBorder(tableDimensions);
-                        tablePrinter.WriteLineBorder(rowBottomBorder);
+                        char cellBorderRight = columnIndex < Columns.Count - 1
+                            ? BorderTemplate.Vertical
+                            : BorderTemplate.Right;
+
+                        tablePrinter.WriteBorder(cellBorderRight);
                     }
                 }
+            }
+
+            tablePrinter.WriteLine();
+        }
+
+        private void DrarHorizontalBorderAfterDataRow(ITablePrinter tablePrinter, int rowIndex)
+        {
+            if (rowIndex < Rows.Count - 1)
+            {
+                if (DrawLinesBetweenRows)
+                    tablePrinter.WriteLineBorder(rowSeparator);
+            }
+            else
+            {
+                string rowBottomBorder = BorderTemplate.GenerateDataRowBottomBorder(tableDimensions);
+                tablePrinter.WriteLineBorder(rowBottomBorder);
             }
         }
     }

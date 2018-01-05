@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DrawLinesBetweenRows, Is.False);
+            Assert.That(table.DisplayBorderBetweenRows, Is.False);
             Assert.That(table.ColumnCount, Is.EqualTo(0));
             Assert.That(table.RowCount, Is.EqualTo(0));
         }
@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DrawLinesBetweenRows, Is.False);
+            Assert.That(table.DisplayBorderBetweenRows, Is.False);
             Assert.That(table.ColumnCount, Is.EqualTo(0));
             Assert.That(table.RowCount, Is.EqualTo(0));
         }
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Assert.That(table.Padding, Is.EqualTo(1));
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DrawLinesBetweenRows, Is.False);
+            Assert.That(table.DisplayBorderBetweenRows, Is.False);
             Assert.That(table.ColumnCount, Is.EqualTo(0));
             Assert.That(table.RowCount, Is.EqualTo(0));
         }

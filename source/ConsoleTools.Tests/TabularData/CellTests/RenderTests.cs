@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
         {
             Cell cell = new Cell("text");
 
-            string actual = cell.Render(0, 10);
+            string actual = cell.RenderLine(0, 10);
 
             Assert.That(actual, Is.EqualTo("text      "));
         }
@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
         {
             Cell cell = new Cell("some long text");
 
-            string actual = cell.Render(0, 10);
+            string actual = cell.RenderLine(0, 10);
 
             Assert.That(actual, Is.EqualTo("some long text"));
         }
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
             row.AddCell(cell);
 
 
-            string actual = cell.Render(0, 10);
+            string actual = cell.RenderLine(0, 10);
 
             Assert.That(actual, Is.EqualTo("  text    "));
         }
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
             row.AddCell(cell);
 
 
-            string actual = cell.Render(0, 10);
+            string actual = cell.RenderLine(0, 10);
 
             Assert.That(actual, Is.EqualTo("text      "));
         }

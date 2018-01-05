@@ -63,8 +63,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Gets a value that specifies if border lines should be drawn between rows.
+        /// Default value: false
         /// </summary>
-        public bool DrawLinesBetweenRows { get; set; } = false;
+        public bool DisplayBorderBetweenRows { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
@@ -221,6 +222,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
             rows.Add(row);
         }
 
+        public Column GetColumn(int columnIndex)
+        {
+            return columnIndex >= 0 && columnIndex < columns.Count
+                ? columns[columnIndex]
+                : null;
+        }
+
         /// <summary>
         /// Returns the string representation of the current instance.
         /// </summary>
@@ -247,7 +255,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 Rows = rows,
                 BorderTemplate = BorderTemplate,
                 DisplayBorder = DisplayBorder,
-                DrawLinesBetweenRows = DrawLinesBetweenRows,
+                DrawLinesBetweenRows = DisplayBorderBetweenRows,
                 MinWidth = MinWidth,
                 PaddingLeft = PaddingLeft,
                 PaddingRight = PaddingRight,

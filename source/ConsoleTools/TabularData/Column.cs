@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
@@ -21,21 +23,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
-        //private readonly Cell headerCell = new Cell(string.Empty);
+        private readonly Cell headerCell;
 
         /// <summary>
         /// Gets or sets the text displayed in the header.
         /// </summary>
-        public MultilineText Header { get; set; }
-
-        ///// <summary>
-        ///// Gets or sets the text displayed in the header.
-        ///// </summary>
-        //public MultilineText Header
-        //{
-        //    get { return headerCell.Content; }
-        //    set { headerCell.Content = value; }
-        //}
+        public MultilineText Header
+        {
+            get { return headerCell.Content; }
+            set { headerCell.Content = value; }
+        }
 
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
@@ -70,13 +67,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment = HorizontalAlignment.Default)
         {
-            Header = header;
+            headerCell = new Cell(header)
+            {
+                ParentColumn = this
+            };
             CellHorizontalAlignment = cellHorizontalAlignment;
         }
 
-        //public string RenderHeader(int columnWidth, int rowLineIndex)
-        //{
-        //    return headerCell.Render(columnWidth, rowLineIndex);
-        //}
+        /// <summary>
+        /// Returns the header cell including the paddings.
+        /// </summary>
+        /// <param name="minWidth">The minimum width of the header cell.</param>
+        /// <param name="minHeight">The minimum height of the header cell.</param>
+        /// <returns>A <see cref="List{T}"/> containing the lines of the header cell.</returns>
+        public List<string> RenderHeader(int minWidth, int minHeight)
+        {
+            return headerCell.Render(minWidth, minHeight);
+        }
     }
 }

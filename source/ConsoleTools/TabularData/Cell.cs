@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
@@ -40,6 +41,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public Row ParentRow { get; set; }
 
         /// <summary>
+        /// Gets or sets the column that contains the current cell.
+        /// </summary>
+        public Column ParentColumn { get; set; }
+
+        /// <summary>
         /// Gets a value that specified if the cell contains no data.
         /// </summary>
         public bool IsEmpty => Content == null || Content.IsEmpty;
@@ -48,6 +54,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets or sets the horizontal alignment of the content displayed in the cell.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// empty content.
+        /// </summary>
+        public Cell()
+        {
+            Content = MultilineText.Empty;
+            HorizontalAlignment = HorizontalAlignment.Default;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell" /> class with
@@ -70,6 +86,17 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             Content = new MultilineText(text);
             HorizontalAlignment = horizontalAlignment;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// the text contained by it.
+        /// </summary>
+        /// <param name="text"></param>
+        public Cell(MultilineText text)
+        {
+            Content = text;
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -131,12 +158,24 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private int CalculatePaddingLeft()
         {
-            return ParentRow?.ParentTable?.PaddingLeft ?? 0;
+            if (ParentRow != null)
+                return ParentRow.ParentTable?.PaddingLeft ?? 0;
+
+            if (ParentColumn != null)
+                return ParentColumn.ParentTable?.PaddingLeft ?? 0;
+
+            return 0;
         }
 
         private int CalculatePaddingRight()
         {
-            return ParentRow?.ParentTable?.PaddingRight ?? 0;
+            if (ParentRow != null)
+                return ParentRow?.ParentTable?.PaddingRight ?? 0;
+
+            if (ParentColumn != null)
+                return ParentColumn.ParentTable?.PaddingRight ?? 0;
+
+            return 0;
         }
 
         /// <summary>
@@ -147,13 +186,26 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return Content?.ToString() ?? string.Empty;
         }
 
+        public List<string> Render(int minWidth, int minHeight)
+        {
+            List<string> lines = new List<string>();
+
+            for (int i = 0; i < minHeight; i++)
+            {
+                string line = RenderLine(i, minWidth);
+                lines.Add(line);
+            }
+
+            return lines;
+        }
+
         /// <summary>
         /// Returns a single line from the cell including the paddings.
         /// </summary>
-        /// <param name="lineIndex">The line to be generated.</param>
+        /// <param name="lineIndex">The index of the line to be generated.</param>
         /// <param name="minWidth">The minimum width of the cell.</param>
         /// <returns>A <see cref="string"/> representing a single line from the cell.</returns>
-        public string Render(int lineIndex, int minWidth)
+        public string RenderLine(int lineIndex, int minWidth)
         {
             int paddingLeftLength = CalculatePaddingLeft();
             int paddingRightLength = CalculatePaddingRight();
@@ -207,6 +259,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment alignment = HorizontalAlignment;
 
             if (alignment == HorizontalAlignment.Default)
+                alignment = CalculateHorizontalAlignmentAtRowLevel();
+
+            if (alignment == HorizontalAlignment.Default)
                 alignment = CalculateHorizontalAlignmentAtColumnLevel();
 
             if (alignment == HorizontalAlignment.Default)
@@ -218,25 +273,40 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return alignment;
         }
 
+        private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
+        {
+            Row row = ParentRow;
+            return row?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
         private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
         {
-            ReadOnlyCollection<Column> columns = ParentRow?.ParentTable?.Columns;
-            int? columnIndex = ParentRow?.IndexOfCell(this);
-
-            Column column = columns != null && columnIndex.HasValue && columnIndex < columns.Count
-                ? columns[columnIndex.Value]
-                : null;
-
+            Column column = GetColumn();
             return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
+        private Column GetColumn()
+        {
+            if (ParentColumn != null)
+                return ParentColumn;
+
+            if (ParentRow != null)
+            {
+                ReadOnlyCollection<Column> columns = ParentRow?.ParentTable?.Columns;
+                int? columnIndex = ParentRow?.IndexOfCell(this);
+
+                return columns != null && columnIndex.HasValue
+                    ? ParentRow?.ParentTable?.GetColumn(columnIndex.Value)
+                    : null;
+            }
+
+            return null;
         }
 
         private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
         {
             Table table = ParentRow?.ParentTable;
-
-            return table == null || table.CellHorizontalAlignment == HorizontalAlignment.Default
-                ? DefaultHorizontalAlignment
-                : table.CellHorizontalAlignment;
+            return table?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
         public static implicit operator Cell(string text)

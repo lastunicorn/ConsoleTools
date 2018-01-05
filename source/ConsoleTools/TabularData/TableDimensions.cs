@@ -227,7 +227,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
                 for (int j = 0; j < row.CellCount; j++)
                 {
-                    Cell cell = row[j];
+                    DataCell cell = row[j];
 
                     Size cellSize = cell.CalculateDimensions();
 

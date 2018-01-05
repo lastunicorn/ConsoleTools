@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
-        private readonly Cell headerCell;
+        private readonly HeaderCell headerCell;
 
         /// <summary>
         /// Gets or sets the text displayed in the header.
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment = HorizontalAlignment.Default)
         {
-            headerCell = new Cell(header)
+            headerCell = new HeaderCell(header)
             {
                 ParentColumn = this
             };

@@ -25,9 +25,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
         [Test]
         public void Constructor_sets_ParentRow_for_each_cell()
         {
-            Cell cell0 = new Cell("cell content");
-            Cell cell1 = new Cell("cell content");
-            Cell cell2 = new Cell("cell content");
+            DataCell cell0 = new DataCell("cell content");
+            DataCell cell1 = new DataCell("cell content");
+            DataCell cell2 = new DataCell("cell content");
 
             Row row = new Row(new[] { cell0, cell1, cell2 });
 
@@ -39,9 +39,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
         [Test]
         public void Constructor_keeps_the_received_Cell_instances()
         {
-            Cell cell0 = new Cell("cell content");
-            Cell cell1 = new Cell("cell content");
-            Cell cell2 = new Cell("cell content");
+            DataCell cell0 = new DataCell("cell content");
+            DataCell cell1 = new DataCell("cell content");
+            DataCell cell2 = new DataCell("cell content");
 
             Row row = new Row(new[] { cell0, cell1, cell2 });
 
@@ -53,12 +53,12 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
         [Test]
         public void Constructor_created_empty_Cell_if_one_item_is_null()
         {
-            Cell cell0 = new Cell("cell content");
-            Cell cell2 = new Cell("cell content");
+            DataCell cell0 = new DataCell("cell content");
+            DataCell cell2 = new DataCell("cell content");
 
             Row row = new Row(new[] { cell0, null, cell2 });
             
-            Assert.That(row[1], Is.InstanceOf<Cell>());
+            Assert.That(row[1], Is.InstanceOf<DataCell>());
             Assert.That(row[1].IsEmpty, Is.True);
         }
     }

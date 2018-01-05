@@ -24,15 +24,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Table
     {
-        private readonly TitleRow titleRow;
+        /// <summary>
+        /// Gets the <see cref="TitleRow"/> instance that represence the title row of the table.
+        /// </summary>
+        public TitleRow TitleRow { get; }
 
         /// <summary>
         /// Gets or sets the title of the current instance of the <see cref="Table"/>.
         /// </summary>
         public MultilineText Title
         {
-            get { return titleRow.Text; }
-            set { titleRow.Text = value; }
+            get { return TitleRow.Content; }
+            set { TitleRow.Content = value; }
         }
 
         /// <summary>
@@ -114,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
-        public Cell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
+        public DataCell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Gets or sets a value that specifies if the borders are visible.
@@ -133,7 +136,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             Columns = new ColumnList(this);
 
-            titleRow = new TitleRow
+            TitleRow = new TitleRow
             {
                 ParentTable = this
             };
@@ -147,7 +150,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             Columns = new ColumnList(this);
 
-            titleRow = new TitleRow(title)
+            TitleRow = new TitleRow(title)
             {
                 ParentTable = this
             };
@@ -161,7 +164,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             Columns = new ColumnList(this);
 
-            titleRow = new TitleRow(title)
+            TitleRow = new TitleRow(title)
             {
                 ParentTable = this
             };
@@ -184,7 +187,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void AddRow(Cell[] cells)
+        public void AddRow(DataCell[] cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
@@ -209,7 +212,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             };
 
             foreach (string text in texts)
-                row.AddCell(new Cell(text));
+                row.AddCell(new DataCell(text));
 
             rows.Add(row);
         }
@@ -234,7 +237,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             TableRenderer tableRenderer = new TableRenderer
             {
-                TitleRow = titleRow,
+                TitleRow = TitleRow,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
                 Rows = rows,

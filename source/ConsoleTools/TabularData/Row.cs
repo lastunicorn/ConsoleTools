@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the list of cells contained by the row.
         /// </summary>
-        private readonly List<Cell> cells = new List<Cell>();
+        private readonly List<DataCell> cells = new List<DataCell>();
 
         /// <summary>
         /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Row"/> instance.
@@ -57,12 +57,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// the list of cells.
         /// </summary>
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
-        public Row(Cell[] cells)
+        public Row(DataCell[] cells)
         {
             if (cells == null)
                 return;
 
-            foreach (Cell cell in cells)
+            foreach (DataCell cell in cells)
                 AddCell(cell);
         }
 
@@ -70,11 +70,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Adds a new cell to the current instace of <see cref="Row"/>.
         /// </summary>
         /// <param name="cell"></param>
-        public void AddCell(Cell cell)
+        public void AddCell(DataCell cell)
         {
             if (cell == null)
             {
-                Cell newCell = new Cell
+                DataCell newCell = new DataCell
                 {
                     ParentRow = this
                 };
@@ -93,13 +93,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="index">The zero-based index of the cell to get or set.</param>
         /// <returns>The cell at the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public Cell this[int index]
+        public DataCell this[int index]
         {
             get { return cells[index]; }
             set { cells[index] = value; }
         }
 
-        public int? IndexOfCell(Cell cell)
+        public int? IndexOfCell(DataCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
             return indexOfCell == -1 ? (int?)null : indexOfCell;

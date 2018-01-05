@@ -111,7 +111,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table("This is a cell alignment test");
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
+            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
             table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
@@ -132,7 +132,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table("This is a cell alignment test");
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
             table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
@@ -153,7 +153,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table("This is a cell alignment test");
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
+            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
             table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
@@ -174,7 +174,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table("This is a cell alignment test");
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
+            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
             table.AddRow(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
@@ -197,7 +197,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.Title = "My Title";
 
             table.AddRow(new[] { "1234567", "123456", "one two" });
-            table.AddRow(new[] { new Cell("1", HorizontalAlignment.Center), new Cell("asd", HorizontalAlignment.Center), new Cell("asas") });
+            table.AddRow(new[] { new DataCell("1", HorizontalAlignment.Center), new DataCell("asd", HorizontalAlignment.Center), new DataCell("asas") });
             table.AddRow(new[] { "12", "a", "errr" });
 
             string expected =

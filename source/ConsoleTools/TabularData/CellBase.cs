@@ -22,27 +22,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// <summary>
     /// Represents a table cell that contains data.
     /// </summary>
-    public class Cell
+    public abstract class CellBase
     {
-        /// <summary>
-        /// Gets the default horizontal alignment.
-        /// </summary>
-        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
-
         /// <summary>
         /// Gets or sets the content of the cell.
         /// </summary>
         public MultilineText Content { get; set; }
-
-        /// <summary>
-        /// Gets or sets the row that contains the current cell.
-        /// </summary>
-        public Row ParentRow { get; set; }
-
-        /// <summary>
-        /// Gets or sets the column that contains the current cell.
-        /// </summary>
-        public Column ParentColumn { get; set; }
 
         /// <summary>
         /// Gets a value that specified if the cell contains no data.
@@ -55,76 +40,76 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// empty content.
         /// </summary>
-        public Cell()
+        protected CellBase()
         {
             Content = MultilineText.Empty;
             HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// the text contained by it.
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
-        public Cell(string text)
+        protected CellBase(string text)
         {
             Content = new MultilineText(text);
             HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// the text contained by it and its horizontal alignment.
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public Cell(string text, HorizontalAlignment horizontalAlignment)
+        protected CellBase(string text, HorizontalAlignment horizontalAlignment)
         {
             Content = new MultilineText(text);
             HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// the text contained by it.
         /// </summary>
         /// <param name="text"></param>
-        public Cell(MultilineText text)
+        protected CellBase(MultilineText text)
         {
             Content = text;
             HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// the text contained by it and its horizontal alignment.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public Cell(MultilineText text, HorizontalAlignment horizontalAlignment)
+        protected CellBase(MultilineText text, HorizontalAlignment horizontalAlignment)
         {
             Content = text;
             HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// an object representing the content.
         /// </summary>
-        public Cell(object content)
+        protected CellBase(object content)
         {
             Content = new MultilineText(content.ToString());
             HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Cell" /> class with
+        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// an object representing the content and its horizontal alignment.
         /// </summary>
-        public Cell(object content, HorizontalAlignment horizontalAlignment)
+        protected CellBase(object content, HorizontalAlignment horizontalAlignment)
         {
             Content = new MultilineText(content.ToString());
             HorizontalAlignment = horizontalAlignment;
@@ -155,27 +140,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return new Size(cellWidth, cellHeight);
         }
 
-        private int CalculatePaddingLeft()
-        {
-            if (ParentRow != null)
-                return ParentRow.ParentTable?.PaddingLeft ?? 0;
+        protected abstract int CalculatePaddingLeft();
 
-            if (ParentColumn != null)
-                return ParentColumn.ParentTable?.PaddingLeft ?? 0;
-
-            return 0;
-        }
-
-        private int CalculatePaddingRight()
-        {
-            if (ParentRow != null)
-                return ParentRow?.ParentTable?.PaddingRight ?? 0;
-
-            if (ParentColumn != null)
-                return ParentColumn.ParentTable?.PaddingRight ?? 0;
-
-            return 0;
-        }
+        protected abstract int CalculatePaddingRight();
 
         /// <summary>
         /// Returns the string representation of the content of the cell.
@@ -189,7 +156,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             List<string> lines = new List<string>();
 
-            for (int i = 0; i < minHeight; i++)
+            int minLineCount = Math.Max(Content.Size.Height, minHeight);
+
+            for (int i = 0; i < minLineCount; i++)
             {
                 string line = RenderLine(i, minWidth);
                 lines.Add(line);
@@ -253,70 +222,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return leftPadding + innerContent + rightPadding;
         }
 
-        private HorizontalAlignment CalculateHorizontalAlignment()
-        {
-            HorizontalAlignment alignment = HorizontalAlignment;
-
-            if (alignment == HorizontalAlignment.Default)
-                alignment = CalculateHorizontalAlignmentAtRowLevel();
-
-            if (alignment == HorizontalAlignment.Default)
-                alignment = CalculateHorizontalAlignmentAtColumnLevel();
-
-            if (alignment == HorizontalAlignment.Default)
-                alignment = CalculateHorizontalAlignmentAtTableLevel();
-
-            if (alignment == HorizontalAlignment.Default)
-                alignment = DefaultHorizontalAlignment;
-
-            return alignment;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
-        {
-            Row row = ParentRow;
-            return row?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-        {
-            Column column = GetColumn();
-            return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
-        private Column GetColumn()
-        {
-            if (ParentColumn != null)
-                return ParentColumn;
-
-            if (ParentRow != null)
-            {
-                ColumnList columns = ParentRow?.ParentTable?.Columns;
-                int? columnIndex = ParentRow?.IndexOfCell(this);
-
-                return columns != null && columnIndex.HasValue
-                    ? ParentRow?.ParentTable?.Columns[columnIndex.Value]
-                    : null;
-            }
-
-            return null;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
-        {
-            Table table = ParentRow?.ParentTable;
-            return table?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
-        public static implicit operator Cell(string text)
-        {
-            MultilineText multilineText = new MultilineText(text);
-            return new Cell(multilineText);
-        }
-
-        public static implicit operator string(Cell cell)
-        {
-            return cell.Content?.ToString() ?? string.Empty;
-        }
+        protected abstract HorizontalAlignment CalculateHorizontalAlignment();
     }
 }

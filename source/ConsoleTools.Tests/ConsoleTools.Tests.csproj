@@ -85,6 +85,7 @@
     <Compile Include="TabularData\TableTests\TablePaddingTests.cs" />
     <Compile Include="TabularData\TableTests\ConstructorTests.cs" />
     <Compile Include="TabularData\TableTests\LinesBetweenRowsTests.cs" />
+    <Compile Include="TabularData\TableTests\TitleAlignmentTests.cs" />
     <Compile Include="TabularData\TableTests\TitleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

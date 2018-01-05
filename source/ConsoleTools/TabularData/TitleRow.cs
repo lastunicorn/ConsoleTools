@@ -14,60 +14,102 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.TabularData
 {
-    internal class TitleRow
+    /// <summary>
+    /// Represents the title row of a table.
+    /// </summary>
+    public class TitleRow
     {
+        private readonly TitleCell titleCell;
+
+        /// <summary>
+        /// Gets or sets the <see cref="Table"/> instance that contains the current title.
+        /// </summary>
         public Table ParentTable { get; set; }
-        public MultilineText Text { get; set; }
 
-        public bool IsVisible { get; set; }
+        /// <summary>
+        /// Gets or sets the content of the current instance.
+        /// </summary>
+        public MultilineText Content
+        {
+            get { return titleCell.Content; }
+            set { titleCell.Content = value; }
+        }
 
+        /// <summary>
+        /// Gets or sets the content alignment.
+        /// </summary>
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return titleCell.HorizontalAlignment;}
+            set { titleCell.HorizontalAlignment = value; }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// empty content.
+        /// </summary>
         public TitleRow()
         {
-            Text = MultilineText.Empty;
+            titleCell = new TitleCell
+            {
+                ParentRow = this,
+                Content = MultilineText.Empty
+            };
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// the text content.
+        /// </summary>
         public TitleRow(string title)
         {
-            Text = title == null
-                ? MultilineText.Empty
-                : new MultilineText(title);
+            titleCell = new TitleCell
+            {
+                ParentRow = this,
+                Content = title == null
+                    ? MultilineText.Empty
+                    : new MultilineText(title)
+            };
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// a <see cref="MultilineText"/> content.
+        /// </summary>
         public TitleRow(MultilineText title)
         {
-            Text = title ?? MultilineText.Empty;
+            titleCell = new TitleCell
+            {
+                ParentRow = this,
+                Content = title ?? MultilineText.Empty
+            };
         }
 
-        public void Render(int minWidth, ITablePrinter tablePrinter)
+        public void Render(ITablePrinter tablePrinter, int minWidth)
         {
-            bool displayBorder = ParentTable?.DisplayBorder ?? false;
-
-            int paddingLeftLength = ParentTable?.PaddingLeft ?? 0;
-            int paddingRightLength = ParentTable?.PaddingRight ?? 0;
-
-            int cellInnerWidth = minWidth - paddingLeftLength - paddingRightLength;
-
-            if (displayBorder)
-                cellInnerWidth -= 2;
-
             BorderTemplate borderTemplate = ParentTable?.BorderTemplate;
 
+            bool displayBorder = borderTemplate != null && ParentTable?.DisplayBorder == true;
+
+            int cellInnerWidth = displayBorder
+                ? minWidth - 2
+                : minWidth;
+
+            List<string> cellContents = titleCell.Render(cellInnerWidth, 0);
+
             // Write title
-            for (int titleLineIndex = 0; titleLineIndex < Text.Size.Height; titleLineIndex++)
+            foreach (string line in cellContents)
             {
-                if (displayBorder && borderTemplate != null)
+                if (displayBorder)
                     tablePrinter.WriteBorder(borderTemplate.Left);
 
-                string leftPadding = string.Empty.PadRight(paddingLeftLength, ' ');
-                string rightPadding = string.Empty.PadRight(paddingRightLength, ' ');
-                string innerContent = Text.Lines[titleLineIndex].PadRight(cellInnerWidth, ' ');
-                string content = string.Concat(leftPadding, innerContent, rightPadding);
+                tablePrinter.WriteTitle(line);
 
-                tablePrinter.WriteTitle(content);
-
-                if (displayBorder && borderTemplate != null)
+                if (displayBorder)
                     tablePrinter.WriteBorder(borderTemplate.Right);
 
                 tablePrinter.WriteLine();

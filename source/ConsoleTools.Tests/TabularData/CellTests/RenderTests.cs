@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
         [Test]
         public void content_is_shorter_than_required_width()
         {
-            Cell cell = new Cell("text");
+            DataCell cell = new DataCell("text");
 
             string actual = cell.RenderLine(0, 10);
 
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
         [Test]
         public void content_is_longer_than_required_width()
         {
-            Cell cell = new Cell("some long text");
+            DataCell cell = new DataCell("some long text");
 
             string actual = cell.RenderLine(0, 10);
 
@@ -52,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
             };
             Row row = new Row();
             table.AddRow(row);
-            Cell cell = new Cell("text");
+            DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
 
@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
             };
             Row row = new Row();
             table.AddRow(row);
-            Cell cell = new Cell("text");
+            DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
 

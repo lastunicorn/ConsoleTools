@@ -169,11 +169,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 row.Render(tablePrinter, cellWidths, rowHeight);
 
                 if (DisplayBorder)
-                    DrarHorizontalBorderAfterDataRow(tablePrinter, rowIndex);
+                    DrawHorizontalBorderAfterDataRow(tablePrinter, rowIndex);
             }
         }
 
-        private void DrarHorizontalBorderAfterDataRow(ITablePrinter tablePrinter, int rowIndex)
+        private void DrawHorizontalBorderAfterDataRow(ITablePrinter tablePrinter, int rowIndex)
         {
             if (rowIndex < Rows.Count - 1)
             {

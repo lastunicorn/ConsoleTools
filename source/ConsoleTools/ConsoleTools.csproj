@@ -63,7 +63,6 @@
     <Compile Include="Spinners\Templates\HalfBlockRotateTemplate.cs" />
     <Compile Include="Spinners\ValueAlignment.cs" />
     <Compile Include="Spinners\ValuePosition.cs" />
-    <Compile Include="TabularData\AlignmentCalculator.cs" />
     <Compile Include="TabularData\BorderTemplate.cs" />
     <Compile Include="TabularData\ColumnList.cs" />
     <Compile Include="TabularData\TableRenderer.cs" />

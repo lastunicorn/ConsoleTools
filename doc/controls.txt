@@ -131,8 +131,7 @@ Features:
 - Optional table title.
 - Optional column headers.
 - Optional border.
-- Three types of borders out-of-the-box: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
-- Custom borders.
+- Custom border template. Three types of borders are provided out-of-the-box: plus-minus (+---+), single-line (┌───┐), double-line (╔═══╗)
 - Data cell horizontal alignment (at cell, row, column, table level)
 - Header cell horizontal alignment (at cell, column, table level)
 

@@ -1,0 +1,12 @@
+ConsoleTools
+============
+
+ver 0.0.2
+---------
+- Updates in MVC framework.
+- Added the ThreeStageFile control that writes data in a temporary file and keeps a backup of the last version of the file.
+- Created the Pause control.
+
+ver 0.0.1
+---------
+First release

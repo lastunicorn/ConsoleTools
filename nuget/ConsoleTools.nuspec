@@ -19,5 +19,6 @@
     <file src="lib\net461\DustInTheWind.ConsoleTools.dll" target="lib\net461\DustInTheWind.ConsoleTools.dll" />
     <file src="lib\net461\DustInTheWind.ConsoleTools.pdb" target="lib\net461\DustInTheWind.ConsoleTools.pdb" />
     <file src="lib\net461\DustInTheWind.ConsoleTools.xml" target="lib\net461\DustInTheWind.ConsoleTools.xml" />
+    <file src="changelog.txt" target="changelog.txt" />
   </files>
 </package>

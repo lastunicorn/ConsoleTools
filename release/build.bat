@@ -62,6 +62,18 @@ xcopy /Y "%root_directory%\README.md" "ConsoleTools\*"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------
+rem Retrieve changelog file.
+rem ----------------------------------------------------------------------------------------------------
+
+echo.
+echo ---
+echo --- Retrieve changelog file
+echo ---
+echo.
+xcopy /Y "%root_directory%\doc\changelog.txt" "ConsoleTools\*"
+if %errorlevel% neq 0 goto :error
+
+rem ----------------------------------------------------------------------------------------------------
 rem Zip
 rem ----------------------------------------------------------------------------------------------------
 

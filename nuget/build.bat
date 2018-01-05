@@ -1,7 +1,7 @@
 @echo off
 
-set soure_directory=..\source\ConsoleTools\bin\Release
-set destination_directory=..\nuget\lib\net461
+set root_directory=..
+set assemblies_directory=lib\net461
 
 rem ----------------------------------------------------------------------------------------------------
 rem Clean up existing files.
@@ -12,8 +12,8 @@ echo ---
 echo --- Clean up existing files - lib directory.
 echo ---
 echo.
-if EXIST "%destination_directory%" (
-	rmdir /S/Q "%destination_directory%"
+if EXIST "lib" (
+	rmdir /S/Q "lib"
 	if %errorlevel% neq 0 goto :error
 )
 
@@ -30,7 +30,15 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /R/Y/S/I "%soure_directory%\*" "%destination_directory%"
+xcopy /R/Y/S/I "%root_directory%\source\ConsoleTools\bin\Release\*" "%assemblies_directory%"
+if %errorlevel% neq 0 goto :error
+
+echo.
+echo ---
+echo --- Retrieve changelog file
+echo ---
+echo.
+xcopy /R/Y/S/I "%root_directory%\doc\changelog.txt" .
 if %errorlevel% neq 0 goto :error
 
 echo.

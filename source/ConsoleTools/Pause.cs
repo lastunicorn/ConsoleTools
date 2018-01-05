@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets or sets the text to be displayed to the user while witing for the user to press a key.
         /// </summary>
-        public string Text { get; } = "Press any key to continue...";
+        public string Text { get; set; } = "Press any key to continue...";
 
         /// <summary>
         /// Gets or sets a value that specifies if the cursor is hidden while waiting for the user to press a key.

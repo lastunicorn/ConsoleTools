@@ -82,11 +82,16 @@ Todo:
 --------------------------------------------------------------------------------
 YesNoControl
 --------------------------------------------------------------------------------
+The control displays a question and expects an answer of "yes" or "no".
+
+Features:
+- TBD
 
 
 --------------------------------------------------------------------------------
 Sound
 --------------------------------------------------------------------------------
+Contains static methods used for creating beeps of the specified notes.
 
 
 --------------------------------------------------------------------------------
@@ -211,6 +216,9 @@ Todo:
 - Ctrl+C handling
 - Ctrl+Z handling
 
+Note:
+- This small framework is likely to be moved in a separate project.
+- This MVC framework for Console is copying the idea from ASP.NET MVC, but it is not quite an MVC pattern. The name may change in the future.
 
 --------------------------------------------------------------------------------
 Pause

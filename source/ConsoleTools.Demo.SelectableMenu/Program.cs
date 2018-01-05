@@ -19,7 +19,6 @@ using System.ComponentModel;
 using DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
-using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 {

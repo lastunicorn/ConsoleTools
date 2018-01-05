@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.InputControls.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
-using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
@@ -84,6 +83,13 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                     Id = 4,
                     Text = "ListOutputControl",
                     Command = new ListOutputCommand()
+                },
+                new SpaceMenuItem(),
+                new LabelMenuItem
+                {
+                    Id = 5,
+                    Text = "YesNoControl",
+                    Command = new YesNoCommand()
                 },
                 new SpaceMenuItem(),
                 new LabelMenuItem

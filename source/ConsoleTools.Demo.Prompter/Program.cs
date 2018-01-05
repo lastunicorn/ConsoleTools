@@ -42,53 +42,53 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             CustomConsole.WriteLine();
         }
 
-        private static void StartDemo()
-        {
-            prompter = new CommandProviders.Prompter();
-            prompter.NewCommand += HandleNewCommand;
+private static void StartDemo()
+{
+    prompter = new CommandProviders.Prompter();
+    prompter.NewCommand += HandleNewCommand;
 
-            prompter.Run();
-        }
+    prompter.Run();
+}
 
-        private static void HandleNewCommand(object sender, NewCommandEventArgs e)
-        {
-            try
-            {
-                IController controller = CreateController(e.Command);
-                controller.Execute(e.Command.Parameters);
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteError(ex);
-            }
-            finally
-            {
-                CustomConsole.WriteLine();
-            }
-        }
+private static void HandleNewCommand(object sender, NewCommandEventArgs e)
+{
+    try
+    {
+        IController controller = CreateController(e.Command);
+        controller.Execute(e.Command.Parameters);
+    }
+    catch (Exception ex)
+    {
+        CustomConsole.WriteError(ex);
+    }
+    finally
+    {
+        CustomConsole.WriteLine();
+    }
+}
 
-        private static IController CreateController(CliCommand command)
-        {
-            switch (command.Name)
-            {
-                case "q":
-                case "quit":
-                case "exit":
-                    return new ExitController(prompter);
+private static IController CreateController(CliCommand command)
+{
+    switch (command.Name)
+    {
+        case "q":
+        case "quit":
+        case "exit":
+            return new ExitController(prompter);
 
-                case "help":
-                    return new HelpController();
+        case "help":
+            return new HelpController();
 
-                case "whale":
-                case "whales":
-                    return new WhaleController();
+        case "whale":
+        case "whales":
+            return new WhaleController();
 
-                case "prompter":
-                    return new PrompterController(prompter);
+        case "prompter":
+            return new PrompterController(prompter);
 
-                default:
-                    return new UnknownCommandController(command);
-            }
-        }
+        default:
+            return new UnknownCommandController(command);
+    }
+}
     }
 }

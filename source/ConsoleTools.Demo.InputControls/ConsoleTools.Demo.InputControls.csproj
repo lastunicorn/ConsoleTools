@@ -44,6 +44,7 @@
     <Compile Include="Commands\ListOutputCommand.cs" />
     <Compile Include="Commands\TextInputCommand.cs" />
     <Compile Include="Commands\TextOutputCommand.cs" />
+    <Compile Include="Commands\YesNoCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

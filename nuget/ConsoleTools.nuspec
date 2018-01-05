@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ConsoleTools</id>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <authors>Dust in the Wind</authors>
 	<title>ConsoleTools</title>
     <owners>Dust in the Wind</owners>
@@ -11,7 +11,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 	<summary>A set of tools and "controls" for the .net Console.</summary>
-    <releaseNotes>First release</releaseNotes>
+    <releaseNotes>
+- Updates in MVC framework.
+- Added the ThreeStageFile control that writes data in a temporary file and keeps a backup of the last version of the file.
+- Created the Pause control.</releaseNotes>
     <copyright>Copyright 2017 Dust in the Wind</copyright>
     <tags>console cli prompter menu progressbar spinner table read write</tags>
   </metadata>

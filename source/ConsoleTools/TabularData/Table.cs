@@ -75,6 +75,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         private readonly List<Row> rows = new List<Row>();
 
+        /// <summary>
+        /// The list of columns contained by the current table.
+        /// </summary>
         private readonly List<Column> columns = new List<Column>();
 
         /// <summary>

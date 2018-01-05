@@ -24,6 +24,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Cell
     {
+        /// <summary>
+        /// Gets the default horizontal alignment.
+        /// </summary>
         public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
 
         /// <summary>
@@ -144,20 +147,26 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return Content?.ToString() ?? string.Empty;
         }
 
-        public string Render(int cellWidth, int rowLineIndex)
+        /// <summary>
+        /// Returns a single line from the cell including the paddings.
+        /// </summary>
+        /// <param name="minWidth">The minimum width of the cell.</param>
+        /// <param name="lineIndex">The line to be generated.</param>
+        /// <returns>A <see cref="string"/> representing a single line from the cell.</returns>
+        public string Render(int minWidth, int lineIndex)
         {
             int paddingLeftLength = CalculatePaddingLeft();
             int paddingRightLength = CalculatePaddingRight();
 
-            int cellContentWidth = cellWidth - paddingLeftLength - paddingRightLength;
+            int cellContentWidth = minWidth - paddingLeftLength - paddingRightLength;
 
-            bool existsContentLine = rowLineIndex < Content.Size.Height;
+            bool existsContentLine = lineIndex < Content.Size.Height;
             if (!existsContentLine)
-                return new string(' ', cellWidth);
+                return new string(' ', minWidth);
 
             // Build inner content.
 
-            string innerContent = Content.Lines[rowLineIndex];
+            string innerContent = Content.Lines[lineIndex];
 
             HorizontalAlignment alignment = CalculateHorizontalAlignment();
 

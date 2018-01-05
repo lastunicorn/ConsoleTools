@@ -43,9 +43,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
         {
             Table table = new Table("Whales");
 
-            table.AddColumn(new Column("Name"));
-            table.AddColumn(new Column("Population"));
-            table.AddColumn(new Column("Weight"));
+            table.Columns.Add(new Column("Name"));
+            table.Columns.Add(new Column("Population"));
+            table.Columns.Add(new Column("Weight"));
 
             foreach (Whale whale in whales)
             {

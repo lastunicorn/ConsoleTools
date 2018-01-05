@@ -30,13 +30,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Column column0 = new Column("Col 0");
             column0.CellHorizontalAlignment = HorizontalAlignment.Right;
-            table.AddColumn(column0);
+            table.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
-            table.AddColumn(column1);
+            table.Columns.Add(column1);
 
             Column column2 = new Column("Col 2");
-            table.AddColumn(column2);
+            table.Columns.Add(column2);
 
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
             table.AddRow(new[] { "1,0", "1,1", "1,2" });
@@ -63,13 +63,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Column column0 = new Column("Col 0");
             column0.CellHorizontalAlignment = HorizontalAlignment.Right;
-            table.AddColumn(column0);
+            table.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
-            table.AddColumn(column1);
+            table.Columns.Add(column1);
 
             Column column2 = new Column("Col 2");
-            table.AddColumn(column2);
+            table.Columns.Add(column2);
 
             table.AddRow(new[] { "0,0", "0,1", "0,2" });
             table.AddRow(new Cell[] { new Cell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });

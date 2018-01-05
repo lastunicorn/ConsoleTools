@@ -292,11 +292,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             if (ParentRow != null)
             {
-                ReadOnlyCollection<Column> columns = ParentRow?.ParentTable?.Columns;
+                ColumnList columns = ParentRow?.ParentTable?.Columns;
                 int? columnIndex = ParentRow?.IndexOfCell(this);
 
                 return columns != null && columnIndex.HasValue
-                    ? ParentRow?.ParentTable?.GetColumn(columnIndex.Value)
+                    ? ParentRow?.ParentTable?.Columns[columnIndex.Value]
                     : null;
             }
 

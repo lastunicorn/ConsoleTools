@@ -21,6 +21,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public Table ParentTable { get; set; }
         public MultilineText Text { get; set; }
 
+        public bool IsVisible { get; set; }
+
         public TitleRow()
         {
             Text = MultilineText.Empty;

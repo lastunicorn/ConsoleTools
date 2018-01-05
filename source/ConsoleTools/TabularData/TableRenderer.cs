@@ -15,8 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -28,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public TitleRow TitleRow { get; set; }
         public bool DisplayTitle { get; set; }
 
-        public ReadOnlyCollection<Column> Columns { get; set; }
+        public ColumnList Columns { get; set; }
         public bool DisplayColumnHeaders { get; set; }
 
         public List<Row> Rows { get; set; }
@@ -137,39 +135,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawColumnHeadersRow(ITablePrinter tablePrinter)
         {
+            List<int> cellWidths = tableDimensions.CalculatedColumnsWidth;
             int rowHeight = tableDimensions.CalculatedHeaderRowHeight;
 
-            List<List<string>> cellContents = Columns
-                .Select((x, i) =>
-                {
-                    int columnWidth = tableDimensions.CalculatedColumnsWidth[i];
-                    return x.RenderHeader(columnWidth, rowHeight);
-                })
-                .ToList();
-
-            for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
-            {
-                if (DisplayBorder)
-                    tablePrinter.WriteBorder(BorderTemplate.Left);
-
-                for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
-                {
-                    string content = cellContents[columnIndex][headerLineIndex];
-                    tablePrinter.WriteHeader(content);
-
-                    if (DisplayBorder)
-                    {
-                        char cellBorderRight = columnIndex < Columns.Count - 1
-                            ? BorderTemplate.Vertical
-                            : BorderTemplate.Right;
-
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
-                }
-
-                tablePrinter.WriteLine();
-            }
-
+            Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+            
             // Write bottom border <=> first row top border
             if (DisplayBorder)
                 DrawHorizontalBorderAfterHeader(tablePrinter);

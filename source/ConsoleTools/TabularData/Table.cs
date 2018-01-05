@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -75,17 +74,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the list of columns contained by the current table.
         /// </summary>
-        public ReadOnlyCollection<Column> Columns => columns.AsReadOnly();
+        public ColumnList Columns { get; }
 
         /// <summary>
         /// The list of rows contained by the current table.
         /// </summary>
         private readonly List<Row> rows = new List<Row>();
-
-        /// <summary>
-        /// The list of columns contained by the current table.
-        /// </summary>
-        private readonly List<Column> columns = new List<Column>();
 
         /// <summary>
         /// Gets the number of rows contained by the current instance of the <see cref="Table"/>.
@@ -137,6 +131,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table()
         {
+            Columns = new ColumnList(this);
+
             titleRow = new TitleRow
             {
                 ParentTable = this
@@ -149,6 +145,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(string title)
         {
+            Columns = new ColumnList(this);
+
             titleRow = new TitleRow(title)
             {
                 ParentTable = this
@@ -161,18 +159,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(MultilineText title)
         {
+            Columns = new ColumnList(this);
+
             titleRow = new TitleRow(title)
             {
                 ParentTable = this
             };
-        }
-
-        public void AddColumn(Column column)
-        {
-            if (column == null) throw new ArgumentNullException(nameof(column));
-
-            column.ParentTable = this;
-            columns.Add(column);
         }
 
         /// <summary>
@@ -220,13 +212,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 row.AddCell(new Cell(text));
 
             rows.Add(row);
-        }
-
-        public Column GetColumn(int columnIndex)
-        {
-            return columnIndex >= 0 && columnIndex < columns.Count
-                ? columns[columnIndex]
-                : null;
         }
 
         /// <summary>

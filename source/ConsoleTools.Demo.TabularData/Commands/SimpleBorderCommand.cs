@@ -26,10 +26,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         public void Execute()
         {
             Table table = new Table("Simple Border");
-            table.AddColumn(new Column("One"));
-            table.AddColumn(new Column("Two"));
-            table.AddColumn(new Column("Three"));
-            table.AddColumn(new Column("Four"));
+            table.Columns.Add(new Column("One"));
+            table.Columns.Add(new Column("Two"));
+            table.Columns.Add(new Column("Three"));
+            table.Columns.Add(new Column("Four"));
             table.AddRow(new[] { "1,1", "1,2", "1,3", "1,4" });
             table.AddRow(new[] { "2,1", "2,2", "2,3", "2,4" });
             table.AddRow(new[] { "3,1", "3,2", "3,3", "3,4" });

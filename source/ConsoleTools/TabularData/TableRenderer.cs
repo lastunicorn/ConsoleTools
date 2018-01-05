@@ -147,7 +147,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 })
                 .ToList();
 
-
             for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
             {
                 if (DisplayBorder)
@@ -193,45 +192,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             for (int rowIndex = 0; rowIndex < Rows.Count; rowIndex++)
             {
-                DrawDataRow(tablePrinter, rowIndex);
+                List<int> cellWidths = tableDimensions.CalculatedColumnsWidth;
+                int rowHeight = tableDimensions.CalculatedRowsHeight[rowIndex];
+
+                Row row = Rows[rowIndex];
+                row.Render(tablePrinter, cellWidths, rowHeight);
 
                 if (DisplayBorder)
                     DrarHorizontalBorderAfterDataRow(tablePrinter, rowIndex);
             }
-        }
-
-        private void DrawDataRow(ITablePrinter tablePrinter, int rowIndex)
-        {
-            Row row = Rows[rowIndex];
-
-            for (int rowLineIndex = 0; rowLineIndex < tableDimensions.CalculatedRowsHeight[rowIndex]; rowLineIndex++)
-            {
-                if (rowLineIndex > 0)
-                    tablePrinter.WriteLine();
-
-                if (DisplayBorder)
-                    tablePrinter.WriteBorder(BorderTemplate.Left);
-
-                for (int columnIndex = 0; columnIndex < row.CellCount; columnIndex++)
-                {
-                    Cell cell = row[columnIndex];
-                    int cellWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
-                    string content = cell.RenderLine(rowLineIndex, cellWidth);
-
-                    tablePrinter.WriteNormal(content);
-
-                    if (DisplayBorder)
-                    {
-                        char cellBorderRight = columnIndex < Columns.Count - 1
-                            ? BorderTemplate.Vertical
-                            : BorderTemplate.Right;
-
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
-                }
-            }
-
-            tablePrinter.WriteLine();
         }
 
         private void DrarHorizontalBorderAfterDataRow(ITablePrinter tablePrinter, int rowIndex)

@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -102,6 +103,44 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             int indexOfCell = cells.IndexOf(cell);
             return indexOfCell == -1 ? (int?)null : indexOfCell;
+        }
+
+        public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int minHeight)
+        {
+            List<List<string>> cellContents = cells
+                .Select((x, i) =>
+                {
+                    int cellWidth = cellWidths[i];
+                    return x.Render(cellWidth, minHeight);
+                })
+                .ToList();
+
+            bool displayBorder = ParentTable?.DisplayBorder ?? true;
+            BorderTemplate borderTemplate = ParentTable?.BorderTemplate;
+
+            for (int rowLineIndex = 0; rowLineIndex < minHeight; rowLineIndex++)
+            {
+                if (displayBorder && borderTemplate != null)
+                    tablePrinter.WriteBorder(borderTemplate.Left);
+
+                for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
+                {
+                    string content = cellContents[columnIndex][rowLineIndex];
+
+                    tablePrinter.WriteNormal(content);
+
+                    if (displayBorder && borderTemplate != null)
+                    {
+                        char cellBorderRight = columnIndex < cells.Count - 1
+                            ? borderTemplate.Vertical
+                            : borderTemplate.Right;
+
+                        tablePrinter.WriteBorder(cellBorderRight);
+                    }
+                }
+
+                tablePrinter.WriteLine();
+            }
         }
     }
 }

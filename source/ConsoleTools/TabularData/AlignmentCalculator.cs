@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -8,7 +9,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public HorizontalAlignment TableLevelCellAlignment { get; set; }
 
-        public List<Column> Columns { get; set; }
+        public ReadOnlyCollection<Column> Columns { get; set; }
         public List<Row> Rows { get; set; }
         
         public HorizontalAlignment CalcualteHeaderCellAlignment(int columnIndex)

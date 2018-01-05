@@ -92,5 +92,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             get { return cells[index]; }
             set { cells[index] = value; }
         }
+
+        public int? IndexOfCell(Cell cell)
+        {
+            int indexOfCell = cells.IndexOf(cell);
+            return indexOfCell == -1 ? (int?) null : indexOfCell;
+        }
     }
 }

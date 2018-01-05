@@ -28,9 +28,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Table table = new Table();
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Title = "Short Title";
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            table.AddColumn(new Column("Header 1"));
+            table.AddColumn(new Column("Header 2"));
+            table.AddColumn(new Column("Header 3"));
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -55,9 +55,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            table.AddColumn(new Column("Header 1"));
+            table.AddColumn(new Column("Header 2"));
+            table.AddColumn(new Column("Header 3"));
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -104,9 +104,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Table table = new Table();
             table.Title = "Short Title";
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            table.AddColumn(new Column("Header 1"));
+            table.AddColumn(new Column("Header 2"));
+            table.AddColumn(new Column("Header 3"));
 
             string expected =
 @"╔════════════════════════════════╗
@@ -144,9 +144,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            table.AddColumn(new Column("Header 1"));
+            table.AddColumn(new Column("Header 2"));
+            table.AddColumn(new Column("Header 3"));
 
             string expected =
 @"╔══════════╦══════════╦══════════╗

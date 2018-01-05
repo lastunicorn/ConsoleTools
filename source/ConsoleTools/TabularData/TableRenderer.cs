@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -28,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public MultilineText Title { get; set; }
         public bool DisplayTitle { get; set; }
 
-        public List<Column> Columns { get; set; }
+        public ReadOnlyCollection<Column> Columns { get; set; }
         public bool DisplayColumnHeaders { get; set; }
 
         public List<Row> Rows { get; set; }
@@ -180,6 +181,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
                 {
                     string content = BuildHeaderCellContent(columnIndex, headerLineIndex);
+                    //int columnWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
+                    //string content = Columns[columnIndex].RenderHeader(columnWidth, headerLineIndex);
                     tablePrinter.WriteHeader(content);
 
                     if (DisplayBorder)
@@ -270,7 +273,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     for (int columnIndex = 0; columnIndex < row.CellCount; columnIndex++)
                     {
                         Cell cell = row[columnIndex];
-                        string content = BuildCellContent(rowIndex, columnIndex, cell, rowLineIndex);
+                        int cellWidth = tableDimensions.CalculatedColumnsWidth[columnIndex];
+                        string content = cell.Render(cellWidth, rowLineIndex);
 
                         tablePrinter.WriteNormal(content);
 
@@ -301,45 +305,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     }
                 }
             }
-        }
-
-        private string BuildCellContent(int rowIndex, int columnIndex, Cell cell, int rowLineIndex)
-        {
-            if (rowLineIndex >= cell.Content.Size.Height)
-                return string.Empty.PadRight(tableDimensions.CalculatedColumnsWidth[columnIndex], ' ');
-
-            int cellInnerWidth = tableDimensions.CalculatedColumnsWidth[columnIndex] - PaddingLeft - PaddingRight;
-            string innerContent;
-
-            HorizontalAlignment alignment = alignmentCalculator.CalcualteDataCellAlignment(rowIndex, columnIndex);
-
-            switch (alignment)
-            {
-                case HorizontalAlignment.Left:
-                    innerContent = cell.Content.Lines[rowLineIndex].PadRight(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Right:
-                    innerContent = cell.Content.Lines[rowLineIndex].PadLeft(cellInnerWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int totalSpaces = cellInnerWidth - cell.Content.Size.Width;
-                    //int leftSpaces = (int)Math.Floor(totalSpaces / 2);
-                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-                    innerContent = cell.Content.Lines[rowLineIndex]
-                        .PadLeft(cellInnerWidth - rightSpaces, ' ')
-                        .PadRight(cellInnerWidth, ' ');
-                    break;
-
-                default:
-                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
-            }
-
-            string leftPadding = string.Empty.PadRight(PaddingLeft, ' ');
-            string rightPadding = string.Empty.PadRight(PaddingRight, ' ');
-
-            return leftPadding + innerContent + rightPadding;
         }
     }
 }

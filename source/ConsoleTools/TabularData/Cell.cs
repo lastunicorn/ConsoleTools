@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using System.Collections.ObjectModel;
+
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
@@ -21,6 +24,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Cell
     {
+        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
+
         /// <summary>
         /// Gets or sets the content of the cell.
         /// </summary>
@@ -137,6 +142,92 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public override string ToString()
         {
             return Content?.ToString() ?? string.Empty;
+        }
+
+        public string Render(int cellWidth, int rowLineIndex)
+        {
+            int paddingLeftLength = CalculatePaddingLeft();
+            int paddingRightLength = CalculatePaddingRight();
+
+            int cellContentWidth = cellWidth - paddingLeftLength - paddingRightLength;
+
+            bool existsContentLine = rowLineIndex < Content.Size.Height;
+            if (!existsContentLine)
+                return new string(' ', cellWidth);
+
+            // Build inner content.
+
+            string innerContent = Content.Lines[rowLineIndex];
+
+            HorizontalAlignment alignment = CalculateHorizontalAlignment();
+
+            switch (alignment)
+            {
+                case HorizontalAlignment.Left:
+                    innerContent = innerContent.PadRight(cellContentWidth, ' ');
+                    break;
+
+                case HorizontalAlignment.Right:
+                    innerContent = innerContent.PadLeft(cellContentWidth, ' ');
+                    break;
+
+                case HorizontalAlignment.Center:
+                    int totalSpaces = cellContentWidth - Content.Size.Width;
+                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
+                    innerContent = innerContent
+                        .PadLeft(cellContentWidth - rightSpaces, ' ')
+                        .PadRight(cellContentWidth, ' ');
+                    break;
+
+                default:
+                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
+            }
+
+            // Build paddings.
+
+            string leftPadding = new string(' ', paddingLeftLength);
+            string rightPadding = new string(' ', paddingRightLength);
+
+            // Concatenate everything.
+
+            return leftPadding + innerContent + rightPadding;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignment()
+        {
+            HorizontalAlignment alignment = HorizontalAlignment;
+
+            if (alignment == HorizontalAlignment.Default)
+                alignment = CalculateHorizontalAlignmentAtColumnLevel();
+
+            if (alignment == HorizontalAlignment.Default)
+                alignment = CalculateHorizontalAlignmentAtTableLevel();
+
+            if (alignment == HorizontalAlignment.Default)
+                alignment = DefaultHorizontalAlignment;
+
+            return alignment;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
+        {
+            ReadOnlyCollection<Column> columns = ParentRow?.ParentTable?.Columns;
+            int? columnIndex = ParentRow?.IndexOfCell(this);
+
+            Column column = columns != null && columnIndex.HasValue && columnIndex < columns.Count
+                ? columns[columnIndex.Value]
+                : null;
+
+            return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
+        {
+            Table table = ParentRow?.ParentTable;
+
+            return table == null || table.CellHorizontalAlignment == HorizontalAlignment.Default
+                ? DefaultHorizontalAlignment
+                : table.CellHorizontalAlignment;
         }
 
         public static implicit operator Cell(string text)

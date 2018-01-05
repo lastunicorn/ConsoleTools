@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.TabularData
@@ -59,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the list of columns contained by the current table.
         /// </summary>
-        public List<Column> Columns { get; set; }
+        public ReadOnlyCollection<Column> Columns { get; set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if thew column headers are displayed.

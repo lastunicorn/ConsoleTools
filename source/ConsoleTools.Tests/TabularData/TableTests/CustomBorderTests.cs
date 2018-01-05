@@ -71,9 +71,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Table table = new Table();
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.DisplayColumnHeaders = true;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
+            table.AddColumn(new Column("One"));
+            table.AddColumn(new Column("Two"));
+            table.AddColumn(new Column("Three"));
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -98,9 +98,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             table.Title = "My Title";
             table.DisplayColumnHeaders = true;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
+            table.AddColumn(new Column("One"));
+            table.AddColumn(new Column("Two"));
+            table.AddColumn(new Column("Three"));
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });
@@ -128,9 +128,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.Title = "My Title";
             table.DisplayColumnHeaders = true;
             table.Padding = 3;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
+            table.AddColumn(new Column("One"));
+            table.AddColumn(new Column("Two"));
+            table.AddColumn(new Column("Three"));
             table.AddRow(new[] { "one", "ichi", "eins" });
             table.AddRow(new[] { "two", "ni", "zwei" });
             table.AddRow(new[] { "three", "san", "drei" });

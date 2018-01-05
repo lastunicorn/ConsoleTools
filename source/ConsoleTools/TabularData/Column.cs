@@ -21,15 +21,31 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
+        //private readonly Cell headerCell = new Cell(string.Empty);
+
         /// <summary>
         /// Gets or sets the text displayed in the header.
         /// </summary>
         public MultilineText Header { get; set; }
 
+        ///// <summary>
+        ///// Gets or sets the text displayed in the header.
+        ///// </summary>
+        //public MultilineText Header
+        //{
+        //    get { return headerCell.Content; }
+        //    set { headerCell.Content = value; }
+        //}
+
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
         /// </summary>
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Column"/> instance.
+        /// </summary>
+        public Table ParentTable { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
@@ -57,5 +73,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Header = header;
             CellHorizontalAlignment = cellHorizontalAlignment;
         }
+
+        //public string RenderHeader(int columnWidth, int rowLineIndex)
+        //{
+        //    return headerCell.Render(columnWidth, rowLineIndex);
+        //}
     }
 }

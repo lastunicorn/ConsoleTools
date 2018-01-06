@@ -88,7 +88,7 @@
     <Compile Include="Spinners\Templates\ArrowTemplate.cs" />
     <Compile Include="Spinners\Templates\StickTemplate.cs" />
     <Compile Include="Spinners\Templates\BubbleTemplate.cs" />
-    <Compile Include="Spinners\ProgressSpinner.cs" />
+    <Compile Include="Spinners\Spinner.cs" />
     <Compile Include="Spinners\Templates\FanTemplate.cs" />
     <Compile Include="Spinners\ISpinnerTemplate.cs" />
     <Compile Include="Spinners\Templates\SequenceTemplate.cs" />

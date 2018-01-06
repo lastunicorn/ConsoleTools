@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TabularDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Prompter", "ConsoleTools.Demo.Prompter\ConsoleTools.Demo.Prompter.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Spinners", "ConsoleTools.Demo.ProgressSpinner\ConsoleTools.Demo.Spinners.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.InputControls", "ConsoleTools.Demo.InputControls\ConsoleTools.Demo.InputControls.csproj", "{61AA97AF-A87A-4EB2-AF78-CB4067C80704}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.WriteText", "ConsoleTools.Demo.WriteText\ConsoleTools.Demo.WriteText.csproj", "{8DD165BA-78C3-48A0-BF61-9673458A260C}"
@@ -28,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.SelectableMenu", "ConsoleTools.Demo.SelectableMenu\ConsoleTools.Demo.SelectableMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBar", "ConsoleTools.Demo.ProgressBar\ConsoleTools.Demo.ProgressBar.csproj", "{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Spinners", "ConsoleTools.Demo.Spinners\ConsoleTools.Demo.Spinners.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,6 @@ Global
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61AA97AF-A87A-4EB2-AF78-CB4067C80704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61AA97AF-A87A-4EB2-AF78-CB4067C80704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61AA97AF-A87A-4EB2-AF78-CB4067C80704}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +83,10 @@ Global
 		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

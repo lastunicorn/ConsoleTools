@@ -23,24 +23,34 @@ namespace DustInTheWind.ConsoleTools.Spinners
     /// <summary>
     /// Displays a progress-like visual bar that moves continuously.
     /// It can be used for background jobs for which the remaining work cannot be predicted.
-    /// It supports templates that control the aspect of the spinner (the displayed text for each frame).
+    /// It supports templates that control the aspect of the spinner (the displayed characters for each frame).
     /// </summary>
     /// <remarks>
     /// It does not support changing colors while spinning.
     /// </remarks>
-    public class ProgressSpinner : IDisposable
+    public class Spinner : IDisposable
     {
         private readonly ISpinnerTemplate template;
         private bool isDisposed;
         private readonly Timer timer;
         private readonly Label label = new Label();
 
+        /// <summary>
+        /// Gets or sets the text label displayed in front of the spinner.
+        /// Default value: "Please wait"
+        /// </summary>
         public string Text
         {
             get { return label.Text; }
             set { label.Text = value; }
         }
-        
+
+        /// <summary>
+        /// Gets or sets a velue that specifies if the text label should be displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
+        public bool ShowLabel { get; set; } = true;
+
         /// <summary>
         /// Gets or sets the time interval of the frames.
         /// It can speed up or slow down the animation.
@@ -51,7 +61,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
             set { timer.Interval = value; }
         }
 
-        public ProgressSpinner(ISpinnerTemplate template)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Spinner"/> class with
+        /// the template that controls the visual representation.
+        /// </summary>
+        /// <param name="template">The <see cref="ISpinnerTemplate"/> instance that controls the visual representation of the spinner.</param>
+        public Spinner(ISpinnerTemplate template)
         {
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;
@@ -78,14 +93,15 @@ namespace DustInTheWind.ConsoleTools.Spinners
             template.Reset();
             Console.CursorVisible = false;
 
-            label.Display();
+            if (ShowLabel)
+                label.Display();
 
             Turn();
             timer.Start();
         }
 
         /// <summary>
-        /// Stops the animation of the spinner and erases it from the screen by writting sapces over it.
+        /// Stops the animation of the spinner and erases it from the screen by writting spaces over it.
         /// </summary>
         public void Stop()
         {
@@ -120,6 +136,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             Console.SetCursorPosition(left, top);
         }
 
+        /// <summary>
+        /// Releases all resources used by the current instance.
+        /// (the internal timer used to control the animation.)
+        /// </summary>
         public void Dispose()
         {
             if (isDisposed)

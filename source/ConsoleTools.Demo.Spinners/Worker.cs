@@ -28,12 +28,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
 
         public void Run()
         {
-            using (ProgressSpinner progressSpinner = new ProgressSpinner(SpinnerTemplate))
+            using (Spinner spinner = new Spinner(SpinnerTemplate))
             {
-                progressSpinner.StepMiliseconds = SpinnerStepMilliseconds;
-                progressSpinner.Text = "Doing some work";
+                spinner.StepMiliseconds = SpinnerStepMilliseconds;
+                spinner.Text = "Doing some work";
 
-                progressSpinner.Start();
+                spinner.Start();
 
                 try
                 {
@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 }
                 finally
                 {
-                    progressSpinner.Stop();
+                    spinner.Stop();
                     CustomConsole.WriteLineSuccess("[Done]");
                     CustomConsole.WriteLine();
                     CustomConsole.WriteLine();

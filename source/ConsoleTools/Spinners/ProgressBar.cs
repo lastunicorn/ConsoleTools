@@ -111,9 +111,15 @@ namespace DustInTheWind.ConsoleTools.Spinners
                 this.value = value;
 
                 if (isDisplayed)
-                    RefreshDisplayedValue();
+                    Refresh();
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the underlying value should be displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
+        public bool ShowValue { get; set; } = true;
 
         /// <summary>
         /// From the start, for the value will be alocated enough space to write all the value in
@@ -196,16 +202,46 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             valueMaxLength = Math.Max(MinValue.ToString().Length, MaxValue.ToString().Length);
             unitOfMeasurementMaxLength = string.IsNullOrEmpty(UnitOfMeasurement) ? 0 : UnitOfMeasurement.Length;
-            RefreshDisplayedValue();
+            Refresh();
         }
 
-        private void RefreshDisplayedValue()
+        private void Refresh()
         {
             Console.SetCursorPosition(valueCursorLeft, valueCursonTop);
 
             int calculatedValue = CalculateValue();
-            int calculatedLength = CalculateBarLength(calculatedValue);
 
+            int calculatedLength = CalculateBarLength(calculatedValue);
+            string progressBarAsString = new string(BarChar, calculatedLength).PadRight(Length, BarBackground);
+
+            switch (ValuePosition)
+            {
+                default:
+                    if (ShowValue)
+                    {
+                        string valueAsString = ValueToString(calculatedValue);
+                        CustomConsole.Write(valueAsString);
+                    }
+                    CustomConsole.Write(" [");
+                    CustomConsole.Write(progressBarAsString);
+                    CustomConsole.Write("]");
+                    break;
+
+                case ValuePosition.Right:
+                    CustomConsole.WriteLine("[");
+                    CustomConsole.Write(progressBarAsString);
+                    CustomConsole.Write("] ");
+                    if (ShowValue)
+                    {
+                        string valueAsString = ValueToString(calculatedValue);
+                        CustomConsole.Write(valueAsString);
+                    }
+                    break;
+            }
+        }
+
+        private string ValueToString(int calculatedValue)
+        {
             string valueAsString = calculatedValue.ToString();
 
             if (UnitOfMeasurement != null)
@@ -222,24 +258,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
                     break;
             }
 
-            string progressBarAsString = new string(BarChar, calculatedLength).PadRight(Length, BarBackground);
-
-            switch (ValuePosition)
-            {
-                default:
-                    CustomConsole.Write(valueAsString);
-                    CustomConsole.Write(" [");
-                    CustomConsole.Write(progressBarAsString);
-                    CustomConsole.Write("]");
-                    break;
-
-                case ValuePosition.Right:
-                    CustomConsole.WriteLine("[");
-                    CustomConsole.Write(progressBarAsString);
-                    CustomConsole.Write("] ");
-                    CustomConsole.Write(valueAsString);
-                    break;
-            }
+            return valueAsString;
         }
 
         private int CalculateValue()

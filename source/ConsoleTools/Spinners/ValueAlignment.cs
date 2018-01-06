@@ -16,10 +16,24 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
+    /// <summary>
+    /// In the<see cref="ProgressBar"/>, it specifies the alignmet of the value inside tha space allocated for that value.
+    /// </summary>
     public enum ValueAlignment
     {
+        /// <summary>
+        /// No alignment specified.
+        /// </summary>
         None,
+
+        /// <summary>
+        /// Aligned to the left.
+        /// </summary>
         Left,
+
+        /// <summary>
+        /// Aligned to the right.
+        /// </summary>
         Right
     }
 }

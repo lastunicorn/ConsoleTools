@@ -16,9 +16,19 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
+    /// <summary>
+    /// In the<see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
+    /// </summary>
     public enum ValuePosition
     {
+        /// <summary>
+        /// The value is displayed at the left, before the progress.
+        /// </summary>
         Left,
+        
+        /// <summary>
+        /// The value is displayed at the right, after the progress.
+        /// </summary>
         Right
     }
 }

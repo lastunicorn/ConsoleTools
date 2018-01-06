@@ -38,9 +38,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
             CustomConsole.Write("Your lucky numbers: ");
             CustomConsole.WriteLineEmphasies(string.Join(", ", luckyNumbers));
-
-            YesNoControl yesNoControl = new YesNoControl("Do you want to continue?");
-            YesNoAnswer answer = yesNoControl.ReadAnswer();
         }
     }
 }

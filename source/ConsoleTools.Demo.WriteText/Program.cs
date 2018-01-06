@@ -24,6 +24,8 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
         {
             DisplayApplicationHeader();
 
+            Console.SetBufferSize(80, 1024);
+
             try
             {
                 CustomConsole.WriteLine("Normal: This is a normal line of text.");

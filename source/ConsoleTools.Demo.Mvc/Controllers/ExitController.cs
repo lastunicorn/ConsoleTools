@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 
         private void AskToExit()
         {
-            YesNoControl yesNoControl = new YesNoControl("Are you sure?")
+            YesNoControl yesNoControl = new YesNoControl("Are you sure you want to exit?")
             {
                 DefaultOption = YesNoAnswer.Yes
             };

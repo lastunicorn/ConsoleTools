@@ -99,17 +99,28 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
         }
 
+        /// <summary>
+        /// Returns the number of spaces representing the left padding.
+        /// </summary>
         protected override int CalculatePaddingLeft()
         {
             return ParentRow?.ParentTable?.PaddingLeft ?? 0;
         }
 
+        /// <summary>
+        /// Returns the number of spaces representing the right padding.
+        /// </summary>
         protected override int CalculatePaddingRight()
         {
-
             return ParentRow?.ParentTable?.PaddingRight ?? 0;
         }
 
+        /// <summary>
+        /// Returns the calculated horizontal alignment for the content of the current data cell.
+        /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current data cell,
+        /// and the values specified by the parent row, parent column and parent table.
+        /// It never returns <see cref="HorizontalAlignment.Default"/>.
+        /// </summary>
         protected override HorizontalAlignment CalculateHorizontalAlignment()
         {
             HorizontalAlignment alignment = HorizontalAlignment;
@@ -157,12 +168,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return table?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
+        /// <summary>
+        /// Converts a <see cref="string"/> into a <see cref="DataCell"/> instance.
+        /// </summary>
+        /// <param name="text">The text to be converted.</param>
         public static implicit operator DataCell(string text)
         {
             MultilineText multilineText = new MultilineText(text);
             return new DataCell(multilineText);
         }
 
+        /// <summary>
+        /// Converts a <see cref="DataCell"/> into its <see cref="string"/> representation.
+        /// </summary>
+        /// <param name="cell">The <see cref="DataCell"/> to be converted.</param>
         public static implicit operator string(DataCell cell)
         {
             return cell.Content?.ToString() ?? string.Empty;

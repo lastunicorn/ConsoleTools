@@ -18,6 +18,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.CommandProviders
 {
+    /// <summary>
+    /// Creates <see cref="CliCommand"/> objects.
+    /// </summary>
     public interface ICommandProvider
     {
         /// <summary>

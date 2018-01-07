@@ -16,8 +16,16 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that displays in turn one half of the one character space:
+    /// first the bottom half, then the left half, top half and right half.
+    /// It has 4 frames.
+    /// </summary>
     public class HalfBlockRotateTemplate : SequenceTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HalfBlockRotateTemplate"/> class.
+        /// </summary>
         public HalfBlockRotateTemplate()
             : base(new[] { "▄", "▌", "▀", "▐" })
         {

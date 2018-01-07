@@ -91,7 +91,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
                     Command = new LoadGameCommand(gameBoard)
                 },
 
-                new SpaceMenuItem(),
+                new SeparatorMenuItem(),
                 
                 new LabelMenuItem
                 {
@@ -104,7 +104,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
                     Command = new CreditsCommand()
                 },
 
-                new SpaceMenuItem(),
+                new SeparatorMenuItem(),
 
                 new LabelMenuItem
                 {

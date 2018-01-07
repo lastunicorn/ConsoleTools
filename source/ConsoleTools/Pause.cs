@@ -33,7 +33,16 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public bool HideCursor { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number of empty lines displayed before the pause text.
+        /// Default value: 1
+        /// </summary>
         public int MarginTop { get; set; } = 1;
+
+        /// <summary>
+        /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
+        /// Default value: 1
+        /// </summary>
         public int MarginBottom { get; set; } = 1;
 
         /// <summary>

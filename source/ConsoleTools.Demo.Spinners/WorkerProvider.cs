@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new ArrowTemplate(),
+                            SpinnerTemplate = new BoomerangTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };

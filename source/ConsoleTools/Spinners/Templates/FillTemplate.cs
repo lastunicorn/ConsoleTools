@@ -44,6 +44,9 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FillTemplate"/> class.
+        /// </summary>
         public FillTemplate()
         {
             fillChar = '.';

@@ -16,9 +16,16 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
-    public class ArrowTemplate : SequenceTemplate
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that displays a "boomerang" spinning.
+    /// It has 4 frames.
+    /// </summary>
+    public class BoomerangTemplate : SequenceTemplate
     {
-        public ArrowTemplate()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BoomerangTemplate"/> class.
+        /// </summary>
+        public BoomerangTemplate()
             : base(new[] { "v", "<", "^", ">" })
         {
         }

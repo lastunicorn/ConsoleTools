@@ -16,8 +16,15 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that displays a "fan" spinning.
+    /// It has 2 frames.
+    /// </summary>
     public class FanTemplate : SequenceTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FanTemplate"/> class.
+        /// </summary>
         public FanTemplate()
             : base(new[] { "+", "x" })
         {

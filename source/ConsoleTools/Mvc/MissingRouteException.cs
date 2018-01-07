@@ -32,25 +32,64 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// Gets the command for which no route exists.
         /// </summary>
         public CliCommand Command { get; }
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MissingRouteException"/> class with
+        /// the command for which no route was found.
+        /// </summary>
+        /// <param name="command">The command for which no route was found.</param>
         public MissingRouteException(CliCommand command)
             : base(string.Format(DefaultMessage, command.Name))
         {
             Command = command;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MissingRouteException"/> class with
+        /// the command for which no route was found and
+        /// a message that describes the error.
+        /// </summary>
+        /// <param name="command">The command for which no route was found.</param>
+        /// <param name="message">A message that describes the error.</param>
         public MissingRouteException(CliCommand command, string message)
             : base(message)
         {
             Command = command;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MissingRouteException"/> class with
+        /// the command for which no route was found and
+        /// a reference to the inner exception that is the cause of this exception.
+        /// </summary>
+        /// <param name="command">The command for which no route was found.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception.</param>
+        public MissingRouteException(CliCommand command, Exception innerException)
+            : base(DefaultMessage, innerException)
+        {
+            Command = command;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MissingRouteException"/> class with
+        /// the command for which no route was found,
+        /// a message that describes the error and
+        /// a reference to the inner exception that is the cause of this exception.
+        /// </summary>
+        /// <param name="command">The command for which no route was found.</param>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception.</param>
         public MissingRouteException(CliCommand command, string message, Exception innerException)
             : base(message, innerException)
         {
             Command = command;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MissingRouteException"/> class with serialized data.
+        /// </summary>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        /// <param name="context">The contextual information about the source or destination.</param>
         protected MissingRouteException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

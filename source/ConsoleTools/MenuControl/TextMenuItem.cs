@@ -18,24 +18,63 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
+    /// <summary>
+    /// Represent a menu item displayed by the <see cref="TextMenu"/>.
+    /// </summary>
     public class TextMenuItem
     {
+        /// <summary>
+        /// Gets or sets the id of the menu item.
+        /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text displayed by the current instance.
+        /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the current instance is displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
         public bool IsVisible { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the current instance can be selected.
+        /// This value is ignored if the <see cref="Command"/> property is set.
+        /// Default value: <c>true</c>
+        /// </summary>
         public bool Enabled { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the command to be executed when the current instance is selected.
+        /// </summary>
         public ICommand Command { get; set; }
 
-        public bool IsSelectable => (Command != null && Command.IsActive) || (Command == null && Enabled);
+        /// <summary>
+        /// Gets a value that specifies if the current instance can be selected.
+        /// </summary>
+        public bool CanBeSelected()
+        {
+            return (Command == null && Enabled) || (Command != null && Command.IsActive);
+        }
 
+
+        /// <summary>
+        /// Displays the current instance to the Console starting from the current location of the cursor.
+        /// </summary>
         public void Display()
         {
-            if (IsSelectable)
+            if (CanBeSelected())
                 CustomConsole.Write($"{Id} - {Text}");
             else
                 CustomConsole.Write(ConsoleColor.DarkGray, $"{Id} - {Text}");
         }
 
+        /// <summary>
+        /// Selects the current instance and executes the associated <see cref="Command"/>.
+        /// </summary>
+        /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
         public bool Select()
         {
             Command?.Execute();

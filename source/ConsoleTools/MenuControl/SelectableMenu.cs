@@ -22,13 +22,7 @@ using System.Threading;
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
     /// <summary>
-    /// Features:
-    ///     - Displays the menu items vertically in a list.
-    ///     - Selects a menu item using up/down keys.
-    ///     - Selects a menu item using a shortcut key.
-    ///     - Horizontaly align the menu items inside the menu (Left, Center, Right).
-    ///     - Enable/Disable menu items.
-    ///     - Display/Hide menu items.
+    /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
     public class SelectableMenu
     {

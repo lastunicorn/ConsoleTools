@@ -22,15 +22,27 @@ using DustInTheWind.ConsoleTools.CommandProviders;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {
+    /// <summary>
+    /// Keeps a routing table that matches commands to controllers that can handle that command.
+    /// </summary>
     public class Router
     {
         private readonly ConsoleApplication consoleApplication;
         private readonly ICommandProvider commandProvider;
 
+        /// <summary>
+        /// Gets the list of routes that matches commands to controllers that can handle that command.
+        /// </summary>
         public List<Route> Routes { get; } = new List<Route>();
 
+        /// <summary>
+        /// Gets or sets the service provider used to resolve dependencies when instantiating controllers.
+        /// </summary>
         public IServiceProvider ServiceProvider { get; set; }
 
+        /// <summary>
+        /// Initializesa new instance of the <see cref="Router"/> class.
+        /// </summary>
         public Router(ConsoleApplication consoleApplication, ICommandProvider commandProvider)
         {
             if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
@@ -40,6 +52,11 @@ namespace DustInTheWind.ConsoleTools.Mvc
             this.commandProvider = commandProvider;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="IController"/> instance for the specified <see cref="CliCommand"/>.
+        /// </summary>
+        /// <param name="command">The <see cref="CliCommand"/> instance containing all the information about the command that has to be handled.</param>
+        /// <returns>A new instance of the <see cref="IController"/> that can handle the specified command.</returns>
         public IController CreateController(CliCommand command)
         {
             Route route = Routes.FirstOrDefault(x => x.CommandName == command.Name);

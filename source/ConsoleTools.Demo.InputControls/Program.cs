@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                     Text = "List Input",
                     Command = new ListInputCommand()
                 },
-                new SpaceMenuItem(),
+                new SeparatorMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 3,
@@ -84,14 +84,14 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                     Text = "List Output",
                     Command = new ListOutputCommand()
                 },
-                new SpaceMenuItem(),
+                new SeparatorMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 5,
                     Text = "Yes/No Question",
                     Command = new YesNoCommand()
                 },
-                new SpaceMenuItem(),
+                new SeparatorMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 0,

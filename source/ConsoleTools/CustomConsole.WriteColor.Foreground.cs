@@ -21,10 +21,10 @@ namespace DustInTheWind.ConsoleTools
     public partial class CustomConsole
     {
         /// <summary>
-        /// Writes the specified text to the standard output stream using the specified foreground color.
+        /// Writes the specified text to the Console using the specified foreground color.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
-        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="text">The text to be written to the Console.</param>
         public static void Write(ConsoleColor color, string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Writes the text representation of the specified array of objects to the standard output stream
+        /// Writes the text representation of the specified array of objects to the Console
         /// using the specified format information and foreground color.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
@@ -49,7 +49,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Writes the text representation of the specified object to the standard output stream.
+        /// Writes the text representation of the specified object to the Console.
         /// An additional parameter can be specified for the foreground color used to write the text.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        ///  Writes the specified string value, followed by the current line terminator, to the standard output stream.
+        ///  Writes the specified string value, followed by the current line terminator, to the Console.
         /// An additional parameter can be specified for the foreground color used to write the text.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
@@ -78,7 +78,7 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Writes the text representation of the specified array of objects,
-        /// followed by the current line terminator, to the standard output stream
+        /// followed by the current line terminator, to the Console
         /// using the specified format information and foreground color.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Writes the text representation of the specified object, followed by the current line terminator, to the standard output stream.
+        /// Writes the text representation of the specified object, followed by the current line terminator, to the Console.
         /// An additional parameter can be specified for the foreground color used to write the text.
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>

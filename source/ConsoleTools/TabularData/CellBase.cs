@@ -140,8 +140,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return new Size(cellWidth, cellHeight);
         }
 
+        /// <summary>
+        /// Returns the number of spaces representing the left padding.
+        /// </summary>
         protected abstract int CalculatePaddingLeft();
 
+        /// <summary>
+        /// Returns the number of spaces representing the right padding.
+        /// </summary>
         protected abstract int CalculatePaddingRight();
 
         /// <summary>
@@ -151,7 +157,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             return Content?.ToString() ?? string.Empty;
         }
-
+        
+        /// <summary>
+        /// Returns a list of text lines that represent the string representation of the cell.
+        /// Every line from the list has the same length, and the length is equal or greater than the specified minWidth value.
+        /// The number of lines in the list is equal or greater than the specified minHeight value.
+        /// </summary>
+        /// <param name="minWidth">The minimum width (characters) into which the cell must be rendered.</param>
+        /// <param name="minHeight">The minimum height (lines) into which the cell must be rendered.</param>
+        /// <returns></returns>
         public List<string> Render(int minWidth, int minHeight)
         {
             List<string> lines = new List<string>();
@@ -222,6 +236,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return leftPadding + innerContent + rightPadding;
         }
 
+        /// <summary>
+        /// Returns the calculated horizontal alignment for the content of the current instance.
+        /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current instance,
+        /// and the values specified by the parents.
+        /// It should never return <see cref="HorizontalAlignment.Default"/>.
+        /// </summary>
         protected abstract HorizontalAlignment CalculateHorizontalAlignment();
     }
 }

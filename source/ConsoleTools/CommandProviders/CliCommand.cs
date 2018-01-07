@@ -68,6 +68,9 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// </summary>
         public static CliCommand Empty { get; } = new CliCommand(string.Empty, new UserCommandParameter[0]);
 
+        /// <summary>
+        /// Gets a value that specify if the current command has no name and no parameters.
+        /// </summary>
         public bool IsEmpty => string.IsNullOrEmpty(Name) && Parameters.Count == 0;
 
         /// <summary>

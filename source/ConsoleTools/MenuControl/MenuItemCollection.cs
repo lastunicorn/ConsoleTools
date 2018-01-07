@@ -20,10 +20,17 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
+    /// <summary>
+    /// A collection of <see cref="IMenuItem"/> instances.
+    /// It also keeps track of a current item.
+    /// </summary>
     public class MenuItemCollection : List<IMenuItem>
     {
         private int? currentIndex;
 
+        /// <summary>
+        /// Gets the index of the current item.
+        /// </summary>
         public int? CurrentIndex
         {
             get { return currentIndex; }
@@ -40,10 +47,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
+        /// <summary>
+        /// Gets the current menu item.
+        /// </summary>
         public IMenuItem CurrentItem => currentIndex.HasValue
             ? this[currentIndex.Value]
             : null;
 
+        /// <summary>
+        /// Gets the index of the current item, ignoring the hidden ones.
+        /// </summary>
         public int? CurrentVisibleIndex
         {
             get
@@ -183,16 +196,25 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return index;
         }
 
+        /// <summary>
+        /// Raises the <see cref="CurrentIndexChanged"/> event.
+        /// </summary>
         protected virtual void OnCurrentIndexChanged(CurrentIndexChangedEventArgs e)
         {
             CurrentIndexChanged?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Unselects the currently selected item.
+        /// </summary>
         public void Reset()
         {
             CurrentIndex = null;
         }
 
+        /// <summary>
+        /// Unselects the currently selected item.
+        /// </summary>
         public void SelectNone()
         {
             CurrentIndex = null;

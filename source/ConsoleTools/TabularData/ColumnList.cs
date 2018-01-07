@@ -105,6 +105,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the <see cref="Column"/>s containined by the current instance.
+        /// </summary>
         public IEnumerator<Column> GetEnumerator()
         {
             return columns.GetEnumerator();

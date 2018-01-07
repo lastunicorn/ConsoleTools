@@ -21,13 +21,13 @@ namespace DustInTheWind.ConsoleTools
     public static partial class CustomConsole
     {
         /// <summary>
-        /// Writes the specified text to the standard output stream.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// Writes the specified text to the Console.
+        /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
         /// </summary>
         /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         /// <param name="foregroundColor">The foreground color used to write the text.</param>
         /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="text">The text to be written to the Console.</param>
         public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
@@ -51,13 +51,13 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Writes the specified text to the standard output stream, followed by the current line terminator.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// Writes the specified text to the Console, followed by the current line terminator.
+        /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
         /// </summary>
         /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         /// <param name="foregroundColor">The foreground color used to write the text.</param>
         /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="text">The text to be written to the Console.</param>
         public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);

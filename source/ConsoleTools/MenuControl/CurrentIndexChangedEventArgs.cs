@@ -18,11 +18,26 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
+    /// <summary>
+    /// Contains the data for the <see cref="MenuItemCollection.CurrentIndexChanged"/> event.
+    /// </summary>
     public class CurrentIndexChangedEventArgs : EventArgs
     {
+        /// <summary>
+        /// The previously selected index.
+        /// </summary>
         public int? PreviousIndex { get; }
+
+        /// <summary>
+        /// The newly selected index.
+        /// </summary>
         public int? CurrentIndex { get; }
 
+        /// <summary>
+        /// Initializes a new instance for the <see cref="CurrentIndexChangedEventArgs"/> class.
+        /// </summary>
+        /// <param name="previousIndex">The previously selected index.</param>
+        /// <param name="currentIndex">The newly selected index.</param>
         public CurrentIndexChangedEventArgs(int? previousIndex, int? currentIndex)
         {
             PreviousIndex = previousIndex;

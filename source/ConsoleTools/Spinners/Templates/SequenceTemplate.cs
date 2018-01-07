@@ -18,22 +18,38 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that is configured with a list of strings,
+    /// representing the frames of the <see cref="Spinner"/>.
+    /// Can be used as base class for other templates.
+    /// </summary>
     public class SequenceTemplate : ISpinnerTemplate
     {
         private int counter;
         private readonly string[] sequence;
 
-        protected SequenceTemplate(string[] sequence)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SequenceTemplate"/> class with
+        /// the list of frames.
+        /// </summary>
+        /// <param name="sequence">The list of frames.</param>
+        public SequenceTemplate(string[] sequence)
         {
             if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             this.sequence = sequence;
         }
 
+        /// <summary>
+        /// Resets the template. It will start from the first frame.
+        /// </summary>
         public void Reset()
         {
             counter = -1;
         }
 
+        /// <summary>
+        /// Returns the current frame.
+        /// </summary>
         public string GetCurrent()
         {
             if (counter == -1)
@@ -42,6 +58,9 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             return sequence[counter];
         }
 
+        /// <summary>
+        /// Moves to the next frame and returns it.
+        /// </summary>
         public string GetNext()
         {
             counter++;

@@ -155,7 +155,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                     continue;
                 }
 
-                if (!selectedMenuItem.IsSelectable)
+                if (!selectedMenuItem.CanBeSelected())
                 {
                     CustomConsole.WriteLineWarning(OptionDisabledText);
                     Console.WriteLine();

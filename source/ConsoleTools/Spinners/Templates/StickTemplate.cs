@@ -16,8 +16,15 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that displays a rotating "stick".
+    /// It has 4 frames.
+    /// </summary>
     public class StickTemplate : SequenceTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StickTemplate"/> class.
+        /// </summary>
         public StickTemplate()
             : base(new[] { "/", "-", "\\", "|" })
         {

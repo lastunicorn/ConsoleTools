@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Guard
                 throw new ApplicationException(string.Format("Another instance with the name '{0}' already exists.", name));
         }
 
-        private bool disposed;
+        private bool isDisposed;
 
         /// <summary>
         /// Releases all resources used by the current instance.
@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Guard
         private void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
-            if (!disposed)
+            if (!isDisposed)
             {
                 // If disposing equals true, dispose all managed resources.
                 if (disposing)
@@ -94,10 +94,13 @@ namespace DustInTheWind.ConsoleTools.Guard
                 // Call the appropriate methods to clean up unmanaged resources here.
                 // ...
 
-                disposed = true;
+                isDisposed = true;
             }
         }
 
+        /// <summary>
+        /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+        /// </summary>
         ~MachineLevelGuardian()
         {
             Dispose(false);

@@ -21,6 +21,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// </summary>
     public class EmptyCommand : ICommand
     {
+        /// <summary>
+        /// Gets a value that specifies if the current instance can be executed.
+        /// Default value: true
+        /// </summary>
         public bool IsActive { get; set; }
 
         /// <summary>

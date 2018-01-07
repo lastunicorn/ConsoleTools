@@ -16,8 +16,16 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that "splits" the space of one character
+    /// into two vertical halves that blink alternatively.
+    /// It has 2 frames.
+    /// </summary>
     public class HalfBlockBlinkTemplate : SequenceTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HalfBlockBlinkTemplate"/> class.
+        /// </summary>
         public HalfBlockBlinkTemplate()
             : base(new[] { "▄", "▀" })
         {

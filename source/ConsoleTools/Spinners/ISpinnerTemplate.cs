@@ -16,10 +16,25 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> class.
+    /// It provides each frame of the moving spinner.
+    /// </summary>
     public interface ISpinnerTemplate
     {
+        /// <summary>
+        /// Resets the template. It will start from the first frame.
+        /// </summary>
         void Reset();
+
+        /// <summary>
+        /// Moves to the next frame and returns it.
+        /// </summary>
         string GetNext();
+
+        /// <summary>
+        /// Returns the current frame.
+        /// </summary>
         string GetCurrent();
     }
 }

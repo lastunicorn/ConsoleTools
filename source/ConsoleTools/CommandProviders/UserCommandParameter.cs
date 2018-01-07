@@ -31,6 +31,9 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Returns the string representation of the current <see cref="UserCommandParameter"/> instance.
+        /// </summary>
         public override string ToString()
         {
             return Name + "=" + Value;

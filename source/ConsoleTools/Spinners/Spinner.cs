@@ -103,6 +103,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             Turn();
             timer.Start();
+
+            isRunning = true;
         }
 
         /// <summary>
@@ -120,6 +122,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
             EraseAll();
 
             Console.CursorVisible = true;
+
+            isRunning = false;
         }
 
         private void EraseAll()
@@ -150,29 +154,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (isDisposed)
                 return;
 
-            if (disposing)
-            {
-                Stop();
-                timer.Dispose();
-            }
+            Stop();
+            timer.Dispose();
 
             isDisposed = true;
         }
 
-        ~Spinner()
-        {
-            Dispose(false);
-        }
-
+        /// <summary>
+        /// Executes the specified action while displaying the default spinner.
+        /// </summary>
+        /// <param name="action">The action to be executed.</param>
         public static void Run(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -180,6 +174,11 @@ namespace DustInTheWind.ConsoleTools.Spinners
             RunInternal(new StickTemplate(), action);
         }
 
+        /// <summary>
+        /// Executes the specified action while displaying a spinner with the specified template.
+        /// </summary>
+        /// <param name="template">The spinner template to be used.</param>
+        /// <param name="action">The action to be executed.</param>
         public static void Run(ISpinnerTemplate template, Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -207,6 +206,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             }
         }
 
+        /// <summary>
+        /// Executes the specified function while displaying the default spinner.
+        /// </summary>
+        /// <param name="action">The function to be executed.</param>
         public static T Run<T>(Func<T> action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -214,6 +217,11 @@ namespace DustInTheWind.ConsoleTools.Spinners
             return RunInternal(new StickTemplate(), action);
         }
 
+        /// <summary>
+        /// Executes the specified function while displaying a spinner with the specified template.
+        /// </summary>
+        /// <param name="template">The spinner template to be used.</param>
+        /// <param name="action">The function to be executed.</param>
         public static T Run<T>(ISpinnerTemplate template, Func<T> action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));

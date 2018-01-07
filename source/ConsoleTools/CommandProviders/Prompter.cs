@@ -64,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         {
             NewCommand?.Invoke(null, e);
         }
-        
+
         /// <summary>
         /// Continously read from the console new commands.
         /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
@@ -123,6 +123,9 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             return CliCommand.Parse(commandText);
         }
 
+        /// <summary>
+        /// Displays the whole prompter (margins, text and glyph) to the console.
+        /// </summary>
         protected virtual void DisplayWholePrompter()
         {
             // Move the cursor at the beginning of a new line if necessary.

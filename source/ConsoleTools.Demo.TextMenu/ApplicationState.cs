@@ -16,11 +16,10 @@
 
 using System;
 using System.ComponentModel;
-using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
-    internal class ApplicationState : IExitController
+    internal class ApplicationState
     {
         public bool IsExitRequested { get; private set; }
 

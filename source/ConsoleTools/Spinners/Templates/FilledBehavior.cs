@@ -16,10 +16,26 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// Specifies what the <see cref="FillTemplate"/> should do when is full.
+    /// </summary>
     public enum FilledBehavior
     {
+        /// <summary>
+        /// Specifies that the <see cref="FillTemplate"/> should empty itself when full.
+        /// </summary>
         SuddenEmpty,
+
+        /// <summary>
+        /// Specifies that the <see cref="FillTemplate"/> should decreasing its load
+        /// starting with the last character displayed.
+        /// </summary>
         EmptyFromEnd,
+
+        /// <summary>
+        /// Specifies that the <see cref="FillTemplate"/> should decreasing its load
+        /// starting with the first character displayed.
+        /// </summary>
         EmptyFromStart
     }
 }

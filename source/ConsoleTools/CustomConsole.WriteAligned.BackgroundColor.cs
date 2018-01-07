@@ -21,18 +21,26 @@ namespace DustInTheWind.ConsoleTools
     public static partial class CustomConsole
     {
         /// <summary>
-        /// Writes the specified text to the standard output stream.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// Writes the specified text to the Console.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
         /// </summary>
         /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="text">The text to be written to the Console.</param>
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
             Write(backgroundColor, text);
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified array of objects to the Console using the specified format information.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+        /// <param name="backgroundColor">The background color used to write the text.</param>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="arg">An array of objects to write using format.</param>
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string format, params object[] arg)
         {
             string text = string.Format(format, arg);
@@ -41,6 +49,13 @@ namespace DustInTheWind.ConsoleTools
             Write(backgroundColor, text);
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified object to the Console.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+        /// <param name="backgroundColor">The background color used to write the text.</param>
+        /// <param name="o">The value to write.</param>
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, object o)
         {
             string text = o?.ToString() ?? string.Empty;
@@ -50,18 +65,27 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Writes the specified text to the standard output stream, followed by the current line terminator.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
+        /// Writes the specified text to the Console, followed by the current line terminator.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
         /// </summary>
         /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
         /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the standard output stream.</param>
+        /// <param name="text">The text to be written to the Console.</param>
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
             WriteLine(backgroundColor, text);
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified array of objects, followed by the current line terminator,
+        /// to the Console, using the specified format information.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+        /// <param name="backgroundColor">The background color used to write the text.</param>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="arg">An array of objects to write using format.</param>
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string format, params object[] arg)
         {
             string text = string.Format(format, arg);
@@ -70,6 +94,13 @@ namespace DustInTheWind.ConsoleTools
             WriteLine(backgroundColor, text);
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified object, followed by the current line terminator, to the Console.
+        /// Additional parameters can be specified for the background color and the horizontal alignment in the Console's buffer.
+        /// </summary>
+        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+        /// <param name="backgroundColor">The background color used to write the text.</param>
+        /// <param name="o">The value to write.</param>
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, object o)
         {
             string text = o?.ToString() ?? string.Empty;

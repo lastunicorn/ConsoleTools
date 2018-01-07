@@ -16,8 +16,15 @@
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that displays a "buble" that grous and shrinks.
+    /// It has 4 frames.
+    /// </summary>
     public class BubbleTemplate : SequenceTemplate
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BubbleTemplate"/> class.
+        /// </summary>
         public BubbleTemplate()
             : base(new[] { ".", "o", "0", "o" })
         {

@@ -56,8 +56,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         {
             ListInput<string> beveragesInput = new ListInput<string>("What are your prefered beverages?");
 
-            // beveragesInput.Bullet = "#";
-            // beveragesInput.LabelForegroundColor = ConsoleColor.Cyan;
+            beveragesInput.Bullet = "#";
+            beveragesInput.LabelForegroundColor = ConsoleColor.Cyan;
             // etc...
 
             return beveragesInput.Read();

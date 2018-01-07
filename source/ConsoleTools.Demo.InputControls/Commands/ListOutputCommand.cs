@@ -26,10 +26,27 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            ListOutput listOutput = new ListOutput();
+            string[] colors = Enum.GetNames(typeof(ConsoleColor));
 
-            string[] colorNames = Enum.GetNames(typeof(ConsoleColor));
-            listOutput.Write("Colors:", colorNames);
+            DisplayColorsQuick(colors);
+            // or ...
+            // DisplayColors(colors);
+        }
+
+        private static void DisplayColorsQuick(string[] colors)
+        {
+            ListOutput.QuickWrite("Colors:", colors);
+        }
+
+        private static void DisplayColors(string[] colors)
+        {
+            ListOutput colorsOutput = new ListOutput();
+
+            colorsOutput.Bullet = "#";
+            colorsOutput.LabelForegroundColor = ConsoleColor.Cyan;
+            // etc...
+
+            colorsOutput.Write("Colors:", colors);
         }
     }
 }

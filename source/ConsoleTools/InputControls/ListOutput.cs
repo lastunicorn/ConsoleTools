@@ -31,12 +31,21 @@ namespace DustInTheWind.ConsoleTools.InputControls
         };
 
         /// <summary>
-        /// Gets or sets the color used to display the label.
+        /// Gets or sets the foreground color used to display the label.
         /// </summary>
-        public ConsoleColor? LabelColor
+        public ConsoleColor? LabelForegroundColor
         {
             get { return labelControl.ForegroundColor; }
             set { labelControl.ForegroundColor = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the background color used to display the label.
+        /// </summary>
+        public ConsoleColor? LabelBackgroundColor
+        {
+            get { return labelControl.BackgroundColor; }
+            set { labelControl.BackgroundColor = value; }
         }
 
         /// <summary>

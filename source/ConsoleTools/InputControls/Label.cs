@@ -39,9 +39,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the color used to write the text.
+        /// Gets or sets the foreground color used to write the text.
         /// </summary>
         public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color used to write the text.
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
         /// Displays the control in the Console.
@@ -51,10 +56,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
             if (MarginLeft > 0)
                 DisplayLeftMargin();
 
-            if (ForegroundColor.HasValue)
+            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
+                CustomConsole.Write(Text);
+            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
+                CustomConsole.WriteColor(ForegroundColor.Value, BackgroundColor.Value, Text);
+            else if (ForegroundColor.HasValue)
                 CustomConsole.WriteColor(ForegroundColor.Value, Text);
             else
-                CustomConsole.Write(Text);
+                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, Text);
 
             if (MarginRight > 0)
                 DisplayRightMargin();

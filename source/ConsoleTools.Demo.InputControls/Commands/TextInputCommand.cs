@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             TextInputControl<int> ageInputControl = new TextInputControl<int>("Age:");
             TextInputControl<DateTime> birthdayInputControl = new TextInputControl<DateTime>("Birthday:");
             TextInputControl<float> heightInputControl = new TextInputControl<float>("Height (float):");
-
+            
             string firstName = firstNameInputControl.Read();
             string lastName = lastNameInputControl.Read();
             int age = ageInputControl.Read();

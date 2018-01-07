@@ -61,7 +61,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             {
                 default:
                     if (highlighted)
-                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
                     else
                         CustomConsole.Write(calculatedText.ToString());
 
@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
                     CustomConsole.Write(new string(' ', leftEmptySpace));
 
                     if (highlighted)
-                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
                     else
                         CustomConsole.Write(calculatedText.ToString());
 
@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
                     CustomConsole.Write(new string(' ', emptySpace));
 
                     if (highlighted)
-                        CustomConsole.WriteColor(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
+                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
                     else
                         CustomConsole.Write(calculatedText.ToString());
                     break;

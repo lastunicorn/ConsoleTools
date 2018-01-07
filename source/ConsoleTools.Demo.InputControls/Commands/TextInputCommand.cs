@@ -26,23 +26,76 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
+            RunExample_Instance();
+            // or
+            //RunExample_Quick();
+
+            // Specify default value
+            //RunExample_DefaultValue();
+        }
+
+        /// <summary>
+        /// This example creates instances for each input value and sets different label colors.
+        /// Each instance reads a different type of value (string, int, DateTime, float)
+        /// </summary>
+        private static void RunExample_Instance()
+        {
+            // Create the input controls
             TextInput<string> firstNameInput = new TextInput<string>("First Name:");
+            firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
             TextInput<string> lastNameInput = new TextInput<string>("Last Name:");
+            lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
             TextInput<int> ageInput = new TextInput<int>("Age:");
+            ageInput.LabelForegroundColor = ConsoleColor.DarkGreen;
             TextInput<DateTime> birthdayInput = new TextInput<DateTime>("Birthday:");
+            birthdayInput.LabelForegroundColor = ConsoleColor.DarkGreen;
             TextInput<float> heightInput = new TextInput<float>("Height (float):");
-            
+            heightInput.LabelForegroundColor = ConsoleColor.DarkGreen;
+
+            // Read values using the input controls
             string firstName = firstNameInput.Read();
             string lastName = lastNameInput.Read();
             int age = ageInput.Read();
             DateTime birthday = birthdayInput.Read();
             float height = heightInput.Read();
 
+            // Display th read values.
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
             CustomConsole.WriteLine("You are {0} years old.", age);
             CustomConsole.WriteLine("Your birthday is {0}.", birthday);
             CustomConsole.WriteLine("Your height is {0}.", height);
+        }
+
+        /// <summary>
+        /// The QuickRead static method is used to read values from the console.
+        /// </summary>
+        private static void RunExample_Quick()
+        {
+            string firstName = TextInput<string>.QuickRead("First Name:");
+            string lastName = TextInput<string>.QuickRead("Last Name:");
+            int age = TextInput<int>.QuickRead("Age:");
+            DateTime birthday = TextInput<DateTime>.QuickRead("Birthday:");
+            float height = TextInput<float>.QuickRead("Height (float):");
+
+            // Display th read values.
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            CustomConsole.WriteLine("You are {0} years old.", age);
+            CustomConsole.WriteLine("Your birthday is {0}.", birthday);
+            CustomConsole.WriteLine("Your height is {0}.", height);
+        }
+
+        private static void RunExample_DefaultValue()
+        {
+            TextInput<int> numberInput = new TextInput<int>("Number:");
+            numberInput.AcceptDefaultValue = true;
+            numberInput.DefaultValue = 42;
+
+            int number = numberInput.Read();
+
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("You selected {0}.", number);
         }
     }
 }

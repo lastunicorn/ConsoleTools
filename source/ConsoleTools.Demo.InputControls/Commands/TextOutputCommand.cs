@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
@@ -25,11 +26,27 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
+            DisplayData();
+            // or
+            //DisplayDataQuick();
+        }
+
+        private static void DisplayData()
+        {
             TextOutput textOutput = new TextOutput();
+
+            textOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
 
             textOutput.Write("First Name:", "John");
             textOutput.Write("Last Name:", "Doe");
-            textOutput.Write("Age:", "25");
+            textOutput.Write("Age:", 25);
+        }
+
+        private void DisplayDataQuick()
+        {
+            TextOutput.QuickWrite("First Name:", "John");
+            TextOutput.QuickWrite("Last Name:", "Doe");
+            TextOutput.QuickWrite("Age:", 25);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="text">The text to be written to the standard output stream.</param>
-        public static void WriteColor(ConsoleColor color, string text)
+        public static void Write(ConsoleColor color, string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteColor(ConsoleColor color, string format, params object[] arg)
+        public static void Write(ConsoleColor color, string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="o">The value to write.</param>
-        public static void WriteColor(ConsoleColor color, object o)
+        public static void Write(ConsoleColor color, object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="text">The text to write.</param>
-        public static void WriteLineColor(ConsoleColor color, string text)
+        public static void WriteLine(ConsoleColor color, string text)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -84,7 +84,7 @@ namespace DustInTheWind.ConsoleTools
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteLineColor(ConsoleColor color, string format, params object[] arg)
+        public static void WriteLine(ConsoleColor color, string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -98,7 +98,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="color">The foreground color used to write the text.</param>
         /// <param name="o">The value to write.</param>
-        public static void WriteLineColor(ConsoleColor color, object o)
+        public static void WriteLine(ConsoleColor color, object o)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;

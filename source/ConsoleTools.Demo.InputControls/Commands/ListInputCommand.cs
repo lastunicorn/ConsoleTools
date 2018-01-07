@@ -61,5 +61,11 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
             return beveragesInput.Read();
         }
+
+        private static List<int> ReadNumbers()
+        {
+            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
+            return luckyNumbersInput.Read();
+        }
     }
 }

@@ -59,9 +59,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
             if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
                 CustomConsole.Write(Text);
             else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.WriteColor(ForegroundColor.Value, BackgroundColor.Value, Text);
+                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, Text);
             else if (ForegroundColor.HasValue)
-                CustomConsole.WriteColor(ForegroundColor.Value, Text);
+                CustomConsole.Write(ForegroundColor.Value, Text);
             else
                 CustomConsole.WriteBackgroundColor(BackgroundColor.Value, Text);
 

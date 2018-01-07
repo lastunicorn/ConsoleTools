@@ -63,11 +63,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         /// <summary>
         /// Gets or sets the default value to be returned if the user just types enter (string empty).
+        /// Default value: null
         /// </summary>
         public T DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the default value is allowed to be used.
+        /// Default value: false
         /// </summary>
         public bool AcceptDefaultValue { get; set; }
 

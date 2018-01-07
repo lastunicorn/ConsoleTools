@@ -20,7 +20,7 @@ namespace DustInTheWind.ConsoleTools
 {
     public partial class CustomConsole
     {
-        public static void WriteColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -76,7 +76,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -90,7 +90,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineColor(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;

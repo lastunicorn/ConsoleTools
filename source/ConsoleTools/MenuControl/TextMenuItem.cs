@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             if (IsSelectable)
                 CustomConsole.Write($"{Id} - {Text}");
             else
-                CustomConsole.WriteColor(ConsoleColor.DarkGray, $"{Id} - {Text}");
+                CustomConsole.Write(ConsoleColor.DarkGray, $"{Id} - {Text}");
         }
 
         public bool Select()

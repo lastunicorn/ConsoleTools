@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteColor(backgroundColor, text);
+            Write(backgroundColor, text);
         }
 
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string format, params object[] arg)
@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools
             string text = string.Format(format, arg);
 
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteColor(backgroundColor, text);
+            Write(backgroundColor, text);
         }
 
         public static void WriteBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, object o)
@@ -46,7 +46,7 @@ namespace DustInTheWind.ConsoleTools
             string text = o?.ToString() ?? string.Empty;
 
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteColor(backgroundColor, text);
+            Write(backgroundColor, text);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLineColor(backgroundColor, text);
+            WriteLine(backgroundColor, text);
         }
 
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, string format, params object[] arg)
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools
             string text = string.Format(format, arg);
 
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLineColor(backgroundColor, text);
+            WriteLine(backgroundColor, text);
         }
 
         public static void WriteLineBackgroundColor(HorizontalAlignment horizontalAlignment, ConsoleColor backgroundColor, object o)
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools
             string text = o?.ToString() ?? string.Empty;
 
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLineColor(backgroundColor, text);
+            WriteLine(backgroundColor, text);
         }
     }
 }

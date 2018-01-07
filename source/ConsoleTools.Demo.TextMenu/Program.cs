@@ -64,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             }
             finally
             {
-                Pause.DisplayDefault();
+                Pause.QuickPause();
             }
         }
 

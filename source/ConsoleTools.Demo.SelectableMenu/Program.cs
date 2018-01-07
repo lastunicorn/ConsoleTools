@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 
             CustomConsole.WriteLineEmphasies("Bye!");
 
-            Pause.DisplayDefault();
+            Pause.QuickPause();
         }
 
         private static void DisplayApplicationHeader()

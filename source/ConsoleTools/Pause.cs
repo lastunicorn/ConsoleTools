@@ -33,6 +33,15 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public bool HideCursor { get; set; }
 
+        public int MarginTop { get; set; } = 1;
+        public int MarginBottom { get; set; } = 1;
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the <see cref="Text"/> is erased from the Console
+        /// after the user press the <see cref="UnlockKey"/>.
+        /// </summary>
+        public bool EraseTextAfterUnlock { get; set; } = false;
+
         /// <summary>
         /// Gets or sets the <see cref="ConsoleKey"/> the user must press to break the pause.
         /// If <c>null</c> is provided, any key unbreaks the pause.
@@ -68,9 +77,39 @@ namespace DustInTheWind.ConsoleTools
 
         private void DisplayInternal()
         {
-            Console.WriteLine();
-            Console.Write(Text);
+            int initialCursorTop = Console.CursorTop;
+            int initialCursorLeft = Console.CursorLeft;
 
+            WriteTopMargin();
+
+            int textCursorTop = Console.CursorTop;
+            int textCursorLeft = Console.CursorLeft;
+            int textLength = Text?.Length ?? 0;
+
+            Console.Write(Text);
+            WaitForUnlockKey();
+
+            if (EraseTextAfterUnlock)
+            {
+                Console.SetCursorPosition(textCursorLeft, textCursorTop);
+                Console.Write(new string(' ', textLength));
+                Console.SetCursorPosition(initialCursorLeft, initialCursorTop);
+            }
+            else
+            {
+                Console.WriteLine();
+                WriteBottomMargin();
+            }
+        }
+
+        private void WriteTopMargin()
+        {
+            for (int i = 0; i < MarginTop; i++)
+                Console.WriteLine();
+        }
+
+        private void WaitForUnlockKey()
+        {
             while (true)
             {
                 ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(true);
@@ -78,16 +117,45 @@ namespace DustInTheWind.ConsoleTools
                 if (!UnlockKey.HasValue || consoleKeyInfo.Key == UnlockKey)
                     break;
             }
+        }
 
-            Console.WriteLine();
+        private void WriteBottomMargin()
+        {
+            for (int i = 0; i < MarginBottom; i++)
+                Console.WriteLine();
         }
 
         /// <summary>
         /// Displays the pause with default settings.
         /// </summary>
-        public static void DisplayDefault()
+        public static void QuickPause()
         {
             new Pause().Display();
+        }
+
+        /// <summary>
+        /// Displays the pause with default settings.
+        /// </summary>
+        /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
+        public static void QuickPause(string text)
+        {
+            Pause pause = new Pause { Text = text };
+            pause.Display();
+        }
+
+        /// <summary>
+        /// Displays the pause with default settings.
+        /// </summary>
+        /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
+        /// <param name="unlockKey">The key thatthe user has to press to unlock the pause.</param>
+        public static void QuickPause(string text, ConsoleKey unlockKey)
+        {
+            Pause pause = new Pause
+            {
+                Text = text,
+                UnlockKey = unlockKey
+            };
+            pause.Display();
         }
     }
 }

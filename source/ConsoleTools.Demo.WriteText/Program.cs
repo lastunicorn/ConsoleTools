@@ -26,6 +26,67 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
             Console.SetBufferSize(80, 1024);
 
+            Pause pause = new Pause();
+
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+
+            pause.EraseTextAfterUnlock = false;
+            pause.Display();
+
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+
+            pause.EraseTextAfterUnlock = true;
+            pause.Display();
+
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+            CustomConsole.WriteLine("some text");
+
+            try
+            {
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine("Colors Demo");
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine();
+
+                RunColorExample();
+                Pause.QuickPause();
+
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine("Alignment Demo");
+                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+                CustomConsole.WriteLine();
+
+
+                RunAlignmentExample();
+            }
+
+            finally
+            {
+                Pause.QuickPause();
+            }
+        }
+
+        private static void RunAlignmentExample()
+        {
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is anoter text aligned to left.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
+            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
+            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");
+        }
+
+        private static void RunColorExample()
+        {
             try
             {
                 CustomConsole.WriteLine("Normal: This is a normal line of text.");
@@ -44,12 +105,6 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineError(ex);
-            }
-            finally
-            {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("Did you like our demo? :)");
-                Pause.DisplayDefault();
             }
         }
 

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ConsoleTools</id>
-    <version>0.0.2</version>
+    <version>0.1.0</version>
     <authors>Dust in the Wind</authors>
 	<title>ConsoleTools</title>
     <owners>Dust in the Wind</owners>
@@ -12,16 +12,24 @@
     <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 	<summary>A set of tools and "controls" for the .net Console.</summary>
     <releaseNotes>
-- Updates in MVC framework.
-- Added the ThreeStageFile control that writes data in a temporary file and keeps a backup of the last version of the file.
-- Created the Pause control.</releaseNotes>
-    <copyright>Copyright 2017 Dust in the Wind</copyright>
+- Renamed some controls (removed the "Control" word from their names).
+- Added demo for YesNoQuestion control.
+- Added demo project for Pause control.
+- Renamed some classes and properties in majority of the controls. (Breaking changes)
+- ProgressBar: Added ShowValue property (Optional display of the value).
+- Spinner: Added ShowLabel property (Optional display of the label).
+- Added background color properties for labels in TextInput, TextOutput, ListInput, ListOutput.
+- Added static methods to most of the controls to easily use them with default values.
+- Added XML documentation comments to some of the controls (not finished yet).
+</releaseNotes>
+    <copyright>Copyright 2017-2018 Dust in the Wind</copyright>
     <tags>console cli prompter menu progressbar spinner table read write</tags>
   </metadata>
   <files>
-    <file src="lib\net461\DustInTheWind.ConsoleTools.dll" target="lib\net461\DustInTheWind.ConsoleTools.dll" />
-    <file src="lib\net461\DustInTheWind.ConsoleTools.pdb" target="lib\net461\DustInTheWind.ConsoleTools.pdb" />
-    <file src="lib\net461\DustInTheWind.ConsoleTools.xml" target="lib\net461\DustInTheWind.ConsoleTools.xml" />
+    <file src="lib\net46\DustInTheWind.ConsoleTools.dll" target="lib\net46\DustInTheWind.ConsoleTools.dll" />
+    <file src="lib\net46\DustInTheWind.ConsoleTools.pdb" target="lib\net46\DustInTheWind.ConsoleTools.pdb" />
+    <file src="lib\net46\DustInTheWind.ConsoleTools.xml" target="lib\net46\DustInTheWind.ConsoleTools.xml" />
     <file src="changelog.txt" target="changelog.txt" />
+    <file src="readme.txt" target="readme.txt" />
   </files>
 </package>

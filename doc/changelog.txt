@@ -1,6 +1,19 @@
 ConsoleTools
 ============
 
+ver 0.1.0
+---------
+- Compiled the library against .NET Framework 4.6
+- Renamed some controls (removed the "Control" word from their names).
+- Added demo for YesNoQuestion control.
+- Added demo project for Pause control.
+- Renamed some classes and properties in majority of the controls. (Breaking changes)
+- ProgressBar - Added ShowValue property - Optional display of the value.
+- Spinner - Added ShowLabel property - Optional display of the label.
+- Added background color properties for labels in TextInput, TextOutput, ListInput, ListOutput.
+- Added static methods to most of the controls to easily use them with default values.
+- Added XML documentation comments to some of the controls (not finished yet).
+
 ver 0.0.2
 ---------
 - Updates in MVC framework.

@@ -1,0 +1,46 @@
+ConsoleTools - Release Steps
+============================
+
+The release process is semiautomated.
+There are a few steps that has to be done manually.
+
+--------------------------------------------------------------------------------
+Local
+--------------------------------------------------------------------------------
+
+Step 1: Update changelog file.
+- File: /doc/changelog.txt
+	- Add the list of changes.
+
+
+
+Step 2: Nuget - Update nuspec file.
+- File: /nuget/ConsoleTools.nuspec
+	- version
+	- releaseNotes
+
+Step 3: Nuget - Build nuget package
+- Run /nuget/build.bat
+
+
+
+Step 4: GitHub - Update package version
+- File /release/build.bat
+	- version
+
+Step 5: GitHub - Build zip release package
+- Run /release/build.bat
+
+--------------------------------------------------------------------------------
+Internet
+--------------------------------------------------------------------------------
+
+Step 6: Create GitHub release
+www.github.com
+
+Step 7: Upload nuget package to nuget.com
+www.nuget.com
+
+--------------------------------------------------------------------------------
+Done :)
+--------------------------------------------------------------------------------

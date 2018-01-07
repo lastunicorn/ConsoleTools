@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
         {
             YesNoControl yesNoControl = new YesNoControl("Are you sure?")
             {
-                DefaultOption = YesNoAnswer.Yes
+                DefaultAnswer = YesNoAnswer.Yes
             };
 
             YesNoAnswer answer = yesNoControl.ReadAnswer();

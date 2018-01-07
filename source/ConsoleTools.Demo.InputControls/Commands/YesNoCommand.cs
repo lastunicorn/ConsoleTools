@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             YesNoControl yesNoControl2 = new YesNoControl("Do you want to continue?")
             {
                 AcceptCancel = true,
-                DefaultOption = YesNoAnswer.Yes
+                DefaultAnswer = YesNoAnswer.Yes
             };
             YesNoAnswer answer2 = yesNoControl2.ReadAnswer();
 

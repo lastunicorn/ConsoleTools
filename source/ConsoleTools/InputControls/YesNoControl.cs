@@ -19,10 +19,18 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// This control displays a question and expects an answer of "yes" or "no".
+    /// </summary>
     public class YesNoControl
     {
         private string questionText;
 
+        /// <summary>
+        /// Gets or sets trhe question that is displayed to the user.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public string QuestionText
         {
             get { return questionText; }
@@ -35,24 +43,86 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the number of spaces to be displayed after the question and the before the user types the answer.
+        /// Default value: 1
+        /// </summary>
         public int SpaceAfterQuestion { get; set; } = 1;
 
+        /// <summary>
+        /// Gets or sets the text displayed for the "Yes" answer.
+        /// Default value: "y"
+        /// </summary>
         public string YesText { get; set; } = "y";
+
+        /// <summary>
+        /// Gets or sets the text displayed for the "No" answer.
+        /// Default value: "n"
+        /// </summary>
         public string NoText { get; set; } = "n";
+
+        /// <summary>
+        /// Gets or sets the text displayed for the "Cancel" answer.
+        /// Default value: "esc"
+        /// </summary>
         public string CancelText { get; set; } = "esc";
 
-        public bool CapitalizeDefaultOption { get; set; } = true;
+        /// <summary>
+        /// Gets or sets a value that specifies if the first letter of the default answer is displayed with upper case.
+        /// </summary>
+        public bool CapitalizeDefaultAnswer { get; set; } = true;
 
+        /// <summary>
+        /// Gets or sets the key representing the "Yes" answer.
+        /// Default value: <see cref="ConsoleKey.Y"/>
+        /// </summary>
         public ConsoleKey YesKey { get; set; } = ConsoleKey.Y;
+
+        /// <summary>
+        /// Gets or sets the key representing the "No" answer.
+        /// Default value: <see cref="ConsoleKey.N"/>
+        /// </summary>
         public ConsoleKey NoKey { get; set; } = ConsoleKey.N;
-        public ConsoleKey AcceptKey { get; set; } = ConsoleKey.Enter;
+
+        /// <summary>
+        /// Gets or sets the key representing the "Cancel" answer.
+        /// Default value: <see cref="ConsoleKey.Escape"/>
+        /// </summary>
         public ConsoleKey CancelKey { get; set; } = ConsoleKey.Escape;
 
+        /// <summary>
+        /// Gets or sets the key that will accept the default answer.
+        /// Default value: <see cref="ConsoleKey.Enter"/>
+        /// </summary>
+        public ConsoleKey AcceptDefaultKey { get; set; } = ConsoleKey.Enter;
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the "Cancel" answer is accepted as a valid answer.
+        /// If this value is <c>false</c>, the user is forced to answer with "Yes" or "No".
+        /// Default value: <c>false</c>
+        /// </summary>
         public bool AcceptCancel { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the <see cref="ConsoleKey.Escape"/> is accepted as "Cancel"
+        /// beside the key defined by the <see cref="CancelKey"/>.
+        /// Default =value: <c>true</c>
+        /// </summary>
         public bool AcceptEscapeAsCancel { get; set; } = true;
 
-        public YesNoAnswer? DefaultOption { get; set; } = null;
+        /// <summary>
+        /// Gets or sets the answer that is issued when the <see cref="AcceptDefaultKey"/> key is pressed.
+        /// Default value: null
+        /// </summary>
+        public YesNoAnswer? DefaultAnswer { get; set; } = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YesNoControl"/> class with
+        /// the question to be displayed to the user.
+        /// </summary>
+        /// <param name="questionText">The question text to be displayed to the user.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public YesNoControl(string questionText)
         {
             if (questionText == null) throw new ArgumentNullException(nameof(questionText));
@@ -62,10 +132,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary> 
-        /// Displays the question to the user and waits for a char answer.
-        /// The answer is the char associated with the first key the user presses.
+        /// Displays the question to the user and waits for the answer.
         /// </summary>
-        /// <returns></returns>
         public YesNoAnswer ReadAnswer()
         {
             DisplayWholeQuestion();
@@ -77,7 +145,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
             Console.Write(QuestionText);
             Console.Write(" ");
 
-            DisplayYesNoCancelText();
+            DisplayPossibleAnswersList();
 
             if (SpaceAfterQuestion > 0)
             {
@@ -86,20 +154,23 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
         }
 
-        protected virtual void DisplayYesNoCancelText()
+        /// <summary>
+        /// Displays to the console the list of possible answers.
+        /// </summary>
+        protected virtual void DisplayPossibleAnswersList()
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append("[");
 
-            string yesText = CapitalizeDefaultOption && DefaultOption == YesNoAnswer.Yes
+            string yesText = CapitalizeDefaultAnswer && DefaultAnswer == YesNoAnswer.Yes
                 ? YesText.ToUpper()
                 : YesText;
             sb.Append(yesText);
 
             sb.Append("/");
 
-            string noText = CapitalizeDefaultOption && DefaultOption == YesNoAnswer.No
+            string noText = CapitalizeDefaultAnswer && DefaultAnswer == YesNoAnswer.No
                 ? NoText.ToUpper()
                 : NoText;
             sb.Append(noText);
@@ -108,7 +179,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
             {
                 sb.Append("/");
 
-                string cancelText = CapitalizeDefaultOption && DefaultOption == YesNoAnswer.Cancel
+                string cancelText = CapitalizeDefaultAnswer && DefaultAnswer == YesNoAnswer.Cancel
                     ? CancelText.ToUpper()
                     : CancelText;
                 sb.Append(cancelText);
@@ -125,11 +196,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
             {
                 ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(true);
 
-                if (consoleKeyInfo.Key == AcceptKey && DefaultOption.HasValue)
+                if (consoleKeyInfo.Key == AcceptDefaultKey && DefaultAnswer.HasValue)
                 {
                     string defaultText;
 
-                    switch (DefaultOption.Value)
+                    switch (DefaultAnswer.Value)
                     {
                         case YesNoAnswer.Yes:
                             defaultText = YesText;
@@ -148,7 +219,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                     }
 
                     Console.WriteLine(defaultText);
-                    return DefaultOption.Value;
+                    return DefaultAnswer.Value;
                 }
 
                 if (AcceptCancel)

@@ -157,7 +157,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             return Content?.ToString() ?? string.Empty;
         }
-        
+
         /// <summary>
         /// Returns a list of text lines that represent the string representation of the cell.
         /// Every line from the list has the same length, and the length is equal or greater than the specified minWidth value.
@@ -201,30 +201,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             // Build inner content.
 
             string innerContent = Content.Lines[lineIndex];
-
             HorizontalAlignment alignment = CalculateHorizontalAlignment();
 
-            switch (alignment)
-            {
-                case HorizontalAlignment.Left:
-                    innerContent = innerContent.PadRight(cellContentWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Right:
-                    innerContent = innerContent.PadLeft(cellContentWidth, ' ');
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int totalSpaces = cellContentWidth - Content.Size.Width;
-                    int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-                    innerContent = innerContent
-                        .PadLeft(cellContentWidth - rightSpaces, ' ')
-                        .PadRight(cellContentWidth, ' ');
-                    break;
-
-                default:
-                    throw new ApplicationException("Internal error: Invalid calculated horizontal alignment.");
-            }
+            innerContent = AlignedText.QuickAlign(innerContent, alignment, cellContentWidth);
 
             // Build paddings.
 

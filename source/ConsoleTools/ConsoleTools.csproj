@@ -72,8 +72,8 @@
     <Compile Include="Spinners\Templates\FillTemplate.cs" />
     <Compile Include="Spinners\Templates\HalfBlockBlinkTemplate.cs" />
     <Compile Include="Spinners\Templates\HalfBlockRotateTemplate.cs" />
-    <Compile Include="Spinners\ValueAlignment.cs" />
     <Compile Include="Spinners\ValuePosition.cs" />
+    <Compile Include="AlignedText.cs" />
     <Compile Include="TabularData\BorderTemplate.cs" />
     <Compile Include="TabularData\CellBase.cs" />
     <Compile Include="TabularData\ColumnList.cs" />

@@ -18,6 +18,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
+    /// <summary>
+    /// A template for the <see cref="Spinner"/> that fills a bar with a specified character.
+    /// </summary>
     public class FillTemplate : ISpinnerTemplate
     {
         private readonly char fillChar;
@@ -25,11 +28,24 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
         private int currentStep;
         private FilledBehavior filledBehavior = FilledBehavior.EmptyFromStart;
 
+        /// <summary>
+        /// Gets or sets the border character to be displayed at the left of the bar.
+        /// </summary>
         public string BorderStart { get; set; } = "[";
+
+        /// <summary>
+        /// Gets or sets the border character to be displayed at the right of the bar.
+        /// </summary>
         public string BorderEnd { get; set; } = "]";
 
+        /// <summary>
+        /// Gets or sets a value that specifies if the borders are displayed.
+        /// </summary>
         public bool ShowBorders { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value that specifies what to do when the bar is filled.
+        /// </summary>
         public FilledBehavior FilledBehavior
         {
             get { return filledBehavior; }
@@ -53,6 +69,13 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             length = 4;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FillTemplate"/> class with
+        /// the character used to fill the bar and
+        /// the length of the bar.
+        /// </summary>
+        /// <param name="fillChar">The character used to fill the bar.</param>
+        /// <param name="length">The length of the bar.</param>
         public FillTemplate(char fillChar, int length)
         {
             if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
@@ -61,11 +84,17 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             this.length = length;
         }
 
+        /// <summary>
+        /// Resets the template. It will start from the first frame.
+        /// </summary>
         public void Reset()
         {
             currentStep = 0;
         }
 
+        /// <summary>
+        /// Moves to the next frame and returns it.
+        /// </summary>
         public string GetNext()
         {
             currentStep++;
@@ -96,6 +125,9 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             }
         }
 
+        /// <summary>
+        /// Returns the current frame.
+        /// </summary>
         public string GetCurrent()
         {
             string content = BuildContent();

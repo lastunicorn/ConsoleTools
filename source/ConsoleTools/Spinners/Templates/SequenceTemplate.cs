@@ -48,17 +48,6 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
         }
 
         /// <summary>
-        /// Returns the current frame.
-        /// </summary>
-        public string GetCurrent()
-        {
-            if (counter == -1)
-                counter = 0;
-
-            return sequence[counter];
-        }
-
-        /// <summary>
         /// Moves to the next frame and returns it.
         /// </summary>
         public string GetNext()
@@ -66,6 +55,17 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
             counter++;
 
             if (counter >= sequence.Length)
+                counter = 0;
+
+            return sequence[counter];
+        }
+
+        /// <summary>
+        /// Returns the current frame.
+        /// </summary>
+        public string GetCurrent()
+        {
+            if (counter == -1)
                 counter = 0;
 
             return sequence[counter];

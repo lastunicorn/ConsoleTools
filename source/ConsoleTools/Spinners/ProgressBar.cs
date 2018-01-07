@@ -127,7 +127,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// This meens that some of the numbers will take less space to write.
         /// Thisvalue specifies the alignment of the displayed value in its alocated space.
         /// </summary>
-        public ValueAlignment ValueAlignment { get; set; } = ValueAlignment.Right;
+        public HorizontalAlignment ValueHorizontalAlignment { get; set; } = HorizontalAlignment.Right;
 
         /// <summary>
         /// Gets or sets the position where to display the value, relative to the progress bar.
@@ -247,18 +247,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (UnitOfMeasurement != null)
                 valueAsString += UnitOfMeasurement;
 
-            switch (ValueAlignment)
-            {
-                case ValueAlignment.Left:
-                    valueAsString = valueAsString.PadRight(valueMaxLength + unitOfMeasurementMaxLength);
-                    break;
+            int totalWidth = valueMaxLength + unitOfMeasurementMaxLength;
 
-                case ValueAlignment.Right:
-                    valueAsString = valueAsString.PadLeft(valueMaxLength + unitOfMeasurementMaxLength);
-                    break;
-            }
-
-            return valueAsString;
+            return AlignedText.QuickAlign(valueAsString, ValueHorizontalAlignment, totalWidth);
         }
 
         private int CalculateValue()

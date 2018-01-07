@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
 {
     internal class Worker
     {
-        public TimeSpan WorkInterval { get; set; }
+        public TimeSpan WorkPeriod { get; set; }
         public ISpinnerTemplate SpinnerTemplate { get; set; }
         public int SpinnerStepMilliseconds { get; set; }
 
@@ -38,12 +38,18 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 try
                 {
                     // Simulate work
-                    Thread.Sleep(WorkInterval);
+                    Thread.Sleep(WorkPeriod);
+
+                    spinner.Stop();
+                    CustomConsole.WriteLineSuccess("[Done]");
+                }
+                catch
+                {
+                    spinner.Stop();
+                    CustomConsole.WriteLineError("[Error]");
                 }
                 finally
                 {
-                    spinner.Stop();
-                    CustomConsole.WriteLineSuccess("[Done]");
                     CustomConsole.WriteLine();
                     CustomConsole.WriteLine();
                 }

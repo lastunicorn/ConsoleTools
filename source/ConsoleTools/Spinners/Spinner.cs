@@ -92,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            if(isRunning)
+            if (isRunning)
                 return;
 
             template.Reset();
@@ -173,21 +173,23 @@ namespace DustInTheWind.ConsoleTools.Spinners
             Dispose(false);
         }
 
-        public static Spinner StartDefault()
-        {
-            StickTemplate spinnerTemplate = new StickTemplate();
-
-            Spinner spinner = new Spinner(spinnerTemplate);
-            spinner.Start();
-
-            return spinner;
-        }
-
         public static void Run(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
-            using (Spinner spinner = StartDefault())
+            RunInternal(new StickTemplate(), action);
+        }
+
+        public static void Run(ISpinnerTemplate template, Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            RunInternal(template, action);
+        }
+
+        private static void RunInternal(ISpinnerTemplate template, Action action)
+        {
+            using (Spinner spinner = new Spinner(template))
             {
                 try
                 {
@@ -209,7 +211,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
-            using (Spinner spinner = StartDefault())
+            return RunInternal(new StickTemplate(), action);
+        }
+
+        public static T Run<T>(ISpinnerTemplate template, Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            return RunInternal(template, action);
+        }
+
+        private static T RunInternal<T>(ISpinnerTemplate template, Func<T> action)
+        {
+            using (Spinner spinner = new Spinner(template))
             {
                 try
                 {

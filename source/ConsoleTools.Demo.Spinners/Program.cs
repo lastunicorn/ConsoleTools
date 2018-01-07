@@ -29,12 +29,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
         {
             DisplayApplicationHeader();
 
-            Spinner.Run(() =>
-            {
-                Thread.Sleep(2000);
-                throw new Exception("alez");
-            });
-
             WorkerProvider workerProvider = new WorkerProvider();
 
             foreach (Worker worker in workerProvider.CreateWorkers())

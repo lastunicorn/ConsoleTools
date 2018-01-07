@@ -20,38 +20,44 @@ namespace DustInTheWind.ConsoleTools
 {
     public static partial class CustomConsole
     {
-        /// <summary>
-        /// Writes the specified text to the standard output stream.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
-        /// </summary>
-        /// <param name="text">The text to be written to the standard output stream.</param>
-        /// <param name="color">The foreground color used to write the text.</param>
-        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
-        public static void Write(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
+        public static void Write(HorizontalAlignment horizontalAlignment, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
             Console.Write(text);
-            Console.ForegroundColor = oldColor;
         }
 
-        /// <summary>
-        /// Writes the specified text to the standard output stream, followed by the current line terminator.
-        /// Additional parameters can be specified for the foreground color and the horizontal alignment in the Console's buffer.
-        /// </summary>
-        /// <param name="text">The text to be written to the standard output stream.</param>
-        /// <param name="color">The foreground color used to write the text.</param>
-        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
-        public static void WriteLine(string text, ConsoleColor color, HorizontalAlignment horizontalAlignment)
+        public static void Write(HorizontalAlignment horizontalAlignment, string format, params object[] arg)
+        {
+            string text = string.Format(format, arg);
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+            Console.Write(text);
+        }
+
+        public static void Write(HorizontalAlignment horizontalAlignment, object o)
+        {
+            string text = o?.ToString() ?? string.Empty;
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+            Console.Write(text);
+        }
+
+        public static void WriteLine(HorizontalAlignment horizontalAlignment, string text)
         {
             Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
             Console.WriteLine(text);
-            Console.ForegroundColor = oldColor;
+        }
+
+        public static void WriteLine(HorizontalAlignment horizontalAlignment, string format, params object[] arg)
+        {
+            string text = string.Format(format, arg);
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+            Console.WriteLine(text);
+        }
+
+        public static void WriteLine(HorizontalAlignment horizontalAlignment, object o)
+        {
+            string text = o?.ToString() ?? string.Empty;
+            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+            Console.WriteLine(text);
         }
 
         private static int CalculateStartPosition(string text, HorizontalAlignment horizontalAlignment)

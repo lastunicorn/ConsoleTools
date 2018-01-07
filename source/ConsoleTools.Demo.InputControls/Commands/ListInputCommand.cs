@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
@@ -26,18 +27,40 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            ListInput<string> beveragesInput = new ListInput<string>("What are your prefered beverages?");
-            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
+            CustomConsole.WriteLine();
+
+            List<string> beverages = ReadBeveragesQuick();
+
+            // or ...
+            //List<string> beverages = ReadBeverages();
 
             CustomConsole.WriteLine();
-            List<string> beverages = beveragesInput.Read();
-            List<int> luckyNumbers = luckyNumbersInput.Read();
 
-            CustomConsole.WriteLine();
             CustomConsole.Write("Beverages you like: ");
             CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
-            CustomConsole.Write("Your lucky numbers: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", luckyNumbers));
+        }
+
+        /// <summary>
+        /// Using the static method <see cref="ListInput{T}.QuickRead"/> falls back
+        /// to the default properties for colors, bullet, spaces, etc.
+        /// </summary>
+        private static List<string> ReadBeveragesQuick()
+        {
+            return ListInput<string>.QuickRead("What are your prefered beverages?");
+        }
+
+        /// <summary>
+        /// By creating an instance of the <see cref="ListInput{T}"/>, additional properties can be set.
+        /// </summary>
+        private static List<string> ReadBeverages()
+        {
+            ListInput<string> beveragesInput = new ListInput<string>("What are your prefered beverages?");
+
+            // beveragesInput.Bullet = "#";
+            // beveragesInput.LabelForegroundColor = ConsoleColor.Cyan;
+            // etc...
+
+            return beveragesInput.Read();
         }
     }
 }

@@ -4,11 +4,11 @@ A set of tools and "controls" for the .net Console.
 ## List of controls
 - Data I/O
   - [Table](https://github.com/lastunicorn/ConsoleTools/wiki/Table) - Displays tabular data.
-  - [Input Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextInputControl) - Reads a value from the user.
-  - [Input List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListInputControl) - Reads a list of values of the same type from the user.
-  - [Output Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextOutputControl) - Displays a value to the user.
-  - [Output List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListOutputControl) - Displays a list of values to the user.
-  - [Yes/No Control](https://github.com/lastunicorn/ConsoleTools/wiki/YesNoControl) - Asks a question to the user and expects a yes/no answer.
+  - [Input Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextInput%20Control) - Reads a value from the user.
+  - [Input List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListInput%20Control) - Reads a list of values of the same type from the user.
+  - [Output Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextOutput%20Control) - Displays a value to the user.
+  - [Output List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListOutput%20Control) - Displays a list of values to the user.
+  - [Yes/No Control](https://github.com/lastunicorn/ConsoleTools/wiki/YesNoQuestion%20Control) - Asks a question to the user and expects a yes/no answer.
   - [Pause Control](https://github.com/lastunicorn/ConsoleTools/wiki/Pause) - Displays a pause text and waits for the user to press a key.
 - Progress
   - [Progress Bar](https://github.com/lastunicorn/ConsoleTools/wiki/ProgressBar) - Displays a progress bar, to show the amount of finished work.

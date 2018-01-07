@@ -18,16 +18,64 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
+    /// <summary>
+    /// Represents a command that executes an action.
+    /// </summary>
     public class ActionCommand : ICommand
     {
+        /// <summary>
+        /// Gets or sets the action to be executed by the command.
+        /// </summary>
         public Action Action { get; set; }
+
+        /// <summary>
+        /// Gets or sets the function that decides if the command is active.
+        /// </summary>
         public Func<bool> ActiveAction { get; set; }
 
+        /// <summary>
+        /// Gets a value that specifies if the current instance can be executed.
+        /// </summary>
         public bool IsActive => ActiveAction?.Invoke() ?? true;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionCommand"/> class with
+        /// null action.
+        /// </summary>
+        public ActionCommand()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionCommand"/> class with
+        /// the action to be run when the command is executed.
+        /// </summary>
+        /// <param name="action">The action to be run when the command is executed.</param>
+        public ActionCommand(Action action)
+        {
+            Action = action;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionCommand"/> class with
+        /// the action to be run when the command is executed and
+        /// the function that decides if the command is active.
+        /// </summary>
+        /// <param name="action">The action to be run when the command is executed.</param>
+        /// <param name="activeAction">The function that decides if the command is active.</param>
+        public ActionCommand(Action action, Func<bool> activeAction)
+        {
+            Action = action;
+            ActiveAction = activeAction;
+        }
+
+        /// <summary>
+        /// Executes the current instance.
+        /// </summary>
         public void Execute()
         {
-            Action?.Invoke();
+            if (IsActive)
+                Action?.Invoke();
         }
     }
 }

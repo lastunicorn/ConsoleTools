@@ -17,6 +17,7 @@
 using System;
 using System.Timers;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
@@ -34,6 +35,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         private bool isDisposed;
         private readonly Timer timer;
         private readonly Label label = new Label();
+        private bool isRunning;
 
         /// <summary>
         /// Gets or sets the text label displayed in front of the spinner.
@@ -90,6 +92,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
+            if(isRunning)
+                return;
+
             template.Reset();
             Console.CursorVisible = false;
 
@@ -107,6 +112,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
+
+            if (!isRunning)
+                return;
 
             timer.Stop();
             EraseAll();
@@ -142,12 +150,83 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             if (isDisposed)
                 return;
 
-            timer.Dispose();
+            if (disposing)
+            {
+                Stop();
+                timer.Dispose();
+            }
 
             isDisposed = true;
+        }
+
+        ~Spinner()
+        {
+            Dispose(false);
+        }
+
+        public static Spinner StartDefault()
+        {
+            StickTemplate spinnerTemplate = new StickTemplate();
+
+            Spinner spinner = new Spinner(spinnerTemplate);
+            spinner.Start();
+
+            return spinner;
+        }
+
+        public static void Run(Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            using (Spinner spinner = StartDefault())
+            {
+                try
+                {
+                    action();
+
+                    spinner.Stop();
+                    CustomConsole.WriteLineSuccess("[Done]");
+                }
+                catch
+                {
+                    spinner.Stop();
+                    CustomConsole.WriteLineError("[Error]");
+                    throw;
+                }
+            }
+        }
+
+        public static T Run<T>(Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            using (Spinner spinner = StartDefault())
+            {
+                try
+                {
+                    T result = action();
+
+                    spinner.Stop();
+                    CustomConsole.WriteLineSuccess("[Done]");
+
+                    return result;
+                }
+                catch
+                {
+                    spinner.Stop();
+                    CustomConsole.WriteLineError("[Error]");
+                    throw;
+                }
+            }
         }
     }
 }

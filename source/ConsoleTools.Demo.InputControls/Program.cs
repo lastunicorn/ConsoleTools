@@ -44,6 +44,20 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 if (menu.SelectedItem?.Id == 0)
                     break;
             }
+
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine();
+            Pause.DisplayDefault();
+
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine();
+            Pause pause = new Pause
+            {
+                Text = "Press P key to continue...",
+                HideCursor = true,
+                UnlockKey = ConsoleKey.P
+            };
+            pause.Display();
         }
 
         private static void DisplayApplicationHeader()

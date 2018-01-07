@@ -54,6 +54,7 @@
     <Compile Include="InputControls\YesNoQuestion.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />
     <Compile Include="MenuControl\ActionCommand.cs" />
+    <Compile Include="MenuControl\EmptyCommand.cs" />
     <Compile Include="MenuControl\ICommand.cs" />
     <Compile Include="MenuControl\TextMenuItem.cs" />
     <Compile Include="Mvc\ConsoleApplication.cs" />

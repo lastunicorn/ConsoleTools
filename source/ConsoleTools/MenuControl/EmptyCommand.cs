@@ -17,18 +17,25 @@
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
     /// <summary>
-    /// Represents a command that can be executed.
+    /// A command that does nothing.
     /// </summary>
-    public interface ICommand
+    public class EmptyCommand : ICommand
     {
-        /// <summary>
-        /// Gets a value that specifies if the current instance can be executed.
-        /// </summary>
-        bool IsActive { get; }
+        public bool IsActive { get; set; }
 
         /// <summary>
-        /// Executes the current instance.
+        /// Initializes a new instance of the <see cref="EmptyCommand"/> class.
         /// </summary>
-        void Execute();
+        public EmptyCommand()
+        {
+            IsActive = true;
+        }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void Execute()
+        {
+        }
     }
 }

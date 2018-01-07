@@ -30,7 +30,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine();
 
             List<string> beverages = ReadBeveragesQuick();
-
             // or ...
             //List<string> beverages = ReadBeverages();
 

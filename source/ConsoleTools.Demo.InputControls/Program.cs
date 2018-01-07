@@ -62,33 +62,33 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 new LabelMenuItem
                 {
                     Id = 1,
-                    Text = "TextInputControl",
+                    Text = "Text Input",
                     Command = new TextInputCommand()
                 },
                 new LabelMenuItem
                 {
                     Id = 2,
-                    Text = "ListInputControl",
+                    Text = "List Input",
                     Command = new ListInputCommand()
                 },
                 new SpaceMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 3,
-                    Text = "TextOutputControl",
+                    Text = "Text Output",
                     Command = new TextOutputCommand()
                 },
                 new LabelMenuItem
                 {
                     Id = 4,
-                    Text = "ListOutputControl",
+                    Text = "List Output",
                     Command = new ListOutputCommand()
                 },
                 new SpaceMenuItem(),
                 new LabelMenuItem
                 {
                     Id = 5,
-                    Text = "YesNoControl",
+                    Text = "Yes/No Question",
                     Command = new YesNoCommand()
                 },
                 new SpaceMenuItem(),

@@ -26,17 +26,17 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            TextInputControl<string> firstNameInputControl = new TextInputControl<string>("First Name:");
-            TextInputControl<string> lastNameInputControl = new TextInputControl<string>("Last Name:");
-            TextInputControl<int> ageInputControl = new TextInputControl<int>("Age:");
-            TextInputControl<DateTime> birthdayInputControl = new TextInputControl<DateTime>("Birthday:");
-            TextInputControl<float> heightInputControl = new TextInputControl<float>("Height (float):");
+            TextInput<string> firstNameInput = new TextInput<string>("First Name:");
+            TextInput<string> lastNameInput = new TextInput<string>("Last Name:");
+            TextInput<int> ageInput = new TextInput<int>("Age:");
+            TextInput<DateTime> birthdayInput = new TextInput<DateTime>("Birthday:");
+            TextInput<float> heightInput = new TextInput<float>("Height (float):");
             
-            string firstName = firstNameInputControl.Read();
-            string lastName = lastNameInputControl.Read();
-            int age = ageInputControl.Read();
-            DateTime birthday = birthdayInputControl.Read();
-            float height = heightInputControl.Read();
+            string firstName = firstNameInput.Read();
+            string lastName = lastNameInput.Read();
+            int age = ageInput.Read();
+            DateTime birthday = birthdayInput.Read();
+            float height = heightInput.Read();
 
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);

@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// This control displays a question and expects an answer of "yes" or "no".
     /// </summary>
-    public class YesNoControl
+    public class YesNoQuestion
     {
         private string questionText;
 
@@ -117,13 +117,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public YesNoAnswer? DefaultAnswer { get; set; } = null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YesNoControl"/> class with
+        /// Initializes a new instance of the <see cref="YesNoQuestion"/> class with
         /// the question to be displayed to the user.
         /// </summary>
         /// <param name="questionText">The question text to be displayed to the user.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public YesNoControl(string questionText)
+        public YesNoQuestion(string questionText)
         {
             if (questionText == null) throw new ArgumentNullException(nameof(questionText));
             if (questionText.Length == 0) throw new ArgumentException("Please provide a question text.", nameof(questionText));

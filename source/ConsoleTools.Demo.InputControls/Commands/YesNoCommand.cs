@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine("This is a simple yes/no control with no default value.");
             CustomConsole.WriteLine();
 
-            YesNoControl yesNoControl1 = new YesNoControl("Do you want to continue?");
+            YesNoQuestion yesNoControl1 = new YesNoQuestion("Do you want to continue?");
             YesNoAnswer answer1 = yesNoControl1.ReadAnswer();
 
             CustomConsole.WriteLine();
@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine("This is a yes/no/cancel control with default value 'Yes'.");
             CustomConsole.WriteLine();
 
-            YesNoControl yesNoControl2 = new YesNoControl("Do you want to continue?")
+            YesNoQuestion yesNoControl2 = new YesNoQuestion("Do you want to continue?")
             {
                 AcceptCancel = true,
                 DefaultAnswer = YesNoAnswer.Yes

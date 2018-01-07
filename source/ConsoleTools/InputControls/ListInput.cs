@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Reads a list of values from the console.
     /// </summary>
-    public class ListInputControl<T>
+    public class ListInput<T>
     {
         private readonly Label labelControl = new Label
         {
@@ -69,18 +69,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public string TypeValidationErrorMessage { get; set; } = "The input value must be an {0} type.";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListInputControl{T}"/> class.
+        /// Initializes a new instance of the <see cref="ListInput{T}"/> class.
         /// </summary>
-        public ListInputControl()
+        public ListInput()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListInputControl{T}"/> class with
+        /// Initializes a new instance of the <see cref="ListInput{T}"/> class with
         /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
-        public ListInputControl(string label)
+        public ListInput(string label)
         {
             Label = label;
         }
@@ -169,13 +169,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListInputControl{T}"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ListInput{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static List<T> QuickRead(string label = null)
         {
-            return new ListInputControl<T>(label).Read();
+            return new ListInput<T>(label).Read();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class TextInputControl<T>
+    public class TextInput<T>
     {
         private readonly Label labelControl = new Label
         {
@@ -79,18 +79,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public string TypeValidationErrorMessage { get; set; } = "The input value must be a {0} type.";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextInputControl{T}"/> class.
+        /// Initializes a new instance of the <see cref="TextInput{T}"/> class.
         /// </summary>
-        public TextInputControl()
+        public TextInput()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextInputControl{T}"/> class with
+        /// Initializes a new instance of the <see cref="TextInput{T}"/> class with
         /// the label to be displayed when the user is requested to provide the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public TextInputControl(string label)
+        public TextInput(string label)
         {
             Label = label;
         }
@@ -135,13 +135,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="TextInputControl{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="TextInput{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static T QuickRead(string label)
         {
-            return new TextInputControl<T>(label).Read();
+            return new TextInput<T>(label).Read();
         }
     }
 }

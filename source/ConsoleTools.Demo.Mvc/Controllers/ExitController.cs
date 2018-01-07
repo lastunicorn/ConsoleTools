@@ -40,12 +40,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc.Controllers
 
         private void AskToExit()
         {
-            YesNoControl yesNoControl = new YesNoControl("Are you sure you want to exit?")
+            YesNoQuestion yesNoQuestion = new YesNoQuestion("Are you sure you want to exit?")
             {
                 DefaultAnswer = YesNoAnswer.Yes
             };
 
-            YesNoAnswer answer = yesNoControl.ReadAnswer();
+            YesNoAnswer answer = yesNoQuestion.ReadAnswer();
 
             if (answer == YesNoAnswer.Yes)
             {

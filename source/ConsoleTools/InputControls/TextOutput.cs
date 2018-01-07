@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Displays a value to the console.
     /// </summary>
-    public class TextOutputControl
+    public class TextOutput
     {
         private readonly Label labelControl = new Label
         {
@@ -58,14 +58,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="TextOutputControl"/> with default configuration.
+        /// Reads a value from the console using a <see cref="TextOutput"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="value">The value to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static void QuickWrite<T>(string label, T value)
         {
-            new TextOutputControl().Write(label, value);
+            new TextOutput().Write(label, value);
         }
     }
 }

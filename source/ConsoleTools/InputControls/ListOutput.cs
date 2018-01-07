@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Displays a list of values to the console.
     /// </summary>
-    public class ListOutputControl
+    public class ListOutput
     {
         private readonly Label labelControl = new Label
         {
@@ -102,14 +102,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListOutputControl"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ListOutput"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="values">The list of values to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static void QuickWrite<T>(string label, IEnumerable<T> values)
         {
-            new ListOutputControl().Write(label, values);
+            new ListOutput().Write(label, values);
         }
     }
 }

@@ -26,12 +26,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            ListInputControl<string> beveragesInputControl = new ListInputControl<string>("What are your prefered beverages?");
-            ListInputControl<int> luckyNumbersInputControl = new ListInputControl<int>("What are your lucky number?");
+            ListInput<string> beveragesInput = new ListInput<string>("What are your prefered beverages?");
+            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
 
             CustomConsole.WriteLine();
-            List<string> beverages = beveragesInputControl.Read();
-            List<int> luckyNumbers = luckyNumbersInputControl.Read();
+            List<string> beverages = beveragesInput.Read();
+            List<int> luckyNumbers = luckyNumbersInput.Read();
 
             CustomConsole.WriteLine();
             CustomConsole.Write("Beverages you like: ");

@@ -43,12 +43,12 @@
     <Compile Include="CustomConsole.WriteColor.Background.cs" />
     <Compile Include="CustomConsole.WriteColor.Both.cs" />
     <Compile Include="InputControls\Label.cs" />
-    <Compile Include="InputControls\ListInputControl.cs" />
-    <Compile Include="InputControls\ListOutputControl.cs" />
-    <Compile Include="InputControls\TextInputControl.cs" />
-    <Compile Include="InputControls\TextOutputControl.cs" />
+    <Compile Include="InputControls\ListInput.cs" />
+    <Compile Include="InputControls\ListOutput.cs" />
+    <Compile Include="InputControls\TextInput.cs" />
+    <Compile Include="InputControls\TextOutput.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
-    <Compile Include="InputControls\YesNoControl.cs" />
+    <Compile Include="InputControls\YesNoQuestion.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />
     <Compile Include="MenuControl\ActionCommand.cs" />
     <Compile Include="MenuControl\ICommand.cs" />

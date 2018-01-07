@@ -17,7 +17,7 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Contains the answers that can be returned by the <see cref="YesNoControl"/>.
+    /// Contains the answers that can be returned by the <see cref="YesNoQuestion"/>.
     /// </summary>
     public enum YesNoAnswer
     {

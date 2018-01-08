@@ -1,6 +1,10 @@
 ConsoleTools
 ============
 
+Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+
+
+
 ver 0.1.0
 ---------
 - Compiled the library against .NET Framework 4.6

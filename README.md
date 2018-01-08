@@ -1,10 +1,17 @@
 # Console Tools
+
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
-## Support
-For any question, problem or help needed please add an **Issue** on **GitHub**.
+
+## Bugs and feature requests
+
+For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new).** on **GitHub**.
+
+Thank you :)
+
 
 ## List of controls
+
 - Data I/O
   - [Table](https://github.com/lastunicorn/ConsoleTools/wiki/Table) - Displays tabular data.
   - [Input Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextInput%20Control) - Reads a value from the user.

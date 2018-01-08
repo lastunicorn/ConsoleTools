@@ -1,7 +1,7 @@
 # Console Tools
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
-## Suport
+## Support
 For any question, problem or help needed please add an **Issue** on **GitHub**.
 
 ## List of controls

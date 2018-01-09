@@ -28,6 +28,10 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public static partial class CustomConsole
     {
+        /// <summary>
+        /// Executes the specified action while hiding the cursor.
+        /// </summary>
+        /// <param name="action">The action to be executed.</param>
         public static void WithoutCursor(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -45,6 +49,12 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        /// <summary>
+        /// Executes the specified function while hiding the cursor.
+        /// </summary>
+        /// <typeparam name="T">The type of the value to be returned.</typeparam>
+        /// <param name="action">The function to be executed.</param>
+        /// <returns></returns>
         public static T WithoutCursor<T>(Func<T> action)
         {
             bool initialCursorVisible = Console.CursorVisible;

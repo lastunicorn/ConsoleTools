@@ -106,28 +106,14 @@ namespace DustInTheWind.ConsoleTools
 
         private static int CalculateStartPosition(string text, HorizontalAlignment horizontalAlignment)
         {
-            int startPosition;
-
-            switch (horizontalAlignment)
+            AlignedText alignedText = new AlignedText
             {
-                case HorizontalAlignment.Left:
-                    startPosition = 0;
-                    break;
+                Text = text,
+                HorizontalAlignment = horizontalAlignment,
+                Width = Console.BufferWidth
+            };
 
-                case HorizontalAlignment.Center:
-                    int bufferCenter = Console.BufferWidth / 2 - 2;
-                    startPosition = bufferCenter - text.Length / 2;
-                    break;
-
-                case HorizontalAlignment.Right:
-                    int bufferRight = Console.BufferWidth - 1;
-                    startPosition = bufferRight - text.Length;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(horizontalAlignment), horizontalAlignment, null);
-            }
-            return startPosition;
+            return alignedText.SpaceLeft;
         }
     }
 }

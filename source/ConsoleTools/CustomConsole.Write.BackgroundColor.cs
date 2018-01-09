@@ -111,6 +111,9 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = oldColor;
         }
 
+        /// <summary>
+        /// Executes the specified action while the background color is set to the specified value.
+        /// </summary>
         public static void WithBackgroundColor(ConsoleColor backgroundColor, Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -128,16 +131,19 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static T WithBackgroundColor<T>(ConsoleColor backgroundColor, Func<T> action)
+        /// <summary>
+        /// Executes the specified function while the background color is set to the specified value.
+        /// </summary>
+        public static T WithBackgroundColor<T>(ConsoleColor backgroundColor, Func<T> func)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
             Console.BackgroundColor = backgroundColor;
 
             try
             {
-                return action();
+                return func();
             }
             finally
             {

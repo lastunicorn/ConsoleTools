@@ -130,6 +130,10 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Executes the specified action while the foreground and background colors
+        /// are changed to "Error" colors.
+        /// </summary>
         public static void WithErrorColors(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -152,9 +156,13 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static T WithErrorColors<T>(Func<T> action)
+        /// <summary>
+        /// Executes the specified function while the foreground and background colors
+        /// are changed to "Error" colors.
+        /// </summary>
+        public static T WithErrorColors<T>(Func<T> func)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -166,7 +174,7 @@ namespace DustInTheWind.ConsoleTools
 
             try
             {
-                return action();
+                return func();
             }
             finally
             {

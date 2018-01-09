@@ -20,56 +20,100 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Text;
 
 namespace DustInTheWind.ConsoleTools
 {
-    internal class AlignedText
+    /// <summary>
+    /// Represents a text that can be horizontaly aligned into a space.
+    /// </summary>
+    public class AlignedText
     {
+        /// <summary>
+        /// Gets or sets the text that is aligned.
+        /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets the horizontal alignment to be applied on the text.
+        /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the horizontal alignment to be applied if the <see cref="HorizontalAlignment"/> property
+        /// is set on <see cref="HorizontalAlignment.Default"/>.
+        /// </summary>
         public HorizontalAlignment DefaultHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
+
+        /// <summary>
+        /// Gets or sets the width into which the text must be aligned.
+        /// </summary>
         public int Width { get; set; }
 
+        /// <summary>
+        /// Gets the amount of space to be displayed in the left of the <see cref="Text"/>.
+        /// </summary>
+        public int SpaceLeft
+        {
+            get
+            {
+                HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+
+                switch (calculatedHorizontalAlignment)
+                {
+                    case HorizontalAlignment.Left:
+                        return 0;
+
+                    case HorizontalAlignment.Center:
+                        int totalSpaces = Width - Text.Length;
+                        return (int)Math.Floor((double)totalSpaces / 2);
+
+                    case HorizontalAlignment.Right:
+                        return Width - Text.Length;
+
+                    default:
+                        throw new ApplicationException("Invalid HorizontalAlignment value.");
+                }
+            }
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignment()
+        {
+            HorizontalAlignment horizontalAlignment = HorizontalAlignment;
+
+            if (horizontalAlignment == HorizontalAlignment.Default)
+            {
+                horizontalAlignment = DefaultHorizontalAlignment;
+
+                if (horizontalAlignment == HorizontalAlignment.Default)
+                    horizontalAlignment = HorizontalAlignment.Left;
+            }
+
+            return horizontalAlignment;
+        }
+
+        /// <summary>
+        /// Returns the text aligned in the specified space.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             if (string.IsNullOrEmpty(Text))
                 return new string(' ', Width);
 
-            switch (HorizontalAlignment)
-            {
-                case HorizontalAlignment.Left:
-                    Text = AlignLeft(Text, Width);
-                    break;
+            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
 
-                case HorizontalAlignment.Right:
-                    Text = AlignRight(Text, Width);
-                    break;
+            switch (calculatedHorizontalAlignment)
+            {
+                default:
+                    return AlignLeft(Text, Width);
 
                 case HorizontalAlignment.Center:
-                    Text = AlignCenter(Text, Width);
-                    break;
+                    return AlignCenter(Text, Width);
 
-                default:
-                    {
-                        switch (DefaultHorizontalAlignment)
-                        {
-                            case HorizontalAlignment.Right:
-                                Text = AlignRight(Text, Width);
-                                break;
-
-                            case HorizontalAlignment.Center:
-                                Text = AlignCenter(Text, Width);
-                                break;
-
-                            default:
-                                Text = AlignLeft(Text, Width);
-                                break;
-                        }
-                    }
-                    break;
+                case HorizontalAlignment.Right:
+                    return AlignRight(Text, Width);
             }
-
-            return Text;
         }
 
         private static string AlignLeft(string text, int width)
@@ -85,13 +129,23 @@ namespace DustInTheWind.ConsoleTools
         private static string AlignCenter(string text, int width)
         {
             int totalSpaces = width - text.Length;
-            int rightSpaces = (int)Math.Ceiling((double)totalSpaces / 2);
-            text = text
-                .PadLeft(width - rightSpaces, ' ')
-                .PadRight(width, ' ');
-            return text;
+            double halfSpaces = (double)totalSpaces / 2;
+
+            int leftSpaces = (int)Math.Floor(halfSpaces);
+            int rightSpaces = (int)Math.Ceiling(halfSpaces);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(new string(' ', leftSpaces));
+            sb.Append(text);
+            sb.Append(new string(' ', rightSpaces));
+
+            return sb.ToString();
         }
 
+        /// <summary>
+        /// Aligns a text, in the specified width as is specified by the horizontalAlignemnt value.
+        /// </summary>
         public static string QuickAlign(string text, HorizontalAlignment horizontalAlignment, int width)
         {
             AlignedText alignedText = new AlignedText

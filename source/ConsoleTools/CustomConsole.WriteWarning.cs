@@ -25,6 +25,11 @@ namespace DustInTheWind.ConsoleTools
 {
     public partial class CustomConsole
     {
+        /// <summary>
+        /// Writes the specified string value to the Console
+        /// using the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="text">The value to write.</param>
         public static void WriteWarning(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
@@ -40,6 +45,12 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified array of objects to the Console,
+        /// using the specified format information and the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="arg">An array of objects to write using format.</param>
         public static void WriteWarning(string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
@@ -55,6 +66,11 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified object to the Console
+        /// using the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="o">The value to write.</param>
         public static void WriteWarning(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
@@ -70,6 +86,11 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Writes the specified string value to the Console, followed by the current line terminator
+        /// using the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="text">The value to write.</param>
         public static void WriteLineWarning(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
@@ -85,7 +106,14 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineWarning(string text, params object[] arg)
+        /// <summary>
+        /// Writes the text representation of the specified array of objects to the Console,
+        /// using the specified format information, followed by the current line terminator,
+        /// using the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="arg">An array of objects to write using format.</param>
+        public static void WriteLineWarning(string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -94,12 +122,17 @@ namespace DustInTheWind.ConsoleTools
             if (WarningBackgroundColor.HasValue)
                 Console.BackgroundColor = WarningBackgroundColor.Value;
 
-            Console.WriteLine(text, arg);
+            Console.WriteLine(format, arg);
 
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Writes the text representation of the specified object to the Console, followed by the current line terminator
+        /// using the "Warning" foreground and background colors.
+        /// </summary>
+        /// <param name="o">The value to write.</param>
         public static void WriteLineWarning(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
@@ -115,6 +148,10 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Executes the specified action while the foreground and background colors
+        /// are changed to "Warning" colors.
+        /// </summary>
         public static void WithWarningColors(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -137,9 +174,13 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static T WithWarningColors<T>(Func<T> action)
+        /// <summary>
+        /// Executes the specified function while the foreground and background colors
+        /// are changed to "Warning" colors.
+        /// </summary>
+        public static T WithWarningColors<T>(Func<T> func)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -151,7 +192,7 @@ namespace DustInTheWind.ConsoleTools
 
             try
             {
-                return action();
+                return func();
             }
             finally
             {

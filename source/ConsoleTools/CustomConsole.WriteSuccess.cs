@@ -115,6 +115,10 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        /// <summary>
+        /// Executes the specified action while the foreground and background colors
+        /// are changed to "Success" colors.
+        /// </summary>
         public static void WithSuccessColors(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -137,9 +141,13 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static T WithSuccessColors<T>(Func<T> action)
+        /// <summary>
+        /// Executes the specified function while the foreground and background colors
+        /// are changed to "Success" colors.
+        /// </summary>
+        public static T WithSuccessColors<T>(Func<T> func)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -151,7 +159,7 @@ namespace DustInTheWind.ConsoleTools
 
             try
             {
-                return action();
+                return func();
             }
             finally
             {

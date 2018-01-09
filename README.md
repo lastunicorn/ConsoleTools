@@ -2,6 +2,8 @@
 
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
+**Note**: Until reaching the version 1.0.0 the controls are subject to change names, parameters or types and will not ensure backwards compatibility.
+
 
 ## Bugs and feature requests
 

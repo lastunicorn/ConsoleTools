@@ -28,12 +28,12 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Writes the specified text to the Console using the specified background color.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="text">The text to be written to the Console.</param>
-        public static void WriteBackgroundColor(ConsoleColor color, string text)
+        public static void WriteBackgroundColor(ConsoleColor backgroudColor, string text)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.Write(text);
             Console.BackgroundColor = oldColor;
         }
@@ -42,13 +42,13 @@ namespace DustInTheWind.ConsoleTools
         /// Writes the text representation of the specified array of objects to the Console
         /// using the specified format information and background color.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteBackgroundColor(ConsoleColor color, string format, params object[] arg)
+        public static void WriteBackgroundColor(ConsoleColor backgroudColor, string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.Write(format, arg);
             Console.BackgroundColor = oldColor;
         }
@@ -57,12 +57,12 @@ namespace DustInTheWind.ConsoleTools
         /// Writes the text representation of the specified object to the Console.
         /// An additional parameter can be specified for the background color used to write the text.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="o">The value to write.</param>
-        public static void WriteBackgroundColor(ConsoleColor color, object o)
+        public static void WriteBackgroundColor(ConsoleColor backgroudColor, object o)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.Write(o);
             Console.BackgroundColor = oldColor;
         }
@@ -71,12 +71,12 @@ namespace DustInTheWind.ConsoleTools
         ///  Writes the specified string value, followed by the current line terminator, to the Console.
         /// An additional parameter can be specified for the background color used to write the text.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="text">The text to write.</param>
-        public static void WriteLineBackgroundColor(ConsoleColor color, string text)
+        public static void WriteLineBackgroundColor(ConsoleColor backgroudColor, string text)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.WriteLine(text);
             Console.BackgroundColor = oldColor;
         }
@@ -86,13 +86,13 @@ namespace DustInTheWind.ConsoleTools
         /// followed by the current line terminator, to the Console
         /// using the specified format information and background color.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteLineBackgroundColor(ConsoleColor color, string format, params object[] arg)
+        public static void WriteLineBackgroundColor(ConsoleColor backgroudColor, string format, params object[] arg)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.WriteLine(format, arg);
             Console.BackgroundColor = oldColor;
         }
@@ -101,14 +101,48 @@ namespace DustInTheWind.ConsoleTools
         /// Writes the text representation of the specified object, followed by the current line terminator, to the Console.
         /// An additional parameter can be specified for the background color used to write the text.
         /// </summary>
-        /// <param name="color">The background color used to write the text.</param>
+        /// <param name="backgroudColor">The background color used to write the text.</param>
         /// <param name="o">The value to write.</param>
-        public static void WriteLineBackgroundColor(ConsoleColor color, object o)
+        public static void WriteLineBackgroundColor(ConsoleColor backgroudColor, object o)
         {
             ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = color;
+            Console.BackgroundColor = backgroudColor;
             Console.WriteLine(o);
             Console.BackgroundColor = oldColor;
+        }
+
+        public static void WithBackgroundColor(ConsoleColor backgroundColor, Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
+
+        public static T WithBackgroundColor<T>(ConsoleColor backgroundColor, Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                Console.BackgroundColor = initialBackgroundColor;
+            }
         }
     }
 }

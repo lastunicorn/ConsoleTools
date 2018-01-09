@@ -25,14 +25,13 @@ namespace DustInTheWind.ConsoleTools
 {
     public partial class CustomConsole
     {
-        public static void WriteSuccess(string text)
+        public static void WriteInverted(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             Console.Write(text);
 
@@ -40,14 +39,13 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteSuccess(string format, params object[] arg)
+        public static void WriteInverted(string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             Console.Write(format, arg);
 
@@ -55,14 +53,13 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteSuccess(object o)
+        public static void WriteInverted(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             Console.Write(o);
 
@@ -70,14 +67,13 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineSuccess(string text)
+        public static void WriteLineInverted(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             Console.WriteLine(text);
 
@@ -85,29 +81,27 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineSuccess(string format, params object[] arg)
+        public static void WriteLineInverted(string text, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
-            Console.WriteLine(format, arg);
+            Console.WriteLine(text, arg);
 
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineSuccess(object o)
+        public static void WriteLineInverted(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             Console.WriteLine(o);
 
@@ -115,16 +109,15 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WithSuccessColors(Action action)
+        public static void WithInvertedColors(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             try
             {
@@ -137,17 +130,15 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static T WithSuccessColors<T>(Func<T> action)
+        public static T WithInvertedColors<T>(Func<T> action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = SuccessColor;
-
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
+            Console.ForegroundColor = initialBackgroundColor;
+            Console.BackgroundColor = initialForegroundColor;
 
             try
             {

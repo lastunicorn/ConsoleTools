@@ -24,24 +24,62 @@ using System.ComponentModel;
 
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
+    /// <summary>
+    /// Displays a yes/no question at the right of the menu item.
+    /// If the user respondes with "No", the menu item is canceled (not selected).
+    /// </summary>
     public class YesNoMenuItem : LabelMenuItem
     {
+        /// <summary>
+        /// Gets or sets the question text to be displayed to the user.
+        /// </summary>
         public string QuestionText { get; set; }
 
         protected override void OnBeforeSelect(CancelEventArgs e)
         {
-            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
-            string message = QuestionText + " [Y/n]";
-            Console.Write(message);
+            Location questionLocation = CalculateQuestionLocation();
+
+            string questionText = BuildQuestionText();
+            DisplayQuestion(questionLocation, questionText);
+
             ConsoleKeyInfo key = Console.ReadKey(true);
 
-            Console.SetCursorPosition(lastX + lastLength + 1, lastY);
-            Console.Write(new string(' ', message.Length));
+            ClearQuestionText(questionLocation, questionText);
 
             bool allow = key.Key == ConsoleKey.Y || key.Key == ConsoleKey.Enter;
             e.Cancel |= !allow;
 
             base.OnBeforeSelect(e);
+        }
+
+        private Location CalculateQuestionLocation()
+        {
+            if (Location == null)
+                return new Location(Console.CursorLeft, Console.CursorTop);
+
+            int itemLeft = Location.Value.Left;
+            int itemTop = Location.Value.Top;
+
+            return new Location(itemLeft + Size.Width + 1, itemTop);
+        }
+
+        private string BuildQuestionText()
+        {
+            return string.IsNullOrEmpty(QuestionText)
+                ? "[Y/n]"
+                : QuestionText + " [Y/n]";
+        }
+
+        private void DisplayQuestion(Location questionLocation, string questionText)
+        {
+            Console.SetCursorPosition(questionLocation.Left, questionLocation.Top);
+            Console.Write(questionText);
+        }
+
+        private static void ClearQuestionText(Location questionLocation, string questionText)
+        {
+            Console.SetCursorPosition(questionLocation.Left, questionLocation.Top);
+            Console.Write(new string(' ', questionText.Length));
         }
     }
 }

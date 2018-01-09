@@ -82,6 +82,17 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         int PaddingRight { get; set; }
 
         /// <summary>
+        /// Gets the location in the console where the current instance was last rendered.
+        /// If the current instance was never rendered, this value is <c>null</c>.
+        /// </summary>
+        Location? Location { get; }
+
+        /// <summary>
+        /// Gets the size necessary for the current instance to render.
+        /// </summary>
+        Size Size { get; }
+
+        /// <summary>
         /// Event raised before the current instance is selected.
         /// It gives the oportunity for a subscriber to cancel the selection of the menu item.
         /// </summary>
@@ -99,10 +110,5 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
         bool Select();
-
-        /// <summary>
-        /// Returns the minimum size necessary for the current instance to render.
-        /// </summary>
-        Size Measure();
     }
 }

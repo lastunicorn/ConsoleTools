@@ -27,50 +27,137 @@ namespace DustInTheWind.ConsoleTools
     {
         public static void WriteEmphasies(string text)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.Write(text);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteEmphasies(string format, params object[] arg)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.Write(format, arg);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteEmphasies(object o)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.Write(o);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineEmphasies(string text)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.WriteLine(text);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineEmphasies(string format, params object[] arg)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.WriteLine(format, arg);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineEmphasies(object o)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
             Console.WriteLine(o);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
+        }
+
+        public static void WithEmphasiesColors(Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = EmphasiesColor;
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
+
+        public static T WithEmphasiesColors<T>(Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = EmphasiesColor;
+
+            if (EmphasiesBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
         }
     }
 }

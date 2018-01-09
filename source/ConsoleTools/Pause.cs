@@ -69,24 +69,9 @@ namespace DustInTheWind.ConsoleTools
         public void Display()
         {
             if (HideCursor)
-                RunWithoutCursor(DisplayInternal);
+                CustomConsole.WithoutCursor(DisplayInternal);
             else
                 DisplayInternal();
-        }
-
-        private static void RunWithoutCursor(Action action)
-        {
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
-            {
-                action();
-            }
-            finally
-            {
-                Console.CursorVisible = initialCursorVisible;
-            }
         }
 
         private void DisplayInternal()

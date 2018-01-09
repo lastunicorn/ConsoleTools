@@ -25,7 +25,7 @@ using System.ComponentModel;
 namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 {
     /// <summary>
-    /// Represents a separator used to group menu items in a menu.
+    /// Represents a separator used to create a spae between groups of menu items in a menu.
     /// </summary>
     public class SeparatorMenuItem : IMenuItem
     {
@@ -112,6 +112,17 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         public int PaddingRight { get; set; } = 0;
 
         /// <summary>
+        /// Gets the location in the console where the current instance was last rendered.
+        /// If the current instance was never rendered, this value is <c>null</c>.
+        /// </summary>
+        public Location? Location { get; private set; }
+
+        /// <summary>
+        /// Gets the size necessary for the current instance to render.
+        /// </summary>
+        public Size Size => new Size(PaddingLeft + PaddingRight, 1);
+
+        /// <summary>
         /// This event is never raised because the <see cref="SeparatorMenuItem"/> cannot be selected.
         /// </summary>
         public event EventHandler<CancelEventArgs> BeforeSelect;
@@ -121,6 +132,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// </summary>
         public void Display(Size size, bool highlighted)
         {
+            Location = new Location(Console.CursorLeft, Console.CursorTop);
         }
 
         /// <summary>
@@ -131,15 +143,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         {
             return false;
         }
-
-        /// <summary>
-        /// Returns the minimum size necessary for the current instance to render.
-        /// </summary>
-        public Size Measure()
-        {
-            return new Size(PaddingLeft + PaddingRight, 1);
-        }
-
+        
         /// <summary>
         /// Raises the <see cref="BeforeSelect"/> event.
         /// </summary>

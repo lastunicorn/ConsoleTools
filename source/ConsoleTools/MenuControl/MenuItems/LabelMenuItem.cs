@@ -32,11 +32,34 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
-        private bool isVisible;
+        private bool isVisible = true;
 
-        protected int lastX = -1;
-        protected int lastY = -1;
-        protected int lastLength = -1;
+        private string calculatedContent;
+        private string text;
+        private int paddingLeft = 1;
+        private int paddingRight = 1;
+
+        private string CalculatedContent
+        {
+            get
+            {
+                if (calculatedContent == null)
+                    calculatedContent = CalculateText();
+
+                return calculatedContent;
+            }
+        }
+
+        /// <summary>
+        /// Gets the location in the console where the current instance was last rendered.
+        /// If the current instance was never rendered, this value is <c>null</c>.
+        /// </summary>
+        public Location? Location { get; private set; }
+
+        /// <summary>
+        /// Gets the size necessary for the current instance to render.
+        /// </summary>
+        public Size Size => new Size(CalculatedContent.Length, 1);
 
         /// <summary>
         /// Gets or sets the id of the menu item.
@@ -46,7 +69,15 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// <summary>
         /// Gets or sets the text displayed by the current instance.
         /// </summary>
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                calculatedContent = null;
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value that specifies if the current instance is displayed.
@@ -99,14 +130,30 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// The padding is part of the menu item's width.
         /// Default value: 1
         /// </summary>
-        public int PaddingLeft { get; set; } = 1;
+        public int PaddingLeft
+        {
+            get { return paddingLeft; }
+            set
+            {
+                paddingLeft = value;
+                calculatedContent = null;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the padding applied to the right of the text.
         /// The padding is part of the menu item's width.
         /// Default value: 1
         /// </summary>
-        public int PaddingRight { get; set; } = 1;
+        public int PaddingRight
+        {
+            get { return paddingRight; }
+            set
+            {
+                paddingRight = value;
+                calculatedContent = null;
+            }
+        }
 
         /// <summary>
         /// Event raised before the current instance is selected.
@@ -121,53 +168,19 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// <param name="highlighted">A value that specifies if the menu item must be displayed highlighted.</param>
         public void Display(Size size, bool highlighted)
         {
-            StringBuilder calculatedText = CalculateText();
-
             HorizontalAlignment calculatedHorizontalAlignment = CalculatedHorizontalAlignment();
 
-            int emptySpace = size.Width - calculatedText.Length;
+            Location = new Location(Console.CursorLeft, Console.CursorTop);
 
-            lastX = Console.CursorLeft;
-            lastY = Console.CursorTop;
+            string alignedText = AlignedText.QuickAlign(CalculatedContent, calculatedHorizontalAlignment, size.Width);
 
-            switch (calculatedHorizontalAlignment)
-            {
-                default:
-                    if (highlighted)
-                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
-                    else
-                        CustomConsole.Write(calculatedText.ToString());
-
-                    CustomConsole.Write(new string(' ', emptySpace));
-                    break;
-
-                case HorizontalAlignment.Center:
-                    int leftEmptySpace = emptySpace / 2;
-                    CustomConsole.Write(new string(' ', leftEmptySpace));
-
-                    if (highlighted)
-                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
-                    else
-                        CustomConsole.Write(calculatedText.ToString());
-
-                    int rightEmptySpace = emptySpace - leftEmptySpace;
-                    CustomConsole.Write(new string(' ', rightEmptySpace));
-                    break;
-
-                case HorizontalAlignment.Right:
-                    CustomConsole.Write(new string(' ', emptySpace));
-
-                    if (highlighted)
-                        CustomConsole.Write(Console.BackgroundColor, Console.ForegroundColor, calculatedText.ToString());
-                    else
-                        CustomConsole.Write(calculatedText.ToString());
-                    break;
-            }
-
-            lastLength = calculatedText.Length;
+            if (highlighted)
+                CustomConsole.WriteInverted(alignedText);
+            else
+                CustomConsole.Write(alignedText);
         }
 
-        private StringBuilder CalculateText()
+        private string CalculateText()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -179,7 +192,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             if (PaddingRight > 0)
                 sb.Append(new string(' ', PaddingRight));
 
-            return sb;
+            return sb.ToString();
         }
 
         private HorizontalAlignment CalculatedHorizontalAlignment()
@@ -203,15 +216,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             OnBeforeSelect(args);
 
             return !args.Cancel;
-        }
-
-        /// <summary>
-        /// Returns the minimum size necessary for the current instance to render.
-        /// </summary>
-        public Size Measure()
-        {
-            StringBuilder calculatedText = CalculateText();
-            return new Size(calculatedText.Length, 1);
         }
 
         /// <summary>

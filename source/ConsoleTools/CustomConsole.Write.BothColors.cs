@@ -108,5 +108,47 @@ namespace DustInTheWind.ConsoleTools
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
         }
+
+        public static void WithColors(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = foregroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
+
+        public static T WithColors<T>(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = foregroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
     }
 }

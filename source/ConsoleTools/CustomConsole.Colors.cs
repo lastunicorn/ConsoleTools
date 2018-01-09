@@ -34,9 +34,21 @@ namespace DustInTheWind.ConsoleTools
         public static ConsoleColor SuccessColor { get; set; } = ConsoleColor.Green;
 
         /// <summary>
+        /// Gets or sets the background color used to write Success messages.
+        /// If the color is null, default background color is used.
+        /// </summary>
+        public static ConsoleColor? SuccessBackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets the color used to write Warning messages.
         /// </summary>
         public static ConsoleColor WarningColor { get; set; } = ConsoleColor.Yellow;
+
+        /// <summary>
+        /// Gets or sets the background color used to write Warning messages.
+        /// If the color is null, default background color is used.
+        /// </summary>
+        public static ConsoleColor? WarningBackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the color used to write Error messages.
@@ -44,8 +56,20 @@ namespace DustInTheWind.ConsoleTools
         public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.Red;
 
         /// <summary>
+        /// Gets or sets the background color used to write Error messages.
+        /// If the color is null, default background color is used.
+        /// </summary>
+        public static ConsoleColor? ErrorBackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets the color used to write Emphasiesed messages.
         /// </summary>
         public static ConsoleColor EmphasiesColor { get; set; } = ConsoleColor.White;
+
+        /// <summary>
+        /// Gets or sets the background color used to write Emphasies messages.
+        /// If the color is null, default background color is used.
+        /// </summary>
+        public static ConsoleColor? EmphasiesBackgroundColor { get; set; }
     }
 }

@@ -112,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             Reset();
 
-            RunWithoutCursor(() =>
+            CustomConsole.WithoutCursor(() =>
             {
                 menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
@@ -156,7 +156,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         public void Resume()
         {
-            RunWithoutCursor(() =>
+            CustomConsole.WithoutCursor(() =>
             {
                 menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
@@ -181,21 +181,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public void Refresh()
         {
             DrawMenuItem(menuItems.CurrentIndex);
-        }
-
-        private void RunWithoutCursor(Action action)
-        {
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
-            {
-                action.Invoke();
-            }
-            finally
-            {
-                Console.CursorVisible = initialCursorVisible;
-            }
         }
 
         /// <summary>
@@ -257,7 +242,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
             int menuWidth = menuItems
                 .Where(x => x != null && x.IsVisible)
-                .Select(x => x.Measure())
+                .Select(x => x.Size)
                 .Max(x => x.Width);
 
             return new Size(menuWidth, menuHight);

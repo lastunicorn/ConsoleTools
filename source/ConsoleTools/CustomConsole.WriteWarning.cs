@@ -27,50 +27,137 @@ namespace DustInTheWind.ConsoleTools
     {
         public static void WriteWarning(string text)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.Write(text);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteWarning(string format, params object[] arg)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.Write(format, arg);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteWarning(object o)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.Write(o);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineWarning(string text)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.WriteLine(text);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineWarning(string text, params object[] arg)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.WriteLine(text, arg);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
 
         public static void WriteLineWarning(object o)
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
             Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
             Console.WriteLine(o);
-            Console.ForegroundColor = oldColor;
+
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
+        }
+
+        public static void WithWarningColors(Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = WarningColor;
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
+
+        public static T WithWarningColors<T>(Func<T> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            ConsoleColor initialForegroundColor = Console.ForegroundColor;
+            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+            Console.ForegroundColor = WarningColor;
+
+            if (WarningBackgroundColor.HasValue)
+                Console.BackgroundColor = WarningBackgroundColor.Value;
+
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                Console.ForegroundColor = initialForegroundColor;
+                Console.BackgroundColor = initialBackgroundColor;
+            }
         }
     }
 }

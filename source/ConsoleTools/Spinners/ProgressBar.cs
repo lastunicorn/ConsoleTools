@@ -233,7 +233,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
                     break;
 
                 case ValuePosition.Right:
-                    CustomConsole.WriteLine("[");
+                    CustomConsole.Write("[");
                     CustomConsole.Write(progressBarAsString);
                     CustomConsole.Write("] ");
                     if (ShowValue)

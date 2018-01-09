@@ -7,8 +7,6 @@ A set of tools and "controls" for the .net Console. They help displaying and rea
 
 For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new).** on **GitHub**.
 
-Thank you :)
-
 
 ## List of controls
 

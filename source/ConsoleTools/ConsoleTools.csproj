@@ -52,24 +52,59 @@
     <Compile Include="CustomConsole.WriteInverted.cs" />
     <Compile Include="InputControls\Label.cs" />
     <Compile Include="InputControls\ListInput.cs" />
+    <Compile Include="InputControls\ListInputResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListInputResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="InputControls\ListOutput.cs" />
     <Compile Include="InputControls\TextInput.cs" />
+    <Compile Include="InputControls\TextInputResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextInputResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="InputControls\TextOutput.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
     <Compile Include="InputControls\YesNoQuestion.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />
+    <Compile Include="InputControls\YesNoQuestionResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YesNoQuestionResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="MenuControl\ActionCommand.cs" />
     <Compile Include="MenuControl\EmptyCommand.cs" />
     <Compile Include="MenuControl\ICommand.cs" />
     <Compile Include="MenuControl\TextMenuItem.cs" />
+    <Compile Include="MenuControl\TextMenuResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextMenuResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Mvc\ConsoleApplication.cs" />
+    <Compile Include="Mvc\ConsoleApplicationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConsoleApplicationResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Mvc\IController.cs" />
     <Compile Include="Mvc\MissingRouteException.cs" />
     <Compile Include="Mvc\Route.cs" />
     <Compile Include="Mvc\Router.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Pause.cs" />
+    <Compile Include="PauseResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PauseResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Spinners\ProgressBar.cs" />
+    <Compile Include="Spinners\SpinnerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpinnerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Spinners\Templates\FilledBehavior.cs" />
     <Compile Include="Spinners\Templates\FillTemplate.cs" />
     <Compile Include="Spinners\Templates\HalfBlockBlinkTemplate.cs" />
@@ -128,7 +163,36 @@
     <Compile Include="TabularData\TitleRow.cs" />
     <Compile Include="ThreeStageFile.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="InputControls\ListInputResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\TextInputResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextInputResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\YesNoQuestionResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuControl\TextMenuResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextMenuResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mvc\ConsoleApplicationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConsoleApplicationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PauseResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Spinners\SpinnerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

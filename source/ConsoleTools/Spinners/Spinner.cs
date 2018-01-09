@@ -22,6 +22,7 @@
 using System;
 using System.Timers;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Mvc;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Spinners
@@ -78,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;
 
-            label.Text = "Please wait";
+            label.Text = SpinnerResources.DefaultLabelText;
 
             timer = new Timer(400);
             timer.Elapsed += HandleTimerElapsed;
@@ -200,12 +201,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
                     action();
 
                     spinner.Stop();
-                    CustomConsole.WriteLineSuccess("[Done]");
+                    CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
                 }
                 catch
                 {
                     spinner.Stop();
-                    CustomConsole.WriteLineError("[Error]");
+                    CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }
             }
@@ -243,14 +244,14 @@ namespace DustInTheWind.ConsoleTools.Spinners
                     T result = action();
 
                     spinner.Stop();
-                    CustomConsole.WriteLineSuccess("[Done]");
+                    CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
 
                     return result;
                 }
                 catch
                 {
                     spinner.Stop();
-                    CustomConsole.WriteLineError("[Error]");
+                    CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }
             }

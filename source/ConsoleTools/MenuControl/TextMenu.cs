@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DustInTheWind.ConsoleTools.InputControls;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
@@ -38,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets or sets the text displayed after the menu to ask the user to choose an item.
         /// </summary>
-        public string QuestionText { get; set; } = "Your choice";
+        public string QuestionText { get; set; } = TextMenuResources.QuestionText;
 
         /// <summary>
         /// Gets or sets the separator text displayed after the question.
@@ -55,12 +56,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets or sets the text displayed when the user chooses an inexistent option.
         /// </summary>
-        public string InvalidOptionText { get; set; } = "Invalid option.";
+        public string InvalidOptionText { get; set; } = TextMenuResources.InvalidOptionMessage;
 
         /// <summary>
         /// Gets or sets the text displayed when the user chooses an option that is disabled.
         /// </summary>
-        public string OptionDisabledText { get; set; } = "Option is disabled.";
+        public string OptionDisabledText { get; set; } = TextMenuResources.OptionDisabledMessage;
 
         /// <summary>
         /// Gets the item that was selected by the user.

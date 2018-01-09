@@ -237,7 +237,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
                     if (AcceptEscapeAsCancel && consoleKeyInfo.Key == ConsoleKey.Escape)
                     {
-                        Console.WriteLine("Canceled");
+                        Console.WriteLine(YesNoQuestionResources.QuestionCanceled);
                         return YesNoAnswer.Cancel;
                     }
                 }

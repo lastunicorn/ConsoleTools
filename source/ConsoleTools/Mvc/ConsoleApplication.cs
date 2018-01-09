@@ -84,7 +84,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
             }
             catch (MissingRouteException ex)
             {
-                CustomConsole.WriteLineError("Unknown command: {0}", ex.Command);
+                CustomConsole.WriteLineError(ConsoleApplicationResources.UnknownCommandMessage, ex.Command);
             }
             catch (Exception ex)
             {

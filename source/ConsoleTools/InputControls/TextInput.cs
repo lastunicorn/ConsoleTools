@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
         /// </summary>
-        public string TypeValidationErrorMessage { get; set; } = "The input value must be a {0} type.";
+        public string TypeValidationErrorMessage { get; set; } = TextInputResources.TypeValidationErrorMessage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextInput{T}"/> class.

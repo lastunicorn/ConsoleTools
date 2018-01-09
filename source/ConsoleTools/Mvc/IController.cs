@@ -14,6 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// --------------------------------------------------------------------------------
+// Bugs or fearure requests
+// --------------------------------------------------------------------------------
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+
 using System.Collections.ObjectModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
 

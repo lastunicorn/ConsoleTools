@@ -51,10 +51,10 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBar
             {
                 progressBar.Display();
 
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i <= 100; i++)
                 {
-                    await Task.Delay(100);
-                    progressBar.Value++;
+                    await Task.Delay(50);
+                    progressBar.Value = i;
                 }
 
                 finishEvent.Set();

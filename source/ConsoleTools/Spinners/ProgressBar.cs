@@ -157,13 +157,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// Gets or sets the character to be used to paint the empty part of the progress bar.
         /// Default value: '.'
         /// </summary>
-        public char BarBackground { get; set; } = '.';
+        public char BarEmptyChar { get; set; } = '.';
+        
+        public ConsoleColor? BarEmptyColor { get; set; }
+        public ConsoleColor? BarEmptyBackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the character to be used to paint the filled part of the progress bar.
         /// Default value: '█'
         /// </summary>
-        public char BarChar { get; set; } = '█';
+        public char BarFillChar { get; set; } = '█';
+
+        public ConsoleColor? BarFillColor { get; set; }
+        public ConsoleColor? BarFillBackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressBar"/>
@@ -216,9 +222,6 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             int calculatedValue = CalculateValue();
 
-            int calculatedLength = CalculateBarLength(calculatedValue);
-            string progressBarAsString = new string(BarChar, calculatedLength).PadRight(Length, BarBackground);
-
             switch (ValuePosition)
             {
                 default:
@@ -227,15 +230,13 @@ namespace DustInTheWind.ConsoleTools.Spinners
                         string valueAsString = ValueToString(calculatedValue);
                         CustomConsole.Write(valueAsString);
                     }
-                    CustomConsole.Write(" [");
-                    CustomConsole.Write(progressBarAsString);
-                    CustomConsole.Write("]");
+
+                    DisplayBar(calculatedValue);
                     break;
 
                 case ValuePosition.Right:
-                    CustomConsole.Write("[");
-                    CustomConsole.Write(progressBarAsString);
-                    CustomConsole.Write("] ");
+                    DisplayBar(calculatedValue);
+
                     if (ShowValue)
                     {
                         string valueAsString = ValueToString(calculatedValue);
@@ -243,6 +244,37 @@ namespace DustInTheWind.ConsoleTools.Spinners
                     }
                     break;
             }
+        }
+
+        private void DisplayBar(int calculatedValue)
+        {
+            int fillLength = CalculateFillLength(calculatedValue);
+            int emptyLength = Length - fillLength;
+
+            string fillString = new string(BarFillChar, fillLength);
+            string emptyString = new string(BarEmptyChar, emptyLength);
+
+            CustomConsole.Write(" [");
+
+            if (BarFillColor.HasValue && BarFillBackgroundColor.HasValue)
+                CustomConsole.Write(BarFillColor.Value, BarFillBackgroundColor.Value, fillString);
+            else if (BarFillColor.HasValue)
+                CustomConsole.Write(BarFillColor.Value, fillString);
+            else if (BarFillBackgroundColor.HasValue)
+                CustomConsole.WriteBackgroundColor(BarFillBackgroundColor.Value, fillString);
+            else
+                CustomConsole.Write(fillString);
+
+            if (BarEmptyColor.HasValue && BarEmptyBackgroundColor.HasValue)
+                CustomConsole.Write(BarEmptyColor.Value, BarEmptyBackgroundColor.Value, emptyString);
+            else if (BarEmptyColor.HasValue)
+                CustomConsole.Write(BarEmptyColor.Value, emptyString);
+            else if (BarEmptyBackgroundColor.HasValue)
+                CustomConsole.WriteBackgroundColor(BarEmptyBackgroundColor.Value, emptyString);
+            else
+                CustomConsole.Write(emptyString);
+
+            CustomConsole.Write("]");
         }
 
         private string ValueToString(int calculatedValue)
@@ -270,7 +302,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             return trimmedValue;
         }
 
-        private int CalculateBarLength(int value)
+        private int CalculateFillLength(int value)
         {
             return (value - MinValue) * Length / (MaxValue - MinValue);
         }

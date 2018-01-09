@@ -5,7 +5,7 @@ A set of tools and "controls" for the .net Console. They help displaying and rea
 
 ## Bugs and feature requests
 
-For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new).** on **GitHub**.
+For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new)** on **GitHub**.
 
 
 ## List of controls

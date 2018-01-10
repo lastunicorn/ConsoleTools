@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
             table.DisplayBorderBetweenRows = true;
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
     }
 }

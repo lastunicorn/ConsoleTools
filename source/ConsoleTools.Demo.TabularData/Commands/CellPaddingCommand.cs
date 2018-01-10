@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "Forth item", 4.ToString() });
             table.AddRow(new[] { "Fifth item", 5.ToString() });
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
 
         private static void DisplayPaddingExample()
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             table.Padding = 3;
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
 
         private static void DisplayPaddingLeftExample()
@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             table.PaddingLeft = 3;
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
 
         private static void DisplayPaddingRightExample()
@@ -86,7 +86,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             table.PaddingRight = 3;
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
     }
 }

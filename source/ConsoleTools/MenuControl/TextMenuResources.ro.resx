@@ -117,9 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TypeValidationErrorMessage" xml:space="preserve">
-    <value>The input value must be of the type {0}.</value>
-    <comment>Message displayed when the value provided by the user cannot be converted into the requested type.
-0 - the requested type</comment>
+  <data name="QuestionText" xml:space="preserve">
+    <value>Alegerea ta</value>
+    <comment>Text displayed to request the user to write his choice.</comment>
+  </data>
+  <data name="InvalidOptionMessage" xml:space="preserve">
+    <value>Opțiune invalidă.</value>
+    <comment>Message displayed when an invalid option is selected by the user.</comment>
+  </data>
+  <data name="OptionDisabledMessage" xml:space="preserve">
+    <value>Opțiunea este dezactivată.</value>
+    <comment>Message displayed when the user selects a disabled option.</comment>
   </data>
 </root>

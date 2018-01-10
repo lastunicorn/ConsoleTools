@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.DisplayColumnHeaders = true;
             table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
     }
 }

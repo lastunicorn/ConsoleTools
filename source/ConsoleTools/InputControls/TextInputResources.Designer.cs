@@ -61,7 +61,7 @@ namespace DustInTheWind.ConsoleTools.InputControls {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The input value must be a {0} type..
+        ///   Looks up a localized string similar to The input value must be of the type {0}..
         /// </summary>
         internal static string TypeValidationErrorMessage {
             get {

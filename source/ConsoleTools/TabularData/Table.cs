@@ -235,6 +235,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
+        /// Renders the current instance into the console.
+        /// </summary>
+        public void Render()
+        {
+            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
+            Render(consoleTablePrinter);
+        }
+
+        /// <summary>
         /// Renders the current instance into the specified <see cref="ITablePrinter"/>.
         /// </summary>
         /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instacne used to render the data.</param>

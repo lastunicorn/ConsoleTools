@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
             table.AddRow(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
     }
 }

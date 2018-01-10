@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools
         private readonly string tempFileName;
         private readonly string backupFileName;
 
-        private FileStream fileStream;
+        public FileStream FileStream { get; private set; }
 
         protected ThreeStageFile(string fileName)
         {
@@ -43,33 +43,23 @@ namespace DustInTheWind.ConsoleTools
 
         public void Open()
         {
-            if (fileStream != null)
+            if (FileStream != null)
                 return;
 
             if (File.Exists(tempFileName))
                 throw new ApplicationException($"The previous process was not completed. Delete the temporary {tempFileName} file and then try again.");
 
-            fileStream = File.OpenWrite(tempFileName);
+            FileStream = File.OpenWrite(tempFileName);
         }
-
-        public void Execute()
-        {
-            if (fileStream == null)
-                throw new ApplicationException("File is not opened.");
-
-            DoExecute(fileStream);
-        }
-
-        protected abstract void DoExecute(FileStream fileStream);
 
         public void Close()
         {
-            if (fileStream == null)
+            if (FileStream == null)
                 return;
 
-            fileStream.Close();
-            fileStream.Dispose();
-            fileStream = null;
+            FileStream.Close();
+            FileStream.Dispose();
+            FileStream = null;
 
             if (File.Exists(targetFileName))
                 File.Replace(tempFileName, targetFileName, backupFileName);
@@ -79,7 +69,7 @@ namespace DustInTheWind.ConsoleTools
 
         public void Dispose()
         {
-            fileStream?.Dispose();
+            FileStream?.Dispose();
         }
     }
 }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TypeValidationErrorMessage" xml:space="preserve">
-    <value>The input value must be of the type {0}.</value>
+    <value>Valoarea introdusă trebuie să fie de tipul {0}.</value>
     <comment>Message displayed when the value provided by the user cannot be converted into the requested type.
 0 - the requested type</comment>
   </data>

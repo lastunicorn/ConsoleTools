@@ -40,89 +40,42 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void WriteBorder(string text)
         {
-            Write(text, BorderColor);
+            CustomConsole.Write(BorderColor, text);
         }
 
         public void WriteBorder(char c)
         {
-            Write(c, BorderColor);
+            CustomConsole.Write(BorderColor, c);
         }
 
         public void WriteLineBorder(string text)
         {
-            WriteLine(text, BorderColor);
+            CustomConsole.WriteLine(BorderColor, text);
         }
 
         public void WriteLineBorder(char c)
         {
-            WriteLine(c, BorderColor);
+            CustomConsole.WriteLine(BorderColor, c);
         }
 
         public void WriteTitle(string text)
         {
-            Write(text, TitleColor);
-        }
-
-        public void WriteLineTitle(string text)
-        {
-            WriteLine(text, TitleColor);
+            CustomConsole.Write(TitleColor, text);
         }
 
         public void WriteHeader(string text)
         {
-            Write(text, HeaderColor);
-        }
-
-        public void WriteLineHeader(string text)
-        {
-            WriteLine(text, HeaderColor);
+            CustomConsole.Write(HeaderColor, text);
         }
 
         public void WriteNormal(string text)
         {
-            Write(text, NormalColor);
-        }
-
-        public void WriteLineNormal(string text)
-        {
-            WriteLine(text, NormalColor);
+            CustomConsole.Write(NormalColor, text);
         }
 
         public void WriteLine()
         {
             Console.WriteLine();
-        }
-
-        private static void Write(string text, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.Write(text);
-            Console.ForegroundColor = oldColor;
-        }
-
-        private static void Write(char c, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.Write(c);
-            Console.ForegroundColor = oldColor;
-        }
-
-        private static void WriteLine(string text, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-            Console.ForegroundColor = oldColor;
-        }
-
-        private static void WriteLine(char c, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.WriteLine(c);
-            Console.ForegroundColor = oldColor;
         }
     }
 }

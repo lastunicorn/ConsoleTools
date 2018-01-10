@@ -22,7 +22,6 @@
 using System;
 using System.Timers;
 using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Mvc;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Spinners

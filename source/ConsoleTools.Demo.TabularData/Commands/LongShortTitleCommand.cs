@@ -31,28 +31,28 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         private static void DisplayTableWithLongTitle()
         {
-            Table table1 = new Table("Long title - longer than the content of the table");
+            Table table = new Table("Long title - longer than the content of the table");
 
-            table1.AddRow(new[] { "First item", 1.ToString() });
-            table1.AddRow(new[] { "Second item", 2.ToString() });
-            table1.AddRow(new[] { "Third item", 3.ToString() });
-            table1.AddRow(new[] { "Forth item", 4.ToString() });
-            table1.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.AddRow(new[] { "First item", 1.ToString() });
+            table.AddRow(new[] { "Second item", 2.ToString() });
+            table.AddRow(new[] { "Third item", 3.ToString() });
+            table.AddRow(new[] { "Forth item", 4.ToString() });
+            table.AddRow(new[] { "Fifth item", 5.ToString() });
 
-            CustomConsole.WriteLine(table1.ToString());
+            table.Render();
         }
 
         private static void DisplayTableWithShortTitle()
         {
-            Table table2 = new Table("Short title");
+            Table table = new Table("Short title");
 
-            table2.AddRow(new[] { "First item", 1.ToString() });
-            table2.AddRow(new[] { "Second item", 2.ToString() });
-            table2.AddRow(new[] { "Third item", 3.ToString() });
-            table2.AddRow(new[] { "Forth item", 4.ToString() });
-            table2.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.AddRow(new[] { "First item", 1.ToString() });
+            table.AddRow(new[] { "Second item", 2.ToString() });
+            table.AddRow(new[] { "Third item", 3.ToString() });
+            table.AddRow(new[] { "Forth item", 4.ToString() });
+            table.AddRow(new[] { "Fifth item", 5.ToString() });
 
-            CustomConsole.WriteLine(table2.ToString());
+            table.Render();
         }
     }
 }

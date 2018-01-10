@@ -57,29 +57,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
             sb.Append(text);
         }
 
-        public void WriteLineTitle(string text)
-        {
-            sb.AppendLine(text);
-        }
-
         public void WriteHeader(string text)
         {
             sb.Append(text);
         }
 
-        public void WriteLineHeader(string text)
-        {
-            sb.AppendLine(text);
-        }
-
         public void WriteNormal(string text)
         {
             sb.Append(text);
-        }
-
-        public void WriteLineNormal(string text)
-        {
-            sb.AppendLine(text);
         }
 
         public void WriteLine()

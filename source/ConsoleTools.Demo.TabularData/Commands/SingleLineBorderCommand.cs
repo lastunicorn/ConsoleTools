@@ -37,8 +37,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.DisplayBorderBetweenRows = true;
             table.DisplayColumnHeaders = true;
             table.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
-
-            CustomConsole.WriteLine(table.ToString());
+            
+            table.Render();
         }
     }
 }

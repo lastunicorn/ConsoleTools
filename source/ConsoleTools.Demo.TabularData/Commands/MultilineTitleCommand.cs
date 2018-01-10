@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "Forth item", 4.ToString() });
             table.AddRow(new[] { "Fifth item", 5.ToString() });
 
-            CustomConsole.WriteLine(table.ToString());
+            table.Render();
         }
     }
 }

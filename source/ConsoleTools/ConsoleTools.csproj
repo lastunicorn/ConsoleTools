@@ -64,7 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ValueInputResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="InputControls\TextOutput.cs" />
+    <Compile Include="InputControls\ValueOutput.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
     <Compile Include="InputControls\YesNoQuestion.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />

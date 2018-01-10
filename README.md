@@ -2,7 +2,7 @@
 
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
-**Note**: Until reaching the version 1.0.0 the controls are subject to change names, parameters or types and will not ensure backwards compatibility.
+_**Note**: Until reaching the version 1.0.0 the controls are subject to change names, parameters or types and will not ensure backwards compatibility._
 
 
 ## Bugs and feature requests
@@ -14,10 +14,10 @@ For any bug or feature request please add a **[new issue](https://github.com/las
 
 - Data I/O
   - [Table](https://github.com/lastunicorn/ConsoleTools/wiki/Table) - Displays tabular data.
-  - [Input Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextInput%20Control) - Reads a value from the user.
-  - [Input List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListInput%20Control) - Reads a list of values of the same type from the user.
-  - [Output Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextOutput%20Control) - Displays a value to the user.
-  - [Output List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListOutput%20Control) - Displays a list of values to the user.
+  - [Read Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextInput%20Control) - Reads a value from the user.
+  - [Read List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListInput%20Control) - Reads a list of values of the same type from the user.
+  - [Write Value](https://github.com/lastunicorn/ConsoleTools/wiki/TextOutput%20Control) - Displays a value to the user.
+  - [Write List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListOutput%20Control) - Displays a list of values to the user.
   - [Yes/No Question](https://github.com/lastunicorn/ConsoleTools/wiki/YesNoQuestion%20Control) - Asks a question to the user and expects a yes/no answer.
   - [Pause Control](https://github.com/lastunicorn/ConsoleTools/wiki/Pause) - Displays a pause text and waits for the user to press a key.
 - Progress

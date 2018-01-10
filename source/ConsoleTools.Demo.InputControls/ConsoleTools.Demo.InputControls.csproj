@@ -42,7 +42,7 @@
     </Compile>
     <Compile Include="Commands\ListInputCommand.cs" />
     <Compile Include="Commands\ListOutputCommand.cs" />
-    <Compile Include="Commands\TextInputCommand.cs" />
+    <Compile Include="Commands\ValueInputCommand.cs" />
     <Compile Include="Commands\TextOutputCommand.cs" />
     <Compile Include="Commands\YesNoCommand.cs" />
     <Compile Include="Program.cs" />

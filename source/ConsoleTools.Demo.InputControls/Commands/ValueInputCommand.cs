@@ -20,7 +20,7 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class TextInputCommand : ICommand
+    internal class ValueInputCommand : ICommand
     {
         public bool IsActive => true;
 
@@ -41,15 +41,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static void RunExample_Instance()
         {
             // Create the input controls
-            TextInput<string> firstNameInput = new TextInput<string>("First Name:");
+            ValueInput<string> firstNameInput = new ValueInput<string>("First Name:");
             firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
-            TextInput<string> lastNameInput = new TextInput<string>("Last Name:");
+            ValueInput<string> lastNameInput = new ValueInput<string>("Last Name:");
             lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
-            TextInput<int> ageInput = new TextInput<int>("Age:");
+            ValueInput<int> ageInput = new ValueInput<int>("Age:");
             ageInput.LabelForegroundColor = ConsoleColor.DarkGreen;
-            TextInput<DateTime> birthdayInput = new TextInput<DateTime>("Birthday:");
+            ValueInput<DateTime> birthdayInput = new ValueInput<DateTime>("Birthday:");
             birthdayInput.LabelForegroundColor = ConsoleColor.DarkGreen;
-            TextInput<float> heightInput = new TextInput<float>("Height (float):");
+            ValueInput<float> heightInput = new ValueInput<float>("Height (float):");
             heightInput.LabelForegroundColor = ConsoleColor.DarkGreen;
 
             // Read values using the input controls
@@ -72,11 +72,11 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// </summary>
         private static void RunExample_Quick()
         {
-            string firstName = TextInput<string>.QuickRead("First Name:");
-            string lastName = TextInput<string>.QuickRead("Last Name:");
-            int age = TextInput<int>.QuickRead("Age:");
-            DateTime birthday = TextInput<DateTime>.QuickRead("Birthday:");
-            float height = TextInput<float>.QuickRead("Height (float):");
+            string firstName = ValueInput<string>.QuickRead("First Name:");
+            string lastName = ValueInput<string>.QuickRead("Last Name:");
+            int age = ValueInput<int>.QuickRead("Age:");
+            DateTime birthday = ValueInput<DateTime>.QuickRead("Birthday:");
+            float height = ValueInput<float>.QuickRead("Height (float):");
 
             // Display th read values.
             CustomConsole.WriteLine();
@@ -88,7 +88,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         private static void RunExample_DefaultValue()
         {
-            TextInput<int> numberInput = new TextInput<int>("Number:");
+            ValueInput<int> numberInput = new ValueInput<int>("Number:");
             numberInput.AcceptDefaultValue = true;
             numberInput.DefaultValue = 42;
 

@@ -58,11 +58,11 @@
       <DependentUpon>ListInputResources.resx</DependentUpon>
     </Compile>
     <Compile Include="InputControls\ListOutput.cs" />
-    <Compile Include="InputControls\TextInput.cs" />
-    <Compile Include="InputControls\TextInputResources.Designer.cs">
+    <Compile Include="InputControls\ValueInput.cs" />
+    <Compile Include="InputControls\ValueInputResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TextInputResources.resx</DependentUpon>
+      <DependentUpon>ValueInputResources.resx</DependentUpon>
     </Compile>
     <Compile Include="InputControls\TextOutput.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
@@ -169,10 +169,10 @@
       <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="InputControls\ListInputResources.ro.resx" />
-    <EmbeddedResource Include="InputControls\TextInputResources.ro.resx" />
-    <EmbeddedResource Include="InputControls\TextInputResources.resx">
+    <EmbeddedResource Include="InputControls\ValueInputResources.ro.resx" />
+    <EmbeddedResource Include="InputControls\ValueInputResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextInputResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.ro.resx" />
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.resx">

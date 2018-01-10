@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class TextInput<T>
+    public class ValueInput<T>
     {
         private readonly Label labelControl = new Label
         {
@@ -83,21 +83,21 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
         /// </summary>
-        public string TypeValidationErrorMessage { get; set; } = TextInputResources.TypeValidationErrorMessage;
+        public string TypeValidationErrorMessage { get; set; } = ValueInputResources.TypeValidationErrorMessage;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextInput{T}"/> class.
+        /// Initializes a new instance of the <see cref="ValueInput{T}"/> class.
         /// </summary>
-        public TextInput()
+        public ValueInput()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextInput{T}"/> class with
+        /// Initializes a new instance of the <see cref="ValueInput{T}"/> class with
         /// the label to be displayed when the user is requested to provide the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public TextInput(string label)
+        public ValueInput(string label)
         {
             Label = label;
         }
@@ -142,13 +142,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="TextInput{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueInput{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static T QuickRead(string label)
         {
-            return new TextInput<T>(label).Read();
+            return new ValueInput<T>(label).Read();
         }
     }
 }

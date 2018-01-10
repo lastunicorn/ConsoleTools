@@ -62,8 +62,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 new LabelMenuItem
                 {
                     Id = 1,
-                    Text = "Text Input",
-                    Command = new TextInputCommand()
+                    Text = "Value Input",
+                    Command = new ValueInputCommand()
                 },
                 new LabelMenuItem
                 {

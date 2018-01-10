@@ -114,6 +114,9 @@
     <Compile Include="TabularData\BorderTemplate.cs" />
     <Compile Include="TabularData\CellBase.cs" />
     <Compile Include="TabularData\ColumnList.cs" />
+    <Compile Include="TabularData\DataCellX.cs" />
+    <Compile Include="TabularData\DataGridX.cs" />
+    <Compile Include="TabularData\DataRowX.cs" />
     <Compile Include="TabularData\HeaderCell.cs" />
     <Compile Include="TabularData\TableRenderer.cs" />
     <Compile Include="CommandProviders\UserCommandParameter.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="CommandProviders\CliCommand.cs" />
     <Compile Include="TabularData\TitleCell.cs" />
     <Compile Include="TabularData\TitleRow.cs" />
+    <Compile Include="TabularData\TitleRowX.cs" />
     <Compile Include="ThreeStageFile.cs" />
   </ItemGroup>
   <ItemGroup>

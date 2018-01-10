@@ -218,56 +218,30 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     CalculatedHeaderRowHeight = cellHeight;
             }
         }
-
+        
         private void CalculateDataRowsDimensions()
         {
+            DataGridX dataGridX = new DataGridX
+            {
+                CalculatedColumnsWidth = CalculatedColumnsWidth
+            };
+
             foreach (DataRow row in Rows)
             {
-                int rowWidth = 0;
-                int rowHeight = 0;
+                dataGridX.StartNewRow(DisplayBorder);
 
-                // The table left border
-                if (DisplayBorder)
-                    rowWidth += 1;
-
-                for (int j = 0; j < row.CellCount; j++)
+                for (int i = 0; i < row.CellCount; i++)
                 {
-                    DataCell cell = row[j];
-
-                    Size cellSize = cell.CalculateDimensions();
-
-                    if (j == CalculatedColumnsWidth.Count)
-                        CalculatedColumnsWidth.Add(0);
-
-                    if (CalculatedColumnsWidth[j] < cellSize.Width)
-                    {
-                        CalculatedColumnsWidth[j] = cellSize.Width;
-                        rowWidth += cellSize.Width;
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            rowWidth += 1;
-                    }
-                    else
-                    {
-                        rowWidth += CalculatedColumnsWidth[j];
-
-                        // The cell right border
-                        if (DisplayBorder)
-                            rowWidth += 1;
-                    }
-
-                    if (rowHeight < cellSize.Height)
-                        rowHeight = cellSize.Height;
+                    dataGridX.AddDataCell(row[i]);
                 }
-
-                CalculatedRowsHeight.Add(rowHeight);
-
-                if (longestDataRowWidth < rowWidth)
-                    longestDataRowWidth = rowWidth;
             }
-        }
 
+            dataGridX.EndDataRow();
+
+            longestDataRowWidth = dataGridX.TableWidth;
+            CalculatedRowsHeight.AddRange(dataGridX.CalculatedRowsHeight);
+        }
+        
         private void CalculateTotalWidth()
         {
             if (CalculatedTotalWidth < MinWidth)

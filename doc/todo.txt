@@ -1,0 +1,16 @@
+Table
+- Add property DataSource
+- Margins
+- MaxWidth
+- BorderForegroundColor - On BorderTemplate
+- BorderBackgroundColor - On BorderTemplate
+
+
+- Table - DataGrid
+- Column
+- DataRow - DataGridRow
+- DataCell - DataGridCell
+- ColumnList
+- ColumnCell
+- TitleRow
+- TitleCell

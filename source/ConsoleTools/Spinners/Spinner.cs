@@ -92,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Displays the spinner and runs it until the <see cref="Stop"/> method is called.
         /// </summary>
-        public void Start()
+        public void Display()
         {
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);

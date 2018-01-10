@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 spinner.StepMiliseconds = SpinnerStepMilliseconds;
                 spinner.Text = "Doing some work";
 
-                spinner.Start();
+                spinner.Display();
 
                 try
                 {

@@ -5,7 +5,6 @@ Note: Please use one of the following templates (Issue Request or Bug Report) an
 ## Issue request
 
 ### Description
-
 ### Library version (that you are using)
 
 --------------------------------------------------
@@ -13,9 +12,6 @@ Note: Please use one of the following templates (Issue Request or Bug Report) an
 ## Bug Report
 
 ### Actual behavior
-
 ### Expected behavior
-
 ### Steps to reproduce the problem
-
 ### Library version (where problem was encountered)

@@ -152,10 +152,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawColumnHeadersRow(ITablePrinter tablePrinter)
         {
-            List<int> cellWidths = dataGridX.ColumnsWidths;
-            int rowHeight = dataGridX.CalculatedHeaderRowHeight;
-
-            Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+            dataGridX.RederColumnsHeaders(tablePrinter);
         }
 
         private void DrawHorizontalBorderAfterHeader(ITablePrinter tablePrinter)

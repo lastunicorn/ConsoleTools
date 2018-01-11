@@ -23,13 +23,13 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
-    internal class DataRowX
+    internal class HeaderRowX
     {
         private readonly bool hasBorder;
 
         public Size Size { get; private set; }
 
-        public DataRowX(bool hasBorder)
+        public HeaderRowX(bool hasBorder)
         {
             this.hasBorder = hasBorder;
         }
@@ -37,6 +37,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public List<DataCellX> Cells { get; } = new List<DataCellX>();
 
         public int NextIndex => Cells.Count;
+
+        public ColumnList Columns { get; set; }
 
         public void AddCell(DataCellX cell)
         {
@@ -58,6 +60,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Size = new Size(width, height);
 
             Cells.Add(cell);
+        }
+
+        public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
+        {
+            int rowHeight = Size.Height;
+            Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
         }
     }
 }

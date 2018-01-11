@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         private readonly bool displayBorder;
 
         private TitleRowX titleRowX;
-        private DataRowX headerRowX;
+        private HeaderRowX headerRowX;
         private readonly List<DataRowX> dataRowXs = new List<DataRowX>();
         private DataRowX currentRowX;
         private int minWidth;
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the height of the header calculated by the current instance.
         /// </summary>
-        public int CalculatedHeaderRowHeight => headerRowX?.Size.Height ?? 0;
+        public int ColumnHeaderRowHeight => headerRowX?.Size.Height ?? 0;
 
         public int MinWidth
         {
@@ -95,7 +95,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (columns == null || columns.Count == 0)
                 return;
 
-            headerRowX = new DataRowX(displayBorder);
+            headerRowX = new HeaderRowX(displayBorder);
+
+            headerRowX.Columns = columns;
 
             foreach (Column column in columns)
                 AddHeaderCell(column);
@@ -206,6 +208,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public void RenderTitle(ITablePrinter tablePrinter)
         {
             titleRowX.Render(tablePrinter);
+        }
+
+        public void RederColumnsHeaders(ITablePrinter tablePrinter)
+        {
+            List<int> cellWidths = ColumnsWidths;
+            headerRowX.Render(tablePrinter, cellWidths);
         }
     }
 }

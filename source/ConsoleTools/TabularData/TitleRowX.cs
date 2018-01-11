@@ -23,8 +23,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class TitleRowX
     {
-        public char? BorderLeft { get; set; }
-        public string Text { get; set; }
-        public char? BorderRight { get; set; }
+        public TitleRow TitleRow { get; set; }
+        public Size Size { get; set; }
+
+        public void Render(ITablePrinter tablePrinter)
+        {
+            TitleRow.Render(tablePrinter, Size.Width);
+        }
     }
 }

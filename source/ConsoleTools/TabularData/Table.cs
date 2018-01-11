@@ -257,7 +257,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 Rows = rows,
                 BorderTemplate = BorderTemplate,
                 DisplayBorder = DisplayBorder,
-                DrawLinesBetweenRows = DisplayBorderBetweenRows,
+                DrawBordersBetweenRows = DisplayBorderBetweenRows,
                 MinWidth = MinWidth,
                 DisplayColumnHeaders = DisplayColumnHeaders,
                 CellHorizontalAlignment = CellHorizontalAlignment

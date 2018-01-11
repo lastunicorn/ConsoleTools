@@ -27,11 +27,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
     internal class DataGridX
     {
         private readonly bool displayBorder;
-        public List<TitleRowX> TitleRows { get; } = new List<TitleRowX>();
 
-        private DataRowX headerRow;
-        private readonly List<DataRowX> dataRows = new List<DataRowX>();
-        private DataRowX currentRow;
+        private TitleRowX titleRowX;
+        private DataRowX headerRowX;
+        private readonly List<DataRowX> dataRowXs = new List<DataRowX>();
+        private DataRowX currentRowX;
         private int minWidth;
 
         /// <summary>
@@ -41,14 +41,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public int TotalWidth { get; private set; }
 
-        public List<int> RowsHeights => dataRows
+        public List<int> RowsHeights => dataRowXs
             .Select(x => x.Size.Height)
             .ToList();
 
         /// <summary>
         /// Gets the height of the header calculated by the current instance.
         /// </summary>
-        public int CalculatedHeaderRowHeight => headerRow?.Size.Height ?? 0;
+        public int CalculatedHeaderRowHeight => headerRowX?.Size.Height ?? 0;
 
         public int MinWidth
         {
@@ -62,43 +62,57 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
         }
 
+        public bool IsTitleVisible => titleRowX != null;
+        public bool AreColumnsHeaderVisible => headerRowX != null;
+        public bool AreDataRowsVisible => dataRowXs.Count > 0;
+
         public DataGridX(bool displayBorder)
         {
             this.displayBorder = displayBorder;
         }
 
-        public void AddTitleRow(TitleRow title)
+        public void AddTitleRow(TitleRow titleRow)
         {
-            int titleRowWidth = 0;
+            bool titleHasContent = titleRow?.Content?.Size.Height > 0;
 
-            if (displayBorder)
-                titleRowWidth += 1;
+            if (!titleHasContent)
+                return;
 
-            Size cellSize = title.TitleCell.CalculateDimensions();
+            Size titleRowSize = titleRow.CalculateDimensions();
 
-            titleRowWidth += cellSize.Width;
+            titleRowX = new TitleRowX
+            {
+                TitleRow = titleRow,
+                Size = titleRowSize
+            };
 
-            if (displayBorder)
-                titleRowWidth += 1;
-
-            if (TotalWidth < titleRowWidth)
-                TotalWidth = titleRowWidth;
+            if (TotalWidth < titleRowSize.Width)
+                TotalWidth = titleRowSize.Width;
         }
 
         public void AddHeaderRow(ColumnList columns)
         {
-            headerRow = new DataRowX(displayBorder);
+            if (columns == null || columns.Count == 0)
+                return;
+
+            headerRowX = new DataRowX(displayBorder);
 
             foreach (Column column in columns)
                 AddHeaderCell(column);
 
-            if (TotalWidth < headerRow.Size.Width)
-                TotalWidth = headerRow.Size.Width;
+            if (headerRowX.Size.Height == 0)
+            {
+                headerRowX = null;
+                return;
+            }
+
+            if (TotalWidth < headerRowX.Size.Width)
+                TotalWidth = headerRowX.Size.Width;
         }
 
         private void AddHeaderCell(Column column)
         {
-            int j = headerRow.NextIndex;
+            int j = headerRowX.NextIndex;
 
             while (ColumnsWidths.Count <= j)
                 ColumnsWidths.Add(0);
@@ -109,32 +123,32 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 ColumnsWidths[j] = cellSize.Width;
                 DataCellX cell = new DataCellX { Size = new Size(cellSize.Width, cellSize.Height) };
-                headerRow.AddCell(cell);
+                headerRowX.AddCell(cell);
             }
             else
             {
                 DataCellX cell = new DataCellX { Size = new Size(ColumnsWidths[j], cellSize.Height) };
-                headerRow.AddCell(cell);
+                headerRowX.AddCell(cell);
             }
         }
 
         public void AddDataRow(DataRow dataRow)
         {
-            currentRow = new DataRowX(displayBorder);
+            currentRowX = new DataRowX(displayBorder);
 
             for (int i = 0; i < dataRow.CellCount; i++)
                 AddDataCell(dataRow[i]);
 
-            if (TotalWidth < currentRow.Size.Width)
-                TotalWidth = currentRow.Size.Width;
+            if (TotalWidth < currentRowX.Size.Width)
+                TotalWidth = currentRowX.Size.Width;
 
-            dataRows.Add(currentRow);
-            currentRow = null;
+            dataRowXs.Add(currentRowX);
+            currentRowX = null;
         }
 
         private void AddDataCell(DataCell dataCell)
         {
-            int j = currentRow.NextIndex;
+            int j = currentRowX.NextIndex;
 
             while (ColumnsWidths.Count <= j)
                 ColumnsWidths.Add(0);
@@ -145,21 +159,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 ColumnsWidths[j] = cellSize.Width;
                 DataCellX cell = new DataCellX { Size = new Size(cellSize.Width, cellSize.Height) };
-                currentRow.AddCell(cell);
+                currentRowX.AddCell(cell);
             }
             else
             {
                 DataCellX cell = new DataCellX { Size = new Size(ColumnsWidths[j], cellSize.Height) };
-                currentRow.AddCell(cell);
+                currentRowX.AddCell(cell);
             }
         }
 
         public void Clear()
         {
-            headerRow = null;
-            currentRow = null;
+            headerRowX = null;
+            currentRowX = null;
 
-            dataRows.Clear();
+            dataRowXs.Clear();
 
             TotalWidth = minWidth;
 
@@ -167,7 +181,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             RowsHeights.Clear();
         }
 
-        public void ExpandColumnsIfNeeded()
+        public void MakeFinalAdjustments()
         {
             if (ColumnsWidths.Count == 0)
                 return;
@@ -184,6 +198,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 for (int i = 0; i < diff; i++)
                     ColumnsWidths[i % colCount]++;
             }
+
+            if (titleRowX?.Size.Width < TotalWidth)
+                titleRowX.Size = new Size(TotalWidth, titleRowX.Size.Height);
+        }
+
+        public void RenderTitle(ITablePrinter tablePrinter)
+        {
+            titleRowX.Render(tablePrinter);
         }
     }
 }

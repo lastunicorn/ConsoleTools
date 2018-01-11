@@ -49,7 +49,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
         {
-            get { return TitleCell.HorizontalAlignment;}
+            get { return TitleCell.HorizontalAlignment; }
             set { TitleCell.HorizontalAlignment = value; }
         }
 
@@ -92,6 +92,24 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 ParentRow = this,
                 Content = title ?? MultilineText.Empty
             };
+        }
+
+        public Size CalculateDimensions()
+        {
+            bool displayBorder = ParentTable?.DisplayBorder ?? false;
+
+            int titleRowWidth = 0;
+
+            if (displayBorder)
+                titleRowWidth += 1;
+
+            Size cellSize = TitleCell.CalculateDimensions();
+            titleRowWidth += cellSize.Width;
+
+            if (displayBorder)
+                titleRowWidth += 1;
+
+            return new Size(titleRowWidth, cellSize.Height);
         }
 
         public void Render(ITablePrinter tablePrinter, int minWidth)

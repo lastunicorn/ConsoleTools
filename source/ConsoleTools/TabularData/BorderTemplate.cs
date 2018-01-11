@@ -180,7 +180,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             StringBuilder sb = new StringBuilder();
 
             sb.Append(TopLeft);
-            sb.Append(string.Empty.PadRight(width - 2, Top));
+            sb.Append(new string(Top, width - 2));
             sb.Append(TopRight);
 
             return sb.ToString();
@@ -195,7 +195,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BottomLeft);
-            sb.Append(string.Empty.PadRight(width - 2, Bottom));
+            sb.Append(new string(Bottom, width - 2));
             sb.Append(BottomRight);
 
             return sb.ToString();
@@ -214,7 +214,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Horizontal));
+                sb.Append(new string(Horizontal, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? TopIntersection
@@ -239,7 +239,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Horizontal));
+                sb.Append(new string(Horizontal, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? TopIntersection
@@ -264,7 +264,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Top));
+                sb.Append(new string(Top, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? TopIntersection
@@ -289,7 +289,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Bottom));
+                sb.Append(new string(Bottom, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? BottomIntersection
@@ -313,7 +313,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Horizontal));
+                sb.Append(new string(Horizontal, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? MiddleIntersection
@@ -338,7 +338,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Top));
+                sb.Append(new string(Top, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? TopIntersection
@@ -362,7 +362,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
             {
                 int columnWidth = columnWidths[columnIndex];
-                sb.Append(string.Empty.PadRight(columnWidth, Bottom));
+                sb.Append(new string(Bottom, columnWidth));
 
                 char columnBorderRight = columnIndex < columnWidths.Count - 1
                     ? BottomIntersection

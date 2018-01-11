@@ -28,15 +28,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
-        private readonly HeaderCell headerCell;
+        public HeaderCell HeaderCell { get; }
 
         /// <summary>
         /// Gets or sets the text displayed in the header.
         /// </summary>
         public MultilineText Header
         {
-            get { return headerCell.Content; }
-            set { headerCell.Content = value; }
+            get { return HeaderCell.Content; }
+            set { HeaderCell.Content = value; }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(string header)
         {
-            headerCell = new HeaderCell
+            HeaderCell = new HeaderCell
             {
                 Content = header,
                 ParentColumn = this
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(string header, HorizontalAlignment cellHorizontalAlignment)
         {
-            headerCell = new HeaderCell
+            HeaderCell = new HeaderCell
             {
                 Content = header,
                 ParentColumn = this
@@ -82,7 +82,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(MultilineText header)
         {
-            headerCell = new HeaderCell(header)
+            HeaderCell = new HeaderCell(header)
             {
                 Content = header,
                 ParentColumn = this
@@ -95,23 +95,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment)
         {
-            headerCell = new HeaderCell(header)
+            HeaderCell = new HeaderCell(header)
             {
                 Content = header,
                 ParentColumn = this
             };
             CellHorizontalAlignment = cellHorizontalAlignment;
-        }
-
-        /// <summary>
-        /// Returns the header cell including the paddings.
-        /// </summary>
-        /// <param name="minWidth">The minimum width of the header cell.</param>
-        /// <param name="minHeight">The minimum height of the header cell.</param>
-        /// <returns>A <see cref="List{T}"/> containing the lines of the header cell.</returns>
-        public List<string> RenderHeader(int minWidth, int minHeight)
-        {
-            return headerCell.Render(minWidth, minHeight);
         }
     }
 }

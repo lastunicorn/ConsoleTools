@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 .Select((x, i) =>
                 {
                     int columnWidth = cellWidths[i];
-                    return x.RenderHeader(columnWidth, rowHeight);
+                    return x.HeaderCell.Render(columnWidth, rowHeight);
                 })
                 .ToList();
 

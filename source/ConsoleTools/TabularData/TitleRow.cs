@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class TitleRow
     {
-        private readonly TitleCell titleCell;
+        public TitleCell TitleCell { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="Table"/> instance that contains the current title.
@@ -40,8 +40,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public MultilineText Content
         {
-            get { return titleCell.Content; }
-            set { titleCell.Content = value; }
+            get { return TitleCell.Content; }
+            set { TitleCell.Content = value; }
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
         {
-            get { return titleCell.HorizontalAlignment;}
-            set { titleCell.HorizontalAlignment = value; }
+            get { return TitleCell.HorizontalAlignment;}
+            set { TitleCell.HorizontalAlignment = value; }
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public TitleRow()
         {
-            titleCell = new TitleCell
+            TitleCell = new TitleCell
             {
                 ParentRow = this,
                 Content = MultilineText.Empty
@@ -72,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public TitleRow(string title)
         {
-            titleCell = new TitleCell
+            TitleCell = new TitleCell
             {
                 ParentRow = this,
                 Content = title == null
@@ -87,7 +87,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public TitleRow(MultilineText title)
         {
-            titleCell = new TitleCell
+            TitleCell = new TitleCell
             {
                 ParentRow = this,
                 Content = title ?? MultilineText.Empty
@@ -104,7 +104,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 ? minWidth - 2
                 : minWidth;
 
-            List<string> cellContents = titleCell.Render(cellInnerWidth, 0);
+            List<string> cellContents = TitleCell.Render(cellInnerWidth, 0);
 
             // Write title
             foreach (string line in cellContents)

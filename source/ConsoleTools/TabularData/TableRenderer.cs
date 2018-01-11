@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class TableRenderer
     {
-        private TableDimensions tableDimensions;
+        private DataGridX tableDimensions;
         private string rowSeparator;
 
         public TitleRow TitleRow { get; set; }
@@ -41,8 +41,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public bool DrawLinesBetweenRows { get; set; }
 
         public int MinWidth { get; set; }
-        public int PaddingLeft { get; set; }
-        public int PaddingRight { get; set; }
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
         private bool IsTitleVisible => TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0 && DisplayTitle;
@@ -67,21 +65,44 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void PrepareForRendering()
         {
-            tableDimensions = new TableDimensions
-            {
-                MinWidth = MinWidth,
-                DisplayBorder = DisplayBorder,
-                DisplayColumnHeaders = DisplayColumnHeaders,
-                PaddingLeft = PaddingLeft,
-                PaddingRight = PaddingRight,
-                Title = TitleRow.Content,
-                DisplayTitle = DisplayTitle,
-                Columns = Columns,
-                Rows = Rows
-            };
-            tableDimensions.CalculateTableDimensions();
+            tableDimensions = CalculateTableDimensions();
 
-            rowSeparator = BorderTemplate.GenerateDataRowSeparatorBorder(tableDimensions);
+            rowSeparator = BorderTemplate.GenerateDataRowSeparatorBorder(tableDimensions.ColumnsWidths);
+        }
+
+        /// <summary>
+        /// Calculates and returns the dimensions of the current instance of the <see cref="Table"/> displayed in text mode.
+        /// </summary>
+        /// <returns>The dimensions of the current instance of the <see cref="Table"/> displayed in text mode.</returns>
+        public DataGridX CalculateTableDimensions()
+        {
+            DataGridX dataGridX = new DataGridX(DisplayBorder)
+            {
+                MinWidth = MinWidth
+            };
+
+            bool isTitleVisible = TitleRow != null && TitleRow.TitleCell.Content.Size.Height != 0 && DisplayTitle;
+            if (isTitleVisible)
+            {
+                dataGridX.AddTitleRow(TitleRow);
+            }
+
+            bool isColumnHeaderRowVisible = Columns.Count > 0 && DisplayColumnHeaders;
+            if (isColumnHeaderRowVisible)
+            {
+                dataGridX.AddHeaderRow(Columns);
+            }
+
+            bool areDataRowsVisible = Rows.Count > 0;
+            if (areDataRowsVisible)
+            {
+                foreach (DataRow row in Rows)
+                    dataGridX.AddDataRow(row);
+            }
+
+            dataGridX.ExpandColumnsIfNeeded();
+
+            return dataGridX;
         }
 
         private void DrawTableTopBorder(ITablePrinter tablePrinter)
@@ -89,7 +110,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             bool existsTitle = TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0 && DisplayTitle;
             if (existsTitle)
             {
-                string titleTopBorder = BorderTemplate.GenerateTitleTopBorder(tableDimensions);
+                string titleTopBorder = BorderTemplate.GenerateTitleTopBorder(tableDimensions.TotalWidth);
                 tablePrinter.WriteLineBorder(titleTopBorder);
                 return;
             }
@@ -97,7 +118,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             bool existsColumnHeaders = Columns.Count > 0 && DisplayColumnHeaders;
             if (existsColumnHeaders)
             {
-                string border = BorderTemplate.GenerateHeaderTopBorder(tableDimensions);
+                string border = BorderTemplate.GenerateHeaderTopBorder(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(border);
                 return;
             }
@@ -105,14 +126,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
             bool existsData = Rows.Count > 0;
             if (existsData)
             {
-                string border = BorderTemplate.GenerateDataRowTopBorder(tableDimensions);
+                string border = BorderTemplate.GenerateDataRowTopBorder(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(border);
             }
         }
 
         private void DrawTitleRow(ITablePrinter tablePrinter)
         {
-            int titleRowWidth = tableDimensions.CalculatedTotalWidth;
+            int titleRowWidth = tableDimensions.TotalWidth;
             TitleRow.Render(tablePrinter, titleRowWidth);
 
             // Write bottom border <=> header top border
@@ -124,28 +145,28 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (IsColumnHeaderRowVisible)
             {
-                string border = BorderTemplate.GenerateTitleHeaderSeparator(tableDimensions);
+                string border = BorderTemplate.GenerateTitleHeaderSeparator(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(border);
             }
             else if (AreDataRowsVisible)
             {
-                string border = BorderTemplate.GenerateTitleDataSeparator(tableDimensions);
+                string border = BorderTemplate.GenerateTitleDataSeparator(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(border);
             }
             else
             {
-                string border = BorderTemplate.GenerateTitleBottomBorder(tableDimensions);
+                string border = BorderTemplate.GenerateTitleBottomBorder(tableDimensions.TotalWidth);
                 tablePrinter.WriteLineBorder(border);
             }
         }
 
         private void DrawColumnHeadersRow(ITablePrinter tablePrinter)
         {
-            List<int> cellWidths = tableDimensions.CalculatedColumnsWidth;
+            List<int> cellWidths = tableDimensions.ColumnsWidths;
             int rowHeight = tableDimensions.CalculatedHeaderRowHeight;
 
             Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
-            
+
             // Write bottom border <=> first row top border
             if (DisplayBorder)
                 DrawHorizontalBorderAfterHeader(tablePrinter);
@@ -155,7 +176,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (Rows.Count == 0)
             {
-                string border = BorderTemplate.GenerateHeaderBottomBorder(tableDimensions);
+                string border = BorderTemplate.GenerateHeaderBottomBorder(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(border);
             }
             else
@@ -166,10 +187,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private void DrawDataRows(ITablePrinter tablePrinter)
         {
+            List<int> cellWidths = tableDimensions.ColumnsWidths;
+
             for (int rowIndex = 0; rowIndex < Rows.Count; rowIndex++)
             {
-                List<int> cellWidths = tableDimensions.CalculatedColumnsWidth;
-                int rowHeight = tableDimensions.CalculatedRowsHeight[rowIndex];
+                int rowHeight = tableDimensions.RowsHeights[rowIndex];
 
                 DataRow row = Rows[rowIndex];
                 row.Render(tablePrinter, cellWidths, rowHeight);
@@ -188,7 +210,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             }
             else
             {
-                string rowBottomBorder = BorderTemplate.GenerateDataRowBottomBorder(tableDimensions);
+                string rowBottomBorder = BorderTemplate.GenerateDataRowBottomBorder(tableDimensions.ColumnsWidths);
                 tablePrinter.WriteLineBorder(rowBottomBorder);
             }
         }

@@ -151,7 +151,6 @@
     <Compile Include="Size.cs" />
     <Compile Include="TabularData\StringTablePrinter.cs" />
     <Compile Include="TabularData\Table.cs" />
-    <Compile Include="TabularData\TableDimensions.cs" />
     <Compile Include="CustomConsole.WriteEmphasies.cs" />
     <Compile Include="CustomConsole.WriteError.cs" />
     <Compile Include="CustomConsole.WithoutCursor.cs" />

@@ -259,8 +259,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DisplayBorder = DisplayBorder,
                 DrawLinesBetweenRows = DisplayBorderBetweenRows,
                 MinWidth = MinWidth,
-                PaddingLeft = PaddingLeft,
-                PaddingRight = PaddingRight,
                 DisplayColumnHeaders = DisplayColumnHeaders,
                 CellHorizontalAlignment = CellHorizontalAlignment
             };

@@ -26,54 +26,163 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class DataGridX
     {
+        private readonly bool displayBorder;
         public List<TitleRowX> TitleRows { get; } = new List<TitleRowX>();
 
+        private DataRowX headerRow;
         private readonly List<DataRowX> dataRows = new List<DataRowX>();
         private DataRowX currentRow;
+        private int minWidth;
 
-        public List<int> CalculatedColumnsWidth { get; set; }
-        public int TableWidth { get; private set; }
-        
-        public List<int> CalculatedRowsHeight => dataRows.Select(x => x.Size.Height).ToList();
-        
-        public void StartNewRow(bool hasBorder)
+        /// <summary>
+        /// Gets or sets a list containing the calculated widths of the columns.
+        /// </summary>
+        public List<int> ColumnsWidths { get; } = new List<int>();
+
+        public int TotalWidth { get; private set; }
+
+        public List<int> RowsHeights => dataRows
+            .Select(x => x.Size.Height)
+            .ToList();
+
+        /// <summary>
+        /// Gets the height of the header calculated by the current instance.
+        /// </summary>
+        public int CalculatedHeaderRowHeight => headerRow?.Size.Height ?? 0;
+
+        public int MinWidth
         {
-            EndDataRow();
+            get { return minWidth; }
+            set
+            {
+                minWidth = value;
 
-            currentRow = new DataRowX(hasBorder);
-            dataRows.Add(currentRow);
+                if (TotalWidth < minWidth)
+                    TotalWidth = minWidth;
+            }
         }
 
-        public void EndDataRow()
+        public DataGridX(bool displayBorder)
         {
-            if (currentRow == null)
-                return;
+            this.displayBorder = displayBorder;
+        }
 
-            if (TableWidth < currentRow.Size.Width)
-                TableWidth = currentRow.Size.Width;
+        public void AddTitleRow(TitleRow title)
+        {
+            int titleRowWidth = 0;
 
+            if (displayBorder)
+                titleRowWidth += 1;
+
+            Size cellSize = title.TitleCell.CalculateDimensions();
+
+            titleRowWidth += cellSize.Width;
+
+            if (displayBorder)
+                titleRowWidth += 1;
+
+            if (TotalWidth < titleRowWidth)
+                TotalWidth = titleRowWidth;
+        }
+
+        public void AddHeaderRow(ColumnList columns)
+        {
+            headerRow = new DataRowX(displayBorder);
+
+            foreach (Column column in columns)
+                AddHeaderCell(column);
+
+            if (TotalWidth < headerRow.Size.Width)
+                TotalWidth = headerRow.Size.Width;
+        }
+
+        private void AddHeaderCell(Column column)
+        {
+            int j = headerRow.NextIndex;
+
+            while (ColumnsWidths.Count <= j)
+                ColumnsWidths.Add(0);
+
+            Size cellSize = column.HeaderCell.CalculateDimensions();
+
+            if (cellSize.Width > ColumnsWidths[j])
+            {
+                ColumnsWidths[j] = cellSize.Width;
+                DataCellX cell = new DataCellX { Size = new Size(cellSize.Width, cellSize.Height) };
+                headerRow.AddCell(cell);
+            }
+            else
+            {
+                DataCellX cell = new DataCellX { Size = new Size(ColumnsWidths[j], cellSize.Height) };
+                headerRow.AddCell(cell);
+            }
+        }
+
+        public void AddDataRow(DataRow dataRow)
+        {
+            currentRow = new DataRowX(displayBorder);
+
+            for (int i = 0; i < dataRow.CellCount; i++)
+                AddDataCell(dataRow[i]);
+
+            if (TotalWidth < currentRow.Size.Width)
+                TotalWidth = currentRow.Size.Width;
+
+            dataRows.Add(currentRow);
             currentRow = null;
         }
 
-        public void AddDataCell(DataCell dataCell)
+        private void AddDataCell(DataCell dataCell)
         {
             int j = currentRow.NextIndex;
 
-            while (CalculatedColumnsWidth.Count <= j)
-                CalculatedColumnsWidth.Add(0);
+            while (ColumnsWidths.Count <= j)
+                ColumnsWidths.Add(0);
 
             Size cellSize = dataCell.CalculateDimensions();
 
-            if (cellSize.Width > CalculatedColumnsWidth[j])
+            if (cellSize.Width > ColumnsWidths[j])
             {
-                CalculatedColumnsWidth[j] = cellSize.Width;
+                ColumnsWidths[j] = cellSize.Width;
                 DataCellX cell = new DataCellX { Size = new Size(cellSize.Width, cellSize.Height) };
                 currentRow.AddCell(cell);
             }
             else
             {
-                DataCellX cell = new DataCellX { Size = new Size(CalculatedColumnsWidth[j], cellSize.Height) };
+                DataCellX cell = new DataCellX { Size = new Size(ColumnsWidths[j], cellSize.Height) };
                 currentRow.AddCell(cell);
+            }
+        }
+
+        public void Clear()
+        {
+            headerRow = null;
+            currentRow = null;
+
+            dataRows.Clear();
+
+            TotalWidth = minWidth;
+
+            ColumnsWidths.Clear();
+            RowsHeights.Clear();
+        }
+
+        public void ExpandColumnsIfNeeded()
+        {
+            if (ColumnsWidths.Count == 0)
+                return;
+
+            int columnsTotalWidth = ColumnsWidths.Sum();
+            if (displayBorder)
+                columnsTotalWidth += ColumnsWidths.Count + 1;
+
+            if (columnsTotalWidth < TotalWidth)
+            {
+                int diff = TotalWidth - columnsTotalWidth;
+                int colCount = ColumnsWidths.Count;
+
+                for (int i = 0; i < diff; i++)
+                    ColumnsWidths[i % colCount]++;
             }
         }
     }

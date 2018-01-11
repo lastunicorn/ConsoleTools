@@ -175,12 +175,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Generates the border displayed at the top of the title row.
         /// </summary>
-        public string GenerateTitleTopBorder(TableDimensions dimensions)
+        public string GenerateTitleTopBorder(int width)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append(TopLeft);
-            sb.Append(string.Empty.PadRight(dimensions.CalculatedTotalWidth - 2, Top));
+            sb.Append(string.Empty.PadRight(width - 2, Top));
             sb.Append(TopRight);
 
             return sb.ToString();
@@ -190,12 +190,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed at the bottom of the title row.
         /// This border is used only when the column header rows is not visible and there are no data to display.
         /// </summary>
-        public string GenerateTitleBottomBorder(TableDimensions dimensions)
+        public string GenerateTitleBottomBorder(int width)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BottomLeft);
-            sb.Append(string.Empty.PadRight(dimensions.CalculatedTotalWidth - 2, Bottom));
+            sb.Append(string.Empty.PadRight(width - 2, Bottom));
             sb.Append(BottomRight);
 
             return sb.ToString();
@@ -205,10 +205,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed between title and column header rows.
         /// This border is used only when both title and column header rows are visible.
         /// </summary>
-        public string GenerateTitleHeaderSeparator(TableDimensions dimensions)
+        public string GenerateTitleHeaderSeparator(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(LeftIntersection);
@@ -232,10 +230,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed between title and the first data row.
         /// This border is used only when title is visible, column header row is hidden and there is at least one row of data.
         /// </summary>
-        public string GenerateTitleDataSeparator(TableDimensions dimensions)
+        public string GenerateTitleDataSeparator(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(LeftIntersection);
@@ -259,10 +255,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed at the top of the column header row.
         /// This border is used only when title is hidden and the column header row is visible, being the first row of the table.
         /// </summary>
-        public string GenerateHeaderTopBorder(TableDimensions dimensions)
+        public string GenerateHeaderTopBorder(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(TopLeft);
@@ -286,10 +280,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed at the bottom of the column header row.
         /// This border is used only when the column header row is visible and it is the last row of the table.
         /// </summary>
-        public string GenerateHeaderBottomBorder(TableDimensions dimensions)
+        public string GenerateHeaderBottomBorder(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BottomLeft);
@@ -312,10 +304,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Generates the border displayed between two data rows.
         /// </summary>
-        public string GenerateDataRowSeparatorBorder(TableDimensions dimensions)
+        public string GenerateDataRowSeparatorBorder(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(LeftIntersection);
@@ -339,10 +329,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Generates the border displayed at the top of the first data row.
         /// This border is used only when title and column header rows are hidden and the first data row is the first row of the table.
         /// </summary>
-        public string GenerateDataRowTopBorder(TableDimensions dimensions)
+        public string GenerateDataRowTopBorder(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(TopLeft);
@@ -365,10 +353,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Generates the border displayed at the bottom of the last data row.
         /// </summary>
-        public string GenerateDataRowBottomBorder(TableDimensions dimensions)
+        public string GenerateDataRowBottomBorder(List<int> columnWidths)
         {
-            List<int> columnWidths = dimensions.CalculatedColumnsWidth;
-
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BottomLeft);

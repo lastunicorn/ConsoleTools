@@ -31,8 +31,15 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
 
         private readonly TextMenu textMenu;
 
+        /// <summary>
+        /// Event raised when the user selects a new menu item.
+        /// </summary>
         public event EventHandler<NewCommandEventArgs> NewCommand;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextMenuCommandProvider"/> with
+        /// the list of menu items from which the user must choose.
+        /// </summary>
         public TextMenuCommandProvider(IEnumerable<TextMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
@@ -48,7 +55,8 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             {
                 textMenu.Display();
 
-                CliCommand command = CliCommand.Parse(textMenu.SelectedItem.Id);
+                string selectedItemId = textMenu.SelectedItem.Id;
+                CliCommand command = new CliCommand(selectedItemId, new List<UserCommandParameter>());
 
                 try
                 {
@@ -66,6 +74,10 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             while (!stopWasRequested);
         }
 
+        /// <summary>
+        /// Creates a single command (<see cref="CliCommand"/>) from the menu item selected by the user and returns it.
+        /// </summary>
+        /// <returns>A <see cref="CliCommand"/> object representing the menu item selected by the user.</returns>
         public CliCommand RunOnce()
         {
             textMenu.Display();
@@ -73,6 +85,10 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             return CliCommand.Parse(textMenu.SelectedItem.Id);
         }
 
+        /// <summary>
+        /// Sets the stop flag.
+        /// The loop will exit next time when it checks the stop flag (after the user selects an item).
+        /// </summary>
         public void RequestStop()
         {
             stopWasRequested = true;

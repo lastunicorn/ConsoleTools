@@ -119,26 +119,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment alignment = HorizontalAlignment;
 
             if (alignment == HorizontalAlignment.Default)
-                alignment = CalculateHorizontalAlignmentAtColumnLevel();
+                alignment = ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
 
             if (alignment == HorizontalAlignment.Default)
-                alignment = CalculateHorizontalAlignmentAtTableLevel();
+                alignment = ParentColumn?.ParentTable?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
 
             if (alignment == HorizontalAlignment.Default)
                 alignment = DefaultHorizontalAlignment;
 
             return alignment;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-        {
-            return ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
-        {
-            Table table = ParentColumn?.ParentTable;
-            return table?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
         public static implicit operator HeaderCell(string text)

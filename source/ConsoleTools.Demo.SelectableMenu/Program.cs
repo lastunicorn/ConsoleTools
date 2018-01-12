@@ -122,7 +122,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
             // 
             //selectableMenu.HorizontalAlignment = HorizontalAlignment.Left;
             //selectableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
-
+            
             return selectableMenu;
         }
 

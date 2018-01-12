@@ -36,6 +36,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         /// <summary>
         /// Gets or sets the label text to be displayed before the user types the value.
+        /// If the label contains the string: {0}, it will be replaced with
+        /// the default value (<see cref="DefaultValue"/> property).
         /// </summary>
         public string Label { get; set; }
 
@@ -79,6 +81,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public bool AcceptDefaultValue { get; set; }
 
         /// <summary>
+        /// Gets or sets a value that specifies if the default value should be displayed in the Console
+        /// when the user chooses it (types enter without any value).
+        /// </summary>
+        public bool AutocompleteDefaultValue { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the text to be displayed when the value provided by the user
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
@@ -112,10 +120,25 @@ namespace DustInTheWind.ConsoleTools.InputControls
             {
                 DisplayLabel();
 
+                int top = Console.CursorTop;
+                int left = Console.CursorLeft;
+
                 string rawValue = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(rawValue) && AcceptDefaultValue)
+                {
+                    if (AutocompleteDefaultValue)
+                    {
+                        Console.SetCursorPosition(left, top);
+
+                        if (DefaultValue == null)
+                            Console.WriteLine("<null>");
+                        else
+                            Console.WriteLine(DefaultValue);
+                    }
+
                     return DefaultValue;
+                }
 
                 try
                 {

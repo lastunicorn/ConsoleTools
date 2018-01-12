@@ -27,7 +27,8 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    /// Represents the columns from a table.
+    /// Keeps the information about the columns from a table.
+    /// It is also responsible to render the column headers.
     /// </summary>
     public class ColumnList : IEnumerable<Column>
     {
@@ -75,6 +76,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void RenderHeaderRow(ITablePrinter tablePrinter, List<int> cellWidths, int rowHeight)
         {
+            // Get cells content.
             List<List<string>> cellContents = columns
                 .Select((x, i) =>
                 {
@@ -88,14 +90,17 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
             {
+                // Write left border.
                 if (displayBorder && borderTemplate != null)
                     tablePrinter.WriteBorder(borderTemplate.Left);
 
                 for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++)
                 {
+                    // Write cell content.
                     string content = cellContents[columnIndex][headerLineIndex];
                     tablePrinter.WriteHeader(content);
 
+                    // Write intermediate and right borders.
                     if (displayBorder && borderTemplate != null)
                     {
                         char cellBorderRight = columnIndex < columns.Count - 1

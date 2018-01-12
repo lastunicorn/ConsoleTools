@@ -88,7 +88,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         private static void RunExample_DefaultValue()
         {
-            ValueInput<int> numberInput = new ValueInput<int>("Number:");
+            ValueInput<int> numberInput = new ValueInput<int>("Number ({0}):");
             numberInput.AcceptDefaultValue = true;
             numberInput.DefaultValue = 42;
 

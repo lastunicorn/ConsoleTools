@@ -51,17 +51,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
             ConsoleTools.Pause.QuickPause("The demo is ended. Press any key to exit...");
         }
 
-        private static void DisplayErasablePause()
-        {
-            CustomConsole.WriteLine("This pause will erase itself at the end:");
-
-            ConsoleTools.Pause pause = new ConsoleTools.Pause
-            {
-                EraseTextAfterUnlock = true
-            };
-            pause.Display();
-        }
-
         private static void DisplayApplicationHeader()
         {
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Pause");
@@ -84,6 +73,17 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
             {
                 Text = "Press P key to continue...",
                 UnlockKey = ConsoleKey.P
+            };
+            pause.Display();
+        }
+
+        private static void DisplayErasablePause()
+        {
+            CustomConsole.WriteLine("This pause will erase itself at the end:");
+
+            ConsoleTools.Pause pause = new ConsoleTools.Pause
+            {
+                EraseTextAfterUnlock = true
             };
             pause.Display();
         }

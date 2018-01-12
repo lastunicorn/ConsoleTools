@@ -188,5 +188,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 Console.Write(space);
             }
         }
+
+        /// <summary>
+        /// Displays a menu containing the specified menu items and
+        /// returns the item selected by the user.
+        /// </summary>
+        public static TextMenuItem QuickDisplay(IEnumerable<TextMenuItem> menuItems)
+        {
+            TextMenu textMenu = new TextMenu(menuItems);
+            textMenu.Display();
+            return textMenu.SelectedItem;
+        }
     }
 }

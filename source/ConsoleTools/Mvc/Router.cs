@@ -32,8 +32,8 @@ namespace DustInTheWind.ConsoleTools.Mvc
     /// </summary>
     public class Router
     {
-        private readonly ConsoleApplication consoleApplication;
-        private readonly ICommandProvider commandProvider;
+        public ConsoleApplication ConsoleApplication { get; set; }
+        public ICommandProvider CommandProvider { get; set; }
 
         /// <summary>
         /// Gets the list of routes that matches commands to controllers that can handle that command.
@@ -44,19 +44,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// Gets or sets the service provider used to resolve dependencies when instantiating controllers.
         /// </summary>
         public IServiceProvider ServiceProvider { get; set; }
-
-        /// <summary>
-        /// Initializesa new instance of the <see cref="Router"/> class.
-        /// </summary>
-        public Router(ConsoleApplication consoleApplication, ICommandProvider commandProvider)
-        {
-            if (consoleApplication == null) throw new ArgumentNullException(nameof(consoleApplication));
-            if (commandProvider == null) throw new ArgumentNullException(nameof(commandProvider));
-
-            this.consoleApplication = consoleApplication;
-            this.commandProvider = commandProvider;
-        }
-
+        
         /// <summary>
         /// Creates a new <see cref="IController"/> instance for the specified <see cref="CliCommand"/>.
         /// </summary>
@@ -95,9 +83,9 @@ namespace DustInTheWind.ConsoleTools.Mvc
                     foreach (ParameterInfo parameterInfo in constructor.GetParameters())
                     {
                         if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ConsoleApplication)))
-                            parameters.Add(consoleApplication);
+                            parameters.Add(ConsoleApplication);
                         else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(ICommandProvider)))
-                            parameters.Add(commandProvider);
+                            parameters.Add(CommandProvider);
                         else if (parameterInfo.ParameterType.IsAssignableFrom(typeof(CliCommand)))
                             parameters.Add(command);
                         else

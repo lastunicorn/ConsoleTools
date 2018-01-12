@@ -30,8 +30,25 @@ namespace DustInTheWind.ConsoleTools.Mvc
     /// </summary>
     public class ConsoleApplication
     {
-        private readonly ICommandProvider commandProvider;
         private readonly Router router;
+        private ICommandProvider commandProvider;
+
+        public ICommandProvider CommandProvider
+        {
+            get { return commandProvider; }
+            set
+            {
+                if (commandProvider != null)
+                    commandProvider.NewCommand -= HandleNewCommand;
+
+                commandProvider = value;
+
+                if (commandProvider != null)
+                    commandProvider.NewCommand += HandleNewCommand;
+
+                router.CommandProvider = commandProvider;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="IServiceProvider"/> that is used to create the controllers.
@@ -52,10 +69,10 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// </summary>
         public ConsoleApplication()
         {
-            commandProvider = new Prompter();
-            commandProvider.NewCommand += HandleNewCommand;
-
-            router = new Router(this, commandProvider);
+            router = new Router
+            {
+                ConsoleApplication = this
+            };
         }
 
         /// <summary>
@@ -64,7 +81,10 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// </summary>
         public void Run()
         {
-            commandProvider.Run();
+            if (CommandProvider == null)
+                CommandProvider = new Prompter();
+
+            CommandProvider.Run();
         }
 
         /// <summary>
@@ -72,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// </summary>
         public void Exit()
         {
-            commandProvider.RequestStop();
+            CommandProvider.RequestStop();
         }
 
         private void HandleNewCommand(object sender, NewCommandEventArgs e)

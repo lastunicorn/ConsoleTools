@@ -30,16 +30,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
     public class SeparatorMenuItem : IMenuItem
     {
         /// <summary>
-        /// Gets the -1 value.
-        /// The setter does nothing.
-        /// </summary>
-        public int Id
-        {
-            get { return -1; }
-            set { }
-        }
-
-        /// <summary>
         /// Gets the <see cref="string.Empty"/> value.
         /// The setter does nothing.
         /// </summary>

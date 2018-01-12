@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// When reaching the last item go to the first item.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool AllowCircularSelection
+        public bool AllowWrapAround
         {
             get { return menuItems.AllowCircularSelection; }
             set { menuItems.AllowCircularSelection = value; }

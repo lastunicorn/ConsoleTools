@@ -24,22 +24,22 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
     internal static class Program
     {
+        private static volatile bool stopWasRequested;
+
         private static void Main()
         {
             Console.SetBufferSize(80, 1024);
+            Console.SetWindowSize(80, 60);
 
             DisplayApplicationHeader();
 
             ScrollableMenu menu = CreateMenu();
 
-            while (true)
+            while (!stopWasRequested)
             {
                 CustomConsole.WriteLine("-------------------------------------------------------------------------------");
 
                 menu.Display();
-
-                if (menu.SelectedItem?.Id == 0)
-                    break;
             }
         }
 
@@ -54,7 +54,18 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
         private static ScrollableMenu CreateMenu()
         {
-            IEnumerable<IMenuItem> menuItems = new List<IMenuItem>
+            IEnumerable<IMenuItem> menuItems = CreateMenuItems();
+
+            return new ScrollableMenu(menuItems)
+            {
+                ItemsHorizontalAlignment = HorizontalAlignment.Center,
+                SelectFirstByDefault = true
+            };
+        }
+
+        private static IEnumerable<IMenuItem> CreateMenuItems()
+        {
+            return new List<IMenuItem>
             {
                 new LabelMenuItem
                 {
@@ -138,16 +149,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
                 new LabelMenuItem
                 {
-                    Id = 0,
-                    Text = "Exit"
+                    Text = "Exit",
+                    Command = new ExitCommand()
                 }
             };
+        }
 
-            return new ScrollableMenu(menuItems)
-            {
-                ItemsHorizontalAlignment = HorizontalAlignment.Center,
-                SelectFirstByDefault = true
-            };
+        public static void Stop()
+        {
+            stopWasRequested = true;
         }
     }
 }

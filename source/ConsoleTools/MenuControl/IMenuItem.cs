@@ -30,11 +30,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     public interface IMenuItem
     {
         /// <summary>
-        /// Gets or sets the id of the menu item.
-        /// </summary>
-        int Id { get; set; }
-
-        /// <summary>
         /// Gets or sets the text displayed by the current instance.
         /// </summary>
         string Text { get; set; }

@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - TextMenu");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the SelectableMenu can be used.");
+            CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
             CustomConsole.WriteLine("Press Enter key to select an item.");
             CustomConsole.WriteLine();
@@ -81,7 +81,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
         private static MenuControl.TextMenu CreateMenu()
         {
-            MenuControl.TextMenu selectableMenu = new MenuControl.TextMenu(new[]
+            MenuControl.TextMenu textMenu = new MenuControl.TextMenu(new[]
             {
                 new TextMenuItem
                 {
@@ -130,7 +130,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 }
                 });
 
-            return selectableMenu;
+            return textMenu;
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

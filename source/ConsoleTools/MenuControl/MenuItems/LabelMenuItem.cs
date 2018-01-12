@@ -63,8 +63,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
 
         /// <summary>
         /// Gets or sets the id of the menu item.
+        /// Default value: -1
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the text displayed by the current instance.
@@ -123,7 +124,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// Gets or sets the menu that contains the current instance.
         /// Default value: <c>null</c>
         /// </summary>
-        public SelectableMenu ParentMenu { get; set; }
+        public ScrollableMenu ParentMenu { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the left of the text.

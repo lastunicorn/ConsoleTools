@@ -21,31 +21,25 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ListInputCommand : ICommand
+    internal class ListReadCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
+            CustomConsole.WriteLine("  This will demonstrates how to read a list of values using the");
+            CustomConsole.WriteLine("  ListInput<T> control.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("  By creating an instance of the ListInput<string>, it offers the possibility");
+            CustomConsole.WriteLine("  to adjust different properties like the item's bullet and the label's color.");
             CustomConsole.WriteLine();
 
-            List<string> beverages = ReadBeveragesQuick();
-            // or ...
-            //List<string> beverages = ReadBeverages();
+            List<string> beverages = ReadBeverages();
 
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Beverages you like: ");
             CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
-        }
-
-        /// <summary>
-        /// Using the static method <see cref="ListInput{T}.QuickRead"/> falls back
-        /// to the default properties for colors, bullet, spaces, etc.
-        /// </summary>
-        private static List<string> ReadBeveragesQuick()
-        {
-            return ListInput<string>.QuickRead("What are your prefered beverages?");
         }
 
         /// <summary>
@@ -60,12 +54,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             // etc...
 
             return beveragesInput.Read();
-        }
-
-        private static List<int> ReadNumbers()
-        {
-            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
-            return luckyNumbersInput.Read();
         }
     }
 }

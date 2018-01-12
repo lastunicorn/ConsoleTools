@@ -14,46 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ListOutputCommand : ICommand
+    internal class ListReadQuickCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            string[] colors = Enum.GetNames(typeof(ConsoleColor));
+            CustomConsole.WriteLine();
 
-            DisplayColorsQuick(colors);
-            // or ...
-            // DisplayColors(colors);
+            List<string> beverages = ReadBeveragesQuick();
+
+            CustomConsole.WriteLine();
+
+            CustomConsole.Write("Beverages you like: ");
+            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListOutput.QuickWrite{T}"/> falls back
+        /// Using the static method <see cref="ListInput{T}.QuickRead"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
-        private static void DisplayColorsQuick(string[] colors)
+        private static List<string> ReadBeveragesQuick()
         {
-            ListOutput.QuickWrite("Colors:", colors);
-        }
-
-        /// <summary>
-        /// By creating an instance of the <see cref="ListOutput"/>, additional properties can be set.
-        /// </summary>
-        private static void DisplayColors(string[] colors)
-        {
-            ListOutput colorsOutput = new ListOutput();
-
-            colorsOutput.Bullet = "#";
-            colorsOutput.LabelForegroundColor = ConsoleColor.Cyan;
-            // etc...
-
-            colorsOutput.Write("Colors:", colors);
+            return ListInput<string>.QuickRead("What are your prefered beverages?");
         }
     }
 }

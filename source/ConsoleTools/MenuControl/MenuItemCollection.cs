@@ -78,6 +78,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Gets or sets a vlue that specifies if circular selection is allowed.
         /// When reaching the first item go to the last item.
         /// When reaching the last item go to the first item.
+        /// Default value: <c>true</c>
         /// </summary>
         public bool AllowCircularSelection { get; set; } = true;
 

@@ -16,17 +16,17 @@
 
 using System;
 using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands;
+using DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
+namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
 {
     internal static class Program
     {
         private static ApplicationState applicationState;
         private static GameBoard gameBoard;
-        private static MenuControl.SelectableMenu menu;
+        private static MenuControl.ScrollableMenu menu;
 
         private static void Main()
         {
@@ -61,18 +61,18 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - SelectableMenu");
+            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - ScrollableMenu");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the SelectableMenu can be used.");
+            CustomConsole.WriteLine("This demo shows how the ScrollableMenu can be used.");
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
             CustomConsole.WriteLine("Press Enter key to select an item.");
             CustomConsole.WriteLine();
         }
 
-        private static MenuControl.SelectableMenu CreateMenu()
+        private static MenuControl.ScrollableMenu CreateMenu()
         {
-            MenuControl.SelectableMenu selectableMenu = new MenuControl.SelectableMenu(new IMenuItem[]
+            MenuControl.ScrollableMenu scrollableMenu = new MenuControl.ScrollableMenu(new IMenuItem[]
             {
                 new LabelMenuItem
                 {
@@ -117,13 +117,13 @@ namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu
             // You can play with the following values.
 
             // This automatically selects the first item when the menu is displayed.
-            //selectableMenu.SelectFirstByDefault = true;
+            //scrollableMenu.SelectFirstByDefault = true;
 
             // 
-            //selectableMenu.HorizontalAlignment = HorizontalAlignment.Left;
-            //selectableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
+            //scrollableMenu.HorizontalAlignment = HorizontalAlignment.Left;
+            //scrollableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
             
-            return selectableMenu;
+            return scrollableMenu;
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

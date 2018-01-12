@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,17 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class ValueWriteCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            DisplayData();
+            // or
+            //DisplayDataQuick();
+        }
+
+        private static void DisplayData()
+        {
+            ValueOutput valueOutput = new ValueOutput();
+
+            valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
+
+            valueOutput.Write("First Name:", "John");
+            valueOutput.Write("Last Name:", "Doe");
+            valueOutput.Write("Age:", 25);
+        }
+
+        private void DisplayDataQuick()
+        {
+            ValueOutput.QuickWrite("First Name:", "John");
+            ValueOutput.QuickWrite("Last Name:", "Doe");
+            ValueOutput.QuickWrite("Age:", 25);
         }
     }
 }

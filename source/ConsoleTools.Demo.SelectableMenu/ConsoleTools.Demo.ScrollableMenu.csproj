@@ -7,8 +7,8 @@
     <ProjectGuid>{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools.Demo.SelectableMenu</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Demo.SelectableMenu</AssemblyName>
+    <RootNamespace>DustInTheWind.ConsoleTools.Demo.ScrollableMenu</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Demo.ScrollableMenu</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -83,6 +83,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Gets or sets a value that specifies if the default value should be displayed in the Console
         /// when the user chooses it (types enter without any value).
+        /// Default value: <c>true</c>
         /// </summary>
         public bool AutocompleteDefaultValue { get; set; } = true;
 
@@ -91,7 +92,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
         /// </summary>
-        public string TypeValidationErrorMessage { get; set; } = ValueInputResources.TypeValidationErrorMessage;
+        public string TypeConversionErrorMessage { get; set; } = ValueInputResources.TypeConversionErrorMessage;
+
+        /// <summary>
+        /// Gets or sets the function used to parse the text provided by the user.
+        /// If conversion cannot be performed, it must throw an exception.
+        /// </summary>
+        public Func<string, T> CustomParser { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValueInput{T}"/> class.
@@ -146,7 +153,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 }
                 catch
                 {
-                    CustomConsole.WriteLineError(TypeValidationErrorMessage, typeof(T));
+                    CustomConsole.WriteLineError(TypeConversionErrorMessage, typeof(T));
                 }
             }
         }
@@ -159,9 +166,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
             labelControl.Display();
         }
 
-        private static T ConvertRawValue(string value)
+        private T ConvertRawValue(string value)
         {
-            return (T)Convert.ChangeType(value, typeof(T));
+            return CustomParser == null
+                ? (T)Convert.ChangeType(value, typeof(T))
+                : CustomParser(value);
         }
 
         /// <summary>

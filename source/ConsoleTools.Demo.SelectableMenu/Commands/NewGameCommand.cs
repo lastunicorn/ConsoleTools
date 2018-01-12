@@ -17,7 +17,7 @@
 using System;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.SelectableMenu.Commands
+namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands
 {
     internal class NewGameCommand : ICommand
     {

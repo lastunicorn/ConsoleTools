@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class SelectableMenu
+    public class ScrollableMenu
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
@@ -69,6 +69,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Gets or sets a vlue that specifies if circular selection is allowed.
         /// When reaching the first item go to the last item.
         /// When reaching the last item go to the first item.
+        /// Default value: <c>true</c>
         /// </summary>
         public bool AllowCircularSelection
         {
@@ -76,13 +77,25 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             set { menuItems.AllowCircularSelection = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the number of empty lines displayed before the menu.
+        /// Default value: 1
+        /// </summary>
+        public int MarginTop { get; set; } = 1;
+
+        /// <summary>
+        /// Gets or sets the number of empty lines displayed after the menu.
+        /// Default value: 1
+        /// </summary>
+        public int MarginBottom { get; set; } = 1;
+
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.SelectableMenu" /> class with
+        /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" /> class with
         /// the list of items.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
-        public SelectableMenu(IEnumerable<IMenuItem> menuItems)
+        public ScrollableMenu(IEnumerable<IMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
@@ -135,6 +148,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                     int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
                     Console.SetCursorPosition(0, firstLineAfterMenu);
+
+                    WriteBottomMargin();
                 }
             });
 
@@ -194,11 +209,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private void DrawMenu()
         {
-            menuSize = CalculateMenuDimensions();
+            WriteTopMargin();
 
-            // Write empty lines
-            for (int i = 0; i < menuSize.Height; i++)
-                Console.WriteLine();
+            menuSize = CalculateMenuSize();
+
+            RenderMenuSpace();
 
             menuLocation = CalculateMenuLocation();
 
@@ -206,11 +221,34 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 DrawMenuItem(i);
         }
 
+        private void WriteTopMargin()
+        {
+            for (int i = 0; i < MarginTop; i++)
+                Console.WriteLine();
+        }
+
+        private void WriteBottomMargin()
+        {
+            for (int i = 0; i < MarginBottom; i++)
+                Console.WriteLine();
+        }
+
+        private void RenderMenuSpace()
+        {
+            // First I write sufficient empty lines for all the menu items an
+            // later will come back on each line and display the menu item.
+
+            for (int i = 0; i < menuSize.Height; i++)
+                Console.WriteLine();
+
+            Console.CursorTop = Console.CursorTop - menuSize.Height;
+        }
+
         private Location CalculateMenuLocation()
         {
             HorizontalAlignment calcualtedHorizontalAlignment = CalcualteHorizontalAlignment();
 
-            int menuTop = Console.CursorTop - menuSize.Height;
+            int menuTop = Console.CursorTop;
 
             switch (calcualtedHorizontalAlignment)
             {
@@ -235,7 +273,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return calcualtedHorizontalAlignment;
         }
 
-        private Size CalculateMenuDimensions()
+        private Size CalculateMenuSize()
         {
             int menuHight = menuItems
                 .Count(x => x != null && x.IsVisible);

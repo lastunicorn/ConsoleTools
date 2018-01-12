@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,17 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class CreditsCommand : ICommand
+    internal class ValueReadWithDefaultValueCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Display Credits");
+            RunExample();
+        }
+
+        private static void RunExample()
+        {
+            ValueInput<int> numberInput = new ValueInput<int>("Number ({0}):");
+            numberInput.AcceptDefaultValue = true;
+            numberInput.DefaultValue = 42;
+
+            CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueInput control.");
+            CustomConsole.WriteLine();
+
+            int number = numberInput.Read();
+
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("You selected {0}.", number);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Mvc
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Mvc");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows the usage of the MVC frameworkfor Console.");
+            CustomConsole.WriteLine("This demo shows the usage of the MVC framework for Console.");
             CustomConsole.WriteLine();
         }
 

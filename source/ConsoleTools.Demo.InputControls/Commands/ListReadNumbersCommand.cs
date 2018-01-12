@@ -14,37 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.MenuControl;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
+namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ApplicationState
+    internal class ListReadNumbersCommand : ICommand
     {
-        public bool IsExitRequested { get; private set; }
+        public bool IsActive => true;
 
-        public event EventHandler<CancelEventArgs> Exiting;
-        public event EventHandler ExitCanceled;
-
-        protected virtual void OnExiting(CancelEventArgs e)
+        public void Execute()
         {
-            Exiting?.Invoke(this, e);
+            CustomConsole.WriteLine();
+
+            List<int> beverages = ReadNumbers();
+
+            CustomConsole.WriteLine();
+
+            CustomConsole.Write("Your lucky numbers: ");
+            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
         }
 
-        protected virtual void OnExitCanceled()
+        private static List<int> ReadNumbers()
         {
-            ExitCanceled?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void RequestExit()
-        {
-            CancelEventArgs e = new CancelEventArgs();
-            OnExiting(e);
-
-            if (e.Cancel)
-                OnExitCanceled();
-            else
-                IsExitRequested = true;
+            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
+            return luckyNumbersInput.Read();
         }
     }
 }

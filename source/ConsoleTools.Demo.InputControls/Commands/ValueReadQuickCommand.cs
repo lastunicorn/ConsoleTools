@@ -20,33 +20,32 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueOutputCommand : ICommand
+    internal class ValueReadQuickCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            DisplayData();
-            // or
-            //DisplayDataQuick();
+            RunExample();
         }
 
-        private static void DisplayData()
+        /// <summary>
+        /// The QuickRead static method is used to read values from the console.
+        /// </summary>
+        private static void RunExample()
         {
-            ValueOutput valueOutput = new ValueOutput();
+            string firstName = ValueInput<string>.QuickRead("First Name:");
+            string lastName = ValueInput<string>.QuickRead("Last Name:");
+            int age = ValueInput<int>.QuickRead("Age:");
+            DateTime birthday = ValueInput<DateTime>.QuickRead("Birthday:");
+            float height = ValueInput<float>.QuickRead("Height (float):");
 
-            valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
-
-            valueOutput.Write("First Name:", "John");
-            valueOutput.Write("Last Name:", "Doe");
-            valueOutput.Write("Age:", 25);
-        }
-
-        private void DisplayDataQuick()
-        {
-            ValueOutput.QuickWrite("First Name:", "John");
-            ValueOutput.QuickWrite("Last Name:", "Doe");
-            ValueOutput.QuickWrite("Age:", 25);
+            // Display th read values.
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            CustomConsole.WriteLine("You are {0} years old.", age);
+            CustomConsole.WriteLine("Your birthday is {0}.", birthday);
+            CustomConsole.WriteLine("Your height is {0}.", height);
         }
     }
 }

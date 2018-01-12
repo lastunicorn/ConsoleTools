@@ -40,10 +40,14 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="Commands\ListInputCommand.cs" />
-    <Compile Include="Commands\ListOutputCommand.cs" />
-    <Compile Include="Commands\ValueInputCommand.cs" />
-    <Compile Include="Commands\ValueOutputCommand.cs" />
+    <Compile Include="Commands\ListReadCommand.cs" />
+    <Compile Include="Commands\ListReadNumbersCommand.cs" />
+    <Compile Include="Commands\ListReadQuickCommand.cs" />
+    <Compile Include="Commands\ListWriteCommand.cs" />
+    <Compile Include="Commands\ValueReadCommand.cs" />
+    <Compile Include="Commands\ValueReadQuickCommand.cs" />
+    <Compile Include="Commands\ValueReadWithDefaultValueCommand.cs" />
+    <Compile Include="Commands\ValueWriteCommand.cs" />
     <Compile Include="Commands\YesNoCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

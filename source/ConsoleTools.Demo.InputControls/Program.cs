@@ -30,17 +30,14 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
             DisplayApplicationHeader();
 
-            SelectableMenu menu = CreateMenu();
+            ScrollableMenu menu = CreateMenu();
 
             while (true)
             {
                 CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine();
-
+                
                 menu.Display();
-
-                CustomConsole.WriteLine();
-
+                
                 if (menu.SelectedItem?.Id == 0)
                     break;
             }
@@ -55,39 +52,61 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             CustomConsole.WriteLine();
         }
 
-        private static SelectableMenu CreateMenu()
+        private static ScrollableMenu CreateMenu()
         {
             IEnumerable<IMenuItem> menuItems = new List<IMenuItem>
             {
                 new LabelMenuItem
                 {
-                    Id = 1,
-                    Text = "Value Input",
-                    Command = new ValueInputCommand()
+                    Text = "Value Read",
+                    Command = new ValueReadCommand()
                 },
                 new LabelMenuItem
                 {
-                    Id = 2,
-                    Text = "List Input",
-                    Command = new ListInputCommand()
+                    Text = "Value Read - Quick",
+                    Command = new ValueReadQuickCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "Value Read - With DefaultValue",
+                    Command = new ValueReadWithDefaultValueCommand()
+                },
+
+                new SeparatorMenuItem(),
+
+                new LabelMenuItem
+                {
+                    Text = "List Read",
+                    Command = new ListReadCommand()
+                },
+
+                new LabelMenuItem
+                {
+                    Text = "List Read - Quick",
+                    Command = new ListReadQuickCommand()
+                },
+
+                new LabelMenuItem
+                {
+                    Text = "List Read - Numbers",
+                    Command = new ListReadNumbersCommand()
+                },
+
+                new SeparatorMenuItem(),
+
+                new LabelMenuItem
+                {
+                    Text = "Value Write",
+                    Command = new ValueWriteCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "List Write",
+                    Command = new ListWriteCommand()
                 },
                 new SeparatorMenuItem(),
                 new LabelMenuItem
                 {
-                    Id = 3,
-                    Text = "Value Output",
-                    Command = new ValueOutputCommand()
-                },
-                new LabelMenuItem
-                {
-                    Id = 4,
-                    Text = "List Output",
-                    Command = new ListOutputCommand()
-                },
-                new SeparatorMenuItem(),
-                new LabelMenuItem
-                {
-                    Id = 5,
                     Text = "Yes/No Question",
                     Command = new YesNoCommand()
                 },
@@ -99,7 +118,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 }
             };
 
-            return new SelectableMenu(menuItems)
+            return new ScrollableMenu(menuItems)
             {
                 ItemsHorizontalAlignment = HorizontalAlignment.Center,
                 SelectFirstByDefault = true

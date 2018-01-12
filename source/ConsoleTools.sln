@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Mvc", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextMenu", "ConsoleTools.Demo.TextMenu\ConsoleTools.Demo.TextMenu.csproj", "{03611F6A-F799-4A07-8288-41BD4BD21C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.SelectableMenu", "ConsoleTools.Demo.SelectableMenu\ConsoleTools.Demo.SelectableMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollableMenu", "ConsoleTools.Demo.SelectableMenu\ConsoleTools.Demo.ScrollableMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBar", "ConsoleTools.Demo.ProgressBar\ConsoleTools.Demo.ProgressBar.csproj", "{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}"
 EndProject

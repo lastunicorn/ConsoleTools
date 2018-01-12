@@ -25,45 +25,25 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            CustomConsole.WriteLine();
-
-            DisplayYesNo();
-            CustomConsole.WriteLine();
-
-            DisplayYesNoCancel();
-            CustomConsole.WriteLine();
-        }
-
-        private static void DisplayYesNo()
-        {
-            CustomConsole.WriteLine();
             CustomConsole.WriteLine("This is a simple yes/no control with no default value.");
             CustomConsole.WriteLine();
 
-            YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?");
-            YesNoAnswer answer = yesNoQuestion.ReadAnswer();
-
-            CustomConsole.WriteLine();
-            CustomConsole.Write("Your answer: ");
-            CustomConsole.WriteLineEmphasies(answer);
+            YesNoAnswer answer = AskQuestion();
+            DisplayAnswer(answer);
         }
 
-        private static void DisplayYesNoCancel()
+        private static YesNoAnswer AskQuestion()
         {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This is a yes/no/cancel control with default value 'Yes'.");
-            CustomConsole.WriteLine();
+            YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?");
+            return yesNoQuestion.ReadAnswer();
+        }
 
-            YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?")
-            {
-                AcceptCancel = true,
-                DefaultAnswer = YesNoAnswer.Yes
-            };
-            YesNoAnswer answer = yesNoQuestion.ReadAnswer();
-
+        private static void DisplayAnswer(YesNoAnswer answer)
+        {
             CustomConsole.WriteLine();
             CustomConsole.Write("Your answer: ");
             CustomConsole.WriteLineEmphasies(answer);
+            CustomConsole.WriteLine();
         }
     }
 }

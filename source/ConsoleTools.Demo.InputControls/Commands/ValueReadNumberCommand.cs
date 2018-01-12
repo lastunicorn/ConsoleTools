@@ -20,7 +20,7 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueReadStringCommand : ICommand
+    internal class ValueReadNumberCommand : ICommand
     {
         public bool IsActive => true;
 
@@ -36,19 +36,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static void RunExample()
         {
             // Create the input controls
-            ValueInput<string> firstNameInput = new ValueInput<string>("First Name:");
-            firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
-
-            ValueInput<string> lastNameInput = new ValueInput<string>("Last Name:");
-            lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
+            ValueInput<int> ageInput = new ValueInput<int>("Age:");
+            ageInput.LabelForegroundColor = ConsoleColor.DarkGreen;
 
             // Read values using the input controls
-            string firstName = firstNameInput.Read();
-            string lastName = lastNameInput.Read();
+            int age = ageInput.Read();
 
             // Display th read values.
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            CustomConsole.WriteLine("You are {0} years old.", age);
         }
     }
 }

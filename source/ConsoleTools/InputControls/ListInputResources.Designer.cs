@@ -63,9 +63,9 @@ namespace DustInTheWind.ConsoleTools.InputControls {
         /// <summary>
         ///   Looks up a localized string similar to The input value must be of the type {0}..
         /// </summary>
-        internal static string TypeValidationErrorMessage {
+        internal static string TypeConversionErrorMessage {
             get {
-                return ResourceManager.GetString("TypeValidationErrorMessage", resourceCulture);
+                return ResourceManager.GetString("TypeConversionErrorMessage", resourceCulture);
             }
         }
     }

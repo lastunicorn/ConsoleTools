@@ -14,41 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueReadStringCommand : ICommand
+    internal class YesNoCancelCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            RunExample();
+            CustomConsole.WriteLine("This is a yes/no/cancel control with default value 'Yes'.");
+            CustomConsole.WriteLine();
+
+            YesNoAnswer answer = AskQuestion();
+            DisplayAnswer(answer);
         }
 
-        /// <summary>
-        /// This example creates instances for each input value and sets different label colors.
-        /// Each instance reads a different type of value (string, int, DateTime, float)
-        /// </summary>
-        private static void RunExample()
+        private static YesNoAnswer AskQuestion()
         {
-            // Create the input controls
-            ValueInput<string> firstNameInput = new ValueInput<string>("First Name:");
-            firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
+            YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?")
+            {
+                AcceptCancel = true,
+                DefaultAnswer = YesNoAnswer.Yes
+            };
 
-            ValueInput<string> lastNameInput = new ValueInput<string>("Last Name:");
-            lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
+            return yesNoQuestion.ReadAnswer();
+        }
 
-            // Read values using the input controls
-            string firstName = firstNameInput.Read();
-            string lastName = lastNameInput.Read();
-
-            // Display th read values.
+        private static void DisplayAnswer(YesNoAnswer answer)
+        {
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            CustomConsole.Write("Your answer: ");
+            CustomConsole.WriteLineEmphasies(answer);
+            CustomConsole.WriteLine();
         }
     }
 }

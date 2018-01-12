@@ -96,7 +96,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         /// <summary>
         /// Gets or sets the function used to parse the text provided by the user.
-        /// If conversion cannot be performed, it must throw an exception.
+        /// If the conversion cannot be performed, the convertor must throw an exception.
         /// </summary>
         public Func<string, T> CustomParser { get; set; }
 

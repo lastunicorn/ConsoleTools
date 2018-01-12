@@ -19,26 +19,15 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueReadQuickCommand : ICommand
+    internal class ValueWriteQuickCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            RunExample();
-        }
-
-        /// <summary>
-        /// The QuickRead static method is used to read values from the console.
-        /// </summary>
-        private static void RunExample()
-        {
-            string firstName = ValueInput<string>.QuickRead("First Name:");
-            string lastName = ValueInput<string>.QuickRead("Last Name:");
-
-            // Display th read values.
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            ValueOutput.QuickWrite("First Name:", "John");
+            ValueOutput.QuickWrite("Last Name:", "Doe");
+            ValueOutput.QuickWrite("Age:", 25);
         }
     }
 }

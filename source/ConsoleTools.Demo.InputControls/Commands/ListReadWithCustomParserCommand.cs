@@ -15,40 +15,45 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueReadStringCommand : ICommand
+    internal class ListReadWithCustomParserCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            RunExample();
+            List<ConsoleColor> colors = ReadColors();
+            CustomConsole.WriteLine();
+
+            DisplayColors(colors);
         }
 
-        /// <summary>
-        /// This example creates instances for each input value and sets different label colors.
-        /// Each instance reads a different type of value (string, int, DateTime, float)
-        /// </summary>
-        private static void RunExample()
+        private static void DisplayColors(List<ConsoleColor> colors)
         {
-            // Create the input controls
-            ValueInput<string> firstNameInput = new ValueInput<string>("First Name:");
-            firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
+            CustomConsole.Write("Your prefered colors: ");
 
-            ValueInput<string> lastNameInput = new ValueInput<string>("Last Name:");
-            lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
+            for (int i = 0; i < colors.Count; i++)
+            {
+                CustomConsole.Write(colors[i], colors[i].ToString());
 
-            // Read values using the input controls
-            string firstName = firstNameInput.Read();
-            string lastName = lastNameInput.Read();
+                if (i < colors.Count - 1)
+                    CustomConsole.Write(", ");
+            }
 
-            // Display th read values.
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+        }
+
+        private static List<ConsoleColor> ReadColors()
+        {
+            ListInput<ConsoleColor> colorsInput = new ListInput<ConsoleColor>("What are your prefered colors?");
+            colorsInput.CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true);
+
+            return colorsInput.Read();
         }
     }
 }

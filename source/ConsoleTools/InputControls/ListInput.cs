@@ -80,7 +80,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// cannot be converted into the requested type.
         /// The requested type is provided as parameter {0}.
         /// </summary>
-        public string TypeValidationErrorMessage { get; set; } = ListInputResources.TypeValidationErrorMessage;
+        public string TypeConversionErrorMessage { get; set; } = ListInputResources.TypeConversionErrorMessage;
+
+        /// <summary>
+        /// Gets or sets the function used to parse the text provided by the user.
+        /// If the conversion cannot be performed, the convertor must throw an exception.
+        /// </summary>
+        public Func<string, T> CustomParser { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListInput{T}"/> class.
@@ -146,16 +152,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 }
                 catch
                 {
-                    CustomConsole.WriteLineError(TypeValidationErrorMessage, typeof(T));
+                    CustomConsole.WriteLineError(TypeConversionErrorMessage, typeof(T));
                 }
             }
 
             return values;
         }
-
-        private static T ConvertRawValue(string value)
+        
+        private T ConvertRawValue(string value)
         {
-            return (T)Convert.ChangeType(value, typeof(T));
+            return CustomParser == null
+                ? (T)Convert.ChangeType(value, typeof(T))
+                : CustomParser(value);
         }
 
         private string BuildItemLeftPart()

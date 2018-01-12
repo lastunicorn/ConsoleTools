@@ -35,9 +35,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             while (true)
             {
                 CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                
+
                 menu.Display();
-                
+
                 if (menu.SelectedItem?.Id == 0)
                     break;
             }
@@ -58,17 +58,22 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             {
                 new LabelMenuItem
                 {
-                    Text = "Value Read",
-                    Command = new ValueReadCommand()
+                    Text = "Value Read - Strings",
+                    Command = new ValueReadStringCommand()
                 },
                 new LabelMenuItem
                 {
-                    Text = "Value Read - Quick",
+                    Text = "Value Read - Number",
+                    Command = new ValueReadStringCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "Value Read - Quick (static method)",
                     Command = new ValueReadQuickCommand()
                 },
                 new LabelMenuItem
                 {
-                    Text = "Value Read - With DefaultValue",
+                    Text = "Value Read - With default value",
                     Command = new ValueReadWithDefaultValueCommand()
                 },
 
@@ -76,20 +81,23 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
                 new LabelMenuItem
                 {
-                    Text = "List Read",
-                    Command = new ListReadCommand()
+                    Text = "List Read - Strings",
+                    Command = new ListReadStringsCommand()
                 },
-
-                new LabelMenuItem
-                {
-                    Text = "List Read - Quick",
-                    Command = new ListReadQuickCommand()
-                },
-
                 new LabelMenuItem
                 {
                     Text = "List Read - Numbers",
                     Command = new ListReadNumbersCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "List Read - Quick (static method)",
+                    Command = new ListReadQuickCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "List Read - With custom parser",
+                    Command = new ListReadWithCustomParserCommand()
                 },
 
                 new SeparatorMenuItem(),
@@ -101,16 +109,33 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 },
                 new LabelMenuItem
                 {
+                    Text = "Value Write - Quick (static method)",
+                    Command = new ValueWriteQuickCommand()
+                },
+
+                new SeparatorMenuItem(),
+
+                new LabelMenuItem
+                {
                     Text = "List Write",
                     Command = new ListWriteCommand()
                 },
+
                 new SeparatorMenuItem(),
+
                 new LabelMenuItem
                 {
                     Text = "Yes/No Question",
                     Command = new YesNoCommand()
                 },
+                new LabelMenuItem
+                {
+                    Text = "Yes/No/Cancel Question",
+                    Command = new YesNoCancelCommand()
+                },
+
                 new SeparatorMenuItem(),
+
                 new LabelMenuItem
                 {
                     Id = 0,

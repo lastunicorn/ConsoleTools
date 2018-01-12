@@ -21,7 +21,7 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ListReadCommand : ICommand
+    internal class ListReadStringsCommand : ICommand
     {
         public bool IsActive => true;
 

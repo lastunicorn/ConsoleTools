@@ -26,13 +26,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            DisplayData();
-            // or
-            //DisplayDataQuick();
-        }
-
-        private static void DisplayData()
-        {
             ValueOutput valueOutput = new ValueOutput();
 
             valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
@@ -40,13 +33,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             valueOutput.Write("First Name:", "John");
             valueOutput.Write("Last Name:", "Doe");
             valueOutput.Write("Age:", 25);
-        }
-
-        private void DisplayDataQuick()
-        {
-            ValueOutput.QuickWrite("First Name:", "John");
-            ValueOutput.QuickWrite("Last Name:", "Doe");
-            ValueOutput.QuickWrite("Age:", 25);
         }
     }
 }

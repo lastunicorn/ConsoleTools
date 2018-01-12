@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// Gets a value that specifies if the current instance can be selected.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool IsSelectable { get; set; } = true;
+        public bool IsEnabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the shortcut key that will select the current instance of <see cref="IMenuItem"/>.

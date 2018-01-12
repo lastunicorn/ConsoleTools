@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets or sets a value that specifies if the current instance can be selected.
         /// </summary>
-        bool IsSelectable { get; set; }
+        bool IsEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets the shortcut key that will select the current instance of <see cref="IMenuItem"/>.

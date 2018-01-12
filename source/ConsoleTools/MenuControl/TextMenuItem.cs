@@ -49,7 +49,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// This value is ignored if the <see cref="Command"/> property is set.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool Enabled { get; set; } = true;
+        public bool IsEnabled { get; set; } = true;
 
         /// <summary>
         /// Gets or sets the command to be executed when the current instance is selected.
@@ -61,9 +61,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         public bool CanBeSelected()
         {
-            return (Command == null && Enabled) || (Command != null && Command.IsActive);
+            return (Command == null && IsEnabled) || (Command != null && Command.IsActive);
         }
-
 
         /// <summary>
         /// Displays the current instance to the Console starting from the current location of the cursor.

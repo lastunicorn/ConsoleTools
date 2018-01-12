@@ -26,8 +26,7 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
     /// <summary>
-    /// A collection of <see cref="IMenuItem"/> instances.
-    /// It also keeps track of a current item.
+    /// A collection of <see cref="IMenuItem"/> instances that implements the concept of a current item.
     /// </summary>
     public class MenuItemCollection : List<IMenuItem>
     {
@@ -80,12 +79,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// When reaching the last item go to the first item.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool AllowCircularSelection { get; set; } = true;
+        public bool AllowWrapAround { get; set; } = true;
 
         /// <summary>
         /// Gets the number of items that are visible and can be selected.
         /// </summary>
-        public int SelectableItemsCount => this.Count(x => x != null && x.IsVisible && x.IsSelectable);
+        public int SelectableItemsCount => this.Count(x => x != null && x.IsVisible && x.IsEnabled);
 
         /// <summary>
         /// Event raised when the currently selected item was changed.
@@ -108,7 +107,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         }
 
         /// <summary>
-        /// Selects the previous visible and selectable item in the list.
+        /// Selects the previous visible and enabled item in the list.
         /// </summary>
         public void MoveToPrevious()
         {
@@ -117,34 +116,38 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private int? GetPreviousItemIndex()
         {
-            int startIndex = CurrentIndex == null
-                ? Count - 1
-                : CurrentIndex.Value - 1;
+            int startIndex = CurrentIndex - 1 ?? Count - 1;
+
+            // Search from current item up to the first item.
 
             for (int i = startIndex; i >= 0; i--)
             {
                 IMenuItem menuItem = this[i];
 
-                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsEnabled)
                     return i;
             }
 
-            if (AllowCircularSelection)
+            if (AllowWrapAround)
             {
+                // Search from last item up to current item.
+
                 for (int i = Count - 1; i > startIndex; i--)
                 {
                     IMenuItem menuItem = this[i];
 
-                    if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                    if (menuItem != null && menuItem.IsVisible && menuItem.IsEnabled)
                         return i;
                 }
             }
+
+            // No valid item was found.
 
             return CurrentIndex;
         }
 
         /// <summary>
-        /// Selects the next visible and selectable item in the list.
+        /// Selects the next visible and enabled item in the list.
         /// </summary>
         public void MoveToNext()
         {
@@ -153,34 +156,38 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private int? GetNextItemIndex()
         {
-            int startIndex = CurrentIndex == null
-                ? 0
-                : CurrentIndex.Value + 1;
+            int startIndex = CurrentIndex + 1 ?? 0;
+
+            // Search from current item down to the last item.
 
             for (int i = startIndex; i < Count; i++)
             {
                 IMenuItem menuItem = this[i];
 
-                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsEnabled)
                     return i;
             }
 
-            if (AllowCircularSelection)
+            if (AllowWrapAround)
             {
+                // Search from the first item down to the current item.
+
                 for (int i = 0; i < startIndex; i++)
                 {
                     IMenuItem menuItem = this[i];
 
-                    if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                    if (menuItem != null && menuItem.IsVisible && menuItem.IsEnabled)
                         return i;
                 }
             }
+
+            // No valid item was found.
 
             return CurrentIndex;
         }
 
         /// <summary>
-        /// Selects the first visible and selectable item in the list.
+        /// Selects the first visible and enabled item in the list.
         /// </summary>
         public void SelectFirst()
         {
@@ -195,7 +202,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 index++;
 
-                if (menuItem != null && menuItem.IsVisible && menuItem.IsSelectable)
+                if (menuItem != null && menuItem.IsVisible && menuItem.IsEnabled)
                     return index;
             }
 
@@ -239,7 +246,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 index++;
 
-                if (x != null && x.IsVisible && x.IsSelectable && x.ShortcutKey != null && x.ShortcutKey == consoleKey)
+                if (x != null && x.IsVisible && x.IsEnabled && x.ShortcutKey != null && x.ShortcutKey == consoleKey)
                 {
                     CurrentIndex = index;
                     return true;

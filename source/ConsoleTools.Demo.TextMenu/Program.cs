@@ -87,7 +87,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 {
                     Id = "1",
                     Text = "New Game",
-                    Enabled = false,
                     Command = new NewGameCommand(gameBoard)
                 },
                 new TextMenuItem
@@ -128,7 +127,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                     Text = "Exit",
                     Command = new ExitCommand(applicationState)
                 }
-                });
+            });
 
             return textMenu;
         }
@@ -141,7 +140,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
         private static void HandleApplicationExiting(object sender, CancelEventArgs e)
         {
-            //menu.RequestClose();
             gameBoard.StopGame();
         }
     }

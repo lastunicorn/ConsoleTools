@@ -73,8 +73,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         public bool AllowWrapAround
         {
-            get { return menuItems.AllowCircularSelection; }
-            set { menuItems.AllowCircularSelection = value; }
+            get { return menuItems.AllowWrapAround; }
+            set { menuItems.AllowWrapAround = value; }
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             IMenuItem selectedItem = menuItems.CurrentItem;
 
-            if (selectedItem?.IsSelectable != true)
+            if (selectedItem?.IsEnabled != true)
                 return;
 
             bool allow = selectedItem.Select();

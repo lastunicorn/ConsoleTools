@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// Gets the <c>false</c> value specifying that the current instance cannot be selected.
         /// The setter does nothing.
         /// </summary>
-        public bool IsSelectable
+        public bool IsEnabled
         {
             get { return false; }
             set { }

@@ -255,5 +255,15 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 }
             }
         }
+
+        public static YesNoAnswer QuickRead(string questionText, YesNoAnswer? defaultAnswer = null)
+        {
+            YesNoQuestion yesNoQuestion = new YesNoQuestion(questionText);
+
+            if (defaultAnswer != null)
+                yesNoQuestion.DefaultAnswer = defaultAnswer;
+
+            return yesNoQuestion.ReadAnswer();
+        }
     }
 }

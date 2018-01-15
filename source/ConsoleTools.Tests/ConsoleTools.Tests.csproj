@@ -1,134 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProductVersion>9.0.21022</ProductVersion>
-        <SchemaVersion>2.0</SchemaVersion>
-        <ProjectGuid>{54D61983-996F-436E-A265-01C616099367}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
-        <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <FileUpgradeFlags>
-        </FileUpgradeFlags>
-        <UpgradeBackupLocation>
-        </UpgradeBackupLocation>
-        <OldToolsVersion>3.5</OldToolsVersion>
-        <PublishUrl>publish\</PublishUrl>
-        <Install>true</Install>
-        <InstallFrom>Disk</InstallFrom>
-        <UpdateEnabled>false</UpdateEnabled>
-        <UpdateMode>Foreground</UpdateMode>
-        <UpdateInterval>7</UpdateInterval>
-        <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-        <UpdatePeriodically>false</UpdatePeriodically>
-        <UpdateRequired>false</UpdateRequired>
-        <MapFileExtensions>true</MapFileExtensions>
-        <ApplicationRevision>0</ApplicationRevision>
-        <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-        <IsWebBootstrapper>false</IsWebBootstrapper>
-        <UseApplicationTrust>false</UseApplicationTrust>
-        <BootstrapperEnabled>true</BootstrapperEnabled>
-        <TargetFrameworkProfile />
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <Prefer32Bit>false</Prefer32Bit>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <Prefer32Bit>false</Prefer32Bit>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
-        <OutputPath>bin\Release-Net461\</OutputPath>
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-        <DefineConstants>TRACE</DefineConstants>
-        <Optimize>true</Optimize>
-        <DebugType>pdbonly</DebugType>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <ErrorReport>prompt</ErrorReport>
-        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
-        <OutputPath>bin\Release-Net45\</OutputPath>
-        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-        <DefineConstants>TRACE</DefineConstants>
-        <Optimize>true</Optimize>
-        <DebugType>pdbonly</DebugType>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <ErrorReport>prompt</ErrorReport>
-        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-            <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
-            <Private>True</Private>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="..\AssemblyInfo.Shared.cs">
-            <Link>Properties\AssemblyInfo.Shared.cs</Link>
-        </Compile>
-        <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
-        <Compile Include="AlignedTextTests\ToStringTests.cs" />
-        <Compile Include="TabularData\CellTests\RenderTests.cs" />
-        <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
-        <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
-        <Compile Include="TabularData\RowTests.cs" />
-        <Compile Include="TabularData\TableTests\HeaderAlignmentTests.cs" />
-        <Compile Include="TabularData\TableTests\CellMultilineTests.cs" />
-        <Compile Include="CustomAssert.cs" />
-        <Compile Include="TabularData\MultilineTextTests\ConstructorTests.cs" />
-        <Compile Include="TabularData\TableTests\CellAlignmentPerTableTests.cs" />
-        <Compile Include="TabularData\TableTests\CellAlignmentPerColumnTests.cs" />
-        <Compile Include="TabularData\TableTests\SpecialCaseBorder.LongTitle.Tests.cs" />
-        <Compile Include="TabularData\TableTests\SpecialCaseBorder.ShortTitle.Tests.cs" />
-        <Compile Include="TabularData\TableTests\NoBorderTests.cs" />
-        <Compile Include="TabularData\TableTests\CellAlignmentTests.cs" />
-        <Compile Include="TabularData\MultilineTextTests\MultilineTextTests.cs" />
-        <Compile Include="TabularData\TableTests\CustomBorderTests.cs" />
-        <Compile Include="TabularData\TableTests\TablePaddingTests.cs" />
-        <Compile Include="TabularData\TableTests\ConstructorTests.cs" />
-        <Compile Include="TabularData\TableTests\LinesBetweenRowsTests.cs" />
-        <Compile Include="TabularData\TableTests\TitleAlignmentTests.cs" />
-        <Compile Include="TabularData\TableTests\TitleTests.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-            <Visible>False</Visible>
-            <ProductName>.NET Framework 3.5 SP1</ProductName>
-            <Install>true</Install>
-        </BootstrapperPackage>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-            <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
-            <Name>ConsoleTools</Name>
-        </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="packages.config" />
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{54D61983-996F-436E-A265-01C616099367}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
+    <OutputPath>bin\Release-Net461\</OutputPath>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
+    <OutputPath>bin\Release-Net45\</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Shared.cs">
+      <Link>Properties\AssemblyInfo.Shared.cs</Link>
+    </Compile>
+    <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
+    <Compile Include="AlignedTextTests\ToStringTests.cs" />
+    <Compile Include="TabularData\CellTests\RenderTests.cs" />
+    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
+    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
+    <Compile Include="TabularData\RowTests.cs" />
+    <Compile Include="TabularData\TableTests\HeaderAlignmentTests.cs" />
+    <Compile Include="TabularData\TableTests\CellMultilineTests.cs" />
+    <Compile Include="CustomAssert.cs" />
+    <Compile Include="TabularData\MultilineTextTests\ConstructorTests.cs" />
+    <Compile Include="TabularData\TableTests\CellAlignmentPerTableTests.cs" />
+    <Compile Include="TabularData\TableTests\CellAlignmentPerColumnTests.cs" />
+    <Compile Include="TabularData\TableTests\SpecialCaseBorder.LongTitle.Tests.cs" />
+    <Compile Include="TabularData\TableTests\SpecialCaseBorder.ShortTitle.Tests.cs" />
+    <Compile Include="TabularData\TableTests\NoBorderTests.cs" />
+    <Compile Include="TabularData\TableTests\CellAlignmentTests.cs" />
+    <Compile Include="TabularData\MultilineTextTests\MultilineTextTests.cs" />
+    <Compile Include="TabularData\TableTests\CustomBorderTests.cs" />
+    <Compile Include="TabularData\TableTests\TablePaddingTests.cs" />
+    <Compile Include="TabularData\TableTests\ConstructorTests.cs" />
+    <Compile Include="TabularData\TableTests\LinesBetweenRowsTests.cs" />
+    <Compile Include="TabularData\TableTests\TitleAlignmentTests.cs" />
+    <Compile Include="TabularData\TableTests\TitleTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
+      <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
+      <Name>ConsoleTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -2,7 +2,7 @@
 
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
-_**Note**: Until reaching the version 1.0.0 the controls are subject to change names, parameters or types and will not ensure backwards compatibility._
+_**Note**: Until reaching the version 1.0.0 the controls may change dramatically and will not ensure backwards compatibility._
 
 
 ## Bugs and feature requests
@@ -30,4 +30,4 @@ For any bug or feature request please add a **[new issue](https://github.com/las
 - Miscellaneous
   - [Sound](https://github.com/lastunicorn/ConsoleTools/wiki/Sound) - A class that helps you make short sounds on specific frequencies.
   - [Guardian](https://github.com/lastunicorn/ConsoleTools/wiki/MachineLevelGuardian) - A class that helps you prevent multiple instances of the same application.
-  - [Console MVC Framework](https://github.com/lastunicorn/ConsoleTools/wiki/Console%20MVC) - A small framework that helps you structure the presentation level of the console application
+- [Console MVC Framework](https://github.com/lastunicorn/ConsoleTools/wiki/Console%20MVC) - A small framework that helps you structure the presentation level of the console application

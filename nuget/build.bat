@@ -1,7 +1,6 @@
 @echo off
 
 set root_directory=..
-set assemblies_directory=lib\net46
 
 rem ----------------------------------------------------------------------------------------------------
 rem Clean up existing files.
@@ -53,10 +52,18 @@ rem ----------------------------------------------------------------------------
 
 echo.
 echo ---
-echo --- Retrieve assemblies
+echo --- Retrieve assemblies - Net461
 echo ---
 echo.
-xcopy /R/Y/S/I "%root_directory%\source\ConsoleTools\bin\Release\*" "%assemblies_directory%"
+xcopy /R/Y/S/I "%root_directory%\source\ConsoleTools\bin\Release-Net461\*" "lib\net461"
+if %errorlevel% neq 0 goto :error
+
+echo.
+echo ---
+echo --- Retrieve assemblies - Net45
+echo ---
+echo.
+xcopy /R/Y/S/I "%root_directory%\source\ConsoleTools\bin\Release-Net45\*" "lib\net45"
 if %errorlevel% neq 0 goto :error
 
 echo.

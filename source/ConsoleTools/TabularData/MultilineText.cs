@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the text splitted in lines.
         /// </summary>
-        public IReadOnlyList<string> Lines { get; }
+        public ReadOnlyCollection<string> Lines { get; }
 
         /// <summary>
         /// Gets the size of the smallest rectangle in which the text will fit.

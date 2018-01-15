@@ -1,7 +1,7 @@
 @echo off
 
 set root_directory=..
-set version=0.1.0
+set version=0.2.0
 
 rem ----------------------------------------------------------------------------------------------------
 rem Clean up existing files.

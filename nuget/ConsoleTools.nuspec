@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ConsoleTools</id>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <authors>Dust in the Wind</authors>
 	<title>ConsoleTools</title>
     <owners>Dust in the Wind</owners>
@@ -12,15 +12,19 @@
     <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 	<summary>A set of tools and "controls" for the .net Console.</summary>
     <releaseNotes>
-- Renamed some controls (removed the "Control" word from their names).
-- Added demo for YesNoQuestion control.
-- Added demo project for Pause control.
-- Renamed some classes and properties in majority of the controls. (Breaking changes)
-- ProgressBar: Added ShowValue property (Optional display of the value).
-- Spinner: Added ShowLabel property (Optional display of the label).
-- Added background color properties for labels in TextInput, TextOutput, ListInput, ListOutput.
-- Added static methods to most of the controls to easily use them with default values.
-- Added XML documentation comments to some of the controls (not finished yet).
+- Build: Added build configurations and releases for .NET Framework 4.5 and 4.6.1.
+- ProgressBar: Replaced the ValueAlignment enum with HorizontalAlignment enum.
+- CustomConcole: Added WithoutCursor methods to execute code while the cursor is hidden.
+- CustomConcole: Added background colors for all standard color types (Emphasies, Success, Warning, Error).
+- ProgressBar: [bugfix] Incorrect WriteLine when Value was aligned to right.
+- ProgressBar: Added foreground and background colors.
+- Translation: Added Romanian translation.
+- ValueInput: Renamed TextInput control into ValueInput.
+- ValueInput: When accepting a default value, the value is written in console.
+- ValuOutput: Renamed the TextOutput control into ValuOutput.
+- Spinner: Renamed the Start method into Display.
+- Spinner: [bugfix] Stop method did not stop the spinner.
+- TextMenu: Added the QuickDisplay method.
 </releaseNotes>
     <copyright>Copyright 2017-2018 Dust in the Wind</copyright>
     <tags>console cli prompter menu progressbar spinner table read write</tags>

@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 {
     public class TitleCell : CellBase
     {
-        private static HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Left;
+        private static readonly HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Left;
 
         public TitleRow ParentRow { get; set; }
 

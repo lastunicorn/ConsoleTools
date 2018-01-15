@@ -5,6 +5,22 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 
 
+ver 0.2.0
+---------
+- Build: Added build configurations and releases for .NET Framework 4.5 and 4.6.1.
+- ProgressBar: Replaced the ValueAlignment enum with HorizontalAlignment enum.
+- CustomConcole: Added WithoutCursor methods to execute code while the cursor is hidden.
+- CustomConcole: Added background colors for all standard color types (Emphasies, Success, Warning, Error).
+- ProgressBar: [bugfix] Incorrect WriteLine when Value was aligned to right.
+- ProgressBar: Added foreground and background colors.
+- Translation: Added Romanian translation.
+- ValueInput: Renamed TextInput control into ValueInput.
+- ValueInput: When accepting a default value, the value is written in console.
+- ValuOutput: Renamed the TextOutput control into ValuOutput.
+- Spinner: Renamed the Start method into Display.
+- Spinner: [bugfix] Stop method did not stop the spinner.
+- TextMenu: Added the QuickDisplay method.
+
 ver 0.1.0
 ---------
 - Compiled the library against .NET Framework 4.6

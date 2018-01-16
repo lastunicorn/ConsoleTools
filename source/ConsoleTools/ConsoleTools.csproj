@@ -95,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TextMenuResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Musical\MusicalNoteInfo.cs" />
     <Compile Include="Mvc\ConsoleApplication.cs" />
     <Compile Include="Mvc\ConsoleApplicationResources.Designer.cs">
       <AutoGen>True</AutoGen>

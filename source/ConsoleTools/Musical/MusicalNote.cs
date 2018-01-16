@@ -26,6 +26,8 @@ namespace DustInTheWind.ConsoleTools.Musical
     /// </summary>
     public enum MusicalNote
     {
+        None,
+
         C0,
         Cd0,
         Db0,

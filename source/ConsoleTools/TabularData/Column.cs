@@ -26,6 +26,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class Column
     {
+        /// <summary>
+        /// Gets or sets the cell displayed in the header of the current column.
+        /// </summary>
         public HeaderCell HeaderCell { get; }
 
         /// <summary>

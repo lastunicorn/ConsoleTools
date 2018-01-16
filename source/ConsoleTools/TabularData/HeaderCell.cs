@@ -104,16 +104,28 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
         }
 
+        /// <summary>
+        /// Calculates and returns the left padding for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override int CalculatePaddingLeft()
         {
             return ParentColumn?.ParentTable?.PaddingLeft ?? 0;
         }
 
+        /// <summary>
+        /// Calculates and returns the right padding for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override int CalculatePaddingRight()
         {
             return ParentColumn?.ParentTable?.PaddingRight ?? 0;
         }
 
+        /// <summary>
+        /// Calculates and returns the horizontal alignment of the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override HorizontalAlignment CalculateHorizontalAlignment()
         {
             HorizontalAlignment alignment = HorizontalAlignment;
@@ -130,12 +142,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return alignment;
         }
 
+        /// <summary>
+        /// Converts the specified text into a <see cref="HeaderCell"/> instance.
+        /// The text is used as the content for the cell.
+        /// </summary>
         public static implicit operator HeaderCell(string text)
         {
             MultilineText multilineText = new MultilineText(text);
             return new HeaderCell(multilineText);
         }
 
+        /// <summary>
+        /// Converts the specified <see cref="HeaderCell"/> instance into a text.
+        /// The text representation of the content is returned.
+        /// </summary>
         public static implicit operator string(HeaderCell cell)
         {
             return cell.Content?.ToString() ?? string.Empty;

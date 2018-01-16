@@ -23,6 +23,10 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// Collects the the rendered parts of a <see cref="Table"/> instance as a plain text that is later
+    /// returnd by the <see cref="ToString"/> method.
+    /// </summary>
     public class StringTablePrinter : ITablePrinter
     {
         private readonly StringBuilder sb;

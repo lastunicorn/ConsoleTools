@@ -21,26 +21,44 @@
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// Represents the single cell displayed in the title row.
+    /// </summary>
     public class TitleCell : CellBase
     {
         private static readonly HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Left;
 
+        /// <summary>
+        /// Gets or sets the <see cref="TitleRow"/> instance that owns the current <see cref="TitleCell"/> instance.
+        /// </summary>
         public TitleRow ParentRow { get; set; }
 
+        /// <summary>
+        /// Calculates and returns the left padding for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override int CalculatePaddingLeft()
         {
             return ParentRow?.ParentTable?.PaddingLeft ?? 0;
         }
 
+        /// <summary>
+        /// Calculates and returns the right padding for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override int CalculatePaddingRight()
         {
             return ParentRow?.ParentTable?.PaddingRight ?? 0;
         }
 
+        /// <summary>
+        /// Calculates and returns the horizontal alignment of the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row and parent table.
+        /// </summary>
         protected override HorizontalAlignment CalculateHorizontalAlignment()
         {
             HorizontalAlignment alignment = HorizontalAlignment;
-            
+
             if (alignment == HorizontalAlignment.Default)
                 alignment = DefaultHorizontalAlignment;
 

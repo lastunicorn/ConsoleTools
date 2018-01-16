@@ -28,6 +28,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class TitleRow
     {
+        /// <summary>
+        /// Gets or sets the cell displayed in the title row.
+        /// This is the unique cell of the row.
+        /// </summary>
         public TitleCell TitleCell { get; }
 
         /// <summary>
@@ -94,6 +98,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             };
         }
 
+        /// <summary>
+        /// Calculates the space (in characters) the current instance ocupies without other restrictions.
+        /// </summary>
         public Size CalculateDimensions()
         {
             bool displayBorder = ParentTable?.DisplayBorder ?? false;
@@ -112,6 +119,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return new Size(titleRowWidth, cellSize.Height);
         }
 
+        /// <summary>
+        /// Renders the current instance in the specified <see cref="ITablePrinter"/>.
+        /// </summary>
+        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance that will display the rendered title row.</param>
+        /// <param name="minWidth">The minimum width into which the current instance must be rendered.</param>
         public void Render(ITablePrinter tablePrinter, int minWidth)
         {
             BorderTemplate borderTemplate = ParentTable?.BorderTemplate;

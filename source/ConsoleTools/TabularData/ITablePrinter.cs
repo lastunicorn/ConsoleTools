@@ -21,18 +21,52 @@
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
+    /// <summary>
+    /// The implementors of this interface represent the target where a <see cref="Table"/> is rendered.
+    /// They provide methods to sequentially render the parts of the <see cref="Table"/> instance.
+    /// </summary>
     public interface ITablePrinter
     {
+        /// <summary>
+        /// Writes the specified text, applying the formatting specific for a border.
+        /// </summary>
         void WriteBorder(string text);
+
+        /// <summary>
+        /// Writes the specified text, applying the formatting specific for a border,
+        /// followed by the current line terminator.
+        /// </summary>
         void WriteLineBorder(string text);
 
+        /// <summary>
+        /// Writes the specified character, applying the formatting specific for a border.
+        /// </summary>
         void WriteBorder(char c);
+
+        /// <summary>
+        /// Writes the specified character, applying the formatting specific for a border,
+        /// followed by the current line terminator.
+        /// </summary>
         void WriteLineBorder(char c);
 
+        /// <summary>
+        /// Writes the specified text, applying the formatting specific for the title.
+        /// </summary>
         void WriteTitle(string text);
+
+        /// <summary>
+        /// Writes the specified text, applying the formatting specific for the column headers.
+        /// </summary>
         void WriteHeader(string text);
+
+        /// <summary>
+        /// Writes the specified text, applying the default formatting.
+        /// </summary>
         void WriteNormal(string text);
 
+        /// <summary>
+        /// Writes the current line terminator.
+        /// </summary>
         void WriteLine();
     }
 }

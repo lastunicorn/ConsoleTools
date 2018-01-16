@@ -104,6 +104,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
             set { cells[index] = value; }
         }
 
+        /// <summary>
+        /// Returns the index of the specified cell or <c>null</c> if the <see cref="DataCell"/> instance
+        /// is not found in the current <see cref="DataRow"/> instance.
+        /// </summary>
         public int? IndexOfCell(DataCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);

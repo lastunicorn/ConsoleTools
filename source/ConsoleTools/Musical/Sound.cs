@@ -26,10 +26,10 @@ namespace DustInTheWind.ConsoleTools.Musical
     public static class Sound
     {
         /// <summary>
-        /// Retuns the frequency of a musical note.
+        /// Returns the frequency of a musical note.
         /// </summary>
-        /// <param name="note">The musical not for which to return the frequency.</param>
-        /// <returns>The frewuency of the musical note.</returns>
+        /// <param name="note">The musical note for which to return the frequency.</param>
+        /// <returns>The frequency of the musical note.</returns>
         public static double GetFrequency(MusicalNote note)
         {
             switch (note)
@@ -382,9 +382,9 @@ namespace DustInTheWind.ConsoleTools.Musical
         }
         
         /// <summary>
-        /// Retuns the wavelength of a musical note.
+        /// Returns the wavelength of a musical note.
         /// </summary>
-        /// <param name="note">The musical not for which to return the wavelength.</param>
+        /// <param name="note">The musical note for which to return the wavelength.</param>
         /// <returns>The wavelength of the musical note.</returns>
         public static double GetWavelength(MusicalNote note)
         {
@@ -738,9 +738,9 @@ namespace DustInTheWind.ConsoleTools.Musical
         }
         
         /// <summary>
-        /// Playes a musical not at the speaker.
+        /// Playes a musical note at the speaker.
         /// </summary>
-        /// <param name="note">The musical to be played.</param>
+        /// <param name="note">The musical note to be played.</param>
         /// <param name="duration">The time duration in milliseconds for which to play the note.</param>
         public static void Play(MusicalNote note, int duration)
         {

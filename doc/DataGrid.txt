@@ -1,0 +1,53 @@
+The content displayed in the table (title, headers or data) can be specified in one of the following forms:
+- string - The string will be splitted into individual lines and kept as a MultilineText object.
+- MultilineText - The provided MultilineText object will be kept and used internally.
+- object - the string representation of the provided object will be splitted into individual lines and kept as a MultilineText object.
+
+====================================================================================================
+
+Cell (DataCell, HeaderCell, TitleCell) is created from:
+- string
+- MultilineText
+- object
+
+----------------------------------------------------------------------------------------------------
+
+Row (DataRow) - Create:
+- DataCell[]
+- string[]
+- MultilineText[]
+- object[]
+
+Row (TitleRow) - Create:
+- string[]
+- MultilineText[]
+- object[]
+
+Row (Column) - Create:
+- string
+- MultilineText
+- object
+
+----------------------------------------------------------------------------------------------------
+
+Row (DataRow) - AddCell:
+- DataCell
+- string
+- MultilineText
+- object
+
+----------------------------------------------------------------------------------------------------
+
+Table - Create
+- string
+- MultilineText
+- object
+
+----------------------------------------------------------------------------------------------------
+
+Table - AddRow
+- DataRow
+- DataCell[]
+- string[]
+- MultilineText[]
+- object[]

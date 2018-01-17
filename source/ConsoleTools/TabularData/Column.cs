@@ -56,9 +56,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(string header)
         {
-            HeaderCell = new HeaderCell
+            HeaderCell = new HeaderCell(header)
             {
-                Content = header,
                 ParentColumn = this
             };
             CellHorizontalAlignment = HorizontalAlignment.Default;
@@ -70,9 +69,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Column(string header, HorizontalAlignment cellHorizontalAlignment)
         {
-            HeaderCell = new HeaderCell
+            HeaderCell = new HeaderCell(header)
             {
-                Content = header,
                 ParentColumn = this
             };
             CellHorizontalAlignment = cellHorizontalAlignment;
@@ -85,7 +83,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             HeaderCell = new HeaderCell(header)
             {
-                Content = header,
                 ParentColumn = this
             };
             CellHorizontalAlignment = HorizontalAlignment.Default;
@@ -98,7 +95,30 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             HeaderCell = new HeaderCell(header)
             {
-                Content = header,
+                ParentColumn = this
+            };
+            CellHorizontalAlignment = cellHorizontalAlignment;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Column"/> class.
+        /// </summary>
+        public Column(object header)
+        {
+            HeaderCell = new HeaderCell(header)
+            {
+                ParentColumn = this
+            };
+            CellHorizontalAlignment = HorizontalAlignment.Default;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Column"/> class.
+        /// </summary>
+        public Column(object header, HorizontalAlignment cellHorizontalAlignment)
+        {
+            HeaderCell = new HeaderCell(header)
+            {
                 ParentColumn = this
             };
             CellHorizontalAlignment = cellHorizontalAlignment;

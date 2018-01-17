@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
 
             ConsoleTools.Pause pause = new ConsoleTools.Pause
             {
-                EraseTextAfterUnlock = true
+                EraseAfterClose = true
             };
             pause.Display();
         }

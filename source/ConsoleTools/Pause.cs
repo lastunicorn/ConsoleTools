@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools
         /// Gets or sets a value that specifies if the <see cref="Text"/> is erased from the Console
         /// after the user press the <see cref="UnlockKey"/>.
         /// </summary>
-        public bool EraseTextAfterUnlock { get; set; }
+        public bool EraseAfterClose { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ConsoleKey"/> the user must press to break the pause.
@@ -88,7 +88,7 @@ namespace DustInTheWind.ConsoleTools
             Console.Write(Text);
             WaitForUnlockKey();
 
-            if (EraseTextAfterUnlock)
+            if (EraseAfterClose)
             {
                 Console.SetCursorPosition(textCursorLeft, textCursorTop);
                 Console.Write(new string(' ', textLength));

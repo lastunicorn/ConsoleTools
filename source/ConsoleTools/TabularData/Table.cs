@@ -176,6 +176,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Table"/> class with
+        /// the table title.
+        /// </summary>
+        public Table(object title)
+        {
+            Columns = new ColumnList(this);
+
+            TitleRow = new TitleRow(title)
+            {
+                ParentTable = this
+            };
+        }
+
+        /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="row">The row to be added.</param>
@@ -192,7 +206,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void AddRow(DataCell[] cells)
+        public void AddRow(IEnumerable<DataCell> cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
@@ -206,18 +220,56 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
-        /// <param name="texts">The list of cell contents of the new row.</param>
-        public void AddRow(string[] texts)
+        /// <param name="cellContents">The list of cell contents of the new row.</param>
+        public void AddRow(IEnumerable<string> cellContents)
         {
-            if (texts == null) throw new ArgumentNullException(nameof(texts));
+            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
             DataRow row = new DataRow
             {
                 ParentTable = this
             };
 
-            foreach (string text in texts)
+            foreach (string text in cellContents)
                 row.AddCell(new DataCell(text));
+
+            rows.Add(row);
+        }
+
+        /// <summary>
+        /// Adds a new row to the current table.
+        /// </summary>
+        /// <param name="cellContents">The list of cell contents of the new row.</param>
+        public void AddRow(IEnumerable<MultilineText> cellContents)
+        {
+            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
+
+            DataRow row = new DataRow
+            {
+                ParentTable = this
+            };
+
+            foreach (MultilineText text in cellContents)
+                row.AddCell(new DataCell(text));
+
+            rows.Add(row);
+        }
+
+        /// <summary>
+        /// Adds a new row to the current table.
+        /// </summary>
+        /// <param name="cellContents">The list of cell contents of the new row.</param>
+        public void AddRow(IEnumerable<object> cellContents)
+        {
+            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
+
+            DataRow row = new DataRow
+            {
+                ParentTable = this
+            };
+
+            foreach (object cellContent in cellContents)
+                row.AddCell(new DataCell(cellContent));
 
             rows.Add(row);
         }

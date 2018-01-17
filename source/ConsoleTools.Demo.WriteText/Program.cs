@@ -32,14 +32,14 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             CustomConsole.WriteLine("some text");
             CustomConsole.WriteLine("some text");
 
-            pause.EraseTextAfterUnlock = false;
+            pause.EraseAfterClose = false;
             pause.Display();
 
             CustomConsole.WriteLine("some text");
             CustomConsole.WriteLine("some text");
             CustomConsole.WriteLine("some text");
 
-            pause.EraseTextAfterUnlock = true;
+            pause.EraseAfterClose = true;
             pause.Display();
 
             CustomConsole.WriteLine("some text");

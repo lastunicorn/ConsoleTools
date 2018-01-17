@@ -26,12 +26,83 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class TitleCell : CellBase
     {
-        private static readonly HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Left;
+        /// <summary>
+        /// Gets the default horizontal alignment for a title cell.
+        /// </summary>
+        public static HorizontalAlignment DefaultHorizontalAlignment { get; }= HorizontalAlignment.Left;
 
         /// <summary>
         /// Gets or sets the <see cref="TitleRow"/> instance that owns the current <see cref="TitleCell"/> instance.
         /// </summary>
         public TitleRow ParentRow { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// empty content.
+        /// </summary>
+        public TitleCell()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// the text contained by it.
+        /// </summary>
+        /// <param name="text">The text displayed in the cell.</param>
+        public TitleCell(string text)
+            : base(text)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// the text contained by it and its horizontal alignment.
+        /// </summary>
+        /// <param name="text">The text displayed in the cell.</param>
+        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+        public TitleCell(string text, HorizontalAlignment horizontalAlignment)
+            : base(text, horizontalAlignment)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// the text contained by it.
+        /// </summary>
+        /// <param name="text"></param>
+        public TitleCell(MultilineText text)
+            : base(text)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// the text contained by it and its horizontal alignment.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+        public TitleCell(MultilineText text, HorizontalAlignment horizontalAlignment)
+            : base(text, horizontalAlignment)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// an object representing the content.
+        /// </summary>
+        public TitleCell(object content)
+            : base(content)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TitleCell" /> class with
+        /// an object representing the content and its horizontal alignment.
+        /// </summary>
+        public TitleCell(object content, HorizontalAlignment horizontalAlignment)
+            : base(content, horizontalAlignment)
+        {
+        }
 
         /// <summary>
         /// Calculates and returns the left padding for the content displayed in the cell.

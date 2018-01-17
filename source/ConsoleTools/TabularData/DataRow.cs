@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// the list of cells.
         /// </summary>
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
-        public DataRow(DataCell[] cells)
+        public DataRow(IEnumerable<DataCell> cells)
         {
             if (cells == null)
                 return;
@@ -72,9 +73,50 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of texts representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of texts that will be placed in cells.</param>
+        public DataRow(IEnumerable<string> cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (string cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of <see cref="MultilineText"/> ojects representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
+        public DataRow(IEnumerable<MultilineText> cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (MultilineText cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of objects representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of objects that will be placed in cells.</param>
+        public DataRow(IEnumerable cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (object cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
         /// Adds a new cell to the current instace of <see cref="DataRow"/>.
         /// </summary>
-        /// <param name="cell"></param>
         public void AddCell(DataCell cell)
         {
             if (cell == null)
@@ -90,6 +132,54 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 cell.ParentRow = this;
                 cells.Add(cell);
             }
+        }
+
+        /// <summary>
+        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// </summary>
+        public void AddCell(string cellContent)
+        {
+            DataCell newCell = new DataCell
+            {
+                ParentRow = this
+            };
+
+            if (cellContent != null)
+                newCell.Content = new MultilineText(cellContent);
+
+            cells.Add(newCell);
+        }
+
+        /// <summary>
+        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// </summary>
+        public void AddCell(MultilineText cellContent)
+        {
+            DataCell newCell = new DataCell
+            {
+                ParentRow = this
+            };
+
+            if (cellContent != null)
+                newCell.Content = cellContent;
+
+            cells.Add(newCell);
+        }
+
+        /// <summary>
+        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// </summary>
+        public void AddCell(object cellContent)
+        {
+            DataCell newCell = new DataCell
+            {
+                ParentRow = this
+            };
+
+            if (cellContent != null)
+                newCell.Content = new MultilineText(cellContent.ToString());
+
+            cells.Add(newCell);
         }
 
         /// <summary>

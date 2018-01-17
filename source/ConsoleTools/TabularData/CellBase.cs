@@ -56,36 +56,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text">The text displayed in the cell.</param>
-        protected CellBase(string text)
-        {
-            Content = new MultilineText(text);
-            HorizontalAlignment = HorizontalAlignment.Default;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// the text contained by it and its horizontal alignment.
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        protected CellBase(string text, HorizontalAlignment horizontalAlignment)
+        protected CellBase(string text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
         {
             Content = new MultilineText(text);
             HorizontalAlignment = horizontalAlignment;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CellBase" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text"></param>
-        protected CellBase(MultilineText text)
-        {
-            Content = text;
-            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -94,27 +72,17 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="text"></param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        protected CellBase(MultilineText text, HorizontalAlignment horizontalAlignment)
+        protected CellBase(MultilineText text, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
         {
             Content = text;
             HorizontalAlignment = horizontalAlignment;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CellBase" /> class with
-        /// an object representing the content.
-        /// </summary>
-        protected CellBase(object content)
-        {
-            Content = new MultilineText(content.ToString());
-            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// an object representing the content and its horizontal alignment.
         /// </summary>
-        protected CellBase(object content, HorizontalAlignment horizontalAlignment)
+        protected CellBase(object content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
         {
             Content = new MultilineText(content.ToString());
             HorizontalAlignment = horizontalAlignment;

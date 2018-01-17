@@ -66,6 +66,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Lf
         }
 
+        public MultilineText(object o)
+            : this(o.ToString())
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MultilineText"/> class with
         /// the raw text.
@@ -180,6 +185,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return RawText.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return string.Join(Environment.NewLine, Lines);
+        }
+
         public static implicit operator MultilineText(string text)
         {
             return new MultilineText(text);
@@ -187,7 +197,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public static implicit operator string(MultilineText multilineText)
         {
-            return string.Join(Environment.NewLine, multilineText.Lines);
+            return multilineText.ToString();
         }
 
         public static implicit operator MultilineText(List<string> lines)

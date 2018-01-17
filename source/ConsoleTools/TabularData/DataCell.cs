@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     public class DataCell : CellBase
     {
         /// <summary>
-        /// Gets the default horizontal alignment.
+        /// Gets the default horizontal alignment for a data cell.
         /// </summary>
         public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
 

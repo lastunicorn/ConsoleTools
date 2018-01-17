@@ -99,6 +99,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// an <see cref="object"/> representing the content.
+        /// </summary>
+        public TitleRow(object title)
+        {
+            TitleCell = new TitleCell
+            {
+                ParentRow = this,
+                Content = title?.ToString() ?? MultilineText.Empty
+            };
+        }
+
+        /// <summary>
         /// Calculates the space (in characters) the current instance ocupies without other restrictions.
         /// </summary>
         public Size CalculateDimensions()

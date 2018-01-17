@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -22,16 +22,17 @@
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that displays a "buble" that grous and shrinks.
-    /// It has 4 frames.
+    /// A template for the <see cref="Spinner"/> that "splits" the space of one character
+    /// into two vertical halves that blink alternatively.
+    /// It has 2 frames.
     /// </summary>
-    public class BubbleTemplate : SequenceTemplate
+    public class HalfBlinkSpinnerTemplate : SequenceSpinnerTemplate
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BubbleTemplate"/> class.
+        /// Initializes a new instance of the <see cref="HalfBlinkSpinnerTemplate"/> class.
         /// </summary>
-        public BubbleTemplate()
-            : base(new[] { ".", "o", "0", "o" })
+        public HalfBlinkSpinnerTemplate()
+            : base(new[] { "▄", "▀" })
         {
         }
     }

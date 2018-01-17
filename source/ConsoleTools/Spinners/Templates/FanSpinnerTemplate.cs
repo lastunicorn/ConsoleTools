@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -22,16 +22,16 @@
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that displays a "boomerang" spinning.
-    /// It has 4 frames.
+    /// A template for the <see cref="Spinner"/> that displays a "fan" spinning.
+    /// It has 2 frames.
     /// </summary>
-    public class BoomerangTemplate : SequenceTemplate
+    public class FanSpinnerTemplate : SequenceSpinnerTemplate
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BoomerangTemplate"/> class.
+        /// Initializes a new instance of the <see cref="FanSpinnerTemplate"/> class.
         /// </summary>
-        public BoomerangTemplate()
-            : base(new[] { "v", "<", "^", ">" })
+        public FanSpinnerTemplate()
+            : base(new[] { "+", "x" })
         {
         }
     }

@@ -69,6 +69,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Spinner"/> class.
+        /// </summary>
+        public Spinner()
+        {
+            template = new StickSpinnerTemplate();
+
+            label.Text = SpinnerResources.DefaultLabelText;
+
+            timer = new Timer(400);
+            timer.Elapsed += HandleTimerElapsed;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Spinner"/> class with
         /// the template that controls the visual representation.
         /// </summary>
@@ -176,7 +189,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
-            RunInternal(new StickTemplate(), action);
+            RunInternal(new StickSpinnerTemplate(), action);
         }
 
         /// <summary>
@@ -219,7 +232,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
-            return RunInternal(new StickTemplate(), action);
+            return RunInternal(new StickSpinnerTemplate(), action);
         }
 
         /// <summary>

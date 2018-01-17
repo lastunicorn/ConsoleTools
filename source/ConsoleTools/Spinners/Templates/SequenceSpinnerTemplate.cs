@@ -28,17 +28,17 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
     /// representing the frames of the <see cref="Spinner"/>.
     /// Can be used as base class for other templates.
     /// </summary>
-    public class SequenceTemplate : ISpinnerTemplate
+    public class SequenceSpinnerTemplate : ISpinnerTemplate
     {
         private int counter;
         private readonly string[] sequence;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceTemplate"/> class with
+        /// Initializes a new instance of the <see cref="SequenceSpinnerTemplate"/> class with
         /// the list of frames.
         /// </summary>
         /// <param name="sequence">The list of frames.</param>
-        public SequenceTemplate(string[] sequence)
+        public SequenceSpinnerTemplate(string[] sequence)
         {
             if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             this.sequence = sequence;

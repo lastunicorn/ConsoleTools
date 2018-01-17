@@ -120,9 +120,9 @@
       <DependentUpon>SpinnerResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Spinners\Templates\FilledBehavior.cs" />
-    <Compile Include="Spinners\Templates\FillTemplate.cs" />
-    <Compile Include="Spinners\Templates\HalfBlockBlinkTemplate.cs" />
-    <Compile Include="Spinners\Templates\HalfBlockRotateTemplate.cs" />
+    <Compile Include="Spinners\Templates\FillSpinnerTemplate.cs" />
+    <Compile Include="Spinners\Templates\HalfBlinkSpinnerTemplate.cs" />
+    <Compile Include="Spinners\Templates\HalfRotateSpinnerTemplate.cs" />
     <Compile Include="Spinners\ValuePosition.cs" />
     <Compile Include="AlignedText.cs" />
     <Compile Include="TabularData\BorderTemplate.cs" />
@@ -148,13 +148,13 @@
     <Compile Include="Musical\MusicalNote.cs" />
     <Compile Include="Musical\Sound.cs" />
     <Compile Include="CommandProviders\NewCommandEventArgs.cs" />
-    <Compile Include="Spinners\Templates\BoomerangTemplate.cs" />
-    <Compile Include="Spinners\Templates\StickTemplate.cs" />
-    <Compile Include="Spinners\Templates\BubbleTemplate.cs" />
+    <Compile Include="Spinners\Templates\BoomerangSpinnerTemplate.cs" />
+    <Compile Include="Spinners\Templates\StickSpinnerTemplate.cs" />
+    <Compile Include="Spinners\Templates\BubbleSpinnerTemplate.cs" />
     <Compile Include="Spinners\Spinner.cs" />
-    <Compile Include="Spinners\Templates\FanTemplate.cs" />
+    <Compile Include="Spinners\Templates\FanSpinnerTemplate.cs" />
     <Compile Include="Spinners\ISpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\SequenceTemplate.cs" />
+    <Compile Include="Spinners\Templates\SequenceSpinnerTemplate.cs" />
     <Compile Include="CommandProviders\Prompter.cs" />
     <Compile Include="TabularData\DataCell.cs" />
     <Compile Include="TabularData\Column.cs" />

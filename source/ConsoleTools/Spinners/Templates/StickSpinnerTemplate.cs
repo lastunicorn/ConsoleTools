@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -22,17 +22,16 @@
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that displays in turn one half of the one character space:
-    /// first the bottom half, then the left half, top half and right half.
+    /// A template for the <see cref="Spinner"/> that displays a rotating "stick".
     /// It has 4 frames.
     /// </summary>
-    public class HalfBlockRotateTemplate : SequenceTemplate
+    public class StickSpinnerTemplate : SequenceSpinnerTemplate
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HalfBlockRotateTemplate"/> class.
+        /// Initializes a new instance of the <see cref="StickSpinnerTemplate"/> class.
         /// </summary>
-        public HalfBlockRotateTemplate()
-            : base(new[] { "▄", "▌", "▀", "▐" })
+        public StickSpinnerTemplate()
+            : base(new[] { "/", "-", "\\", "|" })
         {
         }
     }

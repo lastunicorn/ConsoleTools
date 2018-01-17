@@ -12,6 +12,7 @@ ver 0.3.0
 - Prompter: Renamed the Run() method into Display().
 - Prompter: Renamed the RunOnce() method into DisplayOnce().
 - Prompter: Renamed the RequestStop() method into RequestClose().
+- Spinner: Renamed the spinner templates.
 
 ver 0.2.0
 ---------

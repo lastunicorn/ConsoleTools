@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
     /// <summary>
     /// A template for the <see cref="Spinner"/> that fills a bar with a specified character.
     /// </summary>
-    public class FillTemplate : ISpinnerTemplate
+    public class FillSpinnerTemplate : ISpinnerTemplate
     {
         private readonly char fillChar;
         private readonly int length;
@@ -66,22 +66,22 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FillTemplate"/> class.
+        /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class.
         /// </summary>
-        public FillTemplate()
+        public FillSpinnerTemplate()
         {
             fillChar = '.';
             length = 4;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FillTemplate"/> class with
+        /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class with
         /// the character used to fill the bar and
         /// the length of the bar.
         /// </summary>
         /// <param name="fillChar">The character used to fill the bar.</param>
         /// <param name="length">The length of the bar.</param>
-        public FillTemplate(char fillChar, int length)
+        public FillSpinnerTemplate(char fillChar, int length)
         {
             if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
 

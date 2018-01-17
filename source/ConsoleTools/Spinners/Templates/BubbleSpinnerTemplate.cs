@@ -22,16 +22,16 @@
 namespace DustInTheWind.ConsoleTools.Spinners.Templates
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that displays a rotating "stick".
+    /// A template for the <see cref="Spinner"/> that displays a "buble" that grous and shrinks.
     /// It has 4 frames.
     /// </summary>
-    public class StickTemplate : SequenceTemplate
+    public class BubbleSpinnerTemplate : SequenceSpinnerTemplate
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StickTemplate"/> class.
+        /// Initializes a new instance of the <see cref="BubbleSpinnerTemplate"/> class.
         /// </summary>
-        public StickTemplate()
-            : base(new[] { "/", "-", "\\", "|" })
+        public BubbleSpinnerTemplate()
+            : base(new[] { ".", "o", "0", "o" })
         {
         }
     }

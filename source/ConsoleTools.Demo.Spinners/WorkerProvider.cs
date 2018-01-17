@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new StickTemplate(),
+                            SpinnerTemplate = new StickSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new BubbleTemplate(),
+                            SpinnerTemplate = new BubbleSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new BoomerangTemplate(),
+                            SpinnerTemplate = new BoomerangSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new HalfBlockRotateTemplate(),
+                            SpinnerTemplate = new HalfRotateSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -99,7 +99,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new HalfBlockBlinkTemplate(),
+                            SpinnerTemplate = new HalfBlinkSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -113,7 +113,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FanTemplate(),
+                            SpinnerTemplate = new FanSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -127,7 +127,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FillTemplate(),
+                            SpinnerTemplate = new FillSpinnerTemplate(),
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -141,7 +141,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FillTemplate {FilledBehavior = FilledBehavior.EmptyFromEnd},
+                            SpinnerTemplate = new FillSpinnerTemplate {FilledBehavior = FilledBehavior.EmptyFromEnd},
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -155,7 +155,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FillTemplate {FilledBehavior = FilledBehavior.SuddenEmpty},
+                            SpinnerTemplate = new FillSpinnerTemplate {FilledBehavior = FilledBehavior.SuddenEmpty},
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -169,7 +169,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FillTemplate {ShowBorders = true},
+                            SpinnerTemplate = new FillSpinnerTemplate {ShowBorders = true},
                             SpinnerStepMilliseconds = 400,
                             WorkPeriod = TimeSpan.FromSeconds(5)
                         };
@@ -183,7 +183,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     {
                         worker = new Worker
                         {
-                            SpinnerTemplate = new FillTemplate('▓', 10),
+                            SpinnerTemplate = new FillSpinnerTemplate('▓', 10),
                             SpinnerStepMilliseconds = 100,
                             WorkPeriod = TimeSpan.FromSeconds(10)
                         };

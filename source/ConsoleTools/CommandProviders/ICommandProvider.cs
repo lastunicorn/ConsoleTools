@@ -36,23 +36,23 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Continously creates new commands (<see cref="CliCommand"/>).
         /// After a command is created, the <see cref="NewCommand"/> event is raised.
-        /// The <see cref="Run"/> method blocks the current execution thread.
+        /// The <see cref="Display"/> method blocks the current execution thread.
         /// The infinite loop that creates commands can be stopped
         /// by setting the <see cref="NewCommandEventArgs.Exit"/> property in the <see cref="NewCommand"/> event
-        /// or by calling the <see cref="RequestStop"/> method.
+        /// or by calling the <see cref="RequestClose"/> method.
         /// </summary>
-        void Run();
+        void Display();
 
         /// <summary>
         /// Creates a single command (<see cref="CliCommand"/>) and returns it.
         /// </summary>
         /// <returns>A <see cref="CliCommand"/> object containing the new command.</returns>
-        CliCommand RunOnce();
+        CliCommand DisplayOnce();
 
         /// <summary>
         /// Sets the stop flag.
         /// The Prompter's loop will exit next time when it checks the stop flag.
         /// </summary>
-        void RequestStop();
+        void RequestClose();
     }
 }

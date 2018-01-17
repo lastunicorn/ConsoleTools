@@ -90,7 +90,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         }
 
         /// <summary>
-        /// Displays the spinner and runs it until the <see cref="Stop"/> method is called.
+        /// Displays the spinner and runs it until the <see cref="Close"/> method is called.
         /// </summary>
         public void Display()
         {
@@ -115,7 +115,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Stops the animation of the spinner and erases it from the screen by writting spaces over it.
         /// </summary>
-        public void Stop()
+        public void Close()
         {
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
@@ -162,7 +162,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (isDisposed)
                 return;
 
-            Stop();
+            Close();
             timer.Dispose();
 
             isDisposed = true;
@@ -199,12 +199,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
                 {
                     action();
 
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
                 }
                 catch
                 {
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }
@@ -242,14 +242,14 @@ namespace DustInTheWind.ConsoleTools.Spinners
                 {
                     T result = action();
 
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
 
                     return result;
                 }
                 catch
                 {
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }

@@ -40,12 +40,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     // Simulate work
                     Thread.Sleep(WorkPeriod);
 
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineSuccess("[Done]");
                 }
                 catch
                 {
-                    spinner.Stop();
+                    spinner.Close();
                     CustomConsole.WriteLineError("[Error]");
                 }
                 finally

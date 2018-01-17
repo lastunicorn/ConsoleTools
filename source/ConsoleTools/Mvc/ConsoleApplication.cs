@@ -84,7 +84,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
             if (CommandProvider == null)
                 CommandProvider = new Prompter();
 
-            CommandProvider.Run();
+            CommandProvider.Display();
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
         /// </summary>
         public void Exit()
         {
-            CommandProvider.RequestStop();
+            CommandProvider.RequestClose();
         }
 
         private void HandleNewCommand(object sender, NewCommandEventArgs e)

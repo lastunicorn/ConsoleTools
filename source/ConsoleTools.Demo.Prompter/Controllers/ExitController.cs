@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Bye!");
-                prompter.RequestStop();
+                prompter.RequestClose();
             }
             else
             {

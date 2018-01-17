@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             prompter = new CommandProviders.Prompter();
             prompter.NewCommand += HandleNewCommand;
 
-            prompter.Run();
+            prompter.Display();
         }
 
         private static void HandleNewCommand(object sender, NewCommandEventArgs e)

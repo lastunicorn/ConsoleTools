@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// </summary>
     public class Prompter : ICommandProvider
     {
-        private volatile bool stopWasRequested;
+        private volatile bool closeWasRequested;
 
         /// <summary>
         /// Gets or sets the text displayed in the prompter.
@@ -73,14 +73,14 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Continously read from the console new commands.
         /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
-        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Run" /> method blocks the current execution thread.
+        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
         /// The infinite loop that reads commands can be stopped
         /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
-        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestStop" /> method.
+        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
         /// </summary>
-        public void Run()
+        public void Display()
         {
-            stopWasRequested = false;
+            closeWasRequested = false;
 
             do
             {
@@ -104,21 +104,21 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                     OnNewCommand(eva);
 
                     if (eva.Exit)
-                        stopWasRequested = true;
+                        closeWasRequested = true;
                 }
                 catch (Exception ex)
                 {
                     CustomConsole.WriteError(ex);
                 }
             }
-            while (!stopWasRequested);
+            while (!closeWasRequested);
         }
 
         /// <summary>
         /// Reads a single command (<see cref="CliCommand"/>) from the console and returns it.
         /// </summary>
         /// <returns>A <see cref="CliCommand"/> object containing the command typed by the user.</returns>
-        public CliCommand RunOnce()
+        public CliCommand DisplayOnce()
         {
             DisplayWholePrompter();
 
@@ -157,12 +157,12 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         }
 
         /// <summary>
-        /// Sets the stop flag.
-        /// The Prompter's loop will exit next time when it checks the stop flag.
+        /// Sets the close flag.
+        /// The Prompter's loop will exit next time when it checks the close flag.
         /// </summary>
-        public void RequestStop()
+        public void RequestClose()
         {
-            stopWasRequested = true;
+            closeWasRequested = true;
         }
     }
 }

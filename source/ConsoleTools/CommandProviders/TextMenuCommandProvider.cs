@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             textMenu = new TextMenu(menuItems);
         }
 
-        public void Run()
+        public void Display()
         {
             stopWasRequested = false;
 
@@ -78,7 +78,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// Creates a single command (<see cref="CliCommand"/>) from the menu item selected by the user and returns it.
         /// </summary>
         /// <returns>A <see cref="CliCommand"/> object representing the menu item selected by the user.</returns>
-        public CliCommand RunOnce()
+        public CliCommand DisplayOnce()
         {
             textMenu.Display();
 
@@ -89,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// Sets the stop flag.
         /// The loop will exit next time when it checks the stop flag (after the user selects an item).
         /// </summary>
-        public void RequestStop()
+        public void RequestClose()
         {
             stopWasRequested = true;
         }

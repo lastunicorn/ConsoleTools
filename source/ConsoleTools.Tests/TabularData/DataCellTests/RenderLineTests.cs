@@ -17,10 +17,10 @@
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TabularData.CellTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
 {
     [TestFixture]
-    public class RenderTests
+    public class RenderLineTests
     {
         [Test]
         public void content_is_shorter_than_required_width()

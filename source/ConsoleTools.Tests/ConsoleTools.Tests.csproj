@@ -79,7 +79,14 @@
     </Compile>
     <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
     <Compile Include="AlignedTextTests\ToStringTests.cs" />
-    <Compile Include="TabularData\CellTests\RenderTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorNoParamsTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorMultilineTextAndAlignmentTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorObjectAndAlignmentTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorStringAndAlignmentTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorMultilineTextTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorObjectTests.cs" />
+    <Compile Include="TabularData\DataCellTests\ConstructorStringTests.cs" />
+    <Compile Include="TabularData\DataCellTests\RenderLineTests.cs" />
     <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
     <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
     <Compile Include="TabularData\RowTests.cs" />

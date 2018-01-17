@@ -76,6 +76,22 @@ namespace DustInTheWind.ConsoleTools
 
         private void DisplayInternal()
         {
+            // Ensure new line
+
+            if (Console.CursorLeft != 0)
+                Console.WriteLine();
+
+            // Write empty space
+
+            Size size = CalculateDimensions();
+
+            for (int i = 0; i < size.Height; i++)
+                Console.WriteLine();
+
+            Console.SetCursorPosition(0, Console.CursorTop - size.Height);
+
+            // Display the control
+
             int initialCursorTop = Console.CursorTop;
             int initialCursorLeft = Console.CursorLeft;
 
@@ -99,6 +115,19 @@ namespace DustInTheWind.ConsoleTools
                 Console.WriteLine();
                 WriteBottomMargin();
             }
+        }
+
+        private Size CalculateDimensions()
+        {
+            int textWidth = Text.Length < Console.BufferWidth
+                ? Text.Length
+                : Console.BufferWidth;
+
+            int textHeight = (int)Math.Ceiling((double)Text.Length / (double)Console.BufferWidth);
+
+            int totalHeight = MarginTop + textHeight + MarginBottom;
+
+            return new Size(textWidth, totalHeight);
         }
 
         private void WriteTopMargin()

@@ -23,8 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
         private static void Main()
         {
             DisplayApplicationHeader();
-
-
+            
             CustomConsole.WriteLine("some text");
             CustomConsole.WriteLine("some text");
             CustomConsole.WriteLine("some text");

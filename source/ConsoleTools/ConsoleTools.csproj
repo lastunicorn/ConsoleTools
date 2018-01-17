@@ -186,32 +186,40 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\ListInputResources.fr.resx" />
     <EmbeddedResource Include="InputControls\ListInputResources.ro.resx" />
+    <EmbeddedResource Include="InputControls\ValueInputResources.fr.resx" />
     <EmbeddedResource Include="InputControls\ValueInputResources.ro.resx" />
     <EmbeddedResource Include="InputControls\ValueInputResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="InputControls\YesNoQuestionResources.fr.resx" />
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.ro.resx" />
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="MenuControl\TextMenuResources.fr.resx" />
     <EmbeddedResource Include="MenuControl\TextMenuResources.ro.resx" />
     <EmbeddedResource Include="MenuControl\TextMenuResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TextMenuResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mvc\ConsoleApplicationResources.fr.resx" />
     <EmbeddedResource Include="Mvc\ConsoleApplicationResources.ro.resx" />
     <EmbeddedResource Include="Mvc\ConsoleApplicationResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ConsoleApplicationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="PauseResources.fr.resx" />
     <EmbeddedResource Include="PauseResources.ro.resx" />
     <EmbeddedResource Include="PauseResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Spinners\SpinnerResources.ro.resx" />
+    <EmbeddedResource Include="Spinners\SpinnerResources.fr.resx" />
     <EmbeddedResource Include="Spinners\SpinnerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>

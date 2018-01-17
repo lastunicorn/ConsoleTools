@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBar
 
             finishEvent.Wait();
 
-            progressBar.Done();
+            progressBar.Close();
         }
     }
 }

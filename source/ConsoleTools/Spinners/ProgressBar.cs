@@ -158,8 +158,17 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// Default value: '.'
         /// </summary>
         public char BarEmptyChar { get; set; } = '.';
-        
-        public ConsoleColor? BarEmptyColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the foreground color of the character used for the empty part of the bar.
+        /// If this value is <c>null</c>, no specific color is set, the current foreground color set in the <see cref="Console"/> is used.
+        /// </summary>
+        public ConsoleColor? BarEmptyForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color of the character used for the empty part of the bar.
+        /// If this value is <c>null</c>, no specific color is set, the current background color set in the <see cref="Console"/> is used.
+        /// </summary>
         public ConsoleColor? BarEmptyBackgroundColor { get; set; }
 
         /// <summary>
@@ -168,7 +177,16 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// </summary>
         public char BarFillChar { get; set; } = '█';
 
-        public ConsoleColor? BarFillColor { get; set; }
+        /// <summary>
+        /// Gets or sets the foreground color of the character used for the fill part of the bar.
+        /// If this value is <c>null</c>, no specific color is set, the current foreground color set in the <see cref="Console"/> is used.
+        /// </summary>
+        public ConsoleColor? BarFillForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color of the character used for the fill part of the bar.
+        /// If this value is <c>null</c>, no specific color is set, the current background color set in the <see cref="Console"/> is used.
+        /// </summary>
         public ConsoleColor? BarFillBackgroundColor { get; set; }
 
         /// <summary>
@@ -196,7 +214,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Displays the current instance to the Console.
         /// Important: While the <see cref="ProgressBar"/> is displayed, it is important to not write anything else to the Console
-        /// until the <see cref="Done"/> method is called.
+        /// until the <see cref="Close"/> method is called.
         /// In the meantime, you can update its displayed value by setting the <see cref="Value"/> property. The control will
         /// automatically update itself in the Console.
         /// </summary>
@@ -256,19 +274,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             CustomConsole.Write(" [");
 
-            if (BarFillColor.HasValue && BarFillBackgroundColor.HasValue)
-                CustomConsole.Write(BarFillColor.Value, BarFillBackgroundColor.Value, fillString);
-            else if (BarFillColor.HasValue)
-                CustomConsole.Write(BarFillColor.Value, fillString);
+            if (BarFillForegroundColor.HasValue && BarFillBackgroundColor.HasValue)
+                CustomConsole.Write(BarFillForegroundColor.Value, BarFillBackgroundColor.Value, fillString);
+            else if (BarFillForegroundColor.HasValue)
+                CustomConsole.Write(BarFillForegroundColor.Value, fillString);
             else if (BarFillBackgroundColor.HasValue)
                 CustomConsole.WriteBackgroundColor(BarFillBackgroundColor.Value, fillString);
             else
                 CustomConsole.Write(fillString);
 
-            if (BarEmptyColor.HasValue && BarEmptyBackgroundColor.HasValue)
-                CustomConsole.Write(BarEmptyColor.Value, BarEmptyBackgroundColor.Value, emptyString);
-            else if (BarEmptyColor.HasValue)
-                CustomConsole.Write(BarEmptyColor.Value, emptyString);
+            if (BarEmptyForegroundColor.HasValue && BarEmptyBackgroundColor.HasValue)
+                CustomConsole.Write(BarEmptyForegroundColor.Value, BarEmptyBackgroundColor.Value, emptyString);
+            else if (BarEmptyForegroundColor.HasValue)
+                CustomConsole.Write(BarEmptyForegroundColor.Value, emptyString);
             else if (BarEmptyBackgroundColor.HasValue)
                 CustomConsole.WriteBackgroundColor(BarEmptyBackgroundColor.Value, emptyString);
             else
@@ -310,7 +328,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Ends the display of the <see cref="ProgressBar"/> control.
         /// </summary>
-        public void Done()
+        public void Close()
         {
             CustomConsole.WriteLine();
             isDisplayed = false;

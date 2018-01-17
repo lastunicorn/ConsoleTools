@@ -26,7 +26,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         public void Execute()
         {
             DisplayDefaultPaddingExample();
-            DisplayPaddingExample();
             DisplayPaddingLeftExample();
             DisplayPaddingRightExample();
         }
@@ -40,21 +39,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.AddRow(new[] { "Third item", 3.ToString() });
             table.AddRow(new[] { "Forth item", 4.ToString() });
             table.AddRow(new[] { "Fifth item", 5.ToString() });
-
-            table.Render();
-        }
-
-        private static void DisplayPaddingExample()
-        {
-            Table table = new Table("Padding = 3");
-
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
-
-            table.Padding = 3;
 
             table.Render();
         }

@@ -127,7 +127,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.BorderTemplate = new BorderTemplate("1234567890abcde");
             table.Title = "My Title";
             table.DisplayColumnHeaders = true;
-            table.Padding = 3;
+            table.PaddingLeft = 3;
+            table.PaddingRight = 3;
             table.Columns.Add(new Column("One"));
             table.Columns.Add(new Column("Two"));
             table.Columns.Add(new Column("Three"));

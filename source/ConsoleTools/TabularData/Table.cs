@@ -51,22 +51,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the padding applyed to the left side of every cell.
         /// </summary>
-        public int PaddingLeft { get; set; } = 1;
+        public int? PaddingLeft { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the padding applyed to the right side of every cell.
         /// </summary>
-        public int PaddingRight { get; set; } = 1;
-
-        /// <summary>
-        /// Gets or sets the padding applyed to the right and left side of every cell.
-        /// If the left padding is different from the right padding, -1 is returned.
-        /// </summary>
-        public int Padding
-        {
-            get { return PaddingLeft == PaddingRight ? PaddingLeft : -1; }
-            set { PaddingLeft = PaddingRight = value; }
-        }
+        public int? PaddingRight { get; set; } = 1;
 
         /// <summary>
         /// Gets a value that specifies if border lines should be drawn between rows.

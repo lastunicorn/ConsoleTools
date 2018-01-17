@@ -52,6 +52,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
         /// <summary>
+        /// Gets or sets the padding applyed to the left side of every cell.
+        /// </summary>
+        public int? PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the right side of every cell.
+        /// </summary>
+        public int? PaddingRight { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with default values.
         /// </summary>
         public DataRow()

@@ -43,6 +43,62 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         }
 
         [Test]
+        public void cell_has_padding_left()
+        {
+            Table table = new Table();
+            DataRow row = new DataRow();
+            table.AddRow(row);
+            DataCell cell = new DataCell("text")
+            {
+                PaddingLeft = 2,
+                PaddingRight = 0
+            };
+            row.AddCell(cell);
+
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("  text    "));
+        }
+
+        [Test]
+        public void parent_column_has_padding_left()
+        {
+            Table table = new Table();
+            Column column = new Column(string.Empty)
+            {
+                PaddingLeft = 2,
+                PaddingRight = 0
+            };
+            table.Columns.Add(column);
+            DataRow row = new DataRow();
+            table.AddRow(row);
+            DataCell cell = new DataCell("text");
+            row.AddCell(cell);
+
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("  text    "));
+        }
+
+        [Test]
+        public void parent_row_has_padding_left()
+        {
+            Table table = new Table();
+            DataRow row = new DataRow
+            {
+                PaddingLeft = 2,
+                PaddingRight = 0
+            };
+            table.AddRow(row);
+            DataCell cell = new DataCell("text");
+            row.AddCell(cell);
+
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("  text    "));
+        }
+
+        [Test]
         public void parent_table_has_padding_left()
         {
             Table table = new Table
@@ -54,11 +110,73 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             table.AddRow(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
-
-
+            
             string actual = cell.RenderLine(0, 10);
 
             Assert.That(actual, Is.EqualTo("  text    "));
+        }
+
+        [Test]
+        public void cell_has_padding_right()
+        {
+            Table table = new Table();
+            DataRow row = new DataRow();
+            table.AddRow(row);
+            DataCell cell = new DataCell("text")
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                PaddingLeft = 0,
+                PaddingRight = 2
+            };
+            row.AddCell(cell);
+            
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("    text  "));
+        }
+
+        [Test]
+        public void parent_column_has_padding_right()
+        {
+            Table table = new Table();
+            Column column = new Column(string.Empty)
+            {
+                PaddingLeft = 0,
+                PaddingRight = 2
+            };
+            table.Columns.Add(column);
+            DataRow row = new DataRow();
+            table.AddRow(row);
+            DataCell cell = new DataCell("text")
+            {
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            row.AddCell(cell);
+            
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("    text  "));
+        }
+
+        [Test]
+        public void parent_row_has_padding_right()
+        {
+            Table table = new Table();
+            DataRow row = new DataRow
+            {
+                PaddingLeft = 0,
+                PaddingRight = 2
+            };
+            table.AddRow(row);
+            DataCell cell = new DataCell("text")
+            {
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            row.AddCell(cell);
+            
+            string actual = cell.RenderLine(0, 10);
+
+            Assert.That(actual, Is.EqualTo("    text  "));
         }
 
         [Test]
@@ -71,13 +189,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             };
             DataRow row = new DataRow();
             table.AddRow(row);
-            DataCell cell = new DataCell("text");
+            DataCell cell = new DataCell("text")
+            {
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
             row.AddCell(cell);
-
-
+            
             string actual = cell.RenderLine(0, 10);
 
-            Assert.That(actual, Is.EqualTo("text      "));
+            Assert.That(actual, Is.EqualTo("    text  "));
         }
     }
 }

@@ -43,12 +43,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
         /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; }
+        public HorizontalAlignment HorizontalAlignment { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Column"/> instance.
         /// </summary>
         public Table ParentTable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the left side of every cell.
+        /// </summary>
+        public int? PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the right side of every cell.
+        /// </summary>
+        public int? PaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
@@ -60,20 +70,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = HorizontalAlignment.Default;
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
         /// the a name and the horizontal alignment applyed to the cells represented by the column.
         /// </summary>
-        public Column(string header, HorizontalAlignment cellHorizontalAlignment)
+        public Column(string header, HorizontalAlignment horizontalAlignment)
         {
             HeaderCell = new HeaderCell(header)
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = cellHorizontalAlignment;
+            HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -85,19 +95,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = HorizontalAlignment.Default;
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
         /// </summary>
-        public Column(MultilineText header, HorizontalAlignment cellHorizontalAlignment)
+        public Column(MultilineText header, HorizontalAlignment horizontalAlignment)
         {
             HeaderCell = new HeaderCell(header)
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = cellHorizontalAlignment;
+            HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -109,19 +119,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = HorizontalAlignment.Default;
+            HorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
         /// </summary>
-        public Column(object header, HorizontalAlignment cellHorizontalAlignment)
+        public Column(object header, HorizontalAlignment horizontalAlignment)
         {
             HeaderCell = new HeaderCell(header)
             {
                 ParentColumn = this
             };
-            CellHorizontalAlignment = cellHorizontalAlignment;
+            HorizontalAlignment = horizontalAlignment;
         }
     }
 }

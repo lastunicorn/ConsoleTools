@@ -37,6 +37,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public Column ParentColumn { get; set; }
 
         /// <summary>
+        /// Gets or sets the padding applyed to the left side of the cell.
+        /// </summary>
+        public int? PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the right side of the cell.
+        /// </summary>
+        public int? PaddingRight { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HeaderCell" /> class with
         /// empty content.
         /// </summary>
@@ -106,20 +116,44 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Calculates and returns the left padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row and parent table.
+        /// The value is calculated taking into account also the parent column and parent table.
         /// </summary>
         protected override int CalculatePaddingLeft()
         {
-            return ParentColumn?.ParentTable?.PaddingLeft ?? 0;
+            if (PaddingLeft.HasValue)
+                return PaddingLeft.Value;
+
+            if (ParentColumn != null)
+            {
+                if (ParentColumn.PaddingLeft.HasValue)
+                    return ParentColumn.PaddingLeft.Value;
+
+                if (ParentColumn.ParentTable?.PaddingLeft != null)
+                    return ParentColumn.ParentTable.PaddingLeft.Value;
+            }
+
+            return 0;
         }
 
         /// <summary>
         /// Calculates and returns the right padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row and parent table.
+        /// The value is calculated taking into account also the parent column and parent table.
         /// </summary>
         protected override int CalculatePaddingRight()
         {
-            return ParentColumn?.ParentTable?.PaddingRight ?? 0;
+            if (PaddingRight.HasValue)
+                return PaddingRight.Value;
+
+            if (ParentColumn != null)
+            {
+                if (ParentColumn.PaddingRight.HasValue)
+                    return ParentColumn.PaddingRight.Value;
+
+                if (ParentColumn.ParentTable?.PaddingRight != null)
+                    return ParentColumn.ParentTable.PaddingRight.Value;
+            }
+
+            return 0;
         }
 
         /// <summary>
@@ -131,7 +165,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             HorizontalAlignment alignment = HorizontalAlignment;
 
             if (alignment == HorizontalAlignment.Default)
-                alignment = ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+                alignment = ParentColumn?.HorizontalAlignment ?? HorizontalAlignment.Default;
 
             if (alignment == HorizontalAlignment.Default)
                 alignment = ParentColumn?.ParentTable?.CellHorizontalAlignment ?? HorizontalAlignment.Default;

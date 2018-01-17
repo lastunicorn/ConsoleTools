@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.AddRow(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
             table.AddRow(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
             table.AddRow(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Default;
+            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.AddRow(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
             table.AddRow(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
             table.AddRow(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Left;
+            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.AddRow(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
             table.AddRow(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
             table.AddRow(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Center;
+            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -135,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.AddRow(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
             table.AddRow(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
             table.AddRow(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Right;
+            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
                 @"+--------------------------------------------------------+

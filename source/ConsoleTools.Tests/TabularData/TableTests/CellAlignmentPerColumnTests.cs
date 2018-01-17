@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.DisplayColumnHeaders = false;
 
             Column column0 = new Column("Col 0");
-            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
+            column0.HorizontalAlignment = HorizontalAlignment.Right;
             table.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.DisplayColumnHeaders = false;
 
             Column column0 = new Column("Col 0");
-            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
+            column0.HorizontalAlignment = HorizontalAlignment.Right;
             table.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");

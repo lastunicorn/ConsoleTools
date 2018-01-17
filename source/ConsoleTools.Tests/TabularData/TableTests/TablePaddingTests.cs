@@ -51,7 +51,6 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Assert.That(table.PaddingLeft, Is.EqualTo(2));
             Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.Padding, Is.EqualTo(-1));
             CustomAssert.TableRender(table, expected);
         }
 
@@ -72,28 +71,6 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Assert.That(table.PaddingLeft, Is.EqualTo(1));
             Assert.That(table.PaddingRight, Is.EqualTo(2));
-            Assert.That(table.Padding, Is.EqualTo(-1));
-            CustomAssert.TableRender(table, expected);
-        }
-
-        [Test]
-        public void added_a_padding_of_2()
-        {
-            table.Padding = 2;
-
-            const string expected =
-@"+----------------------------------+
-|  My Title                        |
-+-----------+----------+-----------+
-|  1234567  |  123456  |  one two  |
-|  1        |  asd     |  asas     |
-|  12       |  a       |  errr     |
-+-----------+----------+-----------+
-";
-
-            Assert.That(table.PaddingLeft, Is.EqualTo(2));
-            Assert.That(table.PaddingRight, Is.EqualTo(2));
-            Assert.That(table.Padding, Is.EqualTo(2));
             CustomAssert.TableRender(table, expected);
         }
     }

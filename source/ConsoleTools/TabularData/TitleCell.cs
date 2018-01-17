@@ -29,12 +29,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets the default horizontal alignment for a title cell.
         /// </summary>
-        public static HorizontalAlignment DefaultHorizontalAlignment { get; }= HorizontalAlignment.Left;
+        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
 
         /// <summary>
         /// Gets or sets the <see cref="TitleRow"/> instance that owns the current <see cref="TitleCell"/> instance.
         /// </summary>
         public TitleRow ParentRow { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the left side of the cell.
+        /// </summary>
+        public int? PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applyed to the right side of the cell.
+        /// </summary>
+        public int? PaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleCell" /> class with
@@ -110,6 +120,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         protected override int CalculatePaddingLeft()
         {
+            if (PaddingLeft.HasValue)
+                return PaddingLeft.Value;
+
             return ParentRow?.ParentTable?.PaddingLeft ?? 0;
         }
 
@@ -119,6 +132,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         protected override int CalculatePaddingRight()
         {
+            if (PaddingRight.HasValue)
+                return PaddingRight.Value;
+
             return ParentRow?.ParentTable?.PaddingRight ?? 0;
         }
 

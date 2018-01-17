@@ -5,13 +5,13 @@ Note: Please use one of the following templates (Issue Request or Bug Report) an
 ## Issue request
 
 ### Description
-### Library version (that you are using)
+### Version (Library version that you are using)
 
 --------------------------------------------------
 
 ## Bug Report
 
+### Steps to reproduce
 ### Actual behavior
 ### Expected behavior
-### Steps to reproduce the problem
-### Library version (where problem was encountered)
+### Version (Library version where problem was encountered)

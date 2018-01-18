@@ -47,14 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             dataGrid.Columns.Add(new Column("Weight"));
 
             foreach (Whale whale in whales)
-            {
-                dataGrid.Rows.Add(new[]
-                {
-                    whale.Name,
-                    whale.Count,
-                    whale.Weight
-                });
-            }
+                dataGrid.Rows.Add(whale.Name, whale.Count, whale.Weight);
 
             return dataGrid;
         }

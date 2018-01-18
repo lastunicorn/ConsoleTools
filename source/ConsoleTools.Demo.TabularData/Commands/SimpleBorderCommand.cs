@@ -30,10 +30,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Columns.Add(new Column("Two"));
             dataGrid.Columns.Add(new Column("Three"));
             dataGrid.Columns.Add(new Column("Four"));
-            dataGrid.Rows.Add(new[] { "1,1", "1,2", "1,3", "1,4" });
-            dataGrid.Rows.Add(new[] { "2,1", "2,2", "2,3", "2,4" });
-            dataGrid.Rows.Add(new[] { "3,1", "3,2", "3,3", "3,4" });
-            dataGrid.Rows.Add(new[] { "4,1", "4,2", "4,3", "4,4" });
+            dataGrid.Rows.Add("1,1", "1,2", "1,3", "1,4");
+            dataGrid.Rows.Add("2,1", "2,2", "2,3", "2,4");
+            dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
+            dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
             dataGrid.DisplayBorderBetweenRows = true;
             dataGrid.DisplayColumnHeaders = true;
             dataGrid.BorderTemplate = BorderTemplate.PlusMinusBorderTemplate;

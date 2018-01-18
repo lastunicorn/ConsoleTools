@@ -29,9 +29,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             dataGrid = new DataGrid("My Title");
 
-            dataGrid.Rows.Add(new[] { "1234567", "123456", "one two" });
-            dataGrid.Rows.Add(new[] { "1", "asd", "asas" });
-            dataGrid.Rows.Add(new[] { "12", "a", "errr" });
+            dataGrid.Rows.Add("1234567", "123456", "one two");
+            dataGrid.Rows.Add("1", "asd", "asas");
+            dataGrid.Rows.Add("12", "a", "errr");
         }
 
         [Test]

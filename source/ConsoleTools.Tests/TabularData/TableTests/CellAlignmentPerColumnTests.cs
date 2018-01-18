@@ -38,9 +38,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Column column2 = new Column("Col 2");
             dataGrid.Columns.Add(column2);
 
-            dataGrid.Rows.Add(new[] { "0,0", "0,1", "0,2" });
-            dataGrid.Rows.Add(new[] { "1,0", "1,1", "1,2" });
-            dataGrid.Rows.Add(new[] { "2,0", "2,1", "2,2" });
+            dataGrid.Rows.Add("0,0", "0,1", "0,2");
+            dataGrid.Rows.Add("1,0", "1,1", "1,2");
+            dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+
@@ -71,9 +71,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Column column2 = new Column("Col 2");
             dataGrid.Columns.Add(column2);
 
-            dataGrid.Rows.Add(new[] { "0,0", "0,1", "0,2" });
+            dataGrid.Rows.Add("0,0", "0,1", "0,2");
             dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
-            dataGrid.Rows.Add(new[] { "2,0", "2,1", "2,2" });
+            dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+

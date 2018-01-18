@@ -26,8 +26,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         public void Execute()
         {
             DataGrid dataGrid = new DataGrid("DisplayBorderBetweenRows = true");
-            dataGrid.Rows.Add(new[] { "This is a multiline row:\nline one\nline two\nline three", "1\n2\n3" });
-            dataGrid.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
+            dataGrid.Rows.Add("This is a multiline row:\nline one\nline two\nline three", "1\n2\n3");
+            dataGrid.Rows.Add("And this is another\nmuiltiline row", "1\n2\n3");
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.Render();

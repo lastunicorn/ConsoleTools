@@ -34,11 +34,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("Default Padding is 1");
 
-            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
-            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
-            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
-            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
-            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add("First item", 1.ToString());
+            dataGrid.Rows.Add("Second item", 2.ToString());
+            dataGrid.Rows.Add("Third item", 3.ToString());
+            dataGrid.Rows.Add("Forth item", 4.ToString());
+            dataGrid.Rows.Add("Fifth item", 5.ToString());
 
             dataGrid.Render();
         }
@@ -47,11 +47,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("Padding left = 3");
 
-            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
-            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
-            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
-            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
-            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add("First item", 1.ToString());
+            dataGrid.Rows.Add("Second item", 2.ToString());
+            dataGrid.Rows.Add("Third item", 3.ToString());
+            dataGrid.Rows.Add("Forth item", 4.ToString());
+            dataGrid.Rows.Add("Fifth item", 5.ToString());
 
             dataGrid.PaddingLeft = 3;
 
@@ -62,11 +62,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("Padding right = 3");
 
-            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
-            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
-            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
-            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
-            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add("First item", 1.ToString());
+            dataGrid.Rows.Add("Second item", 2.ToString());
+            dataGrid.Rows.Add("Third item", 3.ToString());
+            dataGrid.Rows.Add("Forth item", 4.ToString());
+            dataGrid.Rows.Add("Fifth item", 5.ToString());
 
             dataGrid.PaddingRight = 3;
 

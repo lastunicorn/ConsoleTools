@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.Title = "My Title";
-            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
             string actual = dataGrid.ToString();
 
@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.Title = "My Title My Title My Title My Title";
-            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
             string expected =
 @"+-------------------------------------+
@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };
-            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
             string expected =
 @"+--------------------+

@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void by_default_title_content_is_aligned_to_left()
         {
             DataGrid dataGrid = new DataGrid("Title");
-            dataGrid.Rows.Add(new[] {"Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
 
             string expected =
 @"+--------------------------------+
@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Default()
         {
             DataGrid dataGrid = new DataGrid("Title");
-            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Left()
         {
             DataGrid dataGrid = new DataGrid("Title");
-            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
@@ -76,7 +76,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Center()
         {
             DataGrid dataGrid = new DataGrid("Title");
-            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Right()
         {
             DataGrid dataGrid = new DataGrid("Title");
-            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =

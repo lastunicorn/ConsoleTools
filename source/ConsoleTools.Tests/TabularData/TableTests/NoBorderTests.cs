@@ -27,9 +27,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.DisplayBorder = false;
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @" one    ichi  eins 
@@ -46,9 +46,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             DataGrid dataGrid = new DataGrid();
             dataGrid.DisplayBorder = false;
             dataGrid.Title = "My Title";
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @" My Title          

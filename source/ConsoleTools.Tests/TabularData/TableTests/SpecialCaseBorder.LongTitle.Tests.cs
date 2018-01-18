@@ -31,9 +31,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
             dataGrid.Columns.Add(new Column("Header 3"));
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @"╔══════════════════════════════════════╗
@@ -58,9 +58,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
             dataGrid.Columns.Add(new Column("Header 3"));
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @"╔══════════╦══════════╦══════════╗
@@ -81,9 +81,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             DataGrid dataGrid = new DataGrid();
             dataGrid.Title = "This is a title longer than the rows";
             dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @"╔══════════════════════════════════════╗
@@ -124,9 +124,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
-            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
-            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
 @"╔═══════╦══════╦══════╗

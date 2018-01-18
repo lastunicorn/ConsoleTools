@@ -27,8 +27,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("Multiline Cell Content");
 
-            dataGrid.Rows.Add(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
-            dataGrid.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
+            dataGrid.Rows.Add("You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3");
+            dataGrid.Rows.Add("And this is another\nmuiltiline row", "1\n2\n3");
 
             dataGrid.Render();
         }

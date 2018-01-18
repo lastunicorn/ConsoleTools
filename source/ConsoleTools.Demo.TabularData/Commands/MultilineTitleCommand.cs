@@ -27,11 +27,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)");
 
-            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
-            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
-            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
-            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
-            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add("First item", 1.ToString());
+            dataGrid.Rows.Add("Second item", 2.ToString());
+            dataGrid.Rows.Add("Third item", 3.ToString());
+            dataGrid.Rows.Add("Forth item", 4.ToString());
+            dataGrid.Rows.Add("Fifth item", 5.ToString());
 
             dataGrid.Render();
         }

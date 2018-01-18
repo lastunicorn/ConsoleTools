@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
             DataCell cell1 = new DataCell("cell content");
             DataCell cell2 = new DataCell("cell content");
 
-            DataRow row = new DataRow(new[] { cell0, cell1, cell2 });
+            DataRow row = new DataRow(cell0, cell1, cell2);
 
             Assert.That(cell0.ParentRow, Is.SameAs(row));
             Assert.That(cell1.ParentRow, Is.SameAs(row));
@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
             DataCell cell1 = new DataCell("cell content");
             DataCell cell2 = new DataCell("cell content");
 
-            DataRow row = new DataRow(new[] { cell0, cell1, cell2 });
+            DataRow row = new DataRow(cell0, cell1, cell2);
 
             Assert.That(row[0], Is.SameAs(cell0));
             Assert.That(row[1], Is.SameAs(cell1));
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
             DataCell cell0 = new DataCell("cell content");
             DataCell cell2 = new DataCell("cell content");
 
-            DataRow row = new DataRow(new[] { cell0, null, cell2 });
+            DataRow row = new DataRow(cell0, null, cell2);
             
             Assert.That(row[1], Is.InstanceOf<DataCell>());
             Assert.That(row[1].IsEmpty, Is.True);

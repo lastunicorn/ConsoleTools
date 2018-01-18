@@ -96,16 +96,6 @@
       <DependentUpon>TextMenuResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Musical\MusicalNoteInfo.cs" />
-    <Compile Include="Mvc\ConsoleApplication.cs" />
-    <Compile Include="Mvc\ConsoleApplicationResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConsoleApplicationResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Mvc\IController.cs" />
-    <Compile Include="Mvc\MissingRouteException.cs" />
-    <Compile Include="Mvc\Route.cs" />
-    <Compile Include="Mvc\Router.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Pause.cs" />
     <Compile Include="PauseResources.Designer.cs">
@@ -205,12 +195,6 @@
     <EmbeddedResource Include="MenuControl\TextMenuResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TextMenuResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mvc\ConsoleApplicationResources.fr.resx" />
-    <EmbeddedResource Include="Mvc\ConsoleApplicationResources.ro.resx" />
-    <EmbeddedResource Include="Mvc\ConsoleApplicationResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ConsoleApplicationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="PauseResources.fr.resx" />
     <EmbeddedResource Include="PauseResources.ro.resx" />

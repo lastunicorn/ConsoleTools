@@ -119,7 +119,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// Gets or sets the answer that is issued when the <see cref="AcceptDefaultKey"/> key is pressed.
         /// Default value: null
         /// </summary>
-        public YesNoAnswer? DefaultAnswer { get; set; } = null;
+        public YesNoAnswer? DefaultAnswer { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YesNoQuestion"/> class with
@@ -256,6 +256,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
         }
 
+        /// <summary>
+        /// Displays the specified question and returns the answer using a <see cref="YesNoQuestion"/> instance with default configuration.
+        /// </summary>
+        /// <param name="questionText">The question text to be displayed to the user.</param>
+        /// <param name="defaultAnswer">An optional default answer to be returned if the user does not provide a specific answer.</param>
+        /// <returns>The answer read from the console.</returns>
         public static YesNoAnswer QuickRead(string questionText, YesNoAnswer? defaultAnswer = null)
         {
             YesNoQuestion yesNoQuestion = new YesNoQuestion(questionText);

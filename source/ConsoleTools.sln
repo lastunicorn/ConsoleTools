@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.InputCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.WriteText", "ConsoleTools.Demo.WriteText\ConsoleTools.Demo.WriteText.csproj", "{8DD165BA-78C3-48A0-BF61-9673458A260C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Mvc", "ConsoleTools.Demo.Mvc\ConsoleTools.Demo.Mvc.csproj", "{C808EC10-9F3B-4AED-9443-8873977E06F6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextMenu", "ConsoleTools.Demo.TextMenu\ConsoleTools.Demo.TextMenu.csproj", "{03611F6A-F799-4A07-8288-41BD4BD21C1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollableMenu", "ConsoleTools.Demo.SelectableMenu\ConsoleTools.Demo.ScrollableMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
@@ -86,12 +84,6 @@ Global
 		{8DD165BA-78C3-48A0-BF61-9673458A260C}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 		{8DD165BA-78C3-48A0-BF61-9673458A260C}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
 		{8DD165BA-78C3-48A0-BF61-9673458A260C}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
-		{C808EC10-9F3B-4AED-9443-8873977E06F6}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
 		{03611F6A-F799-4A07-8288-41BD4BD21C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03611F6A-F799-4A07-8288-41BD4BD21C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03611F6A-F799-4A07-8288-41BD4BD21C1A}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU

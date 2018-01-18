@@ -16,7 +16,6 @@
 
 using System.Collections.ObjectModel;
 using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {

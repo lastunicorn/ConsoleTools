@@ -17,7 +17,6 @@
 using System;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Demo.Prompter.Controllers;
-using DustInTheWind.ConsoleTools.Mvc;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {

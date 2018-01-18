@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Mvc.Ocean
+using System.Collections.ObjectModel;
+using DustInTheWind.ConsoleTools.CommandProviders;
+
+namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
-    internal class Whale
+    internal interface IController
     {
-        public string Name { get; set; }
-        public string Count { get; set; }
-        public string Weight { get; set; }
+        void Execute(ReadOnlyCollection<UserCommandParameter> commandParameters);
     }
 }

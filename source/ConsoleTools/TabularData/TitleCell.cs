@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the <see cref="TitleRow"/> instance that owns the current <see cref="TitleCell"/> instance.
         /// </summary>
-        public TitleRow ParentRow { get; set; }
+        public TitleRow ParentRow { get; internal set; }
 
         /// <summary>
         /// Gets or sets the padding applyed to the left side of the cell.

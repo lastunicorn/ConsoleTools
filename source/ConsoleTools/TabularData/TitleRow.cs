@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the <see cref="Table"/> instance that contains the current title.
         /// </summary>
-        public Table ParentTable { get; set; }
+        public Table ParentTable { get; internal set; }
 
         /// <summary>
         /// Gets or sets the content of the current instance.

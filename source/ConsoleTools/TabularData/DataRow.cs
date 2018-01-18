@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="DataRow"/> instance.
         /// </summary>
-        public Table ParentTable { get; set; }
+        public Table ParentTable { get; internal set; }
 
         /// <summary>
         /// Gets the number of cells contained by the current instance.
@@ -84,10 +84,38 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of cells.
+        /// </summary>
+        /// <param name="cells">The list of cells that will be contained by the new row.</param>
+        public DataRow(params DataCell[] cells)
+        {
+            if (cells == null)
+                return;
+
+            foreach (DataCell cell in cells)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
         /// the list of texts representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of texts that will be placed in cells.</param>
         public DataRow(IEnumerable<string> cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (string cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of texts representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of texts that will be placed in cells.</param>
+        public DataRow(params string[] cellContents)
         {
             if (cellContents == null)
                 return;
@@ -112,10 +140,38 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of <see cref="MultilineText"/> ojects representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
+        public DataRow(params MultilineText[] cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (MultilineText cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
         /// the list of objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of objects that will be placed in cells.</param>
         public DataRow(IEnumerable cellContents)
+        {
+            if (cellContents == null)
+                return;
+
+            foreach (object cell in cellContents)
+                AddCell(cell);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// the list of objects representing the cells content.
+        /// </summary>
+        /// <param name="cellContents">The list of objects that will be placed in cells.</param>
+        public DataRow(params object[] cellContents)
         {
             if (cellContents == null)
                 return;

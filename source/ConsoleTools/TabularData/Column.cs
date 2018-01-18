@@ -61,6 +61,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int? PaddingRight { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Column"/> class.
+        /// </summary>
+        public Column()
+        {
+            HeaderCell = new HeaderCell
+            {
+                ParentColumn = this
+            };
+            HorizontalAlignment = HorizontalAlignment.Default;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
         /// the a header.
         /// </summary>

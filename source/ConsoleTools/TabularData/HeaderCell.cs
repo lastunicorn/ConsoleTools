@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the column that contains the current cell.
         /// </summary>
-        public Column ParentColumn { get; set; }
+        public Column ParentColumn { get; internal set; }
 
         /// <summary>
         /// Gets or sets the padding applyed to the left side of the cell.

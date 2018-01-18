@@ -15,8 +15,9 @@ ver 0.3.0
 - Spinner: Renamed the spinner templates.
 - Pause [bugfix]: Control is not correctly erased when it is displayed at the bottom of the console buffer.
 - Added French translation.
-- Table: Exposed the Rows list.
-- Table: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
+- DataGrid: Renamed Table into DataGrid.
+- DataGrid: Exposed the Rows list.
+- DataGrid: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
 
 ver 0.2.0
 ---------

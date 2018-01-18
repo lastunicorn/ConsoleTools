@@ -31,28 +31,28 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         private static void DisplayTableWithLongTitle()
         {
-            Table table = new Table("Long title - longer than the content of the table");
+            DataGrid dataGrid = new DataGrid("Long title - longer than the content of the table");
 
-            table.Rows.Add(new[] { "First item", 1.ToString() });
-            table.Rows.Add(new[] { "Second item", 2.ToString() });
-            table.Rows.Add(new[] { "Third item", 3.ToString() });
-            table.Rows.Add(new[] { "Forth item", 4.ToString() });
-            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
+            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
+            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
+            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
+            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
-            table.Render();
+            dataGrid.Render();
         }
 
         private static void DisplayTableWithShortTitle()
         {
-            Table table = new Table("Short title");
+            DataGrid dataGrid = new DataGrid("Short title");
 
-            table.Rows.Add(new[] { "First item", 1.ToString() });
-            table.Rows.Add(new[] { "Second item", 2.ToString() });
-            table.Rows.Add(new[] { "Third item", 3.ToString() });
-            table.Rows.Add(new[] { "Forth item", 4.ToString() });
-            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
+            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
+            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
+            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
+            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
-            table.Render();
+            dataGrid.Render();
         }
     }
 }

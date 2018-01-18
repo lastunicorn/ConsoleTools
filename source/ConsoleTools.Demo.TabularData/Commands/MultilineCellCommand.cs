@@ -25,12 +25,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            Table table = new Table("Multiline Cell Content");
+            DataGrid dataGrid = new DataGrid("Multiline Cell Content");
 
-            table.Rows.Add(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
-            table.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
+            dataGrid.Rows.Add(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
+            dataGrid.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
 
-            table.Render();
+            dataGrid.Render();
         }
     }
 }

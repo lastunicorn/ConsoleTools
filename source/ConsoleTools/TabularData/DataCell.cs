@@ -128,15 +128,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 if (ParentRow.PaddingLeft.HasValue)
                     return ParentRow.PaddingLeft.Value;
 
-                if (ParentRow.ParentTable != null)
+                if (ParentRow.ParentDataGrid != null)
                 {
                     Column column = GetColumn();
 
                     if (column?.PaddingLeft != null)
                         return column.PaddingLeft.Value;
 
-                    if (ParentRow.ParentTable.PaddingLeft.HasValue)
-                        return ParentRow.ParentTable.PaddingLeft.Value;
+                    if (ParentRow.ParentDataGrid.PaddingLeft.HasValue)
+                        return ParentRow.ParentDataGrid.PaddingLeft.Value;
                 }
             }
 
@@ -158,15 +158,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     return ParentRow.PaddingRight.Value;
 
 
-                if (ParentRow.ParentTable != null)
+                if (ParentRow.ParentDataGrid != null)
                 {
                     Column column = GetColumn();
 
                     if (column?.PaddingRight != null)
                         return column.PaddingRight.Value;
 
-                    if (ParentRow.ParentTable.PaddingRight.HasValue)
-                        return ParentRow.ParentTable.PaddingRight.Value;
+                    if (ParentRow.ParentDataGrid.PaddingRight.HasValue)
+                        return ParentRow.ParentDataGrid.PaddingRight.Value;
                 }
             }
 
@@ -212,18 +212,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         private Column GetColumn()
         {
-            ColumnList columns = ParentRow?.ParentTable?.Columns;
+            ColumnList columns = ParentRow?.ParentDataGrid?.Columns;
             int? columnIndex = ParentRow?.IndexOfCell(this);
 
             return columns != null && columnIndex.HasValue
-                ? ParentRow?.ParentTable?.Columns[columnIndex.Value]
+                ? ParentRow?.ParentDataGrid?.Columns[columnIndex.Value]
                 : null;
         }
 
         private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
         {
-            Table table = ParentRow?.ParentTable;
-            return table?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+            DataGrid dataGrid = ParentRow?.ParentDataGrid;
+            return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
         /// <summary>

@@ -25,9 +25,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void TestMultilineCellContent()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.Rows.Add("first line\nsecond line", "single line", "one\ntwo\nthree");
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title";
+            dataGrid.Rows.Add("first line\nsecond line", "single line", "one\ntwo\nthree");
 
             string expected =
                 @"+-----------------------------------+
@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +-------------+-------------+-------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

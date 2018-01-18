@@ -26,11 +26,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void title_is_shorter_than_row()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title";
+            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
 
-            string actual = table.ToString();
+            string actual = dataGrid.ToString();
 
             string expected =
 @"+--------------------+
@@ -45,9 +45,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void title_is_longer_than_row()
         {
-            Table table = new Table();
-            table.Title = "My Title My Title My Title My Title";
-            table.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title My Title My Title My Title";
+            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
 
             string expected =
 @"+-------------------------------------+
@@ -57,15 +57,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +-----------+-----------+-------------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void multiline_title()
         {
-            Table table = new Table();
-            table.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };
-            table.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };
+            dataGrid.Rows.Add(new[] { "asd", "qwe", "zxczxc" });
 
             string expected =
 @"+--------------------+
@@ -78,7 +78,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +-----+-----+--------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

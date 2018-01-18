@@ -25,20 +25,20 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            Table table = new Table("Single-line Border");
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
-            table.Columns.Add(new Column("Four"));
-            table.Rows.Add("1,1", "1,2", "1,3", "1,4");
-            table.Rows.Add("2,1", "2,2", "2,3", "2,4");
-            table.Rows.Add("3,1", "3,2", "3,3", "3,4");
-            table.Rows.Add("4,1", "4,2", "4,3", "4,4");
-            table.DisplayBorderBetweenRows = true;
-            table.DisplayColumnHeaders = true;
-            table.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            DataGrid dataGrid = new DataGrid("Single-line Border");
+            dataGrid.Columns.Add(new Column("One"));
+            dataGrid.Columns.Add(new Column("Two"));
+            dataGrid.Columns.Add(new Column("Three"));
+            dataGrid.Columns.Add(new Column("Four"));
+            dataGrid.Rows.Add("1,1", "1,2", "1,3", "1,4");
+            dataGrid.Rows.Add("2,1", "2,2", "2,3", "2,4");
+            dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
+            dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
+            dataGrid.DisplayBorderBetweenRows = true;
+            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
             
-            table.Render();
+            dataGrid.Render();
         }
     }
 }

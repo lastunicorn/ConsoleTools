@@ -27,7 +27,7 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    /// Represents a row in the <see cref="Table"/> class.
+    /// Represents a row in the <see cref="DataGrid"/> class.
     /// </summary>
     public class DataRow
     {
@@ -37,9 +37,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         private readonly List<DataCell> cells = new List<DataCell>();
 
         /// <summary>
-        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="DataRow"/> instance.
+        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current <see cref="DataRow"/> instance.
         /// </summary>
-        public Table ParentTable { get; internal set; }
+        public DataGrid ParentDataGrid { get; internal set; }
 
         /// <summary>
         /// Gets the number of cells contained by the current instance.
@@ -280,9 +280,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 })
                 .ToList();
 
-            BorderTemplate borderTemplate = ParentTable?.BorderTemplate;
+            BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
 
-            bool displayBorder = borderTemplate != null && ParentTable?.DisplayBorder == true;
+            bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
 
             for (int rowLineIndex = 0; rowLineIndex < minHeight; rowLineIndex++)
             {

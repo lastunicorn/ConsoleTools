@@ -128,8 +128,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 if (ParentColumn.PaddingLeft.HasValue)
                     return ParentColumn.PaddingLeft.Value;
 
-                if (ParentColumn.ParentTable?.PaddingLeft != null)
-                    return ParentColumn.ParentTable.PaddingLeft.Value;
+                if (ParentColumn.ParentDataGrid?.PaddingLeft != null)
+                    return ParentColumn.ParentDataGrid.PaddingLeft.Value;
             }
 
             return 0;
@@ -149,8 +149,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 if (ParentColumn.PaddingRight.HasValue)
                     return ParentColumn.PaddingRight.Value;
 
-                if (ParentColumn.ParentTable?.PaddingRight != null)
-                    return ParentColumn.ParentTable.PaddingRight.Value;
+                if (ParentColumn.ParentDataGrid?.PaddingRight != null)
+                    return ParentColumn.ParentDataGrid.PaddingRight.Value;
             }
 
             return 0;
@@ -168,7 +168,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 alignment = ParentColumn?.HorizontalAlignment ?? HorizontalAlignment.Default;
 
             if (alignment == HorizontalAlignment.Default)
-                alignment = ParentColumn?.ParentTable?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+                alignment = ParentColumn?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
 
             if (alignment == HorizontalAlignment.Default)
                 alignment = DefaultHorizontalAlignment;

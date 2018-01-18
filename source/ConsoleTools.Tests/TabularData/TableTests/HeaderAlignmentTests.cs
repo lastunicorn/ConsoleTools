@@ -25,13 +25,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void by_default_header_cell_content_is_aligned_to_left()
         {
-            Table table = new Table("This is a header cell alignment test");
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
-            table.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
-            table.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
+            DataGrid dataGrid = new DataGrid("This is a header cell alignment test");
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
 
             string expected =
 @"+--------------------------------------------------------+
@@ -44,20 +44,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell Content 2,0 | Cell Content 2,1 | Cell Content 2,2 |
 +------------------+------------------+------------------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void header_cell_1_is_alignment_Default_after_cell_creation()
         {
-            Table table = new Table("This is a header cell alignment test");
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
-            table.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
-            table.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Default;
+            DataGrid dataGrid = new DataGrid("This is a header cell alignment test");
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
+            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -70,20 +70,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell Content 2,0 | Cell Content 2,1 | Cell Content 2,2 |
 +------------------+------------------+------------------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void header_cell_1_is_alignment_Left_after_cell_creation()
         {
-            Table table = new Table("This is a header cell alignment test");
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
-            table.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
-            table.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Left;
+            DataGrid dataGrid = new DataGrid("This is a header cell alignment test");
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
+            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -96,20 +96,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell Content 2,0 | Cell Content 2,1 | Cell Content 2,2 |
 +------------------+------------------+------------------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void header_cell_1_is_alignment_Center_after_cell_creation()
         {
-            Table table = new Table("This is a header cell alignment test");
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
-            table.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
-            table.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Center;
+            DataGrid dataGrid = new DataGrid("This is a header cell alignment test");
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
+            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -122,20 +122,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell Content 2,0 | Cell Content 2,1 | Cell Content 2,2 |
 +------------------+------------------+------------------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void header_cell_1_is_alignment_Right_after_cell_creation()
         {
-            Table table = new Table("This is a header cell alignment test");
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
-            table.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
-            table.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
-            table.Columns[1].HorizontalAlignment = HorizontalAlignment.Right;
+            DataGrid dataGrid = new DataGrid("This is a header cell alignment test");
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2" });
+            dataGrid.Rows.Add(new[] { "Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2" });
+            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -148,7 +148,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell Content 2,0 | Cell Content 2,1 | Cell Content 2,2 |
 +------------------+------------------+------------------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

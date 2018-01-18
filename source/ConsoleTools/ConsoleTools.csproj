@@ -156,7 +156,7 @@
     <Compile Include="TabularData\DataRow.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="TabularData\StringTablePrinter.cs" />
-    <Compile Include="TabularData\Table.cs" />
+    <Compile Include="TabularData\DataGrid.cs" />
     <Compile Include="CustomConsole.WriteEmphasies.cs" />
     <Compile Include="CustomConsole.WriteError.cs" />
     <Compile Include="CustomConsole.WithoutCursor.cs" />

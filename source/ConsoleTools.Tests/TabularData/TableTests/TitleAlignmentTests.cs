@@ -25,8 +25,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void by_default_title_content_is_aligned_to_left()
         {
-            Table table = new Table("Title");
-            table.Rows.Add(new[] {"Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            DataGrid dataGrid = new DataGrid("Title");
+            dataGrid.Rows.Add(new[] {"Cell 0,0", "Cell 0,1", "Cell 0,2" });
 
             string expected =
 @"+--------------------------------+
@@ -35,15 +35,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
 +----------+----------+----------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void title_alignment_Default()
         {
-            Table table = new Table("Title");
-            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
-            table.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
+            DataGrid dataGrid = new DataGrid("Title");
+            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
 @"+--------------------------------+
@@ -52,15 +52,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
 +----------+----------+----------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void title_alignment_Left()
         {
-            Table table = new Table("Title");
-            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
-            table.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
+            DataGrid dataGrid = new DataGrid("Title");
+            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
 @"+--------------------------------+
@@ -69,15 +69,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
 +----------+----------+----------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void title_alignment_Center()
         {
-            Table table = new Table("Title");
-            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
-            table.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
+            DataGrid dataGrid = new DataGrid("Title");
+            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
 @"+--------------------------------+
@@ -86,15 +86,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
 +----------+----------+----------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void title_alignment_Right()
         {
-            Table table = new Table("Title");
-            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
-            table.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
+            DataGrid dataGrid = new DataGrid("Title");
+            dataGrid.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
 @"+--------------------------------+
@@ -103,7 +103,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
 +----------+----------+----------+
 ";
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

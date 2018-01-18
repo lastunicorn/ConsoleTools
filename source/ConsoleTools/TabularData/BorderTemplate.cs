@@ -26,7 +26,7 @@ using System.Text;
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    /// Represents a border template that can be applied on a <see cref="Table"/> instance.
+    /// Represents a border template that can be applied on a <see cref="DataGrid"/> instance.
     /// </summary>
     public class BorderTemplate
     {

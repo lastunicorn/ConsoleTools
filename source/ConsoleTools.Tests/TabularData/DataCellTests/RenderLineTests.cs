@@ -45,9 +45,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void cell_has_padding_left()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 PaddingLeft = 2,
@@ -63,15 +63,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_column_has_padding_left()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             Column column = new Column(string.Empty)
             {
                 PaddingLeft = 2,
                 PaddingRight = 0
             };
-            table.Columns.Add(column);
+            dataGrid.Columns.Add(column);
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
@@ -83,13 +83,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_row_has_padding_left()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow
             {
                 PaddingLeft = 2,
                 PaddingRight = 0
             };
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
@@ -101,13 +101,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_table_has_padding_left()
         {
-            Table table = new Table
+            DataGrid dataGrid = new DataGrid
             {
                 PaddingLeft = 2,
                 PaddingRight = 0
             };
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
             
@@ -119,9 +119,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void cell_has_padding_right()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right,
@@ -138,15 +138,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_column_has_padding_right()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             Column column = new Column(string.Empty)
             {
                 PaddingLeft = 0,
                 PaddingRight = 2
             };
-            table.Columns.Add(column);
+            dataGrid.Columns.Add(column);
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -161,13 +161,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_row_has_padding_right()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow
             {
                 PaddingLeft = 0,
                 PaddingRight = 2
             };
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -182,13 +182,13 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         [Test]
         public void parent_table_has_padding_right()
         {
-            Table table = new Table
+            DataGrid dataGrid = new DataGrid
             {
                 PaddingLeft = 0,
                 PaddingRight = 2
             };
             DataRow row = new DataRow();
-            table.Rows.Add(row);
+            dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right

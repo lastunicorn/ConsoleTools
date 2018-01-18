@@ -25,15 +25,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void all()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Title = "Short Title";
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Title = "Short Title";
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔════════════════════════════════╗
@@ -47,20 +47,20 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚══════════╩══════════╩══════════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void no_title()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔══════════╦══════════╦══════════╗
@@ -72,18 +72,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚══════════╩══════════╩══════════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void no_header()
         {
-            Table table = new Table();
-            table.Title = "Short Title";
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "Short Title";
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔═════════════════════╗
@@ -95,18 +95,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void no_data()
         {
-            Table table = new Table();
-            table.Title = "Short Title";
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "Short Title";
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
 
             string expected =
 @"╔════════════════════════════════╗
@@ -116,17 +116,17 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚══════════╩══════════╩══════════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void only_data()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔═══════╦══════╦══════╗
@@ -136,17 +136,17 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void only_header()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Columns.Add(new Column("Header 1"));
-            table.Columns.Add(new Column("Header 2"));
-            table.Columns.Add(new Column("Header 3"));
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Columns.Add(new Column("Header 1"));
+            dataGrid.Columns.Add(new Column("Header 2"));
+            dataGrid.Columns.Add(new Column("Header 3"));
 
             string expected =
 @"╔══════════╦══════════╦══════════╗
@@ -154,15 +154,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚══════════╩══════════╩══════════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void only_title()
         {
-            Table table = new Table();
-            table.Title = "Short Title";
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "Short Title";
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected =
 @"╔═════════════╗
@@ -170,18 +170,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═════════════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void no_title_no_header_no_data()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected = string.Empty;
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

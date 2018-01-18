@@ -25,11 +25,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void render_simple_table_without_border()
         {
-            Table table = new Table();
-            table.DisplayBorder = false;
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.DisplayBorder = false;
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @" one    ichi  eins 
@@ -37,18 +37,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
  three  san   drei 
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void render_table_with_title_and_no_border()
         {
-            Table table = new Table();
-            table.DisplayBorder = false;
-            table.Title = "My Title";
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.DisplayBorder = false;
+            dataGrid.Title = "My Title";
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @" My Title          
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
  three  san   drei 
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

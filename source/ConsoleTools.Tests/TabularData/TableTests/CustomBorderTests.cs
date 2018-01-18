@@ -25,11 +25,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void render_simple_table_with_custom_border()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔═══════╦══════╦══════╗
@@ -39,18 +39,18 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void render_table_with_custom_border_and_title()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title";
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔═════════════════════╗
@@ -62,21 +62,21 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void render_table_with_custom_border_and_headers()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.DisplayColumnHeaders = true;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.Columns.Add(new Column("One"));
+            dataGrid.Columns.Add(new Column("Two"));
+            dataGrid.Columns.Add(new Column("Three"));
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔═══════╦══════╦═══════╗
@@ -88,22 +88,22 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩═══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void render_table_with_custom_border_title_and_headers()
         {
-            Table table = new Table();
-            table.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            table.Title = "My Title";
-            table.DisplayColumnHeaders = true;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Title = "My Title";
+            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.Columns.Add(new Column("One"));
+            dataGrid.Columns.Add(new Column("Two"));
+            dataGrid.Columns.Add(new Column("Three"));
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"╔══════════════════════╗
@@ -117,24 +117,24 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 ╚═══════╩══════╩═══════╝
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void render_table_with_digit_and_letter_border()
         {
-            Table table = new Table();
-            table.BorderTemplate = new BorderTemplate("1234567890abcde");
-            table.Title = "My Title";
-            table.DisplayColumnHeaders = true;
-            table.PaddingLeft = 3;
-            table.PaddingRight = 3;
-            table.Columns.Add(new Column("One"));
-            table.Columns.Add(new Column("Two"));
-            table.Columns.Add(new Column("Three"));
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.BorderTemplate = new BorderTemplate("1234567890abcde");
+            dataGrid.Title = "My Title";
+            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.PaddingLeft = 3;
+            dataGrid.PaddingRight = 3;
+            dataGrid.Columns.Add(new Column("One"));
+            dataGrid.Columns.Add(new Column("Two"));
+            dataGrid.Columns.Add(new Column("Three"));
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"122222222222222222222222222222222223
@@ -148,7 +148,7 @@ beeeeeeeeeeeceeeeeeeeeeceeeeeeeeeee0
 766666666666a6666666666a666666666665
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

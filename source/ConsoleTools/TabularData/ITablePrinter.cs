@@ -22,8 +22,8 @@
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    /// The implementors of this interface represent the target where a <see cref="Table"/> is rendered.
-    /// They provide methods to sequentially render the parts of the <see cref="Table"/> instance.
+    /// The implementors of this interface represent the target where a <see cref="DataGrid"/> is rendered.
+    /// They provide methods to sequentially render the parts of the <see cref="DataGrid"/> instance.
     /// </summary>
     public interface ITablePrinter
     {

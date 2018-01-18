@@ -22,7 +22,7 @@
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
-    /// Represents a column in the <see cref="Table"/> class.
+    /// Represents a column in the <see cref="DataGrid"/> class.
     /// </summary>
     public class Column
     {
@@ -46,9 +46,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Table"/> instance that contains the current <see cref="Column"/> instance.
+        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current <see cref="Column"/> instance.
         /// </summary>
-        public Table ParentTable { get; set; }
+        public DataGrid ParentDataGrid { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applyed to the left side of every cell.

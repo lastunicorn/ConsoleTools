@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class DataRowList : IEnumerable<DataRow>
     {
-        private readonly Table parentTable;
+        private readonly DataGrid parentDataGrid;
 
         private readonly List<DataRow> rows = new List<DataRow>();
 
@@ -53,11 +53,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Initializes a new instance of the <see cref="DataRowList"/> class with
         /// the table that owns it.
         /// </summary>
-        /// <param name="parentTable">The table that owns the new instance.</param>
-        public DataRowList(Table parentTable)
+        /// <param name="parentDataGrid">The table that owns the new instance.</param>
+        public DataRowList(DataGrid parentDataGrid)
         {
-            if (parentTable == null) throw new ArgumentNullException(nameof(parentTable));
-            this.parentTable = parentTable;
+            if (parentDataGrid == null) throw new ArgumentNullException(nameof(parentDataGrid));
+            this.parentDataGrid = parentDataGrid;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
 
-            row.ParentTable = parentTable;
+            row.ParentDataGrid = parentDataGrid;
             rows.Add(row);
         }
 
@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow(cells)
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
             rows.Add(row);
         }
@@ -98,7 +98,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow(cells)
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
             rows.Add(row);
         }
@@ -113,7 +113,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
@@ -132,7 +132,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
@@ -151,7 +151,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
@@ -170,7 +170,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
@@ -189,7 +189,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)
@@ -208,7 +208,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             DataRow row = new DataRow
             {
-                ParentTable = parentTable
+                ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)

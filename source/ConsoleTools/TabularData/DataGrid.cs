@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// <summary>
     /// A control that renders a table with data into the console.
     /// </summary>
-    public class Table
+    public class DataGrid
     {
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represence the title row of the table.
@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public TitleRow TitleRow { get; }
 
         /// <summary>
-        /// Gets or sets the title of the current instance of the <see cref="Table"/>.
+        /// Gets or sets the title of the current instance of the <see cref="DataGrid"/>.
         /// </summary>
         public MultilineText Title
         {
@@ -112,61 +112,61 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Table"/> class.
+        /// Initializes a new instance of the <see cref="DataGrid"/> class.
         /// </summary>
-        public Table()
+        public DataGrid()
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow
             {
-                ParentTable = this
+                ParentDataGrid = this
             };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Table"/> class with
+        /// Initializes a new instance of the <see cref="DataGrid"/> class with
         /// the table title.
         /// </summary>
-        public Table(string title)
+        public DataGrid(string title)
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
             {
-                ParentTable = this
+                ParentDataGrid = this
             };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Table"/> class with
+        /// Initializes a new instance of the <see cref="DataGrid"/> class with
         /// the table title.
         /// </summary>
-        public Table(MultilineText title)
+        public DataGrid(MultilineText title)
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
             {
-                ParentTable = this
+                ParentDataGrid = this
             };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Table"/> class with
+        /// Initializes a new instance of the <see cref="DataGrid"/> class with
         /// the table title.
         /// </summary>
-        public Table(object title)
+        public DataGrid(object title)
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
             {
-                ParentTable = this
+                ParentDataGrid = this
             };
         }
 

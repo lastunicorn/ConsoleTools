@@ -22,9 +22,9 @@ namespace DustInTheWind.ConsoleTools.Tests
 {
     internal static class CustomAssert
     {
-        public static void TableRender(Table table, string expected)
+        public static void TableRender(DataGrid dataGrid, string expected)
         {
-            string actual = table.ToString();
+            string actual = dataGrid.ToString();
 
             Console.WriteLine("actual:");
             Console.WriteLine(actual);

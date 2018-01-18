@@ -25,11 +25,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void three_rows_without_lines_between_them()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title";
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"+---------------------+
@@ -41,19 +41,19 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +-------+------+------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void three_rows_with_lines_between_them()
         {
-            Table table = new Table();
-            table.Title = "My Title";
-            table.DisplayBorderBetweenRows = true;
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Title = "My Title";
+            dataGrid.DisplayBorderBetweenRows = true;
 
-            table.Rows.Add(new[] { "one", "ichi", "eins" });
-            table.Rows.Add(new[] { "two", "ni", "zwei" });
-            table.Rows.Add(new[] { "three", "san", "drei" });
+            dataGrid.Rows.Add(new[] { "one", "ichi", "eins" });
+            dataGrid.Rows.Add(new[] { "two", "ni", "zwei" });
+            dataGrid.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"+---------------------+
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +-------+------+------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

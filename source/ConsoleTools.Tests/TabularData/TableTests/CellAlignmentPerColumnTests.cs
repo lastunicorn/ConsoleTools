@@ -25,22 +25,22 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void column_0_is_aligned_to_Right()
         {
-            Table table = new Table("This is a cell alignment test");
-            table.DisplayColumnHeaders = false;
+            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
+            dataGrid.DisplayColumnHeaders = false;
 
             Column column0 = new Column("Col 0");
             column0.HorizontalAlignment = HorizontalAlignment.Right;
-            table.Columns.Add(column0);
+            dataGrid.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
-            table.Columns.Add(column1);
+            dataGrid.Columns.Add(column1);
 
             Column column2 = new Column("Col 2");
-            table.Columns.Add(column2);
+            dataGrid.Columns.Add(column2);
 
-            table.Rows.Add(new[] { "0,0", "0,1", "0,2" });
-            table.Rows.Add(new[] { "1,0", "1,1", "1,2" });
-            table.Rows.Add(new[] { "2,0", "2,1", "2,2" });
+            dataGrid.Rows.Add(new[] { "0,0", "0,1", "0,2" });
+            dataGrid.Rows.Add(new[] { "1,0", "1,1", "1,2" });
+            dataGrid.Rows.Add(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
 @"+-------------------------------+
@@ -52,28 +52,28 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+----------+---------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void column_0_is_aligned_to_Right_and_cell_1_0_is_aligned_to_Left()
         {
-            Table table = new Table("This is a cell alignment test");
-            table.DisplayColumnHeaders = false;
+            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
+            dataGrid.DisplayColumnHeaders = false;
 
             Column column0 = new Column("Col 0");
             column0.HorizontalAlignment = HorizontalAlignment.Right;
-            table.Columns.Add(column0);
+            dataGrid.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
-            table.Columns.Add(column1);
+            dataGrid.Columns.Add(column1);
 
             Column column2 = new Column("Col 2");
-            table.Columns.Add(column2);
+            dataGrid.Columns.Add(column2);
 
-            table.Rows.Add(new[] { "0,0", "0,1", "0,2" });
-            table.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
-            table.Rows.Add(new[] { "2,0", "2,1", "2,2" });
+            dataGrid.Rows.Add(new[] { "0,0", "0,1", "0,2" });
+            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            dataGrid.Rows.Add(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
 @"+-------------------------------+
@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+----------+---------+
 ";
 
-            CustomAssert.TableRender(table, expected);
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

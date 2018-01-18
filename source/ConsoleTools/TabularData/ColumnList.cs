@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// </summary>
     public class ColumnList : IEnumerable<Column>
     {
-        private readonly Table parentTable;
+        private readonly DataGrid parentDataGrid;
 
         private readonly List<Column> columns = new List<Column>();
 
@@ -55,11 +55,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Initializes a new instance of the <see cref="ColumnList"/> class with
         /// the table that owns it.
         /// </summary>
-        /// <param name="parentTable">The table that owns the new instance.</param>
-        public ColumnList(Table parentTable)
+        /// <param name="parentDataGrid">The table that owns the new instance.</param>
+        public ColumnList(DataGrid parentDataGrid)
         {
-            if (parentTable == null) throw new ArgumentNullException(nameof(parentTable));
-            this.parentTable = parentTable;
+            if (parentDataGrid == null) throw new ArgumentNullException(nameof(parentDataGrid));
+            this.parentDataGrid = parentDataGrid;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             if (column == null) throw new ArgumentNullException(nameof(column));
 
-            column.ParentTable = parentTable;
+            column.ParentDataGrid = parentDataGrid;
             columns.Add(column);
         }
 
@@ -85,8 +85,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 })
                 .ToList();
 
-            bool displayBorder = parentTable?.DisplayBorder ?? true;
-            BorderTemplate borderTemplate = parentTable?.BorderTemplate;
+            bool displayBorder = parentDataGrid?.DisplayBorder ?? true;
+            BorderTemplate borderTemplate = parentDataGrid?.BorderTemplate;
 
             for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
             {

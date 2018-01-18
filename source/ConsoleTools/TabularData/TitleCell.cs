@@ -123,7 +123,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (PaddingLeft.HasValue)
                 return PaddingLeft.Value;
 
-            return ParentRow?.ParentTable?.PaddingLeft ?? 0;
+            return ParentRow?.ParentDataGrid?.PaddingLeft ?? 0;
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (PaddingRight.HasValue)
                 return PaddingRight.Value;
 
-            return ParentRow?.ParentTable?.PaddingRight ?? 0;
+            return ParentRow?.ParentDataGrid?.PaddingRight ?? 0;
         }
 
         /// <summary>

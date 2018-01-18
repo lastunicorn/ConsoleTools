@@ -22,22 +22,22 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
     [TestFixture]
     public class TablePaddingTests
     {
-        private Table table;
+        private DataGrid dataGrid;
 
         [SetUp]
         public void SetUp()
         {
-            table = new Table("My Title");
+            dataGrid = new DataGrid("My Title");
 
-            table.Rows.Add(new[] { "1234567", "123456", "one two" });
-            table.Rows.Add(new[] { "1", "asd", "asas" });
-            table.Rows.Add(new[] { "12", "a", "errr" });
+            dataGrid.Rows.Add(new[] { "1234567", "123456", "one two" });
+            dataGrid.Rows.Add(new[] { "1", "asd", "asas" });
+            dataGrid.Rows.Add(new[] { "12", "a", "errr" });
         }
 
         [Test]
         public void added_a_padding_left_of_2()
         {
-            table.PaddingLeft = 2;
+            dataGrid.PaddingLeft = 2;
 
             const string expected =
 @"+-------------------------------+
@@ -49,15 +49,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+---------+----------+
 ";
 
-            Assert.That(table.PaddingLeft, Is.EqualTo(2));
-            Assert.That(table.PaddingRight, Is.EqualTo(1));
-            CustomAssert.TableRender(table, expected);
+            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(2));
+            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void added_a_padding_right_of_2()
         {
-            table.PaddingRight = 2;
+            dataGrid.PaddingRight = 2;
 
             const string expected =
 @"+-------------------------------+
@@ -69,9 +69,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+---------+----------+
 ";
 
-            Assert.That(table.PaddingLeft, Is.EqualTo(1));
-            Assert.That(table.PaddingRight, Is.EqualTo(2));
-            CustomAssert.TableRender(table, expected);
+            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.PaddingRight, Is.EqualTo(2));
+            CustomAssert.TableRender(dataGrid, expected);
         }
     }
 }

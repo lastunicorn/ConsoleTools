@@ -25,12 +25,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            Table table = new Table("DisplayBorderBetweenRows = true");
-            table.Rows.Add(new[] { "This is a multiline row:\nline one\nline two\nline three", "1\n2\n3" });
-            table.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
-            table.DisplayBorderBetweenRows = true;
+            DataGrid dataGrid = new DataGrid("DisplayBorderBetweenRows = true");
+            dataGrid.Rows.Add(new[] { "This is a multiline row:\nline one\nline two\nline three", "1\n2\n3" });
+            dataGrid.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
+            dataGrid.DisplayBorderBetweenRows = true;
 
-            table.Render();
+            dataGrid.Render();
         }
     }
 }

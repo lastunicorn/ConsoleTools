@@ -35,9 +35,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public TitleCell TitleCell { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Table"/> instance that contains the current title.
+        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current title.
         /// </summary>
-        public Table ParentTable { get; internal set; }
+        public DataGrid ParentDataGrid { get; internal set; }
 
         /// <summary>
         /// Gets or sets the content of the current instance.
@@ -116,7 +116,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Size CalculateDimensions()
         {
-            bool displayBorder = ParentTable?.DisplayBorder ?? false;
+            bool displayBorder = ParentDataGrid?.DisplayBorder ?? false;
 
             int titleRowWidth = 0;
 
@@ -139,9 +139,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="minWidth">The minimum width into which the current instance must be rendered.</param>
         public void Render(ITablePrinter tablePrinter, int minWidth)
         {
-            BorderTemplate borderTemplate = ParentTable?.BorderTemplate;
+            BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
 
-            bool displayBorder = borderTemplate != null && ParentTable?.DisplayBorder == true;
+            bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
 
             int cellInnerWidth = displayBorder
                 ? minWidth - 2

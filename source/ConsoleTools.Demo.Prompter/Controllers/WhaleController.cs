@@ -34,21 +34,21 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             WhaleProvider whaleProvider = new WhaleProvider();
             IEnumerable<Whale> whales = whaleProvider.CreateWhales();
 
-            Table table = CreateTable(whales);
-            CustomConsole.WriteLine(table.ToString());
+            DataGrid dataGrid = CreateTable(whales);
+            CustomConsole.WriteLine(dataGrid.ToString());
         }
 
-        private static Table CreateTable(IEnumerable<Whale> whales)
+        private static DataGrid CreateTable(IEnumerable<Whale> whales)
         {
-            Table table = new Table("Whales");
+            DataGrid dataGrid = new DataGrid("Whales");
 
-            table.Columns.Add(new Column("Name"));
-            table.Columns.Add(new Column("Population"));
-            table.Columns.Add(new Column("Weight"));
+            dataGrid.Columns.Add(new Column("Name"));
+            dataGrid.Columns.Add(new Column("Population"));
+            dataGrid.Columns.Add(new Column("Weight"));
 
             foreach (Whale whale in whales)
             {
-                table.Rows.Add(new[]
+                dataGrid.Rows.Add(new[]
                 {
                     whale.Name,
                     whale.Count,
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
                 });
             }
 
-            return table;
+            return dataGrid;
         }
     }
 }

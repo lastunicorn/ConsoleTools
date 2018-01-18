@@ -25,43 +25,43 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void TestConstructor1()
         {
-            Table table = new Table();
+            DataGrid dataGrid = new DataGrid();
 
-            Assert.That(table.Title, Is.EqualTo(MultilineText.Empty));
-            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(table.PaddingLeft, Is.EqualTo(1));
-            Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DisplayBorderBetweenRows, Is.False);
-            Assert.That(table.Columns.Count, Is.EqualTo(0));
-            Assert.That(table.Rows.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Title, Is.EqualTo(MultilineText.Empty));
+            Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void TestConstructor2()
         {
-            Table table = new Table("My Title");
+            DataGrid dataGrid = new DataGrid("My Title");
 
-            Assert.That(table.Title, Is.EqualTo(new MultilineText("My Title")));
-            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(table.PaddingLeft, Is.EqualTo(1));
-            Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DisplayBorderBetweenRows, Is.False);
-            Assert.That(table.Columns.Count, Is.EqualTo(0));
-            Assert.That(table.Rows.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
+            Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void TestConstructor3()
         {
-            Table table = new Table(new MultilineText("My Title"));
+            DataGrid dataGrid = new DataGrid(new MultilineText("My Title"));
 
-            Assert.That(table.Title, Is.EqualTo(new MultilineText("My Title")));
-            Assert.That(table.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(table.PaddingLeft, Is.EqualTo(1));
-            Assert.That(table.PaddingRight, Is.EqualTo(1));
-            Assert.That(table.DisplayBorderBetweenRows, Is.False);
-            Assert.That(table.Columns.Count, Is.EqualTo(0));
-            Assert.That(table.Rows.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
+            Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
+            Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }
     }
 }

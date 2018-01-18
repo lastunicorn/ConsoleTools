@@ -32,45 +32,45 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         private static void DisplayDefaultPaddingExample()
         {
-            Table table = new Table("Default Padding is 1");
+            DataGrid dataGrid = new DataGrid("Default Padding is 1");
 
-            table.Rows.Add(new[] { "First item", 1.ToString() });
-            table.Rows.Add(new[] { "Second item", 2.ToString() });
-            table.Rows.Add(new[] { "Third item", 3.ToString() });
-            table.Rows.Add(new[] { "Forth item", 4.ToString() });
-            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
+            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
+            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
+            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
+            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
-            table.Render();
+            dataGrid.Render();
         }
 
         private static void DisplayPaddingLeftExample()
         {
-            Table table = new Table("Padding left = 3");
+            DataGrid dataGrid = new DataGrid("Padding left = 3");
 
-            table.Rows.Add(new[] { "First item", 1.ToString() });
-            table.Rows.Add(new[] { "Second item", 2.ToString() });
-            table.Rows.Add(new[] { "Third item", 3.ToString() });
-            table.Rows.Add(new[] { "Forth item", 4.ToString() });
-            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
+            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
+            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
+            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
+            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
-            table.PaddingLeft = 3;
+            dataGrid.PaddingLeft = 3;
 
-            table.Render();
+            dataGrid.Render();
         }
 
         private static void DisplayPaddingRightExample()
         {
-            Table table = new Table("Padding right = 3");
+            DataGrid dataGrid = new DataGrid("Padding right = 3");
 
-            table.Rows.Add(new[] { "First item", 1.ToString() });
-            table.Rows.Add(new[] { "Second item", 2.ToString() });
-            table.Rows.Add(new[] { "Third item", 3.ToString() });
-            table.Rows.Add(new[] { "Forth item", 4.ToString() });
-            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
+            dataGrid.Rows.Add(new[] { "First item", 1.ToString() });
+            dataGrid.Rows.Add(new[] { "Second item", 2.ToString() });
+            dataGrid.Rows.Add(new[] { "Third item", 3.ToString() });
+            dataGrid.Rows.Add(new[] { "Forth item", 4.ToString() });
+            dataGrid.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
-            table.PaddingRight = 3;
+            dataGrid.PaddingRight = 3;
 
-            table.Render();
+            dataGrid.Render();
         }
     }
 }

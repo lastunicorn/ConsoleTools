@@ -1,8 +1,8 @@
-Note: Please use one of the following templates (Issue Request or Bug Report) and delete the other.
+Note: Please use one of the following templates (Feature Request or Bug Report) and delete the other.
 
 --------------------------------------------------
 
-## Issue request
+## Feature request
 
 ### Description
 ### Version (Library version that you are using)

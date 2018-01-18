@@ -23,13 +23,18 @@ Row (TitleRow) - Create:
 - MultilineText
 - object
 
-----------------------------------------------------------------------------------------------------
-
 Row (DataRow) - AddCell:
 - DataCell
 - string
 - MultilineText
 - object
+
+Row List (DataRowList) - Add:
+- DataRow
+- DataCell[]
+- string[]
+- MultilineText[]
+- object[]
 
 ----------------------------------------------------------------------------------------------------
 
@@ -37,6 +42,9 @@ Column - Create:
 - string
 - MultilineText
 - object
+
+Column List (ColumnList) - Add:
+- Column
 
 ----------------------------------------------------------------------------------------------------
 
@@ -46,10 +54,3 @@ Table - Create:
 - object
 
 ----------------------------------------------------------------------------------------------------
-
-Table - AddRow:
-- DataRow
-- DataCell[]
-- string[]
-- MultilineText[]
-- object[]

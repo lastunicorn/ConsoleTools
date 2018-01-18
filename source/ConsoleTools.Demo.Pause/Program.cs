@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Globalization;
 using System.Threading;
 
 namespace DustInTheWind.ConsoleTools.Demo.Pause
@@ -24,48 +23,18 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
     {
         private static void Main()
         {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr");
-
             DisplayApplicationHeader();
-            
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine();
+
+            WriteDummyText();
             DisplayDefaultPause();
 
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine();
+            WriteDummyText();
             DisplayPPause();
 
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine();
+            WriteDummyText();
             DisplayErasablePause();
 
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine();
+            WriteDummyText();
 
             ConsoleTools.Pause.QuickPause("The demo is ended. Press any key to exit...");
         }
@@ -74,6 +43,18 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
         {
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Pause");
             CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLine();
+        }
+
+        private static void WriteDummyText()
+        {
+            Thread.Sleep(500);
+            CustomConsole.WriteLine("some text");
+            Thread.Sleep(500);
+            CustomConsole.WriteLine("some text");
+            Thread.Sleep(500);
+            CustomConsole.WriteLine("some text");
+            Thread.Sleep(500);
             CustomConsole.WriteLine();
         }
 

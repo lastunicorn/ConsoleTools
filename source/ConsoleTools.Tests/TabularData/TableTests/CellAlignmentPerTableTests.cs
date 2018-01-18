@@ -29,9 +29,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.DisplayColumnHeaders = false;
             table.CellHorizontalAlignment = HorizontalAlignment.Right;
 
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new[] { "1,0", "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add(new[] { "1,0", "1,1", "1,2" });
+            table.Rows.Add(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
 @"+-------------------------------+
@@ -62,9 +62,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Column column2 = new Column("Col 2");
             table.Columns.Add(column2);
 
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new[] { "1,0", "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add(new[] { "1,0", "1,1", "1,2" });
+            table.Rows.Add(new[] { "2,0", "2,1", "2,2" });
 
             string expected =
 @"+-------------------------------+

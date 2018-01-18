@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "My Title";
-            table.AddRow(new[] { "first line\nsecond line", "single line", "one\ntwo\nthree" });
+            table.Rows.Add("first line\nsecond line", "single line", "one\ntwo\nthree");
 
             string expected =
                 @"+-----------------------------------+

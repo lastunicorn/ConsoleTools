@@ -27,11 +27,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             Table table = new Table("If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)");
 
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.Rows.Add(new[] { "First item", 1.ToString() });
+            table.Rows.Add(new[] { "Second item", 2.ToString() });
+            table.Rows.Add(new[] { "Third item", 3.ToString() });
+            table.Rows.Add(new[] { "Forth item", 4.ToString() });
+            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
             table.Render();
         }

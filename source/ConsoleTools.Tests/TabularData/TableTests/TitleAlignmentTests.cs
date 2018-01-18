@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void by_default_title_content_is_aligned_to_left()
         {
             Table table = new Table("Title");
-            table.AddRow(new[] {"Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            table.Rows.Add(new[] {"Cell 0,0", "Cell 0,1", "Cell 0,2" });
 
             string expected =
 @"+--------------------------------+
@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Default()
         {
             Table table = new Table("Title");
-            table.AddRow(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
             table.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Left()
         {
             Table table = new Table("Title");
-            table.AddRow(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
             table.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
@@ -76,7 +76,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Center()
         {
             Table table = new Table("Title");
-            table.AddRow(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
             table.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void title_alignment_Right()
         {
             Table table = new Table("Title");
-            table.AddRow(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
+            table.Rows.Add(new[] { "Cell 0,0", "Cell 0,1", "Cell 0,2" });
             table.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =

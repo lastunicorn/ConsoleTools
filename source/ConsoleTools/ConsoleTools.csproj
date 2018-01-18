@@ -120,6 +120,7 @@
     <Compile Include="TabularData\ColumnList.cs" />
     <Compile Include="TabularData\DataCellX.cs" />
     <Compile Include="TabularData\DataGridX.cs" />
+    <Compile Include="TabularData\DataRowList.cs" />
     <Compile Include="TabularData\DataRowX.cs" />
     <Compile Include="TabularData\HeaderCell.cs" />
     <Compile Include="TabularData\HeaderRowX.cs" />

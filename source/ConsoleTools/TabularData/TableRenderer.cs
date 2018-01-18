@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public ColumnList Columns { get; set; }
         public bool DisplayColumnHeaders { get; set; }
 
-        public List<DataRow> Rows { get; set; }
+        public DataRowList Rows { get; set; }
 
         public BorderTemplate BorderTemplate { get; set; }
         public bool DisplayBorder { get; set; }

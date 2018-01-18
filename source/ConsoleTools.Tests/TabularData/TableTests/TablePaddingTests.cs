@@ -29,9 +29,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             table = new Table("My Title");
 
-            table.AddRow(new[] { "1234567", "123456", "one two" });
-            table.AddRow(new[] { "1", "asd", "asas" });
-            table.AddRow(new[] { "12", "a", "errr" });
+            table.Rows.Add(new[] { "1234567", "123456", "one two" });
+            table.Rows.Add(new[] { "1", "asd", "asas" });
+            table.Rows.Add(new[] { "12", "a", "errr" });
         }
 
         [Test]

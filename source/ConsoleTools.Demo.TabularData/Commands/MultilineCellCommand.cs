@@ -27,8 +27,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             Table table = new Table("Multiline Cell Content");
 
-            table.AddRow(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
-            table.AddRow(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
+            table.Rows.Add(new[] { "You may write also the\rcontent of the table\non muiltiple lines", "1\n2\n3" });
+            table.Rows.Add(new[] { "And this is another\nmuiltiline row", "1\n2\n3" });
 
             table.Render();
         }

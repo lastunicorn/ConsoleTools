@@ -34,11 +34,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             Table table = new Table("Default Padding is 1");
 
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.Rows.Add(new[] { "First item", 1.ToString() });
+            table.Rows.Add(new[] { "Second item", 2.ToString() });
+            table.Rows.Add(new[] { "Third item", 3.ToString() });
+            table.Rows.Add(new[] { "Forth item", 4.ToString() });
+            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
             table.Render();
         }
@@ -47,11 +47,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             Table table = new Table("Padding left = 3");
 
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.Rows.Add(new[] { "First item", 1.ToString() });
+            table.Rows.Add(new[] { "Second item", 2.ToString() });
+            table.Rows.Add(new[] { "Third item", 3.ToString() });
+            table.Rows.Add(new[] { "Forth item", 4.ToString() });
+            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
             table.PaddingLeft = 3;
 
@@ -62,11 +62,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             Table table = new Table("Padding right = 3");
 
-            table.AddRow(new[] { "First item", 1.ToString() });
-            table.AddRow(new[] { "Second item", 2.ToString() });
-            table.AddRow(new[] { "Third item", 3.ToString() });
-            table.AddRow(new[] { "Forth item", 4.ToString() });
-            table.AddRow(new[] { "Fifth item", 5.ToString() });
+            table.Rows.Add(new[] { "First item", 1.ToString() });
+            table.Rows.Add(new[] { "Second item", 2.ToString() });
+            table.Rows.Add(new[] { "Third item", 3.ToString() });
+            table.Rows.Add(new[] { "Forth item", 4.ToString() });
+            table.Rows.Add(new[] { "Fifth item", 5.ToString() });
 
             table.PaddingRight = 3;
 

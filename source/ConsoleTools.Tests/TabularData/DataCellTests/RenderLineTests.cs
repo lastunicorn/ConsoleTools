@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         {
             Table table = new Table();
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 PaddingLeft = 2,
@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             };
             table.Columns.Add(column);
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
@@ -89,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingLeft = 2,
                 PaddingRight = 0
             };
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
 
@@ -107,7 +107,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingRight = 0
             };
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
             
@@ -121,7 +121,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         {
             Table table = new Table();
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right,
@@ -146,7 +146,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             };
             table.Columns.Add(column);
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -167,7 +167,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingLeft = 0,
                 PaddingRight = 2
             };
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -188,7 +188,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingRight = 2
             };
             DataRow row = new DataRow();
-            table.AddRow(row);
+            table.Rows.Add(row);
             DataCell cell = new DataCell("text")
             {
                 HorizontalAlignment = HorizontalAlignment.Right

@@ -27,9 +27,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             Table table = new Table();
             table.Title = "My Title";
-            table.AddRow(new[] { "one", "ichi", "eins" });
-            table.AddRow(new[] { "two", "ni", "zwei" });
-            table.AddRow(new[] { "three", "san", "drei" });
+            table.Rows.Add(new[] { "one", "ichi", "eins" });
+            table.Rows.Add(new[] { "two", "ni", "zwei" });
+            table.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"+---------------------+
@@ -51,9 +51,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             table.Title = "My Title";
             table.DisplayBorderBetweenRows = true;
 
-            table.AddRow(new[] { "one", "ichi", "eins" });
-            table.AddRow(new[] { "two", "ni", "zwei" });
-            table.AddRow(new[] { "three", "san", "drei" });
+            table.Rows.Add(new[] { "one", "ichi", "eins" });
+            table.Rows.Add(new[] { "two", "ni", "zwei" });
+            table.Rows.Add(new[] { "three", "san", "drei" });
 
             string expected =
 @"+---------------------+

@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void by_default_cell_content_is_aligned_to_left()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
 
             string expected =
 @"+-------------------------------+
@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_0_1_is_alignment_Default_after_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
             table[0][1].HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_0_1_is_alignment_Left_after_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
             table[0][1].HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
@@ -76,7 +76,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_0_1_is_alignment_Center_after_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
             table[0][1].HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_0_1_is_alignment_Right_after_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
             table[0][1].HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
@@ -110,9 +110,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_1_1_is_alignment_Default_at_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
+            table.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
+            table.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+
@@ -131,9 +131,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_1_1_is_alignment_Left_at_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
+            table.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            table.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+
@@ -152,9 +152,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_1_1_is_alignment_Center_at_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
+            table.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
+            table.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+
@@ -173,9 +173,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void cell_1_1_is_alignment_Right_at_cell_creation()
         {
             Table table = new Table("This is a cell alignment test");
-            table.AddRow(new[] { "0,0", "0,1", "0,2" });
-            table.AddRow(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
-            table.AddRow(new[] { "2,0", "2,1", "2,2" });
+            table.Rows.Add("0,0", "0,1", "0,2");
+            table.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
+            table.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
 @"+-------------------------------+
@@ -196,9 +196,9 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             Table table = new Table();
             table.Title = "My Title";
 
-            table.AddRow(new[] { "1234567", "123456", "one two" });
-            table.AddRow(new[] { new DataCell("1", HorizontalAlignment.Center), new DataCell("asd", HorizontalAlignment.Center), new DataCell("asas") });
-            table.AddRow(new[] { "12", "a", "errr" });
+            table.Rows.Add("1234567", "123456", "one two");
+            table.Rows.Add(new DataCell("1", HorizontalAlignment.Center), new DataCell("asd", HorizontalAlignment.Center), new DataCell("asas"));
+            table.Rows.Add("12", "a", "errr");
 
             string expected =
 @"+----------------------------+

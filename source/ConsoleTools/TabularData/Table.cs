@@ -19,9 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-using System.Collections.Generic;
-
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     /// <summary>
@@ -77,17 +74,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// The list of rows contained by the current table.
         /// </summary>
-        private readonly List<DataRow> rows = new List<DataRow>();
-
-        /// <summary>
-        /// Gets the number of rows contained by the current instance of the <see cref="Table"/>.
-        /// </summary>
-        public int RowCount => rows.Count;
-
-        /// <summary>
-        /// Gets the number of columns contained by the current instance of the <see cref="Table"/>.
-        /// </summary>
-        public int ColumnCount => Columns.Count;
+        public DataRowList Rows { get; }
 
         /// <summary>
         /// Gets or sets the minimum width of the table.
@@ -104,7 +91,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="rowIndex">The zero-based index of the row to get.</param>
         /// <returns>The row at the specified index.</returns>
-        public DataRow this[int rowIndex] => rows[rowIndex];
+        public DataRow this[int rowIndex] => Rows[rowIndex];
 
         /// <summary>
         /// Gets the cell at the specified location.
@@ -112,7 +99,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
-        public DataCell this[int rowIndex, int columnIndex] => rows[rowIndex][columnIndex];
+        public DataCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Gets or sets a value that specifies if the borders are visible.
@@ -129,6 +116,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table()
         {
+            Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow
@@ -143,6 +131,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(string title)
         {
+            Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
@@ -157,6 +146,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(MultilineText title)
         {
+            Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
@@ -171,169 +161,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public Table(object title)
         {
+            Rows = new DataRowList(this);
             Columns = new ColumnList(this);
 
             TitleRow = new TitleRow(title)
             {
                 ParentTable = this
             };
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="row">The row to be added.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public void AddRow(DataRow row)
-        {
-            if (row == null) throw new ArgumentNullException(nameof(row));
-
-            row.ParentTable = this;
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cells">The list of cells of the new row.</param>
-        public void AddRow(IEnumerable<DataCell> cells)
-        {
-            if (cells == null) throw new ArgumentNullException(nameof(cells));
-
-            DataRow row = new DataRow(cells)
-            {
-                ParentTable = this
-            };
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cells">The list of cells of the new row.</param>
-        public void AddRow(params DataCell[] cells)
-        {
-            if (cells == null) throw new ArgumentNullException(nameof(cells));
-
-            DataRow row = new DataRow(cells)
-            {
-                ParentTable = this
-            };
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(IEnumerable<string> cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (string text in cellContents)
-                row.AddCell(new DataCell(text));
-
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(params string[] cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (string text in cellContents)
-                row.AddCell(new DataCell(text));
-
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(IEnumerable<MultilineText> cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (MultilineText text in cellContents)
-                row.AddCell(new DataCell(text));
-
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(params MultilineText[] cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (MultilineText text in cellContents)
-                row.AddCell(new DataCell(text));
-
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(IEnumerable<object> cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (object cellContent in cellContents)
-                row.AddCell(new DataCell(cellContent));
-
-            rows.Add(row);
-        }
-
-        /// <summary>
-        /// Adds a new row to the current table.
-        /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void AddRow(params object[] cellContents)
-        {
-            if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
-
-            DataRow row = new DataRow
-            {
-                ParentTable = this
-            };
-
-            foreach (object cellContent in cellContents)
-                row.AddCell(new DataCell(cellContent));
-
-            rows.Add(row);
         }
 
         /// <summary>
@@ -368,7 +202,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 TitleRow = TitleRow,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
-                Rows = rows,
+                Rows = Rows,
                 BorderTemplate = BorderTemplate,
                 DisplayBorder = DisplayBorder,
                 DrawBordersBetweenRows = DisplayBorderBetweenRows,

@@ -30,10 +30,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             table.Columns.Add(new Column("Two"));
             table.Columns.Add(new Column("Three"));
             table.Columns.Add(new Column("Four"));
-            table.AddRow(new[] { "1,1", "1,2", "1,3", "1,4" });
-            table.AddRow(new[] { "2,1", "2,2", "2,3", "2,4" });
-            table.AddRow(new[] { "3,1", "3,2", "3,3", "3,4" });
-            table.AddRow(new[] { "4,1", "4,2", "4,3", "4,4" });
+            table.Rows.Add("1,1", "1,2", "1,3", "1,4");
+            table.Rows.Add("2,1", "2,2", "2,3", "2,4");
+            table.Rows.Add("3,1", "3,2", "3,3", "3,4");
+            table.Rows.Add("4,1", "4,2", "4,3", "4,4");
             table.DisplayBorderBetweenRows = true;
             table.DisplayColumnHeaders = true;
             table.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;

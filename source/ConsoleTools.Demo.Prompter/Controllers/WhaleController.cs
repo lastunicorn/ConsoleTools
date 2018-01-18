@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
             foreach (Whale whale in whales)
             {
-                table.AddRow(new[]
+                table.Rows.Add(new[]
                 {
                     whale.Name,
                     whale.Count,

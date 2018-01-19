@@ -34,7 +34,7 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\source\ConsoleTools\bin\Release-Net461\*" "ConsoleTools\lib\Net461"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*" "ConsoleTools\lib\Net461"
 if %errorlevel% neq 0 goto :error
 
 echo.
@@ -42,7 +42,7 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\source\ConsoleTools\bin\Release-Net45\*" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*" "ConsoleTools\lib\Net45"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------

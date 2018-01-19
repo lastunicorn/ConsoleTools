@@ -5,3 +5,4 @@ obj/
 packages/
 *.TMP
 *.nupkg
+ExternalLibraries/

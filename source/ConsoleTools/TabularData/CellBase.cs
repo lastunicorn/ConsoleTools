@@ -44,6 +44,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
+        public int Height => Content?.Size.Height ?? 0;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// empty content.
@@ -91,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Returns the size of the cell, including the padding.
         /// </summary>
-        public Size CalculateDimensions()
+        public Size CalculatePreferedSize()
         {
             int cellWidth;
             int cellHeight;
@@ -143,9 +145,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             List<string> lines = new List<string>();
 
-            int minLineCount = Math.Max(Content.Size.Height, minHeight);
+            int lineCount = Math.Max(Content.Size.Height, minHeight);
 
-            for (int i = 0; i < minLineCount; i++)
+            for (int i = 0; i < lineCount; i++)
             {
                 string line = RenderLine(i, minWidth);
                 lines.Add(line);

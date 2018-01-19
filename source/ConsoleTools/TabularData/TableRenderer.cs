@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void Render(ITablePrinter tablePrinter)
         {
-            CalculateTableDimensions();
+            BuildXObject();
 
             if (DisplayBorder)
                 DrawTableTopBorder(tablePrinter);
@@ -82,14 +82,14 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DrawDataRows(tablePrinter);
         }
 
-        private void CalculateTableDimensions()
+        private void BuildXObject()
         {
             dataGridX = new DataGridX(DisplayBorder)
             {
                 MinWidth = MinWidth
             };
 
-            bool isTitleVisible = TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0 && DisplayTitle;
+            bool isTitleVisible = DisplayTitle && TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0;
             if (isTitleVisible)
                 dataGridX.AddTitleRow(TitleRow);
 
@@ -97,12 +97,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (isColumnHeaderRowVisible)
                 dataGridX.AddHeaderRow(Columns);
 
-            bool areDataRowsVisible = Rows.Count > 0;
-            if (areDataRowsVisible)
-            {
-                foreach (DataRow row in Rows)
-                    dataGridX.AddDataRow(row);
-            }
+            foreach (DataRow row in Rows)
+                dataGridX.AddDataRow(row);
 
             dataGridX.MakeFinalAdjustments();
         }
@@ -171,10 +167,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         private void DrawDataRows(ITablePrinter tablePrinter)
         {
             List<int> cellWidths = dataGridX.ColumnsWidths;
+            List<int> rowsHeights = dataGridX.RowsHeights;
 
             for (int rowIndex = 0; rowIndex < Rows.Count; rowIndex++)
             {
-                int rowHeight = dataGridX.RowsHeights[rowIndex];
+                int rowHeight = rowsHeights[rowIndex];
 
                 DataRow row = Rows[rowIndex];
                 row.Render(tablePrinter, cellWidths, rowHeight);

@@ -45,10 +45,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets the <see cref="Column"/> at the specified index.
         /// If the index is outside of the bounds of the list, <c>null</c> is returned.
         /// </summary>
-        /// <param name="columnIndex">The index of the <see cref="Column"/> to return.</param>
+        /// <param name="index">The index of the <see cref="Column"/> to return.</param>
         /// <returns>The <see cref="Column"/> at the specified index.</returns>
-        public Column this[int columnIndex] => columnIndex >= 0 && columnIndex < columns.Count
-                ? columns[columnIndex]
+        public Column this[int index] => index >= 0 && index < columns.Count
+                ? columns[index]
                 : null;
         
         /// <summary>
@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     string content = cellContents[columnIndex][headerLineIndex];
                     tablePrinter.WriteHeader(content);
 
-                    // Write intermediate and right borders.
+                    // Write intermediate or right border.
                     if (displayBorder && borderTemplate != null)
                     {
                         char cellBorderRight = columnIndex < columns.Count - 1

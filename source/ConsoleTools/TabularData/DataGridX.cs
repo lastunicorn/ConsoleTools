@@ -119,7 +119,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             while (ColumnsWidths.Count <= j)
                 ColumnsWidths.Add(0);
 
-            Size cellSize = column.HeaderCell.CalculateDimensions();
+            Size cellSize = column.HeaderCell.CalculatePreferedSize();
 
             if (cellSize.Width > ColumnsWidths[j])
             {
@@ -155,7 +155,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             while (ColumnsWidths.Count <= j)
                 ColumnsWidths.Add(0);
 
-            Size cellSize = dataCell.CalculateDimensions();
+            Size cellSize = dataCell.CalculatePreferedSize();
 
             if (cellSize.Width > ColumnsWidths[j])
             {

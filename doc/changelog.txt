@@ -19,6 +19,8 @@ ver 0.3.0
 - DataGrid: Exposed the Rows list.
 - DataGrid: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
 - Console MVC: Removed. It was moved in its own project named ConsoleMvc.
+- DataGrid [performance]: Fixed performance issue introduced in ver 0.2.0
+- DataGrid: Created a StreamTablePrinter that writes the table into a Stream.
 
 ver 0.2.0
 ---------

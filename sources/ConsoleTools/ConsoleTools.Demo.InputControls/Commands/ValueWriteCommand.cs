@@ -26,13 +26,24 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            ValueOutput valueOutput = new ValueOutput();
+            StringOutput firstNameOutput = new StringOutput("First Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
+            StringOutput lastNameOutput = new StringOutput("Last Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
+            Int32Output ageOutput = new Int32Output("Age:") { LabelForegroundColor = ConsoleColor.DarkGreen };
+            
+            firstNameOutput.Value = "Joe";
+            firstNameOutput.Display();
 
-            valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
+            lastNameOutput.Value = "Doe";
+            lastNameOutput.Display();
 
-            valueOutput.Write("First Name:", "John");
-            valueOutput.Write("Last Name:", "Doe");
-            valueOutput.Write("Age:", 25);
+            ageOutput.Value = 25;
+            ageOutput.Display();
+
+            //valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
+
+            //valueOutput.Write("First Name:", "John");
+            //valueOutput.Write("Last Name:", "Doe");
+            //valueOutput.Write("Age:", 25);
         }
     }
 }

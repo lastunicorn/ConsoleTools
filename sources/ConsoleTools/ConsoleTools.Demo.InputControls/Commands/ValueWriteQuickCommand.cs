@@ -25,9 +25,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            ValueOutput.QuickWrite("First Name:", "John");
-            ValueOutput.QuickWrite("Last Name:", "Doe");
-            ValueOutput.QuickWrite("Age:", 25);
+            StringOutput.QuickDisplay("First Name:", "John");
+            StringOutput.QuickDisplay("Last Name:", "Doe");
+            Int32Output.QuickDisplay("Age:", 25);
+
+            // or
+
+            //ValueOutput<string>.QuickDisplay("First Name:", "John");
+            //ValueOutput<string>.QuickDisplay("Last Name:", "Doe");
+            //ValueOutput<int>.QuickDisplay("Age:", 25);
         }
     }
 }

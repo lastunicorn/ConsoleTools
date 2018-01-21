@@ -28,18 +28,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         {
             string[] colors = Enum.GetNames(typeof(ConsoleColor));
 
-            DisplayColorsQuick(colors);
-            // or ...
-            // DisplayColors(colors);
-        }
-
-        /// <summary>
-        /// Using the static method <see cref="ListOutput.QuickWrite{T}"/> falls back
-        /// to the default properties for colors, bullet, spaces, etc.
-        /// </summary>
-        private static void DisplayColorsQuick(string[] colors)
-        {
-            ListOutput.QuickWrite("Colors:", colors);
+            DisplayColors(colors);
         }
 
         /// <summary>
@@ -47,13 +36,19 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// </summary>
         private static void DisplayColors(string[] colors)
         {
-            ListOutput colorsOutput = new ListOutput();
+            ListOutput<string> colorsOutput = new ListOutput<string>
+            {
+                Label = "Colors:",
+                Values = colors,
+                Bullet = "#",
+                LabelForegroundColor = ConsoleColor.Cyan,
+                MarginTop = 2,
+                MarginBottom = 2
+                // etc...
+            };
 
-            colorsOutput.Bullet = "#";
-            colorsOutput.LabelForegroundColor = ConsoleColor.Cyan;
-            // etc...
 
-            colorsOutput.Write("Colors:", colors);
+            colorsOutput.Display();
         }
     }
 }

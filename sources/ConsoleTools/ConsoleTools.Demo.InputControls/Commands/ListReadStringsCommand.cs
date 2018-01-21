@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine("  to adjust different properties like the item's bullet and the label's color.");
             CustomConsole.WriteLine();
 
-            List<string> beverages = ReadBeverages();
+            IEnumerable<string> beverages = ReadBeverages();
 
             CustomConsole.WriteLine();
 
@@ -45,15 +45,18 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// <summary>
         /// By creating an instance of the <see cref="ListInput{T}"/>, additional properties can be set.
         /// </summary>
-        private static List<string> ReadBeverages()
+        private static IEnumerable<string> ReadBeverages()
         {
-            ListInput<string> beveragesInput = new ListInput<string>("What are your prefered beverages?");
+            ListInput<string> beveragesInput = new ListInput<string>
+            {
+                Label = "What are your prefered beverages?",
+                Bullet = "#",
+                LabelForegroundColor = ConsoleColor.Cyan
+                // etc...
+            };
 
-            beveragesInput.Bullet = "#";
-            beveragesInput.LabelForegroundColor = ConsoleColor.Cyan;
-            // etc...
-
-            return beveragesInput.Read();
+            beveragesInput.Display();
+            return beveragesInput.Values;
         }
     }
 }

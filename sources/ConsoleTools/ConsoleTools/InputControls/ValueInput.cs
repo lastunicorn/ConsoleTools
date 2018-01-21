@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class ValueInput<T>
+    public class ValueInput<T> : Control
     {
         private readonly Label labelControl = new Label
         {
@@ -40,6 +40,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// the default value (<see cref="DefaultValue"/> property).
         /// </summary>
         public string Label { get; set; }
+
+        /// <summary>
+        /// Gets the value read from the console.
+        /// </summary>
+        public T Value { get; private set; }
 
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
@@ -120,8 +125,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Displays the label and waits for the user to provide a value.
         /// </summary>
-        /// <returns>The value read from the console.</returns>
-        public T Read()
+        protected override void OnDisplay()
         {
             while (true)
             {
@@ -144,12 +148,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
                             Console.WriteLine(DefaultValue);
                     }
 
-                    return DefaultValue;
+                    Value = DefaultValue;
+                    return;
                 }
 
                 try
                 {
-                    return ConvertRawValue(rawValue);
+                    Value = ConvertRawValue(rawValue);
+                    return;
                 }
                 catch
                 {
@@ -178,9 +184,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
-        public static T QuickRead(string label)
+        public static T QuickDisplay(string label)
         {
-            return new ValueInput<T>(label).Read();
+            ValueInput<T> valueInput = new ValueInput<T>(label);
+            valueInput.Display();
+            return valueInput.Value;
         }
     }
 }

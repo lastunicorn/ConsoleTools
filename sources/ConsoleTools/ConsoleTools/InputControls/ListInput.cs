@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Reads a list of values from the console.
     /// </summary>
-    public class ListInput<T>
+    public class ListInput<T> : Control
     {
         private readonly Label labelControl = new Label
         {
@@ -37,10 +37,17 @@ namespace DustInTheWind.ConsoleTools.InputControls
             ForegroundColor = CustomConsole.EmphasiesColor
         };
 
+        private List<T> values;
+
         /// <summary>
         /// Gets or sets the label text to be displayed before the user types the values.
         /// </summary>
         public string Label { get; set; }
+
+        /// <summary>
+        /// Gets the list of values read from the console.
+        /// </summary>
+        public IReadOnlyList<T> Values => values.AsReadOnly();
 
         /// <summary>
         /// Gets or sets the foreground color used to display the label.
@@ -110,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// The control reads values until the user inserts an empty string.
         /// </summary>
         /// <returns>The list with the values provided by the user.</returns>
-        public List<T> Read()
+        protected override void OnDisplay()
         {
             if (Label != null)
             {
@@ -119,12 +126,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 CustomConsole.WriteLine();
             }
 
-            return ReadAllValues();
+            ReadAllValues();
         }
 
-        private List<T> ReadAllValues()
+        private void ReadAllValues()
         {
-            List<T> values = new List<T>();
+            values = new List<T>();
 
             string leftpart = BuildItemLeftPart();
 
@@ -155,10 +162,8 @@ namespace DustInTheWind.ConsoleTools.InputControls
                     CustomConsole.WriteLineError(TypeConversionErrorMessage, typeof(T));
                 }
             }
-
-            return values;
         }
-        
+
         private T ConvertRawValue(string value)
         {
             return CustomParser == null
@@ -195,9 +200,11 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
-        public static List<T> QuickRead(string label = null)
+        public static List<T> QuickDisplay(string label = null)
         {
-            return new ListInput<T>(label).Read();
+            ListInput<T> listInput = new ListInput<T>(label);
+            listInput.Display();
+            return listInput.values;
         }
     }
 }

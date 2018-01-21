@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 new LabelMenuItem
                 {
                     Text = "Value Read - Number",
-                    Command = new ValueReadStringCommand()
+                    Command = new ValueReadNumberCommand()
                 },
                 new LabelMenuItem
                 {
@@ -128,8 +128,14 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
                 new LabelMenuItem
                 {
-                    Text = "List Write",
+                    Text = "List Write - Custom",
                     Command = new ListWriteCommand()
+                },
+
+                new LabelMenuItem
+                {
+                    Text = "List Write - Quick (static method)",
+                    Command = new ListWriteQuickCommand()
                 },
 
                 new SeparatorMenuItem(),

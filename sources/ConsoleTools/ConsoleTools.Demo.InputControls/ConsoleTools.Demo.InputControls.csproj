@@ -58,6 +58,7 @@
     <Compile Include="Commands\ListReadNumbersCommand.cs" />
     <Compile Include="Commands\ListReadQuickCommand.cs" />
     <Compile Include="Commands\ListWriteCommand.cs" />
+    <Compile Include="Commands\ListWriteQuickCommand.cs" />
     <Compile Include="Commands\ValueReadCommand.cs" />
     <Compile Include="Commands\ValueReadNumberCommand.cs" />
     <Compile Include="Commands\ValueReadQuickCommand.cs" />

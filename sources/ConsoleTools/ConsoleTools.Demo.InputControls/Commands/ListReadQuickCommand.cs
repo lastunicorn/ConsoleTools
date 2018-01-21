@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         {
             CustomConsole.WriteLine();
 
-            List<string> beverages = ReadBeveragesQuick();
+            IEnumerable<string> beverages = ReadBeveragesQuick();
 
             CustomConsole.WriteLine();
 
@@ -37,12 +37,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListInput{T}.QuickRead"/> falls back
+        /// Using the static method <see cref="ListInput{T}.QuickDisplay"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
-        private static List<string> ReadBeveragesQuick()
+        private static IEnumerable<string> ReadBeveragesQuick()
         {
-            return ListInput<string>.QuickRead("What are your prefered beverages?");
+            return ListInput<string>.QuickDisplay("What are your prefered beverages?");
         }
     }
 }

@@ -26,12 +26,23 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Displays a value to the console.
     /// </summary>
-    public class ValueOutput
+    /// <typeparam name="T">The type of the value that is displayed to the user.</typeparam>
+    public class ValueOutput<T> : Control
     {
         private readonly Label labelControl = new Label
         {
             ForegroundColor = CustomConsole.EmphasiesColor
         };
+
+        /// <summary>
+        /// Gets or sets the label text to be displayed in front of the value.
+        /// </summary>
+        public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value that needs to be displayed.
+        /// </summary>
+        public T Value { get; set; }
 
         /// <summary>
         /// Gets or sets the amount of space to be displayed between the label and the value.
@@ -61,25 +72,47 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Writes a value to the Console output.
+        /// Initializes a new instance of the <see cref="ValueOutput{T}"/> class.
         /// </summary>
-        public void Write<T>(string label, T value)
+        public ValueOutput()
         {
-            labelControl.Text = label;
-            labelControl.Display();
-
-            CustomConsole.WriteLine(value);
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueOutput"/> with default configuration.
+        /// Initializes a new instance of the <see cref="ValueOutput{T}"/> class with
+        /// the label to be displayed in front of the value.
+        /// </summary>
+        /// <param name="label">The label to be displayed in front of the value.</param>
+        public ValueOutput(string label)
+        {
+            Label = label;
+        }
+
+        /// <summary>
+        /// Writes a value to the Console output.
+        /// </summary>
+        protected override void OnDisplay()
+        {
+            labelControl.Text = Label;
+            labelControl.Display();
+
+            CustomConsole.WriteLine(Value);
+        }
+
+        /// <summary>
+        /// Reads a value from the console using a <see cref="ValueOutput{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="value">The value to be displayed.</param>
         /// <returns>The value read from the console.</returns>
-        public static void QuickWrite<T>(string label, T value)
+        public static void QuickDisplay(string label, T value)
         {
-            new ValueOutput().Write(label, value);
+            ValueOutput<T> valueOutput = new ValueOutput<T>
+            {
+                Label = label,
+                Value = value
+            };
+            valueOutput.Display();
         }
     }
 }

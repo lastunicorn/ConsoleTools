@@ -28,12 +28,22 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Displays a list of values to the console.
     /// </summary>
-    public class ListOutput
+    public class ListOutput<T> : Control
     {
         private readonly Label labelControl = new Label
         {
             ForegroundColor = CustomConsole.EmphasiesColor
         };
+
+        /// <summary>
+        /// Gets or sets the label text to be displayed before the list of values.
+        /// </summary>
+        public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of values that needs to be displayed to the user.
+        /// </summary>
+        public IEnumerable<T> Values { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color used to display the label.
@@ -69,22 +79,37 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public int SpaceAfterBullet { get; set; } = 1;
 
         /// <summary>
-        /// Writes the label and the specifid list of values to the console.
+        /// Initializes a new instance of the <see cref="ListOutput{T}"/> class.
         /// </summary>
-        /// <param name="label">The label text to be displayed before the list.</param>
-        /// <param name="items">The list of items to be displayed.</param>
-        public void Write<T>(string label, IEnumerable<T> items)
+        public ListOutput()
         {
-            if (label != null)
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListOutput{T}"/> class with
+        /// the label text to be displayed before the list of values.
+        /// </summary>
+        /// <param name="label">The label text to be displayed before the list of values.</param>
+        public ListOutput(string label)
+        {
+            Label = label;
+        }
+
+        /// <summary>
+        /// Writes the label and the list of values to the console.
+        /// </summary>
+        protected override void OnDisplay()
+        {
+            if (Label != null)
             {
-                labelControl.Text = label;
+                labelControl.Text = Label;
                 labelControl.Display();
                 CustomConsole.WriteLine();
             }
 
             string leftpart = BuildItemLeftPart();
 
-            foreach (T value in items)
+            foreach (T value in Values)
             {
                 CustomConsole.Write(leftpart);
                 CustomConsole.WriteLine(value);
@@ -116,14 +141,19 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListOutput"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ListOutput{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="values">The list of values to be displayed.</param>
         /// <returns>The value read from the console.</returns>
-        public static void QuickWrite<T>(string label, IEnumerable<T> values)
+        public static void QuickDisplay(string label, IEnumerable<T> values)
         {
-            new ListOutput().Write(label, values);
+            ListOutput<T> listOutput = new ListOutput<T>
+            {
+                Label = label,
+                Values = values
+            };
+            listOutput.Display();
         }
     }
 }

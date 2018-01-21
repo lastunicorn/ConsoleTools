@@ -20,38 +20,24 @@ using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 {
-    internal class ValueReadStringCommand : ICommand
+    internal class ListWriteQuickCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            RunExample();
+            string[] colors = Enum.GetNames(typeof(ConsoleColor));
+
+            DisplayColorsQuick(colors);
         }
 
         /// <summary>
-        /// This example creates instances for each input value and sets different label colors.
-        /// Each instance reads a different type of value (string, int, DateTime, float)
+        /// Using the static method <see cref="ListOutput{T}.QuickDisplay"/> falls back
+        /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
-        private static void RunExample()
+        private static void DisplayColorsQuick(string[] colors)
         {
-            // Create the input controls
-            ValueInput<string> firstNameInput = new ValueInput<string>("First Name:");
-            firstNameInput.LabelForegroundColor = ConsoleColor.Cyan;
-
-            ValueInput<string> lastNameInput = new ValueInput<string>("Last Name:");
-            lastNameInput.LabelForegroundColor = ConsoleColor.Cyan;
-
-            // Read values using the input controls
-            firstNameInput.Display();
-            string firstName = firstNameInput.Value;
-
-            lastNameInput.Display();
-            string lastName = lastNameInput.Value;
-
-            // Display th read values.
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
+            ListOutput<string>.QuickDisplay("Colors:", colors);
         }
     }
 }

@@ -28,18 +28,19 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         {
             CustomConsole.WriteLine();
 
-            List<int> beverages = ReadNumbers();
+            IEnumerable<int> numbers = ReadNumbers();
 
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Your lucky numbers: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
+            CustomConsole.WriteLineEmphasies(string.Join(", ", numbers));
         }
 
-        private static List<int> ReadNumbers()
+        private static IEnumerable<int> ReadNumbers()
         {
             ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
-            return luckyNumbersInput.Read();
+            luckyNumbersInput.Display();
+            return luckyNumbersInput.Values;
         }
     }
 }

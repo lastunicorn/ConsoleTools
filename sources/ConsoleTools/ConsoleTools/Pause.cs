@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools
 
             // Write empty space
 
-            Size size = CalculateDimensions();
+            Size size = CalculateSize();
 
             for (int i = 0; i < size.Height; i++)
                 Console.WriteLine();
@@ -117,7 +117,7 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        private Size CalculateDimensions()
+        private Size CalculateSize()
         {
             int textWidth = Text.Length < Console.BufferWidth
                 ? Text.Length

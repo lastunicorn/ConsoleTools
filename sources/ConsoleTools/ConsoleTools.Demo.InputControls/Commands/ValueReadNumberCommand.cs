@@ -40,7 +40,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             ageInput.LabelForegroundColor = ConsoleColor.DarkGreen;
 
             // Read values using the input controls
-            int age = ageInput.Read();
+            ageInput.Display();
+            int age = ageInput.Value;
 
             // Display th read values.
             CustomConsole.WriteLine();

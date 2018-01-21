@@ -23,6 +23,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools
 {
+    /// <summary>
+    /// Provided base functionality for a control.
+    /// </summary>
     public abstract class Control
     {
         /// <summary>
@@ -36,21 +39,24 @@ namespace DustInTheWind.ConsoleTools
         /// Default value: 0
         /// </summary>
         public int MarginBottom { get; set; }
-        
+
         /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
         public void Display()
         {
             WriteTopMargin();
-            
+
             OnDisplay();
 
             WriteBottomMargin();
         }
 
+        /// <summary>
+        /// When implemented by an inheritor it displays the content of the control to the console.
+        /// </summary>
         protected abstract void OnDisplay();
-        
+
         private void WriteTopMargin()
         {
             for (int i = 0; i < MarginTop; i++)

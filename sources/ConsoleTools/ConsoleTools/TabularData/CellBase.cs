@@ -135,43 +135,37 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Returns a list of text lines that represent the string representation of the cell.
-        /// Every line from the list has the same length, and the length is equal or greater than the specified minWidth value.
-        /// The number of lines in the list is equal or greater than the specified minHeight value.
+        /// Every line from the list has the same length, and the length is equal to the specified width value.
+        /// The number of lines in the list is equal to the specified height value.
         /// </summary>
-        /// <param name="minWidth">The minimum width (characters) into which the cell must be rendered.</param>
-        /// <param name="minHeight">The minimum height (lines) into which the cell must be rendered.</param>
+        /// <param name="size">
+        /// The size into which the cell must be rendered.
+        /// If the size is smaller than the content, the content is trimmed.
+        /// If the size is grater than the content, empty spaces are written.
+        /// </param>
         /// <returns></returns>
-        public List<string> Render(int minWidth, int minHeight)
+        public IEnumerable<string> Render(Size size)
         {
-            List<string> lines = new List<string>();
-
-            int lineCount = Math.Max(Content.Size.Height, minHeight);
-
-            for (int i = 0; i < lineCount; i++)
-            {
-                string line = RenderLine(i, minWidth);
-                lines.Add(line);
-            }
-
-            return lines;
+            for (int i = 0; i < size.Height; i++)
+                yield return RenderLine(i, size.Width);
         }
 
         /// <summary>
         /// Returns a single line from the cell including the paddings.
         /// </summary>
         /// <param name="lineIndex">The index of the line to be generated.</param>
-        /// <param name="minWidth">The minimum width of the cell.</param>
+        /// <param name="width">The width of the cell.</param>
         /// <returns>A <see cref="string"/> representing a single line from the cell.</returns>
-        public string RenderLine(int lineIndex, int minWidth)
+        private string RenderLine(int lineIndex, int width)
         {
             int paddingLeftLength = CalculatePaddingLeft();
             int paddingRightLength = CalculatePaddingRight();
 
-            int cellContentWidth = minWidth - paddingLeftLength - paddingRightLength;
+            int cellContentWidth = width - paddingLeftLength - paddingRightLength;
 
             bool existsContentLine = lineIndex < Content.Size.Height;
             if (!existsContentLine)
-                return new string(' ', minWidth);
+                return new string(' ', width);
 
             // Build inner content.
 

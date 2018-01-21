@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
@@ -26,20 +28,52 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         public void content_is_shorter_than_required_width()
         {
             DataCell cell = new DataCell("text");
+            Size size = new Size(10, 1);
 
-            string actual = cell.RenderLine(0, 10);
+            List<string> actual = cell.Render(size).ToList();
 
-            Assert.That(actual, Is.EqualTo("text      "));
+            Assert.That(actual, Is.EqualTo(new List<string> { "text      " }));
         }
 
         [Test]
         public void content_is_longer_than_required_width()
         {
             DataCell cell = new DataCell("some long text");
+            Size size = new Size(10, 1);
 
-            string actual = cell.RenderLine(0, 10);
+            List<string> actual = cell.Render(size).ToList();
 
-            Assert.That(actual, Is.EqualTo("some long text"));
+            Assert.That(actual, Is.EqualTo(new List<string> { "some long text" }));
+        }
+
+        [Test]
+        public void content_is_shorter_than_required_height()
+        {
+            DataCell cell = new DataCell("text");
+            Size size = new Size(10, 2);
+
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string>
+            {
+                "text      ",
+                "          "
+            }));
+        }
+
+        [Test]
+        public void content_is_longer_than_required_height()
+        {
+            DataCell cell = new DataCell(new MultilineText(new[] { "line1", "line2", "line3" }));
+            Size size = new Size(10, 2);
+
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string>
+            {
+                "line1     ",
+                "line2     "
+            }));
         }
 
         [Test]
@@ -54,10 +88,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingRight = 0
             };
             row.AddCell(cell);
+            Size size = new Size(10, 1);
 
-            string actual = cell.RenderLine(0, 10);
+            List<string> actual = cell.Render(size).ToList();
 
-            Assert.That(actual, Is.EqualTo("  text    "));
+            Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
 
         [Test]
@@ -74,10 +109,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
+            Size size = new Size(10, 1);
 
-            string actual = cell.RenderLine(0, 10);
+            List<string> actual = cell.Render(size).ToList();
 
-            Assert.That(actual, Is.EqualTo("  text    "));
+            Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
 
         [Test]
@@ -92,10 +128,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
+            Size size = new Size(10, 1);
 
-            string actual = cell.RenderLine(0, 10);
+            List<string> actual = cell.Render(size).ToList();
 
-            Assert.That(actual, Is.EqualTo("  text    "));
+            Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
 
         [Test]
@@ -110,10 +147,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
             row.AddCell(cell);
-            
-            string actual = cell.RenderLine(0, 10);
+            Size size = new Size(10, 1);
 
-            Assert.That(actual, Is.EqualTo("  text    "));
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
 
         [Test]
@@ -129,10 +167,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 PaddingRight = 2
             };
             row.AddCell(cell);
-            
-            string actual = cell.RenderLine(0, 10);
+            Size size = new Size(10, 1);
 
-            Assert.That(actual, Is.EqualTo("    text  "));
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
 
         [Test]
@@ -152,10 +191,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 HorizontalAlignment = HorizontalAlignment.Right
             };
             row.AddCell(cell);
-            
-            string actual = cell.RenderLine(0, 10);
+            Size size = new Size(10, 1);
 
-            Assert.That(actual, Is.EqualTo("    text  "));
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
 
         [Test]
@@ -173,10 +213,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 HorizontalAlignment = HorizontalAlignment.Right
             };
             row.AddCell(cell);
-            
-            string actual = cell.RenderLine(0, 10);
+            Size size = new Size(10, 1);
 
-            Assert.That(actual, Is.EqualTo("    text  "));
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
 
         [Test]
@@ -194,10 +235,11 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
                 HorizontalAlignment = HorizontalAlignment.Right
             };
             row.AddCell(cell);
-            
-            string actual = cell.RenderLine(0, 10);
+            Size size = new Size(10, 1);
 
-            Assert.That(actual, Is.EqualTo("    text  "));
+            List<string> actual = cell.Render(size).ToList();
+
+            Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
     }
 }

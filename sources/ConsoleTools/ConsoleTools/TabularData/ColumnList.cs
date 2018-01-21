@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public Column this[int index] => index >= 0 && index < columns.Count
                 ? columns[index]
                 : null;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ColumnList"/> class with
         /// the table that owns it.
@@ -80,8 +80,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
             List<List<string>> cellContents = columns
                 .Select((x, i) =>
                 {
-                    int columnWidth = cellWidths[i];
-                    return x.HeaderCell.Render(columnWidth, rowHeight);
+                    Size size = new Size(cellWidths[i], rowHeight);
+                    return x.HeaderCell.Render(size).ToList();
                 })
                 .ToList();
 

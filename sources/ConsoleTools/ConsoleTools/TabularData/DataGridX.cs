@@ -41,9 +41,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public int TotalWidth { get; private set; }
 
-        public List<int> RowsHeights => dataRowXs
-            .Select(x => x.Size.Height)
-            .ToList();
+        public List<int> RowsHeights { get; private set; } = new List<int>();
 
         /// <summary>
         /// Gets the height of the header calculated by the current instance.
@@ -203,6 +201,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             if (titleRowX?.Size.Width < TotalWidth)
                 titleRowX.Size = new Size(TotalWidth, titleRowX.Size.Height);
+
+            RowsHeights = dataRowXs
+                .Select(x => x.Size.Height)
+                .ToList();
         }
 
         public void RenderTitle(ITablePrinter tablePrinter)

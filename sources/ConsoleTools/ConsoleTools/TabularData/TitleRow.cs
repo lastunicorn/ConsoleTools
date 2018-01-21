@@ -136,18 +136,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Renders the current instance in the specified <see cref="ITablePrinter"/>.
         /// </summary>
         /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance that will display the rendered title row.</param>
-        /// <param name="minWidth">The minimum width into which the current instance must be rendered.</param>
-        public void Render(ITablePrinter tablePrinter, int minWidth)
+        /// <param name="size">The minimum width into which the current instance must be rendered.</param>
+        public void Render(ITablePrinter tablePrinter, Size size)
         {
             BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
 
             bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
+            
+            Size cellSize = displayBorder
+                ? size.InflateWidth(-2)
+                : size;
 
-            int cellInnerWidth = displayBorder
-                ? minWidth - 2
-                : minWidth;
-
-            List<string> cellContents = TitleCell.Render(cellInnerWidth, 0);
+            IEnumerable<string> cellContents = TitleCell.Render(cellSize);
 
             // Write title
             foreach (string line in cellContents)

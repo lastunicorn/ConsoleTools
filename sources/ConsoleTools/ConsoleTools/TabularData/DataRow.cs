@@ -270,13 +270,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return indexOfCell == -1 ? (int?)null : indexOfCell;
         }
 
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int minHeight)
+        public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int height)
         {
             List<List<string>> cellContents = cells
                 .Select((x, i) =>
                 {
-                    int cellWidth = cellWidths[i];
-                    return x.Render(cellWidth, minHeight);
+                    Size size = new Size(cellWidths[i], height);
+                    return x.Render(size).ToList();
                 })
                 .ToList();
 
@@ -284,7 +284,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
 
-            for (int rowLineIndex = 0; rowLineIndex < minHeight; rowLineIndex++)
+            for (int rowLineIndex = 0; rowLineIndex < height; rowLineIndex++)
             {
                 if (displayBorder)
                     tablePrinter.WriteBorder(borderTemplate.Left);

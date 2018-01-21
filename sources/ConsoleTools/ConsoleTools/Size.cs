@@ -95,5 +95,15 @@ namespace DustInTheWind.ConsoleTools
 
             return $"{{Width={widthAsString}, Height={heightAsString}}}";
         }
+
+        public Size InflateWidth(int value)
+        {
+            return new Size(Width + value, Height);
+        }
+
+        public Size InflateHeight(int value)
+        {
+            return new Size(Width, Height + value);
+        }
     }
 }

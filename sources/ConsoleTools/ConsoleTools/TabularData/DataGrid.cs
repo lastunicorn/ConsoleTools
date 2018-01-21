@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     public class DataGrid
     {
         /// <summary>
-        /// Gets the <see cref="TitleRow"/> instance that represence the title row of the table.
+        /// Gets the <see cref="TitleRow"/> instance that represents the title row of the table.
         /// </summary>
         public TitleRow TitleRow { get; }
 
@@ -83,6 +83,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Gets or sets a value that specifies if the column headers are displayed.
+        /// Default value: <c>true</c>
         /// </summary>
         public bool DisplayColumnHeaders { get; set; } = true;
 
@@ -103,6 +104,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Gets or sets a value that specifies if the borders are visible.
+        /// Default value: <c>true</c>
         /// </summary>
         public bool DisplayBorder { get; set; } = true;
 
@@ -208,9 +210,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 DrawBordersBetweenRows = DisplayBorderBetweenRows,
                 MinWidth = MinWidth,
                 DisplayColumnHeaders = DisplayColumnHeaders,
-                CellHorizontalAlignment = CellHorizontalAlignment
+                CellHorizontalAlignment = CellHorizontalAlignment,
+                TablePrinter = tablePrinter
             };
-            tableRenderer.Render(tablePrinter);
+
+            tableRenderer.Render();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void Render(ITablePrinter tablePrinter)
         {
-            TitleRow.Render(tablePrinter, Size.Width);
+            TitleRow.Render(tablePrinter, Size);
         }
     }
 }

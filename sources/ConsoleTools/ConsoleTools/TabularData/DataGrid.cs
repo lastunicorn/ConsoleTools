@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using DustInTheWind.ConsoleTools.TabularData.Printers;
+using DustInTheWind.ConsoleTools.TabularData.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
@@ -201,22 +202,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instacne used to render the data.</param>
         public void Render(ITablePrinter tablePrinter)
         {
-            TableRenderer tableRenderer = new TableRenderer
+            DataGridXBuilder dataGridXBuilder = new DataGridXBuilder
             {
+                MinWidth = MinWidth,
                 TitleRow = TitleRow,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,
-                Rows = Rows,
-                BorderTemplate = BorderTemplate,
-                DisplayBorder = DisplayBorder,
-                DrawBordersBetweenRows = DisplayBorderBetweenRows,
-                MinWidth = MinWidth,
                 DisplayColumnHeaders = DisplayColumnHeaders,
-                CellHorizontalAlignment = CellHorizontalAlignment,
-                TablePrinter = tablePrinter
+                Rows = Rows,
+                DisplayBorderBetweenRows = DisplayBorderBetweenRows,
+                BorderTemplate = BorderTemplate,
+                DisplayBorder = DisplayBorder
             };
 
-            tableRenderer.Render();
+            DataGridX dataGridX = dataGridXBuilder.Build();
+
+            dataGridX.Render(tablePrinter);
         }
     }
 }

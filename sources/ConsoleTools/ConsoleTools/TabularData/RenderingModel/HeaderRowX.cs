@@ -20,40 +20,43 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class HeaderRowX : IEnumerable<DataCellX>
+    internal class HeaderRowX
     {
         private readonly bool hasBorder;
-
-        public Size Size { get; private set; }
-
+        private readonly ColumnList columns;
         private readonly List<DataCellX> cells = new List<DataCellX>();
 
-        public ColumnList Columns { get; }
+        public Size Size { get; private set; }
 
         public HeaderRowX(ColumnList columns, bool hasBorder)
         {
             if (columns == null) throw new ArgumentNullException(nameof(columns));
 
-            Columns = columns;
+            this.columns = columns;
             this.hasBorder = hasBorder;
 
-            foreach (Column column in Columns)
+            CreateCells();
+        }
+
+        private void CreateCells()
+        {
+            foreach (Column column in columns)
             {
                 DataCellX cell = new DataCellX
                 {
                     Size = column.HeaderCell.CalculatePreferedSize()
                 };
 
-                AddCell(cell);
+                AddCellToSize(cell);
+                cells.Add(cell);
             }
         }
 
-        private void AddCell(DataCellX cell)
+        private void AddCellToSize(DataCellX cell)
         {
             int width = cells.Count == 0 && hasBorder
                 ? 1
@@ -69,14 +72,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
                 : Size.Height;
 
             Size = new Size(width, height);
-
-            cells.Add(cell);
         }
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
         {
             int rowHeight = Size.Height;
-            Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+            columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
         }
 
         public void UpdateColumnsWidths(List<int> columnsWidths)
@@ -91,16 +92,6 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
                 if (cellSize.Width > columnsWidths[i])
                     columnsWidths[i] = cellSize.Width;
             }
-        }
-
-        public IEnumerator<DataCellX> GetEnumerator()
-        {
-            return cells.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

@@ -136,7 +136,7 @@
     <Compile Include="TabularData\RenderingModel\HeaderRowX.cs" />
     <Compile Include="TabularData\RenderingModel\HeaderTopBorder.cs" />
     <Compile Include="TabularData\Printers\StreamTablePrinter.cs" />
-    <Compile Include="TabularData\TableRenderer.cs" />
+    <Compile Include="TabularData\RenderingModel\DataGridXBuilder.cs" />
     <Compile Include="CommandProviders\UserCommandParameter.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="CustomConsole.WriteAligned.DefaultColors.cs" />

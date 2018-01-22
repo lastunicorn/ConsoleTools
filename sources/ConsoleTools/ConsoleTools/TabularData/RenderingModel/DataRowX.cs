@@ -28,7 +28,6 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
     {
         private readonly bool hasBorder;
         private readonly DataRow dataRow;
-
         private readonly List<DataCellX> cells = new List<DataCellX>();
 
         public Size Size { get; private set; }
@@ -40,6 +39,13 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
             this.dataRow = dataRow;
             this.hasBorder = hasBorder;
 
+            CreateCells();
+        }
+
+        private void CreateCells()
+        {
+            cells.Clear();
+
             for (int i = 0; i < dataRow.CellCount; i++)
             {
                 DataCellX cell = new DataCellX
@@ -47,11 +53,13 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
                     Size = dataRow[i].CalculatePreferedSize()
                 };
 
-                AddCell(cell);
+                AddCellToSize(cell);
+
+                cells.Add(cell);
             }
         }
 
-        private void AddCell(DataCellX cell)
+        private void AddCellToSize(DataCellX cell)
         {
             int initialCount = cells.Count;
 
@@ -69,8 +77,6 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
                 : Size.Height;
 
             Size = new Size(width, height);
-
-            cells.Add(cell);
         }
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)

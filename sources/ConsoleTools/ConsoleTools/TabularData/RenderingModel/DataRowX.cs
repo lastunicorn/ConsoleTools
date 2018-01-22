@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
@@ -28,21 +29,31 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         private readonly bool hasBorder;
         private readonly DataRow dataRow;
 
+        private readonly List<DataCellX> cells = new List<DataCellX>();
+
         public Size Size { get; private set; }
 
-        public DataRowX(bool hasBorder, DataRow dataRow)
+        public DataRowX(DataRow dataRow, bool hasBorder)
         {
-            this.hasBorder = hasBorder;
+            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
+
             this.dataRow = dataRow;
+            this.hasBorder = hasBorder;
+
+            for (int i = 0; i < dataRow.CellCount; i++)
+            {
+                DataCellX cell = new DataCellX
+                {
+                    Size = dataRow[i].CalculatePreferedSize()
+                };
+
+                AddCell(cell);
+            }
         }
 
-        public List<DataCellX> Cells { get; } = new List<DataCellX>();
-
-        public int NextIndex => Cells.Count;
-
-        public void AddCell(DataCellX cell)
+        private void AddCell(DataCellX cell)
         {
-            int initialCount = Cells.Count;
+            int initialCount = cells.Count;
 
             int width = initialCount == 0 && hasBorder
                 ? 1
@@ -59,12 +70,26 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 
             Size = new Size(width, height);
 
-            Cells.Add(cell);
+            cells.Add(cell);
         }
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
         {
             dataRow.Render(tablePrinter, cellWidths, Size.Height);
+        }
+
+        public void UpdateColumnsWidths(List<int> columnsWidths)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                while (columnsWidths.Count <= i)
+                    columnsWidths.Add(0);
+
+                Size cellSize = cells[i].Size;
+
+                if (cellSize.Width > columnsWidths[i])
+                    columnsWidths[i] = cellSize.Width;
+            }
         }
     }
 }

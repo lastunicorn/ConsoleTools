@@ -19,11 +19,13 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class HeaderRowX
+    internal class HeaderRowX : IEnumerable<DataCellX>
     {
         private readonly bool hasBorder;
 
@@ -31,20 +33,29 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 
         private readonly List<DataCellX> cells = new List<DataCellX>();
 
-        public int NextIndex => cells.Count;
+        public ColumnList Columns { get; }
 
-        public ColumnList Columns { get; set; }
-
-        public HeaderRowX(bool hasBorder)
+        public HeaderRowX(ColumnList columns, bool hasBorder)
         {
+            if (columns == null) throw new ArgumentNullException(nameof(columns));
+
+            Columns = columns;
             this.hasBorder = hasBorder;
+
+            foreach (Column column in Columns)
+            {
+                DataCellX cell = new DataCellX
+                {
+                    Size = column.HeaderCell.CalculatePreferedSize()
+                };
+
+                AddCell(cell);
+            }
         }
 
-        public void AddCell(DataCellX cell)
+        private void AddCell(DataCellX cell)
         {
-            int initialCount = cells.Count;
-
-            int width = initialCount == 0 && hasBorder
+            int width = cells.Count == 0 && hasBorder
                 ? 1
                 : Size.Width;
 
@@ -66,6 +77,30 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         {
             int rowHeight = Size.Height;
             Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+        }
+
+        public void UpdateColumnsWidths(List<int> columnsWidths)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                while (columnsWidths.Count <= i)
+                    columnsWidths.Add(0);
+
+                Size cellSize = cells[i].Size;
+
+                if (cellSize.Width > columnsWidths[i])
+                    columnsWidths[i] = cellSize.Width;
+            }
+        }
+
+        public IEnumerator<DataCellX> GetEnumerator()
+        {
+            return cells.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

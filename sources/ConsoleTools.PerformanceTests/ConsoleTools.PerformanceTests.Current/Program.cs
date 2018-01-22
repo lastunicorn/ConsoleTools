@@ -19,6 +19,7 @@ using ConsoleTools.PerformanceTests.Common;
 using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.TabularData.Printers;
 
 namespace ConsoleTools.PerformanceTests.Current
 {

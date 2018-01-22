@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System.Linq;
 using DustInTheWind.ConsoleTools.TabularData.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.TabularData
@@ -58,9 +59,30 @@ namespace DustInTheWind.ConsoleTools.TabularData
                 MinWidth = MinWidth
             };
 
-            bool isTitleVisible = DisplayTitle && TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0;
-            bool isColumnHeaderRowVisible = DisplayColumnHeaders && Columns?.Count != 0;
+            bool isTitleVisible = DisplayTitle && TitleRow != null && TitleRow.HasContent;
+            bool isColumnHeaderRowVisible = DisplayColumnHeaders && Columns != null && Columns.Count > 0 && Columns.Any(x => !x.Header.IsEmpty);
             bool areDataRowsVisible = Rows.Count > 0;
+
+            if (isTitleVisible)
+            {
+                TitleRowX titleRowX = new TitleRowX(TitleRow);
+                dataGridX.AddTitleRow(titleRowX);
+            }
+
+            if (isColumnHeaderRowVisible)
+            {
+                HeaderRowX headerRowX = new HeaderRowX(Columns, DisplayBorder);
+                dataGridX.AddHeaderRow(headerRowX);
+            }
+
+            if (areDataRowsVisible)
+            {
+                var rows = Rows
+                    .Select(x => new DataRowX(x, DisplayBorder));
+
+                foreach (DataRowX row in rows)
+                    dataGridX.AddDataRow(row);
+            }
 
             if (DisplayBorder)
             {
@@ -70,14 +92,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     dataGridX.HeaderTopBorder = new HeaderTopBorder(BorderTemplate);
                 else if (areDataRowsVisible)
                     dataGridX.DataTopBorder = new DataTopBorder(BorderTemplate);
-            }
 
-            if (isTitleVisible)
-            {
-                if (TitleRow != null && TitleRow.HasContent)
-                    dataGridX.AddTitleRow(TitleRow);
-
-                if (DisplayBorder)
+                if (isTitleVisible)
                 {
                     if (isColumnHeaderRowVisible)
                         dataGridX.TitleHeaderSeparator = new TitleHeaderSeparator(BorderTemplate);
@@ -86,28 +102,16 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     else
                         dataGridX.TitleBottomBorder = new TitleBottomBorder(BorderTemplate);
                 }
-            }
 
-            if (isColumnHeaderRowVisible)
-            {
-                if (Columns != null && Columns.Count > 0)
-                    dataGridX.AddHeaderRow(Columns);
-
-                if (DisplayBorder)
+                if (isColumnHeaderRowVisible)
                 {
                     if (areDataRowsVisible)
                         dataGridX.HeaderDataSeparator = new HeaderDataSeparator(BorderTemplate);
                     else
                         dataGridX.HeaderBottomBorder = new HeaderBottomBorder(BorderTemplate);
                 }
-            }
 
-            if (areDataRowsVisible)
-            {
-                foreach (DataRow row in Rows)
-                    dataGridX.AddDataRow(row);
-
-                if (DisplayBorder)
+                if (areDataRowsVisible)
                 {
                     if (DrawBordersBetweenRows)
                         dataGridX.DataDataSeparator = new DataDataSeparator(BorderTemplate);

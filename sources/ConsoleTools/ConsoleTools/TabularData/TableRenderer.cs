@@ -19,14 +19,11 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System.Collections.Generic;
-
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class TableRenderer
     {
         private DataGridX dataGridX;
-        private string rowSeparator;
 
         public TitleRow TitleRow { get; set; }
         public bool DisplayTitle { get; set; }
@@ -45,43 +42,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public ITablePrinter TablePrinter { get; set; }
 
-
-        private string RowSeparator
-        {
-            get
-            {
-                if (rowSeparator == null)
-                    rowSeparator = BorderTemplate.GenerateDataRowSeparatorBorder(dataGridX.ColumnsWidths);
-
-                return rowSeparator;
-            }
-        }
-
         public void Render()
         {
             BuildXObject();
 
-            if (DisplayBorder)
-                DrawTableTopBorder();
-
-            if (dataGridX.IsTitleVisible)
-            {
-                DrawTitleRow();
-
-                if (DisplayBorder)
-                    DrawHorizontalBorderAfterTitle();
-            }
-
-            if (dataGridX.AreColumnsHeaderVisible)
-            {
-                DrawColumnHeadersRow();
-
-                if (DisplayBorder)
-                    DrawHorizontalBorderAfterHeader();
-            }
-
-            if (dataGridX.AreDataRowsVisible)
-                DrawDataRows();
+            dataGridX.Render(TablePrinter);
         }
 
         private void BuildXObject()
@@ -92,111 +57,62 @@ namespace DustInTheWind.ConsoleTools.TabularData
             };
 
             bool isTitleVisible = DisplayTitle && TitleRow?.Content != null && TitleRow?.Content.Size.Height > 0;
+            bool isColumnHeaderRowVisible = DisplayColumnHeaders && Columns?.Count != 0;
+            bool areDataRowsVisible = Rows.Count > 0;
+
+            if (DisplayBorder)
+            {
+                if (isTitleVisible)
+                    dataGridX.TitleTopBorder = new TitleTopBorder(BorderTemplate);
+                else if (isColumnHeaderRowVisible)
+                    dataGridX.HeaderTopBorder = new HeaderTopBorder(BorderTemplate);
+                else if (areDataRowsVisible)
+                    dataGridX.DataTopBorder = new DataTopBorder(BorderTemplate);
+            }
+
             if (isTitleVisible)
+            {
                 dataGridX.AddTitleRow(TitleRow);
 
-            bool isColumnHeaderRowVisible = DisplayColumnHeaders && Columns?.Count != 0;
+                if (DisplayBorder)
+                {
+                    if (isColumnHeaderRowVisible)
+                        dataGridX.TitleHeaderSeparator = new TitleHeaderSeparator(BorderTemplate);
+                    else if (areDataRowsVisible)
+                        dataGridX.TitleDataSeparator = new TitleDataSeparator(BorderTemplate);
+                    else
+                        dataGridX.TitleBottomBorder = new TitleBottomBorder(BorderTemplate);
+                }
+            }
+
             if (isColumnHeaderRowVisible)
+            {
                 dataGridX.AddHeaderRow(Columns);
 
-            foreach (DataRow row in Rows)
-                dataGridX.AddDataRow(row);
-
-            dataGridX.MakeFinalAdjustments();
-        }
-
-        private void DrawTableTopBorder()
-        {
-            if (dataGridX.IsTitleVisible)
-            {
-                string titleTopBorder = BorderTemplate.GenerateTitleTopBorder(dataGridX.TotalWidth);
-                TablePrinter.WriteLineBorder(titleTopBorder);
+                if (DisplayBorder)
+                {
+                    if (areDataRowsVisible)
+                        dataGridX.HeaderDataSeparator = new HeaderDataSeparator(BorderTemplate);
+                    else
+                        dataGridX.HeaderBottomBorder = new HeaderBottomBorder(BorderTemplate);
+                }
             }
-            else if (dataGridX.AreColumnsHeaderVisible)
-            {
-                string border = BorderTemplate.GenerateHeaderTopBorder(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(border);
-            }
-            else if (dataGridX.AreDataRowsVisible)
-            {
-                string border = BorderTemplate.GenerateDataRowTopBorder(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(border);
-            }
-        }
 
-        private void DrawTitleRow()
-        {
-            dataGridX.RenderTitle(TablePrinter);
-        }
-
-        private void DrawHorizontalBorderAfterTitle()
-        {
-            if (dataGridX.AreColumnsHeaderVisible)
+            if (areDataRowsVisible)
             {
-                string border = BorderTemplate.GenerateTitleHeaderSeparator(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(border);
-            }
-            else if (dataGridX.AreDataRowsVisible)
-            {
-                string border = BorderTemplate.GenerateTitleDataSeparator(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(border);
-            }
-            else
-            {
-                string border = BorderTemplate.GenerateTitleBottomBorder(dataGridX.TotalWidth);
-                TablePrinter.WriteLineBorder(border);
-            }
-        }
-
-        private void DrawColumnHeadersRow()
-        {
-            dataGridX.RederColumnsHeaders(TablePrinter);
-        }
-
-        private void DrawHorizontalBorderAfterHeader()
-        {
-            if (dataGridX.AreDataRowsVisible)
-            {
-                TablePrinter.WriteLineBorder(RowSeparator);
-            }
-            else
-            {
-                string border = BorderTemplate.GenerateHeaderBottomBorder(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(border);
-            }
-        }
-
-        private void DrawDataRows()
-        {
-            List<int> cellWidths = dataGridX.ColumnsWidths;
-            List<int> rowsHeights = dataGridX.RowsHeights;
-
-            for (int rowIndex = 0; rowIndex < Rows.Count; rowIndex++)
-            {
-                int rowHeight = rowsHeights[rowIndex];
-
-                DataRow row = Rows[rowIndex];
-                row.Render(TablePrinter, cellWidths, rowHeight);
+                foreach (DataRow row in Rows)
+                    dataGridX.AddDataRow(row);
 
                 if (DisplayBorder)
-                    DrawHorizontalBorderAfterDataRow(rowIndex);
-            }
-        }
+                {
+                    if (DrawBordersBetweenRows)
+                        dataGridX.DataDataSeparator = new DataDataSeparator(BorderTemplate);
 
-        private void DrawHorizontalBorderAfterDataRow(int rowIndex)
-        {
-            bool isLastRow = rowIndex == Rows.Count - 1;
+                    dataGridX.DataBottomBorder = new BottomBorderData(BorderTemplate);
+                }
+            }
 
-            if (isLastRow)
-            {
-                string rowBottomBorder = BorderTemplate.GenerateDataRowBottomBorder(dataGridX.ColumnsWidths);
-                TablePrinter.WriteLineBorder(rowBottomBorder);
-            }
-            else
-            {
-                if (DrawBordersBetweenRows)
-                    TablePrinter.WriteLineBorder(RowSeparator);
-            }
+            dataGridX.MakeFinalAdjustments();
         }
     }
 }

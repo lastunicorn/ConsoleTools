@@ -19,52 +19,29 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System.Collections.Generic;
+using System;
 
 namespace DustInTheWind.ConsoleTools.TabularData
 {
-    internal class DataRowX
+    internal class TitleTopBorder
     {
-        private readonly bool hasBorder;
-        private readonly DataRow dataRow;
+        private readonly BorderTemplate borderTemplate;
+        private string borderText;
 
-        public Size Size { get; private set; }
-
-        public DataRowX(bool hasBorder, DataRow dataRow)
+        public TitleTopBorder(BorderTemplate borderTemplate)
         {
-            this.hasBorder = hasBorder;
-            this.dataRow = dataRow;
+            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
+            this.borderTemplate = borderTemplate;
         }
 
-        public List<DataCellX> Cells { get; } = new List<DataCellX>();
-
-        public int NextIndex => Cells.Count;
-
-        public void AddCell(DataCellX cell)
+        public void Build(int width)
         {
-            int initialCount = Cells.Count;
-
-            int width = initialCount == 0 && hasBorder
-                ? 1
-                : Size.Width;
-
-            width += cell.Size.Width;
-
-            if (hasBorder)
-                width++;
-
-            int height = Size.Height < cell.Size.Height
-                ? cell.Size.Height
-                : Size.Height;
-
-            Size = new Size(width, height);
-
-            Cells.Add(cell);
+            borderText = borderTemplate.GenerateTitleTopBorder(width);
         }
 
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
+        public void Render(ITablePrinter tablePrinter)
         {
-            dataRow.Render(tablePrinter, cellWidths, Size.Height);
+            tablePrinter.WriteLineBorder(borderText);
         }
     }
 }

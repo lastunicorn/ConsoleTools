@@ -38,7 +38,7 @@ namespace ConsoleTools.PerformanceTests.Current
             CustomConsole.WriteLine();
 
             TimeSpan averageTime = testRunner.CalculateAverage();
-            ValueOutput.QuickWrite("Average: ", averageTime.TotalMilliseconds + " ms");
+            ValueOutput<string>.QuickDisplay("Average: ", averageTime.TotalMilliseconds + " ms");
 
             // Done
 
@@ -47,7 +47,7 @@ namespace ConsoleTools.PerformanceTests.Current
 
         private static void HandleMeasurementDone(object sender, MeasurementDoneEventArgs e)
         {
-            ValueOutput.QuickWrite("Time:", e.Time.TotalMilliseconds + " ms");
+            ValueOutput<string>.QuickDisplay("Time:", e.Time.TotalMilliseconds + " ms");
         }
 
         private static void GenerateGrid()

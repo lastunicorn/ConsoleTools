@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
     internal class DataGridX
     {
@@ -83,21 +83,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         public void AddTitleRow(TitleRow titleRow)
         {
-            bool titleHasContent = titleRow?.Content?.Size.Height > 0;
+            titleRowX = new TitleRowX(titleRow);
 
-            if (!titleHasContent)
-                return;
-
-            Size titleRowSize = titleRow.CalculateDimensions();
-
-            titleRowX = new TitleRowX
-            {
-                TitleRow = titleRow,
-                Size = titleRowSize
-            };
-
-            if (TotalWidth < titleRowSize.Width)
-                TotalWidth = titleRowSize.Width;
+            if (TotalWidth < titleRowX.Size.Width)
+                TotalWidth = titleRowX.Size.Width;
         }
 
         public void AddHeaderRow(ColumnList columns)
@@ -214,19 +203,20 @@ namespace DustInTheWind.ConsoleTools.TabularData
                     titleRowX.Size = new Size(TotalWidth, titleRowX.Size.Height);
             }
 
-            TitleTopBorder?.Build(TotalWidth);
-            HeaderTopBorder?.Build(ColumnsWidths);
-            DataTopBorder?.Build(ColumnsWidths);
+            if (TitleTopBorder != null) TitleTopBorder.Width = TotalWidth;
 
-            TitleHeaderSeparator?.Build(ColumnsWidths);
-            TitleDataSeparator?.Build(ColumnsWidths);
-            TitleBottomBorder?.Build(TotalWidth);
+            if (HeaderTopBorder != null) HeaderTopBorder.ColumnsWidths = ColumnsWidths;
+            if (DataTopBorder != null) DataTopBorder.ColumnsWidths = ColumnsWidths;
 
-            HeaderDataSeparator?.Build(ColumnsWidths);
-            HeaderBottomBorder?.Build(ColumnsWidths);
+            if (TitleHeaderSeparator != null) TitleHeaderSeparator.ColumnsWidths = ColumnsWidths;
+            if (TitleDataSeparator != null) TitleDataSeparator.ColumnsWidths = ColumnsWidths;
+            if (TitleBottomBorder != null) TitleBottomBorder.Width = TotalWidth;
 
-            DataDataSeparator?.Build(ColumnsWidths);
-            DataBottomBorder?.Build(ColumnsWidths);
+            if (HeaderDataSeparator != null) HeaderDataSeparator.ColumnsWidths = ColumnsWidths;
+            if (HeaderBottomBorder != null) HeaderBottomBorder.ColumnsWidths = ColumnsWidths;
+
+            if (DataDataSeparator != null) DataDataSeparator.ColumnsWidths = ColumnsWidths;
+            if (DataBottomBorder != null) DataBottomBorder.ColumnsWidths = ColumnsWidths;
         }
 
         public void Render(ITablePrinter tablePrinter)

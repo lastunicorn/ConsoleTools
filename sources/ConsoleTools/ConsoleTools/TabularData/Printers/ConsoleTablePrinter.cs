@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.Printers
 {
     public class ConsoleTablePrinter : ITablePrinter
     {

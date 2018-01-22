@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using DustInTheWind.ConsoleTools.TabularData.RenderingModel;
+
 namespace DustInTheWind.ConsoleTools.TabularData
 {
     internal class TableRenderer
@@ -72,7 +74,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             if (isTitleVisible)
             {
-                dataGridX.AddTitleRow(TitleRow);
+                if (TitleRow != null && TitleRow.HasContent)
+                    dataGridX.AddTitleRow(TitleRow);
 
                 if (DisplayBorder)
                 {
@@ -87,7 +90,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             if (isColumnHeaderRowVisible)
             {
-                dataGridX.AddHeaderRow(Columns);
+                if (Columns != null && Columns.Count > 0)
+                    dataGridX.AddHeaderRow(Columns);
 
                 if (DisplayBorder)
                 {

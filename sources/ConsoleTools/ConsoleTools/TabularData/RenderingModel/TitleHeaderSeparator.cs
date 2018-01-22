@@ -19,52 +19,42 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class DataRowX
+    internal class TitleHeaderSeparator
     {
-        private readonly bool hasBorder;
-        private readonly DataRow dataRow;
+        private readonly BorderTemplate borderTemplate;
+        private string borderText;
+        private List<int> columnsWidths;
 
-        public Size Size { get; private set; }
-
-        public DataRowX(bool hasBorder, DataRow dataRow)
+        public List<int> ColumnsWidths
         {
-            this.hasBorder = hasBorder;
-            this.dataRow = dataRow;
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
         }
 
-        public List<DataCellX> Cells { get; } = new List<DataCellX>();
-
-        public int NextIndex => Cells.Count;
-
-        public void AddCell(DataCellX cell)
+        public TitleHeaderSeparator(BorderTemplate borderTemplate)
         {
-            int initialCount = Cells.Count;
-
-            int width = initialCount == 0 && hasBorder
-                ? 1
-                : Size.Width;
-
-            width += cell.Size.Width;
-
-            if (hasBorder)
-                width++;
-
-            int height = Size.Height < cell.Size.Height
-                ? cell.Size.Height
-                : Size.Height;
-
-            Size = new Size(width, height);
-
-            Cells.Add(cell);
+            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
+            this.borderTemplate = borderTemplate;
         }
 
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
+        public void Render(ITablePrinter tablePrinter)
         {
-            dataRow.Render(tablePrinter, cellWidths, Size.Height);
+            if (borderText == null)
+                borderText = borderTemplate.GenerateTitleHeaderSeparator(columnsWidths);
+
+            tablePrinter.WriteLineBorder(borderText);
         }
     }
 }

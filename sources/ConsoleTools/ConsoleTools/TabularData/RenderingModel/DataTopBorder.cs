@@ -22,12 +22,26 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
     internal class DataTopBorder
     {
         private readonly BorderTemplate borderTemplate;
         private string borderText;
+        private List<int> columnsWidths;
+
+        public List<int> ColumnsWidths
+        {
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
+        }
 
         public DataTopBorder(BorderTemplate borderTemplate)
         {
@@ -35,13 +49,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             this.borderTemplate = borderTemplate;
         }
 
-        public void Build(List<int> columnsWidths)
-        {
-            borderText = borderTemplate.GenerateDataRowTopBorder(columnsWidths);
-        }
-
         public void Render(ITablePrinter tablePrinter)
         {
+            if (borderText == null)
+                borderText = borderTemplate.GenerateDataRowTopBorder(columnsWidths);
+
             tablePrinter.WriteLineBorder(borderText);
         }
     }

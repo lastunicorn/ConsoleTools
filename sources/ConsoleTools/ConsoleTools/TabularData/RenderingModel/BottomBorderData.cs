@@ -19,53 +19,42 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class HeaderRowX
+    internal class BottomBorderData
     {
-        private readonly bool hasBorder;
+        private readonly BorderTemplate borderTemplate;
+        private string borderText;
+        private List<int> columnsWidths;
 
-        public Size Size { get; private set; }
-
-        public HeaderRowX(bool hasBorder)
+        public List<int> ColumnsWidths
         {
-            this.hasBorder = hasBorder;
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
         }
 
-        public List<DataCellX> Cells { get; } = new List<DataCellX>();
-
-        public int NextIndex => Cells.Count;
-
-        public ColumnList Columns { get; set; }
-
-        public void AddCell(DataCellX cell)
+        public BottomBorderData(BorderTemplate borderTemplate)
         {
-            int initialCount = Cells.Count;
-
-            int width = initialCount == 0 && hasBorder
-                ? 1
-                : Size.Width;
-
-            width += cell.Size.Width;
-
-            if (hasBorder)
-                width++;
-
-            int height = Size.Height < cell.Size.Height
-                ? cell.Size.Height
-                : Size.Height;
-
-            Size = new Size(width, height);
-
-            Cells.Add(cell);
+            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
+            this.borderTemplate = borderTemplate;
         }
 
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
+        public void Render(ITablePrinter tablePrinter)
         {
-            int rowHeight = Size.Height;
-            Columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+            if (borderText == null)
+                borderText = borderTemplate.GenerateDataRowBottomBorder(columnsWidths);
+
+            tablePrinter.WriteLineBorder(borderText);
         }
     }
 }

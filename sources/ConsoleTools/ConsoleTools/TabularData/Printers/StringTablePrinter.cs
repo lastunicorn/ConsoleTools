@@ -19,87 +19,66 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-using System.IO;
+using System.Text;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.Printers
 {
     /// <summary>
-    /// Stores the rendered parts of a <see cref="DataGrid"/> instance in a <see cref="Stream"/>.
+    /// Collects the rendered parts of a <see cref="DataGrid"/> instance as a plain text that is later
+    /// returnd by the <see cref="ToString"/> method.
     /// </summary>
-    public class StreamTablePrinter : ITablePrinter, IDisposable
+    public class StringTablePrinter : ITablePrinter
     {
-        private bool isDisposed;
+        private readonly StringBuilder sb;
 
-        private readonly Stream stream;
-        private readonly StreamWriter streamWriter;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StreamTablePrinter"/> class with
-        /// the <see cref="Stream"/> into which the table will be written.
-        /// </summary>
-        public StreamTablePrinter(Stream stream)
+        public StringTablePrinter()
         {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-            this.stream = stream;
-
-            streamWriter = new StreamWriter(stream);
+            sb = new StringBuilder();
         }
 
         public void WriteBorder(string text)
         {
-            streamWriter.Write(text);
+            sb.Append(text);
         }
 
         public void WriteBorder(char c)
         {
-            streamWriter.Write(c);
+            sb.Append(c);
         }
 
         public void WriteLineBorder(string text)
         {
-            streamWriter.WriteLine(text);
+            sb.AppendLine(text);
         }
 
         public void WriteLineBorder(char c)
         {
-            streamWriter.WriteLine(c.ToString());
+            sb.AppendLine(c.ToString());
         }
 
         public void WriteTitle(string text)
         {
-            streamWriter.Write(text);
+            sb.Append(text);
         }
 
         public void WriteHeader(string text)
         {
-            streamWriter.Write(text);
+            sb.Append(text);
         }
 
         public void WriteNormal(string text)
         {
-            streamWriter.Write(text);
+            sb.Append(text);
         }
 
         public void WriteLine()
         {
-            streamWriter.WriteLine();
+            sb.AppendLine();
         }
 
         public override string ToString()
         {
-            return stream.ToString();
-        }
-
-        public void Dispose()
-        {
-            if (isDisposed)
-                return;
-
-            stream?.Dispose();
-            streamWriter?.Dispose();
-
-            isDisposed = true;
+            return sb.ToString();
         }
     }
 }

@@ -20,27 +20,40 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class TitleBottomBorder
+    internal class DataDataSeparator
     {
         private readonly BorderTemplate borderTemplate;
         private string borderText;
+        private List<int> columnsWidths;
 
-        public TitleBottomBorder(BorderTemplate borderTemplate)
+        public List<int> ColumnsWidths
+        {
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
+        }
+
+        public DataDataSeparator(BorderTemplate borderTemplate)
         {
             if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
             this.borderTemplate = borderTemplate;
         }
 
-        public void Build(int width)
-        {
-            borderText = borderTemplate.GenerateTitleBottomBorder(width);
-        }
-
         public void Render(ITablePrinter tablePrinter)
         {
+            if (borderText == null)
+                borderText = borderTemplate.GenerateDataRowSeparatorBorder(columnsWidths);
+
             tablePrinter.WriteLineBorder(borderText);
         }
     }

@@ -1,3 +1,4 @@
+
 // ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
@@ -22,26 +23,38 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class HeaderTopBorder
+    internal class HeaderDataSeparator
     {
         private readonly BorderTemplate borderTemplate;
         private string borderText;
+        private List<int> columnsWidths;
 
-        public HeaderTopBorder(BorderTemplate borderTemplate)
+        public List<int> ColumnsWidths
+        {
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
+        }
+
+        public HeaderDataSeparator(BorderTemplate borderTemplate)
         {
             if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
             this.borderTemplate = borderTemplate;
         }
 
-        public void Build(List<int> columnsWidths)
-        {
-            borderText = borderTemplate.GenerateHeaderTopBorder(columnsWidths);
-        }
-
         public void Render(ITablePrinter tablePrinter)
         {
+            if (borderText == null)
+                borderText = borderTemplate.GenerateDataRowSeparatorBorder(columnsWidths);
+
             tablePrinter.WriteLineBorder(borderText);
         }
     }

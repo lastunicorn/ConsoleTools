@@ -22,27 +22,39 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class BottomBorderData
+    internal class TitleDataSeparator
     {
         private readonly BorderTemplate borderTemplate;
-        private string rowSeparator;
+        private string borderText;
+        private List<int> columnsWidths;
 
-        public BottomBorderData(BorderTemplate borderTemplate)
+        public List<int> ColumnsWidths
+        {
+            get { return columnsWidths; }
+            set
+            {
+                if (value == columnsWidths)
+                    return;
+
+                columnsWidths = value;
+                borderText = null;
+            }
+        }
+
+        public TitleDataSeparator(BorderTemplate borderTemplate)
         {
             if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
             this.borderTemplate = borderTemplate;
         }
 
-        public void Build(List<int> columnsWidths)
-        {
-            rowSeparator = borderTemplate.GenerateDataRowBottomBorder(columnsWidths);
-        }
-
         public void Render(ITablePrinter tablePrinter)
         {
-            tablePrinter.WriteLineBorder(rowSeparator);
+            if (borderText == null)
+                borderText = borderTemplate.GenerateTitleDataSeparator(columnsWidths);
+
+            tablePrinter.WriteLineBorder(borderText);
         }
     }
 }

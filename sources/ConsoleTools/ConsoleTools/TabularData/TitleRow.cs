@@ -57,6 +57,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
             set { TitleCell.HorizontalAlignment = value; }
         }
 
+        public bool HasContent => Content != null && !Content.IsEmpty;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleRow"/> class with
         /// empty content.
@@ -114,7 +116,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Calculates the space (in characters) the current instance ocupies without other restrictions.
         /// </summary>
-        public Size CalculateDimensions()
+        public Size CalculatePreferedSize()
         {
             bool displayBorder = ParentDataGrid?.DisplayBorder ?? false;
 
@@ -142,7 +144,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
 
             bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
-            
+
             Size cellSize = displayBorder
                 ? size.InflateWidth(-2)
                 : size;

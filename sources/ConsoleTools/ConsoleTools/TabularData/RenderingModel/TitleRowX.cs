@@ -19,30 +19,23 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-using System.Collections.Generic;
-
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    internal class HeaderBottomBorder
+    internal class TitleRowX
     {
-        private readonly BorderTemplate borderTemplate;
-        private string borderText;
+        public TitleRow TitleRow { get; }
+        public Size Size { get; set; }
 
-        public HeaderBottomBorder(BorderTemplate borderTemplate)
+        public TitleRowX(TitleRow titleRow)
         {
-            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
-            this.borderTemplate = borderTemplate;
-        }
+            TitleRow = titleRow;
 
-        public void Build(List<int> columnsWidths)
-        {
-            borderText = borderTemplate.GenerateHeaderBottomBorder(columnsWidths);
+            Size = titleRow?.CalculatePreferedSize() ?? Size.Empty;
         }
 
         public void Render(ITablePrinter tablePrinter)
         {
-            tablePrinter.WriteLineBorder(borderText);
+            TitleRow?.Render(tablePrinter, Size);
         }
     }
 }

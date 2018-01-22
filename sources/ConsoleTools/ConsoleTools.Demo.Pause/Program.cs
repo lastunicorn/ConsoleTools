@@ -55,7 +55,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
             Thread.Sleep(500);
             CustomConsole.WriteLine("some text");
             Thread.Sleep(500);
-            CustomConsole.WriteLine();
         }
 
         private static void DisplayDefaultPause()
@@ -67,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
 
         private static void DisplayPPause()
         {
-            CustomConsole.WriteLine("This is the pause with custom Text and UnlockKey:");
+            CustomConsole.WriteLine("This is the pause with custom Text and custom UnlockKey:");
 
             ConsoleTools.Pause pause = new ConsoleTools.Pause
             {

@@ -70,14 +70,20 @@ namespace DustInTheWind.ConsoleTools
             WriteBottomMargin();
         }
 
+        /// <summary>
+        /// Method called at the begining of the <see cref="Display"/> method before doing anything else.
+        /// </summary>
         protected virtual void OnBeforeDisplay() { }
-
-        protected virtual void OnAfterDisplay() { }
 
         /// <summary>
         /// When implemented by an inheritor it displays the content of the control to the console.
         /// </summary>
         protected abstract void OnDisplayContent();
+
+        /// <summary>
+        /// Method called at the very end of the <see cref="Display"/> method before returning.
+        /// </summary>
+        protected virtual void OnAfterDisplay() { }
 
         private void WriteTopMargin()
         {

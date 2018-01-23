@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// <summary>
     /// A control that renders a table with data into the console.
     /// </summary>
-    public class DataGrid
+    public class DataGrid : Control
     {
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the table.
@@ -176,24 +176,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
-        /// Returns the string representation of the current instance.
-        /// </summary>
-        /// <returns>The string representation of the current instance.</returns>
-        public override string ToString()
-        {
-            StringTablePrinter tablePrinter = new StringTablePrinter();
-            Render(tablePrinter);
-
-            return tablePrinter.ToString();
-        }
-
-        /// <summary>
         /// Renders the current instance into the console.
         /// </summary>
-        public void Render()
+        protected override void OnDisplayContent()
         {
             ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
-            Render(consoleTablePrinter);
+            RenderInternal(consoleTablePrinter);
         }
 
         /// <summary>
@@ -201,6 +189,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instacne used to render the data.</param>
         public void Render(ITablePrinter tablePrinter)
+        {
+            RenderInternal(tablePrinter);
+        }
+
+        private void RenderInternal(ITablePrinter tablePrinter)
         {
             DataGridXBuilder dataGridXBuilder = new DataGridXBuilder
             {
@@ -218,6 +211,18 @@ namespace DustInTheWind.ConsoleTools.TabularData
             DataGridX dataGridX = dataGridXBuilder.Build();
 
             dataGridX.Render(tablePrinter);
+        }
+
+        /// <summary>
+        /// Returns the string representation of the current instance.
+        /// </summary>
+        /// <returns>The string representation of the current instance.</returns>
+        public override string ToString()
+        {
+            StringTablePrinter tablePrinter = new StringTablePrinter();
+            RenderInternal(tablePrinter);
+
+            return tablePrinter.ToString();
         }
     }
 }

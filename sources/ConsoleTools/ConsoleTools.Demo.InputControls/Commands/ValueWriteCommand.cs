@@ -38,12 +38,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
             ageOutput.Value = 25;
             ageOutput.Display();
-
-            //valueOutput.LabelForegroundColor = ConsoleColor.DarkGreen;
-
-            //valueOutput.Write("First Name:", "John");
-            //valueOutput.Write("Last Name:", "Doe");
-            //valueOutput.Write("Age:", 25);
         }
     }
 }

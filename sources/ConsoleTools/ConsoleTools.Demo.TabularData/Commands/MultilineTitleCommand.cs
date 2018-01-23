@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("Forth item", 4.ToString());
             dataGrid.Rows.Add("Fifth item", 5.ToString());
 
-            dataGrid.Render();
+            dataGrid.Display();
         }
     }
 }

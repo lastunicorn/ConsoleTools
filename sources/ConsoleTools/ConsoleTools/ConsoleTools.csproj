@@ -64,6 +64,10 @@
     <Compile Include="CustomConsole.Write.BothColors.cs" />
     <Compile Include="CustomConsole.WriteInverted.cs" />
     <Compile Include="Control.cs" />
+    <Compile Include="InputControls\DoubleListOutput.cs" />
+    <Compile Include="InputControls\DoubleOutput.cs" />
+    <Compile Include="InputControls\FloatListOutput.cs" />
+    <Compile Include="InputControls\FloatOutput.cs" />
     <Compile Include="InputControls\Int32ListOutput.cs" />
     <Compile Include="InputControls\Int32Output.cs" />
     <Compile Include="InputControls\Label.cs" />

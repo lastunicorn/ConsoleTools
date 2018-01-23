@@ -6,7 +6,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 0.3.0
 ---------
-- ProgressBar: Renamed renamed the BarEmptyColor and BarFillColor into BarEmptyForegroundColor and BarFillForegroundColor.
+- ProgressBar: Renamed the BarEmptyColor and BarFillColor into BarEmptyForegroundColor and BarFillForegroundColor.
 - ProgressBar: Renamed the Done() method into Close().
 - Spinner: Renamed the Stop() method into Close().
 - Prompter: Renamed the Run() method into Display().
@@ -18,9 +18,10 @@ ver 0.3.0
 - DataGrid: Renamed Table into DataGrid.
 - DataGrid: Exposed the Rows list.
 - DataGrid: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
-- Console MVC: Removed. It was moved in its own project named ConsoleMvc.
-- DataGrid [performance]: Fixed performance issue introduced in ver 0.2.0
 - DataGrid: Created a StreamTablePrinter that writes the table into a Stream.
+- DataGrid: [performance] Fixed performance issue introduced in ver 0.2.0.
+- DataGrid: Added MarginTop/MarginBottom.
+- Console MVC: Removed. It was moved in its own project named ConsoleMvc.
 - TextMenu: Added MarginTop/MarginBottom.
 - YesNoControl: Added MarginTop/MarginBottom.
 

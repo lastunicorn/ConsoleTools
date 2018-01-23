@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("And this is another\nmuiltiline row", "1\n2\n3");
             dataGrid.DisplayBorderBetweenRows = true;
 
-            dataGrid.Render();
+            dataGrid.Display();
         }
     }
 }

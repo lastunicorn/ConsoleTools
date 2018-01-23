@@ -125,7 +125,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Displays the label and waits for the user to provide a value.
         /// </summary>
-        protected override void OnDisplay()
+        protected override void OnDisplayContent()
         {
             while (true)
             {

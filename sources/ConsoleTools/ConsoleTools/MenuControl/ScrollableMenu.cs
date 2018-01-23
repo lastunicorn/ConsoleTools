@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class ScrollableMenu
+    public class ScrollableMenu : Control
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
@@ -77,18 +77,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             set { menuItems.AllowWrapAround = value; }
         }
 
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed before the menu.
-        /// Default value: 1
-        /// </summary>
-        public int MarginTop { get; set; } = 1;
-
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed after the menu.
-        /// Default value: 1
-        /// </summary>
-        public int MarginBottom { get; set; } = 1;
-
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" /> class with
@@ -100,6 +88,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
             this.menuItems = new MenuItemCollection();
+
+            ShowCursor = false;
+            MarginTop = 1;
+            MarginBottom = 1;
 
             foreach (IMenuItem menuItem in menuItems)
             {
@@ -117,42 +109,55 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 DrawMenuItem(e.CurrentIndex.Value);
         }
 
+        protected override void OnBeforeDisplay()
+        {
+            Reset();
+
+            if (menuItems.SelectableItemsCount == 0)
+                throw new ApplicationException("There are no menu items to be displayed.");
+        }
+
         /// <summary>
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        public void Display()
+        protected override void OnDisplayContent()
         {
-            Reset();
+            menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
-            CustomConsole.WithoutCursor(() =>
+            try
             {
-                menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
+                DrawMenu();
 
-                try
-                {
-                    if (menuItems.SelectableItemsCount == 0)
-                        throw new ApplicationException("There are no menu items to be displayed.");
+                if (SelectFirstByDefault)
+                    menuItems.SelectFirst();
 
-                    DrawMenu();
+                ReadUserSelection();
+            }
+            finally
+            {
+                menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
+                menuItems.SelectNone();
 
-                    if (SelectFirstByDefault)
-                        menuItems.SelectFirst();
+                int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
+                Console.SetCursorPosition(0, firstLineAfterMenu);
+            }
+        }
 
-                    ReadUserSelection();
-                }
-                finally
-                {
-                    menuItems.SelectNone();
-                    menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
+        private void DrawMenu()
+        {
+            menuSize = CalculateMenuSize();
 
-                    int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
-                    Console.SetCursorPosition(0, firstLineAfterMenu);
+            RenderMenuSpace();
 
-                    WriteBottomMargin();
-                }
-            });
+            menuLocation = CalculateMenuLocation();
 
+            for (int i = 0; i < menuItems.Count; i++)
+                DrawMenuItem(i);
+        }
+
+        protected override void OnAfterDisplay()
+        {
             SelectedItem?.Command?.Execute();
         }
 
@@ -169,35 +174,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             menuItems.Reset();
         }
 
-        public void Resume()
-        {
-            CustomConsole.WithoutCursor(() =>
-            {
-                menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
-
-                try
-                {
-                    Refresh();
-                    ReadUserSelection();
-                }
-                finally
-                {
-                    menuItems.SelectNone();
-                    menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
-
-                    int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
-                    Console.SetCursorPosition(0, firstLineAfterMenu);
-                }
-            });
-
-            SelectedItem?.Command?.Execute();
-        }
-
-        public void Refresh()
-        {
-            DrawMenuItem(menuItems.CurrentIndex);
-        }
-
         /// <summary>
         /// This method does not immediately close the menu.
         /// It just sets an internal flag that asks the menu to close itself when it can.
@@ -205,32 +181,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public void RequestClose()
         {
             isCloseRequested = true;
-        }
-
-        private void DrawMenu()
-        {
-            WriteTopMargin();
-
-            menuSize = CalculateMenuSize();
-
-            RenderMenuSpace();
-
-            menuLocation = CalculateMenuLocation();
-
-            for (int i = 0; i < menuItems.Count; i++)
-                DrawMenuItem(i);
-        }
-
-        private void WriteTopMargin()
-        {
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
-        }
-
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
         }
 
         private void RenderMenuSpace()

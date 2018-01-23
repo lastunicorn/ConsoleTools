@@ -41,21 +41,43 @@ namespace DustInTheWind.ConsoleTools
         public int MarginBottom { get; set; }
 
         /// <summary>
+        /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
+        public bool ShowCursor { get; set; } = true;
+
+        /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
         public void Display()
         {
+            OnBeforeDisplay();
+
+            if (ShowCursor)
+                DisplayInternal();
+            else
+                CustomConsole.WithoutCursor(DisplayInternal);
+
+            OnAfterDisplay();
+        }
+
+        private void DisplayInternal()
+        {
             WriteTopMargin();
 
-            OnDisplay();
+            OnDisplayContent();
 
             WriteBottomMargin();
         }
 
+        protected virtual void OnBeforeDisplay() { }
+
+        protected virtual void OnAfterDisplay() { }
+
         /// <summary>
         /// When implemented by an inheritor it displays the content of the control to the console.
         /// </summary>
-        protected abstract void OnDisplay();
+        protected abstract void OnDisplayContent();
 
         private void WriteTopMargin()
         {

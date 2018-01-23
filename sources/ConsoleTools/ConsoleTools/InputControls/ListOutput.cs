@@ -98,7 +98,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Writes the label and the list of values to the console.
         /// </summary>
-        protected override void OnDisplay()
+        protected override void OnDisplayContent()
         {
             if (Label != null)
             {

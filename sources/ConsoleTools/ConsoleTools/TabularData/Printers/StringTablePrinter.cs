@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
 using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData.Printers
@@ -34,6 +35,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         public StringTablePrinter()
         {
             sb = new StringBuilder();
+        }
+
+        public StringTablePrinter(StringBuilder sb)
+        {
+            if (sb == null) throw new ArgumentNullException(nameof(sb));
+            this.sb = sb;
         }
 
         public void WriteBorder(string text)

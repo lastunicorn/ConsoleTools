@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <remarks>
     /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
     /// </remarks>
-    public class TextMenu
+    public class TextMenu : Control
     {
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
@@ -94,13 +94,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        public void Display()
+        protected override void OnDisplayContent()
         {
             Reset();
             DrawMenu();
             ReadUserSelection();
-
-            SelectedItem?.Select();
         }
 
         private void Reset()
@@ -187,6 +185,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 string space = new string(' ', SpaceAfterQuestion);
                 Console.Write(space);
             }
+        }
+
+        protected override void OnAfterDisplay()
+        {
+            SelectedItem?.Select();
         }
 
         /// <summary>

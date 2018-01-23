@@ -21,6 +21,8 @@ ver 0.3.0
 - Console MVC: Removed. It was moved in its own project named ConsoleMvc.
 - DataGrid [performance]: Fixed performance issue introduced in ver 0.2.0
 - DataGrid: Created a StreamTablePrinter that writes the table into a Stream.
+- TextMenu: Added MarginTop/MarginBottom.
+- YesNoControl: Added MarginTop/MarginBottom.
 
 ver 0.2.0
 ---------

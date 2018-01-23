@@ -27,26 +27,17 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// This control displays a question and expects an answer of "yes" or "no".
     /// </summary>
-    public class YesNoQuestion
+    public class YesNoQuestion : Control
     {
-        private string questionText;
+        private readonly Label labelControl = new Label
+        {
+            ForegroundColor = CustomConsole.EmphasiesColor
+        };
 
         /// <summary>
         /// Gets or sets trhe question that is displayed to the user.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        public string QuestionText
-        {
-            get { return questionText; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                if (value.Length == 0) throw new ArgumentException("The question text cannot be null or empty string.", nameof(value));
-
-                questionText = value;
-            }
-        }
+        public string QuestionText { get; set; }
 
         /// <summary>
         /// Gets or sets the number of spaces to be displayed after the question and the before the user types the answer.
@@ -122,17 +113,24 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public YesNoAnswer? DefaultAnswer { get; set; }
 
         /// <summary>
+        /// Gets the last answer provided by the user.
+        /// </summary>
+        public YesNoAnswer Answer { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YesNoQuestion"/> class.
+        /// </summary>
+        public YesNoQuestion()
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="YesNoQuestion"/> class with
         /// the question to be displayed to the user.
         /// </summary>
         /// <param name="questionText">The question text to be displayed to the user.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
         public YesNoQuestion(string questionText)
         {
-            if (questionText == null) throw new ArgumentNullException(nameof(questionText));
-            if (questionText.Length == 0) throw new ArgumentException("Please provide a question text.", nameof(questionText));
-
             QuestionText = questionText;
         }
 
@@ -141,22 +139,36 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         public YesNoAnswer ReadAnswer()
         {
-            DisplayWholeQuestion();
-            return ReadAnswerInternal();
+            Display();
+            return Answer;
         }
 
-        private void DisplayWholeQuestion()
+        /// <summary> 
+        /// Displays the question to the user and waits for the answer.
+        /// </summary>
+        protected override void OnDisplayContent()
         {
-            Console.Write(QuestionText);
-            Console.Write(" ");
+            if (QuestionText != null)
+                DisplayQuestion();
 
             DisplayPossibleAnswersList();
 
             if (SpaceAfterQuestion > 0)
-            {
-                string space = new string(' ', SpaceAfterQuestion);
-                Console.Write(space);
-            }
+                DisplaySpaceAfterQuestion();
+
+            Answer = ReadAnswerInternal();
+        }
+
+        private void DisplayQuestion()
+        {
+            labelControl.Text = QuestionText;
+            labelControl.Display();
+        }
+
+        private void DisplaySpaceAfterQuestion()
+        {
+            string space = new string(' ', SpaceAfterQuestion);
+            Console.Write(space);
         }
 
         /// <summary>

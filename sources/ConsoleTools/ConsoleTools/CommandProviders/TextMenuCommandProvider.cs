@@ -70,7 +70,8 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 {
                     CustomConsole.WriteError(ex);
                 }
-            } while (!stopWasRequested);
+            }
+            while (!stopWasRequested);
         }
 
         /// <summary>

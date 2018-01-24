@@ -65,6 +65,13 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public bool SelectFirstByDefault { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets a value that specifies if the last highlighted item
+        /// must remain highlighted when the menu is closed.
+        /// Default value: <c>false</c>
+        /// </summary>
+        public bool KeepHighlightingOnClose { get; set; }
+
+        /// <summary>
         /// Gets or sets a vlue that specifies if circular selection is allowed.
         /// When reaching the first item go to the last item.
         /// When reaching the last item go to the first item.
@@ -138,7 +145,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
             finally
             {
-                menuItems.SelectNone();
+                if (!KeepHighlightingOnClose)
+                    menuItems.SelectNone();
+
                 menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
 
                 int firstLineAfterMenu = menuLocation.Top + Size.Height;

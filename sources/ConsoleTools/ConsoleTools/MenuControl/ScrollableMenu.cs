@@ -138,8 +138,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
             finally
             {
-                menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
                 menuItems.SelectNone();
+                menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
 
                 int firstLineAfterMenu = menuLocation.Top + Size.Height;
                 Console.SetCursorPosition(0, firstLineAfterMenu);

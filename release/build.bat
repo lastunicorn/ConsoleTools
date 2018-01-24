@@ -1,7 +1,7 @@
 @echo off
 
 set root_directory=..
-set version=0.2.0
+set version=0.3.0
 
 rem ----------------------------------------------------------------------------------------------------
 rem Clean up existing files.
@@ -34,7 +34,9 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*" "ConsoleTools\lib\Net461"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*.dll" "ConsoleTools\lib\Net461"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*.xml" "ConsoleTools\lib\Net461"
 if %errorlevel% neq 0 goto :error
 
 echo.
@@ -42,7 +44,9 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.dll" "ConsoleTools\lib\Net45"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.xml" "ConsoleTools\lib\Net45"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ConsoleTools</id>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <authors>Dust in the Wind</authors>
 	<title>ConsoleTools</title>
     <owners>Dust in the Wind</owners>
@@ -12,19 +12,25 @@
     <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 	<summary>A set of tools and "controls" for the .net Console.</summary>
     <releaseNotes>
-- Build: Added build configurations and releases for .NET Framework 4.5 and 4.6.1.
-- ProgressBar: Replaced the ValueAlignment enum with HorizontalAlignment enum.
-- CustomConcole: Added WithoutCursor methods to execute code while the cursor is hidden.
-- CustomConcole: Added background colors for all standard color types (Emphasies, Success, Warning, Error).
-- ProgressBar: [bugfix] Incorrect WriteLine when Value was aligned to right.
-- ProgressBar: Added foreground and background colors.
-- Translation: Added Romanian translation.
-- ValueInput: Renamed TextInput control into ValueInput.
-- ValueInput: When accepting a default value, the value is written in console.
-- ValuOutput: Renamed the TextOutput control into ValuOutput.
-- Spinner: Renamed the Start method into Display.
-- Spinner: [bugfix] Stop method did not stop the spinner.
-- TextMenu: Added the QuickDisplay method.
+- ProgressBar: Renamed the BarEmptyColor and BarFillColor into BarEmptyForegroundColor and BarFillForegroundColor.
+- ProgressBar: Renamed the Done() method into Close().
+- Spinner: Renamed the Stop() method into Close().
+- Prompter: Renamed the Run() method into Display().
+- Prompter: Renamed the RunOnce() method into DisplayOnce().
+- Prompter: Renamed the RequestStop() method into RequestClose().
+- Prompter: Added MarginTop/MarginBottom.
+- Spinner: Renamed the spinner templates.
+- Pause [bugfix]: Control is not correctly erased when it is displayed at the bottom of the console buffer.
+- Added French translation.
+- DataGrid: Renamed Table into DataGrid.
+- DataGrid: Exposed the Rows list.
+- DataGrid: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
+- DataGrid: Created a StreamTablePrinter that writes the table into a Stream.
+- DataGrid: [performance] Fixed performance issue introduced in ver 0.2.0.
+- DataGrid: Added MarginTop/MarginBottom.
+- Console MVC: Removed. It was moved in its own project named ConsoleMvc.
+- TextMenu: Added MarginTop/MarginBottom.
+- YesNoControl: Added MarginTop/MarginBottom.
 </releaseNotes>
     <copyright>Copyright 2017-2018 Dust in the Wind</copyright>
     <tags>console cli prompter menu progressbar spinner table read write</tags>

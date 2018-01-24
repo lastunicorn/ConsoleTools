@@ -86,7 +86,11 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <exception cref="ArgumentNullException"></exception>
         public static CliCommand Parse(string commandText)
         {
-            if (commandText == null) throw new ArgumentNullException(nameof(commandText));
+            if (commandText == null)
+                return null;
+
+            if (commandText.Length == 0)
+                return Empty;
 
             string[] commandChunks = commandText.ToLower().Split(' ');
 

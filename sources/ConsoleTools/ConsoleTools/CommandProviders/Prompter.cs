@@ -26,9 +26,10 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Reads commands from the console.
     /// </summary>
-    public class Prompter : ICommandProvider
+    public class Prompter : Control, ICommandProvider
     {
         private volatile bool closeWasRequested;
+        private CliCommand lastCommand;
 
         /// <summary>
         /// Gets or sets the text displayed in the prompter.
@@ -51,12 +52,6 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         public int SpaceAfterPrompter { get; set; } = 1;
 
         /// <summary>
-        /// Gets or sets a value that specifies if the prompter should always be displayed at the beginning of the line.
-        /// If this value is <c>true</c> and the cursor is not at the beginning of the line, a new line is written before displaying the prompter.
-        /// </summary>
-        public bool EnsureBeginOfLine { get; set; } = true;
-
-        /// <summary>
         /// Event raised when the user writes a new command at the console.
         /// </summary>
         public event EventHandler<NewCommandEventArgs> NewCommand;
@@ -70,37 +65,33 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             NewCommand?.Invoke(null, e);
         }
 
-        /// <summary>
-        /// Continously read from the console new commands.
-        /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
-        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
-        /// The infinite loop that reads commands can be stopped
-        /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
-        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
-        /// </summary>
-        public void Display()
+        public Prompter()
+        {
+            EnsureBeginOfLine = true;
+        }
+
+        ///// <summary>
+        ///// Continously read from the console new commands.
+        ///// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
+        ///// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
+        ///// The infinite loop that reads commands can be stopped
+        ///// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
+        ///// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
+        ///// </summary>
+        public override void Display()
         {
             closeWasRequested = false;
 
-            do
+            while (!closeWasRequested)
             {
-                DisplayWholePrompter();
+                base.Display();
 
-                string commandText = Console.ReadLine();
-
-                if (commandText == null)
+                if (lastCommand == null)
                     break;
-
-                if (commandText.Length == 0)
-                    continue;
-
-                CliCommand command = CliCommand.Parse(commandText);
-
-                Console.WriteLine();
 
                 try
                 {
-                    NewCommandEventArgs eva = new NewCommandEventArgs(command);
+                    NewCommandEventArgs eva = new NewCommandEventArgs(lastCommand);
                     OnNewCommand(eva);
 
                     if (eva.Exit)
@@ -111,7 +102,6 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                     CustomConsole.WriteError(ex);
                 }
             }
-            while (!closeWasRequested);
         }
 
         /// <summary>
@@ -120,12 +110,38 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <returns>A <see cref="CliCommand"/> object containing the command typed by the user.</returns>
         public CliCommand DisplayOnce()
         {
-            DisplayWholePrompter();
+            base.Display();
+            return lastCommand;
+        }
 
-            string commandText = Console.ReadLine();
-            Console.WriteLine();
+        protected override void DoDisplayContent()
+        {
+            lastCommand = null;
 
-            return CliCommand.Parse(commandText);
+            while (!closeWasRequested)
+            {
+                DisplayWholePrompter();
+
+                string commandText = Console.ReadLine();
+
+                if (commandText == null)
+                {
+                    closeWasRequested = true;
+                    return;
+                }
+
+                if (commandText.Length == 0)
+                    continue;
+
+                CliCommand newCommand = CliCommand.Parse(commandText);
+
+                if (newCommand.IsEmpty)
+                    continue;
+
+                Console.WriteLine();
+                lastCommand = newCommand;
+                return;
+            }
         }
 
         /// <summary>

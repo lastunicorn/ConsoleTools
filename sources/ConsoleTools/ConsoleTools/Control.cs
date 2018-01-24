@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
-        public void Display()
+        public virtual void Display()
         {
             OnBeforeDisplay();
 

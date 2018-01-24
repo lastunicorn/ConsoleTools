@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools
             if (!(obj is Location))
                 return false;
 
-            Location location = (Location)obj;
+            Location location = (Location) obj;
             return location.Left == Left && location.Top == Top;
         }
 

@@ -267,7 +267,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public int? IndexOfCell(DataCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
-            return indexOfCell == -1 ? (int?)null : indexOfCell;
+            return indexOfCell == -1 ? (int?) null : indexOfCell;
         }
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int height)

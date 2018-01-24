@@ -175,7 +175,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         private T ConvertRawValue(string value)
         {
             return CustomParser == null
-                ? (T)Convert.ChangeType(value, typeof(T))
+                ? (T) Convert.ChangeType(value, typeof(T))
                 : CustomParser(value);
         }
 

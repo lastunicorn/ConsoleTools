@@ -46,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
                 MarginBottom = 2
                 // etc...
             };
-            
+
             colorsOutput.Display();
         }
     }

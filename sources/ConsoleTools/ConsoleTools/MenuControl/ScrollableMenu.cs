@@ -154,7 +154,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private void Reset()
         {
             isCloseRequested = false;
-            
+
             SelectedIndex = null;
             SelectedItem = null;
 

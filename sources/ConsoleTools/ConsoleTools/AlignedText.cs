@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools
 
                     case HorizontalAlignment.Center:
                         int totalSpaces = Width - Text.Length;
-                        return (int)Math.Floor((double)totalSpaces / 2);
+                        return (int) Math.Floor((double) totalSpaces / 2);
 
                     case HorizontalAlignment.Right:
                         return Width - Text.Length;
@@ -129,10 +129,10 @@ namespace DustInTheWind.ConsoleTools
         private static string AlignCenter(string text, int width)
         {
             int totalSpaces = width - text.Length;
-            double halfSpaces = (double)totalSpaces / 2;
+            double halfSpaces = (double) totalSpaces / 2;
 
-            int leftSpaces = (int)Math.Floor(halfSpaces);
-            int rightSpaces = (int)Math.Ceiling(halfSpaces);
+            int leftSpaces = (int) Math.Floor(halfSpaces);
+            int rightSpaces = (int) Math.Ceiling(halfSpaces);
 
             StringBuilder sb = new StringBuilder();
 

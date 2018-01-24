@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
             string expected =
-@"+--------------------------------------------------------+
+                @"+--------------------------------------------------------+
 | This is a header cell alignment test                   |
 +------------------+------------------+------------------+
 | Header 1         | Header 2         | Header 3         |

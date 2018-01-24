@@ -25,7 +25,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            DataGrid dataGrid = new DataGrid("If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)");
+            DataGrid dataGrid = new DataGrid(
+                "If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)");
 
             dataGrid.Rows.Add("First item", 1.ToString());
             dataGrid.Rows.Add("Second item", 2.ToString());

@@ -60,7 +60,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
-
             }
             finally
             {

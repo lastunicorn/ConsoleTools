@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// The value is displayed at the left, before the progress.
         /// </summary>
         Left,
-        
+
         /// <summary>
         /// The value is displayed at the right, after the progress.
         /// </summary>

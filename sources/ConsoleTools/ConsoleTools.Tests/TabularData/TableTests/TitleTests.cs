@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             string actual = dataGrid.ToString();
 
             string expected =
-@"+--------------------+
+                @"+--------------------+
 | My Title           |
 +-----+-----+--------+
 | asd | qwe | zxczxc |
@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
             string expected =
-@"+-------------------------------------+
+                @"+-------------------------------------+
 | My Title My Title My Title My Title |
 +-----------+-----------+-------------+
 | asd       | qwe       | zxczxc      |
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
             string expected =
-@"+--------------------+
+                @"+--------------------+
 | My Title1          |
 | My Title2          |
 | My Title3          |

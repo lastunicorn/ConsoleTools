@@ -133,7 +133,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         {
             return false;
         }
-        
+
         /// <summary>
         /// Raises the <see cref="BeforeSelect"/> event.
         /// </summary>

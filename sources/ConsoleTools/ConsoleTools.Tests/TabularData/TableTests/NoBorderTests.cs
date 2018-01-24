@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@" one    ichi  eins 
+                @" one    ichi  eins 
  two    ni    zwei 
  three  san   drei 
 ";
@@ -51,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@" My Title          
+                @" My Title          
  one    ichi  eins 
  two    ni    zwei 
  three  san   drei 

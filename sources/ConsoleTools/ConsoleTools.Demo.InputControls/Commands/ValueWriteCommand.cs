@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             StringOutput firstNameOutput = new StringOutput("First Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
             StringOutput lastNameOutput = new StringOutput("Last Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
             Int32Output ageOutput = new Int32Output("Age:") { LabelForegroundColor = ConsoleColor.DarkGreen };
-            
+
             firstNameOutput.Value = "Joe";
             firstNameOutput.Display();
 

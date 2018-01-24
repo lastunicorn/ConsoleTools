@@ -92,12 +92,12 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
                 },
 
                 new SeparatorMenuItem(),
-                
+
                 new LabelMenuItem
                 {
                     Text = "Settings",
                     Command = new SettingsCommand()
-                }, 
+                },
                 new LabelMenuItem
                 {
                     Text = "Credits",
@@ -113,7 +113,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
                     Command = new ExitCommand(applicationState)
                 }
             });
-            
+
             // You can play with the following values.
 
             // This automatically selects the first item when the menu is displayed.
@@ -122,7 +122,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
             // 
             //scrollableMenu.HorizontalAlignment = HorizontalAlignment.Left;
             //scrollableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
-            
+
             return scrollableMenu;
         }
 

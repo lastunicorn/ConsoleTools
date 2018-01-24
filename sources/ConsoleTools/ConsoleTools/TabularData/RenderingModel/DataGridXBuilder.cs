@@ -44,7 +44,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public bool DisplayBorderBetweenRows { get; set; }
 
         public int MinWidth { get; set; }
-        
+
         public DataGridX Build()
         {
             dataGridX = new DataGridX(DisplayBorder)

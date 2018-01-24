@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 |      0,0 |      0,1 |     0,2 |
@@ -45,6 +45,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             CustomAssert.TableRender(dataGrid, expected);
         }
+
         [Test]
         public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
         {
@@ -67,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 |      0,0 |      0,1 |     0,2 |

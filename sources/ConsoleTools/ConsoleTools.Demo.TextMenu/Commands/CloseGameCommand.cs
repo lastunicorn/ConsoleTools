@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
             if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
             this.gameBoard = gameBoard;
         }
-        
+
         public void Execute()
         {
             gameBoard.StopGame();

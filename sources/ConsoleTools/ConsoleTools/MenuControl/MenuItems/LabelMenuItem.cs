@@ -60,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// Gets the size necessary for the current instance to render.
         /// </summary>
         public Size Size => new Size(CalculatedContent.Length, 1);
-        
+
         /// <summary>
         /// Gets or sets the text displayed by the current instance.
         /// </summary>

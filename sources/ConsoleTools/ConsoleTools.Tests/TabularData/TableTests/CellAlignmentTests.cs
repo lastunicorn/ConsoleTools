@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -46,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid[0][1].HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid[0][1].HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid[0][1].HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      |   0,1    | 0,2     |
@@ -97,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid[0][1].HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      |      0,1 | 0,2     |
@@ -115,7 +115,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -136,7 +136,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -157,7 +157,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -178,7 +178,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 | 0,0      | 0,1      | 0,2     |
@@ -201,7 +201,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("12", "a", "errr");
 
             string expected =
-@"+----------------------------+
+                @"+----------------------------+
 | My Title                   |
 +---------+--------+---------+
 | 1234567 | 123456 | one two |

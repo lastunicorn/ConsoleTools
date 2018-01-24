@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔═══════╦══════╦══════╗
+                @"╔═══════╦══════╦══════╗
 ║ one   ║ ichi ║ eins ║
 ║ two   ║ ni   ║ zwei ║
 ║ three ║ san  ║ drei ║
@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔═════════════════════╗
+                @"╔═════════════════════╗
 ║ My Title            ║
 ╠═══════╦══════╦══════╣
 ║ one   ║ ichi ║ eins ║
@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔═══════╦══════╦═══════╗
+                @"╔═══════╦══════╦═══════╗
 ║ One   ║ Two  ║ Three ║
 ╠═══════╬══════╬═══════╣
 ║ one   ║ ichi ║ eins  ║
@@ -106,7 +106,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔══════════════════════╗
+                @"╔══════════════════════╗
 ║ My Title             ║
 ╠═══════╦══════╦═══════╣
 ║ One   ║ Two  ║ Three ║
@@ -137,7 +137,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"122222222222222222222222222222222223
+                @"122222222222222222222222222222222223
 8   My Title                       4
 beeeeeeeeeee9eeeeeeeeee9eeeeeeeeeee0
 8   One     d   Two    d   Three   4

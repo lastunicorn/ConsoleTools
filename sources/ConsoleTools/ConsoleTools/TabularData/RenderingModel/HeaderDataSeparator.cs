@@ -1,4 +1,3 @@
-
 // ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 

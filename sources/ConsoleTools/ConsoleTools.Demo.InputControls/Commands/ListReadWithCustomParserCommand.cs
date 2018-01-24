@@ -51,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static IReadOnlyList<ConsoleColor> ReadColors()
         {
             ListInput<ConsoleColor> colorsInput = new ListInput<ConsoleColor>("What are your prefered colors?");
-            colorsInput.CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true);
+            colorsInput.CustomParser = value => (ConsoleColor) Enum.Parse(typeof(ConsoleColor), value, true);
 
             colorsInput.Display();
             return colorsInput.Values;

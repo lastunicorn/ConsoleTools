@@ -48,8 +48,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <param name="index">The index of the <see cref="Column"/> to return.</param>
         /// <returns>The <see cref="Column"/> at the specified index.</returns>
         public Column this[int index] => index >= 0 && index < columns.Count
-                ? columns[index]
-                : null;
+            ? columns[index]
+            : null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColumnList"/> class with

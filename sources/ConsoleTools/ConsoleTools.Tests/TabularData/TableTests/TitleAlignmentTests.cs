@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
 
             string expected =
-@"+--------------------------------+
+                @"+--------------------------------+
 | Title                          |
 +----------+----------+----------+
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
@@ -46,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
-@"+--------------------------------+
+                @"+--------------------------------+
 | Title                          |
 +----------+----------+----------+
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
-@"+--------------------------------+
+                @"+--------------------------------+
 | Title                          |
 +----------+----------+----------+
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
-@"+--------------------------------+
+                @"+--------------------------------+
 |             Title              |
 +----------+----------+----------+
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |
@@ -97,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
-@"+--------------------------------+
+                @"+--------------------------------+
 |                          Title |
 +----------+----------+----------+
 | Cell 0,0 | Cell 0,1 | Cell 0,2 |

@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.DisplayBorderBetweenRows = true;
             dataGrid.DisplayColumnHeaders = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
-            
+
             dataGrid.Display();
         }
     }

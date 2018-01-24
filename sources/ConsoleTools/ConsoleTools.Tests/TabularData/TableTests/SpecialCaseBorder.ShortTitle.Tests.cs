@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔════════════════════════════════╗
+                @"╔════════════════════════════════╗
 ║ Short Title                    ║
 ╠══════════╦══════════╦══════════╣
 ║ Header 1 ║ Header 2 ║ Header 3 ║
@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔══════════╦══════════╦══════════╗
+                @"╔══════════╦══════════╦══════════╗
 ║ Header 1 ║ Header 2 ║ Header 3 ║
 ╠══════════╬══════════╬══════════╣
 ║ one      ║ ichi     ║ eins     ║
@@ -86,7 +86,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔═════════════════════╗
+                @"╔═════════════════════╗
 ║ Short Title         ║
 ╠═══════╦══════╦══════╣
 ║ one   ║ ichi ║ eins ║
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Columns.Add(new Column("Header 3"));
 
             string expected =
-@"╔════════════════════════════════╗
+                @"╔════════════════════════════════╗
 ║ Short Title                    ║
 ╠══════════╦══════════╦══════════╣
 ║ Header 1 ║ Header 2 ║ Header 3 ║
@@ -129,7 +129,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("three", "san", "drei");
 
             string expected =
-@"╔═══════╦══════╦══════╗
+                @"╔═══════╦══════╦══════╗
 ║ one   ║ ichi ║ eins ║
 ║ two   ║ ni   ║ zwei ║
 ║ three ║ san  ║ drei ║
@@ -149,7 +149,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Columns.Add(new Column("Header 3"));
 
             string expected =
-@"╔══════════╦══════════╦══════════╗
+                @"╔══════════╦══════════╦══════════╗
 ║ Header 1 ║ Header 2 ║ Header 3 ║
 ╚══════════╩══════════╩══════════╝
 ";
@@ -165,7 +165,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected =
-@"╔═════════════╗
+                @"╔═════════════╗
 ║ Short Title ║
 ╚═════════════╝
 ";

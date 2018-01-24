@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.PaddingLeft = 2;
 
             const string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 |  My Title                     |
 +----------+---------+----------+
 |  1234567 |  123456 |  one two |
@@ -60,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.PaddingRight = 2;
 
             const string expected =
-@"+-------------------------------+
+                @"+-------------------------------+
 | My Title                      |
 +----------+---------+----------+
 | 1234567  | 123456  | one two  |

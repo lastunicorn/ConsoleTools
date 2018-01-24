@@ -71,7 +71,7 @@ namespace DustInTheWind.ConsoleTools
             if (!(obj is Size))
                 return false;
 
-            Size size = (Size)obj;
+            Size size = (Size) obj;
             return size.Width == Width && size.Height == Height;
         }
 

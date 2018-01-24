@@ -41,7 +41,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
 
         private static TextMenu CreateMenu()
         {
-            TextMenuItem[] menuItems = {
+            TextMenuItem[] menuItems =
+            {
                 new TextMenuItem
                 {
                     Id = "1",

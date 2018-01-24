@@ -49,30 +49,37 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets the character used to render the top left corner.
         /// </summary>
         public char TopLeft { get; }
+
         /// <summary>
         /// Gets the character used to render the top border.
         /// </summary>
         public char Top { get; }
+
         /// <summary>
         /// Gets the character used to render the top right corner.
         /// </summary>
         public char TopRight { get; }
+
         /// <summary>
         /// Gets the character used to render the right border.
         /// </summary>
         public char Right { get; }
+
         /// <summary>
         /// Gets the character used to render the bottom right corner.
         /// </summary>
         public char BottomRight { get; }
+
         /// <summary>
         /// Gets the character used to render the bottom border.
         /// </summary>
         public char Bottom { get; }
+
         /// <summary>
         /// Gets the character used to render the bottom left corner.
         /// </summary>
         public char BottomLeft { get; }
+
         /// <summary>
         /// Gets the character used to render the left border.
         /// </summary>
@@ -82,18 +89,22 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets the character used to render the intersection between the top outer border and an internal vertical border.
         /// </summary>
         public char TopIntersection { get; }
+
         /// <summary>
         /// Gets the character used to render the intersection between the right outer border and an internal horizontal border.
         /// </summary>
         public char RightIntersection { get; }
+
         /// <summary>
         /// Gets the character used to render the intersection between the bottom outer border and an internal vertical border.
         /// </summary>
         public char BottomIntersection { get; }
+
         /// <summary>
         /// Gets the character used to render the intersection between the left outer border and an internal horizontal border.
         /// </summary>
         public char LeftIntersection { get; }
+
         /// <summary>
         /// Gets the character used to render the intersection between two internal borders: a vertical and a horizontal one.
         /// </summary>
@@ -103,6 +114,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets the character used to render an internal vertical border.
         /// </summary>
         public char Vertical { get; }
+
         /// <summary>
         /// Gets the character used to render an internal horizontal border.
         /// </summary>
@@ -124,7 +136,9 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (values == null) throw new ArgumentNullException(nameof(values));
 
             if (values.Length != 15)
-                throw new ArgumentException("Please provide 15 characters for the border in the following order: top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, top-intersection, right-intersection, bottom-intersection, left-intersection, middle-intersection, vertical, horizontal.", nameof(values));
+                throw new ArgumentException(
+                    "Please provide 15 characters for the border in the following order: top-left, top, top-right, right, bottom-right, bottom, bottom-left, left, top-intersection, right-intersection, bottom-intersection, left-intersection, middle-intersection, vertical, horizontal.",
+                    nameof(values));
 
             TopLeft = values[0];
             Top = values[1];

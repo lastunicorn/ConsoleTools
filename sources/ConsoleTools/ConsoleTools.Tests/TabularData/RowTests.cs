@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData
             DataCell cell2 = new DataCell("cell content");
 
             DataRow row = new DataRow(cell0, null, cell2);
-            
+
             Assert.That(row[1], Is.InstanceOf<DataCell>());
             Assert.That(row[1].IsEmpty, Is.True);
         }

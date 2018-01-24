@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools
                 ? Text.Length
                 : Console.BufferWidth;
 
-            int textHeight = (int)Math.Ceiling(Text.Length / (double)Console.BufferWidth);
+            int textHeight = (int) Math.Ceiling(Text.Length / (double) Console.BufferWidth);
 
             int totalHeight = MarginTop + textHeight + MarginBottom;
 

@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class ScrollableMenu : Control
+    public class ScrollableMenu : ErasableControl
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
@@ -201,7 +201,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         protected override Size CalculateControlSize()
         {
-            int menuHight = menuItems
+            int menuHeight = menuItems
                 .Count(x => x != null && x.IsVisible);
 
             int menuWidth = menuItems
@@ -209,7 +209,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 .Select(x => x.Size)
                 .Max(x => x.Width);
 
-            return new Size(menuWidth, menuHight);
+            return new Size(menuWidth, menuHeight);
         }
 
         private void DrawMenuItem(int? index)

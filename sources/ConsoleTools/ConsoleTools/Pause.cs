@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// A control that displays a message and waits for the user to press any key.
     /// </summary>
-    public class Pause : Control
+    public class Pause : ErasableControl
     {
         /// <summary>
         /// Gets or sets the text to be displayed to the user while witing for the user to press a key.

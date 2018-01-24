@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <remarks>
     /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
     /// </remarks>
-    public class TextMenu : Control
+    public class TextMenu : ErasableControl
     {
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
@@ -88,6 +88,19 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
             this.menuItems.AddRange(menuItems);
+        }
+
+        protected override Size CalculateControlSize()
+        {
+            int menuHeight = menuItems
+                .Count(x => x != null && x.IsVisible);
+
+            int menuWidth = menuItems
+                .Where(x => x != null && x.IsVisible)
+                .Select(x => x.Size)
+                .Max(x => x.Width);
+
+            return new Size(menuWidth, menuHeight);
         }
 
         /// <summary>

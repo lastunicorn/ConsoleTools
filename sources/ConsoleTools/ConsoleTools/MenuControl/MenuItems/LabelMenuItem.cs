@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         public Location? Location { get; private set; }
 
         /// <summary>
-        /// Gets the size necessary for the current instance to render.
+        /// Gets the size in characters necessary for the current instance to be rendered.
         /// </summary>
         public Size Size => new Size(CalculatedContent.Length, 1);
 

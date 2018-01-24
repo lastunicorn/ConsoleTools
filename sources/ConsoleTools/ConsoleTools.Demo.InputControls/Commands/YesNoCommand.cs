@@ -35,7 +35,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static YesNoAnswer AskQuestion()
         {
             YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?");
-            yesNoQuestion.EraseAfterClose = true;
             return yesNoQuestion.ReadAnswer();
         }
 

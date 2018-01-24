@@ -57,6 +57,13 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public ICommand Command { get; set; }
 
         /// <summary>
+        /// Gets the size in characters necessary for the item to be rendered.
+        /// </summary>
+        public Size Size => Text == null
+            ? Size.Empty
+            : new Size(Text.Length, 1);
+
+        /// <summary>
         /// Gets a value that specifies if the current instance can be selected.
         /// </summary>
         public bool CanBeSelected()

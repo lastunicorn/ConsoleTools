@@ -117,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// The control reads values until the user inserts an empty string.
         /// </summary>
         /// <returns>The list with the values provided by the user.</returns>
-        protected override void OnDisplayContent()
+        protected override void DoDisplayContent()
         {
             if (Label != null)
             {

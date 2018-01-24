@@ -91,7 +91,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Writes a value to the Console output.
         /// </summary>
-        protected override void OnDisplayContent()
+        protected override void DoDisplayContent()
         {
             labelControl.Text = Label;
             labelControl.Display();

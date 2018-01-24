@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
                 CustomConsole.WriteLine();
 
                 RunColorExample();
-                Pause.QuickPause();
+                Pause.QuickDisplay();
 
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("-------------------------------------------------------------------------------");
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
             finally
             {
-                Pause.QuickPause();
+                Pause.QuickDisplay();
             }
         }
 

@@ -178,7 +178,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Renders the current instance into the console.
         /// </summary>
-        protected override void OnDisplayContent()
+        protected override void DoDisplayContent()
         {
             ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
             RenderInternal(consoleTablePrinter);

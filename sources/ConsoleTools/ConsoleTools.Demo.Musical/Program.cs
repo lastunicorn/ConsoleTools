@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Musical
             PlayGreetingSound();
             CustomConsole.WriteLine("The sound was stopped.");
 
-            Pause.QuickPause();
+            Pause.QuickDisplay();
         }
 
         private static void DisplayApplicationHeader()

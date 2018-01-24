@@ -37,19 +37,19 @@ namespace DustInTheWind.ConsoleTools.Demo.Guard
                 CustomConsole.WriteLine("But this application cannot be started twice.");
                 CustomConsole.WriteLine("Leave this instance running and try starting another one.");
 
-                Pause.QuickPause();
+                Pause.QuickDisplay();
             }
             catch (ApplicationException)
             {
                 CustomConsole.WriteLineError("Another instace of this application is already running.");
                 CustomConsole.WriteLineError("Current instace will shutdown.");
-                Pause.QuickPause();
+                Pause.QuickDisplay();
                 return 2;
             }
             catch (Exception ex)
             {
                 CustomConsole.WriteLine(string.Format("Error instantiating the guardian instance. {0}", ex.Message), ConsoleColor.Red);
-                Pause.QuickPause();
+                Pause.QuickDisplay();
                 return 1;
             }
 

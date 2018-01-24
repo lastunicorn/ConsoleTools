@@ -24,37 +24,14 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// A contyrol that displays a message and waits for the user to press any key.
+    /// A control that displays a message and waits for the user to press any key.
     /// </summary>
-    public class Pause
+    public class Pause : Control
     {
         /// <summary>
         /// Gets or sets the text to be displayed to the user while witing for the user to press a key.
         /// </summary>
         public string Text { get; set; } = PauseResources.PauseText;
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the cursor is hidden while waiting for the user to press a key.
-        /// </summary>
-        public bool HideCursor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed before the pause text.
-        /// Default value: 1
-        /// </summary>
-        public int MarginTop { get; set; } = 1;
-
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
-        /// Default value: 1
-        /// </summary>
-        public int MarginBottom { get; set; } = 1;
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the <see cref="Text"/> is erased from the Console
-        /// after the user press the <see cref="UnlockKey"/>.
-        /// </summary>
-        public bool EraseAfterClose { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ConsoleKey"/> the user must press to break the pause.
@@ -64,60 +41,27 @@ namespace DustInTheWind.ConsoleTools
         public ConsoleKey? UnlockKey { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Pause"/> class.
+        /// </summary>
+        public Pause()
+        {
+            MarginTop = 1;
+            MarginBottom = 1;
+            EnsureBeginOfLine = true;
+        }
+
+        /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
-        public void Display()
+        protected override void DoDisplayContent()
         {
-            if (HideCursor)
-                CustomConsole.WithoutCursor(DisplayInternal);
-            else
-                DisplayInternal();
-        }
-
-        private void DisplayInternal()
-        {
-            // Ensure new line
-
-            if (Console.CursorLeft != 0)
-                Console.WriteLine();
-
-            // Write empty space
-
-            Size size = CalculateSize();
-
-            for (int i = 0; i < size.Height; i++)
-                Console.WriteLine();
-
-            Console.SetCursorPosition(0, Console.CursorTop - size.Height);
-
-            // Display the control
-
-            int initialCursorTop = Console.CursorTop;
-            int initialCursorLeft = Console.CursorLeft;
-
-            WriteTopMargin();
-
-            int textCursorTop = Console.CursorTop;
-            int textCursorLeft = Console.CursorLeft;
-            int textLength = Text?.Length ?? 0;
-
             Console.Write(Text);
-            WaitForUnlockKey();
 
-            if (EraseAfterClose)
-            {
-                Console.SetCursorPosition(textCursorLeft, textCursorTop);
-                Console.Write(new string(' ', textLength));
-                Console.SetCursorPosition(initialCursorLeft, initialCursorTop);
-            }
-            else
-            {
-                Console.WriteLine();
-                WriteBottomMargin();
-            }
+            WaitForUnlockKey();
+            Console.WriteLine();
         }
 
-        private Size CalculateSize()
+        protected override Size CalculateControlSize()
         {
             int textWidth = Text.Length < Console.BufferWidth
                 ? Text.Length
@@ -128,12 +72,6 @@ namespace DustInTheWind.ConsoleTools
             int totalHeight = MarginTop + textHeight + MarginBottom;
 
             return new Size(textWidth, totalHeight);
-        }
-
-        private void WriteTopMargin()
-        {
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
         }
 
         private void WaitForUnlockKey()
@@ -147,16 +85,10 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
-        }
-
         /// <summary>
         /// Displays the pause with default settings.
         /// </summary>
-        public static void QuickPause()
+        public static void QuickDisplay()
         {
             new Pause().Display();
         }
@@ -165,7 +97,7 @@ namespace DustInTheWind.ConsoleTools
         /// Displays the pause with default settings.
         /// </summary>
         /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
-        public static void QuickPause(string text)
+        public static void QuickDisplay(string text)
         {
             Pause pause = new Pause { Text = text };
             pause.Display();
@@ -176,7 +108,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
         /// <param name="unlockKey">The key thatthe user has to press to unlock the pause.</param>
-        public static void QuickPause(string text, ConsoleKey unlockKey)
+        public static void QuickDisplay(string text, ConsoleKey unlockKey)
         {
             Pause pause = new Pause
             {

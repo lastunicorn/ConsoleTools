@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
 
             WriteDummyText();
 
-            ConsoleTools.Pause.QuickPause("The demo is ended. Press any key to exit...");
+            ConsoleTools.Pause.QuickDisplay("The demo is ended. Press any key to exit...");
         }
 
         private static void DisplayApplicationHeader()
@@ -48,7 +48,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
 
         private static void WriteDummyText()
         {
-            Thread.Sleep(500);
             CustomConsole.WriteLine("some text");
             Thread.Sleep(500);
             CustomConsole.WriteLine("some text");
@@ -61,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
         {
             CustomConsole.WriteLine("This is the default pause:");
 
-            ConsoleTools.Pause.QuickPause();
+            ConsoleTools.Pause.QuickDisplay();
         }
 
         private static void DisplayPPause()

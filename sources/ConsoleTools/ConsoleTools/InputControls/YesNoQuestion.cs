@@ -146,7 +146,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary> 
         /// Displays the question to the user and waits for the answer.
         /// </summary>
-        protected override void OnDisplayContent()
+        protected override void DoDisplayContent()
         {
             if (QuestionText != null)
                 DisplayQuestion();

@@ -36,7 +36,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private readonly MenuItemCollection menuItems;
 
         private volatile bool isCloseRequested;
-        private Size menuSize;
         private Location menuLocation;
 
         /// <summary>
@@ -121,13 +120,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void OnDisplayContent()
+        protected override void DoDisplayContent()
         {
             menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
             try
             {
-                DrawMenu();
+                menuLocation = CalculateMenuLocation();
+
+                for (int i = 0; i < menuItems.Count; i++)
+                    DrawMenuItem(i);
 
                 if (SelectFirstByDefault)
                     menuItems.SelectFirst();
@@ -139,21 +141,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
                 menuItems.SelectNone();
 
-                int firstLineAfterMenu = menuLocation.Top + menuSize.Height;
+                int firstLineAfterMenu = menuLocation.Top + Size.Height;
                 Console.SetCursorPosition(0, firstLineAfterMenu);
             }
-        }
-
-        private void DrawMenu()
-        {
-            menuSize = CalculateMenuSize();
-
-            RenderMenuSpace();
-
-            menuLocation = CalculateMenuLocation();
-
-            for (int i = 0; i < menuItems.Count; i++)
-                DrawMenuItem(i);
         }
 
         protected override void OnAfterDisplay()
@@ -164,10 +154,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private void Reset()
         {
             isCloseRequested = false;
-
-            menuLocation = Location.Origin;
-            menuSize = Size.Empty;
-
+            
             SelectedIndex = null;
             SelectedItem = null;
 
@@ -183,17 +170,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             isCloseRequested = true;
         }
 
-        private void RenderMenuSpace()
-        {
-            // First I write sufficient empty lines for all the menu items an
-            // later will come back on each line and display the menu item.
-
-            for (int i = 0; i < menuSize.Height; i++)
-                Console.WriteLine();
-
-            Console.CursorTop = Console.CursorTop - menuSize.Height;
-        }
-
         private Location CalculateMenuLocation()
         {
             HorizontalAlignment calcualtedHorizontalAlignment = CalcualteHorizontalAlignment();
@@ -206,10 +182,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                     return new Location(0, menuTop);
 
                 case HorizontalAlignment.Center:
-                    return new Location((Console.BufferWidth - menuSize.Width) / 2, menuTop);
+                    return new Location((Console.BufferWidth - Size.Width) / 2, menuTop);
 
                 case HorizontalAlignment.Right:
-                    return new Location(Console.BufferWidth - menuSize.Width, menuTop);
+                    return new Location(Console.BufferWidth - Size.Width, menuTop);
             }
         }
 
@@ -223,7 +199,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return calcualtedHorizontalAlignment;
         }
 
-        private Size CalculateMenuSize()
+        protected override Size CalculateControlSize()
         {
             int menuHight = menuItems
                 .Count(x => x != null && x.IsVisible);
@@ -251,7 +227,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 Console.SetCursorPosition(left, top);
 
-                Size menuItemSize = new Size(menuSize.Width, 1);
+                Size menuItemSize = new Size(Size.Width, 1);
                 bool isHighlighted = menuItemToDraw == menuItems.CurrentItem;
 
                 menuItemToDraw.Display(menuItemSize, isHighlighted);

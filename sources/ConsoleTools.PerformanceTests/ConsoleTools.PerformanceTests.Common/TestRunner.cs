@@ -38,7 +38,7 @@ namespace ConsoleTools.PerformanceTests.Common
         {
             times = new List<TimeSpan>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 TimeSpan time = Measure();
                 times.Add(time);

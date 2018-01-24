@@ -43,7 +43,7 @@ namespace ConsoleTools.PerformanceTests.Current
 
             // Done
 
-            Pause.QuickPause();
+            Pause.QuickDisplay();
         }
 
         private static void HandleMeasurementDone(object sender, MeasurementDoneEventArgs e)

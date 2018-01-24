@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="DustInTheWind.ConsoleTools.ErasableControl" Collapsed="true">
-    <Position X="18.25" Y="2" Width="1.5" />
+    <Position X="22.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABEAEwAgAAAAAAAAAAACAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>ErasableControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Pause" Collapsed="true">
-    <Position X="20.25" Y="3.5" Width="1.5" />
+    <Position X="24.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAACAAAAAAAAAAAAgIAAAAAAAAAACAAAIAA=</HashCode>
       <FileName>Pause.cs</FileName>
@@ -101,14 +101,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
-    <Position X="16.25" Y="3.5" Width="1.5" />
+    <Position X="20.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAIAAAAAEARCBAAIgAAQIAAAAIAAABAAAJAAAAAAIQA=</HashCode>
       <FileName>MenuControl\TextMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
-    <Position X="18.25" Y="3.5" Width="1.5" />
+    <Position X="22.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAEAEEQABABAgAAwAAAAAIBMAACAAdAAAAAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
@@ -122,7 +122,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Spinners.Spinner" Collapsed="true">
-    <Position X="9.5" Y="6" Width="1.5" />
+    <Position X="15.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAKAAAhBEEAACAQAAAAAACAAEAAAACACAAAo=</HashCode>
       <FileName>Spinners\Spinner.cs</FileName>
@@ -130,7 +130,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Spinners.ProgressBar" Collapsed="true">
-    <Position X="11.5" Y="6" Width="1.5" />
+    <Position X="17.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAoQAAABADBBxggAAAIAQBAAAAAACAQAIAwAIqIAFA=</HashCode>
       <FileName>Spinners\ProgressBar.cs</FileName>

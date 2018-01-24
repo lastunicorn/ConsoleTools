@@ -106,7 +106,7 @@ namespace DustInTheWind.ConsoleTools
 
         private void MoveToNextLineIfNecessary()
         {
-            if (EnsureBeginOfLine && Console.CursorLeft != 0)
+            if (Console.CursorLeft != 0 && (EnsureBeginOfLine || MarginTop > 0))
                 Console.WriteLine();
         }
 

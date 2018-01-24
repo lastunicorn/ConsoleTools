@@ -65,19 +65,24 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             NewCommand?.Invoke(null, e);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Prompter"/> class.
+        /// </summary>
         public Prompter()
         {
             EnsureBeginOfLine = true;
+            MarginTop = 1;
+            MarginBottom = 1;
         }
 
-        ///// <summary>
-        ///// Continously read from the console new commands.
-        ///// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
-        ///// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
-        ///// The infinite loop that reads commands can be stopped
-        ///// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
-        ///// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
-        ///// </summary>
+        /// <summary>
+        /// Continously read from the console new commands.
+        /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
+        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
+        /// The infinite loop that reads commands can be stopped
+        /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
+        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
+        /// </summary>
         public override void Display()
         {
             closeWasRequested = false;
@@ -138,7 +143,6 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 if (newCommand.IsEmpty)
                     continue;
 
-                Console.WriteLine();
                 lastCommand = newCommand;
                 return;
             }
@@ -149,10 +153,6 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// </summary>
         protected virtual void DisplayWholePrompter()
         {
-            // Move the cursor at the beginning of a new line if necessary.
-            if (EnsureBeginOfLine && Console.CursorLeft != 0)
-                Console.WriteLine();
-
             if (SpaceBeforePrompter > 0)
             {
                 string leftMargin = new string(' ', SpaceBeforePrompter);

@@ -12,6 +12,7 @@ ver 0.3.0
 - Prompter: Renamed the Run() method into Display().
 - Prompter: Renamed the RunOnce() method into DisplayOnce().
 - Prompter: Renamed the RequestStop() method into RequestClose().
+- Prompter: Added MarginTop/MarginBottom.
 - Spinner: Renamed the spinner templates.
 - Pause [bugfix]: Control is not correctly erased when it is displayed at the bottom of the console buffer.
 - Added French translation.

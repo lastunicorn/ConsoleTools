@@ -44,10 +44,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
         private static void StartDemo()
         {
             prompter = new CommandProviders.Prompter();
-            prompter.MarginTop = 10;
-            prompter.MarginBottom = 10;
             prompter.NewCommand += HandleNewCommand;
-
+            
             prompter.Display();
         }
 
@@ -61,10 +59,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
-            }
-            finally
-            {
-                CustomConsole.WriteLine();
             }
         }
 

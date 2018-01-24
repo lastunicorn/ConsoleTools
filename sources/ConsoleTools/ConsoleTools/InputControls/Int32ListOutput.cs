@@ -21,7 +21,7 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    public class Int32ListOutput : ListOutput<string>
+    public class Int32ListOutput : ListOutput<int>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Int32ListOutput" /> class.

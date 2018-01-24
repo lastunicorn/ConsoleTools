@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Displays a <see cref="float"/> value to the console.
     /// </summary>
-    public class FloatOutput : ValueOutput<int>
+    public class FloatOutput : ValueOutput<float>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FloatOutput"/> class.

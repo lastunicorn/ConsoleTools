@@ -21,24 +21,21 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    /// <summary>
-    /// Displays a <see cref="double"/> value to the console.
-    /// </summary>
-    public class DoubleOutput : ValueOutput<double>
+    public class DoubleInput : ValueInput<double>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleOutput"/> class.
+        /// Initializes a new instance of the <see cref="DoubleInput"/> class.
         /// </summary>
-        public DoubleOutput()
+        public DoubleInput()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleOutput"/> class with
-        /// the label to be displayed in front of the value.
+        /// Initializes a new instance of the <see cref="DoubleInput"/> class with
+        /// the label to be displayed when the user is requested to provide the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public DoubleOutput(string label)
+        public DoubleInput(string label)
             : base(label)
         {
         }

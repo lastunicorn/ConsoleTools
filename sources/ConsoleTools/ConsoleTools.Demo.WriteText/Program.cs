@@ -25,27 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             DisplayApplicationHeader();
 
             Console.SetBufferSize(80, 1024);
-
-            Pause pause = new Pause();
-
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-
-            pause.EraseAfterClose = false;
-            pause.Display();
-
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-
-            pause.EraseAfterClose = true;
-            pause.Display();
-
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-            CustomConsole.WriteLine("some text");
-
+            
             try
             {
                 CustomConsole.WriteLine();

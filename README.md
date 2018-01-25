@@ -23,7 +23,7 @@ For any bug or feature request please add a **[new issue](https://github.com/las
   - [Progress Bar](https://github.com/lastunicorn/ConsoleTools/wiki/ProgressBar) - Displays a progress bar, to show the amount of finished work.
   - [Spinner](https://github.com/lastunicorn/ConsoleTools/wiki/Spinner) - A "loading" control for the jobs when you cannot estimate the remaining work.
 - Menus (Command Providers)
-  - [Selectable Menu](https://github.com/lastunicorn/ConsoleTools/wiki/SelectableMenu) - A menu where the user can navigate through the items with up/down keys
+  - [Scrollable Menu](https://github.com/lastunicorn/ConsoleTools/wiki/ScrollableMenu) - A menu where the user can navigate through the items with up/down keys
   - [TextMenu](https://github.com/lastunicorn/ConsoleTools/wiki/TextMenu) - A menu where the user selects an item by typing its id.
   - [Prompter](https://github.com/lastunicorn/ConsoleTools/wiki/Prompter) - Displays a prompter and waits for the user to type a command.
 - Miscellaneous

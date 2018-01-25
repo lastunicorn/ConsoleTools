@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.ThreeStageFile" Collapsed="true">
-    <Position X="11.75" Y="8" Width="1.5" />
+    <Position X="14" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAIAAAAAAAAAAAAAAAAAAAIAAAgICABAA=</HashCode>
       <FileName>ThreeStageFile.cs</FileName>
@@ -31,7 +31,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Guard.MachineLevelGuardian" Collapsed="true">
-    <Position X="14" Y="8" Width="2" />
+    <Position X="16.25" Y="8" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Guard\MachineLevelGuardian.cs</FileName>
@@ -110,12 +110,12 @@
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
     <Position X="22.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAEEQABABAgAAwAAAAAIBMAACAAdAAAAAAICE=</HashCode>
+      <HashCode>AAAAEAEAEEQABABAoAAwAAAAAIBMAACAAdAAAAAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Musical.Sound" Collapsed="true">
-    <Position X="9.5" Y="8" Width="1.5" />
+    <Position X="11.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAABgAAAAACAAAA=</HashCode>
       <FileName>Musical\Sound.cs</FileName>

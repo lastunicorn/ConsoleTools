@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
@@ -52,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public void Render(ITablePrinter tablePrinter)
         {
             if (borderText == null)
-                borderText = borderTemplate.GenerateHeaderBottomBorder(columnsWidths);
+                borderText = borderTemplate.GenerateBottomBorder(columnsWidths);
 
             tablePrinter.WriteLineBorder(borderText);
         }

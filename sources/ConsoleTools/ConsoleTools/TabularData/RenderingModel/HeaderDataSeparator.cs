@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
@@ -52,9 +53,30 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public void Render(ITablePrinter tablePrinter)
         {
             if (borderText == null)
-                borderText = borderTemplate.GenerateDataRowSeparatorBorder(columnsWidths);
+                borderText = GenerateDataRowSeparatorBorder();
 
             tablePrinter.WriteLineBorder(borderText);
+        }
+        
+        private string GenerateDataRowSeparatorBorder()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(borderTemplate.LeftIntersection);
+
+            for (int columnIndex = 0; columnIndex < columnsWidths.Count; columnIndex++)
+            {
+                int columnWidth = columnsWidths[columnIndex];
+                sb.Append(new string(borderTemplate.Horizontal, columnWidth));
+
+                char columnBorderRight = columnIndex < columnsWidths.Count - 1
+                    ? borderTemplate.MiddleIntersection
+                    : borderTemplate.RightIntersection;
+
+                sb.Append(columnBorderRight);
+            }
+
+            return sb.ToString();
         }
     }
 }

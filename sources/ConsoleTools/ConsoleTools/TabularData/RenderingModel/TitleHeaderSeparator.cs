@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
@@ -52,9 +53,34 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public void Render(ITablePrinter tablePrinter)
         {
             if (borderText == null)
-                borderText = borderTemplate.GenerateTitleHeaderSeparator(columnsWidths);
+                borderText = GenerateTitleHeaderSeparator();
 
             tablePrinter.WriteLineBorder(borderText);
+        }
+
+        /// <summary>
+        /// Generates the border displayed between title and column header rows.
+        /// This border is used only when both title and column header rows are visible.
+        /// </summary>
+        private string GenerateTitleHeaderSeparator()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(borderTemplate.LeftIntersection);
+
+            for (int columnIndex = 0; columnIndex < columnsWidths.Count; columnIndex++)
+            {
+                int columnWidth = columnsWidths[columnIndex];
+                sb.Append(new string(borderTemplate.Horizontal, columnWidth));
+
+                char columnBorderRight = columnIndex < columnsWidths.Count - 1
+                    ? borderTemplate.TopIntersection
+                    : borderTemplate.RightIntersection;
+
+                sb.Append(columnBorderRight);
+            }
+
+            return sb.ToString();
         }
     }
 }

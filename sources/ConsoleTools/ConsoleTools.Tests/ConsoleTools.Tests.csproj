@@ -79,6 +79,10 @@
     </Compile>
     <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
     <Compile Include="AlignedTextTests\ToStringTests.cs" />
+    <Compile Include="TabularData\BorderTemplateTests\GenerateBottomBorderTests.cs" />
+    <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator1Tests.cs" />
+    <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator2Tests.cs" />
+    <Compile Include="TabularData\BorderTemplateTests\GenerateTopBorderTests.cs" />
     <Compile Include="TabularData\DataCellTests\ConstructorNoParamsTests.cs" />
     <Compile Include="TabularData\DataCellTests\ConstructorMultilineTextAndAlignmentTests.cs" />
     <Compile Include="TabularData\DataCellTests\ConstructorObjectAndAlignmentTests.cs" />
@@ -125,6 +129,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

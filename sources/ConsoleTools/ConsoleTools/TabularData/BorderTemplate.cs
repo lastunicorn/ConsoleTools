@@ -187,90 +187,23 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
-        /// Generates the border displayed at the top of the title row.
+        /// Generates the border displayed at the top of the column header row.
+        /// This border is used only when title is hidden and the column header row is visible, being the first row of the table.
         /// </summary>
-        public string GenerateTitleTopBorder(int width)
+        public string GenerateTopBorder(params int[] columnWidths)
         {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(TopLeft);
-            sb.Append(new string(Top, width - 2));
-            sb.Append(TopRight);
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Generates the border displayed at the bottom of the title row.
-        /// This border is used only when the column header rows is not visible and there are no data to display.
-        /// </summary>
-        public string GenerateTitleBottomBorder(int width)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(BottomLeft);
-            sb.Append(new string(Bottom, width - 2));
-            sb.Append(BottomRight);
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Generates the border displayed between title and column header rows.
-        /// This border is used only when both title and column header rows are visible.
-        /// </summary>
-        public string GenerateTitleHeaderSeparator(List<int> columnWidths)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(LeftIntersection);
-
-            for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
-            {
-                int columnWidth = columnWidths[columnIndex];
-                sb.Append(new string(Horizontal, columnWidth));
-
-                char columnBorderRight = columnIndex < columnWidths.Count - 1
-                    ? TopIntersection
-                    : RightIntersection;
-
-                sb.Append(columnBorderRight);
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Generates the border displayed between title and the first data row.
-        /// This border is used only when title is visible, column header row is hidden and there is at least one row of data.
-        /// </summary>
-        public string GenerateTitleDataSeparator(List<int> columnWidths)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(LeftIntersection);
-
-            for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
-            {
-                int columnWidth = columnWidths[columnIndex];
-                sb.Append(new string(Horizontal, columnWidth));
-
-                char columnBorderRight = columnIndex < columnWidths.Count - 1
-                    ? TopIntersection
-                    : RightIntersection;
-
-                sb.Append(columnBorderRight);
-            }
-
-            return sb.ToString();
+            return GenerateTopBorder((IList<int>)columnWidths);
         }
 
         /// <summary>
         /// Generates the border displayed at the top of the column header row.
         /// This border is used only when title is hidden and the column header row is visible, being the first row of the table.
         /// </summary>
-        public string GenerateHeaderTopBorder(List<int> columnWidths)
+        public string GenerateTopBorder(IList<int> columnWidths)
         {
+            if (columnWidths == null || columnWidths.Count == 0)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append(TopLeft);
@@ -291,35 +224,23 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
-        /// Generates the border displayed at the bottom of the column header row.
-        /// This border is used only when the column header row is visible and it is the last row of the table.
+        /// Generates the border displayed between title and column header rows.
+        /// This border is used only when both title and column header rows are visible.
         /// </summary>
-        public string GenerateHeaderBottomBorder(List<int> columnWidths)
+        public string GenerateHorizontalSeparator(params int[] columnWidths)
         {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(BottomLeft);
-
-            for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
-            {
-                int columnWidth = columnWidths[columnIndex];
-                sb.Append(new string(Bottom, columnWidth));
-
-                char columnBorderRight = columnIndex < columnWidths.Count - 1
-                    ? BottomIntersection
-                    : BottomRight;
-
-                sb.Append(columnBorderRight);
-            }
-
-            return sb.ToString();
+            return GenerateHorizontalSeparator((IList<int>)columnWidths);
         }
 
         /// <summary>
-        /// Generates the border displayed between two data rows.
+        /// Generates the border displayed between title and column header rows.
+        /// This border is used only when both title and column header rows are visible.
         /// </summary>
-        public string GenerateDataRowSeparatorBorder(List<int> columnWidths)
+        public string GenerateHorizontalSeparator(IList<int> columnWidths)
         {
+            if (columnWidths == null || columnWidths.Count == 0)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append(LeftIntersection);
@@ -339,36 +260,56 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return sb.ToString();
         }
 
+        ///// <summary>
+        ///// Generates the border displayed between title and column header rows.
+        ///// This border is used only when both title and column header rows are visible.
+        ///// </summary>
+        //public string GenerateHorizontalSeparator(IList<int> topColumnWidths, IList<int> bottomColumnWidths)
+        //{
+        //    if (topColumnWidths == null && bottomColumnWidths == null)
+        //        return string.Empty;
+
+        //    if (topColumnWidths == null)
+        //        return GenerateTopBorder(bottomColumnWidths);
+
+        //    if (bottomColumnWidths == null)
+        //        return GenerateBottomBorder(topColumnWidths);
+
+        //    StringBuilder sb = new StringBuilder();
+
+        //    sb.Append(LeftIntersection);
+
+        //    for (int columnIndex = 0; columnIndex < topColumnWidths.Count; columnIndex++)
+        //    {
+        //        int columnWidth = topColumnWidths[columnIndex];
+        //        sb.Append(new string(Horizontal, columnWidth));
+
+        //        char columnBorderRight = columnIndex < topColumnWidths.Count - 1
+        //            ? TopIntersection
+        //            : RightIntersection;
+
+        //        sb.Append(columnBorderRight);
+        //    }
+
+        //    return sb.ToString();
+        //}
+
         /// <summary>
-        /// Generates the border displayed at the top of the first data row.
-        /// This border is used only when title and column header rows are hidden and the first data row is the first row of the table.
+        /// Generates the border displayed at the bottom of the last data row.
         /// </summary>
-        public string GenerateDataRowTopBorder(List<int> columnWidths)
+        public string GenerateBottomBorder(params int[] columnWidths)
         {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append(TopLeft);
-
-            for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
-            {
-                int columnWidth = columnWidths[columnIndex];
-                sb.Append(new string(Top, columnWidth));
-
-                char columnBorderRight = columnIndex < columnWidths.Count - 1
-                    ? TopIntersection
-                    : TopRight;
-
-                sb.Append(columnBorderRight);
-            }
-
-            return sb.ToString();
+            return GenerateBottomBorder((IList<int>)columnWidths);
         }
 
         /// <summary>
         /// Generates the border displayed at the bottom of the last data row.
         /// </summary>
-        public string GenerateDataRowBottomBorder(List<int> columnWidths)
+        public string GenerateBottomBorder(IList<int> columnWidths)
         {
+            if (columnWidths == null || columnWidths.Count == 0)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BottomLeft);

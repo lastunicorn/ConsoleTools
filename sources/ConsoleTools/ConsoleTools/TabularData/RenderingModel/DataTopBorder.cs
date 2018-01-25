@@ -52,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public void Render(ITablePrinter tablePrinter)
         {
             if (borderText == null)
-                borderText = borderTemplate.GenerateDataRowTopBorder(columnsWidths);
+                borderText = borderTemplate.GenerateTopBorder(columnsWidths);
 
             tablePrinter.WriteLineBorder(borderText);
         }

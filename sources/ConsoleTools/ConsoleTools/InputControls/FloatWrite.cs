@@ -22,23 +22,23 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a <see cref="int"/> value to the console.
+    /// Displays a <see cref="float"/> value to the console.
     /// </summary>
-    public class Int32Output : ValueOutput<int>
+    public class FloatWrite : ValueWrite<float>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int32Output"/> class.
+        /// Initializes a new instance of the <see cref="FloatWrite"/> class.
         /// </summary>
-        public Int32Output()
+        public FloatWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int32Output"/> class with
+        /// Initializes a new instance of the <see cref="FloatWrite"/> class with
         /// the label to be displayed in front of the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public Int32Output(string label)
+        public FloatWrite(string label)
             : base(label)
         {
         }

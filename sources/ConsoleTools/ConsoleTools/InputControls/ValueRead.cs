@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class ValueInput<T> : Control
+    public class ValueRead<T> : Control
     {
         private readonly Label labelControl = new Label
         {
@@ -106,18 +106,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public Func<string, T> CustomParser { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueInput{T}"/> class.
+        /// Initializes a new instance of the <see cref="ValueRead{T}"/> class.
         /// </summary>
-        public ValueInput()
+        public ValueRead()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueInput{T}"/> class with
+        /// Initializes a new instance of the <see cref="ValueRead{T}"/> class with
         /// the label to be displayed when the user is requested to provide the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public ValueInput(string label)
+        public ValueRead(string label)
         {
             Label = label;
         }
@@ -180,15 +180,15 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueInput{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueRead{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static T QuickDisplay(string label)
         {
-            ValueInput<T> valueInput = new ValueInput<T>(label);
-            valueInput.Display();
-            return valueInput.Value;
+            ValueRead<T> valueRead = new ValueRead<T>(label);
+            valueRead.Display();
+            return valueRead.Value;
         }
     }
 }

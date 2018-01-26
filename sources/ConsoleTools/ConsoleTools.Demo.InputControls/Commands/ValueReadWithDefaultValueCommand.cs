@@ -30,15 +30,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         private static void RunExample()
         {
-            ValueInput<int> numberInput = new ValueInput<int>("Number ({0}):");
-            numberInput.AcceptDefaultValue = true;
-            numberInput.DefaultValue = 42;
+            ValueRead<int> numberRead = new ValueRead<int>("Number ({0}):");
+            numberRead.AcceptDefaultValue = true;
+            numberRead.DefaultValue = 42;
 
-            CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueInput control.");
+            CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueRead control.");
             CustomConsole.WriteLine();
 
-            numberInput.Display();
-            int number = numberInput.Value;
+            numberRead.Display();
+            int number = numberRead.Value;
 
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("You selected {0}.", number);

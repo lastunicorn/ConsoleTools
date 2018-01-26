@@ -22,23 +22,23 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a <see cref="double"/> value to the console.
+    /// Reads a list of <see cref="float"/> values from the console.
     /// </summary>
-    public class DoubleOutput : ValueOutput<double>
+    public class FloatListRead : ListRead<float>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleOutput"/> class.
+        /// Initializes a new instance of the <see cref="FloatListRead"/> class.
         /// </summary>
-        public DoubleOutput()
+        public FloatListRead()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleOutput"/> class with
-        /// the label to be displayed in front of the value.
+        /// Initializes a new instance of the <see cref="FloatListRead"/> class with
+        /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public DoubleOutput(string label)
+        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
+        public FloatListRead(string label)
             : base(label)
         {
         }

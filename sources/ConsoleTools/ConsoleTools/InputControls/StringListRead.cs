@@ -21,24 +21,21 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    /// <summary>
-    /// Reads a <see cref="int"/> value from the console.
-    /// </summary>
-    public class Int32Input : ValueInput<int>
+    public class StringListRead : ListRead<string>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int32Input"/> class.
+        /// Initializes a new instance of the <see cref="StringListRead"/> class.
         /// </summary>
-        public Int32Input()
+        public StringListRead()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int32Input"/> class with
-        /// the label to be displayed when the user is requested to provide the value.
+        /// Initializes a new instance of the <see cref="StringListRead"/> class with
+        /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public Int32Input(string label)
+        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
+        public StringListRead(string label)
             : base(label)
         {
         }

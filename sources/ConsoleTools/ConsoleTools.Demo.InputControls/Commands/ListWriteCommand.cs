@@ -32,11 +32,11 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         }
 
         /// <summary>
-        /// By creating an instance of the <see cref="ListOutput{T}"/>, additional properties can be set.
+        /// By creating an instance of the <see cref="ListWrite{T}"/>, additional properties can be set.
         /// </summary>
         private static void DisplayColors(string[] colors)
         {
-            ListOutput<string> colorsOutput = new ListOutput<string>
+            ListWrite<string> colorsWrite = new ListWrite<string>
             {
                 Label = "Colors:",
                 Values = colors,
@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
                 // etc...
             };
 
-            colorsOutput.Display();
+            colorsWrite.Display();
         }
     }
 }

@@ -38,9 +38,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         private static IEnumerable<int> ReadNumbers()
         {
-            ListInput<int> luckyNumbersInput = new ListInput<int>("What are your lucky number?");
-            luckyNumbersInput.Display();
-            return luckyNumbersInput.Values;
+            ListRead<int> luckyNumbersRead = new ListRead<int>("What are your lucky number?");
+            luckyNumbersRead.Display();
+            return luckyNumbersRead.Values;
         }
     }
 }

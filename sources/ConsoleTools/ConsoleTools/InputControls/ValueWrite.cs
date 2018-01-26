@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Displays a value to the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is displayed to the user.</typeparam>
-    public class ValueOutput<T> : Control
+    public class ValueWrite<T> : Control
     {
         private readonly Label labelControl = new Label
         {
@@ -72,18 +72,18 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueOutput{T}"/> class.
+        /// Initializes a new instance of the <see cref="ValueWrite{T}"/> class.
         /// </summary>
-        public ValueOutput()
+        public ValueWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueOutput{T}"/> class with
+        /// Initializes a new instance of the <see cref="ValueWrite{T}"/> class with
         /// the label to be displayed in front of the value.
         /// </summary>
         /// <param name="label">The label to be displayed in front of the value.</param>
-        public ValueOutput(string label)
+        public ValueWrite(string label)
         {
             Label = label;
         }
@@ -100,19 +100,19 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueOutput{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueWrite{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="value">The value to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static void QuickDisplay(string label, T value)
         {
-            ValueOutput<T> valueOutput = new ValueOutput<T>
+            ValueWrite<T> valueWrite = new ValueWrite<T>
             {
                 Label = label,
                 Value = value
             };
-            valueOutput.Display();
+            valueWrite.Display();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Represents a text to be displayed in the console.

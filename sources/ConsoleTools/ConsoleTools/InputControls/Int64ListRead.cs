@@ -22,23 +22,23 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Reads a <see cref="double"/> value from the console.
+    /// Reads a list of <see cref="long"/> values from the console.
     /// </summary>
-    public class DoubleInput : ValueInput<double>
+    public class Int64ListRead : ListRead<long>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleInput"/> class.
+        /// Initializes a new instance of the <see cref="Int64ListRead"/> class.
         /// </summary>
-        public DoubleInput()
+        public Int64ListRead()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleInput"/> class with
-        /// the label to be displayed when the user is requested to provide the value.
+        /// Initializes a new instance of the <see cref="Int64ListRead"/> class with
+        /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public DoubleInput(string label)
+        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
+        public Int64ListRead(string label)
             : base(label)
         {
         }

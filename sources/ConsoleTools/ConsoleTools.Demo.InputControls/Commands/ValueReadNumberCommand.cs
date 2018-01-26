@@ -36,12 +36,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static void RunExample()
         {
             // Create the input controls
-            ValueInput<int> ageInput = new ValueInput<int>("Age:");
-            ageInput.LabelForegroundColor = ConsoleColor.DarkGreen;
+            ValueRead<int> ageRead = new ValueRead<int>("Age:");
+            ageRead.LabelForegroundColor = ConsoleColor.DarkGreen;
 
             // Read values using the input controls
-            ageInput.Display();
-            int age = ageInput.Value;
+            ageRead.Display();
+            int age = ageRead.Value;
 
             // Display th read values.
             CustomConsole.WriteLine();

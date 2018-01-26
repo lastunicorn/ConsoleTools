@@ -28,9 +28,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         public void Execute()
         {
             CustomConsole.WriteLine("  This will demonstrates how to read a list of values using the");
-            CustomConsole.WriteLine("  ListInput<T> control.");
+            CustomConsole.WriteLine("  ListRead<T> control.");
             CustomConsole.WriteLine();
-            CustomConsole.WriteLine("  By creating an instance of the ListInput<string>, it offers the possibility");
+            CustomConsole.WriteLine("  By creating an instance of the ListRead<string>, it offers the possibility");
             CustomConsole.WriteLine("  to adjust different properties like the item's bullet and the label's color.");
             CustomConsole.WriteLine();
 
@@ -43,11 +43,11 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         }
 
         /// <summary>
-        /// By creating an instance of the <see cref="ListInput{T}"/>, additional properties can be set.
+        /// By creating an instance of the <see cref="ListRead{T}"/>, additional properties can be set.
         /// </summary>
         private static IEnumerable<string> ReadBeverages()
         {
-            ListInput<string> beveragesInput = new ListInput<string>
+            ListRead<string> beveragesRead = new ListRead<string>
             {
                 Label = "What are your prefered beverages?",
                 Bullet = "#",
@@ -55,8 +55,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
                 // etc...
             };
 
-            beveragesInput.Display();
-            return beveragesInput.Values;
+            beveragesRead.Display();
+            return beveragesRead.Values;
         }
     }
 }

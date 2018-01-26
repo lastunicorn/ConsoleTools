@@ -22,25 +22,25 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a list of <see cref="float"/> values to the console.
+    /// Displays a <see cref="string"/> value to the console.
     /// </summary>
-    public class FloatListOutput : ListOutput<float>
+    public class StringWrite : ValueWrite<string>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloatListOutput" /> class.
+        /// Initializes a new instance of the <see cref="StringWrite"/> class.
         /// </summary>
-        public FloatListOutput()
+        public StringWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloatListOutput"/> class with
-        /// the label text to be displayed before the list of values.
+        /// Initializes a new instance of the <see cref="StringWrite"/> class with
+        /// the label to be displayed in front of the value.
         /// </summary>
-        /// <param name="label">The label text to be displayed before the list of values.</param>
-        public FloatListOutput(string label)
+        /// <param name="label">The label to be displayed in front of the value.</param>
+        public StringWrite(string label)
+            : base(label)
         {
-            Label = label;
         }
     }
 }

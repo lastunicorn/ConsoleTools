@@ -26,28 +26,24 @@ using System.Text;
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Reads a list of values from the console.
+    /// Displays a list of values to the console.
     /// </summary>
-    public class ListInput<T> : Control
+    public class ListWrite<T> : Control
     {
         private readonly Label labelControl = new Label
         {
-            MarginLeft = 0,
-            MarginRight = 0,
             ForegroundColor = CustomConsole.EmphasiesColor
         };
 
-        private List<T> values;
-
         /// <summary>
-        /// Gets or sets the label text to be displayed before the user types the values.
+        /// Gets or sets the label text to be displayed before the list of values.
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// Gets the list of values read from the console.
+        /// Gets or sets the list of values that needs to be displayed to the user.
         /// </summary>
-        public IReadOnlyList<T> Values => values.AsReadOnly();
+        public IEnumerable<T> Values { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color used to display the label.
@@ -83,40 +79,25 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public int SpaceAfterBullet { get; set; } = 1;
 
         /// <summary>
-        /// Gets or sets the text to be displayed when the value provided by the user
-        /// cannot be converted into the requested type.
-        /// The requested type is provided as parameter {0}.
+        /// Initializes a new instance of the <see cref="ListWrite{T}"/> class.
         /// </summary>
-        public string TypeConversionErrorMessage { get; set; } = ListInputResources.TypeConversionErrorMessage;
-
-        /// <summary>
-        /// Gets or sets the function used to parse the text provided by the user.
-        /// If the conversion cannot be performed, the convertor must throw an exception.
-        /// </summary>
-        public Func<string, T> CustomParser { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListInput{T}"/> class.
-        /// </summary>
-        public ListInput()
+        public ListWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListInput{T}"/> class with
-        /// the label to be displayed when the user is requested to provide the values.
+        /// Initializes a new instance of the <see cref="ListWrite{T}"/> class with
+        /// the label text to be displayed before the list of values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
-        public ListInput(string label)
+        /// <param name="label">The label text to be displayed before the list of values.</param>
+        public ListWrite(string label)
         {
             Label = label;
         }
 
         /// <summary>
-        /// Displays the label and waits for the user to type the values.
-        /// The control reads values until the user inserts an empty string.
+        /// Writes the label and the list of values to the console.
         /// </summary>
-        /// <returns>The list with the values provided by the user.</returns>
         protected override void DoDisplayContent()
         {
             if (Label != null)
@@ -126,49 +107,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 CustomConsole.WriteLine();
             }
 
-            ReadAllValues();
-        }
-
-        private void ReadAllValues()
-        {
-            values = new List<T>();
-
             string leftpart = BuildItemLeftPart();
 
-            while (true)
+            foreach (T value in Values)
             {
-                int cursorLeft = Console.CursorLeft;
-                int cursorTop = Console.CursorTop;
-
                 CustomConsole.Write(leftpart);
-                string rawValue = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(rawValue))
-                {
-                    Console.SetCursorPosition(cursorLeft, cursorTop);
-                    string emptyText = new string(' ', leftpart.Length);
-                    Console.Write(emptyText);
-                    Console.SetCursorPosition(cursorLeft, cursorTop);
-                    break;
-                }
-
-                try
-                {
-                    T value = ConvertRawValue(rawValue);
-                    values.Add(value);
-                }
-                catch
-                {
-                    CustomConsole.WriteLineError(TypeConversionErrorMessage, typeof(T));
-                }
+                CustomConsole.WriteLine(value);
             }
-        }
-
-        private T ConvertRawValue(string value)
-        {
-            return CustomParser == null
-                ? (T) Convert.ChangeType(value, typeof(T))
-                : CustomParser(value);
         }
 
         private string BuildItemLeftPart()
@@ -196,15 +141,19 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListInput{T}"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ListWrite{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
+        /// <param name="values">The list of values to be displayed.</param>
         /// <returns>The value read from the console.</returns>
-        public static List<T> QuickDisplay(string label = null)
+        public static void QuickDisplay(string label, IEnumerable<T> values)
         {
-            ListInput<T> listInput = new ListInput<T>(label);
-            listInput.Display();
-            return listInput.values;
+            ListWrite<T> listWrite = new ListWrite<T>
+            {
+                Label = label,
+                Values = values
+            };
+            listWrite.Display();
         }
     }
 }

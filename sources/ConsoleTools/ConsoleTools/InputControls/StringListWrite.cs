@@ -21,26 +21,23 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    /// <summary>
-    /// Reads a <see cref="float"/> value from the console.
-    /// </summary>
-    public class FloatInput : ValueInput<float>
+    public class StringListWrite : ListWrite<string>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloatInput"/> class.
+        /// Initializes a new instance of the <see cref="StringListWrite" /> class.
         /// </summary>
-        public FloatInput()
+        public StringListWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FloatInput"/> class with
-        /// the label to be displayed when the user is requested to provide the value.
+        /// Initializes a new instance of the <see cref="StringListWrite"/> class with
+        /// the label text to be displayed before the list of values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public FloatInput(string label)
-            : base(label)
+        /// <param name="label">The label text to be displayed before the list of values.</param>
+        public StringListWrite(string label)
         {
+            Label = label;
         }
     }
 }

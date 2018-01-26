@@ -22,25 +22,25 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Reads a <see cref="long"/> value from the console.
+    /// Displays a list of <see cref="float"/> values to the console.
     /// </summary>
-    public class Int64Input : ValueInput<long>
+    public class FloatListWrite : ListWrite<float>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64Input"/> class.
+        /// Initializes a new instance of the <see cref="FloatListWrite" /> class.
         /// </summary>
-        public Int64Input()
+        public FloatListWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64Input"/> class with
-        /// the label to be displayed when the user is requested to provide the value.
+        /// Initializes a new instance of the <see cref="FloatListWrite"/> class with
+        /// the label text to be displayed before the list of values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public Int64Input(string label)
-            : base(label)
+        /// <param name="label">The label text to be displayed before the list of values.</param>
+        public FloatListWrite(string label)
         {
+            Label = label;
         }
     }
 }

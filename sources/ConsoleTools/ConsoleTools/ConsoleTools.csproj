@@ -65,43 +65,43 @@
     <Compile Include="CustomConsole.Write.BothColors.cs" />
     <Compile Include="CustomConsole.WriteInverted.cs" />
     <Compile Include="ErasableControl.cs" />
-    <Compile Include="InputControls\DoubleInput.cs" />
-    <Compile Include="InputControls\DoubleListInput.cs" />
-    <Compile Include="InputControls\DoubleListOutput.cs" />
-    <Compile Include="InputControls\DoubleOutput.cs" />
-    <Compile Include="InputControls\FloatInput.cs" />
-    <Compile Include="InputControls\FloatListInput.cs" />
-    <Compile Include="InputControls\FloatListOutput.cs" />
-    <Compile Include="InputControls\FloatOutput.cs" />
-    <Compile Include="InputControls\InlineText.cs" />
-    <Compile Include="InputControls\Int32Input.cs" />
-    <Compile Include="InputControls\Int32ListInput.cs" />
-    <Compile Include="InputControls\Int32ListOutput.cs" />
-    <Compile Include="InputControls\Int32Output.cs" />
-    <Compile Include="InputControls\Int64Input.cs" />
-    <Compile Include="InputControls\Int64ListInput.cs" />
-    <Compile Include="InputControls\Int64ListOutput.cs" />
-    <Compile Include="InputControls\Int64Output.cs" />
+    <Compile Include="InputControls\DoubleRead.cs" />
+    <Compile Include="InputControls\DoubleListRead.cs" />
+    <Compile Include="InputControls\DoubleListWrite.cs" />
+    <Compile Include="InputControls\DoubleWrite.cs" />
+    <Compile Include="InputControls\FloatRead.cs" />
+    <Compile Include="InputControls\FloatListRead.cs" />
+    <Compile Include="InputControls\FloatListWrite.cs" />
+    <Compile Include="InputControls\FloatWrite.cs" />
+    <Compile Include="InlineText.cs" />
+    <Compile Include="InputControls\Int32Read.cs" />
+    <Compile Include="InputControls\Int32ListRead.cs" />
+    <Compile Include="InputControls\Int32ListWrite.cs" />
+    <Compile Include="InputControls\Int32Write.cs" />
+    <Compile Include="InputControls\Int64Read.cs" />
+    <Compile Include="InputControls\Int64ListRead.cs" />
+    <Compile Include="InputControls\Int64ListWrite.cs" />
+    <Compile Include="InputControls\Int64Write.cs" />
     <Compile Include="InputControls\Label.cs" />
-    <Compile Include="InputControls\ListInput.cs" />
+    <Compile Include="InputControls\ListRead.cs" />
     <Compile Include="InputControls\ListInputResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ListInputResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="InputControls\ListOutput.cs" />
-    <Compile Include="InputControls\StringInput.cs" />
-    <Compile Include="InputControls\StringListInput.cs" />
-    <Compile Include="InputControls\StringListOutput.cs" />
-    <Compile Include="InputControls\StringOutput.cs" />
+    <Compile Include="InputControls\ListWrite.cs" />
+    <Compile Include="InputControls\StringRead.cs" />
+    <Compile Include="InputControls\StringListRead.cs" />
+    <Compile Include="InputControls\StringListWrite.cs" />
+    <Compile Include="InputControls\StringWrite.cs" />
     <Compile Include="InputControls\TextBlock.cs" />
-    <Compile Include="InputControls\ValueInput.cs" />
+    <Compile Include="InputControls\ValueRead.cs" />
     <Compile Include="InputControls\ValueInputResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ValueInputResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="InputControls\ValueOutput.cs" />
+    <Compile Include="InputControls\ValueWrite.cs" />
     <Compile Include="InputControls\YesNoAnswer.cs" />
     <Compile Include="InputControls\YesNoQuestion.cs" />
     <Compile Include="CommandProviders\ICommandProvider.cs" />
@@ -184,7 +184,7 @@
     <Compile Include="TabularData\Printers\ConsoleTablePrinter.cs" />
     <Compile Include="HorizontalAlignment.cs" />
     <Compile Include="TabularData\ITablePrinter.cs" />
-    <Compile Include="TabularData\MultilineText.cs" />
+    <Compile Include="MultilineText.cs" />
     <Compile Include="TabularData\DataRow.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="TabularData\Printers\StringTablePrinter.cs" />

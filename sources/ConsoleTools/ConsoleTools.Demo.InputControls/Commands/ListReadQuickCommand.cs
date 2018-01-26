@@ -37,12 +37,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListInput{T}.QuickDisplay"/> falls back
+        /// Using the static method <see cref="ListRead{T}.QuickDisplay"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
         private static IEnumerable<string> ReadBeveragesQuick()
         {
-            return ListInput<string>.QuickDisplay("What are your prefered beverages?");
+            return ListRead<string>.QuickDisplay("What are your prefered beverages?");
         }
     }
 }

@@ -22,25 +22,25 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a <see cref="long"/> value to the console.
+    /// Displays a list of <see cref="double"/> values to the console.
     /// </summary>
-    public class Int64Output : ValueOutput<long>
+    public class DoubleListWrite : ListWrite<double>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64Output"/> class.
+        /// Initializes a new instance of the <see cref="DoubleListWrite" /> class.
         /// </summary>
-        public Int64Output()
+        public DoubleListWrite()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64Output"/> class with
-        /// the label to be displayed in front of the value.
+        /// Initializes a new instance of the <see cref="DoubleListWrite"/> class with
+        /// the label text to be displayed before the list of values.
         /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public Int64Output(string label)
-            : base(label)
+        /// <param name="label">The label text to be displayed before the list of values.</param>
+        public DoubleListWrite(string label)
         {
+            Label = label;
         }
     }
 }

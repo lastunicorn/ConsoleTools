@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DustInTheWind.ConsoleTools.TabularData
+namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Represents a text on multiple lines.

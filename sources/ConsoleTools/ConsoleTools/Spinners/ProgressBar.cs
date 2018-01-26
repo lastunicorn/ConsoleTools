@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
     /// Displays value and a graphical display in the form af a horizontal bar.
     /// Usually it is used to display the progress from 0% to 100%.
     /// </summary>
-    public class ProgressBar
+    public class ProgressBar : LongRunningControl
     {
         private readonly Label label = new Label();
         private bool isDisplayed;
@@ -218,7 +218,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// In the meantime, you can update its displayed value by setting the <see cref="Value"/> property. The control will
         /// automatically update itself in the Console.
         /// </summary>
-        public void Display()
+        protected override void DoDisplayContent()
         {
             Console.CursorVisible = false;
             isDisplayed = true;
@@ -328,7 +328,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Ends the display of the <see cref="ProgressBar"/> control.
         /// </summary>
-        public void Close()
+        protected override void DoClose()
         {
             CustomConsole.WriteLine();
             isDisplayed = false;

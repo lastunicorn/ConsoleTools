@@ -69,10 +69,14 @@ namespace DustInTheWind.ConsoleTools
 
         private void EnsureVerticalSpace()
         {
-            for (int i = 0; i < Size.Height; i++)
+            int initialLeft = Console.CursorLeft;
+
+            int height = Math.Min(Console.BufferHeight - 1, Size.Height);
+
+            for (int i = 0; i < height; i++)
                 Console.WriteLine();
 
-            Console.SetCursorPosition(0, Console.CursorTop - Size.Height);
+            Console.SetCursorPosition(initialLeft, Console.CursorTop - height);
         }
 
         /// <summary>

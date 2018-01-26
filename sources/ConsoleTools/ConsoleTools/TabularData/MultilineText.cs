@@ -66,6 +66,11 @@ namespace DustInTheWind.ConsoleTools.TabularData
             Lf
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultilineText"/> class with
+        /// the an object to be displayed as text.
+        /// </summary>
+        /// <exception cref="ApplicationException"></exception>
         public MultilineText(object o)
             : this(o.ToString())
         {
@@ -75,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Initializes a new instance of the <see cref="MultilineText"/> class with
         /// the raw text.
         /// </summary>
-        /// <param name="text">The text as a single line.</param>
+        /// <param name="text">The text may contain line terminators: CR, LF or CRLF.</param>
         /// <exception cref="ApplicationException"></exception>
         public MultilineText(string text)
         {

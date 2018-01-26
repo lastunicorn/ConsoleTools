@@ -4,6 +4,11 @@ ConsoleTools
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 
+ver 0.4.0
+---------
+- Pause: Supports multiline text.
+- Pause: [bugfix] Control was not erased correctly when text was too big and wrapped around.
+
 ver 0.3.0
 ---------
 - ProgressBar: Renamed the BarEmptyColor and BarFillColor into BarEmptyForegroundColor and BarFillForegroundColor.
@@ -14,7 +19,7 @@ ver 0.3.0
 - Prompter: Renamed the RequestStop() method into RequestClose().
 - Prompter: Added MarginTop/MarginBottom.
 - Spinner: Renamed the spinner templates.
-- Pause [bugfix]: Control is not correctly erased when it is displayed at the bottom of the console buffer.
+- Pause: [bugfix] Control is not correctly erased when it is displayed at the bottom of the console buffer.
 - Added French translation.
 - DataGrid: Renamed Table into DataGrid.
 - DataGrid: Exposed the Rows list.

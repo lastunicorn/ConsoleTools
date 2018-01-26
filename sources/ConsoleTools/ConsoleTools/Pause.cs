@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -28,10 +29,11 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public class Pause : ErasableControl
     {
+        //public MultilineText Text2 { get; set; }
         /// <summary>
         /// Gets or sets the text to be displayed to the user while witing for the user to press a key.
         /// </summary>
-        public string Text { get; set; } = PauseResources.PauseText;
+        public MultilineText Text { get; set; } = PauseResources.PauseText;
 
         /// <summary>
         /// Gets or sets the <see cref="ConsoleKey"/> the user must press to break the pause.
@@ -55,22 +57,56 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected override void DoDisplayContent()
         {
-            Console.Write(Text);
+            int consoleWidth = Console.BufferWidth;
+            int lastLineLength = 0;
+
+            for (int i = 0; i < Text.Lines.Count; i++)
+            {
+                string line = Text.Lines[i];
+                lastLineLength = line.Length;
+
+                if (lastLineLength % consoleWidth == 0 || i == Text.Lines.Count - 1)
+                    Console.Write(line);
+                else
+                    Console.WriteLine(line);
+            }
 
             WaitForUnlockKey();
-            Console.WriteLine();
+
+            if (lastLineLength != consoleWidth)
+                Console.WriteLine();
         }
 
+        /// <summary>
+        /// Calculates and returns the size of the current instance in characters, including the top and bottom margins.
+        /// The size is calculated as the control will be displayed starting from the current locatio of the cursor in the console.
+        /// </summary>
         protected override Size CalculateControlSize()
         {
-            int textWidth = Text.Length < Console.BufferWidth
-                ? Text.Length
-                : Console.BufferWidth;
+            int textWidth = 0;
+            int textHeight = 0;
 
-            int textHeight = (int) Math.Ceiling(Text.Length / (double) Console.BufferWidth);
+            bool isFirstLine = true;
+
+            foreach (string line in Text.Lines)
+            {
+                int lineFill;
+
+                if (isFirstLine)
+                {
+                    lineFill = Console.CursorLeft;
+                    isFirstLine = false;
+                }
+                else
+                {
+                    lineFill = 0;
+                }
+
+                textWidth = Math.Max(textWidth, Math.Min(line.Length, Console.BufferWidth - lineFill));
+                textHeight += (int)Math.Ceiling(line.Length / (double)(Console.BufferWidth - lineFill));
+            }
 
             int totalHeight = MarginTop + textHeight + MarginBottom;
-
             return new Size(textWidth, totalHeight);
         }
 

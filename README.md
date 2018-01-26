@@ -13,7 +13,7 @@ For any bug or feature request please add a **[new issue](https://github.com/las
 ## List of controls
 
 - Data read/write
-  - [Table](https://github.com/lastunicorn/ConsoleTools/wiki/Table) - Displays tabular data.
+  - [DataGrid](https://github.com/lastunicorn/ConsoleTools/wiki/DataGrid) - Displays tabular data.
   - [Read Value](https://github.com/lastunicorn/ConsoleTools/wiki/ValueInput%20Control) - Reads a value from the user.
   - [Read List of Values](https://github.com/lastunicorn/ConsoleTools/wiki/ListInput%20Control) - Reads a list of values of the same type from the user.
   - [Write Value](https://github.com/lastunicorn/ConsoleTools/wiki/ValueOutput%20Control) - Displays a value to the user.

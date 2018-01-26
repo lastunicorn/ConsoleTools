@@ -21,6 +21,9 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Displays a list of <see cref="double"/> values to the console.
+    /// </summary>
     public class DoubleListOutput : ListOutput<double>
     {
         /// <summary>

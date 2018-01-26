@@ -270,6 +270,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return indexOfCell == -1 ? (int?) null : indexOfCell;
         }
 
+        /// <summary>
+        /// Renders the row current row.
+        /// </summary>
+        /// <param name="tablePrinter">The destination where the current instance must be rendered.</param>
+        /// <param name="cellWidths">The widths of each cell that must be rendered.</param>
+        /// <param name="height">The height of the row to be rendered. If there are not enough text lines
+        /// in the content of a cell, spaces are written instead.</param>
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int height)
         {
             List<List<string>> cellContents = cells

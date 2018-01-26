@@ -30,16 +30,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets or sets the cell displayed in the header of the current column.
         /// </summary>
         public HeaderCell HeaderCell { get; }
-
-        /// <summary>
-        /// Gets or sets the text displayed in the header.
-        /// </summary>
-        public MultilineText Header
-        {
-            get { return HeaderCell.Content; }
-            set { HeaderCell.Content = value; }
-        }
-
+        
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
         /// </summary>

@@ -70,14 +70,14 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Method called at the begining of the <see cref="Display"/> method before doing anything else.
+        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
         /// </summary>
         protected virtual void OnBeforeDisplay()
         {
         }
 
         /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method before returning.
+        /// Method called at the very end of the <see cref="Display"/> method, before returning.
         /// </summary>
         protected virtual void OnAfterDisplay()
         {
@@ -96,10 +96,16 @@ namespace DustInTheWind.ConsoleTools
             OnAfterBottomMargin();
         }
 
+        /// <summary>
+        /// Method called immediately before writting the top margin.
+        /// </summary>
         protected virtual void OnBeforeTopMargin()
         {
         }
 
+        /// <summary>
+        /// Method called immediately after writting the bottom margin.
+        /// </summary>
         protected virtual void OnAfterBottomMargin()
         {
         }

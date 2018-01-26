@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
             };
 
             isTitleVisible = DisplayTitle && TitleRow != null && TitleRow.HasContent;
-            isColumnHeaderRowVisible = DisplayColumnHeaders && Columns != null && Columns.Count > 0 && Columns.Any(x => !x.Header.IsEmpty);
+            isColumnHeaderRowVisible = DisplayColumnHeaders && Columns != null && Columns.Count > 0 && Columns.Any(x => x?.HeaderCell?.IsEmpty == false);
             areDataRowsVisible = Rows.Count > 0;
 
             if (isTitleVisible)

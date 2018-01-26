@@ -21,6 +21,9 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Reads a <see cref="int"/> value from the console.
+    /// </summary>
     public class Int32Input : ValueInput<int>
     {
         /// <summary>

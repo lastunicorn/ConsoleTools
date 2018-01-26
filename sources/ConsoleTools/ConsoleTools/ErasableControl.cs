@@ -38,8 +38,11 @@ namespace DustInTheWind.ConsoleTools
     /// </remarks>
     public abstract class ErasableControl : Control
     {
-        protected Location InitialLocation { get; set; }
+        private Location initialLocation;
 
+        /// <summary>
+        /// Gets the size of the control after it was displayed.
+        /// </summary>
         protected Size Size { get; private set; }
 
         /// <summary>
@@ -48,13 +51,18 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public bool EraseAfterClose { get; set; }
 
+        /// <summary>
+        /// Method called immediately before writting the top margin.
+        /// It calculates and stores the size of the control for later usage and
+        /// writes enough empty lines to later write the content.
+        /// </summary>
         protected override void OnBeforeTopMargin()
         {
             Size = CalculateControlSize();
 
             EnsureVerticalSpace();
 
-            InitialLocation = new Location(Console.CursorLeft, Console.CursorTop);
+            initialLocation = new Location(Console.CursorLeft, Console.CursorTop);
 
             base.OnBeforeTopMargin();
         }
@@ -75,6 +83,10 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected abstract Size CalculateControlSize();
 
+        /// <summary>
+        /// Method called at the very end, after all the control was displayed.
+        /// It Erases the control if requested.
+        /// </summary>
         protected override void OnAfterDisplay()
         {
             if (EraseAfterClose && Size.Height > 0)
@@ -87,12 +99,12 @@ namespace DustInTheWind.ConsoleTools
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            Console.SetCursorPosition(InitialLocation.Left, InitialLocation.Top);
+            Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);
 
             for (int i = 0; i < Size.Height; i++)
                 Console.Write(emptyLine);
 
-            Console.SetCursorPosition(InitialLocation.Left, InitialLocation.Top);
+            Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);
         }
     }
 }

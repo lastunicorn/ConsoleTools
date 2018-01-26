@@ -40,15 +40,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public DataGrid ParentDataGrid { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the content of the current instance.
-        /// </summary>
-        public MultilineText Content
-        {
-            get { return TitleCell.Content; }
-            set { TitleCell.Content = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the content alignment.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
@@ -57,7 +48,10 @@ namespace DustInTheWind.ConsoleTools.TabularData
             set { TitleCell.HorizontalAlignment = value; }
         }
 
-        public bool HasContent => Content != null && !Content.IsEmpty;
+        /// <summary>
+        /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
+        /// </summary>
+        public bool HasContent => TitleCell?.Content?.IsEmpty == false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleRow"/> class with

@@ -43,8 +43,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
-        public int Height => Content?.Size.Height ?? 0;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// empty content.
@@ -175,12 +173,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
             // Build paddings.
 
-            string leftPadding = new string(' ', paddingLeftLength);
-            string rightPadding = new string(' ', paddingRightLength);
+            string paddingLeft = new string(' ', paddingLeftLength);
+            string paddingRight = new string(' ', paddingRightLength);
 
             // Concatenate everything.
 
-            return leftPadding + innerContent + rightPadding;
+            return paddingLeft + innerContent + paddingRight;
         }
 
         /// <summary>

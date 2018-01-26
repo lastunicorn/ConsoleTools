@@ -39,8 +39,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public MultilineText Title
         {
-            get { return TitleRow.Content; }
-            set { TitleRow.Content = value; }
+            get { return TitleRow.TitleCell.Content; }
+            set { TitleRow.TitleCell.Content = value; }
         }
 
         /// <summary>

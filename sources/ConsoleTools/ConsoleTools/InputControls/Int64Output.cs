@@ -22,7 +22,7 @@
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Displays a <see cref="int"/> value to the console.
+    /// Displays a <see cref="long"/> value to the console.
     /// </summary>
     public class Int64Output : ValueOutput<long>
     {

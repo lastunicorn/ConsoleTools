@@ -21,6 +21,9 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Reads a <see cref="long"/> value from the console.
+    /// </summary>
     public class Int64Input : ValueInput<long>
     {
         /// <summary>

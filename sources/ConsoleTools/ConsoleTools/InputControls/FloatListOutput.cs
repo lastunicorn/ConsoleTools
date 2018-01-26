@@ -21,6 +21,9 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Displays a list of <see cref="float"/> values to the console.
+    /// </summary>
     public class FloatListOutput : ListOutput<float>
     {
         /// <summary>

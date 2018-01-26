@@ -21,6 +21,9 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Reads a list of <see cref="int"/> values from the console.
+    /// </summary>
     public class Int32ListInput : ListInput<int>
     {
         /// <summary>

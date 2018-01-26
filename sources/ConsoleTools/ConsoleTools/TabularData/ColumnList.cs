@@ -74,6 +74,13 @@ namespace DustInTheWind.ConsoleTools.TabularData
             columns.Add(column);
         }
 
+        /// <summary>
+        /// Renders the row containing the column headers.
+        /// </summary>
+        /// <param name="tablePrinter">The destination where the current instance must be rendered.</param>
+        /// <param name="cellWidths">The widths of each header cell that must be rendered.</param>
+        /// <param name="rowHeight">The height of the row to be rendered. If there are not enough text lines
+        /// in the content of a cell, spaces are written instead.</param>
         public void RenderHeaderRow(ITablePrinter tablePrinter, List<int> cellWidths, int rowHeight)
         {
             // Get cells content.

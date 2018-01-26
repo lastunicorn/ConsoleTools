@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
@@ -27,34 +28,128 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.BorderTemplateTests
     [TestFixture]
     public class GenerateHorizontalSeparator2Tests
     {
-        //[Test]
-        //public void returns_string_empty_if_both_column_lists_are_null()
-        //{
-        //    BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+        [Test]
+        public void returns_string_empty_if_both_column_lists_are_null()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-        //    string actual = borderTemplate.GenerateHorizontalSeparator(null, null);
+            string actual = borderTemplate.GenerateHorizontalSeparator(null, null);
 
-        //    Assert.That(actual, Is.EqualTo(string.Empty));
-        //}
+            Assert.That(actual, Is.EqualTo(string.Empty));
+        }
 
-        //[Test]
-        //public void returns_string_empty_if_top_column_lists_are_null()
-        //{
-        //    BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+        [Test]
+        public void returns_string_empty_if_top_column_list_is_null()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-        //    string actual = borderTemplate.GenerateHorizontalSeparator(null, new List<int>());
+            string actual = borderTemplate.GenerateHorizontalSeparator(null, new List<int>());
 
-        //    Assert.That(actual, Is.EqualTo(string.Empty));
-        //}
+            Assert.That(actual, Is.EqualTo(string.Empty));
+        }
 
-        //[Test]
-        //public void returns_string_empty_if_bottom_column_lists_are_null()
-        //{
-        //    BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+        [Test]
+        public void returns_string_empty_if_bottom_column_list_is_null()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-        //    string actual = borderTemplate.GenerateHorizontalSeparator(new List<int>(), null);
+            string actual = borderTemplate.GenerateHorizontalSeparator(new List<int>(), null);
 
-        //    Assert.That(actual, Is.EqualTo(string.Empty));
-        //}
+            Assert.That(actual, Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void returns_string_empty_if_both_column_lists_are_empty()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(new List<int>(), new List<int>());
+
+            Assert.That(actual, Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void one_top_cell_equal_with_one_bottom_cell()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 5 };
+            List<int> bottomColumnWidths = new List<int> { 5 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├─────┤"));
+        }
+
+        [Test]
+        public void two_top_cells_equal_with_two_bottom_cells()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 3, 2 };
+            List<int> bottomColumnWidths = new List<int> { 3, 2 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├───┼──┤"));
+        }
+
+        [Test]
+        public void two_top_cells_unequal_with_two_bottom_cells()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 3, 2 };
+            List<int> bottomColumnWidths = new List<int> { 2, 3 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├──┬┴──┤"));
+        }
+
+        [Test]
+        public void one_top_cell_equal_with_two_bottom_cells()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 6 };
+            List<int> bottomColumnWidths = new List<int> { 2, 3 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├──┬───┤"));
+        }
+
+        [Test]
+        public void two_top_cells_equal_with_one_bottom_cell()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 3, 2 };
+            List<int> bottomColumnWidths = new List<int> { 6 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├───┴──┤"));
+        }
+
+        [Test]
+        public void one_top_cell_smaller_than_one_bottom_cell()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 3 };
+            List<int> bottomColumnWidths = new List<int> { 6 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├───┴──┐"));
+        }
+
+        [Test]
+        public void one_top_cell_greater_than_one_bottom_cell()
+        {
+            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            List<int> topColumnWidths = new List<int> { 6 };
+            List<int> bottomColumnWidths = new List<int> { 2 };
+
+            string actual = borderTemplate.GenerateHorizontalSeparator(topColumnWidths, bottomColumnWidths);
+
+            Assert.That(actual, Is.EqualTo("├──┬───┘"));
+        }
     }
 }

@@ -260,39 +260,37 @@ namespace DustInTheWind.ConsoleTools.TabularData
             return sb.ToString();
         }
 
-        ///// <summary>
-        ///// Generates the border displayed between title and column header rows.
-        ///// This border is used only when both title and column header rows are visible.
-        ///// </summary>
-        //public string GenerateHorizontalSeparator(IList<int> topColumnWidths, IList<int> bottomColumnWidths)
-        //{
-        //    if (topColumnWidths == null && bottomColumnWidths == null)
-        //        return string.Empty;
+        /// <summary>
+        /// Generates the border displayed between title and column header rows.
+        /// This border is used only when both title and column header rows are visible.
+        /// </summary>
+        public string GenerateHorizontalSeparator(IList<int> topCellWidths, IList<int> bottomCellWidths)
+        {
+            if (topCellWidths == null && bottomCellWidths == null)
+                return string.Empty;
 
-        //    if (topColumnWidths == null)
-        //        return GenerateTopBorder(bottomColumnWidths);
+            if (topCellWidths == null)
+                return GenerateTopBorder(bottomCellWidths);
 
-        //    if (bottomColumnWidths == null)
-        //        return GenerateBottomBorder(topColumnWidths);
+            if (bottomCellWidths == null)
+                return GenerateBottomBorder(topCellWidths);
 
-        //    StringBuilder sb = new StringBuilder();
+            HorizontalSeparatorBuilder builder = new HorizontalSeparatorBuilder
+            {
+                Horizontal = Horizontal,
+                LeftIntersection = LeftIntersection,
+                RightIntersection = RightIntersection,
+                TopIntersection = TopIntersection,
+                BottomIntersection = BottomIntersection,
+                MiddleIntersection = MiddleIntersection,
+                TopRight = TopRight,
+                BottomRight = BottomRight,
+                TopCellWidths = topCellWidths,
+                BottomCellWidths = bottomCellWidths
+            };
 
-        //    sb.Append(LeftIntersection);
-
-        //    for (int columnIndex = 0; columnIndex < topColumnWidths.Count; columnIndex++)
-        //    {
-        //        int columnWidth = topColumnWidths[columnIndex];
-        //        sb.Append(new string(Horizontal, columnWidth));
-
-        //        char columnBorderRight = columnIndex < topColumnWidths.Count - 1
-        //            ? TopIntersection
-        //            : RightIntersection;
-
-        //        sb.Append(columnBorderRight);
-        //    }
-
-        //    return sb.ToString();
-        //}
+            return builder.Build();
+        }
 
         /// <summary>
         /// Generates the border displayed at the bottom of the last data row.

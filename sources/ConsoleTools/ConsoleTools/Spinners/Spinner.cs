@@ -21,7 +21,6 @@
 
 using System;
 using System.Timers;
-using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Spinners
@@ -34,29 +33,31 @@ namespace DustInTheWind.ConsoleTools.Spinners
     /// <remarks>
     /// It does not support changing colors while spinning.
     /// </remarks>
-    public class Spinner : IDisposable
+    public class Spinner : LongRunningControl, IDisposable
     {
         private readonly ISpinnerTemplate template;
         private bool isDisposed;
         private readonly Timer timer;
-        private readonly Label label = new Label();
-        private bool isRunning;
 
         /// <summary>
-        /// Gets or sets the text label displayed in front of the spinner.
+        /// Gets or sets the label displayed in front of the spinner.
         /// Default value: "Please wait"
         /// </summary>
-        public string Text
+        public InlineText Label { get; set; } = new InlineText(SpinnerResources.DefaultLabelText)
         {
-            get { return label.Text; }
-            set { label.Text = value; }
-        }
+            MarginRight = 1
+        };
 
         /// <summary>
         /// Gets or sets a velue that specifies if the text label should be displayed.
         /// Default value: <c>true</c>
         /// </summary>
         public bool ShowLabel { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a text to be displayed instead of the spinner after the control is closed.
+        /// </summary>
+        public InlineText DoneText { get; set; }
 
         /// <summary>
         /// Gets or sets the time interval of the frames.
@@ -75,7 +76,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             template = new StickSpinnerTemplate();
 
-            label.Text = SpinnerResources.DefaultLabelText;
+            ShowCursor = false;
 
             timer = new Timer(400);
             timer.Elapsed += HandleTimerElapsed;
@@ -91,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (template == null) throw new ArgumentNullException(nameof(template));
             this.template = template;
 
-            label.Text = SpinnerResources.DefaultLabelText;
+            ShowCursor = false;
 
             timer = new Timer(400);
             timer.Elapsed += HandleTimerElapsed;
@@ -102,46 +103,46 @@ namespace DustInTheWind.ConsoleTools.Spinners
             Turn();
         }
 
-        /// <summary>
-        /// Displays the spinner and runs it until the <see cref="Close"/> method is called.
-        /// </summary>
-        public void Display()
+        protected override void OnDisplaying()
         {
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            if (isRunning)
-                return;
+            base.OnDisplaying();
+        }
 
+        /// <summary>
+        /// Displays the spinner and runs it until the <see cref="Close"/> method is called.
+        /// </summary>
+        protected override void DoDisplayContent()
+        {
             template.Reset();
-            Console.CursorVisible = false;
 
             if (ShowLabel)
-                label.Display();
+                Label?.Display();
 
             Turn();
             timer.Start();
+        }
 
-            isRunning = true;
+        protected override void OnClosing()
+        {
+            if (isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
+            base.OnClosing();
         }
 
         /// <summary>
         /// Stops the animation of the spinner and erases it from the screen by writting spaces over it.
         /// </summary>
-        public void Close()
+        protected override void DoClose()
         {
-            if (isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
-
-            if (!isRunning)
-                return;
-
             timer.Stop();
             EraseAll();
 
-            Console.CursorVisible = true;
-
-            isRunning = false;
+            DoneText?.Display();
+            Console.WriteLine();
         }
 
         private void EraseAll()

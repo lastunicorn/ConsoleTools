@@ -24,12 +24,17 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Provides base functionality for a control like top/bottom margin,
+    /// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.
+    /// The provided functionality is:
+    /// top/bottom margin,
     /// optionally hides cursor while displaying,
     /// optionally ensures the display of the control on a new line.
     /// </summary>
-    public abstract class Control
+    public abstract class LongRunningControl
     {
+        private bool isRunning;
+        private bool initialCursorVisible;
+
         /// <summary>
         /// Gets or sets the number of empty lines displayed before the pause text.
         /// Default value: 0
@@ -59,32 +64,15 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public virtual void Display()
         {
-            OnBeforeDisplay();
+            OnDisplaying();
 
-            if (ShowCursor)
-                DisplayInternal();
-            else
-                CustomConsole.WithoutCursor(DisplayInternal);
+            if (isRunning)
+                return;
 
-            OnAfterDisplay();
-        }
+            initialCursorVisible = Console.CursorVisible;
+            if (!ShowCursor)
+                Console.CursorVisible = false;
 
-        /// <summary>
-        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
-        /// </summary>
-        protected virtual void OnBeforeDisplay()
-        {
-        }
-
-        /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning.
-        /// </summary>
-        protected virtual void OnAfterDisplay()
-        {
-        }
-
-        private void DisplayInternal()
-        {
             MoveToNextLineIfNecessary();
 
             OnBeforeTopMargin();
@@ -92,8 +80,14 @@ namespace DustInTheWind.ConsoleTools
 
             DoDisplayContent();
 
-            WriteBottomMargin();
-            OnAfterBottomMargin();
+            isRunning = true;
+        }
+
+        /// <summary>
+        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
+        /// </summary>
+        protected virtual void OnDisplaying()
+        {
         }
 
         /// <summary>
@@ -131,6 +125,39 @@ namespace DustInTheWind.ConsoleTools
         {
             for (int i = 0; i < MarginBottom; i++)
                 Console.WriteLine();
+        }
+
+        public void Close()
+        {
+            OnClosing();
+
+            if (!isRunning)
+                return;
+
+            DoClose();
+
+            WriteBottomMargin();
+            OnAfterBottomMargin();
+
+            if (!ShowCursor)
+                Console.CursorVisible = initialCursorVisible;
+
+            isRunning = false;
+
+            OnClosed();
+        }
+
+        protected virtual void OnClosing()
+        {
+        }
+
+        protected abstract void DoClose();
+
+        /// <summary>
+        /// Method called at the very end of the <see cref="Display"/> method, before returning.
+        /// </summary>
+        protected virtual void OnClosed()
+        {
         }
     }
 }

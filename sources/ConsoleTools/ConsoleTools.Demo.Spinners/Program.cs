@@ -33,8 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             {
                 if (worker == null)
                     break;
-
-                CustomConsole.WriteLine();
+                
                 worker.Run();
             }
         }

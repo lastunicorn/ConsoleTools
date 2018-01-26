@@ -8,6 +8,11 @@ ver 0.4.0
 ---------
 - Pause: Supports multiline text.
 - Pause: [bugfix] Control was not erased correctly when text was too big and wrapped around.
+- ValueInput : Renamed to ValueRead. And all the specific controls derived from it (StringRead, Int32Read, Int64Read, FloatRead, DoubleRead)
+- ValueOutput : Renamed to ValueWrite. And all the specific controls derived from it (StringWrite, Int32Write, Int64Write, FloatWrite, DoubleWrite)
+- ListInput : Renamed to ListRead. And all the specific controls derived from it (StringListRead, Int32ListRead, Int64ListRead, FloatListRead, DoubleListRead)
+- ListOutput : Renamed to ListWrite. And all the specific controls derived from it (StringListWrite, Int32ListWrite, Int64ListWrite, FloatListWrite, DoubleListWrite)
+- Spinner: Added top and bottom margin.
 
 ver 0.3.0
 ---------

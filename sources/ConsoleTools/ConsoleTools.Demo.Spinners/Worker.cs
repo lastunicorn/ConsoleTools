@@ -30,8 +30,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
         {
             using (Spinner spinner = new Spinner(SpinnerTemplate))
             {
+                spinner.MarginTop = 2;
+                spinner.MarginBottom = 2;
                 spinner.StepMiliseconds = SpinnerStepMilliseconds;
-                spinner.Text = "Doing some work";
+                spinner.Label = "Doing some work";
+                spinner.Label.MarginRight = 1;
 
                 spinner.Display();
 
@@ -40,18 +43,13 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     // Simulate work
                     Thread.Sleep(WorkPeriod);
 
+                    spinner.DoneText = new InlineText("[Done]", CustomConsole.SuccessColor);
                     spinner.Close();
-                    CustomConsole.WriteLineSuccess("[Done]");
                 }
                 catch
                 {
+                    spinner.DoneText = new InlineText("[Error]", CustomConsole.ErrorColor);
                     spinner.Close();
-                    CustomConsole.WriteLineError("[Error]");
-                }
-                finally
-                {
-                    CustomConsole.WriteLine();
-                    CustomConsole.WriteLine();
                 }
             }
         }

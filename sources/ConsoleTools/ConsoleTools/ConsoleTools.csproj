@@ -56,6 +56,7 @@
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
     <Compile Include="CommandProviders\TextMenuCommandProvider.cs" />
+    <Compile Include="LongRunningControl.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CustomConsole.Colors.cs" />
     <Compile Include="CustomConsole.WriteAligned.BothColors.cs" />
@@ -221,11 +222,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputControls\YesNoQuestionResources.fr.resx" />
+    <EmbeddedResource Include="InputControls\YesNoQuestionResources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.ro.resx" />
     <EmbeddedResource Include="InputControls\YesNoQuestionResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuControl\TextMenuResources.fr.resx" />
     <EmbeddedResource Include="MenuControl\TextMenuResources.ro.resx" />
@@ -240,10 +244,13 @@
       <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Spinners\SpinnerResources.ro.resx" />
-    <EmbeddedResource Include="Spinners\SpinnerResources.fr.resx" />
+    <EmbeddedResource Include="Spinners\SpinnerResources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Spinners\SpinnerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

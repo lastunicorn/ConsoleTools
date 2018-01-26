@@ -37,6 +37,43 @@ namespace DustInTheWind.ConsoleTools
         public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="InlineText"/> class.
+        /// </summary>
+        public InlineText()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InlineText"/> class with
+        /// the text.
+        /// </summary>
+        public InlineText(string text)
+        {
+            Text = text;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InlineText"/> class with
+        /// the text and the foreground color.
+        /// </summary>
+        public InlineText(string text, ConsoleColor foregroundColor)
+        {
+            Text = text;
+            ForegroundColor = foregroundColor;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InlineText"/> class with
+        /// the text, the foreground color and the background color.
+        /// </summary>
+        public InlineText(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+        {
+            Text = text;
+            ForegroundColor = foregroundColor;
+            BackgroundColor = backgroundColor;
+        }
+
+        /// <summary>
         /// Displays the control in the Console.
         /// </summary>
         public void Display()
@@ -67,6 +104,16 @@ namespace DustInTheWind.ConsoleTools
         {
             string space = new string(' ', MarginRight);
             Console.Write(space);
+        }
+
+        public static implicit operator InlineText(string text)
+        {
+            return new InlineText(text);
+        }
+
+        public static implicit operator string(InlineText inlineText)
+        {
+            return inlineText.Text;
         }
     }
 }

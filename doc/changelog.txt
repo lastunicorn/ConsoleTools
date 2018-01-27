@@ -13,6 +13,14 @@ ver 0.4.0
 - ListInput : Renamed to ListRead. And all the specific controls derived from it (StringListRead, Int32ListRead, Int64ListRead, FloatListRead, DoubleListRead)
 - ListOutput : Renamed to ListWrite. And all the specific controls derived from it (StringListWrite, Int32ListWrite, Int64ListWrite, FloatListWrite, DoubleListWrite)
 - Spinner: Added top and bottom margin.
+- Column (DataGrid): Added constructor that takes the header text.
+- LabelMenuItem (ScrollableMenu): [bugfix] If Command is present, the menu item must be enabled only if the command is active.
+- RowList (DataGrid): Added Clear() method.
+- RowList (DataGrid): Added Remove() methods.
+- ValueRead: Added back the Read() method;
+- ValueWrite: Added back the Write() method;
+- ListRead: Added back the Read() method;
+- ListWrite: Added back the Write() method;
 
 ver 0.3.0
 ---------

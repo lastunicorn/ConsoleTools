@@ -65,6 +65,19 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Adds a new <see cref="Column"/> to the end of the list.
         /// </summary>
+        /// <param name="columnHeader">The text to be displayed in the header of the column.</param>
+        public void Add(string columnHeader)
+        {
+            Column column = new Column(columnHeader)
+            {
+                ParentDataGrid = parentDataGrid
+            };
+            columns.Add(column);
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="Column"/> to the end of the list.
+        /// </summary>
         /// <param name="column">The <see cref="Column"/> instance to be added.</param>
         public void Add(Column column)
         {

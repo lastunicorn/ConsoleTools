@@ -95,6 +95,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
             Label = label;
         }
 
+        public void Write(List<T> values)
+        {
+            Values = values;
+            Display();
+        }
+
         /// <summary>
         /// Writes the label and the list of values to the console.
         /// </summary>

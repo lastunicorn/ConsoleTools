@@ -218,6 +218,33 @@ namespace DustInTheWind.ConsoleTools.TabularData
         }
 
         /// <summary>
+        /// Removes the row at the specified index.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">index is less than 0.-or-index is equal to or greater than the number of rows.</exception>
+        public void RemoveAt(int index)
+        {
+            rows.RemoveAt(index);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the <see cref="DataRow"/> instance from the list.
+        /// </summary>
+        /// <returns><c>true</c> if item is successfully removed; otherwise, <c>false</c>.
+        /// This method also returns <c>false</c> if item was not found in the list.</returns>
+        public bool Remove(DataRow row)
+        {
+            return rows.Remove(row);
+        }
+
+        /// <summary>
+        /// Removes all the rows from the current instance.
+        /// </summary>
+        public void Clear()
+        {
+            rows.Clear();
+        }
+
+        /// <summary>
         /// Returns an enumerator that iterates through the <see cref="DataRow"/>s containined by the current instance.
         /// </summary>
         public IEnumerator<DataRow> GetEnumerator()

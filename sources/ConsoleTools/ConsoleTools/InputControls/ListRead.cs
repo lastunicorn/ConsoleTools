@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Gets the list of values read from the console.
         /// </summary>
-        public IReadOnlyList<T> Values => values.AsReadOnly();
+        public List<T> Values => values;
 
         /// <summary>
         /// Gets or sets the foreground color used to display the label.
@@ -110,6 +110,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public ListRead(string label)
         {
             Label = label;
+        }
+
+        public List<T> Read()
+        {
+            Display();
+            return Values;
         }
 
         /// <summary>

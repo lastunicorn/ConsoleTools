@@ -88,6 +88,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
             Label = label;
         }
 
+        public void Write(T value)
+        {
+            Value = value;
+            Display();
+        }
+
         /// <summary>
         /// Writes a value to the Console output.
         /// </summary>

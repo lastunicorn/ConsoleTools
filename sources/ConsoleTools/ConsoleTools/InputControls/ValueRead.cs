@@ -122,6 +122,12 @@ namespace DustInTheWind.ConsoleTools.InputControls
             Label = label;
         }
 
+        public T Read()
+        {
+            Display();
+            return Value;
+        }
+
         /// <summary>
         /// Displays the label and waits for the user to provide a value.
         /// </summary>

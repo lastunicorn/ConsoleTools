@@ -31,6 +31,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
     public class LabelMenuItem : IMenuItem
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
+        private const HighlightType DefaultHighlightType = HighlightType.OnlyText;
 
         private bool isVisible = true;
 
@@ -155,6 +156,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             }
         }
 
+        public HighlightType HighlightType { get; set; } = HighlightType.Default;
+
         /// <summary>
         /// Event raised before the current instance is selected.
         /// It gives the oportunity for a subscriber to cancel the selection of the menu item.
@@ -168,16 +171,52 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// <param name="highlighted">A value that specifies if the menu item must be displayed highlighted.</param>
         public void Display(Size size, bool highlighted)
         {
-            HorizontalAlignment calculatedHorizontalAlignment = CalculatedHorizontalAlignment();
+            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
 
             Location = new Location(Console.CursorLeft, Console.CursorTop);
 
-            string alignedText = AlignedText.QuickAlign(CalculatedContent, calculatedHorizontalAlignment, size.Width);
+            AlignedText alignedText = new AlignedText
+            {
+                Text = CalculatedContent,
+                HorizontalAlignment = calculatedHorizontalAlignment,
+                Width = size.Width
+            };
 
             if (highlighted)
-                CustomConsole.WriteInverted(alignedText);
+            {
+                HighlightType calculatedHighliteType = CalculateHighlightType();
+
+                switch (calculatedHighliteType)
+                {
+                    case HighlightType.OnlyText:
+                        CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
+                        CustomConsole.WriteInverted(alignedText.Text);
+                        CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
+                        break;
+
+                    case HighlightType.WholeRow:
+                        CustomConsole.WriteInverted(alignedText);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException("Invalid calculated highlight type.");
+                }
+            }
             else
+            {
                 CustomConsole.Write(alignedText);
+            }
+        }
+
+        private HighlightType CalculateHighlightType()
+        {
+            if (HighlightType != HighlightType.Default)
+                return HighlightType;
+
+            if (ParentMenu != null && ParentMenu.ItemsHighlightType != HighlightType.Default)
+                return ParentMenu.ItemsHighlightType;
+
+            return DefaultHighlightType;
         }
 
         private string CalculateText()
@@ -195,7 +234,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
             return sb.ToString();
         }
 
-        private HorizontalAlignment CalculatedHorizontalAlignment()
+        private HorizontalAlignment CalculateHorizontalAlignment()
         {
             if (HorizontalAlignment != HorizontalAlignment.Default)
                 return HorizontalAlignment;

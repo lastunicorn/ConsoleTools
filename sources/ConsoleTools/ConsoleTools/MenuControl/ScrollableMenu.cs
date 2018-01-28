@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
@@ -55,9 +56,14 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
         /// <summary>
-        /// Specifies the horizontal alignment for the items displayed inside the menu. 
+        /// Specifies the horizontal alignment for the items displayed inside the menu.
         /// </summary>
         public HorizontalAlignment ItemsHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+
+        /// <summary>
+        /// Specifies the highlight type applied to the menue's items.
+        /// </summary>
+        public HighlightType ItemsHighlightType { get; set; } = HighlightType.Default;
 
         /// <summary>
         /// Gets or sets a value that specifies if the first item is automatically selected when the menu is displayed.

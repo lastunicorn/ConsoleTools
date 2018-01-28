@@ -24,20 +24,49 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools
 {
+    public struct AlignmentResult
+    {
+
+    }
     /// <summary>
     /// Represents a text that can be horizontaly aligned into a space.
     /// </summary>
     public class AlignedText
     {
+        private bool isAnalyzed;
+
+        private string text;
+        private int width;
+        private HorizontalAlignment horizontalAlignment;
+
+        private int spaceLeftCount;
+        private int spaceRightCount;
+
         /// <summary>
         /// Gets or sets the text that is aligned.
         /// </summary>
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                isAnalyzed = false;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the horizontal alignment to be applied on the text.
+        /// Gets or sets the width into which the text must be aligned.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
+        public int Width
+        {
+            get { return width; }
+            set
+            {
+                width = value;
+                isAnalyzed = false;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the horizontal alignment to be applied if the <see cref="HorizontalAlignment"/> property
@@ -46,50 +75,95 @@ namespace DustInTheWind.ConsoleTools
         public HorizontalAlignment DefaultHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 
         /// <summary>
-        /// Gets or sets the width into which the text must be aligned.
+        /// Gets or sets the horizontal alignment to be applied on the text.
         /// </summary>
-        public int Width { get; set; }
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return horizontalAlignment; }
+            set
+            {
+                horizontalAlignment = value;
+                isAnalyzed = false;
+            }
+        }
 
         /// <summary>
-        /// Gets the amount of space to be displayed in the left of the <see cref="Text"/>.
+        /// Gets the amount of space to be displayed at the left of the <see cref="Text"/>
+        /// (before the text).
         /// </summary>
-        public int SpaceLeft
+        public int SpaceLeftCount
         {
             get
             {
-                HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+                if (!isAnalyzed)
+                    Analyze();
 
-                switch (calculatedHorizontalAlignment)
-                {
-                    case HorizontalAlignment.Left:
-                        return 0;
+                return spaceLeftCount;
+            }
+        }
 
-                    case HorizontalAlignment.Center:
-                        int totalSpaces = Width - Text.Length;
-                        return (int) Math.Floor((double) totalSpaces / 2);
+        /// <summary>
+        /// Gets the amount of space to be displayed at the right of the <see cref="Text"/>
+        /// (after the text).
+        /// </summary>
+        public int SpaceRightCount
+        {
+            get
+            {
+                if (!isAnalyzed)
+                    Analyze();
 
-                    case HorizontalAlignment.Right:
-                        return Width - Text.Length;
+                return spaceRightCount;
+            }
+        }
 
-                    default:
-                        throw new ApplicationException("Invalid HorizontalAlignment value.");
-                }
+        private void Analyze()
+        {
+            if (width <= 0)
+            {
+                spaceLeftCount = 0;
+                spaceRightCount = 0;
+                return;
+            }
+
+            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+            int textLength = text?.Length ?? 0;
+
+            switch (calculatedHorizontalAlignment)
+            {
+                default:
+                    spaceLeftCount = 0;
+                    spaceRightCount = Math.Max(width - textLength, 0);
+                    break;
+
+                case HorizontalAlignment.Center:
+                    int totalSpaces = width - textLength;
+                    double halfSpaces = (double)totalSpaces / 2;
+
+                    spaceLeftCount = (int)Math.Floor(halfSpaces);
+                    spaceRightCount = (int)Math.Ceiling(halfSpaces);
+                    break;
+
+                case HorizontalAlignment.Right:
+                    spaceLeftCount = Math.Max(width - textLength, 0);
+                    spaceRightCount = 0;
+                    break;
             }
         }
 
         private HorizontalAlignment CalculateHorizontalAlignment()
         {
-            HorizontalAlignment horizontalAlignment = HorizontalAlignment;
+            HorizontalAlignment calculatedHorizontalAlignment = HorizontalAlignment;
 
-            if (horizontalAlignment == HorizontalAlignment.Default)
+            if (calculatedHorizontalAlignment == HorizontalAlignment.Default)
             {
-                horizontalAlignment = DefaultHorizontalAlignment;
+                calculatedHorizontalAlignment = DefaultHorizontalAlignment;
 
-                if (horizontalAlignment == HorizontalAlignment.Default)
-                    horizontalAlignment = HorizontalAlignment.Left;
+                if (calculatedHorizontalAlignment == HorizontalAlignment.Default)
+                    calculatedHorizontalAlignment = HorizontalAlignment.Left;
             }
 
-            return horizontalAlignment;
+            return calculatedHorizontalAlignment;
         }
 
         /// <summary>
@@ -101,44 +175,17 @@ namespace DustInTheWind.ConsoleTools
             if (string.IsNullOrEmpty(Text))
                 return new string(' ', Width);
 
-            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
-
-            switch (calculatedHorizontalAlignment)
-            {
-                default:
-                    return AlignLeft(Text, Width);
-
-                case HorizontalAlignment.Center:
-                    return AlignCenter(Text, Width);
-
-                case HorizontalAlignment.Right:
-                    return AlignRight(Text, Width);
-            }
-        }
-
-        private static string AlignLeft(string text, int width)
-        {
-            return text.PadRight(width);
-        }
-
-        private static string AlignRight(string text, int width)
-        {
-            return text.PadLeft(width);
-        }
-
-        private static string AlignCenter(string text, int width)
-        {
-            int totalSpaces = width - text.Length;
-            double halfSpaces = (double) totalSpaces / 2;
-
-            int leftSpaces = (int) Math.Floor(halfSpaces);
-            int rightSpaces = (int) Math.Ceiling(halfSpaces);
+            Analyze();
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(new string(' ', leftSpaces));
+            if (spaceLeftCount > 0)
+                sb.Append(new string(' ', spaceLeftCount));
+
             sb.Append(text);
-            sb.Append(new string(' ', rightSpaces));
+
+            if (spaceRightCount > 0)
+                sb.Append(new string(' ', spaceRightCount));
 
             return sb.ToString();
         }
@@ -155,6 +202,19 @@ namespace DustInTheWind.ConsoleTools
                 Width = width
             };
 
+            return alignedText.ToString();
+        }
+
+        public static implicit operator AlignedText(string text)
+        {
+            return new AlignedText
+            {
+                Text = text
+            };
+        }
+
+        public static implicit operator string(AlignedText alignedText)
+        {
             return alignedText.ToString();
         }
     }

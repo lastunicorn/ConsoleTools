@@ -113,7 +113,7 @@ namespace DustInTheWind.ConsoleTools
                 Width = Console.BufferWidth
             };
 
-            return alignedText.SpaceLeft;
+            return alignedText.SpaceLeftCount;
         }
     }
 }

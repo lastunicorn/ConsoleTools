@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 15
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(0));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 15
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(0));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 15
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(3));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(3));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 16
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(3));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(3));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 15
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(6));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(6));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Tests.AlignedTextTests
                 Width = 15
             };
 
-            Assert.That(alignedText.SpaceLeft, Is.EqualTo(0));
+            Assert.That(alignedText.SpaceLeftCount, Is.EqualTo(0));
         }
     }
 }

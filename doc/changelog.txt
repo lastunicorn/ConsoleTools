@@ -21,6 +21,7 @@ ver 0.4.0
 - ValueWrite: Added back the Write() method;
 - ListRead: Added back the Read() method;
 - ListWrite: Added back the Write() method;
+- ScrollableMenu: Added customizable highlight type (only text, whole row).
 
 ver 0.3.0
 ---------

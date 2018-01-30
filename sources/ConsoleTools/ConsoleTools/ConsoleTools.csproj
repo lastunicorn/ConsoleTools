@@ -115,6 +115,7 @@
     <Compile Include="MenuControl\EmptyCommand.cs" />
     <Compile Include="MenuControl\ICommand.cs" />
     <Compile Include="MenuControl\MenuItems\HighlightType.cs" />
+    <Compile Include="MenuControl\MultipleDisplayControl.cs" />
     <Compile Include="MenuControl\TextMenuItem.cs" />
     <Compile Include="MenuControl\TextMenuResources.Designer.cs">
       <AutoGen>True</AutoGen>

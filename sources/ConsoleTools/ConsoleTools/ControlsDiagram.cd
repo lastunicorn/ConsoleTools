@@ -54,14 +54,14 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListRead&lt;T&gt;" Collapsed="true">
     <Position X="1.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAQAUBACAAABAAAACAAIAIAACCAIEAAgAAAQAAA=</HashCode>
+      <HashCode>AAAAQAQAUBACAAABAAAACAAoAIAACCAIEAAgAAAQAAA=</HashCode>
       <FileName>InputControls\ListRead.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListWrite&lt;T&gt;" Collapsed="true">
     <Position X="3.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAQAEAACAAAAAAAACAAIAIAAAAAIEAAgAAAQAAA=</HashCode>
+      <HashCode>AAAAQAQAEAACAAAAAAAACAAIAIAAAAAIEAAgAAEQAAA=</HashCode>
       <FileName>InputControls\ListWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -82,14 +82,14 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueRead&lt;T&gt;" Collapsed="true">
     <Position X="5.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQBBAEBACAAABAAAAAAAAoIBACAAIEAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAQBBAEBACAAABAAAAAAAgoIBACAAIEAAgAAAAAAA=</HashCode>
       <FileName>InputControls\ValueRead.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueWrite&lt;T&gt;" Collapsed="true">
     <Position X="7.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQBAAEAACAAAAAAAAAAAAAIAAAAAIEAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAQBAAEAACAAAAAAAAAAAAAIAAAAAIEAAgAAEAAAA=</HashCode>
       <FileName>InputControls\ValueWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -108,9 +108,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
-    <Position X="16.75" Y="3.5" Width="1.5" />
+    <Position X="16.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAEEQABABAoAAwAAAAAIBMAACAAdAAAAAAICE=</HashCode>
+      <HashCode>AAAAEAEAEEQAAAAAoAAQIAAAAIBMAACAAZAAAEAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -267,6 +267,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAABABAAgCAgwhAAIBAAAiAAAAEKACAAAA=</HashCode>
       <FileName>LongRunningControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.MenuControl.MultipleDisplayControl" Collapsed="true">
+    <Position X="16.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAcABAAAwAhABAAiCAAQBACIBACAAAAAEEKAAAIAA=</HashCode>
+      <FileName>MenuControl\MultipleDisplayControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

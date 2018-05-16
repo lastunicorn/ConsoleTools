@@ -42,8 +42,6 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
 
                 foreach (Person person in value)
                     dataGrid.Rows.Add(person.Id, person.FullName, person.PhoneNumber);
-
-                dataGrid.Display();
             }
         }
 

@@ -29,8 +29,8 @@ namespace DustIntheWind.ConsoleTools.Tutorial
 {
     internal class AddressBookApplication
     {
-        private bool isCloseRequested;
         private readonly AddressBook addressBook = new AddressBook();
+        private ScrollableMenu menu;
 
         public void Run()
         {
@@ -59,17 +59,13 @@ namespace DustIntheWind.ConsoleTools.Tutorial
                 }
             };
 
-            ScrollableMenu menu = new ScrollableMenu(menuItems);
-
-            while (!isCloseRequested)
-            {
-                menu.Display();
-            }
+            menu = new ScrollableMenu(menuItems);
+            menu.Display();
         }
 
         public void RequestExit()
         {
-            isCloseRequested = true;
+            menu.RequestClose();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools
         public bool EnsureBeginOfLine { get; set; }
 
         /// <summary>
-        /// Displays the pause text and waits for the user to press a key.
+        /// Displays the control in the console.
         /// </summary>
         public virtual void Display()
         {
@@ -64,7 +64,7 @@ namespace DustInTheWind.ConsoleTools
             if (ShowCursor)
                 DisplayInternal();
             else
-                CustomConsole.WithoutCursor(DisplayInternal);
+                CustomConsole.RunWithoutCursor(DisplayInternal);
 
             OnAfterDisplay();
         }

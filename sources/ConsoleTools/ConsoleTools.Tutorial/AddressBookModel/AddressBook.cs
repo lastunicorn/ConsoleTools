@@ -28,12 +28,20 @@ namespace DustIntheWind.ConsoleTools.Tutorial.AddressBookModel
 {
     internal class AddressBook : IEnumerable<Person>
     {
+        private int lastId = -1;
         private readonly List<Person> persons = new List<Person>();
 
         public void AddPerson(Person person)
         {
             if (person == null) throw new ArgumentNullException(nameof(person));
 
+            bool alreadyExists = persons.Any(x => ReferenceEquals(x, person));
+
+            if (alreadyExists)
+                return;
+
+            lastId++;
+            person.Id = lastId;
             persons.Add(person);
         }
 

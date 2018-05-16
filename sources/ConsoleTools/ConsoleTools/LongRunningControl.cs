@@ -25,10 +25,14 @@ namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.
+    /// <para>
     /// The provided functionality is:
-    /// top/bottom margin,
-    /// optionally hides cursor while displaying,
-    /// optionally ensures the display of the control on a new line.
+    /// <list type="bullet">
+    ///     <item><description>top/bottom margin,</description></item>
+    ///     <item><description>optionally hides cursor while displaying,</description></item>
+    ///     <item><description>optionally ensures the display of the control on a new line.</description></item>
+    /// </list>
+    /// </para>
     /// </summary>
     public abstract class LongRunningControl
     {
@@ -60,7 +64,7 @@ namespace DustInTheWind.ConsoleTools
         public bool EnsureBeginOfLine { get; set; }
 
         /// <summary>
-        /// Displays the pause text and waits for the user to press a key.
+        /// Displays the control and changes its status to "running".
         /// </summary>
         public virtual void Display()
         {
@@ -127,6 +131,9 @@ namespace DustInTheWind.ConsoleTools
                 Console.WriteLine();
         }
 
+        /// <summary>
+        /// Changes the status of the control to "not running" and ends its display.
+        /// </summary>
         public void Close()
         {
             OnClosing();

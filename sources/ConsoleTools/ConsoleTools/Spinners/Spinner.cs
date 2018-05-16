@@ -65,8 +65,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// </summary>
         public double StepMiliseconds
         {
-            get { return timer.Interval; }
-            set { timer.Interval = value; }
+            get => timer.Interval;
+            set => timer.Interval = value;
         }
 
         /// <summary>
@@ -89,8 +89,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <param name="template">The <see cref="ISpinnerTemplate"/> instance that controls the visual representation of the spinner.</param>
         public Spinner(ISpinnerTemplate template)
         {
-            if (template == null) throw new ArgumentNullException(nameof(template));
-            this.template = template;
+            this.template = template ?? throw new ArgumentNullException(nameof(template));
 
             ShowCursor = false;
 
@@ -112,7 +111,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         }
 
         /// <summary>
-        /// Displays the spinner and runs it until the <see cref="Close"/> method is called.
+        /// Displays the spinner and runs it until the <see cref="LongRunningControl.Close"/> method is called.
         /// </summary>
         protected override void DoDisplayContent()
         {
@@ -209,17 +208,19 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             using (Spinner spinner = new Spinner(template))
             {
+                spinner.Display();
+
                 try
                 {
                     action();
 
+                    spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
                     spinner.Close();
-                    CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
                 }
                 catch
                 {
+                    spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
                     spinner.Close();
-                    CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }
             }
@@ -252,19 +253,21 @@ namespace DustInTheWind.ConsoleTools.Spinners
         {
             using (Spinner spinner = new Spinner(template))
             {
+                spinner.Display();
+
                 try
                 {
                     T result = action();
 
+                    spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
                     spinner.Close();
-                    CustomConsole.WriteLineSuccess(SpinnerResources.DoneText);
 
                     return result;
                 }
                 catch
                 {
+                    spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
                     spinner.Close();
-                    CustomConsole.WriteLineError(SpinnerResources.ErrorText);
                     throw;
                 }
             }

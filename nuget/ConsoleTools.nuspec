@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>ConsoleTools</id>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <authors>Dust in the Wind</authors>
 	<title>ConsoleTools</title>
     <owners>Dust in the Wind</owners>
@@ -12,25 +12,23 @@
     <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 	<summary>A set of tools and "controls" for the .net Console.</summary>
     <releaseNotes>
-- ProgressBar: Renamed the BarEmptyColor and BarFillColor into BarEmptyForegroundColor and BarFillForegroundColor.
-- ProgressBar: Renamed the Done() method into Close().
-- Spinner: Renamed the Stop() method into Close().
-- Prompter: Renamed the Run() method into Display().
-- Prompter: Renamed the RunOnce() method into DisplayOnce().
-- Prompter: Renamed the RequestStop() method into RequestClose().
-- Prompter: Added MarginTop/MarginBottom.
-- Spinner: Renamed the spinner templates.
-- Pause [bugfix]: Control is not correctly erased when it is displayed at the bottom of the console buffer.
-- Added French translation.
-- DataGrid: Renamed Table into DataGrid.
-- DataGrid: Exposed the Rows list.
-- DataGrid: Removed the ColumnCount and RowCount properties. The values can be retrieved directly from the Columns and Rows lists.
-- DataGrid: Created a StreamTablePrinter that writes the table into a Stream.
-- DataGrid: [performance] Fixed performance issue introduced in ver 0.2.0.
-- DataGrid: Added MarginTop/MarginBottom.
-- Console MVC: Removed. It was moved in its own project named ConsoleMvc.
-- TextMenu: Added MarginTop/MarginBottom.
-- YesNoControl: Added MarginTop/MarginBottom.
+- Pause: Supports multiline text.
+- Pause: [bugfix] Control was not erased correctly when text was too big and wrapped around.
+- ValueInput : Renamed to ValueRead. And all the specific controls derived from it (StringRead, Int32Read, Int64Read, FloatRead, DoubleRead)
+- ValueOutput : Renamed to ValueWrite. And all the specific controls derived from it (StringWrite, Int32Write, Int64Write, FloatWrite, DoubleWrite)
+- ListInput : Renamed to ListRead. And all the specific controls derived from it (StringListRead, Int32ListRead, Int64ListRead, FloatListRead, DoubleListRead)
+- ListOutput : Renamed to ListWrite. And all the specific controls derived from it (StringListWrite, Int32ListWrite, Int64ListWrite, FloatListWrite, DoubleListWrite)
+- Spinner: Added top and bottom margin.
+- Column (DataGrid): Added constructor that takes the header text.
+- LabelMenuItem (ScrollableMenu): [bugfix] If Command is present, the menu item must be enabled only if the command is active.
+- RowList (DataGrid): Added Clear() method.
+- RowList (DataGrid): Added Remove() methods.
+- ValueRead: Added back the Read() method;
+- ValueWrite: Added back the Write() method;
+- ListRead: Added back the Read() method;
+- ListWrite: Added back the Write() method;
+- ScrollableMenu: Added customizable highlight type (only text, whole row).
+- Spinner: [bugfix] The spinner was not displayed by the quick request (Spinner.Run).
 </releaseNotes>
     <copyright>Copyright 2017-2018 Dust in the Wind</copyright>
     <tags>console cli prompter menu progressbar spinner table read write</tags>

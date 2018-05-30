@@ -30,13 +30,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class ScrollableMenu : ErasableControl
+    public class ScrollableMenu : MultipleDisplayControl
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
         private readonly MenuItemCollection menuItems;
 
-        private volatile bool isCloseRequested;
         private Location menuLocation;
 
         /// <summary>
@@ -112,19 +111,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
-        private void HandleCurrentIndexChanged(object sender, CurrentIndexChangedEventArgs e)
-        {
-            if (e.PreviousIndex.HasValue)
-                DrawMenuItem(e.PreviousIndex.Value);
-
-            if (e.CurrentIndex.HasValue)
-                DrawMenuItem(e.CurrentIndex.Value);
-        }
-
         protected override void OnBeforeDisplay()
         {
-            Reset();
-
             if (menuItems.SelectableItemsCount == 0)
                 throw new ApplicationException("There are no menu items to be displayed.");
         }
@@ -161,28 +149,18 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
+        private void HandleCurrentIndexChanged(object sender, CurrentIndexChangedEventArgs e)
+        {
+            if (e.PreviousIndex.HasValue)
+                DrawMenuItem(e.PreviousIndex.Value);
+
+            if (e.CurrentIndex.HasValue)
+                DrawMenuItem(e.CurrentIndex.Value);
+        }
+
         protected override void OnAfterDisplay()
         {
             SelectedItem?.Command?.Execute();
-        }
-
-        private void Reset()
-        {
-            isCloseRequested = false;
-
-            SelectedIndex = null;
-            SelectedItem = null;
-
-            menuItems.Reset();
-        }
-
-        /// <summary>
-        /// This method does not immediately close the menu.
-        /// It just sets an internal flag that asks the menu to close itself when it can.
-        /// </summary>
-        public void RequestClose()
-        {
-            isCloseRequested = true;
         }
 
         private Location CalculateMenuLocation()
@@ -253,7 +231,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             while (true)
             {
-                if (isCloseRequested)
+                if (IsCloseRequested)
                     return;
 
                 if (!Console.KeyAvailable)
@@ -276,33 +254,44 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                     case ConsoleKey.Enter:
                         if (menuItems.CurrentItem != null)
-                            SelectCurrentItemAndCloseMenu();
+                        {
+                            bool isSelectedSuccessfully = SelectCurrentItem();
+
+                            if (isSelectedSuccessfully)
+                                return;
+                        }
                         break;
 
                     default:
                         bool success = menuItems.SelectItem(keyInfo.Key);
                         if (success)
-                            SelectCurrentItemAndCloseMenu();
+                        {
+                            bool isSelectedSuccessfully = SelectCurrentItem();
+
+                            if (isSelectedSuccessfully)
+                                return;
+                        }
                         break;
                 }
             }
         }
 
-        private void SelectCurrentItemAndCloseMenu()
+        private bool SelectCurrentItem()
         {
             IMenuItem selectedItem = menuItems.CurrentItem;
 
             if (selectedItem?.IsEnabled != true)
-                return;
+                return false;
 
             bool allow = selectedItem.Select();
 
             if (!allow)
-                return;
+                return false;
 
             SelectedIndex = menuItems.CurrentVisibleIndex;
             SelectedItem = selectedItem;
-            isCloseRequested = true;
+
+            return true;
         }
     }
 }

@@ -255,5 +255,23 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
             return false;
         }
+
+        public bool SelectItem(IMenuItem menuItem)
+        {
+            int index = -1;
+
+            foreach (IMenuItem x in this)
+            {
+                index++;
+
+                if (x == menuItem && x.IsVisible && x.IsEnabled)
+                {
+                    CurrentIndex = index;
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

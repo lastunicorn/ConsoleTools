@@ -3,7 +3,6 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-
 ver 0.4.0
 ---------
 - Pause: Supports multiline text.
@@ -22,6 +21,7 @@ ver 0.4.0
 - ListRead: Added back the Read() method;
 - ListWrite: Added back the Write() method;
 - ScrollableMenu: Added customizable highlight type (only text, whole row).
+- Spinner: [bugfix] The spinner was not displayed by the quick request (Spinner.Run).
 
 ver 0.3.0
 ---------

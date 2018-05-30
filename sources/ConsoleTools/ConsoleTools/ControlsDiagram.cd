@@ -107,9 +107,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
-    <Position X="16.75" Y="3.5" Width="1.5" />
+    <Position X="16.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAEEQABABAoAAwIAAAAIBMAACAAdAAAAAAICE=</HashCode>
+      <HashCode>AAAAEAEAEEQAAAAAoAAQIAAAAIBMAACAAZAAAEAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -266,6 +266,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAABABAAgCAgwhAAIBAAAiAAAAEKACAAAA=</HashCode>
       <FileName>LongRunningControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.MenuControl.MultipleDisplayControl" Collapsed="true">
+    <Position X="16.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAcABAAAwAhABAAiCAAQBACIBACAAAAAEEKAAAIAA=</HashCode>
+      <FileName>MenuControl\MultipleDisplayControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

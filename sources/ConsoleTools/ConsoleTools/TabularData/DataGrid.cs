@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System.Collections;
+using System.Data;
 using DustInTheWind.ConsoleTools.TabularData.Printers;
 using DustInTheWind.ConsoleTools.TabularData.RenderingModel;
 
@@ -39,8 +41,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public MultilineText Title
         {
-            get { return TitleRow.TitleCell.Content; }
-            set { TitleRow.TitleCell.Content = value; }
+            get => TitleRow.TitleCell.Content;
+            set => TitleRow.TitleCell.Content = value;
         }
 
         /// <summary>
@@ -223,6 +225,33 @@ namespace DustInTheWind.ConsoleTools.TabularData
             RenderInternal(tablePrinter);
 
             return tablePrinter.ToString();
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="DataGrid"/> instance containing the data from the specified <see cref="DataTable"/>.
+        /// </summary>
+        /// <param name="dataTable">The <see cref="DataTable"/> instance that contains the data.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
+        public static DataGrid BuildFrom(DataTable dataTable)
+        {
+            DataGrid dataGrid = new DataGrid(dataTable.TableName);
+
+            foreach (DataColumn dataColumn in dataTable.Columns)
+            {
+                string columnHeader = string.IsNullOrEmpty(dataColumn.Caption)
+                    ? dataColumn.ColumnName
+                    : dataColumn.Caption;
+
+                dataGrid.Columns.Add(columnHeader);
+            }
+
+            foreach (System.Data.DataRow dataRow in dataTable.Rows)
+            {
+                DataRow row = new DataRow(dataRow.ItemArray);
+                dataGrid.Rows.Add(row);
+            }
+
+            return dataGrid;
         }
     }
 }

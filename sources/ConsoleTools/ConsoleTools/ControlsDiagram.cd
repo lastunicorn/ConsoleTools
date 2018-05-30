@@ -25,10 +25,9 @@
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
     <Position X="13" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAMAAAAACAAABAQAQAE0AAAIAAAAAAAEAgAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAAACAAABAQAQAEkAAAIAAAAAAAGAgAAAAAAA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Guard.MachineLevelGuardian" Collapsed="true">
     <Position X="16.25" Y="8" Width="2" />
@@ -54,14 +53,14 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListRead&lt;T&gt;" Collapsed="true">
     <Position X="1.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAQAUBACAAABAAAACAAIAIAACCAIEAAgAAAQAAA=</HashCode>
+      <HashCode>AAAAQAQAUBACAAABAAAACAAoAIAACCAIEAAgAAAQAAA=</HashCode>
       <FileName>InputControls\ListRead.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListWrite&lt;T&gt;" Collapsed="true">
     <Position X="3.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAQAEAACAAAAAAAACAAIAIAAAAAIEAAgAAAQAAA=</HashCode>
+      <HashCode>AAAAQAQAEAACAAAAAAAACAAIAIAAAAAIEAAgAAEQAAA=</HashCode>
       <FileName>InputControls\ListWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -82,14 +81,14 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueRead&lt;T&gt;" Collapsed="true">
     <Position X="5.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQBBAEBACAAABAAAAAAAAoIBACAAIEAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAQBBAEBACAAABAAAAAAAgoIBACAAIEAAgAAAAAAA=</HashCode>
       <FileName>InputControls\ValueRead.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueWrite&lt;T&gt;" Collapsed="true">
     <Position X="7.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQBAAEAACAAAAAAAAAAAAAIAAAAAIEAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAQBAAEAACAAAAAAAAAAAAAIAAAAAIEAAgAAEAAAA=</HashCode>
       <FileName>InputControls\ValueWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -110,7 +109,7 @@
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
     <Position X="16.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAEEQABABAoAAwAAAAAIBMAACAAdAAAAAAICE=</HashCode>
+      <HashCode>AAAAEAEAEEQABABAoAAwIAAAAIBMAACAAdAAAAAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
     </TypeIdentifier>
   </Class>

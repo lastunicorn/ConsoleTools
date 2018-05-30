@@ -112,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         }
 
         /// <summary>
-        /// Displays the spinner and runs it until the <see cref="Close"/> method is called.
+        /// Displays the spinner and runs it until the <see cref="LongRunningControl.Close"/> method is called.
         /// </summary>
         protected override void DoDisplayContent()
         {

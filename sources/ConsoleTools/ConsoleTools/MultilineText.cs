@@ -173,9 +173,7 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
-            MultilineText multilineText = obj as MultilineText;
-
-            if (multilineText != null)
+            if (obj is MultilineText multilineText)
                 return RawText == multilineText.RawText;
 
             return false;
@@ -190,6 +188,9 @@ namespace DustInTheWind.ConsoleTools
             return RawText.GetHashCode();
         }
 
+        /// <summary>
+        /// Returns a string representation of the current instance.
+        /// </summary>
         public override string ToString()
         {
             return string.Join(Environment.NewLine, Lines);

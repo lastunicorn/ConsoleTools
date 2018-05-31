@@ -3,6 +3,10 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+ver 0.5.0
+---------
+- DataGrid: Build DataGrid from DataTable.
+
 ver 0.4.0
 ---------
 - Pause: Supports multiline text.

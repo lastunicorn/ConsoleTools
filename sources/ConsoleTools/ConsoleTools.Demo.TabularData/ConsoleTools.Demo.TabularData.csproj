@@ -63,11 +63,13 @@
     <Compile Include="Commands\CellPaddingCommand.cs" />
     <Compile Include="Commands\DoubleLineBorderCommand.cs" />
     <Compile Include="Commands\DrawLinesBetweenRowsCommand.cs" />
+    <Compile Include="Commands\ExitDemoCommand.cs" />
     <Compile Include="Commands\LongShortTitleCommand.cs" />
     <Compile Include="Commands\MultilineCellCommand.cs" />
     <Compile Include="Commands\MultilineTitleCommand.cs" />
     <Compile Include="Commands\SimpleBorderCommand.cs" />
     <Compile Include="Commands\SingleLineBorderCommand.cs" />
+    <Compile Include="Demo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -19,63 +19,53 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
 using System.Data;
 using DustInTheWind.ConsoleTools.TabularData;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests
+namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromDataTable
 {
     [TestFixture]
-    public class BuildFromDataTable_RowTests
+    public class TitleTests
     {
         [Test]
-        public void one_row_exists_if_DataTable_has_one_row()
+        public void Title_is_DataTable_name()
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
+            DataTable dataTable = new DataTable("this is data");
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows.Count, Is.EqualTo(1));
+            Assert.That(actual.Title, Is.EqualTo(new MultilineText("this is data")));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__string()
+        public void Title_is_empty_if_DataTable_has_no_name_set()
         {
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("value 1")));
+            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__int()
+        public void Title_is_empty_if_DataTable_has_empty_string_name()
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(15);
+            DataTable dataTable = new DataTable(string.Empty);
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("15")));
+            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__DateTime()
+        public void Title_is_empty_if_DataTable_has_name_set_to_null()
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(new DateTime(2018, 06, 13));
+            DataTable dataTable = new DataTable(null);
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            MultilineText expected = new MultilineText(new DateTime(2018, 06, 13));
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(expected));
+            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
         }
     }
 }

@@ -91,9 +91,12 @@
     <Compile Include="TabularData\DataCellTests\ConstructorObjectTests.cs" />
     <Compile Include="TabularData\DataCellTests\ConstructorStringTests.cs" />
     <Compile Include="TabularData\DataCellTests\RenderLineTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable_RowTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable_ColumnTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable_TitleTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\RowTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\ColumnTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\TitleTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromList\ColumnTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromList\RowTests.cs" />
+    <Compile Include="TabularData\DataGridTests\BuildFromList\TitleTests.cs" />
     <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
     <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
     <Compile Include="TabularData\RowTests.cs" />

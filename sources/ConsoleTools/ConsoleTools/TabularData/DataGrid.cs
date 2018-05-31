@@ -19,8 +19,12 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Reflection;
 using DustInTheWind.ConsoleTools.TabularData.Printers;
 using DustInTheWind.ConsoleTools.TabularData.RenderingModel;
 
@@ -249,6 +253,62 @@ namespace DustInTheWind.ConsoleTools.TabularData
             {
                 DataRow row = new DataRow(dataRow.ItemArray);
                 dataGrid.Rows.Add(row);
+            }
+
+            return dataGrid;
+        }
+
+        public static DataGrid BuildFrom<T>(IEnumerable<T> data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            Type type = typeof(T);
+
+            DataGrid dataGrid = new DataGrid(type.Name);
+
+            List<MemberInfo> members = new List<MemberInfo>();
+
+            FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
+
+            foreach (FieldInfo fieldInfo in fields)
+            {
+                dataGrid.Columns.Add(fieldInfo.Name);
+                members.Add(fieldInfo);
+            }
+
+            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .Where(x => x.CanRead);
+
+            foreach (PropertyInfo propertyInfo in properties)
+            {
+                dataGrid.Columns.Add(propertyInfo.Name);
+                members.Add(propertyInfo);
+            }
+
+            foreach (T item in data)
+            {
+                DataRow dataRow = new DataRow();
+
+                foreach (MemberInfo memberInfo in members)
+                {
+                    switch (memberInfo)
+                    {
+                        case FieldInfo fieldInfo:
+                            {
+                                object value = fieldInfo.GetValue(item);
+                                dataRow.AddCell(value);
+                                break;
+                            }
+                        case PropertyInfo propertyInfo:
+                            {
+                                object value = propertyInfo.GetValue(item);
+                                dataRow.AddCell(value);
+                                break;
+                            }
+                    }
+                }
+
+                dataGrid.Rows.Add(dataRow);
             }
 
             return dataGrid;

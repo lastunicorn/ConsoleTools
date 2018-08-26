@@ -23,6 +23,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
+    /// <summary>
+    /// Represents a multiline text to be displayed to the console.
+    /// </summary>
     public class TextBlock : Control
     {
         /// <summary>
@@ -56,6 +59,39 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         protected override void DoDisplayContent()
         {
+            if (Text != null)
+                DisplayMultilineText(Text);
+        }
+
+        private static void DisplayMultilineText(MultilineText multilineText)
+        {
+            int consoleWidth = Console.BufferWidth;
+            int lastLineLength = 0;
+
+            for (int i = 0; i < multilineText.Lines.Count; i++)
+            {
+                string line = multilineText.Lines[i];
+                lastLineLength = line.Length;
+
+                bool isLineEqualToConsoleWidth = lastLineLength % consoleWidth == 0;
+
+                if (isLineEqualToConsoleWidth)
+                {
+                    Console.Write(line);
+                }
+                else
+                {
+                    bool isLastLine = i == multilineText.Lines.Count - 1;
+
+                    if (isLastLine)
+                        Console.Write(line);
+                    else
+                        Console.WriteLine(line);
+                }
+            }
+
+            if (lastLineLength != consoleWidth)
+                Console.WriteLine();
         }
     }
 }

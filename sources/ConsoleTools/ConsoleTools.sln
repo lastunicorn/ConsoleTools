@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools", "ConsoleTools\ConsoleTools.csproj", "{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}"
 EndProject
@@ -23,13 +23,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextMenu"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollableMenu", "ConsoleTools.Demo.SelectableMenu\ConsoleTools.Demo.ScrollableMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBar", "ConsoleTools.Demo.ProgressBar\ConsoleTools.Demo.ProgressBar.csproj", "{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Spinners", "ConsoleTools.Demo.Spinners\ConsoleTools.Demo.Spinners.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Pause", "ConsoleTools.Demo.Pause\ConsoleTools.Demo.Pause.csproj", "{5D585EE9-4B5C-4199-9F05-439B80F6B411}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Tutorial", "ConsoleTools.Tutorial\ConsoleTools.Tutorial.csproj", "{0E8603FB-7EEB-40A3-97C0-35F1D038111B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBar", "ConsoleTools.Demo.ProgressBar\ConsoleTools.Demo.ProgressBar.csproj", "{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBarDemo", "ConsoleTools.Demo.ProgressBarDemo\ConsoleTools.Demo.ProgressBarDemo.csproj", "{099E13DC-313B-4901-9B75-0F400F8E94A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,14 +121,6 @@ Global
 		{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 		{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
 		{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.ActiveCfg = Release-Net461|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.Build.0 = Release-Net461|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
-		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
 		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}.Release|Any CPU.ActiveCfg = Release-Net461|Any CPU
@@ -151,8 +145,27 @@ Global
 		{0E8603FB-7EEB-40A3-97C0-35F1D038111B}.Release-Net45|Any CPU.Build.0 = Release|Any CPU
 		{0E8603FB-7EEB-40A3-97C0-35F1D038111B}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{0E8603FB-7EEB-40A3-97C0-35F1D038111B}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release|Any CPU.Build.0 = Release-Net45|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
+		{45AB806D-5DB0-4EE7-BDCE-CD32B4A313FF}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release|Any CPU.Build.0 = Release-Net45|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
+		{099E13DC-313B-4901-9B75-0F400F8E94A3}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}
 	EndGlobalSection
 EndGlobal

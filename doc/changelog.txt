@@ -3,8 +3,10 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-ver 1.0.0
+ver 0.5.0
 ---------
+- DataGrid: Build DataGrid from DataTable.
+- DataGrid: Build DataGrid from a list of objects.
 - TextBlock: Created the TextBlock control that displays a multiline text.
 
 ver 0.4.0

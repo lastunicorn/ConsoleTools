@@ -25,10 +25,9 @@
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
     <Position X="13" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAMAAAAACAAABAQAQAE0AAAIAAAAAAAEAgAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAAACAAABAQAQAEkAAAIAAAAAAAGAgAAAAAAA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Guard.MachineLevelGuardian" Collapsed="true">
     <Position X="16.25" Y="8" Width="2" />

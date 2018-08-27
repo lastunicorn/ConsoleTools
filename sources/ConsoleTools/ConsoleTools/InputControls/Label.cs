@@ -21,7 +21,7 @@
 
 namespace DustInTheWind.ConsoleTools.InputControls
 {
-    public class Label : InlineText
+    public class Label : InlineTextBlock
     {
         /// <summary>
         /// Initializes a new instacne of the <see cref="Label"/> class.

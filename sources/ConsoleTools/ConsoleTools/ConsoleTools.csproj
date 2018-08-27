@@ -57,6 +57,7 @@
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
     <Compile Include="CommandProviders\TextMenuCommandProvider.cs" />
+    <Compile Include="InlineControl.cs" />
     <Compile Include="LongRunningControl.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CustomConsole.Colors.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="InputControls\FloatListRead.cs" />
     <Compile Include="InputControls\FloatListWrite.cs" />
     <Compile Include="InputControls\FloatWrite.cs" />
-    <Compile Include="InlineText.cs" />
+    <Compile Include="InlineTextBlock.cs" />
     <Compile Include="InputControls\Int32Read.cs" />
     <Compile Include="InputControls\Int32ListRead.cs" />
     <Compile Include="InputControls\Int32ListWrite.cs" />

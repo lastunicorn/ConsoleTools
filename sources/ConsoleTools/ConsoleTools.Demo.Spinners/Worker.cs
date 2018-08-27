@@ -43,12 +43,12 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                     // Simulate work
                     Thread.Sleep(WorkPeriod);
 
-                    spinner.DoneText = new InlineText("[Done]", CustomConsole.SuccessColor);
+                    spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
                     spinner.Close();
                 }
                 catch
                 {
-                    spinner.DoneText = new InlineText("[Error]", CustomConsole.ErrorColor);
+                    spinner.DoneText = new InlineTextBlock("[Error]", CustomConsole.ErrorColor);
                     spinner.Close();
                 }
             }

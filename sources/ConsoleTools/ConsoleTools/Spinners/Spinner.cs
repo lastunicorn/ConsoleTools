@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// Gets or sets the label displayed in front of the spinner.
         /// Default value: "Please wait"
         /// </summary>
-        public InlineText Label { get; set; } = new InlineText(SpinnerResources.DefaultLabelText)
+        public InlineTextBlock Label { get; set; } = new InlineTextBlock(SpinnerResources.DefaultLabelText)
         {
             MarginRight = 1
         };
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Gets or sets a text to be displayed instead of the spinner after the control is closed.
         /// </summary>
-        public InlineText DoneText { get; set; }
+        public InlineTextBlock DoneText { get; set; }
 
         /// <summary>
         /// Gets or sets the time interval of the frames.
@@ -214,12 +214,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
                 {
                     action();
 
-                    spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
+                    spinner.DoneText = new InlineTextBlock(SpinnerResources.DoneText, CustomConsole.SuccessColor);
                     spinner.Close();
                 }
                 catch
                 {
-                    spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
+                    spinner.DoneText = new InlineTextBlock(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
                     spinner.Close();
                     throw;
                 }
@@ -259,14 +259,14 @@ namespace DustInTheWind.ConsoleTools.Spinners
                 {
                     T result = action();
 
-                    spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
+                    spinner.DoneText = new InlineTextBlock(SpinnerResources.DoneText, CustomConsole.SuccessColor);
                     spinner.Close();
 
                     return result;
                 }
                 catch
                 {
-                    spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
+                    spinner.DoneText = new InlineTextBlock(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
                     spinner.Close();
                     throw;
                 }

@@ -58,6 +58,13 @@
     </Compile>
     <Compile Include="CommandProviders\TextMenuCommandProvider.cs" />
     <Compile Include="InlineControl.cs" />
+    <Compile Include="InputControls\DoubleListView.cs" />
+    <Compile Include="InputControls\FloatListView.cs" />
+    <Compile Include="InputControls\Int32ListView.cs" />
+    <Compile Include="InputControls\Int64ListView.cs" />
+    <Compile Include="InputControls\ListView.cs" />
+    <Compile Include="InputControls\ReadWriteMode.cs" />
+    <Compile Include="InputControls\StringListView.cs" />
     <Compile Include="LongRunningControl.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="CustomConsole.Colors.cs" />
@@ -69,33 +76,21 @@
     <Compile Include="CustomConsole.WriteInverted.cs" />
     <Compile Include="ErasableControl.cs" />
     <Compile Include="InputControls\DoubleRead.cs" />
-    <Compile Include="InputControls\DoubleListRead.cs" />
-    <Compile Include="InputControls\DoubleListWrite.cs" />
     <Compile Include="InputControls\DoubleWrite.cs" />
     <Compile Include="InputControls\FloatRead.cs" />
-    <Compile Include="InputControls\FloatListRead.cs" />
-    <Compile Include="InputControls\FloatListWrite.cs" />
     <Compile Include="InputControls\FloatWrite.cs" />
     <Compile Include="InlineTextBlock.cs" />
     <Compile Include="InputControls\Int32Read.cs" />
-    <Compile Include="InputControls\Int32ListRead.cs" />
-    <Compile Include="InputControls\Int32ListWrite.cs" />
     <Compile Include="InputControls\Int32Write.cs" />
     <Compile Include="InputControls\Int64Read.cs" />
-    <Compile Include="InputControls\Int64ListRead.cs" />
-    <Compile Include="InputControls\Int64ListWrite.cs" />
     <Compile Include="InputControls\Int64Write.cs" />
     <Compile Include="InputControls\Label.cs" />
-    <Compile Include="InputControls\ListRead.cs" />
     <Compile Include="InputControls\ListInputResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ListInputResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="InputControls\ListWrite.cs" />
     <Compile Include="InputControls\StringRead.cs" />
-    <Compile Include="InputControls\StringListRead.cs" />
-    <Compile Include="InputControls\StringListWrite.cs" />
     <Compile Include="InputControls\StringWrite.cs" />
     <Compile Include="InputControls\TextBlock.cs" />
     <Compile Include="InputControls\ValueRead.cs" />

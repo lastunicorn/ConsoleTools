@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
@@ -32,12 +33,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListWrite{T}.QuickDisplay"/> falls back
+        /// Using the static method <see cref="ListView{T}.QuickWrite"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
-        private static void DisplayColorsQuick(string[] colors)
+        private static void DisplayColorsQuick(IEnumerable<string> colors)
         {
-            ListWrite<string>.QuickDisplay("Colors:", colors);
+            ListView<string>.QuickWrite("Colors:", colors);
         }
     }
 }

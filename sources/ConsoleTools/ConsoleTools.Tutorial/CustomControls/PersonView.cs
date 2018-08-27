@@ -32,7 +32,7 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
         private readonly ValueWrite<DateTime> birthdayWrite;
         private readonly StringWrite phoneNumberWrite;
         private readonly FloatWrite heightWrite;
-        private readonly StringListWrite preferedBeveragesWrite;
+        private readonly StringListView preferedBeveragesWrite;
         private Person person;
 
         public Person Person
@@ -58,7 +58,7 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
             birthdayWrite = new ValueWrite<DateTime>("Birthday:");
             phoneNumberWrite = new StringWrite("Phone Number:");
             heightWrite = new FloatWrite("Height (in meters)");
-            preferedBeveragesWrite = new StringListWrite("Prefered Beverages:");
+            preferedBeveragesWrite = new StringListView("Prefered Beverages:");
         }
 
         public void Display()
@@ -68,7 +68,8 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
             birthdayWrite.Write(Person.Birthday);
             phoneNumberWrite.Write(Person.PhoneNumber);
             heightWrite.Write(Person.Height);
-            preferedBeveragesWrite.Write(Person.PreferedBeverages);
+            preferedBeveragesWrite.Values = Person.PreferedBeverages;
+            preferedBeveragesWrite.Write();
         }
     }
 }

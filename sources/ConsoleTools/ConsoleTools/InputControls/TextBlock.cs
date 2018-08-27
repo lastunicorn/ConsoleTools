@@ -57,6 +57,31 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         public ConsoleColor? BackgroundColor { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextBlock"/> class.
+        /// </summary>
+        public TextBlock()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextBlock"/> class
+        /// with the text to be displayed.
+        /// </summary>
+        public TextBlock(MultilineText text)
+        {
+            Text = text;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextBlock"/> class
+        /// with the text to be displayed.
+        /// </summary>
+        public TextBlock(string text)
+        {
+            Text = text;
+        }
+
         protected override void DoDisplayContent()
         {
             if (Text != null)

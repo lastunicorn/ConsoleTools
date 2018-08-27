@@ -45,18 +45,20 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// <summary>
         /// By creating an instance of the <see cref="ListRead{T}"/>, additional properties can be set.
         /// </summary>
-        private static IEnumerable<string> ReadBeverages()
+        private static List<string> ReadBeverages()
         {
-            ListRead<string> beveragesRead = new ListRead<string>
+            ListView<string> beveragesRead = new ListView<string>
             {
-                Label = "What are your prefered beverages?",
-                Bullet = "#",
-                LabelForegroundColor = ConsoleColor.Cyan
+                Label = new TextBlock
+                {
+                    Text = "What are your prefered beverages?",
+                    ForegroundColor = ConsoleColor.Cyan
+                },
+                Bullet = "#"
                 // etc...
             };
 
-            beveragesRead.Display();
-            return beveragesRead.Values;
+            return beveragesRead.Read();
         }
     }
 }

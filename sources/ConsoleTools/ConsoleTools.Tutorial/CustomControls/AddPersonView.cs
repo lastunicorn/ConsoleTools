@@ -32,7 +32,7 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
         private readonly ValueRead<DateTime> birthdayRead;
         private readonly StringRead phoneNumberRead;
         private readonly FloatRead heightRead;
-        private readonly StringListRead preferedBeveragesRead;
+        private readonly StringListView preferedBeveragesRead;
 
         public AddPersonView()
         {
@@ -41,7 +41,7 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
             birthdayRead = new ValueRead<DateTime>("Birthday:");
             phoneNumberRead = new StringRead("Phone Number:");
             heightRead = new FloatRead("Height (in meters)");
-            preferedBeveragesRead = new StringListRead("Prefered Beverages:");
+            preferedBeveragesRead = new StringListView("Prefered Beverages:");
         }
 
         public Person Person { get; private set; }

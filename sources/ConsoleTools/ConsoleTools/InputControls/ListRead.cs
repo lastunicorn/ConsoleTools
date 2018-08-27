@@ -37,8 +37,6 @@ namespace DustInTheWind.ConsoleTools.InputControls
             ForegroundColor = CustomConsole.EmphasiesColor
         };
 
-        private List<T> values;
-
         /// <summary>
         /// Gets or sets the label text to be displayed before the user types the values.
         /// </summary>
@@ -47,7 +45,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Gets the list of values read from the console.
         /// </summary>
-        public List<T> Values => values;
+        public List<T> Values { get; private set; }
 
         /// <summary>
         /// Gets or sets the foreground color used to display the label.
@@ -137,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         private void ReadAllValues()
         {
-            values = new List<T>();
+            Values = new List<T>();
 
             string leftpart = BuildItemLeftPart();
 
@@ -161,7 +159,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                 try
                 {
                     T value = ConvertRawValue(rawValue);
-                    values.Add(value);
+                    Values.Add(value);
                 }
                 catch
                 {
@@ -173,7 +171,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         private T ConvertRawValue(string value)
         {
             return CustomParser == null
-                ? (T) Convert.ChangeType(value, typeof(T))
+                ? (T)Convert.ChangeType(value, typeof(T))
                 : CustomParser(value);
         }
 
@@ -210,7 +208,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         {
             ListRead<T> listRead = new ListRead<T>(label);
             listRead.Display();
-            return listRead.values;
+            return listRead.Values;
         }
     }
 }

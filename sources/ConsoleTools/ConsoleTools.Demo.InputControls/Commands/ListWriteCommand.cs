@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
@@ -36,18 +37,21 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// </summary>
         private static void DisplayColors(string[] colors)
         {
-            ListWrite<string> colorsWrite = new ListWrite<string>
+            ListView<string> colorsWrite = new ListView<string>
             {
-                Label = "Colors:",
-                Values = colors,
+                Label = new TextBlock
+                {
+                    Text = "Colors:",
+                    ForegroundColor = ConsoleColor.Cyan
+                },
+                Values = colors.ToList(),
                 Bullet = "#",
-                LabelForegroundColor = ConsoleColor.Cyan,
                 MarginTop = 2,
                 MarginBottom = 2
                 // etc...
             };
 
-            colorsWrite.Display();
+            colorsWrite.Write();
         }
     }
 }

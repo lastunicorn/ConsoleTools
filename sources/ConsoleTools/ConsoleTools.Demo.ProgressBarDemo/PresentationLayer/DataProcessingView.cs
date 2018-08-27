@@ -23,7 +23,7 @@ using DustInTheWind.ConsoleTools.Spinners;
 namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
 {
     /// <summary>
-    /// This view uses a <see cref="DataProcessingJob"/> to run and a <see cref="ProgressBar"/> control
+    /// This view uses a <see cref="DataProcessingJob"/> to simulate some business process and a <see cref="ProgressBar"/> control
     /// to display its percentage progress.
     /// </summary>
     internal class DataProcessingView

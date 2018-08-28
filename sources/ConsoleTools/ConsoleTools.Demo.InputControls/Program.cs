@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
     internal static class Program
     {
-        private static volatile bool stopWasRequested;
+        private static ScrollableMenu menu;
 
         private static void Main()
         {
@@ -32,15 +32,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             Console.SetWindowSize(80, 60);
 
             DisplayApplicationHeader();
-
-            ScrollableMenu menu = CreateMenu();
-
-            while (!stopWasRequested)
-            {
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-
-                menu.Display();
-            }
+            
+            menu = CreateMenu();
+            menu.Display();
         }
 
         private static void DisplayApplicationHeader()
@@ -58,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
             return new ScrollableMenu(menuItems)
             {
-                ItemsHorizontalAlignment = HorizontalAlignment.Center,
+                ItemsHorizontalAlignment = HorizontalAlignment.Left,
                 SelectFirstByDefault = true
             };
         }
@@ -92,6 +86,19 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
                 new LabelMenuItem
                 {
+                    Text = "Value Write",
+                    Command = new ValueWriteCommand()
+                },
+                new LabelMenuItem
+                {
+                    Text = "Value Write - Quick (static method)",
+                    Command = new ValueWriteQuickCommand()
+                },
+
+                new SeparatorMenuItem(),
+
+                new LabelMenuItem
+                {
                     Text = "List Read - Strings",
                     Command = new ListReadStringsCommand()
                 },
@@ -109,19 +116,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
                 {
                     Text = "List Read - With custom parser",
                     Command = new ListReadWithCustomParserCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Value Write",
-                    Command = new ValueWriteCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Value Write - Quick (static method)",
-                    Command = new ValueWriteQuickCommand()
                 },
 
                 new SeparatorMenuItem(),
@@ -163,7 +157,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
         public static void Stop()
         {
-            stopWasRequested = true;
+            menu.RequestClose();
         }
     }
 }

@@ -37,8 +37,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
             CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueView control.");
             CustomConsole.WriteLine();
 
-            numberView.Display();
-            int number = numberView.Value;
+            int number = numberView.Read();
 
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("You selected {0}.", number);

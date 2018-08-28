@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Gets or sets a value that specifies if the label should be displayed or not.
         /// </summary>
-        public bool ShowLabel { get; set; }
+        public bool ShowLabel { get; set; } = true;
 
         /// <summary>
         /// Gets the list of values to be read or written from/to the console.

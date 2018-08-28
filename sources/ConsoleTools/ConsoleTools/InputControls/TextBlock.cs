@@ -24,7 +24,7 @@ using System;
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// Represents a multiline text to be displayed to the console.
+    /// This control displays a multiline text to the console.
     /// </summary>
     public class TextBlock : Control
     {

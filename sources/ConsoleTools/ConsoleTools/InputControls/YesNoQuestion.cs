@@ -25,7 +25,7 @@ using System.Text;
 namespace DustInTheWind.ConsoleTools.InputControls
 {
     /// <summary>
-    /// This control displays a question and expects an answer of "yes" or "no".
+    /// This control reads a yes/no answer from the console.
     /// </summary>
     public class YesNoQuestion : Control
     {

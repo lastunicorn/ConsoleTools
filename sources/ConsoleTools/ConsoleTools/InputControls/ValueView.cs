@@ -34,63 +34,24 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         public ReadWriteMode ReadWriteMode { get; set; } = ReadWriteMode.Unknown;
 
-        //private readonly Label labelControl = new Label
-        //{
-        //    ForegroundColor = CustomConsole.EmphasiesColor
-        //};
-
-        ///// <summary>
-        ///// Gets or sets the label text to be displayed before the user types the value.
-        ///// If the label contains the string: {0}, it will be replaced with
-        ///// the default value (<see cref="DefaultValue"/> property).
-        ///// </summary>
-        //public string Label { get; set; }
-
-
         /// <summary>
         /// Gets or sets the label text to be displayed before the content.
         /// </summary>
-        public TextBlock Label { get; set; } = new TextBlock
+        public InlineTextBlock Label { get; set; } = new InlineTextBlock
         {
-            ForegroundColor = CustomConsole.EmphasiesColor
+            ForegroundColor = CustomConsole.EmphasiesColor,
+            MarginRight = 1
         };
 
         /// <summary>
         /// Gets or sets a value that specifies if the label should be displayed or not.
         /// </summary>
-        public bool ShowLabel { get; set; }
+        public bool ShowLabel { get; set; } = true;
 
         /// <summary>
         /// Gets the value read from the console.
         /// </summary>
         public T Value { get; set; }
-
-        ///// <summary>
-        ///// Gets or sets the amount of space to be displayed between the label and the value.
-        ///// </summary>
-        //public int SpaceAfterLabel
-        //{
-        //    get { return labelControl.MarginRight; }
-        //    set { labelControl.MarginRight = value; }
-        //}
-
-        ///// <summary>
-        ///// Gets or sets the foreground color used to display the label text.
-        ///// </summary>
-        //public ConsoleColor? LabelForegroundColor
-        //{
-        //    get { return labelControl.ForegroundColor; }
-        //    set { labelControl.ForegroundColor = value; }
-        //}
-
-        ///// <summary>
-        ///// Gets or sets the background color used to display the label text.
-        ///// </summary>
-        //public ConsoleColor? LabelBackgroundColor
-        //{
-        //    get { return labelControl.BackgroundColor; }
-        //    set { labelControl.BackgroundColor = value; }
-        //}
 
         /// <summary>
         /// Gets or sets the default value to be returned if the user just types enter (string empty).
@@ -237,9 +198,6 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         private void WriteValue()
         {
-            if (Label != null && ShowLabel)
-                DisplayLabel();
-
             CustomConsole.WriteLine(Value);
         }
 
@@ -279,7 +237,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueWrite{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueView{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="value">The value to be displayed.</param>

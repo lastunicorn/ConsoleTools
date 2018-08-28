@@ -36,18 +36,18 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         private static void RunExample()
         {
             // Create the input controls
-            ValueRead<string> firstNameRead = new ValueRead<string>("First Name:");
-            firstNameRead.LabelForegroundColor = ConsoleColor.Cyan;
+            ValueView<string> firstNameView = new ValueView<string>("First Name:");
+            firstNameView.Label.ForegroundColor = ConsoleColor.Cyan;
 
-            ValueRead<string> lastNameRead = new ValueRead<string>("Last Name:");
-            lastNameRead.LabelForegroundColor = ConsoleColor.Cyan;
+            ValueView<string> lastNameView = new ValueView<string>("Last Name:");
+            lastNameView.Label.ForegroundColor = ConsoleColor.Cyan;
 
             // Read values using the input controls
-            firstNameRead.Display();
-            string firstName = firstNameRead.Value;
+            firstNameView.Display();
+            string firstName = firstNameView.Value;
 
-            lastNameRead.Display();
-            string lastName = lastNameRead.Value;
+            lastNameView.Display();
+            string lastName = lastNameView.Value;
 
             // Display th read values.
             CustomConsole.WriteLine();

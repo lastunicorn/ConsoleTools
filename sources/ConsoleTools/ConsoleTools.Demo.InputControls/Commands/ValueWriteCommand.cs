@@ -26,18 +26,24 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            StringWrite firstNameWrite = new StringWrite("First Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
-            StringWrite lastNameWrite = new StringWrite("Last Name:") { LabelForegroundColor = ConsoleColor.DarkGreen };
-            Int32Write ageWrite = new Int32Write("Age:") { LabelForegroundColor = ConsoleColor.DarkGreen };
+            StringView firstNameView = new StringView("First Name:");
+            firstNameView.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-            firstNameWrite.Value = "Joe";
-            firstNameWrite.Display();
+            StringView lastNameView = new StringView("Last Name:");
+            lastNameView.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-            lastNameWrite.Value = "Doe";
-            lastNameWrite.Display();
+            Int32View ageView = new Int32View("Age:");
+            ageView.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-            ageWrite.Value = 25;
-            ageWrite.Display();
+
+            firstNameView.Value = "Joe";
+            firstNameView.Write();
+
+            lastNameView.Value = "Doe";
+            lastNameView.Write();
+
+            ageView.Value = 25;
+            ageView.Write();
         }
     }
 }

@@ -61,9 +61,9 @@ namespace DustIntheWind.ConsoleTools.Tutorial.Commands
 
         private static int AskForId()
         {
-            Int32Read idRead = new Int32Read("The id of the person:");
+            Int32View idView = new Int32View("The id of the person:");
 
-            int id = idRead.Read();
+            int id = idView.Read();
             CustomConsole.WriteLine();
 
             return id;

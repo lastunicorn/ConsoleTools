@@ -25,9 +25,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
         public void Execute()
         {
-            StringWrite.QuickDisplay("First Name:", "John");
-            StringWrite.QuickDisplay("Last Name:", "Doe");
-            Int32Write.QuickDisplay("Age:", 25);
+            StringView.QuickWrite("First Name:", "John");
+            StringView.QuickWrite("Last Name:", "Doe");
+            Int32View.QuickWrite("Age:", 25);
 
             // or
 

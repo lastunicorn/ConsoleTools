@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Reads commands from the console.
     /// </summary>
-    public class Prompter : Control, ICommandProvider
+    public class Prompter : Control
     {
         private volatile bool closeWasRequested;
         private CliCommand lastCommand;
@@ -83,13 +83,13 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
         /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
         /// </summary>
-        public override void Display()
+        public void DisplayContinous()
         {
             closeWasRequested = false;
 
             while (!closeWasRequested)
             {
-                base.Display();
+                Display();
 
                 if (lastCommand == null)
                     break;
@@ -108,17 +108,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 }
             }
         }
-
-        /// <summary>
-        /// Reads a single command (<see cref="CliCommand"/>) from the console and returns it.
-        /// </summary>
-        /// <returns>A <see cref="CliCommand"/> object containing the command typed by the user.</returns>
-        public CliCommand DisplayOnce()
-        {
-            base.Display();
-            return lastCommand;
-        }
-
+        
         protected override void DoDisplayContent()
         {
             lastCommand = null;

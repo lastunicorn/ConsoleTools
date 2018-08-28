@@ -38,10 +38,10 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
         private void ChangePrompter()
         {
-            ValueRead<string> valueRead = new ValueRead<string>("New Prompter Text:");
+            ValueView<string> valueView = new ValueView<string>("New Prompter Text:");
 
-            valueRead.Display();
-            prompter.PrompterText = valueRead.Value;
+            valueView.Display();
+            prompter.PrompterText = valueView.Value;
         }
     }
 }

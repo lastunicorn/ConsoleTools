@@ -27,12 +27,12 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
 {
     internal class PersonView
     {
-        private readonly StringWrite firstNameWrite;
-        private readonly StringWrite lastNameWrite;
-        private readonly ValueWrite<DateTime> birthdayWrite;
-        private readonly StringWrite phoneNumberWrite;
-        private readonly FloatWrite heightWrite;
-        private readonly StringListView preferedBeveragesWrite;
+        private readonly StringView firstNameView;
+        private readonly StringView lastNameView;
+        private readonly ValueView<DateTime> birthdayView;
+        private readonly StringView phoneNumberView;
+        private readonly FloatView heightView;
+        private readonly StringListView preferedBeveragesView;
         private Person person;
 
         public Person Person
@@ -42,34 +42,44 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
             {
                 person = value;
 
-                firstNameWrite.Value = Person.FirstName;
-                lastNameWrite.Value = Person.LastName;
-                birthdayWrite.Value = Person.Birthday;
-                phoneNumberWrite.Value = Person.PhoneNumber;
-                heightWrite.Value = Person.Height;
-                preferedBeveragesWrite.Values = Person.PreferedBeverages;
+                firstNameView.Value = Person.FirstName;
+                lastNameView.Value = Person.LastName;
+                birthdayView.Value = Person.Birthday;
+                phoneNumberView.Value = Person.PhoneNumber;
+                heightView.Value = Person.Height;
+                preferedBeveragesView.Values = Person.PreferedBeverages;
             }
         }
 
         public PersonView()
         {
-            firstNameWrite = new StringWrite("First Name:");
-            lastNameWrite = new StringWrite("Last Name:");
-            birthdayWrite = new ValueWrite<DateTime>("Birthday:");
-            phoneNumberWrite = new StringWrite("Phone Number:");
-            heightWrite = new FloatWrite("Height (in meters)");
-            preferedBeveragesWrite = new StringListView("Prefered Beverages:");
+            firstNameView = new StringView("First Name:");
+            lastNameView = new StringView("Last Name:");
+            birthdayView = new ValueView<DateTime>("Birthday:");
+            phoneNumberView = new StringView("Phone Number:");
+            heightView = new FloatView("Height (in meters)");
+            preferedBeveragesView = new StringListView("Prefered Beverages:");
         }
 
         public void Display()
         {
-            firstNameWrite.Write(Person.FirstName);
-            lastNameWrite.Write(Person.LastName);
-            birthdayWrite.Write(Person.Birthday);
-            phoneNumberWrite.Write(Person.PhoneNumber);
-            heightWrite.Write(Person.Height);
-            preferedBeveragesWrite.Values = Person.PreferedBeverages;
-            preferedBeveragesWrite.Write();
+            firstNameView.Value = Person.FirstName;
+            firstNameView.Write();
+
+            lastNameView.Value = Person.LastName;
+            lastNameView.Write();
+
+            birthdayView.Value = Person.Birthday;
+            birthdayView.Write();
+
+            phoneNumberView.Value = Person.PhoneNumber;
+            phoneNumberView.Write();
+
+            heightView.Value = Person.Height;
+            heightView.Write();
+
+            preferedBeveragesView.Values = Person.PreferedBeverages;
+            preferedBeveragesView.Write();
         }
     }
 }

@@ -33,8 +33,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
         /// </summary>
         private static void RunExample()
         {
-            string firstName = ValueRead<string>.QuickDisplay("First Name:");
-            string lastName = ValueRead<string>.QuickDisplay("Last Name:");
+            string firstName = ValueView<string>.QuickRead("First Name:");
+            string lastName = ValueView<string>.QuickRead("Last Name:");
 
             // Display th read values.
             CustomConsole.WriteLine();

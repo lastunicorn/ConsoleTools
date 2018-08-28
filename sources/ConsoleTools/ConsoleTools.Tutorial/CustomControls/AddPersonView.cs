@@ -27,20 +27,20 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
 {
     internal class AddPersonView
     {
-        private readonly StringRead firstNameRead;
-        private readonly StringRead lastNameRead;
-        private readonly ValueRead<DateTime> birthdayRead;
-        private readonly StringRead phoneNumberRead;
-        private readonly FloatRead heightRead;
+        private readonly StringView firstNameView;
+        private readonly StringView lastNameView;
+        private readonly ValueView<DateTime> birthdayView;
+        private readonly StringView phoneNumberView;
+        private readonly FloatView heightView;
         private readonly StringListView preferedBeveragesRead;
 
         public AddPersonView()
         {
-            firstNameRead = new StringRead("First Name:");
-            lastNameRead = new StringRead("Last Name:");
-            birthdayRead = new ValueRead<DateTime>("Birthday:");
-            phoneNumberRead = new StringRead("Phone Number:");
-            heightRead = new FloatRead("Height (in meters)");
+            firstNameView = new StringView("First Name:");
+            lastNameView = new StringView("Last Name:");
+            birthdayView = new ValueView<DateTime>("Birthday:");
+            phoneNumberView = new StringView("Phone Number:");
+            heightView = new FloatView("Height (in meters)");
             preferedBeveragesRead = new StringListView("Prefered Beverages:");
         }
 
@@ -50,20 +50,20 @@ namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
         {
             Person = null;
 
-            firstNameRead.Display();
-            lastNameRead.Display();
-            birthdayRead.Display();
-            phoneNumberRead.Display();
-            heightRead.Display();
+            firstNameView.Display();
+            lastNameView.Display();
+            birthdayView.Display();
+            phoneNumberView.Display();
+            heightView.Display();
             preferedBeveragesRead.Display();
 
             Person = new Person
             {
-                FirstName = firstNameRead.Value,
-                LastName = lastNameRead.Value,
-                Birthday = birthdayRead.Value,
-                PhoneNumber = phoneNumberRead.Value,
-                Height = heightRead.Value,
+                FirstName = firstNameView.Value,
+                LastName = lastNameView.Value,
+                Birthday = birthdayView.Value,
+                PhoneNumber = phoneNumberView.Value,
+                Height = heightView.Value,
                 PreferedBeverages = preferedBeveragesRead.Values
             };
         }

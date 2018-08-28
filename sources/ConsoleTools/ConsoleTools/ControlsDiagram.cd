@@ -50,11 +50,11 @@
       <FileName>InputControls\StringWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueRead&lt;T&gt;" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueView&lt;T&gt;" Collapsed="true">
     <Position X="5.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQBBAEBACAAABAAAAAAAgoIBACAAIEAAgAAAAAAA=</HashCode>
-      <FileName>InputControls\ValueRead.cs</FileName>
+      <FileName>InputControls\ValueView.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ValueWrite&lt;T&gt;" Collapsed="true">
@@ -128,32 +128,32 @@
       <FileName>InputControls\DoubleWrite.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.StringRead" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.StringView" Collapsed="true">
     <Position X="4.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\StringRead.cs</FileName>
+      <FileName>InputControls\StringView.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.Int32Read" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.Int32View" Collapsed="true">
     <Position X="4.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\Int32Read.cs</FileName>
+      <FileName>InputControls\Int32View.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.FloatRead" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.FloatView" Collapsed="true">
     <Position X="4.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\FloatRead.cs</FileName>
+      <FileName>InputControls\FloatView.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.DoubleRead" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.DoubleView" Collapsed="true">
     <Position X="4.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\DoubleRead.cs</FileName>
+      <FileName>InputControls\DoubleView.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.Int64Write" Collapsed="true">
@@ -163,11 +163,11 @@
       <FileName>InputControls\Int64Write.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.Int64Read" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.InputControls.Int64View" Collapsed="true">
     <Position X="4.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\Int64Read.cs</FileName>
+      <FileName>InputControls\Int64View.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Control" Collapsed="true">
@@ -229,7 +229,7 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListView&lt;T&gt;" Collapsed="true">
     <Position X="1.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAQAUBAAAgABAAAACAAoAIAACBAAQAAgAAEQAAA=</HashCode>
+      <HashCode>AAAIAAQAUBAAAgABAAAACAAoBIAACBAAQAAgAAEQAAA=</HashCode>
       <FileName>InputControls\ListView.cs</FileName>
     </TypeIdentifier>
   </Class>

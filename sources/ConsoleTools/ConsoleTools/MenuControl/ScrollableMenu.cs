@@ -256,7 +256,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                         if (menuItems.CurrentItem != null)
                         {
                             bool isSelectedSuccessfully = SelectCurrentItem();
-
+                            
                             if (isSelectedSuccessfully)
                                 return;
                         }

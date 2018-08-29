@@ -33,9 +33,21 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public static string BuildHorizontalWindowLine(char c = '-') => new string(c, Console.WindowWidth);
 
+        public static void WriteHorizontalWindowLine(char c = '-')
+        {
+            string line = new string(c, Console.WindowWidth);
+            WriteLine(line);
+        }
+
         /// <summary>
         /// Builds a string repeating the specified character and having the leangth equal to the width of the console's buffer.
         /// </summary>
         public static string BuildHorizontalBufferLine(char c = '-') => new string(' ', Console.BufferWidth);
+
+        public static void WriteHorizontalBufferLine(char c = '-')
+        {
+            string line = new string(c, Console.BufferWidth);
+            WriteLine(line);
+        }
     }
 }

@@ -95,6 +95,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             int menuHeight = menuItems
                 .Count(x => x != null && x.IsVisible);
 
+            int questionHeight = (int)Math.Ceiling((double)(QuestionText?.Length ?? 0) / Console.BufferWidth);
+
+            menuHeight += 1 + questionHeight;
+
             int menuWidth = menuItems
                 .Where(x => x != null && x.IsVisible)
                 .Select(x => x.Size)
@@ -203,6 +207,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         protected override void OnAfterDisplay()
         {
             SelectedItem?.Select();
+
+            base.OnAfterDisplay();
         }
 
         /// <summary>

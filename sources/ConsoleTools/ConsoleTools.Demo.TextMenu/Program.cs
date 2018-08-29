@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel;
 using DustInTheWind.ConsoleTools.Demo.TextMenu.Commands;
+using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
@@ -29,6 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
         private static void Main()
         {
+
             try
             {
                 DisplayApplicationHeader();
@@ -45,17 +47,20 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
                 menu = CreateMenu();
 
+                TextBlock separator = new TextBlock
+                {
+                    Text = "-------------------------------------------------------------------------------",
+                    MarginTop = 1,
+                    MarginBottom = 1
+                };
+
                 while (!applicationState.IsExitRequested)
                 {
-                    CustomConsole.WriteLine();
-                    CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                    CustomConsole.WriteLine();
-
+                    //separator.Display();
                     menu.Display();
                 }
 
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasies("Bye!");
+                DisplayGoodby();
             }
             catch (Exception ex)
             {
@@ -128,6 +133,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 }
             });
 
+            textMenu.EraseAfterClose = true;
+
             return textMenu;
         }
 
@@ -140,6 +147,17 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
         private static void HandleApplicationExiting(object sender, CancelEventArgs e)
         {
             gameBoard.StopGame();
+        }
+
+        private static void DisplayGoodby()
+        {
+            TextBlock goodbyText = new TextBlock
+            {
+                Text = "Bye!",
+                ForegroundColor = CustomConsole.EmphasiesColor,
+                MarginTop = 1
+            };
+            goodbyText.Display();
         }
     }
 }

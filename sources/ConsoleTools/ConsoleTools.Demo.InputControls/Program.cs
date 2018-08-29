@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.InputControls.Commands;
+using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.MenuControl;
 using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
@@ -32,13 +33,38 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             Console.SetWindowSize(80, 60);
 
             DisplayApplicationHeader();
-            
+
             menu = CreateMenu();
             menu.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
+            //StackPanel stackPanel = new StackPanel
+            //{
+            //    Controls = new object[]
+            //    {
+            //        new InlineTextBlock
+            //        {
+            //            Text = "ConsoleTools Demo - InputControls",
+            //            ForegroundColor = CustomConsole.EmphasiesColor
+            //        },
+            //        new TextBlock
+            //        {
+            //            Text = CustomConsole.HorizontalWindowLine,
+            //            ForegroundColor = CustomConsole.EmphasiesColor,
+            //            MarginBottom = 1
+            //        },
+            //        new TextBlock
+            //        {
+            //            Text = "This demo shows the usage of the input controls (text and list).",
+            //            MarginBottom = 1
+            //        }
+            //    }
+            //};
+            //
+            //stackPanel.Display();
+
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - InputControls");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();

@@ -79,11 +79,25 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public int? SelectedIndex { get; private set; }
 
         /// <summary>
+        /// Initialize a new instace of the <see cref="TextMenu"/> calss.
+        /// </summary>
+        public TextMenu()
+        {
+        }
+
+        /// <summary>
         /// Initialize a new instace of the <see cref="TextMenu"/> calss with
         /// the list of items to be displayed.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
         public TextMenu(IEnumerable<TextMenuItem> menuItems)
+        {
+            if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
+
+            this.menuItems.AddRange(menuItems);
+        }
+
+        protected void SetItems(IEnumerable<TextMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
@@ -206,9 +220,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         protected override void OnAfterDisplay()
         {
-            SelectedItem?.Select();
-
             base.OnAfterDisplay();
+
+            SelectedItem?.Select();
         }
 
         /// <summary>

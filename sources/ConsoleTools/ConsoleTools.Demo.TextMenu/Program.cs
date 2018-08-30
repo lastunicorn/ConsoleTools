@@ -16,9 +16,7 @@
 
 using System;
 using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.TextMenu.Commands;
 using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
@@ -26,11 +24,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
     {
         private static ApplicationState applicationState;
         private static GameBoard gameBoard;
-        private static MenuControl.TextMenu menu;
 
         private static void Main()
         {
-
             try
             {
                 DisplayApplicationHeader();
@@ -45,18 +41,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
                 gameBoard = new GameBoard();
 
-                menu = CreateMenu();
-
-                TextBlock separator = new TextBlock
-                {
-                    Text = "-------------------------------------------------------------------------------",
-                    MarginTop = 1,
-                    MarginBottom = 1
-                };
+                MainMenu menu = new MainMenu(applicationState, gameBoard);
 
                 while (!applicationState.IsExitRequested)
                 {
-                    //separator.Display();
                     menu.Display();
                 }
 
@@ -81,61 +69,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
             CustomConsole.WriteLine("Press Enter key to select an item.");
             CustomConsole.WriteLine();
-        }
-
-        private static MenuControl.TextMenu CreateMenu()
-        {
-            MenuControl.TextMenu textMenu = new MenuControl.TextMenu(new[]
-            {
-                new TextMenuItem
-                {
-                    Id = "1",
-                    Text = "New Game",
-                    Command = new NewGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "2",
-                    Text = "Save Game",
-                    Command = new SaveGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "3",
-                    Text = "Load Game",
-                    Command = new LoadGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "4",
-                    Text = "Close Game",
-                    Command = new CloseGameCommand(gameBoard)
-                },
-
-                new TextMenuItem
-                {
-                    Id = "5",
-                    Text = "Settings",
-                    Command = new SettingsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "6",
-                    Text = "Credits",
-                    Command = new CreditsCommand()
-                },
-
-                new TextMenuItem
-                {
-                    Id = "0",
-                    Text = "Exit",
-                    Command = new ExitCommand(applicationState)
-                }
-            });
-
-            textMenu.EraseAfterClose = true;
-
-            return textMenu;
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

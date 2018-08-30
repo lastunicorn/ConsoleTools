@@ -17,7 +17,8 @@
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
     /// <summary>
-    /// This class represents all the business models that can exists in a real application.
+    /// This class is representative for all the business classes that can exists in a real application.
+    /// It emulates a game that can be started, stopped
     /// </summary>
     internal class GameBoard
     {
@@ -26,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
         public void StartGame()
         {
             IsGameStarted = true;
-            CustomConsole.WriteLineSuccess("New game started");
+            CustomConsole.WriteLineSuccess("New game started.");
         }
 
         public void StopGame()
@@ -34,14 +35,26 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             if (IsGameStarted)
             {
                 IsGameStarted = false;
-                CustomConsole.WriteLineSuccess("Current game stoped");
+                CustomConsole.WriteLineSuccess("Current game stoped.");
+            }
+            else
+            {
+                CustomConsole.WriteLine("Current game is already stoped.");
             }
         }
 
         public void LoadGame()
         {
             IsGameStarted = true;
-            CustomConsole.WriteLineSuccess("Game loaded successfully");
+            CustomConsole.WriteLineSuccess("Game loaded successfully.");
+        }
+
+        public void Save()
+        {
+            if (IsGameStarted)
+                CustomConsole.WriteLineSuccess("Game saved successfully");
+            else
+                CustomConsole.WriteLineWarning("No game is running.");
         }
     }
 }

@@ -71,12 +71,13 @@ namespace DustInTheWind.ConsoleTools
         {
             int initialLeft = Console.CursorLeft;
 
-            int height = Math.Min(Console.BufferHeight - 1, Size.Height);
+            int totalHeight = MarginTop + Size.Height + MarginBottom;
+            totalHeight = Math.Min(Console.BufferHeight - 1, totalHeight);
 
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < totalHeight; i++)
                 Console.WriteLine();
 
-            Console.SetCursorPosition(initialLeft, Console.CursorTop - height);
+            Console.SetCursorPosition(initialLeft, Console.CursorTop - totalHeight);
         }
 
         /// <summary>
@@ -105,7 +106,9 @@ namespace DustInTheWind.ConsoleTools
 
             Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);
 
-            for (int i = 0; i < Size.Height; i++)
+            int totalHeight = MarginTop + Size.Height + MarginBottom;
+
+            for (int i = 0; i < totalHeight; i++)
                 Console.Write(emptyLine);
 
             Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);

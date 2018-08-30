@@ -62,6 +62,7 @@
     <Compile Include="Commands\SaveGameCommand.cs" />
     <Compile Include="Commands\SettingsCommand.cs" />
     <Compile Include="GameBoard.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

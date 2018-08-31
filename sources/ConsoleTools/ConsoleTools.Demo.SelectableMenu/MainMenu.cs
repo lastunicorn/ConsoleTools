@@ -28,8 +28,10 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
         {
             if (application == null) throw new ArgumentNullException(nameof(application));
 
+            EraseAfterClose = true;
             MarginTop = 1;
             MarginBottom = 1;
+            SelectFirstByDefault = false;
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);
@@ -37,10 +39,6 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
 
             // You can play with the following values.
 
-            // This automatically selects the first item when the menu is displayed.
-            //SelectFirstByDefault = true;
-
-            // 
             //HorizontalAlignment = HorizontalAlignment.Left;
             //ItemsHorizontalAlignment = HorizontalAlignment.Right;
         }

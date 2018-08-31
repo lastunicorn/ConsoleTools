@@ -30,11 +30,13 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class ScrollableMenu : MultipleDisplayControl
+    public class ScrollableMenu : ErasableControl, IRepeatableControl
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
         private readonly MenuItemCollection menuItems = new MenuItemCollection();
+
+        private bool closeWasRequested;
 
         private Location menuLocation;
 
@@ -87,6 +89,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             get { return menuItems.AllowWrapAround; }
             set { menuItems.AllowWrapAround = value; }
         }
+
+        public event EventHandler CloseNeeded;
 
         /// <inheritdoc />
         /// <summary>
@@ -142,6 +146,15 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             if (menuItems.SelectableItemsCount == 0)
                 throw new ApplicationException("There are no menu items to be displayed.");
+
+            InnerSize = CalculateControlSize();
+
+            for (int i = 0; i < InnerSize.Height; i++)
+                Console.WriteLine();
+
+            Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
+
+            base.OnBeforeDisplay();
         }
 
         /// <summary>
@@ -171,8 +184,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
 
-                int firstLineAfterMenu = menuLocation.Top + Size.Height;
-                Console.SetCursorPosition(0, firstLineAfterMenu);
+                int lastMenuLine = menuLocation.Top + InnerSize.Height - 1;
+                Console.SetCursorPosition(0, lastMenuLine);
+                Console.WriteLine();
             }
         }
 
@@ -187,6 +201,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         protected override void OnAfterDisplay()
         {
+            base.OnAfterDisplay();
+
             SelectedItem?.Command?.Execute();
         }
 
@@ -202,10 +218,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                     return new Location(0, menuTop);
 
                 case HorizontalAlignment.Center:
-                    return new Location((Console.BufferWidth - Size.Width) / 2, menuTop);
+                    return new Location((Console.BufferWidth - InnerSize.Width) / 2, menuTop);
 
                 case HorizontalAlignment.Right:
-                    return new Location(Console.BufferWidth - Size.Width, menuTop);
+                    return new Location(Console.BufferWidth - InnerSize.Width, menuTop);
             }
         }
 
@@ -219,7 +235,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return calcualtedHorizontalAlignment;
         }
 
-        protected override Size CalculateControlSize()
+        private Size CalculateControlSize()
         {
             int menuHeight = menuItems
                 .Count(x => x != null && x.IsVisible);
@@ -247,7 +263,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 Console.SetCursorPosition(left, top);
 
-                Size menuItemSize = new Size(Size.Width, 1);
+                Size menuItemSize = new Size(InnerSize.Width, 1);
                 bool isHighlighted = menuItemToDraw == menuItems.CurrentItem;
 
                 menuItemToDraw.Display(menuItemSize, isHighlighted);
@@ -256,11 +272,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private void ReadUserSelection()
         {
-            while (true)
+            while (!closeWasRequested)
             {
-                if (IsCloseRequested)
-                    return;
-
                 if (!Console.KeyAvailable)
                 {
                     Thread.Sleep(50);
@@ -319,6 +332,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             SelectedItem = selectedItem;
 
             return true;
+        }
+
+        public void RequestClose()
+        {
+            closeWasRequested = true;
+        }
+
+        protected virtual void OnCloseNeeded()
+        {
+            CloseNeeded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

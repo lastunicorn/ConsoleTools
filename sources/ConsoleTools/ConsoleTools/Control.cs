@@ -49,11 +49,33 @@ namespace DustInTheWind.ConsoleTools
         public bool ShowCursor { get; set; } = true;
 
         /// <summary>
+        /// Event raised at the begining of the <see cref="Display"/> method, before doing anything else.
+        /// </summary>
+        public event EventHandler BeforeDisplay;
+
+        /// <summary>
+        /// Event raised at the very end of the <see cref="Display"/> method, before returning.
+        /// </summary>
+        public event EventHandler AfterDisplay;
+
+        /// <summary>
+        /// Event raised immediately before writting the top margin.
+        /// </summary>
+        public event EventHandler BeforeTopMargin;
+
+        /// <summary>
+        /// Event raised immediately after writting the bottom margin.
+        /// </summary>
+        public event EventHandler AfterBottomMargin;
+
+        /// <summary>
         /// Displays the control in the console.
         /// </summary>
         public void Display()
         {
             OnBeforeDisplay();
+
+            MoveToNextLineIfNecessary();
 
             if (ShowCursor)
                 DoDisplay();
@@ -64,23 +86,10 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
+        /// Displays the margins and the content of the control.
         /// </summary>
-        protected virtual void OnBeforeDisplay()
-        {
-        }
-
-        /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning.
-        /// </summary>
-        protected virtual void OnAfterDisplay()
-        {
-        }
-
         protected virtual void DoDisplay()
         {
-            MoveToNextLineIfNecessary();
-
             WriteTopMargin();
             DoDisplayContent();
             WriteBottomMargin();
@@ -97,7 +106,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected abstract void DoDisplayContent();
 
-        protected void WriteTopMargin()
+        private void WriteTopMargin()
         {
             OnBeforeTopMargin();
 
@@ -105,14 +114,7 @@ namespace DustInTheWind.ConsoleTools
                 Console.WriteLine();
         }
 
-        /// <summary>
-        /// Method called immediately before writting the top margin.
-        /// </summary>
-        protected virtual void OnBeforeTopMargin()
-        {
-        }
-
-        protected void WriteBottomMargin()
+        private void WriteBottomMargin()
         {
             for (int i = 0; i < MarginBottom; i++)
                 Console.WriteLine();
@@ -121,10 +123,35 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
+        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
+        /// </summary>
+        protected virtual void OnBeforeDisplay()
+        {
+            BeforeDisplay?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Method called at the very end of the <see cref="Display"/> method, before returning.
+        /// </summary>
+        protected virtual void OnAfterDisplay()
+        {
+            AfterDisplay?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Method called immediately before writting the top margin.
+        /// </summary>
+        protected virtual void OnBeforeTopMargin()
+        {
+            BeforeTopMargin?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
         /// Method called immediately after writting the bottom margin.
         /// </summary>
         protected virtual void OnAfterBottomMargin()
         {
+            AfterBottomMargin?.Invoke(this, EventArgs.Empty);
         }
     }
 }

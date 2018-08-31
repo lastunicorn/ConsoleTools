@@ -21,35 +21,55 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
     internal static class Program
     {
         private static GameApplication gameApplication;
-        private static MainMenu menu;
+        private static ControlRepeater menuRepeater;
 
         private static void Main()
         {
-            DisplayApplicationHeader();
-
-            Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(80, 50);
-
-            Console.CancelKeyPress += HandleCancelKeyPress;
-
-            gameApplication = new GameApplication();
-            gameApplication.Exited += HandleGameApplicationExited;
-
-            menu = new MainMenu(gameApplication);
-            menu.SelectFirstByDefault = false;
-
-            while (!gameApplication.IsExitRequested)
+            try
             {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine();
+                DisplayApplicationHeader();
 
-                menu.Display();
+                Console.SetWindowSize(80, 50);
+                Console.SetBufferSize(80, 50);
+
+                Console.CancelKeyPress += HandleCancelKeyPress;
+
+                gameApplication = new GameApplication();
+                gameApplication.Exited += HandleGameApplicationExited;
+
+                MainMenu menu = new MainMenu(gameApplication);
+                menu.BeforeDisplay += HandleMenuBeforeDisplay;
+
+                menuRepeater = new ControlRepeater
+                {
+                    Control = menu
+                };
+
+                menuRepeater.Display();
+
+                DisplayGoodby();
             }
+            catch (Exception ex)
+            {
+                CustomConsole.WriteError(ex);
+            }
+            finally
+            {
+                Pause.QuickDisplay();
+            }
+        }
 
-            CustomConsole.WriteLineEmphasies("Bye!");
+        private static void HandleGameApplicationExited(object sender, EventArgs e)
+        {
+            menuRepeater?.RequestClose();
+            gameApplication.Exited -= HandleGameApplicationExited;
+        }
 
-            Pause.QuickDisplay();
+        private static void HandleMenuBeforeDisplay(object sender, EventArgs args)
+        {
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+            CustomConsole.WriteLine();
         }
 
         private static void DisplayApplicationHeader()
@@ -69,9 +89,15 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
             gameApplication.RequestExit();
         }
 
-        private static void HandleGameApplicationExited(object sender, EventArgs e)
+        private static void DisplayGoodby()
         {
-            menu.RequestClose();
+            TextBlock goodbyText = new TextBlock
+            {
+                Text = "Bye!",
+                ForegroundColor = CustomConsole.EmphasiesColor,
+                MarginTop = 1
+            };
+            goodbyText.Display();
         }
     }
 }

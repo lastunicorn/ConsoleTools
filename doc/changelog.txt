@@ -10,6 +10,8 @@ ver 0.5.0
 - TextBlock: Created the TextBlock control that displays a multiline text.
 - CustomConsole: Added the BuildHorizontalWindowLine method.
 - CustomConsole: Added the BuildHorizontalBufferLine method.
+- Control: EnsureBeginOfLine is removed. The control will always start from the next line if the current has text on it.
+- ErasableControl: The Size of the control is no longer needed in advance. It must be provided at the end of the DoDisplayContent method.
 
 ver 0.4.0
 ---------

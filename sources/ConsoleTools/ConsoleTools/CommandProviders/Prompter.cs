@@ -70,7 +70,6 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// </summary>
         public Prompter()
         {
-            EnsureBeginOfLine = true;
             MarginTop = 1;
             MarginBottom = 1;
         }

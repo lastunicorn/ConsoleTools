@@ -118,5 +118,14 @@ namespace DustInTheWind.ConsoleTools.InputControls
             if (lastLineLength != consoleWidth)
                 Console.WriteLine();
         }
+
+        private static void QuickDisplay(string text)
+        {
+            TextBlock textBlock = new TextBlock
+            {
+                Text = text
+            };
+            textBlock.Display();
+        }
     }
 }

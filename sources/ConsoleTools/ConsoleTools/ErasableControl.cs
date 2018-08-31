@@ -30,20 +30,16 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     /// <remarks>
     /// In order to be able to successfully erase the control, the inheritor must
-    /// provide in advance the size of the control.
-    /// If the size of the control cannot be known in advance, there are some cases when
-    /// the control cannot be successfully erased. For example when the console's buffer is full
-    /// and new lines are inserted, the text displayed by the control is shifted up and
-    /// the control has no way to know this. It will erase only part of the displayed text.
+    /// calculate and set the <see cref="InnerSize"/> of the control until the end
+    /// of the <see cref="Control.DoDisplayContent"/> method.
     /// </remarks>
     public abstract class ErasableControl : Control
     {
-        private Location initialLocation;
-
         /// <summary>
         /// Gets the size of the control after it was displayed.
+        /// Does not include the margins
         /// </summary>
-        protected Size Size { get; private set; }
+        public Size InnerSize { get; protected set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the control is erased from the Console
@@ -52,40 +48,10 @@ namespace DustInTheWind.ConsoleTools
         public bool EraseAfterClose { get; set; }
 
         /// <summary>
-        /// Method called immediately before writting the top margin.
-        /// It calculates and stores the size of the control for later usage and
-        /// writes enough empty lines to later write the content.
+        /// When implemented by an inheritor it displays the content of the control to the console.
+        /// The inheritor must also calculate and set the <see cref="InnerSize"/> proeprty.
         /// </summary>
-        protected override void OnBeforeTopMargin()
-        {
-            Size = CalculateControlSize();
-
-            EnsureVerticalSpace();
-
-            initialLocation = new Location(Console.CursorLeft, Console.CursorTop);
-
-            base.OnBeforeTopMargin();
-        }
-
-        private void EnsureVerticalSpace()
-        {
-            int initialLeft = Console.CursorLeft;
-
-            int height = Math.Min(Console.BufferHeight - 1, Size.Height);
-
-            for (int i = 0; i < height; i++)
-                Console.WriteLine();
-
-            Console.SetCursorPosition(initialLeft, Console.CursorTop - height);
-        }
-
-        /// <summary>
-        /// Before displaying the control, this method is called in order to calculate the size of the control.
-        /// The inheritors must returns e valid size if they need to have a preallocated vertical space in the console,
-        /// before starting to display the content.
-        /// If this method returns <see cref="Size.Empty"/>, no vertical space is preallocated.
-        /// </summary>
-        protected abstract Size CalculateControlSize();
+        protected abstract override void DoDisplayContent();
 
         /// <summary>
         /// Method called at the very end, after all the control was displayed.
@@ -93,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected override void OnAfterDisplay()
         {
-            if (EraseAfterClose && Size.Height > 0)
+            if (EraseAfterClose && InnerSize.Height > 0)
                 EraseControl();
 
             base.OnAfterDisplay();
@@ -103,12 +69,14 @@ namespace DustInTheWind.ConsoleTools
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);
+            int outerHeight = MarginTop + InnerSize.Height + MarginBottom;
 
-            for (int i = 0; i < Size.Height; i++)
+            Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
+
+            for (int i = 0; i < outerHeight; i++)
                 Console.Write(emptyLine);
 
-            Console.SetCursorPosition(initialLocation.Left, initialLocation.Top);
+            Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
         }
     }
 }

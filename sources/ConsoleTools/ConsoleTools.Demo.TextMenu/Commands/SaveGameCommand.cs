@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 
         public void Execute()
         {
-            CustomConsole.WriteLineSuccess("Game saved successfully");
+            gameBoard.Save();
         }
     }
 }

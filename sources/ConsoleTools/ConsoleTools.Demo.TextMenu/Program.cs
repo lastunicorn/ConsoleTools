@@ -15,17 +15,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.TextMenu.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.InputControls;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
     internal static class Program
     {
-        private static ApplicationState applicationState;
-        private static GameBoard gameBoard;
-        private static MenuControl.TextMenu menu;
+        private static GameApplication application;
 
         private static void Main()
         {
@@ -34,28 +30,17 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 DisplayApplicationHeader();
 
                 Console.SetWindowSize(80, 50);
-                Console.SetBufferSize(80, 1024);
+                Console.SetBufferSize(80, 50);
 
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
-                applicationState = new ApplicationState();
-                applicationState.Exiting += HandleApplicationExiting;
+                application = new GameApplication();
 
-                gameBoard = new GameBoard();
+                MainMenu menu = new MainMenu(application);
 
-                menu = CreateMenu();
+                while (!application.IsExitRequested) menu.Display();
 
-                while (!applicationState.IsExitRequested)
-                {
-                    CustomConsole.WriteLine();
-                    CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                    CustomConsole.WriteLine();
-
-                    menu.Display();
-                }
-
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasies("Bye!");
+                DisplayGoodby();
             }
             catch (Exception ex)
             {
@@ -78,68 +63,21 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             CustomConsole.WriteLine();
         }
 
-        private static MenuControl.TextMenu CreateMenu()
-        {
-            MenuControl.TextMenu textMenu = new MenuControl.TextMenu(new[]
-            {
-                new TextMenuItem
-                {
-                    Id = "1",
-                    Text = "New Game",
-                    Command = new NewGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "2",
-                    Text = "Save Game",
-                    Command = new SaveGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "3",
-                    Text = "Load Game",
-                    Command = new LoadGameCommand(gameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "4",
-                    Text = "Close Game",
-                    Command = new CloseGameCommand(gameBoard)
-                },
-
-                new TextMenuItem
-                {
-                    Id = "5",
-                    Text = "Settings",
-                    Command = new SettingsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "6",
-                    Text = "Credits",
-                    Command = new CreditsCommand()
-                },
-
-                new TextMenuItem
-                {
-                    Id = "0",
-                    Text = "Exit",
-                    Command = new ExitCommand(applicationState)
-                }
-            });
-
-            return textMenu;
-        }
-
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
-            applicationState.RequestExit();
+            application.RequestExit();
         }
 
-        private static void HandleApplicationExiting(object sender, CancelEventArgs e)
+        private static void DisplayGoodby()
         {
-            gameBoard.StopGame();
+            TextBlock goodbyText = new TextBlock
+            {
+                Text = "Bye!",
+                ForegroundColor = CustomConsole.EmphasiesColor,
+                MarginTop = 1
+            };
+            goodbyText.Display();
         }
     }
 }

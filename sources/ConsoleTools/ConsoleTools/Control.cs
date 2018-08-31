@@ -49,12 +49,6 @@ namespace DustInTheWind.ConsoleTools
         public bool ShowCursor { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a value that specifies if the control should always be displayed at the beginning of the line.
-        /// If this value is <c>true</c> and the cursor is not at the beginning of the line, a new line is written before displaying the control.
-        /// </summary>
-        public bool EnsureBeginOfLine { get; set; }
-
-        /// <summary>
         /// Displays the control in the console.
         /// </summary>
         public virtual void Display()
@@ -96,6 +90,12 @@ namespace DustInTheWind.ConsoleTools
             OnAfterBottomMargin();
         }
 
+        private void MoveToNextLineIfNecessary()
+        {
+            if (Console.CursorLeft != 0)
+                Console.WriteLine();
+        }
+
         /// <summary>
         /// Method called immediately before writting the top margin.
         /// </summary>
@@ -108,12 +108,6 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected virtual void OnAfterBottomMargin()
         {
-        }
-
-        private void MoveToNextLineIfNecessary()
-        {
-            if (Console.CursorLeft != 0 && (EnsureBeginOfLine || MarginTop > 0))
-                Console.WriteLine();
         }
 
         /// <summary>

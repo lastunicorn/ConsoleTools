@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
     internal class Program
     {
         private static CommandProviders.Prompter prompter;
-        private static RepeaterControl repeaterControl;
+        private static ControlRepeater repeaterControl;
 
         private static void Main()
         {
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
             prompter.EraseAfterClose = true;
             prompter.NewCommand += HandleNewCommand;
 
-            repeaterControl = new RepeaterControl
+            repeaterControl = new ControlRepeater
             {
                 Control = prompter
             };

@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Displays a control repeatedly until the <see cref="RequestClose"/> method is called.
     /// </summary>
-    public class RepeaterControl : Control
+    public class ControlRepeater : Control
     {
         private volatile bool closeWasRequested;
         private Control control;

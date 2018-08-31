@@ -23,7 +23,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
-    <Position X="10.75" Y="2.25" Width="1.5" />
+    <Position X="12.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAJSgAABAAAAAkgAIAIBAAQBAAEAgAAAAABA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
@@ -45,7 +45,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.YesNoQuestion" Collapsed="true">
-    <Position X="7.25" Y="2.25" Width="1.5" />
+    <Position X="8.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAQCAFEABQAAEIhAAoAAEAAIiAEFAAAAAAAgAAAAA=</HashCode>
       <FileName>InputControls\YesNoQuestion.cs</FileName>
@@ -89,7 +89,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.TabularData.DataGrid" Collapsed="true">
-    <Position X="9" Y="2.25" Width="1.5" />
+    <Position X="10.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAwAAAASAAEAECQAAAQAAEJCEAAAAABAQAAgAAAQ=</HashCode>
       <FileName>TabularData\DataGrid.cs</FileName>
@@ -159,7 +159,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.TextBlock" Collapsed="true">
-    <Position X="5.5" Y="2.25" Width="1.5" />
+    <Position X="7" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAiAAQAAAAAAAAACIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>TextBlock.cs</FileName>
@@ -235,11 +235,11 @@
       <FileName>ContinouslyDisplayedControl.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.RepeaterControl" Collapsed="true">
-    <Position X="4.5" Y="3.75" Width="1.5" />
+  <Class Name="DustInTheWind.ConsoleTools.ControlRepeater" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAEAAAABARAAEAAAAAAAIAAAAAAAEAAAAAAAAA=</HashCode>
-      <FileName>RepeaterControl.cs</FileName>
+      <FileName>ControlRepeater.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="DustInTheWind.ConsoleTools.IRepeatableControl">

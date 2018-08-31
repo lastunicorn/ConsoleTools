@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
     internal static class Program
     {
         private static GameApplication gameApplication;
-        private static RepeaterControl mainMenuRepeater;
+        private static ControlRepeater mainMenuRepeater;
 
         private static void Main()
         {
@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
                 gameApplication = new GameApplication();
 
-                mainMenuRepeater = new RepeaterControl
+                mainMenuRepeater = new ControlRepeater
                 {
                     Control = new MainMenu(gameApplication)
                 };

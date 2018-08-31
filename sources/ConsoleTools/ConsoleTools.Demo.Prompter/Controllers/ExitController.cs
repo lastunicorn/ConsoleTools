@@ -23,9 +23,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class ExitController : IController
     {
-        private readonly RepeaterControl prompterRepeater;
+        private readonly ControlRepeater prompterRepeater;
 
-        public ExitController(RepeaterControl prompterRepeater)
+        public ExitController(ControlRepeater prompterRepeater)
         {
             this.prompterRepeater = prompterRepeater ?? throw new ArgumentNullException(nameof(prompterRepeater));
         }

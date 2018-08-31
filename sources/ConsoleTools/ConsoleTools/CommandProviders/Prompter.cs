@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// </summary>
     public class Prompter : ContinouslyDisplayedControl
     {
-        private CliCommand lastCommand;
+        public CliCommand LastCommand { get; private set; }
 
         /// <summary>
         /// Gets or sets the text displayed in the prompter.
@@ -73,10 +73,15 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             MarginBottom = 1;
         }
 
+        protected override void OnBeforeDisplay()
+        {
+            LastCommand = null;
+
+            base.OnBeforeDisplay();
+        }
+
         protected override void DoDisplayContent()
         {
-            lastCommand = null;
-
             while (!CloseWasRequested)
             {
                 DisplayPrompterText();
@@ -85,7 +90,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
                 if (newCommand == null)
                     continue;
 
-                lastCommand = newCommand;
+                LastCommand = newCommand;
                 break;
             }
         }
@@ -145,7 +150,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         {
             try
             {
-                NewCommandEventArgs eventArgs = new NewCommandEventArgs(lastCommand);
+                NewCommandEventArgs eventArgs = new NewCommandEventArgs(LastCommand);
                 OnNewCommand(eventArgs);
 
                 if (eventArgs.Exit)

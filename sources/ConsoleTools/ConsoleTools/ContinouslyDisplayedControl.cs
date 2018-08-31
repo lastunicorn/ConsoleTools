@@ -46,6 +46,26 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public event EventHandler AfterSingleDisplay;
 
+        /// <summary>
+        /// Displays the control once.
+        /// While the control is displayed, the <see cref="DisplayMode"/> is changed to <see cref="ConsoleTools.DisplayMode.Once"/> value,
+        /// but it is restored to the old value after the method is finished.
+        /// </summary>
+        public void DisplayOnce()
+        {
+            DisplayMode oldDisplayMode = DisplayMode;
+            DisplayMode = DisplayMode.Once;
+
+            try
+            {
+                Display();
+            }
+            finally
+            {
+                DisplayMode = oldDisplayMode;
+            }
+        }
+
         protected override void DoDisplay()
         {
             if (DisplayMode == DisplayMode.Once)

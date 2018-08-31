@@ -27,8 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
         public ExitController(CommandProviders.Prompter prompter)
         {
-            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
-            this.prompter = prompter;
+            this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
         }
 
         public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)

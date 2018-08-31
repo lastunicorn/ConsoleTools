@@ -26,8 +26,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
         public UnknownCommandController(CliCommand command)
         {
-            if (command == null) throw new ArgumentNullException(nameof(command));
-            this.command = command;
+            this.command = command ?? throw new ArgumentNullException(nameof(command));
         }
 
         public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)

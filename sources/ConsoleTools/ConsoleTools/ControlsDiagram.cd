@@ -3,14 +3,14 @@
   <Class Name="DustInTheWind.ConsoleTools.ErasableControl" Collapsed="true">
     <Position X="14" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQABEAAwAgAAAAAAAAAAACAAAAAAAAAAAAAAAIAA=</HashCode>
+      <HashCode>AAAAAAAEAAQAAAAAAIAAAAAACIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ErasableControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Pause" Collapsed="true">
     <Position X="15" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAACAAAAAAAAAAAAgIAAAAAAAAAACAAAIAA=</HashCode>
+      <HashCode>AAgAAAAAAAACAAAAAAAAAAAAgIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Pause.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -23,9 +23,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
-    <Position X="9.5" Y="2.25" Width="1.5" />
+    <Position X="9.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAACAAABAQAQAEkAAAIAAAAAAAGAgAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAAIigAAAAAAAAkgAIAIAAAABAAAAgAAAAABA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -53,7 +53,7 @@
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
     <Position X="13" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAIAAAAAEARCBAAIgAAQIAAAAIAAABAAAJAAAAAAIQA=</HashCode>
+      <HashCode>gAIAAAAAEARCBAAIgAAQIAAAAIBAADAAAJAAAAAAAQA=</HashCode>
       <FileName>MenuControl\TextMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -131,7 +131,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Control" Collapsed="true">
     <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAQABAAAAiCAAQBAAIBAAAAAAAAEKAAAAAA=</HashCode>
+      <HashCode>AAAAABBAAAQABAAAAgCAAQBAAIBAAAAAAAAECAAAAAA=</HashCode>
       <FileName>Control.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -159,7 +159,7 @@
   <Class Name="DustInTheWind.ConsoleTools.InputControls.TextBlock" Collapsed="true">
     <Position X="11.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAgAAAAAAAAAAAACIgAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAiAAAAAAAAAAAACIgAAAAAAAAACAAAAAA=</HashCode>
       <FileName>InputControls\TextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -224,6 +224,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>InputControls\StringListView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.ContinouslyDisplayedControl" Collapsed="true">
+    <Position X="9.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
+      <FileName>ContinouslyDisplayedControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -51,14 +51,14 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the control in the console.
         /// </summary>
-        public virtual void Display()
+        public void Display()
         {
             OnBeforeDisplay();
 
             if (ShowCursor)
-                DisplayInternal();
+                DoDisplay();
             else
-                CustomConsole.RunWithoutCursor(DisplayInternal);
+                CustomConsole.RunWithoutCursor(DoDisplay);
 
             OnAfterDisplay();
         }
@@ -77,22 +77,31 @@ namespace DustInTheWind.ConsoleTools
         {
         }
 
-        private void DisplayInternal()
+        protected virtual void DoDisplay()
         {
             MoveToNextLineIfNecessary();
 
-            OnBeforeTopMargin();
             WriteTopMargin();
-
             DoDisplayContent();
-
             WriteBottomMargin();
-            OnAfterBottomMargin();
         }
 
         private void MoveToNextLineIfNecessary()
         {
             if (Console.CursorLeft != 0)
+                Console.WriteLine();
+        }
+
+        /// <summary>
+        /// When implemented by an inheritor it displays the content of the control to the console.
+        /// </summary>
+        protected abstract void DoDisplayContent();
+
+        protected void WriteTopMargin()
+        {
+            OnBeforeTopMargin();
+
+            for (int i = 0; i < MarginTop; i++)
                 Console.WriteLine();
         }
 
@@ -103,28 +112,19 @@ namespace DustInTheWind.ConsoleTools
         {
         }
 
+        protected void WriteBottomMargin()
+        {
+            for (int i = 0; i < MarginBottom; i++)
+                Console.WriteLine();
+
+            OnAfterBottomMargin();
+        }
+
         /// <summary>
         /// Method called immediately after writting the bottom margin.
         /// </summary>
         protected virtual void OnAfterBottomMargin()
         {
-        }
-
-        /// <summary>
-        /// When implemented by an inheritor it displays the content of the control to the console.
-        /// </summary>
-        protected abstract void DoDisplayContent();
-
-        private void WriteTopMargin()
-        {
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
-        }
-
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
         }
     }
 }

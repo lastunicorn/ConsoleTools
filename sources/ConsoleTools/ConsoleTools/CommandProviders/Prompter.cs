@@ -26,30 +26,29 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Reads commands from the console.
     /// </summary>
-    public class Prompter : Control
+    public class Prompter : ContinouslyDisplayedControl
     {
-        private volatile bool closeWasRequested;
         private CliCommand lastCommand;
 
         /// <summary>
         /// Gets or sets the text displayed in the prompter.
         /// </summary>
-        public string PrompterText { get; set; }
+        public InlineTextBlock PrompterText { get; set; }
 
         /// <summary>
         /// Gets or sets the glyph displayed after the prompter text.
         /// </summary>
-        public string PrompterGlyph { get; set; } = ">";
+        public InlineTextBlock PrompterGlyph { get; set; } = ">";
 
         /// <summary>
         /// Gets or sets the count of spaces to be displayed before the prompter (text + glyph).
         /// </summary>
-        public int SpaceBeforePrompter { get; set; } = 0;
+        public int MarginLeft { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the count of spaces to be displayed after the prompter (text + glyph), before the user can write his command.
         /// </summary>
-        public int SpaceAfterPrompter { get; set; } = 1;
+        public int MarginRight { get; set; } = 1;
 
         /// <summary>
         /// Event raised when the user writes a new command at the console.
@@ -74,100 +73,90 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             MarginBottom = 1;
         }
 
-        /// <summary>
-        /// Continously read from the console new commands.
-        /// After a command is obtained from the console, the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event is raised.
-        /// The <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.Display" /> method blocks the current execution thread.
-        /// The infinite loop that reads commands can be stopped
-        /// by setting the <see cref="P:DustInTheWind.ConsoleTools.CommandProviders.NewCommandEventArgs.Exit" /> property in the <see cref="E:DustInTheWind.ConsoleTools.CommandProviders.Prompter.NewCommand" /> event
-        /// or by calling the <see cref="M:DustInTheWind.ConsoleTools.CommandProviders.Prompter.RequestClose" /> method.
-        /// </summary>
-        public void DisplayContinous()
-        {
-            closeWasRequested = false;
-
-            while (!closeWasRequested)
-            {
-                Display();
-
-                if (lastCommand == null)
-                    break;
-
-                try
-                {
-                    NewCommandEventArgs eva = new NewCommandEventArgs(lastCommand);
-                    OnNewCommand(eva);
-
-                    if (eva.Exit)
-                        closeWasRequested = true;
-                }
-                catch (Exception ex)
-                {
-                    CustomConsole.WriteError(ex);
-                }
-            }
-        }
-        
         protected override void DoDisplayContent()
         {
             lastCommand = null;
 
-            while (!closeWasRequested)
+            while (!CloseWasRequested)
             {
-                DisplayWholePrompter();
+                DisplayPrompterText();
+                CliCommand newCommand = ReadUserInput();
 
-                string commandText = Console.ReadLine();
-
-                if (commandText == null)
-                {
-                    closeWasRequested = true;
-                    return;
-                }
-
-                if (commandText.Length == 0)
-                    continue;
-
-                CliCommand newCommand = CliCommand.Parse(commandText);
-
-                if (newCommand.IsEmpty)
+                if (newCommand == null)
                     continue;
 
                 lastCommand = newCommand;
-                return;
+                break;
             }
+        }
+
+        private CliCommand ReadUserInput()
+        {
+            string commandText = Console.ReadLine();
+
+            if (commandText == null)
+            {
+                RequestClose();
+                return null;
+            }
+
+            if (commandText.Length == 0)
+                return null;
+
+            CliCommand newCommand = CliCommand.Parse(commandText);
+
+            return newCommand.IsEmpty
+                ? null
+                : newCommand;
         }
 
         /// <summary>
         /// Displays the whole prompter (margins, text and glyph) to the console.
         /// </summary>
-        protected virtual void DisplayWholePrompter()
+        protected virtual void DisplayPrompterText()
         {
-            if (SpaceBeforePrompter > 0)
+            WriteLeftMargin();
+
+            PrompterText?.Display();
+            PrompterGlyph?.Display();
+
+            WriteRightMargin();
+        }
+
+        private void WriteLeftMargin()
+        {
+            if (MarginLeft <= 0)
+                return;
+
+            string leftMargin = new string(' ', MarginLeft);
+            Console.Write(leftMargin);
+        }
+
+        private void WriteRightMargin()
+        {
+            if (MarginRight > 0)
             {
-                string leftMargin = new string(' ', SpaceBeforePrompter);
-                Console.Write(leftMargin);
-            }
-
-            if (!string.IsNullOrEmpty(PrompterText))
-                Console.Write(PrompterText);
-
-            if (!string.IsNullOrEmpty(PrompterGlyph))
-                Console.Write(PrompterGlyph);
-
-            if (SpaceAfterPrompter > 0)
-            {
-                string rightMargin = new string(' ', SpaceAfterPrompter);
+                string rightMargin = new string(' ', MarginRight);
                 Console.Write(rightMargin);
             }
         }
 
-        /// <summary>
-        /// Sets the close flag.
-        /// The Prompter's loop will exit next time when it checks the close flag.
-        /// </summary>
-        public void RequestClose()
+        protected override void OnAfterSingleDisplay()
         {
-            closeWasRequested = true;
+            try
+            {
+                NewCommandEventArgs eventArgs = new NewCommandEventArgs(lastCommand);
+                OnNewCommand(eventArgs);
+
+                if (eventArgs.Exit)
+                    RequestClose();
+            }
+            catch (Exception ex)
+            {
+                CustomConsole.WriteError(ex);
+            }
+
+            base.OnAfterSingleDisplay();
         }
     }
 }

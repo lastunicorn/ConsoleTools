@@ -27,8 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 
         public PrompterController(CommandProviders.Prompter prompter)
         {
-            if (prompter == null) throw new ArgumentNullException(nameof(prompter));
-            this.prompter = prompter;
+            this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
         }
 
         public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)
@@ -39,9 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
         private void ChangePrompter()
         {
             ValueView<string> valueView = new ValueView<string>("New Prompter Text:");
-
-            valueView.Display();
-            prompter.PrompterText = valueView.Value;
+            prompter.PrompterText = valueView.Read();
         }
     }
 }

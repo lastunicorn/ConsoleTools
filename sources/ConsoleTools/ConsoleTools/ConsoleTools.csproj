@@ -90,6 +90,7 @@
       <DependentUpon>ListInputResources.resx</DependentUpon>
     </Compile>
     <Compile Include="InputControls\StringView.cs" />
+    <Compile Include="RepeaterControl.cs" />
     <Compile Include="TextBlock.cs" />
     <Compile Include="InputControls\ValueView.cs" />
     <Compile Include="InputControls\ValueInputResources.Designer.cs">

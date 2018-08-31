@@ -25,6 +25,23 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
         public event EventHandler<CancelEventArgs> Exiting;
         public event EventHandler ExitCanceled;
+        public event EventHandler Exited;
+
+        public void RequestExit()
+        {
+            CancelEventArgs e = new CancelEventArgs();
+            OnExiting(e);
+
+            if (e.Cancel)
+            {
+                OnExitCanceled();
+                return;
+            }
+
+            IsExitRequested = true;
+
+            OnExited();
+        }
 
         protected virtual void OnExiting(CancelEventArgs e)
         {
@@ -36,15 +53,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             ExitCanceled?.Invoke(this, EventArgs.Empty);
         }
 
-        public void RequestExit()
+        protected virtual void OnExited()
         {
-            CancelEventArgs e = new CancelEventArgs();
-            OnExiting(e);
-
-            if (e.Cancel)
-                OnExitCanceled();
-            else
-                IsExitRequested = true;
+            Exited?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -53,7 +53,7 @@
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
     <Position X="13.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAIAAAAAGARCBEAIgAAQIAAAAIBAADAAAJAAAAAAAQA=</HashCode>
+      <HashCode>gAIAAAAAGARCBFAIgAAAIAAAAIBAABAAAJAAAAAAAQA=</HashCode>
       <FileName>MenuControl\TextMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -231,6 +231,13 @@
     <TypeIdentifier>
       <HashCode>AAAAIBAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
       <FileName>ContinouslyDisplayedControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.RepeaterControl" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAARAABAAAAAAAIAAAAAAAGAAAAAAAAA=</HashCode>
+      <FileName>RepeaterControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

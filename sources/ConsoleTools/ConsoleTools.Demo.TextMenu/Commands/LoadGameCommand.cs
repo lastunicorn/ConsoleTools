@@ -27,8 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 
         public LoadGameCommand(GameBoard gameBoard)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            this.gameBoard = gameBoard ?? throw new ArgumentNullException(nameof(gameBoard));
         }
 
         public void Execute()

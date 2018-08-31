@@ -15,13 +15,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.InputControls;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
     internal static class Program
     {
-        private static GameApplication application;
+        private static GameApplication gameApplication;
+        private static RepeaterControl mainMenuRepeater;
 
         private static void Main()
         {
@@ -34,11 +34,16 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
-                application = new GameApplication();
+                gameApplication = new GameApplication();
 
-                MainMenu menu = new MainMenu(application);
+                mainMenuRepeater = new RepeaterControl
+                {
+                    Control = new MainMenu(gameApplication)
+                };
 
-                while (!application.IsExitRequested) menu.Display();
+                gameApplication.Exited += HandleGameApplicationExited;
+
+                mainMenuRepeater.Display();
 
                 DisplayGoodby();
             }
@@ -50,6 +55,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             {
                 Pause.QuickDisplay();
             }
+        }
+
+        private static void HandleGameApplicationExited(object sender, EventArgs e)
+        {
+            mainMenuRepeater?.RequestClose();
+            gameApplication.Exited -= HandleGameApplicationExited;
         }
 
         private static void DisplayApplicationHeader()
@@ -66,7 +77,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
-            application.RequestExit();
+            gameApplication.RequestExit();
         }
 
         private static void DisplayGoodby()

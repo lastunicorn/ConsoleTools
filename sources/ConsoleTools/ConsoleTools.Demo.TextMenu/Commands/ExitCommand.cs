@@ -27,8 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 
         public ExitCommand(GameApplication application)
         {
-            if (application == null) throw new ArgumentNullException(nameof(application));
-            this.application = application;
+            this.application = application ?? throw new ArgumentNullException(nameof(application));
         }
 
         public void Execute()

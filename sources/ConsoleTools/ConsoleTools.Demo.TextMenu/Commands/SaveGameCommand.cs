@@ -25,8 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 
         public SaveGameCommand(GameBoard gameBoard)
         {
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
-            this.gameBoard = gameBoard;
+            this.gameBoard = gameBoard ?? throw new ArgumentNullException(nameof(gameBoard));
         }
 
         public bool IsActive => gameBoard.IsGameStarted;

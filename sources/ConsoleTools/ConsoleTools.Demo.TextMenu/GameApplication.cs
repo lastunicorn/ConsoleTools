@@ -14,19 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.ComponentModel;
-
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
     internal class GameApplication : ApplicationBase
     {
         public GameBoard GameBoard { get; set; } = new GameBoard();
 
-        protected override void OnExiting(CancelEventArgs e)
+        protected override void OnExited()
         {
-            GameBoard.StopGame();
+            if (GameBoard.IsGameStarted)
+                GameBoard.StopGame();
 
-            base.OnExiting(e);
+            base.OnExited();
         }
     }
 }

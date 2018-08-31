@@ -90,53 +90,71 @@ namespace DustInTheWind.ConsoleTools
             MultilineText multilineText = Text;
 
             int consoleWidth = Console.BufferWidth;
-            int lastLineLength = 0;
 
-            for (int i = 0; i < multilineText.Lines.Count; i++)
+            foreach (string line in multilineText.Lines)
             {
-                string line = multilineText.Lines[i];
-                lastLineLength = line.Length;
+                WriteTextWithColors(line);
 
-                bool isLineEqualToConsoleWidth = lastLineLength % consoleWidth == 0;
+                bool isLineEqualToConsoleWidth = line.Length % consoleWidth == 0;
 
-                if (isLineEqualToConsoleWidth)
-                {
-                    Console.Write(line);
-                }
-                else
-                {
-                    bool isLastLine = i == multilineText.Lines.Count - 1;
-
-                    if (isLastLine)
-                        Console.Write(line);
-                    else
-                        Console.WriteLine(line);
-                }
+                if (!isLineEqualToConsoleWidth)
+                    Console.WriteLine();
             }
+        }
 
-            if (lastLineLength != consoleWidth)
-                Console.WriteLine();
+        private void WriteTextWithColors(string text)
+        {
+            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
+                CustomConsole.Write(text);
+            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
+                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
+            else if (ForegroundColor.HasValue)
+                CustomConsole.Write(ForegroundColor.Value, text);
+            else
+                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
         }
 
         /// <summary>
         /// Calculates the size of the current instance including the margins.
         /// </summary>
-        /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+        /// <param name="maxWidth">The maximum width allowed including the margins. Negative value means the limit is the console's width.</param>
         /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        public Size CalculateSize(int maxWidth = -1)
+        public Size CalculateOuterSize(int maxWidth = -1)
         {
             if (Text == null)
                 return Size.Empty;
 
-            if (maxWidth < 0)
-                maxWidth = Console.BufferWidth;
+            int outerMaxWidth = maxWidth < 0
+                ? Console.BufferWidth
+                : maxWidth;
 
-            Size contentSize = Text.CalculateSize(maxWidth);
+            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
+
+            Size contentSize = Text.CalculateSize(innerMaxWidth);
 
             int totalWidth = MarginLeft + contentSize.Width + MarginRight;
             int totalHeight = MarginTop + contentSize.Height + MarginBottom;
 
             return new Size(totalWidth, totalHeight);
+        }
+
+        /// <summary>
+        /// Calculates the size of the current instance's content. Margins are not included.
+        /// </summary>
+        /// <param name="maxWidth">The maximum width allowed including the margins. Negative value means the limit is the console's width.</param>
+        /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
+        public Size CalculateInnerSize(int maxWidth = -1)
+        {
+            if (Text == null)
+                return Size.Empty;
+
+            int outerMaxWidth = maxWidth < 0
+                ? Console.BufferWidth
+                : maxWidth;
+
+            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
+
+            return Text.CalculateSize(innerMaxWidth);
         }
 
         /// <summary>

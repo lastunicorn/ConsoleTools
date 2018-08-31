@@ -159,7 +159,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 Title.Display();
 
-                Size titleSize = Title.CalculateSize();
+                Size titleSize = Title.CalculateOuterSize();
                 InnerSize = InnerSize.InflateHeight(titleSize.Height);
             }
         }

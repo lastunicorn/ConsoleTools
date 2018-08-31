@@ -34,6 +34,18 @@ namespace DustInTheWind.ConsoleTools
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or sets the foreground color used to write the text.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color used to write the text.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InlineTextBlock"/> class.
         /// </summary>
         public InlineTextBlock()
@@ -70,7 +82,7 @@ namespace DustInTheWind.ConsoleTools
             BackgroundColor = backgroundColor;
         }
 
-        protected override void DoDisplay()
+        protected override void DoDisplayContent()
         {
             if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
                 CustomConsole.Write(Text);

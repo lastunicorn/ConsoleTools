@@ -146,6 +146,11 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        /// <summary>
+        /// Calculates the size of the text.
+        /// </summary>
+        /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+        /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
         public Size CalculateSize(int maxWidth = -1)
         {
             if (maxWidth < 0)
@@ -219,11 +224,19 @@ namespace DustInTheWind.ConsoleTools
             return string.Join(Environment.NewLine, Lines);
         }
 
+        /// <summary>
+        /// Converts a simple text into a <see cref="MultilineText"/> instance.
+        /// </summary>
+        /// <param name="text">The text to be converted.</param>
         public static implicit operator MultilineText(string text)
         {
             return new MultilineText(text);
         }
 
+        /// <summary>
+        /// Converst a <see cref="MultilineText"/> instance into a simple <see cref="string"/>.
+        /// </summary>
+        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
         public static implicit operator string(MultilineText multilineText)
         {
             return multilineText.ToString();

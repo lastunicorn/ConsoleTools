@@ -42,26 +42,45 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
+        /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
+        /// Default value: <c>true</c>
         /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
+        public bool ShowCursor { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
+        /// Event raised at the begining of the <see cref="Display"/> method, before doing anything else.
         /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
+        public event EventHandler BeforeDisplay;
 
         /// <summary>
-        /// Displays the control in the Console.
+        /// Event raised at the very end of the <see cref="Display"/> method, before returning.
+        /// </summary>
+        public event EventHandler AfterDisplay;
+
+        /// <summary>
+        /// Displays the control in the console.
         /// </summary>
         public void Display()
+        {
+            OnBeforeDisplay();
+
+            if (ShowCursor)
+                DoDisplay();
+            else
+                CustomConsole.RunWithoutCursor(DoDisplay);
+
+            OnAfterDisplay();
+        }
+
+        /// <summary>
+        /// Displays the margins and the content of the control.
+        /// </summary>
+        protected virtual void DoDisplay()
         {
             if (MarginLeft > 0)
                 DisplayLeftMargin();
 
-            DoDisplay();
+            DoDisplayContent();
 
             if (MarginRight > 0)
                 DisplayRightMargin();
@@ -79,6 +98,22 @@ namespace DustInTheWind.ConsoleTools
             Console.Write(space);
         }
 
-        protected abstract void DoDisplay();
+        protected abstract void DoDisplayContent();
+
+        /// <summary>
+        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
+        /// </summary>
+        protected virtual void OnBeforeDisplay()
+        {
+            BeforeDisplay?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Method called at the very end of the <see cref="Display"/> method, before returning.
+        /// </summary>
+        protected virtual void OnAfterDisplay()
+        {
+            AfterDisplay?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

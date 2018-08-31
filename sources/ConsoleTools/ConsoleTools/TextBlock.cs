@@ -58,6 +58,12 @@ namespace DustInTheWind.ConsoleTools
         public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
+        /// Gets or sets the maximum width allowed including the margins.
+        /// Negative value means the limit is the console's width.
+        /// </summary>
+        public int MaxWidth { get; set; } = -1;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="TextBlock"/> class.
         /// </summary>
         public TextBlock()
@@ -87,18 +93,38 @@ namespace DustInTheWind.ConsoleTools
             if (Text == null)
                 return;
 
-            MultilineText multilineText = Text;
-
             int consoleWidth = Console.BufferWidth;
 
-            foreach (string line in multilineText.Lines)
+            Size innerSize = Text.CalculateSize(consoleWidth);
+
+            Size outerSize = innerSize + new Size(MarginLeft + MarginRight, MarginTop + MarginBottom);
+            bool isBlockEqualToConsoleWidth = outerSize.Width == consoleWidth;
+
+            string marginLeftText = MarginLeft > 0
+                ? new string(' ', MarginLeft)
+                : string.Empty;
+
+            string marginRightText = MarginRight > 0
+                ? new string(' ', MarginRight)
+                : string.Empty;
+
+            foreach (string line in Text.Lines)
             {
-                WriteTextWithColors(line);
+                int index = 0;
 
-                bool isLineEqualToConsoleWidth = line.Length % consoleWidth == 0;
+                while (index < line.Length)
+                {
+                    Console.Write(marginLeftText);
+                    int chunkLength = Math.Min(innerSize.Width, line.Length - index);
+                    string chunk = line.Substring(index, chunkLength);
+                    WriteTextWithColors(chunk);
+                    Console.Write(marginRightText);
 
-                if (!isLineEqualToConsoleWidth)
-                    Console.WriteLine();
+                    index += innerSize.Width;
+
+                    if (!isBlockEqualToConsoleWidth)
+                        Console.WriteLine();
+                }
             }
         }
 
@@ -117,16 +143,15 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Calculates the size of the current instance including the margins.
         /// </summary>
-        /// <param name="maxWidth">The maximum width allowed including the margins. Negative value means the limit is the console's width.</param>
         /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        public Size CalculateOuterSize(int maxWidth = -1)
+        public Size CalculateOuterSize()
         {
             if (Text == null)
                 return Size.Empty;
 
-            int outerMaxWidth = maxWidth < 0
+            int outerMaxWidth = MaxWidth < 0
                 ? Console.BufferWidth
-                : maxWidth;
+                : MaxWidth;
 
             int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
 
@@ -141,16 +166,15 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Calculates the size of the current instance's content. Margins are not included.
         /// </summary>
-        /// <param name="maxWidth">The maximum width allowed including the margins. Negative value means the limit is the console's width.</param>
         /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        public Size CalculateInnerSize(int maxWidth = -1)
+        public Size CalculateInnerSize()
         {
             if (Text == null)
                 return Size.Empty;
 
-            int outerMaxWidth = maxWidth < 0
+            int outerMaxWidth = MaxWidth < 0
                 ? Console.BufferWidth
-                : maxWidth;
+                : MaxWidth;
 
             int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
 

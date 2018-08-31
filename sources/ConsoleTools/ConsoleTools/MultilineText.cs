@@ -146,6 +146,29 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        public Size CalculateSize(int maxWidth = -1)
+        {
+            if (maxWidth < 0)
+                return Size;
+
+            if (maxWidth == 0)
+                return Size.Empty;
+
+            int totalWidth = 0;
+            int totalHeight = 0;
+
+            foreach (string line in Lines)
+            {
+                int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
+                totalHeight += lineHeight;
+
+                int lineWidth = Math.Min(line.Length, maxWidth);
+                totalWidth = Math.Max(totalWidth, lineWidth);
+            }
+
+            return new Size(totalWidth, totalHeight);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MultilineText"/> class with
         /// the list of lines.

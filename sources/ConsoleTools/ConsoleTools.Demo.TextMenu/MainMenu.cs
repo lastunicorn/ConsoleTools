@@ -45,6 +45,13 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             MarginTop = 1;
             MarginBottom = 1;
 
+            Title = new TextBlock
+            {
+                Text = "Demo Application",
+                ForegroundColor = ConsoleColor.Cyan,
+                MarginBottom = 1
+            };
+
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
             SetItems(menuItems);
         }

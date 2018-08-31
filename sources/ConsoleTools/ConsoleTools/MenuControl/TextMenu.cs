@@ -35,6 +35,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     {
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
+        public TextBlock Title { get; set; }
+
         /// <summary>
         /// Gets or sets the text displayed after the menu to ask the user to choose an item.
         /// </summary>
@@ -126,8 +128,20 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         protected override void DoDisplayContent()
         {
+            DrawTitle();
             DrawMenu();
             ReadUserSelection();
+        }
+
+        private void DrawTitle()
+        {
+            if (Title != null)
+            {
+                Title.Display();
+
+                Size titleSize = Title.CalculateSize();
+                InnerSize = InnerSize.InflateHeight(titleSize.Height);
+            }
         }
 
         private void DrawMenu()
@@ -167,9 +181,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 if (inputValue.Length == 0)
                     continue;
-
-                Console.WriteLine();
-                InnerSize = InnerSize.InflateHeight(1);
 
                 TextMenuItem selectedMenuItem = menuItems
                     .FirstOrDefault(x => x.Id == inputValue);

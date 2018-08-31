@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="DustInTheWind.ConsoleTools.ErasableControl" Collapsed="true">
-    <Position X="14" Y="2.25" Width="1.5" />
+    <Position X="14.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAQAAAAAAIAAAAAACIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ErasableControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Pause" Collapsed="true">
-    <Position X="15" Y="3.75" Width="1.5" />
+    <Position X="15.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAACAAAAAAAAAAAAgIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Pause.cs</FileName>
@@ -23,9 +23,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
-    <Position X="9.5" Y="3.75" Width="1.5" />
+    <Position X="10.75" Y="3.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAIigAAAAAAAAkgAIAIAAAABAAAAgAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAJigAAAAAAAAkgAIAIBAAABAAAAgAAAAABA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -44,21 +44,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.YesNoQuestion" Collapsed="true">
-    <Position X="6" Y="2.25" Width="1.5" />
+    <Position X="7.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAQCAFEABQAAEIhAAoAAEAAIiAEFAAAAAAAgAAAAA=</HashCode>
       <FileName>InputControls\YesNoQuestion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
-    <Position X="13" Y="3.75" Width="1.5" />
+    <Position X="13.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAIAAAAAEARCBAAIgAAQIAAAAIBAADAAAJAAAAAAAQA=</HashCode>
+      <HashCode>gAIAAAAAGARCBEAIgAAQIAAAAIBAADAAAJAAAAAAAQA=</HashCode>
       <FileName>MenuControl\TextMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
-    <Position X="24" Y="3.75" Width="1.5" />
+    <Position X="23.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAEAEEQAAAAAoAAQIAAAAIBMAACAAZAAAEAAICE=</HashCode>
       <FileName>MenuControl\ScrollableMenu.cs</FileName>
@@ -87,7 +87,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.TabularData.DataGrid" Collapsed="true">
-    <Position X="7.75" Y="2.25" Width="1.5" />
+    <Position X="9" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAwAAAASAAEAECQAAAQAAEJCEAAAAABAQAAgAAAQ=</HashCode>
       <FileName>TabularData\DataGrid.cs</FileName>
@@ -143,7 +143,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.MultipleDisplayControl" Collapsed="true">
-    <Position X="23.75" Y="2.25" Width="2" />
+    <Position X="23.25" Y="2.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAcABAAAwAhABAAiCAAQBACIBACAAAAAEEKAAAIAA=</HashCode>
       <FileName>MenuControl\MultipleDisplayControl.cs</FileName>
@@ -152,36 +152,36 @@
   <Class Name="DustInTheWind.ConsoleTools.MultilineText" Collapsed="true">
     <Position X="7.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAIAAAAAAAgAEEkAIAAAAAAAAAAIACAAAAAAAAAAI=</HashCode>
+      <HashCode>AABAIAAAAAAAgAUEkAIAAAAAAAAAAIACAAAAAAAAAAI=</HashCode>
       <FileName>MultilineText.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.TextBlock" Collapsed="true">
-    <Position X="11.25" Y="2.25" Width="1.5" />
+  <Class Name="DustInTheWind.ConsoleTools.TextBlock" Collapsed="true">
+    <Position X="5.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAiAAAAAAAAAAAACIgAAAAAAAAACAAAAAA=</HashCode>
-      <FileName>InputControls\TextBlock.cs</FileName>
+      <HashCode>AAAAAAAAAIAiAAQAAAAAAAAACIAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>TextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineControl" Collapsed="true">
-    <Position X="21.5" Y="2.25" Width="1.5" />
+    <Position X="21.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAIQgAAAAAAAAAQAACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>InlineControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineTextBlock" Collapsed="true">
-    <Position X="21.5" Y="3.75" Width="1.5" />
+    <Position X="21.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIBAAAAAAAAAAAAAAAABAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>InlineTextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.Label" Collapsed="true">
-    <Position X="21.5" Y="4.75" Width="1.5" />
+    <Position X="21.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>InputControls\Label.cs</FileName>
+      <FileName>Label.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InputControls.ListView&lt;T&gt;" Collapsed="true">
@@ -227,9 +227,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.ContinouslyDisplayedControl" Collapsed="true">
-    <Position X="9.5" Y="2.25" Width="1.5" />
+    <Position X="10.75" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIBAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
       <FileName>ContinouslyDisplayedControl.cs</FileName>
     </TypeIdentifier>
   </Class>

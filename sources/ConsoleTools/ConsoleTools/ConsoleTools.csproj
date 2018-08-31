@@ -83,14 +83,14 @@
     <Compile Include="InlineTextBlock.cs" />
     <Compile Include="InputControls\Int32View.cs" />
     <Compile Include="InputControls\Int64View.cs" />
-    <Compile Include="InputControls\Label.cs" />
+    <Compile Include="Label.cs" />
     <Compile Include="InputControls\ListInputResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ListInputResources.resx</DependentUpon>
     </Compile>
     <Compile Include="InputControls\StringView.cs" />
-    <Compile Include="InputControls\TextBlock.cs" />
+    <Compile Include="TextBlock.cs" />
     <Compile Include="InputControls\ValueView.cs" />
     <Compile Include="InputControls\ValueInputResources.Designer.cs">
       <AutoGen>True</AutoGen>

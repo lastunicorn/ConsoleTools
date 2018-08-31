@@ -57,7 +57,6 @@
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
     <Compile Include="IRepeatableControl.cs" />
-    <Compile Include="DisplayMode.cs" />
     <Compile Include="CommandProviders\TextMenuCommandProvider.cs" />
     <Compile Include="CustomConsole.HorizontalLines.cs" />
     <Compile Include="InlineControl.cs" />

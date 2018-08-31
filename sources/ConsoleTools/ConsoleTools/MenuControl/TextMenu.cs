@@ -104,21 +104,20 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             this.menuItems.AddRange(menuItems);
         }
 
-        protected override Size CalculateControlSize()
+        protected override void OnBeforeDisplay()
         {
-            int menuHeight = menuItems
-                .Count(x => x != null && x.IsVisible);
+            Reset();
 
-            int questionHeight = (int)Math.Ceiling((double)(QuestionText?.Length ?? 0) / Console.BufferWidth);
+            base.OnBeforeDisplay();
+        }
 
-            menuHeight += 1 + questionHeight;
+        private void Reset()
+        {
+            SelectedIndex = null;
+            SelectedVisibleIndex = null;
+            SelectedItem = null;
 
-            int menuWidth = menuItems
-                .Where(x => x != null && x.IsVisible)
-                .Select(x => x.Size)
-                .Max(x => x.Width);
-
-            return new Size(menuWidth, menuHeight);
+            InnerSize = Size.Empty;
         }
 
         /// <summary>
@@ -127,22 +126,14 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         protected override void DoDisplayContent()
         {
-            Reset();
             DrawMenu();
             ReadUserSelection();
-        }
-
-        private void Reset()
-        {
-            SelectedIndex = null;
-            SelectedVisibleIndex = null;
-            SelectedItem = null;
         }
 
         private void DrawMenu()
         {
             IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
-                .Where(x => x.IsVisible);
+                .Where(x => x != null && x.IsVisible);
 
             bool existsItems = false;
 
@@ -150,11 +141,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             {
                 existsItems = true;
 
-                if (menuItem.IsVisible)
-                {
-                    menuItem.Display();
-                    CustomConsole.WriteLine();
-                }
+                menuItem.Display();
+                CustomConsole.WriteLine();
+
+                InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
             }
 
             if (!existsItems)
@@ -164,6 +154,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         private void ReadUserSelection()
         {
             Console.WriteLine();
+            InnerSize = InnerSize.InflateHeight(1);
 
             while (true)
             {
@@ -178,6 +169,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                     continue;
 
                 Console.WriteLine();
+                InnerSize = InnerSize.InflateHeight(1);
 
                 TextMenuItem selectedMenuItem = menuItems
                     .FirstOrDefault(x => x.Id == inputValue);
@@ -186,6 +178,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 {
                     CustomConsole.WriteLineWarning(InvalidOptionText);
                     Console.WriteLine();
+
+                    InnerSize = InnerSize.InflateHeight(2);
                     continue;
                 }
 
@@ -193,6 +187,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 {
                     CustomConsole.WriteLineWarning(OptionDisabledText);
                     Console.WriteLine();
+
+                    InnerSize = InnerSize.InflateHeight(2);
                     continue;
                 }
 
@@ -208,14 +204,24 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private void DisplayQuestion()
         {
+            int textLength = 0;
+
             CustomConsole.WriteEmphasies(QuestionText);
+            textLength += QuestionText?.Length ?? 0;
+
             CustomConsole.WriteEmphasies(Separator);
+            textLength += Separator?.Length ?? 0;
 
             if (SpaceAfterQuestion > 0)
             {
                 string space = new string(' ', SpaceAfterQuestion);
                 Console.Write(space);
+
+                textLength += space.Length;
             }
+
+            int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
+            InnerSize = InnerSize.InflateHeight(questionHeight);
         }
 
         protected override void OnAfterDisplay()

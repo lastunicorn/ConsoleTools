@@ -37,20 +37,19 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
     /// </remarks>
     internal class MainMenu : MenuControl.TextMenu
     {
-        public MainMenu(ApplicationState applicationState, GameBoard gameBoard)
+        public MainMenu(GameApplication application)
         {
-            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
-            if (gameBoard == null) throw new ArgumentNullException(nameof(gameBoard));
+            if (application == null) throw new ArgumentNullException(nameof(application));
 
             EraseAfterClose = true;
             MarginTop = 1;
             MarginBottom = 1;
 
-            IEnumerable<TextMenuItem> menuItems = CreateMenuItems(applicationState, gameBoard);
+            IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
             SetItems(menuItems);
         }
 
-        private static IEnumerable<TextMenuItem> CreateMenuItems(ApplicationState applicationState, GameBoard gameBoard)
+        private static IEnumerable<TextMenuItem> CreateMenuItems(GameApplication application)
         {
             return new[]
             {
@@ -58,25 +57,25 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 {
                     Id = "1",
                     Text = "New Game",
-                    Command = new NewGameCommand(gameBoard)
+                    Command = new NewGameCommand(application.GameBoard)
                 },
                 new TextMenuItem
                 {
                     Id = "2",
                     Text = "Save Game",
-                    Command = new SaveGameCommand(gameBoard)
+                    Command = new SaveGameCommand(application.GameBoard)
                 },
                 new TextMenuItem
                 {
                     Id = "3",
                     Text = "Load Game",
-                    Command = new LoadGameCommand(gameBoard)
+                    Command = new LoadGameCommand(application.GameBoard)
                 },
                 new TextMenuItem
                 {
                     Id = "4",
                     Text = "Close Game",
-                    Command = new CloseGameCommand(gameBoard)
+                    Command = new CloseGameCommand(application.GameBoard)
                 },
 
                 new TextMenuItem
@@ -96,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
                 {
                     Id = "0",
                     Text = "Exit",
-                    Command = new ExitCommand(applicationState)
+                    Command = new ExitCommand(application)
                 }
             };
         }

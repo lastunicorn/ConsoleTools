@@ -21,19 +21,19 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu.Commands
 {
     internal class ExitCommand : ICommand
     {
-        private readonly ApplicationState applicationState;
+        private readonly GameApplication application;
 
         public bool IsActive => true;
 
-        public ExitCommand(ApplicationState applicationState)
+        public ExitCommand(GameApplication application)
         {
-            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
-            this.applicationState = applicationState;
+            if (application == null) throw new ArgumentNullException(nameof(application));
+            this.application = application;
         }
 
         public void Execute()
         {
-            applicationState.RequestExit();
+            application.RequestExit();
         }
     }
 }

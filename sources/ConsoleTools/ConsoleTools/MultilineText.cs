@@ -211,6 +211,11 @@ namespace DustInTheWind.ConsoleTools
             return new MultilineText(lines);
         }
 
+        public static implicit operator MultilineText(string[] lines)
+        {
+            return new MultilineText(lines);
+        }
+
         public static implicit operator List<string>(MultilineText multilineText)
         {
             return multilineText.Lines.ToList();

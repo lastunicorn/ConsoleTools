@@ -53,7 +53,8 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="ApplicationState.cs" />
+    <Compile Include="ApplicationBase.cs" />
+    <Compile Include="GameApplication.cs" />
     <Compile Include="Commands\CloseGameCommand.cs" />
     <Compile Include="Commands\CreditsCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />

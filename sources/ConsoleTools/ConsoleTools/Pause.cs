@@ -48,7 +48,6 @@ namespace DustInTheWind.ConsoleTools
         {
             MarginTop = 1;
             MarginBottom = 1;
-            EnsureBeginOfLine = true;
         }
 
         /// <summary>
@@ -64,49 +63,34 @@ namespace DustInTheWind.ConsoleTools
                 string line = Text.Lines[i];
                 lastLineLength = line.Length;
 
-                if (lastLineLength % consoleWidth == 0 || i == Text.Lines.Count - 1)
+                bool textWidthIsConsoleWidth = lastLineLength % consoleWidth == 0;
+
+                if (textWidthIsConsoleWidth)
+                {
                     Console.Write(line);
+                }
                 else
-                    Console.WriteLine(line);
+                {
+                    bool isLastLine = i == Text.Lines.Count - 1;
+
+                    if (isLastLine)
+                    {
+                        Console.Write(line);
+                    }
+                    else
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+
+                int lineHeight = (int)Math.Ceiling(line.Length / (double)Console.BufferWidth);
+                InnerSize = InnerSize.InflateHeight(lineHeight);
             }
 
             WaitForUnlockKey();
 
             if (lastLineLength != consoleWidth)
                 Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Calculates and returns the size of the current instance in characters, including the top and bottom margins.
-        /// The size is calculated as the control will be displayed starting from the current locatio of the cursor in the console.
-        /// </summary>
-        protected override Size CalculateControlSize()
-        {
-            int textWidth = 0;
-            int textHeight = 0;
-
-            bool isFirstLine = true;
-
-            foreach (string line in Text.Lines)
-            {
-                int lineFill;
-
-                if (isFirstLine)
-                {
-                    lineFill = Console.CursorLeft;
-                    isFirstLine = false;
-                }
-                else
-                {
-                    lineFill = 0;
-                }
-
-                textWidth = Math.Max(textWidth, Math.Min(line.Length, Console.BufferWidth - lineFill));
-                textHeight += (int)Math.Ceiling(line.Length / (double)(Console.BufferWidth - lineFill));
-            }
-
-            int totalHeight = MarginTop + textHeight + MarginBottom;
-            return new Size(textWidth, totalHeight);
         }
 
         private void WaitForUnlockKey()

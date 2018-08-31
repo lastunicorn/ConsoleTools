@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets the list of items contained by the current instance.
         /// </summary>
-        public List<TextMenuItem> MenuItems { get; } = new List<TextMenuItem>();
+        private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
         /// <summary>
         /// Gets or sets the title to be displayed at the top of the control, before the list of items.
@@ -106,7 +106,21 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
-            MenuItems.AddRange(menuItems);
+            this.menuItems.AddRange(menuItems.Where(x => x != null));
+        }
+
+        public void AddItem(TextMenuItem menuItem)
+        {
+            if (menuItem == null) throw new ArgumentNullException(nameof(menuItem));
+
+            menuItems.Add(menuItem);
+        }
+
+        public void AddItems(IEnumerable<TextMenuItem> menuItems)
+        {
+            if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
+
+            this.menuItems.AddRange(menuItems.Where(x => x != null));
         }
 
         /// <summary>
@@ -152,7 +166,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private void DrawMenu()
         {
-            IEnumerable<TextMenuItem> menuItemsToDisplay = MenuItems
+            IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
                 .Where(x => x != null && x.IsVisible);
 
             bool existsItems = false;
@@ -191,7 +205,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 if (inputValue.Length == 0)
                     continue;
 
-                TextMenuItem selectedMenuItem = MenuItems
+                TextMenuItem selectedMenuItem = menuItems
                     .FirstOrDefault(x => x.Id == inputValue);
 
                 if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
@@ -207,8 +221,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 }
 
                 SelectedItem = selectedMenuItem;
-                SelectedIndex = MenuItems.IndexOf(selectedMenuItem);
-                SelectedVisibleIndex = MenuItems
+                SelectedIndex = menuItems.IndexOf(selectedMenuItem);
+                SelectedVisibleIndex = menuItems
                     .Take(SelectedIndex.Value)
                     .Count(x => x != null && x.IsVisible);
 

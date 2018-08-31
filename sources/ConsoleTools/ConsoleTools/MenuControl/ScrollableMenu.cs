@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 
-        private readonly MenuItemCollection menuItems;
+        private readonly MenuItemCollection menuItems = new MenuItemCollection();
 
         private Location menuLocation;
 
@@ -90,21 +90,48 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         /// <inheritdoc />
         /// <summary>
+        /// Initializes a new instance of the <see cref="ScrollableMenu" /> class.
+        /// </summary>
+        public ScrollableMenu()
+        {
+            ShowCursor = false;
+            MarginTop = 1;
+            MarginBottom = 1;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
         /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" /> class with
         /// the list of items.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
         public ScrollableMenu(IEnumerable<IMenuItem> menuItems)
+            : this()
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
             this.menuItems = new MenuItemCollection();
 
-            ShowCursor = false;
-            MarginTop = 1;
-            MarginBottom = 1;
+            foreach (IMenuItem menuItem in menuItems.Where(x => x != null))
+            {
+                menuItem.ParentMenu = this;
+                this.menuItems.Add(menuItem);
+            }
+        }
 
-            foreach (IMenuItem menuItem in menuItems)
+        public void AddItem(IMenuItem menuItem)
+        {
+            if (menuItem == null) throw new ArgumentNullException(nameof(menuItem));
+
+            menuItem.ParentMenu = this;
+            menuItems.Add(menuItem);
+        }
+
+        public void AddItems(IEnumerable<IMenuItem> menuItems)
+        {
+            if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
+
+            foreach (IMenuItem menuItem in menuItems.Where(x => x != null))
             {
                 menuItem.ParentMenu = this;
                 this.menuItems.Add(menuItem);
@@ -256,7 +283,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                         if (menuItems.CurrentItem != null)
                         {
                             bool isSelectedSuccessfully = SelectCurrentItem();
-                            
+
                             if (isSelectedSuccessfully)
                                 return;
                         }

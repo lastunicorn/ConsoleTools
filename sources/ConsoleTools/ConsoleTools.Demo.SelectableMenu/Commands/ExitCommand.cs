@@ -21,14 +21,13 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands
 {
     internal class ExitCommand : ICommand
     {
-        private readonly ApplicationState applicationState;
+        private readonly GameApplication applicationState;
 
         public bool IsActive => true;
 
-        public ExitCommand(ApplicationState applicationState)
+        public ExitCommand(GameApplication applicationState)
         {
-            if (applicationState == null) throw new ArgumentNullException(nameof(applicationState));
-            this.applicationState = applicationState;
+            this.applicationState = applicationState ?? throw new ArgumentNullException(nameof(applicationState));
         }
 
         public void Execute()

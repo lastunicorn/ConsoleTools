@@ -15,37 +15,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
-using DustInTheWind.ConsoleTools.Demo.ScrollableMenu.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
 {
     internal static class Program
     {
-        private static ApplicationState applicationState;
-        private static GameBoard gameBoard;
-        private static MenuControl.ScrollableMenu menu;
+        private static GameApplication gameApplication;
+        private static MainMenu menu;
 
         private static void Main()
         {
             DisplayApplicationHeader();
 
             Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(80, 1024);
+            Console.SetBufferSize(80, 50);
 
             Console.CancelKeyPress += HandleCancelKeyPress;
 
-            applicationState = new ApplicationState();
-            applicationState.Exiting += HandleApplicationExiting;
+            gameApplication = new GameApplication();
+            gameApplication.Exited += HandleGameApplicationExited;
 
-            gameBoard = new GameBoard();
-
-            menu = CreateMenu();
+            menu = new MainMenu(gameApplication);
             menu.SelectFirstByDefault = false;
 
-            while (!applicationState.IsExitRequested)
+            while (!gameApplication.IsExitRequested)
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("-------------------------------------------------------------------------------");
@@ -70,72 +63,15 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
             CustomConsole.WriteLine();
         }
 
-        private static MenuControl.ScrollableMenu CreateMenu()
-        {
-            MenuControl.ScrollableMenu scrollableMenu = new MenuControl.ScrollableMenu(new IMenuItem[]
-            {
-                new LabelMenuItem
-                {
-                    Text = "New Game",
-                    Command = new NewGameCommand(gameBoard)
-                },
-                new YesNoMenuItem
-                {
-                    Text = "Save Game",
-                    VisibilityProvider = () => gameBoard.IsGameStarted,
-                    Command = new SaveGameCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Load Game",
-                    Command = new LoadGameCommand(gameBoard)
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Settings",
-                    Command = new SettingsCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Credits",
-                    Command = new CreditsCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Exit",
-                    ShortcutKey = ConsoleKey.X,
-                    Command = new ExitCommand(applicationState)
-                }
-            });
-
-            // You can play with the following values.
-
-            // This automatically selects the first item when the menu is displayed.
-            //scrollableMenu.SelectFirstByDefault = true;
-
-            // 
-            //scrollableMenu.HorizontalAlignment = HorizontalAlignment.Left;
-            //scrollableMenu.ItemsHorizontalAlignment = HorizontalAlignment.Right;
-
-            return scrollableMenu;
-        }
-
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
-            applicationState.RequestExit();
+            gameApplication.RequestExit();
         }
 
-        private static void HandleApplicationExiting(object sender, CancelEventArgs e)
+        private static void HandleGameApplicationExited(object sender, EventArgs e)
         {
             menu.RequestClose();
-            gameBoard.StopGame();
         }
     }
 }

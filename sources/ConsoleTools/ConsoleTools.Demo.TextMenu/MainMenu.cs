@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             };
 
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
-            MenuItems.AddRange(menuItems);
+            AddItems(menuItems);
         }
 
         private static IEnumerable<TextMenuItem> CreateMenuItems(GameApplication application)

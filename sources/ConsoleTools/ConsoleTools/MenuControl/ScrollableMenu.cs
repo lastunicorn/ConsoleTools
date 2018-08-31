@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
     /// </summary>
-    public class ScrollableMenu : ErasableControl, IRepeatableControl
+    public class ScrollableMenu : ErasableControl, IRepeatableSupport
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
 

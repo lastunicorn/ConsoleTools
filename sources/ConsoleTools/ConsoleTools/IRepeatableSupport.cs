@@ -23,10 +23,19 @@ using System;
 
 namespace DustInTheWind.ConsoleTools
 {
-    public interface IRepeatableControl
+    /// <summary>
+    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
+    /// </summary>
+    public interface IRepeatableSupport
     {
+        /// <summary>
+        /// Event raised when the control requires to brake the display loop.
+        /// </summary>
         event EventHandler CloseNeeded;
 
+        /// <summary>
+        /// Call this method to announce the control that it should end its process.
+        /// </summary>
         void RequestClose();
     }
 }

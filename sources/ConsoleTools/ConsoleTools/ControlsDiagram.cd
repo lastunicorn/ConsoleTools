@@ -134,7 +134,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Control" Collapsed="true">
     <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABBAAAQABAAAAgCAAQBAAIBAAAAAAAAECAAAAAA=</HashCode>
+      <HashCode>AAAIABBAAAQABAAAAgCAAQBAAIBAAAAAAAAECAAACAA=</HashCode>
       <FileName>Control.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -155,25 +155,25 @@
   <Class Name="DustInTheWind.ConsoleTools.TextBlock" Collapsed="true">
     <Position X="7" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAiAAQAAAAAAAAACIAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAABAAAABIAiAAAAAAAAAAAACIAAAACAAAAACAAAABA=</HashCode>
       <FileName>TextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineControl" Collapsed="true">
     <Position X="21.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAIQgAAAAAAAAAQAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAIQgAAAAAAAAAQBAAIBAAAAAAAAAAAAACAA=</HashCode>
       <FileName>InlineControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineTextBlock" Collapsed="true">
     <Position X="21.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIBAAAAAAAAAAAAAAAABAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAgAAAAAAAAAABACIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>InlineTextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.InputControls.Label" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.Label" Collapsed="true">
     <Position X="21.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -229,11 +229,11 @@
       <FileName>ControlRepeater.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="DustInTheWind.ConsoleTools.IRepeatableControl" Collapsed="true">
+  <Interface Name="DustInTheWind.ConsoleTools.IRepeatableSupport" Collapsed="true">
     <Position X="15.5" Y="6.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IRepeatableControl.cs</FileName>
+      <FileName>IRepeatableSupport.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

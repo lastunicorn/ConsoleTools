@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public virtual void Display()
         {
-            OnDisplaying();
+            OnBeforeDisplay();
 
             if (isRunning)
                 return;
@@ -79,7 +79,6 @@ namespace DustInTheWind.ConsoleTools
 
             MoveToNextLineIfNecessary();
 
-            OnBeforeTopMargin();
             WriteTopMargin();
 
             DoDisplayContent();
@@ -90,7 +89,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
         /// </summary>
-        protected virtual void OnDisplaying()
+        protected virtual void OnBeforeDisplay()
         {
         }
 
@@ -121,6 +120,8 @@ namespace DustInTheWind.ConsoleTools
 
         private void WriteTopMargin()
         {
+            OnBeforeTopMargin();
+
             for (int i = 0; i < MarginTop; i++)
                 Console.WriteLine();
         }
@@ -129,6 +130,8 @@ namespace DustInTheWind.ConsoleTools
         {
             for (int i = 0; i < MarginBottom; i++)
                 Console.WriteLine();
+
+            OnAfterBottomMargin();
         }
 
         /// <summary>
@@ -144,7 +147,6 @@ namespace DustInTheWind.ConsoleTools
             DoClose();
 
             WriteBottomMargin();
-            OnAfterBottomMargin();
 
             if (!ShowCursor)
                 Console.CursorVisible = initialCursorVisible;

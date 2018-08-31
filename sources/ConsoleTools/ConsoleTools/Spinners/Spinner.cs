@@ -102,12 +102,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
             Turn();
         }
 
-        protected override void OnDisplaying()
+        protected override void OnBeforeDisplay()
         {
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            base.OnDisplaying();
+            base.OnBeforeDisplay();
         }
 
         /// <summary>

@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools
         private volatile bool closeWasRequested;
         private Control control;
 
-        private bool isDisplaying;
+        private bool isRunning;
 
         /// <summary>
         /// Gets or sets the control that is to be displayed repeatedly.
@@ -41,20 +41,20 @@ namespace DustInTheWind.ConsoleTools
             get => control;
             set
             {
-                if (control is IRepeatableControl repeatableControl1)
-                    repeatableControl1.CloseNeeded -= HandleCloseNeeded;
+                if (control is IRepeatableSupport repeatableControl1)
+                    repeatableControl1.CloseNeeded -= HandleControlCloseNeeded;
 
-                if (isDisplaying)
+                if (isRunning)
                     throw new Exception("The control cannot be changed while the Display method is running.");
 
                 control = value;
 
-                if (control is IRepeatableControl repeatableControl2)
-                    repeatableControl2.CloseNeeded += HandleCloseNeeded;
+                if (control is IRepeatableSupport repeatableControl2)
+                    repeatableControl2.CloseNeeded += HandleControlCloseNeeded;
             }
         }
 
-        private void HandleCloseNeeded(object sender, EventArgs e)
+        private void HandleControlCloseNeeded(object sender, EventArgs e)
         {
             closeWasRequested = true;
         }
@@ -64,9 +64,13 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected bool CloseWasRequested => closeWasRequested;
 
+        /// <summary>
+        /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
+        /// until the <see cref="RequestClose"/> method is called.
+        /// </summary>
         protected override void DoDisplayContent()
         {
-            isDisplaying = true;
+            isRunning = true;
             try
             {
                 if (Control == null)
@@ -79,7 +83,7 @@ namespace DustInTheWind.ConsoleTools
             }
             finally
             {
-                isDisplaying = false;
+                isRunning = false;
             }
         }
 
@@ -91,7 +95,7 @@ namespace DustInTheWind.ConsoleTools
         {
             closeWasRequested = true;
 
-            if (Control is IRepeatableControl repeatableControl)
+            if (Control is IRepeatableSupport repeatableControl)
                 repeatableControl.RequestClose();
         }
     }

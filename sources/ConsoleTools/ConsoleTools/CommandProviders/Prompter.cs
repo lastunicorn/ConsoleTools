@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Reads commands from the console.
     /// </summary>
-    public class Prompter : Control, IRepeatableControl
+    public class Prompter : Control, IRepeatableSupport
     {
         private bool closeWasRequested;
 

@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <remarks>
     /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
     /// </remarks>
-    public class TextMenu : ErasableControl, IRepeatableControl
+    public class TextMenu : ErasableControl, IRepeatableSupport
     {
         private bool closeWasRequested;
 

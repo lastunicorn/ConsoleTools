@@ -33,8 +33,14 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// </remarks>
     public class TextMenu : ErasableControl
     {
-        private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
+        /// <summary>
+        /// Gets the list of items contained by the current instance.
+        /// </summary>
+        public List<TextMenuItem> MenuItems { get; } = new List<TextMenuItem>();
 
+        /// <summary>
+        /// Gets or sets the title to be displayed at the top of the control, before the list of items.
+        /// </summary>
         public TextBlock Title { get; set; }
 
         /// <summary>
@@ -96,16 +102,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
-            this.menuItems.AddRange(menuItems);
+            MenuItems.AddRange(menuItems);
         }
 
-        protected void SetItems(IEnumerable<TextMenuItem> menuItems)
-        {
-            if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
-
-            this.menuItems.AddRange(menuItems);
-        }
-
+        /// <summary>
+        /// Erases oll the information of the previous display.
+        /// </summary>
         protected override void OnBeforeDisplay()
         {
             Reset();
@@ -146,7 +148,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         private void DrawMenu()
         {
-            IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
+            IEnumerable<TextMenuItem> menuItemsToDisplay = MenuItems
                 .Where(x => x != null && x.IsVisible);
 
             bool existsItems = false;
@@ -182,7 +184,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 if (inputValue.Length == 0)
                     continue;
 
-                TextMenuItem selectedMenuItem = menuItems
+                TextMenuItem selectedMenuItem = MenuItems
                     .FirstOrDefault(x => x.Id == inputValue);
 
                 if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
@@ -204,8 +206,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 }
 
                 SelectedItem = selectedMenuItem;
-                SelectedIndex = menuItems.IndexOf(selectedMenuItem);
-                SelectedVisibleIndex = menuItems
+                SelectedIndex = MenuItems.IndexOf(selectedMenuItem);
+                SelectedVisibleIndex = MenuItems
                     .Take(SelectedIndex.Value)
                     .Count(x => x != null && x.IsVisible);
 
@@ -235,6 +237,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             InnerSize = InnerSize.InflateHeight(questionHeight);
         }
 
+        /// <summary>
+        /// Executes the selected item.
+        /// </summary>
         protected override void OnAfterDisplay()
         {
             base.OnAfterDisplay();

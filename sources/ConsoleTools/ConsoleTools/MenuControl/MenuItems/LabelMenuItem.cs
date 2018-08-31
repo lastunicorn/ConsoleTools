@@ -251,10 +251,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
         public bool Select()
         {
-            CancelEventArgs args = new CancelEventArgs();
-            OnBeforeSelect(args);
+            CancelEventArgs eventArgs = new CancelEventArgs();
+            OnBeforeSelect(eventArgs);
 
-            return !args.Cancel;
+            return !eventArgs.Cancel;
         }
 
         /// <summary>

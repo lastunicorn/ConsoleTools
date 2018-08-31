@@ -52,6 +52,12 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public bool IsEnabled { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets the color to be used for displaying the text when the item is disabled.
+        /// Default value: <see cref="ConsoleColor.DarkGray"/>.
+        /// </summary>
+        public ConsoleColor? DisabledForegroundColor { get; set; } = ConsoleColor.DarkGray;
+
+        /// <summary>
         /// Gets or sets the command to be executed when the current instance is selected.
         /// </summary>
         public ICommand Command { get; set; }
@@ -77,9 +83,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         public void Display()
         {
             if (CanBeSelected())
+            {
                 CustomConsole.Write($"{Id} - {Text}");
+            }
             else
-                CustomConsole.Write(ConsoleColor.DarkGray, $"{Id} - {Text}");
+            {
+                if (DisabledForegroundColor.HasValue)
+                    CustomConsole.Write(DisabledForegroundColor.Value, $"{Id} - {Text}");
+                else
+                    CustomConsole.Write($"{Id} - {Text}");
+            }
         }
 
         /// <summary>

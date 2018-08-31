@@ -45,7 +45,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
         private static void StartDemo()
         {
             prompter = new CommandProviders.Prompter();
-            prompter.EraseAfterClose = true;
             prompter.NewCommand += HandleNewCommand;
 
             repeaterControl = new ControlRepeater

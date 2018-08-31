@@ -228,13 +228,6 @@
       <FileName>InputControls\StringListView.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.ContinouslyDisplayedControl" Collapsed="true">
-    <Position X="8.25" Y="3.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAIBAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
-      <FileName>ContinouslyDisplayedControl.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="DustInTheWind.ConsoleTools.ControlRepeater" Collapsed="true">
     <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>

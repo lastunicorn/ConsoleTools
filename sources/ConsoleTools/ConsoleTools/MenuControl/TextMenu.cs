@@ -31,8 +31,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     /// <remarks>
     /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
     /// </remarks>
-    public class TextMenu : ErasableControl
+    public class TextMenu : ErasableControl, IRepeatableControl
     {
+        private bool closeWasRequested;
+
         /// <summary>
         /// Gets the list of items contained by the current instance.
         /// </summary>
@@ -85,6 +87,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// Gets the index of the selected menu item.
         /// </summary>
         public int? SelectedIndex { get; private set; }
+
+        public event EventHandler CloseNeeded;
 
         /// <summary>
         /// Initialize a new instace of the <see cref="TextMenu"/> calss.
@@ -172,14 +176,17 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             Console.WriteLine();
             InnerSize = InnerSize.InflateHeight(1);
 
-            while (true)
+            while (!closeWasRequested)
             {
                 DisplayQuestion();
 
                 string inputValue = Console.ReadLine();
 
                 if (inputValue == null)
+                {
+                    OnCloseNeeded();
                     return;
+                }
 
                 if (inputValue.Length == 0)
                     continue;
@@ -189,19 +196,13 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
                 {
-                    CustomConsole.WriteLineWarning(InvalidOptionText);
-                    Console.WriteLine();
-
-                    InnerSize = InnerSize.InflateHeight(2);
+                    DisplayInvalidOptionWarning();
                     continue;
                 }
 
                 if (!selectedMenuItem.CanBeSelected())
                 {
-                    CustomConsole.WriteLineWarning(OptionDisabledText);
-                    Console.WriteLine();
-
-                    InnerSize = InnerSize.InflateHeight(2);
+                    DisplayDisabledItemWarning();
                     continue;
                 }
 
@@ -213,6 +214,22 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 return;
             }
+        }
+
+        private void DisplayInvalidOptionWarning()
+        {
+            CustomConsole.WriteLineWarning(InvalidOptionText);
+            Console.WriteLine();
+
+            InnerSize = InnerSize.InflateHeight(2);
+        }
+
+        private void DisplayDisabledItemWarning()
+        {
+            CustomConsole.WriteLineWarning(OptionDisabledText);
+            Console.WriteLine();
+
+            InnerSize = InnerSize.InflateHeight(2);
         }
 
         private void DisplayQuestion()
@@ -256,6 +273,16 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             TextMenu textMenu = new TextMenu(menuItems);
             textMenu.Display();
             return textMenu.SelectedItem;
+        }
+
+        public void RequestClose()
+        {
+            closeWasRequested = true;
+        }
+
+        protected virtual void OnCloseNeeded()
+        {
+            CloseNeeded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

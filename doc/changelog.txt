@@ -12,9 +12,8 @@ ver 0.5.0
 - CustomConsole: Added the BuildHorizontalBufferLine method.
 - Control: EnsureBeginOfLine is removed. The control will always start from the next line if the current has text on it.
 - ErasableControl: The Size of the control is no longer needed in advance. It must be provided at the end of the DoDisplayContent method.
-- Prompter: Added the DisplayMode property to be able to display it once or continously.
-- Prompter: Added the DisplayOnce method.
 - TextBlock: Added an optional title.
+- RepeaterControl: Created the RepeaterControl that can be used to repeatedly display the TextMenu, ScrollableMenu and the Prompter.
 
 ver 0.4.0
 ---------

@@ -26,8 +26,10 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     /// <summary>
     /// Reads commands from the console.
     /// </summary>
-    public class Prompter : ContinouslyDisplayedControl
+    public class Prompter : Control, IRepeatableControl
     {
+        private bool closeWasRequested;
+
         public CliCommand LastCommand { get; private set; }
 
         /// <summary>
@@ -64,6 +66,8 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             NewCommand?.Invoke(null, e);
         }
 
+        public event EventHandler CloseNeeded;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Prompter"/> class.
         /// </summary>
@@ -76,43 +80,21 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         protected override void OnBeforeDisplay()
         {
             LastCommand = null;
+            closeWasRequested = false;
 
             base.OnBeforeDisplay();
         }
 
         protected override void DoDisplayContent()
         {
-            while (!CloseWasRequested)
+            while (!closeWasRequested)
             {
                 DisplayPrompterText();
-                CliCommand newCommand = ReadUserInput();
+                LastCommand = ReadUserInput();
 
-                if (newCommand == null)
-                    continue;
-
-                LastCommand = newCommand;
-                break;
+                if (LastCommand != null)
+                    return;
             }
-        }
-
-        private CliCommand ReadUserInput()
-        {
-            string commandText = Console.ReadLine();
-
-            if (commandText == null)
-            {
-                RequestClose();
-                return null;
-            }
-
-            if (commandText.Length == 0)
-                return null;
-
-            CliCommand newCommand = CliCommand.Parse(commandText);
-
-            return newCommand.IsEmpty
-                ? null
-                : newCommand;
         }
 
         /// <summary>
@@ -146,22 +128,55 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             }
         }
 
-        protected override void OnAfterSingleDisplay()
+        private CliCommand ReadUserInput()
         {
+            string commandText = Console.ReadLine();
+
+            if (commandText == null)
+            {
+                OnCloseNeeded();
+                return null;
+            }
+
+            if (commandText.Length == 0)
+                return null;
+
+            CliCommand newCommand = CliCommand.Parse(commandText);
+
+            return newCommand.IsEmpty
+                ? null
+                : newCommand;
+        }
+
+        protected override void OnAfterDisplay()
+        {
+            if (LastCommand == null)
+                return;
+
             try
             {
                 NewCommandEventArgs eventArgs = new NewCommandEventArgs(LastCommand);
                 OnNewCommand(eventArgs);
 
                 if (eventArgs.Exit)
-                    RequestClose();
+                    OnCloseNeeded();
             }
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
             }
 
-            base.OnAfterSingleDisplay();
+            base.OnAfterDisplay();
+        }
+
+        public void RequestClose()
+        {
+            closeWasRequested = true;
+        }
+
+        protected virtual void OnCloseNeeded()
+        {
+            CloseNeeded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

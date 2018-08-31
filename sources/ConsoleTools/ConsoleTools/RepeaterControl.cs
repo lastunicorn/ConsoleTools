@@ -41,11 +41,22 @@ namespace DustInTheWind.ConsoleTools
             get => control;
             set
             {
+                if (control is IRepeatableControl repeatableControl1)
+                    repeatableControl1.CloseNeeded -= HandleCloseNeeded;
+
                 if (isDisplaying)
                     throw new Exception("The control cannot be changed while the Display method is running.");
 
                 control = value;
+
+                if (control is IRepeatableControl repeatableControl2)
+                    repeatableControl2.CloseNeeded += HandleCloseNeeded;
             }
+        }
+
+        private void HandleCloseNeeded(object sender, EventArgs e)
+        {
+            closeWasRequested = true;
         }
 
         /// <summary>
@@ -79,6 +90,9 @@ namespace DustInTheWind.ConsoleTools
         public void RequestClose()
         {
             closeWasRequested = true;
+
+            if (Control is IRepeatableControl repeatableControl)
+                repeatableControl.RequestClose();
         }
     }
 }

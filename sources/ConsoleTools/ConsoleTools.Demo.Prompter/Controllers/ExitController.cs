@@ -23,11 +23,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class ExitController : IController
     {
-        private readonly CommandProviders.Prompter prompter;
+        private readonly RepeaterControl prompterRepeater;
 
-        public ExitController(CommandProviders.Prompter prompter)
+        public ExitController(RepeaterControl prompterRepeater)
         {
-            this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
+            this.prompterRepeater = prompterRepeater ?? throw new ArgumentNullException(nameof(prompterRepeater));
         }
 
         public void Execute(ReadOnlyCollection<UserCommandParameter> parameters)
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
             {
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("Bye!");
-                prompter.RequestClose();
+                prompterRepeater.RequestClose();
             }
             else
             {

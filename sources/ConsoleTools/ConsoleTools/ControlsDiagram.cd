@@ -23,11 +23,12 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
-    <Position X="10.75" Y="3.75" Width="2" />
+    <Position X="10.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAJigAAAAAAAAkgAIAIBAAABAAAAgAAAAABA=</HashCode>
+      <HashCode>AAQAAAAAAJSgAABAAAAAkgAIAIBAAQBAAEAgAAAAABA=</HashCode>
       <FileName>CommandProviders\Prompter.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Guard.MachineLevelGuardian" Collapsed="true">
     <Position X="12.25" Y="6.75" Width="2" />
@@ -53,9 +54,10 @@
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
     <Position X="13.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAIAAAAAGARCBFAIgAAAIAAAAIBAABAAAJAAAAAAAQA=</HashCode>
+      <HashCode>gAYAgAAAHARCBFBIgAAAIAAAAIBAARAAANAAAAAAAQA=</HashCode>
       <FileName>MenuControl\TextMenu.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
     <Position X="23.5" Y="3.75" Width="1.5" />
@@ -227,7 +229,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.ContinouslyDisplayedControl" Collapsed="true">
-    <Position X="10.75" Y="2.25" Width="2" />
+    <Position X="8.25" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAIBAAAAgAAARAABAAAAAAAAAAAIAAAGAAAAAAAAA=</HashCode>
       <FileName>ContinouslyDisplayedControl.cs</FileName>
@@ -236,9 +238,16 @@
   <Class Name="DustInTheWind.ConsoleTools.RepeaterControl" Collapsed="true">
     <Position X="4.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAARAABAAAAAAAIAAAAAAAGAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAEAAAABARAAEAAAAAAAIAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>RepeaterControl.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Interface Name="DustInTheWind.ConsoleTools.IRepeatableControl">
+    <Position X="16.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRepeatableControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

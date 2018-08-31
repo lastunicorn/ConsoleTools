@@ -23,6 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
     internal class Program
     {
         private static CommandProviders.Prompter prompter;
+        private static RepeaterControl repeaterControl;
 
         private static void Main()
         {
@@ -44,9 +45,15 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
         private static void StartDemo()
         {
             prompter = new CommandProviders.Prompter();
+            prompter.EraseAfterClose = true;
             prompter.NewCommand += HandleNewCommand;
 
-            prompter.Display();
+            repeaterControl = new RepeaterControl
+            {
+                Control = prompter
+            };
+
+            repeaterControl.Display();
         }
 
         private static void HandleNewCommand(object sender, NewCommandEventArgs e)
@@ -69,7 +76,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
                 case "q":
                 case "quit":
                 case "exit":
-                    return new ExitController(prompter);
+                    return new ExitController(repeaterControl);
 
                 case "help":
                     return new HelpController();

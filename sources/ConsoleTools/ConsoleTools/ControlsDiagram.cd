@@ -77,7 +77,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Spinners.Spinner" Collapsed="true">
     <Position X="17.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAEKAAAgBEEEACggAAAIAACACEAAAAAAAAAAo=</HashCode>
+      <HashCode>AAQAAAAAEKAAAgBEEEACgAAAAIBACACEAAAAAAAAAAo=</HashCode>
       <FileName>Spinners\Spinner.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -132,7 +132,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Control" Collapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIABBAAAQABAAAAgCAAQBAAIBAAAAAAAAECAAACAA=</HashCode>
       <FileName>Control.cs</FileName>
@@ -141,16 +141,24 @@
   <Class Name="DustInTheWind.ConsoleTools.LongRunningControl" Collapsed="true">
     <Position X="18.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAABABAAgCAgwhAAIBAAAiAAAAEKACAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAABABAAgCAgQhAAIBAAAiAAAAEKACAAAA=</HashCode>
       <FileName>LongRunningControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.MultilineText" Collapsed="true">
     <Position X="7.75" Y="5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="DustInTheWind.ConsoleTools.MultilineText.LineEndChar" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MultilineText.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AABAIAAAAAAAgAUEkAIAAAAAAAAAAIACAAAAAAAAAAI=</HashCode>
+      <HashCode>AABAIAAAAAAAgBUEkAIAAAAAAAAAIIIGAAAAAAAAAAI=</HashCode>
       <FileName>MultilineText.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.TextBlock" Collapsed="true">
     <Position X="7" Y="2" Width="1.5" />
@@ -225,7 +233,7 @@
   <Class Name="DustInTheWind.ConsoleTools.ControlRepeater" Collapsed="true">
     <Position X="5.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAEAAAABARAAEAAAAAAAIAAAAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAABAAAEAAAABARAAAAAAAAAAIAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>ControlRepeater.cs</FileName>
     </TypeIdentifier>
   </Class>

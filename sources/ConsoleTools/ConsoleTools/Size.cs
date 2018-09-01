@@ -85,6 +85,63 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
+        /// Creates a new <see cref="Size"/> object having the <see cref="Width"/> and <see cref="Height"/>
+        /// incremented with the specified value.
+        /// </summary>
+        /// <param name="value">The value to be added to the width and height of the current instance.</param>
+        /// <returns>A new <see cref="Size"/> object.</returns>
+        public Size Inflate(int value)
+        {
+            return new Size(Width + value, Height + value);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Size"/> object having its <see cref="Width"/> and <see cref="Height"/>
+        /// incremented with the specified values.
+        /// </summary>
+        /// <param name="width">The value to be added to the width of the size.</param>
+        /// <param name="height">The value to be added to the height of the current instance.</param>
+        /// <returns>A new <see cref="Size"/> object.</returns>
+        public Size Inflate(int width, int height)
+        {
+            return new Size(Width + width, Height + height);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Size"/> object having the <see cref="Width"/> and <see cref="Height"/>
+        /// values equal to the sum of the <see cref="Width"/> and <see cref="Height"/> values of the
+        /// current instance and the one specified as parameter.
+        /// </summary>
+        /// <param name="size">The <see cref="Size"/> object to be added to the current instance.</param>
+        /// <returns>A new <see cref="Size"/> object.</returns>
+        public Size Inflate(Size size)
+        {
+            return new Size(Width + size.Width, Height + size.Height);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Size"/> object having only the <see cref="Width"/>
+        /// incremented with the specified value.
+        /// </summary>
+        /// <param name="value">The value to be added to the width of the current instance.</param>
+        /// <returns>A new <see cref="Size"/> object.</returns>
+        public Size InflateWidth(int value)
+        {
+            return new Size(Width + value, Height);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Size"/> object having only the <see cref="Height"/>
+        /// incremented with the specified value.
+        /// </summary>
+        /// <param name="value">The value to be added to the height of the current instance.</param>
+        /// <returns>A new <see cref="Size"/> object.</returns>
+        public Size InflateHeight(int value)
+        {
+            return new Size(Width, Height + value);
+        }
+
+        /// <summary>
         /// Return the string representation of the current instance.
         /// </summary>
         /// <returns>The string representation of the current instance.</returns>
@@ -94,21 +151,6 @@ namespace DustInTheWind.ConsoleTools
             string heightAsString = Height.ToString(CultureInfo.CurrentCulture);
 
             return $"{{Width={widthAsString}, Height={heightAsString}}}";
-        }
-
-        public Size Inflate(int width, int height)
-        {
-            return new Size(Width + width, Height + height);
-        }
-
-        public Size InflateWidth(int value)
-        {
-            return new Size(Width + value, Height);
-        }
-
-        public Size InflateHeight(int value)
-        {
-            return new Size(Width, Height + value);
         }
 
         public static Size operator +(Size size1, Size size2)

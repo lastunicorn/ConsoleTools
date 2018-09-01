@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -88,6 +89,9 @@ namespace DustInTheWind.ConsoleTools
             Text = text;
         }
 
+        /// <summary>
+        /// Displays the lines of text together with the left and right margins.
+        /// </summary>
         protected override void DoDisplayContent()
         {
             if (Text == null)
@@ -96,8 +100,8 @@ namespace DustInTheWind.ConsoleTools
             int consoleWidth = Console.BufferWidth;
 
             Size innerSize = Text.CalculateSize(consoleWidth);
-
             Size outerSize = innerSize + new Size(MarginLeft + MarginRight, MarginTop + MarginBottom);
+
             bool isBlockEqualToConsoleWidth = outerSize.Width == consoleWidth;
 
             string marginLeftText = MarginLeft > 0
@@ -108,23 +112,16 @@ namespace DustInTheWind.ConsoleTools
                 ? new string(' ', MarginRight)
                 : string.Empty;
 
-            foreach (string line in Text.Lines)
+            IEnumerable<string> chunks = Text.GetLines(innerSize.Width);
+
+            foreach (string chunk in chunks)
             {
-                int index = 0;
+                Console.Write(marginLeftText);
+                WriteTextWithColors(chunk);
+                Console.Write(marginRightText);
 
-                while (index < line.Length)
-                {
-                    Console.Write(marginLeftText);
-                    int chunkLength = Math.Min(innerSize.Width, line.Length - index);
-                    string chunk = line.Substring(index, chunkLength);
-                    WriteTextWithColors(chunk);
-                    Console.Write(marginRightText);
-
-                    index += innerSize.Width;
-
-                    if (!isBlockEqualToConsoleWidth)
-                        Console.WriteLine();
-                }
+                if (!isBlockEqualToConsoleWidth)
+                    Console.WriteLine();
             }
         }
 

@@ -79,7 +79,11 @@
     </Compile>
     <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
     <Compile Include="AlignedTextTests\ToStringTests.cs" />
+    <Compile Include="MultilineTextTests\Constructor_InitializeLinesTests.cs" />
+    <Compile Include="MultilineTextTests\Constructor_RawTextTests.cs" />
+    <Compile Include="MultilineTextTests\GetLinesTest.cs" />
     <Compile Include="SizeTests\ConstructorTests.cs" />
+    <Compile Include="SizeTests\InflateWithNumberTests.cs" />
     <Compile Include="SizeTests\IsEmptyTests.cs" />
     <Compile Include="TabularData\BorderTemplateTests\GenerateBottomBorderTests.cs" />
     <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator1Tests.cs" />
@@ -99,20 +103,20 @@
     <Compile Include="TabularData\DataGridTests\BuildFromList\ColumnTests.cs" />
     <Compile Include="TabularData\DataGridTests\BuildFromList\RowTests.cs" />
     <Compile Include="TabularData\DataGridTests\BuildFromList\TitleTests.cs" />
-    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
-    <Compile Include="TabularData\MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
+    <Compile Include="MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
+    <Compile Include="MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
     <Compile Include="TabularData\RowTests.cs" />
     <Compile Include="TabularData\TableTests\HeaderAlignmentTests.cs" />
     <Compile Include="TabularData\TableTests\CellMultilineTests.cs" />
     <Compile Include="CustomAssert.cs" />
-    <Compile Include="TabularData\MultilineTextTests\ConstructorTests.cs" />
+    <Compile Include="MultilineTextTests\Constructor_EmptyTests.cs" />
     <Compile Include="TabularData\TableTests\CellAlignmentPerTableTests.cs" />
     <Compile Include="TabularData\TableTests\CellAlignmentPerColumnTests.cs" />
     <Compile Include="TabularData\TableTests\SpecialCaseBorder.LongTitle.Tests.cs" />
     <Compile Include="TabularData\TableTests\SpecialCaseBorder.ShortTitle.Tests.cs" />
     <Compile Include="TabularData\TableTests\NoBorderTests.cs" />
     <Compile Include="TabularData\TableTests\CellAlignmentTests.cs" />
-    <Compile Include="TabularData\MultilineTextTests\MultilineTextTests.cs" />
+    <Compile Include="MultilineTextTests\Constructor_InitializeSizeTests.cs" />
     <Compile Include="TabularData\TableTests\CustomBorderTests.cs" />
     <Compile Include="TabularData\TableTests\TablePaddingTests.cs" />
     <Compile Include="TabularData\TableTests\ConstructorTests.cs" />

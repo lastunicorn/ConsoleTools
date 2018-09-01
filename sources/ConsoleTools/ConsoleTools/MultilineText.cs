@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Represents a text on multiple lines.
     /// </summary>
-    public class MultilineText
+    public class MultilineText : IEnumerable<string>
     {
         /// <summary>
         /// Gets the text as a single line.
@@ -104,7 +105,7 @@ namespace DustInTheWind.ConsoleTools
                     {
                         if (text[i] == '\r')
                         {
-                            // A line is end.
+                            // A line is ended.
                             int lineWidth = i - startLineIndex;
                             lines.Add(text.Substring(startLineIndex, lineWidth));
                             if (lineWidth > width) width = lineWidth;
@@ -116,7 +117,7 @@ namespace DustInTheWind.ConsoleTools
                         {
                             if (i > startLineIndex || lastLineEndChar != LineEndChar.Cr)
                             {
-                                // A line is end.
+                                // A line is ended.
                                 int lineWidth = i - startLineIndex;
                                 lines.Add(text.Substring(startLineIndex, lineWidth));
                                 if (lineWidth > width) width = lineWidth;
@@ -144,6 +145,26 @@ namespace DustInTheWind.ConsoleTools
                     throw new ApplicationException("Error splitting the text in multiple lines.", ex);
                 }
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultilineText"/> class with
+        /// the list of lines.
+        /// </summary>
+        public MultilineText(IEnumerable<string> lines)
+        {
+            if (lines == null) throw new ArgumentNullException(nameof(lines));
+
+            List<string> linesAsList = lines.ToList();
+
+            RawText = string.Join(Environment.NewLine, linesAsList);
+            Lines = linesAsList.AsReadOnly();
+
+            int width = linesAsList.Count == 0
+                ? 0
+                : linesAsList.Max(x => x.Length);
+            int height = linesAsList.Count;
+            Size = new Size(width, height);
         }
 
         /// <summary>
@@ -175,23 +196,37 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultilineText"/> class with
-        /// the list of lines.
+        /// Enumerates the lines. If a line is greater than <see cref="maxWidth"/>,
+        /// the line is cut in chunks with the length of <see cref="maxWidth"/>.
         /// </summary>
-        public MultilineText(IEnumerable<string> lines)
+        /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetLines(int maxWidth = -1)
         {
-            if (lines == null) throw new ArgumentNullException(nameof(lines));
+            if (maxWidth < 0)
+            {
+                foreach (string line in Lines)
+                    yield return line;
 
-            List<string> linesAsList = lines.ToList();
+                yield break;
+            }
 
-            RawText = string.Join(Environment.NewLine, linesAsList);
-            Lines = linesAsList.AsReadOnly();
+            if (maxWidth == 0)
+                yield break;
 
-            int width = linesAsList.Count == 0
-                ? 0
-                : linesAsList.Max(x => x.Length);
-            int height = linesAsList.Count;
-            Size = new Size(width, height);
+            foreach (string line in Lines)
+            {
+                int index = 0;
+
+                while (index < line.Length)
+                {
+                    int chunkLength = Math.Min(maxWidth, line.Length - index);
+                    string chunk = line.Substring(index, chunkLength);
+                    yield return chunk;
+
+                    index += chunkLength;
+                }
+            }
         }
 
         /// <summary>
@@ -216,6 +251,16 @@ namespace DustInTheWind.ConsoleTools
             return RawText.GetHashCode();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<string> GetEnumerator()
+        {
+            return Lines.GetEnumerator();
+        }
+
         /// <summary>
         /// Returns a string representation of the current instance.
         /// </summary>
@@ -234,7 +279,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Converst a <see cref="MultilineText"/> instance into a simple <see cref="string"/>.
+        /// Converts a <see cref="MultilineText"/> instance into a simple <see cref="string"/>.
         /// </summary>
         /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
         public static implicit operator string(MultilineText multilineText)
@@ -242,19 +287,40 @@ namespace DustInTheWind.ConsoleTools
             return multilineText.ToString();
         }
 
+        /// <summary>
+        /// Converts a <see cref="List{T}"/> of <see cref="string"/> into a <see cref="MultilineText"/> instance.
+        /// </summary>
+        /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
         public static implicit operator MultilineText(List<string> lines)
         {
             return new MultilineText(lines);
         }
 
+        /// <summary>
+        /// Converts a <see cref="MultilineText"/> instance into a <see cref="List{T}"/> of <see cref="string"/>.
+        /// </summary>
+        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
+        public static implicit operator List<string>(MultilineText multilineText)
+        {
+            return multilineText.Lines.ToList();
+        }
+
+        /// <summary>
+        /// Converts a <see cref="string"/> array into a <see cref="MultilineText"/> instance.
+        /// </summary>
+        /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
         public static implicit operator MultilineText(string[] lines)
         {
             return new MultilineText(lines);
         }
 
-        public static implicit operator List<string>(MultilineText multilineText)
+        /// <summary>
+        /// Converts a <see cref="MultilineText"/> instance into an array of <see cref="string"/>.
+        /// </summary>
+        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
+        public static implicit operator string[] (MultilineText multilineText)
         {
-            return multilineText.Lines.ToList();
+            return multilineText.Lines.ToArray();
         }
     }
 }

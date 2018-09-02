@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class ValueView<T> : Control
+    public class ValueView<T> : BlockControl
     {
         /// <summary>
         /// Gets or sets a value that specifies if the control should read or write the <see cref="Value"/> property.

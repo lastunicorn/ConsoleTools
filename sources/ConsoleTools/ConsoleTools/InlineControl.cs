@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools
     /// Base class for a control displayed inline.
     /// It provides default functionality for margins (only left and right), colors, etc.
     /// </summary>
-    public abstract class InlineControl
+    public abstract class InlineControl : Control
     {
         /// <summary>
         /// Gets or sets the number of spaces to be written before the content (to the left).
@@ -42,40 +42,9 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
-        /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool ShowCursor { get; set; } = true;
-
-        /// <summary>
-        /// Event raised at the begining of the <see cref="Display"/> method, before doing anything else.
-        /// </summary>
-        public event EventHandler BeforeDisplay;
-
-        /// <summary>
-        /// Event raised at the very end of the <see cref="Display"/> method, before returning.
-        /// </summary>
-        public event EventHandler AfterDisplay;
-
-        /// <summary>
-        /// Displays the control in the console.
-        /// </summary>
-        public void Display()
-        {
-            OnBeforeDisplay();
-
-            if (ShowCursor)
-                DoDisplay();
-            else
-                CustomConsole.RunWithoutCursor(DoDisplay);
-
-            OnAfterDisplay();
-        }
-
-        /// <summary>
         /// Displays the margins and the content of the control.
         /// </summary>
-        protected virtual void DoDisplay()
+        protected override void DoDisplay()
         {
             if (MarginLeft > 0)
                 DisplayLeftMargin();
@@ -98,22 +67,10 @@ namespace DustInTheWind.ConsoleTools
             Console.Write(space);
         }
 
+        /// <summary>
+        /// When implemented in a derived class, it displays the content of the control.
+        /// This method is not responsible to display the margins.
+        /// </summary>
         protected abstract void DoDisplayContent();
-
-        /// <summary>
-        /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
-        /// </summary>
-        protected virtual void OnBeforeDisplay()
-        {
-            BeforeDisplay?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning.
-        /// </summary>
-        protected virtual void OnAfterDisplay()
-        {
-            AfterDisplay?.Invoke(this, EventArgs.Empty);
-        }
     }
 }

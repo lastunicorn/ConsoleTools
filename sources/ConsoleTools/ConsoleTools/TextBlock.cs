@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// This control displays a multiline text to the console.
     /// </summary>
-    public class TextBlock : Control
+    public class TextBlock : BlockControl
     {
         /// <summary>
         /// Gets or sets the text.

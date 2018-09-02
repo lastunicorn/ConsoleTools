@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// This control reads a yes/no answer from the console.
     /// </summary>
-    public class YesNoQuestion : Control
+    public class YesNoQuestion : BlockControl
     {
         private readonly Label labelControl = new Label
         {

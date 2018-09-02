@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// <summary>
     /// Reads or writes a list of values from/to the console.
     /// </summary>
-    public class ListView<T> : Control
+    public class ListView<T> : BlockControl
     {
         /// <summary>
         /// Gets or sets a value that specifies if the control should read or write the list represented by the <see cref="Values"/> property.

@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
     /// <summary>
     /// A control that renders a table with data into the console.
     /// </summary>
-    public class DataGrid : Control
+    public class DataGrid : BlockControl
     {
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the table.

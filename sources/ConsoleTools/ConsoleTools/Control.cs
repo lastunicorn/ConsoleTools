@@ -24,24 +24,10 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Provides base functionality for a control like top/bottom margin,
-    /// optionally hides cursor while displaying,
-    /// optionally ensures the display of the control on a new line.
+    /// Provides base functionality for a control.
     /// </summary>
     public abstract class Control
     {
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed before the pause text.
-        /// Default value: 0
-        /// </summary>
-        public int MarginTop { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
-        /// Default value: 0
-        /// </summary>
-        public int MarginBottom { get; set; }
-
         /// <summary>
         /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
         /// Default value: <c>true</c>
@@ -51,22 +37,12 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Event raised at the begining of the <see cref="Display"/> method, before doing anything else.
         /// </summary>
-        public event EventHandler BeforeDisplay;
+        public virtual event EventHandler BeforeDisplay;
 
         /// <summary>
         /// Event raised at the very end of the <see cref="Display"/> method, before returning.
         /// </summary>
-        public event EventHandler AfterDisplay;
-
-        /// <summary>
-        /// Event raised immediately before writting the top margin.
-        /// </summary>
-        public event EventHandler BeforeTopMargin;
-
-        /// <summary>
-        /// Event raised immediately after writting the bottom margin.
-        /// </summary>
-        public event EventHandler AfterBottomMargin;
+        public virtual event EventHandler AfterDisplay;
 
         /// <summary>
         /// Displays the control in the console.
@@ -74,8 +50,6 @@ namespace DustInTheWind.ConsoleTools
         public void Display()
         {
             OnBeforeDisplay();
-
-            MoveToNextLineIfNecessary();
 
             if (ShowCursor)
                 DoDisplay();
@@ -88,39 +62,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the margins and the content of the control.
         /// </summary>
-        protected virtual void DoDisplay()
-        {
-            WriteTopMargin();
-            DoDisplayContent();
-            WriteBottomMargin();
-        }
-
-        private void MoveToNextLineIfNecessary()
-        {
-            if (Console.CursorLeft != 0)
-                Console.WriteLine();
-        }
-
-        /// <summary>
-        /// When implemented by an inheritor it displays the content of the control to the console.
-        /// </summary>
-        protected abstract void DoDisplayContent();
-
-        private void WriteTopMargin()
-        {
-            OnBeforeTopMargin();
-
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
-        }
-
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
-
-            OnAfterBottomMargin();
-        }
+        protected abstract void DoDisplay();
 
         /// <summary>
         /// Method called at the begining of the <see cref="Display"/> method, before doing anything else.
@@ -136,22 +78,6 @@ namespace DustInTheWind.ConsoleTools
         protected virtual void OnAfterDisplay()
         {
             AfterDisplay?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Method called immediately before writting the top margin.
-        /// </summary>
-        protected virtual void OnBeforeTopMargin()
-        {
-            BeforeTopMargin?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Method called immediately after writting the bottom margin.
-        /// </summary>
-        protected virtual void OnAfterBottomMargin()
-        {
-            AfterBottomMargin?.Invoke(this, EventArgs.Empty);
         }
     }
 }

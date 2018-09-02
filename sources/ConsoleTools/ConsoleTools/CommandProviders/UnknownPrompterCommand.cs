@@ -21,22 +21,15 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
-    /// <summary>
-    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
-    /// </summary>
-    public interface IRepeatableSupport
+    internal class UnknownPrompterCommand : IPrompterCommand
     {
-        /// <summary>
-        /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-        /// The <see cref="ControlRepeater"/> must also end its display loop.
-        /// </summary>
-        event EventHandler Closed;
+        public bool IsActive { get; } = true;
 
-        /// <summary>
-        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
-        /// </summary>
-        void RequestClose();
+        public void Execute(CliCommand cliCommand)
+        {
+            CustomConsole.WriteLineError("Unknown command: " + cliCommand, ConsoleColor.DarkYellow);
+        }
     }
 }

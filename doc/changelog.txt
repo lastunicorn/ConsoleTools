@@ -5,17 +5,27 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 0.5.0
 ---------
+- BlockControl: Created a base class for all the block controls.
+- BlockControl: Added ForegroundColor and BackgroundColor properties.
+- InlineControl: Added ForegroundColor and BackgroundColor properties.
+- Control: EnsureBeginOfLine is removed. The control will always start from the next line if the current has text on it.
+- ErasableControl: The Size of the control is no longer needed in advance. It must be provided at the end of the DoDisplayContent method.
 - DataGrid: Build DataGrid from DataTable.
 - DataGrid: Build DataGrid from a list of objects.
 - TextBlock: Created the TextBlock control that displays a multiline text.
-- CustomConsole: Added the BuildHorizontalWindowLine method.
-- CustomConsole: Added the BuildHorizontalBufferLine method.
-- Control: EnsureBeginOfLine is removed. The control will always start from the next line if the current has text on it.
-- ErasableControl: The Size of the control is no longer needed in advance. It must be provided at the end of the DoDisplayContent method.
 - TextBlock: Added an optional title.
-- RepeaterControl: Created the RepeaterControl that can be used to repeatedly display the TextMenu, ScrollableMenu and the Prompter.
 - TextBlock: [bugfix] ForegroundColor and BackgroundColor properties were not working.
 - TextBlock: [bugfix] MarginLeft and MarginRight properties were not working.
+- CustomConsole: Added the BuildHorizontalWindowLine method.
+- CustomConsole: Added the BuildHorizontalBufferLine method.
+- RepeaterControl: Created the RepeaterControl that can be used to repeatedly display the TextMenu, ScrollableMenu and the Prompter.
+- InlineTextBlock: Added a format property to be applied on the text.
+- TextMenu: Implements IRepeatableSupport.
+- ScrollableMenu: Implements IRepeatableSupport.
+- Prompter: Implements IRepeatableSupport.
+- Prompter: Added a list of items that contains information for cli command that the prompter can automatically handle.
+- ICommandProvider: Removed.
+- TextMenuCommandProvider: Removed.
 
 ver 0.4.0
 ---------

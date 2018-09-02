@@ -29,14 +29,14 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
     public class NewCommandEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets the new <see cref="CliCommand"/> object.
+        /// Gets the new <see cref="CliCommand"/> instance.
         /// </summary>
         public CliCommand Command { get; }
 
         /// <summary>
-        /// Gets or sets a value that specifies if the <see cref="ICommandProvider"/> must be stopped after the current command.
+        /// Gets or sets a value that specifies if the command was already handled.
         /// </summary>
-        public bool Exit { get; set; }
+        public bool IsHandled { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewCommandEventArgs"/> class.

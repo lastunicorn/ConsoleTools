@@ -34,16 +34,9 @@ namespace DustInTheWind.ConsoleTools
         public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
+        /// Gets or sets a format string for the <see cref="Text"/> value.
         /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
+        public string TextFormat { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InlineTextBlock"/> class.
@@ -82,23 +75,46 @@ namespace DustInTheWind.ConsoleTools
             BackgroundColor = backgroundColor;
         }
 
+        /// <summary>
+        /// Displays the <see cref="Text"/> value.
+        /// </summary>
         protected override void DoDisplayContent()
         {
-            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(Text);
-            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, Text);
-            else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, Text);
-            else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, Text);
+            if (Text == null)
+                return;
+
+            string formattedText = TextFormat == null
+                ? Text
+                : string.Format(TextFormat, Text);
+
+            WriteText(formattedText);
         }
 
+        public int CalculateOuterLength()
+        {
+            int length = MarginLeft;
+
+            if (Text != null)
+                length += Text.Length;
+
+            length += MarginRight;
+
+            return length;
+        }
+
+        /// <summary>
+        /// Converts a simple string into a <see cref="InlineTextBlock"/> object containing that string.
+        /// </summary>
+        /// <param name="text">The text to be converted.</param>
         public static implicit operator InlineTextBlock(string text)
         {
             return new InlineTextBlock(text);
         }
 
+        /// <summary>
+        /// Converts a <see cref="InlineTextBlock"/> object int a string by returning its text.
+        /// </summary>
+        /// <param name="inlineTextBlock">The <see cref="InlineTextBlock"/> object to be converted.</param>
         public static implicit operator string(InlineTextBlock inlineTextBlock)
         {
             return inlineTextBlock.Text;

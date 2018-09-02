@@ -21,22 +21,24 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
+    /// Provides data for UnhandledCommand event.
     /// </summary>
-    public interface IRepeatableSupport
+    public class UnhandledCommandEventArgs : EventArgs
     {
         /// <summary>
-        /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-        /// The <see cref="ControlRepeater"/> must also end its display loop.
+        /// Gets the unhandled <see cref="CliCommand"/> instance.
         /// </summary>
-        event EventHandler Closed;
+        public CliCommand Command { get; }
 
         /// <summary>
-        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// Initializes a new instance of the <see cref="UnhandledCommandEventArgs"/> class.
         /// </summary>
-        void RequestClose();
+        public UnhandledCommandEventArgs(CliCommand command)
+        {
+            Command = command;
+        }
     }
 }

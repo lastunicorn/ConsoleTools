@@ -196,8 +196,8 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Enumerates the lines. If a line is greater than <see cref="maxWidth"/>,
-        /// the line is cut in chunks with the length of <see cref="maxWidth"/>.
+        /// Enumerates the lines. If a line is greater than <see cref="P:maxWidth"/>,
+        /// the line is cut in chunks with the length of <see cref="P:maxWidth"/>.
         /// </summary>
         /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
         /// <returns></returns>
@@ -256,6 +256,9 @@ namespace DustInTheWind.ConsoleTools
             return GetEnumerator();
         }
 
+        /// <summary>
+        /// Returns an enumerator that enumerates through the lines.
+        /// </summary>
         public IEnumerator<string> GetEnumerator()
         {
             return Lines.GetEnumerator();

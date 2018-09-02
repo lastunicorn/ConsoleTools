@@ -42,6 +42,18 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
+        /// Gets or sets the foreground color used to write the text.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color used to write the text.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
         /// Displays the margins and the content of the control.
         /// </summary>
         protected override void DoDisplay()
@@ -72,5 +84,22 @@ namespace DustInTheWind.ConsoleTools
         /// This method is not responsible to display the margins.
         /// </summary>
         protected abstract void DoDisplayContent();
+
+        /// <summary>
+        /// Helper method that writes the specified text to the console using the
+        /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
+        /// </summary>
+        /// <param name="text">The text to be written to the console.</param>
+        protected void WriteText(string text)
+        {
+            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
+                CustomConsole.Write(text);
+            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
+                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
+            else if (ForegroundColor.HasValue)
+                CustomConsole.Write(ForegroundColor.Value, text);
+            else
+                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
+        }
     }
 }

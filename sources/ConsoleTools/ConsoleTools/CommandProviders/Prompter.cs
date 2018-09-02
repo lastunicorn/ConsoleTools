@@ -20,16 +20,28 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Reads commands from the console.
+    /// Provides a way for the user to type a command at the console.
     /// </summary>
     public class Prompter : BlockControl, IRepeatableSupport
     {
         private bool closeWasRequested;
 
+        /// <summary>
+        /// Gets the list of items contained by the current instance.
+        /// </summary>
+        private readonly List<PrompterItem> prompterItems = new List<PrompterItem>();
+
+        public IPrompterCommand UnhandledItemCommand { get; set; } = new UnknownPrompterCommand();
+
+        /// <summary>
+        /// Gets the last command read from the console.
+        /// </summary>
         public CliCommand LastCommand { get; private set; }
 
         /// <summary>
@@ -58,15 +70,15 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         public event EventHandler<NewCommandEventArgs> NewCommand;
 
         /// <summary>
-        /// Raises the <see cref="NewCommand"/> event.
+        /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
+        /// The <see cref="ControlRepeater"/> must also end its display loop.
         /// </summary>
-        /// <param name="e">An <see cref="NewCommandEventArgs"/> that contains the event data.</param>
-        public void OnNewCommand(NewCommandEventArgs e)
-        {
-            NewCommand?.Invoke(null, e);
-        }
+        public event EventHandler Closed;
 
-        public event EventHandler CloseNeeded;
+        /// <summary>
+        /// Event raised when a command was not handled.
+        /// </summary>
+        public event EventHandler<UnhandledCommandEventArgs> UnhandledCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Prompter"/> class.
@@ -77,6 +89,36 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             MarginBottom = 1;
         }
 
+        /// <summary>
+        /// Adds a new item to the current instance.
+        /// </summary>
+        /// <param name="prompterItem">The item to be added to the current instance.</param>
+        public void AddItem(PrompterItem prompterItem)
+        {
+            if (prompterItem == null) throw new ArgumentNullException(nameof(prompterItem));
+
+            prompterItems.Add(prompterItem);
+        }
+
+        /// <summary>
+        /// Adds a list of items to the current instance.
+        /// </summary>
+        /// <param name="prompterItems">The list of items to be added to the current instance.</param>
+        public void AddItems(IEnumerable<PrompterItem> prompterItems)
+        {
+            if (prompterItems == null) throw new ArgumentNullException(nameof(prompterItems));
+
+            bool existsNullItems = prompterItems.Any(x => x == null);
+
+            if (existsNullItems)
+                throw new ArgumentException("Null items are not accepted.", nameof(prompterItems));
+
+            this.prompterItems.AddRange(prompterItems.Where(x => x != null));
+        }
+
+        /// <summary>
+        /// Erases all the information of the previous display.
+        /// </summary>
         protected override void OnBeforeDisplay()
         {
             LastCommand = null;
@@ -85,15 +127,18 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             base.OnBeforeDisplay();
         }
 
+        /// <summary>
+        /// Displays the menu and waits for the user to choose an item.
+        /// This method blocks until the user chooses an item.
+        /// </summary>
         protected override void DoDisplayContent()
         {
-            while (!closeWasRequested)
+            bool success = false;
+
+            while (!success && !closeWasRequested)
             {
                 DisplayPrompterText();
-                LastCommand = ReadUserInput();
-
-                if (LastCommand != null)
-                    return;
+                success = ReadUserInput();
             }
         }
 
@@ -128,55 +173,111 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             }
         }
 
-        private CliCommand ReadUserInput()
+        private bool ReadUserInput()
         {
             string commandText = Console.ReadLine();
 
             if (commandText == null)
             {
-                OnCloseNeeded();
-                return null;
+                RequestClose();
+                return false;
             }
 
             if (commandText.Length == 0)
-                return null;
+                return false;
 
             CliCommand newCommand = CliCommand.Parse(commandText);
 
-            return newCommand.IsEmpty
-                ? null
-                : newCommand;
+            if (newCommand.IsEmpty)
+                return false;
+
+            LastCommand = newCommand;
+
+            return true;
         }
 
         protected override void OnAfterDisplay()
         {
-            if (LastCommand == null)
-                return;
+            base.OnAfterDisplay();
+
+            if (LastCommand != null)
+            {
+                bool isHandled = AnnounceNewCommand();
+
+                if (!isHandled)
+                    isHandled = ExecuteAssociatedItem();
+
+                if (!isHandled)
+                    AnnounceUnhandledCommand();
+            }
+        }
+
+        private bool AnnounceNewCommand()
+        {
+            NewCommandEventArgs eventArgs = new NewCommandEventArgs(LastCommand);
 
             try
             {
-                NewCommandEventArgs eventArgs = new NewCommandEventArgs(LastCommand);
                 OnNewCommand(eventArgs);
-
-                if (eventArgs.Exit)
-                    OnCloseNeeded();
             }
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
             }
 
-            base.OnAfterDisplay();
+            return eventArgs.IsHandled;
         }
 
+        private bool ExecuteAssociatedItem()
+        {
+            PrompterItem prompterItem = prompterItems.FirstOrDefault(x => x.Name == LastCommand.Name);
+
+            if (prompterItem == null)
+                return false;
+
+            prompterItem.Execute(LastCommand);
+            return true;
+        }
+
+        private void AnnounceUnhandledCommand()
+        {
+            UnhandledCommandEventArgs eventArgs = new UnhandledCommandEventArgs(LastCommand);
+            OnUnhandledCommand(eventArgs);
+        }
+
+        /// <summary>
+        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// </summary>
         public void RequestClose()
         {
             closeWasRequested = true;
+            OnClosed();
         }
 
-        protected virtual void OnCloseNeeded()
+        /// <summary>
+        /// Raises the <see cref="NewCommand"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="NewCommandEventArgs"/> that contains the event data.</param>
+        protected virtual void OnNewCommand(NewCommandEventArgs e)
         {
-            CloseNeeded?.Invoke(this, EventArgs.Empty);
+            NewCommand?.Invoke(null, e);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="Closed"/> event.
+        /// </summary>
+        protected virtual void OnClosed()
+        {
+            Closed?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="UnhandledCommand"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="UnhandledCommandEventArgs"/> that contains the event data.</param>
+        protected virtual void OnUnhandledCommand(UnhandledCommandEventArgs e)
+        {
+            UnhandledCommand?.Invoke(this, e);
         }
     }
 }

@@ -98,12 +98,9 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Selects the current instance and executes the associated <see cref="Command"/>.
         /// </summary>
-        /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
-        public bool Select()
+        public void Execute()
         {
             Command?.Execute();
-
-            return true;
         }
     }
 }

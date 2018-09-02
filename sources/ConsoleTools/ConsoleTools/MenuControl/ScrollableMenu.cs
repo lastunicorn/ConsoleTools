@@ -33,11 +33,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
     public class ScrollableMenu : ErasableControl, IRepeatableSupport
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
-
         private readonly MenuItemCollection menuItems = new MenuItemCollection();
-
         private bool closeWasRequested;
-
         private Location menuLocation;
 
         /// <summary>
@@ -90,7 +87,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             set { menuItems.AllowWrapAround = value; }
         }
 
-        public event EventHandler CloseNeeded;
+        /// <summary>
+        /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
+        /// The <see cref="ControlRepeater"/> must also end its display loop.
+        /// </summary>
+        public event EventHandler Closed;
 
         /// <inheritdoc />
         /// <summary>
@@ -123,6 +124,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             }
         }
 
+        /// <summary>
+        /// Adds a new item to the current instance.
+        /// </summary>
+        /// <param name="menuItem">The item to be added to the current instance.</param>
         public void AddItem(IMenuItem menuItem)
         {
             if (menuItem == null) throw new ArgumentNullException(nameof(menuItem));
@@ -131,21 +136,36 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             menuItems.Add(menuItem);
         }
 
+        /// <summary>
+        /// Adds a list of items to the current instance.
+        /// </summary>
+        /// <param name="menuItems">The list of items to be added to the current instance.</param>
         public void AddItems(IEnumerable<IMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
-            foreach (IMenuItem menuItem in menuItems.Where(x => x != null))
+            bool existsNullItems = menuItems.Any(x => x == null);
+
+            if (existsNullItems)
+                throw new ArgumentException("Null items are not accepted.", nameof(menuItems));
+
+            foreach (IMenuItem menuItem in menuItems)
             {
                 menuItem.ParentMenu = this;
                 this.menuItems.Add(menuItem);
             }
         }
 
+        /// <summary>
+        /// Erases oll the information of the previous display.
+        /// Calculates the inner size (without the margins) of the control.
+        /// </summary>
         protected override void OnBeforeDisplay()
         {
             if (menuItems.SelectableItemsCount == 0)
                 throw new ApplicationException("There are no menu items to be displayed.");
+
+            closeWasRequested = false;
 
             InnerSize = CalculateControlSize();
 
@@ -334,14 +354,20 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return true;
         }
 
+        /// <summary>
+        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// </summary>
         public void RequestClose()
         {
             closeWasRequested = true;
         }
 
-        protected virtual void OnCloseNeeded()
+        /// <summary>
+        /// Raises the <see cref="Closed"/> event.
+        /// </summary>
+        protected virtual void OnClosed()
         {
-            CloseNeeded?.Invoke(this, EventArgs.Empty);
+            Closed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

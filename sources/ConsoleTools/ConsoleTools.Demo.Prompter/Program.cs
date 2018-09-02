@@ -14,21 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.CommandProviders;
-using DustInTheWind.ConsoleTools.Demo.Prompter.Controllers;
-
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
     internal class Program
     {
-        private static CommandProviders.Prompter prompter;
-        private static ControlRepeater repeaterControl;
+        private static ControlRepeater prompterRepeater;
 
         private static void Main()
         {
             DisplayApplicationHeader();
             StartDemo();
+            DisplayGoodby();
         }
 
         private static void DisplayApplicationHeader()
@@ -44,52 +40,28 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
 
         private static void StartDemo()
         {
-            prompter = new CommandProviders.Prompter();
-            prompter.NewCommand += HandleNewCommand;
-
-            repeaterControl = new ControlRepeater
+            prompterRepeater = new ControlRepeater
             {
-                Control = prompter
+                Control = new DemoPrompter()
             };
 
-            repeaterControl.Display();
+            prompterRepeater.Display();
         }
 
-        private static void HandleNewCommand(object sender, NewCommandEventArgs e)
+        private static void DisplayGoodby()
         {
-            try
+            TextBlock goodbyText = new TextBlock
             {
-                IController controller = CreateController(e.Command);
-                controller.Execute(e.Command.Parameters);
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteError(ex);
-            }
+                Text = "Bye!",
+                ForegroundColor = CustomConsole.EmphasiesColor,
+                MarginTop = 1
+            };
+            goodbyText.Display();
         }
 
-        private static IController CreateController(CliCommand command)
+        public static void RequestClose()
         {
-            switch (command.Name)
-            {
-                case "q":
-                case "quit":
-                case "exit":
-                    return new ExitController(repeaterControl);
-
-                case "help":
-                    return new HelpController();
-
-                case "whale":
-                case "whales":
-                    return new WhaleController();
-
-                case "prompter":
-                    return new PrompterController(prompter);
-
-                default:
-                    return new UnknownCommandController(command);
-            }
+            prompterRepeater.RequestClose();
         }
     }
 }

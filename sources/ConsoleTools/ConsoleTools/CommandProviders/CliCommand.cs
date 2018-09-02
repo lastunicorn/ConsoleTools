@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Gets the list of parameters associated with the current command.
         /// </summary>
-        public ReadOnlyCollection<UserCommandParameter> Parameters { get; }
+        public ReadOnlyCollection<CliParameter> Parameters { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CliCommand"/> class with
@@ -49,20 +49,18 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <param name="parameters">The list of parameters associated with the command.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public CliCommand(string name, IEnumerable<UserCommandParameter> parameters)
+        public CliCommand(string name, IEnumerable<CliParameter> parameters)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
 
             if (parameters == null)
             {
-                Parameters = new List<UserCommandParameter>(0).AsReadOnly();
+                Parameters = new List<CliParameter>(0).AsReadOnly();
             }
             else
             {
                 if (parameters.Any(x => x == null))
-                    throw new ArgumentException("The parameters can not be null.", nameof(parameters));
+                    throw new ArgumentException("The parameters cannot be null.", nameof(parameters));
 
                 Parameters = parameters.ToList().AsReadOnly();
             }
@@ -71,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
         /// <summary>
         /// Represents an empty command. Command name is empty string and contains no parameters.
         /// </summary>
-        public static CliCommand Empty { get; } = new CliCommand(string.Empty, new UserCommandParameter[0]);
+        public static CliCommand Empty { get; } = new CliCommand(string.Empty, new CliParameter[0]);
 
         /// <summary>
         /// Gets a value that specify if the current command has no name and no parameters.
@@ -94,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
 
             string[] commandChunks = commandText.ToLower().Split(' ');
 
-            UserCommandParameter[] parameters;
+            CliParameter[] parameters;
 
             string commandName = commandChunks.Length > 0
                 ? commandChunks[0]
@@ -102,15 +100,15 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
 
             if (commandChunks.Length > 1)
             {
-                parameters = new UserCommandParameter[commandChunks.Length - 1];
+                parameters = new CliParameter[commandChunks.Length - 1];
 
                 for (int i = 1; i < commandChunks.Length; i++)
                 {
-                    string[] paramChunks = commandChunks[i].Split(' ');
+                    string[] paramChunks = commandChunks[i].Split(':');
                     string paramName = paramChunks.Length > 0 ? paramChunks[0] : string.Empty;
                     string paramValue = paramChunks.Length > 1 ? paramChunks[1] : string.Empty;
 
-                    parameters[i - 1] = new UserCommandParameter
+                    parameters[i - 1] = new CliParameter
                     {
                         Name = paramName,
                         Value = paramValue
@@ -119,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.CommandProviders
             }
             else
             {
-                parameters = new UserCommandParameter[0];
+                parameters = new CliParameter[0];
             }
 
             return new CliCommand(commandName, parameters);

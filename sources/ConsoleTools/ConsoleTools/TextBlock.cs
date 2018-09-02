@@ -47,18 +47,6 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
         /// Gets or sets the maximum width allowed including the margins.
         /// Negative value means the limit is the console's width.
         /// </summary>
@@ -117,24 +105,12 @@ namespace DustInTheWind.ConsoleTools
             foreach (string chunk in chunks)
             {
                 Console.Write(marginLeftText);
-                WriteTextWithColors(chunk);
+                WriteText(chunk);
                 Console.Write(marginRightText);
 
                 if (!isBlockEqualToConsoleWidth)
                     Console.WriteLine();
             }
-        }
-
-        private void WriteTextWithColors(string text)
-        {
-            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(text);
-            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
-            else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, text);
-            else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
         }
 
         /// <summary>

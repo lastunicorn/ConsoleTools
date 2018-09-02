@@ -19,24 +19,29 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
+    /// Represents a parameter for the <see cref="CliCommand"/> class.
     /// </summary>
-    public interface IRepeatableSupport
+    public class CliParameter
     {
         /// <summary>
-        /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-        /// The <see cref="ControlRepeater"/> must also end its display loop.
+        /// Gets or sets the name of the parameter.
         /// </summary>
-        event EventHandler Closed;
+        public string Name { get; set; }
 
         /// <summary>
-        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// Gets or sets the value of the parameter.
         /// </summary>
-        void RequestClose();
+        public string Value { get; set; }
+
+        /// <summary>
+        /// Returns the string representation of the current <see cref="CliParameter"/> instance.
+        /// </summary>
+        public override string ToString()
+        {
+            return Name + "=" + Value;
+        }
     }
 }

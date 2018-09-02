@@ -40,6 +40,8 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
 
+        private TextMenuItem selectedItem;
+
         /// <summary>
         /// Gets or sets the title to be displayed at the top of the control, before the list of items.
         /// </summary>
@@ -48,19 +50,13 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets or sets the text displayed after the menu to ask the user to choose an item.
         /// </summary>
-        public string QuestionText { get; set; } = TextMenuResources.QuestionText;
-
-        /// <summary>
-        /// Gets or sets the separator text displayed after the question.
-        /// Default value ":"
-        /// </summary>
-        public string Separator { get; set; } = ":";
-
-        /// <summary>
-        /// Gets or sets the number of spaces displayed after the question, before the user writes his choice.
-        /// Default value: 1
-        /// </summary>
-        public int SpaceAfterQuestion { get; set; } = 1;
+        public InlineTextBlock QuestionText { get; set; } = new InlineTextBlock
+        {
+            Text = TextMenuResources.QuestionText,
+            TextFormat = "{0}:",
+            ForegroundColor = CustomConsole.EmphasiesColor,
+            MarginRight = 1
+        };
 
         /// <summary>
         /// Gets or sets the text displayed when the user chooses an inexistent option.
@@ -75,7 +71,20 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets the item that was selected by the user.
         /// </summary>
-        public TextMenuItem SelectedItem { get; private set; }
+        public TextMenuItem SelectedItem
+        {
+            get => selectedItem;
+            private set
+            {
+                selectedItem = value;
+
+                SelectedIndex = menuItems.IndexOf(selectedItem);
+
+                SelectedVisibleIndex = menuItems
+                    .Take(SelectedIndex.Value)
+                    .Count(x => x.IsVisible);
+            }
+        }
 
         /// <summary>
         /// Gets the index of the selected menu item.
@@ -88,7 +97,11 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         public int? SelectedIndex { get; private set; }
 
-        public event EventHandler CloseNeeded;
+        /// <summary>
+        /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
+        /// The <see cref="ControlRepeater"/> must also end its display loop.
+        /// </summary>
+        public event EventHandler Closed;
 
         /// <summary>
         /// Initialize a new instace of the <see cref="TextMenu"/> calss.
@@ -109,6 +122,10 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             this.menuItems.AddRange(menuItems.Where(x => x != null));
         }
 
+        /// <summary>
+        /// Adds a new item to the current instance.
+        /// </summary>
+        /// <param name="menuItem">The item to be added to the current instance.</param>
         public void AddItem(TextMenuItem menuItem)
         {
             if (menuItem == null) throw new ArgumentNullException(nameof(menuItem));
@@ -116,30 +133,36 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             menuItems.Add(menuItem);
         }
 
+        /// <summary>
+        /// Adds a list of items to the current instance.
+        /// </summary>
+        /// <param name="menuItems">The list of items to be added to the current instance.</param>
         public void AddItems(IEnumerable<TextMenuItem> menuItems)
         {
             if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
 
-            this.menuItems.AddRange(menuItems.Where(x => x != null));
+            bool existsNullItems = menuItems.Any(x => x == null);
+
+            if (existsNullItems)
+                throw new ArgumentException("Null items are not accepted.", nameof(menuItems));
+
+            this.menuItems.AddRange(menuItems);
         }
 
         /// <summary>
-        /// Erases oll the information of the previous display.
+        /// Erases all the information of the previous display.
         /// </summary>
         protected override void OnBeforeDisplay()
         {
-            Reset();
+            bool existsItems = menuItems.Any(x => x.IsVisible);
+            if (!existsItems)
+                throw new ApplicationException("There are no menu items to be displayed.");
+
+            SelectedItem = null;
+            closeWasRequested = false;
+            InnerSize = Size.Empty;
 
             base.OnBeforeDisplay();
-        }
-
-        private void Reset()
-        {
-            SelectedIndex = null;
-            SelectedVisibleIndex = null;
-            SelectedItem = null;
-
-            InnerSize = Size.Empty;
         }
 
         /// <summary>
@@ -148,41 +171,33 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// </summary>
         protected override void DoDisplayContent()
         {
-            DrawTitle();
+            if (Title != null)
+                DrawTitle();
+
             DrawMenu();
             ReadUserSelection();
         }
 
         private void DrawTitle()
         {
-            if (Title != null)
-            {
-                Title.Display();
+            Title.Display();
 
-                Size titleSize = Title.CalculateOuterSize();
-                InnerSize = InnerSize.InflateHeight(titleSize.Height);
-            }
+            Size titleSize = Title.CalculateOuterSize();
+            InnerSize = InnerSize.InflateHeight(titleSize.Height);
         }
 
         private void DrawMenu()
         {
             IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
-                .Where(x => x != null && x.IsVisible);
-
-            bool existsItems = false;
+                .Where(x => x.IsVisible);
 
             foreach (TextMenuItem menuItem in menuItemsToDisplay)
             {
-                existsItems = true;
-
                 menuItem.Display();
                 CustomConsole.WriteLine();
 
                 InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
             }
-
-            if (!existsItems)
-                throw new ApplicationException("There are no menu items to be displayed.");
         }
 
         private void ReadUserSelection()
@@ -198,7 +213,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
                 if (inputValue == null)
                 {
-                    OnCloseNeeded();
+                    OnClosed();
                     return;
                 }
 
@@ -221,13 +236,22 @@ namespace DustInTheWind.ConsoleTools.MenuControl
                 }
 
                 SelectedItem = selectedMenuItem;
-                SelectedIndex = menuItems.IndexOf(selectedMenuItem);
-                SelectedVisibleIndex = menuItems
-                    .Take(SelectedIndex.Value)
-                    .Count(x => x != null && x.IsVisible);
 
                 return;
             }
+        }
+
+        private void DisplayQuestion()
+        {
+            if (QuestionText == null)
+                return;
+
+            QuestionText.Display();
+
+            int textLength = QuestionText.CalculateOuterLength();
+
+            int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
+            InnerSize = InnerSize.InflateHeight(questionHeight);
         }
 
         private void DisplayInvalidOptionWarning()
@@ -246,28 +270,6 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             InnerSize = InnerSize.InflateHeight(2);
         }
 
-        private void DisplayQuestion()
-        {
-            int textLength = 0;
-
-            CustomConsole.WriteEmphasies(QuestionText);
-            textLength += QuestionText?.Length ?? 0;
-
-            CustomConsole.WriteEmphasies(Separator);
-            textLength += Separator?.Length ?? 0;
-
-            if (SpaceAfterQuestion > 0)
-            {
-                string space = new string(' ', SpaceAfterQuestion);
-                Console.Write(space);
-
-                textLength += space.Length;
-            }
-
-            int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
-            InnerSize = InnerSize.InflateHeight(questionHeight);
-        }
-
         /// <summary>
         /// Executes the selected item.
         /// </summary>
@@ -275,7 +277,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         {
             base.OnAfterDisplay();
 
-            SelectedItem?.Select();
+            SelectedItem?.Execute();
         }
 
         /// <summary>
@@ -289,14 +291,20 @@ namespace DustInTheWind.ConsoleTools.MenuControl
             return textMenu.SelectedItem;
         }
 
+        /// <summary>
+        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// </summary>
         public void RequestClose()
         {
             closeWasRequested = true;
         }
 
-        protected virtual void OnCloseNeeded()
+        /// <summary>
+        /// Raises the <see cref="Closed"/> event.
+        /// </summary>
+        protected virtual void OnClosed()
         {
-            CloseNeeded?.Invoke(this, EventArgs.Empty);
+            Closed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

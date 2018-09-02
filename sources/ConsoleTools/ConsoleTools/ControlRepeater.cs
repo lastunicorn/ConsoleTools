@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools
             set
             {
                 if (control is IRepeatableSupport repeatableControl1)
-                    repeatableControl1.CloseNeeded -= HandleControlCloseNeeded;
+                    repeatableControl1.Closed -= HandleControlClosed;
 
                 if (isRunning)
                     throw new Exception("The control cannot be changed while the Display method is running.");
@@ -50,11 +50,11 @@ namespace DustInTheWind.ConsoleTools
                 control = value;
 
                 if (control is IRepeatableSupport repeatableControl2)
-                    repeatableControl2.CloseNeeded += HandleControlCloseNeeded;
+                    repeatableControl2.Closed += HandleControlClosed;
             }
         }
 
-        private void HandleControlCloseNeeded(object sender, EventArgs e)
+        private void HandleControlClosed(object sender, EventArgs e)
         {
             closeWasRequested = true;
         }

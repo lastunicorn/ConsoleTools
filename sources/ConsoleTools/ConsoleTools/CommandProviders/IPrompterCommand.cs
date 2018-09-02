@@ -19,24 +19,21 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.CommandProviders
 {
     /// <summary>
-    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
+    /// A command class used by the <see cref="Prompter"/>.
     /// </summary>
-    public interface IRepeatableSupport
+    public interface IPrompterCommand
     {
         /// <summary>
-        /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-        /// The <see cref="ControlRepeater"/> must also end its display loop.
+        /// Gets a value that specifies if the current instance can be executed.
         /// </summary>
-        event EventHandler Closed;
+        bool IsActive { get; }
 
         /// <summary>
-        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+        /// Executes the current instance.
         /// </summary>
-        void RequestClose();
+        void Execute(CliCommand cliCommand);
     }
 }

@@ -56,9 +56,12 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="CommandProviders\IPrompterCommand.cs" />
+    <Compile Include="CommandProviders\PrompterItem.cs" />
+    <Compile Include="CommandProviders\UnhandledCommandEventArgs.cs" />
+    <Compile Include="CommandProviders\UnknownPrompterCommand.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="IRepeatableSupport.cs" />
-    <Compile Include="CommandProviders\TextMenuCommandProvider.cs" />
     <Compile Include="CustomConsole.HorizontalLines.cs" />
     <Compile Include="InlineControl.cs" />
     <Compile Include="InputControls\DoubleListView.cs" />
@@ -100,7 +103,6 @@
     </Compile>
     <Compile Include="InputControls\YesNoAnswer.cs" />
     <Compile Include="InputControls\YesNoQuestion.cs" />
-    <Compile Include="CommandProviders\ICommandProvider.cs" />
     <Compile Include="InputControls\YesNoQuestionResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -154,7 +156,7 @@
     <Compile Include="TabularData\RenderingModel\HeaderTopBorder.cs" />
     <Compile Include="TabularData\Printers\StreamTablePrinter.cs" />
     <Compile Include="TabularData\RenderingModel\DataGridXBuilder.cs" />
-    <Compile Include="CommandProviders\UserCommandParameter.cs" />
+    <Compile Include="CommandProviders\CliParameter.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="CustomConsole.WriteAligned.DefaultColors.cs" />
     <Compile Include="Guard\MachineLevelGuardian.cs" />

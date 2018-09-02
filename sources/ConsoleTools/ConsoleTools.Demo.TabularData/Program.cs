@@ -26,8 +26,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             {
                 DisplayApplicationHeader();
 
-                Demo demo = new Demo();
-                demo.Run();
+                DemoApplication demoApplication = new DemoApplication();
+                demoApplication.Run();
             }
             catch (Exception ex)
             {

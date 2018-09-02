@@ -14,50 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.TabularData.Commands;
 using DustInTheWind.ConsoleTools.MenuControl;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {
-    internal class Demo
+    internal class MainMenu : TextMenu
     {
-        private readonly TextMenu menu;
-        private volatile bool exitWasRequested;
-
-        public Demo()
+        public MainMenu(DemoApplication demoApplication)
         {
-            menu = CreateMenu();
+            if (demoApplication == null) throw new ArgumentNullException(nameof(demoApplication));
+
+            MarginTop = 1;
+            MarginBottom = 1;
+            QuestionText = "Make your choice";
+
+            IEnumerable<TextMenuItem> menuItems = CreateMenuItems(demoApplication);
+            AddItems(menuItems);
         }
 
-        public void Run()
-        {
-            exitWasRequested = false;
-            DisplayMenu();
-        }
-
-        private void DisplayMenu()
-        {
-            while (!exitWasRequested)
-            {
-                CustomConsole.WriteLine(new string('-', 79));
-                CustomConsole.WriteLine();
-
-                menu.Display();
-            }
-        }
-
-        private TextMenu CreateMenu()
-        {
-            IEnumerable<TextMenuItem> menuItems = CreateMenuItems();
-
-            return new TextMenu(menuItems)
-            {
-                QuestionText = "Make your choice"
-            };
-        }
-
-        private IEnumerable<TextMenuItem> CreateMenuItems()
+        private static IEnumerable<TextMenuItem> CreateMenuItems(DemoApplication demoApplication)
         {
             return new[] {
                 new TextMenuItem
@@ -112,14 +90,16 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
                 {
                     Id = "0",
                     Text = "Exit",
-                    Command = new ExitDemoCommand(this)
+                    Command = new ExitDemoCommand(demoApplication)
                 }
             };
         }
 
-        public void RequestExit()
+        protected override void OnBeforeDisplay()
         {
-            exitWasRequested = true;
+            CustomConsole.WriteLine(new string('-', 79));
+
+            base.OnBeforeDisplay();
         }
     }
 }

@@ -19,53 +19,28 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System.Collections.Generic;
 using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
-using DustIntheWind.ConsoleTools.Tutorial.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools;
 
 namespace DustIntheWind.ConsoleTools.Tutorial
 {
     internal class AddressBookApplication
     {
         private readonly AddressBook addressBook = new AddressBook();
-        private ScrollableMenu menu;
+        private ControlRepeater menuRepeater;
 
         public void Run()
         {
-            List<IMenuItem> menuItems = new List<IMenuItem>
+            menuRepeater = new ControlRepeater
             {
-                new LabelMenuItem
-                {
-                    Text = "Add Person",
-                    Command = new AddPersonCommand(addressBook)
-                },
-                new LabelMenuItem
-                {
-                    Text = "Display Persons",
-                    Command = new DisplayPersonsCommand(addressBook)
-                },
-                new LabelMenuItem
-                {
-                    Text = "Display Person Details",
-                    Command = new DisplayPersonDetailsCommand(addressBook)
-                },
-                new SeparatorMenuItem(),
-                new LabelMenuItem
-                {
-                    Text = "Exit",
-                    Command = new ExitCommand(this)
-                }
+                Control = new MainMenu(this, addressBook)
             };
-
-            menu = new ScrollableMenu(menuItems);
-            menu.Display();
+            menuRepeater.Display();
         }
 
         public void RequestExit()
         {
-            menu.RequestClose();
+            menuRepeater.RequestClose();
         }
     }
 }

@@ -31,9 +31,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
 
             // or
 
-            //ValueWrite<string>.QuickDisplay("First Name:", "John");
-            //ValueWrite<string>.QuickDisplay("Last Name:", "Doe");
-            //ValueWrite<int>.QuickDisplay("Age:", 25);
+            ValueView<string>.QuickWrite("First Name:", "John");
+            ValueView<string>.QuickWrite("Last Name:", "Doe");
+            ValueView<int>.QuickWrite("Age:", 25);
         }
     }
 }

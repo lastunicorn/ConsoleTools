@@ -57,6 +57,7 @@
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="CustomControls\PersonsView.cs" />
     <Compile Include="CustomControls\PersonView.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

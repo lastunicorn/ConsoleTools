@@ -69,7 +69,8 @@
     <Compile Include="Commands\MultilineTitleCommand.cs" />
     <Compile Include="Commands\SimpleBorderCommand.cs" />
     <Compile Include="Commands\SingleLineBorderCommand.cs" />
-    <Compile Include="Demo.cs" />
+    <Compile Include="DemoApplication.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

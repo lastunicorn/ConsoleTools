@@ -15,17 +15,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.Demo.InputControls.Commands;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
     internal static class Program
     {
-        private static ScrollableMenu menu;
+        private static ControlRepeater menuRepeater;
 
         private static void Main()
         {
@@ -34,8 +29,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
 
             DisplayApplicationHeader();
 
-            menu = CreateMenu();
-            menu.Display();
+            menuRepeater = new ControlRepeater
+            {
+                Control = new MainMenu()
+            };
+
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
@@ -72,118 +71,9 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls
             CustomConsole.WriteLine();
         }
 
-        private static ScrollableMenu CreateMenu()
-        {
-            IEnumerable<IMenuItem> menuItems = CreateMenuItems();
-
-            return new ScrollableMenu(menuItems)
-            {
-                ItemsHorizontalAlignment = HorizontalAlignment.Left,
-                SelectFirstByDefault = true
-            };
-        }
-
-        private static IEnumerable<IMenuItem> CreateMenuItems()
-        {
-            return new List<IMenuItem>
-            {
-                new LabelMenuItem
-                {
-                    Text = "Value Read - Strings",
-                    Command = new ValueReadStringCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Value Read - Number",
-                    Command = new ValueReadNumberCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Value Read - Quick (static method)",
-                    Command = new ValueReadQuickCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Value Read - With default value",
-                    Command = new ValueReadWithDefaultValueCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Value Write",
-                    Command = new ValueWriteCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Value Write - Quick (static method)",
-                    Command = new ValueWriteQuickCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "List Read - Strings",
-                    Command = new ListReadStringsCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "List Read - Numbers",
-                    Command = new ListReadNumbersCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "List Read - Quick (static method)",
-                    Command = new ListReadQuickCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "List Read - With custom parser",
-                    Command = new ListReadWithCustomParserCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "List Write - Custom",
-                    Command = new ListWriteCommand()
-                },
-
-                new LabelMenuItem
-                {
-                    Text = "List Write - Quick (static method)",
-                    Command = new ListWriteQuickCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Yes/No Question",
-                    Command = new YesNoCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Yes/No/Cancel Question",
-                    Command = new YesNoCancelCommand()
-                },
-
-                new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Exit",
-                    Command = new ExitCommand()
-                }
-            };
-        }
-
         public static void Stop()
         {
-            menu.RequestClose();
+            menuRepeater.RequestClose();
         }
     }
 }

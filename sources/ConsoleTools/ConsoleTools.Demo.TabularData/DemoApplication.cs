@@ -14,25 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.MenuControl;
-
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {
-    internal class ExitDemoCommand : ICommand
+    internal class DemoApplication
     {
-        private readonly DemoApplication demoApplication;
+        private readonly ControlRepeater menuRepeater;
 
-        public bool IsActive => true;
-
-        public ExitDemoCommand(DemoApplication demoApplication)
+        public DemoApplication()
         {
-            this.demoApplication = demoApplication ?? throw new ArgumentNullException(nameof(demoApplication));
+            menuRepeater = new ControlRepeater
+            {
+                Control = new MainMenu(this)
+            };
         }
 
-        public void Execute()
+        public void Run()
         {
-            demoApplication.RequestExit();
+            menuRepeater.Display();
+        }
+
+        public void RequestExit()
+        {
+            menuRepeater.RequestClose();
         }
     }
 }

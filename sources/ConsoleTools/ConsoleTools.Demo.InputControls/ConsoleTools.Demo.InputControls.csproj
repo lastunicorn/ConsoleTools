@@ -68,6 +68,7 @@
     <Compile Include="Commands\ValueWriteQuickCommand.cs" />
     <Compile Include="Commands\YesNoCancelCommand.cs" />
     <Compile Include="Commands\YesNoCommand.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
             EraseAfterClose = true;
             MarginTop = 1;
             MarginBottom = 1;
-            SelectFirstByDefault = false;
+            SelectFirstByDefault = true;
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);

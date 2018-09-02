@@ -23,19 +23,18 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
     /// </summary>
     internal class Program
     {
+        private static ControlRepeater menuRepeater;
+
         private static void Main()
         {
             DisplayApplicationHeader();
 
-            WorkerProvider workerProvider = new WorkerProvider();
-
-            foreach (Worker worker in workerProvider.CreateWorkers())
+            menuRepeater = new ControlRepeater
             {
-                if (worker == null)
-                    break;
-                
-                worker.Run();
-            }
+                Control = new MainMenu()
+            };
+
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
@@ -47,6 +46,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             CustomConsole.WriteLine("Step 2: The application will simulate an asyn work and display the spinner.");
             CustomConsole.WriteLine("-------------------------------------------------------------------------------");
             CustomConsole.WriteLine();
+        }
+
+        public static void RequestStop()
+        {
+            menuRepeater.RequestClose();
         }
     }
 }

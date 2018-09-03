@@ -15,12 +15,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.CommandProviders;
+using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.Demo.Prompter.Ocean;
 using DustInTheWind.ConsoleTools.Menues;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Prompter.Commands
 {
     internal class WhaleCommand : IPrompterCommand
     {

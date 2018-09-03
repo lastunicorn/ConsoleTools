@@ -15,11 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.CommandProviders;
+using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.InputControls;
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
+namespace DustInTheWind.ConsoleTools.Demo.Prompter.Commands
 {
     internal class PrompterCommand : IPrompterCommand
     {

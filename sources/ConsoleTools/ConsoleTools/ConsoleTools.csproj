@@ -156,7 +156,7 @@
     <Compile Include="TabularData\RenderingModel\HeaderTopBorder.cs" />
     <Compile Include="TabularData\Printers\StreamTablePrinter.cs" />
     <Compile Include="TabularData\RenderingModel\DataGridXBuilder.cs" />
-    <Compile Include="CommandProviders\CliParameter.cs" />
+    <Compile Include="CommandLine\CliParameter.cs" />
     <Compile Include="ConsoleReader.cs" />
     <Compile Include="CustomConsole.WriteAligned.DefaultColors.cs" />
     <Compile Include="Guard\MachineLevelGuardian.cs" />
@@ -197,7 +197,7 @@
     <Compile Include="CustomConsole.Write.ForegroundColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Menues\TextMenu.cs" />
-    <Compile Include="CommandProviders\CliCommand.cs" />
+    <Compile Include="CommandLine\CliCommand.cs" />
     <Compile Include="TabularData\RenderingModel\TitleBottomBorder.cs" />
     <Compile Include="TabularData\TitleCell.cs" />
     <Compile Include="TabularData\RenderingModel\TitleDataSeparator.cs" />

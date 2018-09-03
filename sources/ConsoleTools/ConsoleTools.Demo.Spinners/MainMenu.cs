@@ -16,7 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.Menues;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
 namespace DustInTheWind.ConsoleTools.Demo.Spinners

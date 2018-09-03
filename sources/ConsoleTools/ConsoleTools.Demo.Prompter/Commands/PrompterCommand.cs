@@ -17,16 +17,17 @@
 using System;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter.Controllers
 {
     internal class PrompterCommand : IPrompterCommand
     {
-        private readonly CommandProviders.Prompter prompter;
+        private readonly Menues.Prompter prompter;
 
         public bool IsActive { get; } = true;
 
-        public PrompterCommand(CommandProviders.Prompter prompter)
+        public PrompterCommand(Menues.Prompter prompter)
         {
             this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
         }

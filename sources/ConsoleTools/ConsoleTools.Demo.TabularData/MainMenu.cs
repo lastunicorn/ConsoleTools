@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.TabularData.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {

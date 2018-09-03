@@ -19,17 +19,32 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.CommandProviders
+namespace DustInTheWind.ConsoleTools.Menues
 {
-    internal class UnknownPrompterCommand : IPrompterCommand
+    /// <summary>
+    /// A command that does nothing.
+    /// </summary>
+    public class EmptyCommand : ICommand
     {
-        public bool IsActive { get; } = true;
+        /// <summary>
+        /// Gets a value that specifies if the current instance can be executed.
+        /// Default value: true
+        /// </summary>
+        public bool IsActive { get; set; }
 
-        public void Execute(CliCommand cliCommand)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyCommand"/> class.
+        /// </summary>
+        public EmptyCommand()
         {
-            CustomConsole.WriteLineError("Unknown command: " + cliCommand, ConsoleColor.DarkYellow);
+            IsActive = true;
+        }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public void Execute()
+        {
         }
     }
 }

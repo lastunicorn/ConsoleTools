@@ -17,10 +17,11 @@
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.CommandProviders;
 using DustInTheWind.ConsoleTools.Demo.Prompter.Controllers;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.Prompter
 {
-    internal class DemoPrompter : CommandProviders.Prompter
+    internal class DemoPrompter : Menues.Prompter
     {
         public DemoPrompter()
         {

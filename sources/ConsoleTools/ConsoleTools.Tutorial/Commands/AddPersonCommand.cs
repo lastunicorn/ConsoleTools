@@ -22,7 +22,7 @@
 using System;
 using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
 using DustIntheWind.ConsoleTools.Tutorial.CustomControls;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustIntheWind.ConsoleTools.Tutorial.Commands
 {

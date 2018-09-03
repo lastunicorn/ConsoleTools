@@ -19,26 +19,21 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.CommandProviders
+namespace DustInTheWind.ConsoleTools.Menues
 {
     /// <summary>
-    /// Provides data for UnhandledCommand event.
+    /// Represents a command that can be executed.
     /// </summary>
-    public class UnhandledCommandEventArgs : EventArgs
+    public interface ICommand
     {
         /// <summary>
-        /// Gets the unhandled <see cref="CliCommand"/> instance.
+        /// Gets a value that specifies if the current instance can be executed.
         /// </summary>
-        public CliCommand Command { get; }
+        bool IsActive { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnhandledCommandEventArgs"/> class.
+        /// Executes the current instance.
         /// </summary>
-        public UnhandledCommandEventArgs(CliCommand command)
-        {
-            Command = command;
-        }
+        void Execute();
     }
 }

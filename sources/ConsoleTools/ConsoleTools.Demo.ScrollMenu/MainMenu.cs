@@ -17,12 +17,12 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.ScrollMenu.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
 {
-    internal class MainMenu : MenuControl.ScrollMenu
+    internal class MainMenu : Menues.ScrollMenu
     {
         public MainMenu(GameApplication application)
         {

@@ -24,7 +24,7 @@ using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
 using DustIntheWind.ConsoleTools.Tutorial.CustomControls;
 using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustIntheWind.ConsoleTools.Tutorial.Commands
 {

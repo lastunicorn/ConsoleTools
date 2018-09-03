@@ -19,30 +19,23 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools.CommandProviders
+using DustInTheWind.ConsoleTools.CommandProviders;
+
+namespace DustInTheWind.ConsoleTools.Menues
 {
     /// <summary>
-    /// Contains information about a cli command that the prompter can handle.
+    /// A command class used by the <see cref="Prompter"/>.
     /// </summary>
-    public class PrompterItem
+    public interface IPrompterCommand
     {
         /// <summary>
-        /// Gets or sets the name of the cli command.
+        /// Gets a value that specifies if the current instance can be executed.
         /// </summary>
-        public string Name { get; set; }
+        bool IsActive { get; }
 
         /// <summary>
-        /// The command that will be executed when this item is selected.
+        /// Executes the current instance.
         /// </summary>
-        public IPrompterCommand Command { get; set; }
-
-        /// <summary>
-        /// Executes the associated command.
-        /// </summary>
-        /// <param name="cliCommand"></param>
-        public void Execute(CliCommand cliCommand)
-        {
-            Command?.Execute(cliCommand);
-        }
+        void Execute(CliCommand cliCommand);
     }
 }

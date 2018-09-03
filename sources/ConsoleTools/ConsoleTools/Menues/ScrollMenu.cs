@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.MenuControl
+namespace DustInTheWind.ConsoleTools.Menues
 {
     /// <summary>
     /// A menu in which the user can navigate by using the up/down arrow keys.
@@ -106,7 +106,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.MenuControl.ScrollMenu" /> class with
+        /// Initializes a new instance of the <see cref="T:DustInTheWind.ConsoleTools.Menues.ScrollMenu" /> class with
         /// the list of items.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>

@@ -22,11 +22,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.CommandProviders.Prompter" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.Menues.Prompter" Collapsed="true">
     <Position X="10.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgBAAAAANSgAARAAAAAkggIiIBAAEDACEAgAACAABA=</HashCode>
-      <FileName>CommandProviders\Prompter.cs</FileName>
+      <FileName>Menues\Prompter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -51,19 +51,19 @@
       <FileName>InputControls\YesNoQuestion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.MenuControl.TextMenu" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.Menues.TextMenu" Collapsed="true">
     <Position X="10.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAIAgAAAHEQCAEBIgAAQIAgAgIBAAAAAANAAAACQAQA=</HashCode>
-      <FileName>MenuControl\TextMenu.cs</FileName>
+      <FileName>Menues\TextMenu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollMenu" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.Menues.ScrollMenu" Collapsed="true">
     <Position X="14" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAEAEEQAAABAoAAQIAgAgIBMAACAAdAAAECAICE=</HashCode>
-      <FileName>MenuControl\ScrollMenu.cs</FileName>
+      <FileName>Menues\ScrollMenu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

@@ -16,8 +16,8 @@
 
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.InputControls.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
-using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
+using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {

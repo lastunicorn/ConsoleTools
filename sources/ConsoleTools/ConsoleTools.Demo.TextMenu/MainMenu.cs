@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Demo.TextMenu.Commands;
-using DustInTheWind.ConsoleTools.MenuControl;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenu
 {
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
     /// They are verbose enough to deserve their own class.
     /// </para>
     /// </remarks>
-    internal class MainMenu : MenuControl.TextMenu
+    internal class MainMenu : Menues.TextMenu
     {
         public MainMenu(GameApplication application)
         {

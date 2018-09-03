@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Diagnostics;
 using System.Timers;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
@@ -31,6 +32,13 @@ namespace DustInTheWind.ConsoleTools.Spinners
     /// It supports templates that control the aspect of the spinner (the displayed characters for each frame).
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// The spinner control is using a <see cref="ISpinnerTemplate"/> instance in order to obtain the frames to be displayed.
+    /// The display interval is configurable.
+    /// </para>
+    /// <para>
+    /// The Spinner has a timer 
+    /// </para>
     /// It does not support changing colors while spinning.
     /// </remarks>
     public class Spinner : LongRunningControl, IDisposable
@@ -60,13 +68,23 @@ namespace DustInTheWind.ConsoleTools.Spinners
         public InlineTextBlock DoneText { get; set; }
 
         /// <summary>
-        /// Gets or sets the time interval of the frames.
+        /// Gets or sets the time interval of the frames in milliseconds.
         /// It can speed up or slow down the animation.
         /// </summary>
-        public double StepMiliseconds
+        public double FrameIntervalMilliseconds
         {
             get => timer.Interval;
             set => timer.Interval = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the time interval of the frames.
+        /// It can speed up or slow down the animation.
+        /// </summary>
+        public TimeSpan FrameInterval
+        {
+            get => TimeSpan.FromMilliseconds(timer.Interval);
+            set => timer.Interval = value.TotalMilliseconds;
         }
 
         /// <summary>
@@ -179,6 +197,22 @@ namespace DustInTheWind.ConsoleTools.Spinners
             timer.Dispose();
 
             isDisposed = true;
+        }
+
+        public static Spinner StartNew()
+        {
+            Spinner spinner = new Spinner();
+            spinner.Display();
+
+            return spinner;
+        }
+
+        public static Spinner StartNew(ISpinnerTemplate template)
+        {
+            Spinner spinner = new Spinner(template);
+            spinner.Display();
+
+            return spinner;
         }
 
         /// <summary>

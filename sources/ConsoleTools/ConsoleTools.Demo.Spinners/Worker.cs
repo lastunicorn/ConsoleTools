@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             {
                 spinner.MarginTop = 2;
                 spinner.MarginBottom = 2;
-                spinner.StepMiliseconds = SpinnerStepMilliseconds;
+                spinner.FrameIntervalMilliseconds = SpinnerStepMilliseconds;
                 spinner.Label = "Doing some work";
                 spinner.Label.MarginRight = 1;
 

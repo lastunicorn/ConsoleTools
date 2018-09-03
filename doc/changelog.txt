@@ -21,7 +21,8 @@ ver 0.5.0
 - RepeaterControl: Created the RepeaterControl that can be used to repeatedly display the TextMenu, ScrollableMenu and the Prompter.
 - InlineTextBlock: Added a format property to be applied on the text.
 - TextMenu: Implements IRepeatableSupport.
-- ScrollableMenu: Implements IRepeatableSupport.
+- ScrollMenu: Implements IRepeatableSupport.
+- ScrollMenu: Renamed the ScrollableMenu into ScrollMenu.
 - Prompter: Implements IRepeatableSupport.
 - Prompter: Added a list of items that contains information for cli command that the prompter can automatically handle.
 - ICommandProvider: Removed.

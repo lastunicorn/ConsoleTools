@@ -5,6 +5,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 0.5.0
 ---------
+- Refactored the base abstract class hierarchy. Now there are two base classes (BlockControl and InlineControl) that inherit from the Control class.
 - BlockControl: Created a base class for all the block controls.
 - BlockControl: Added ForegroundColor and BackgroundColor properties.
 - InlineControl: Added ForegroundColor and BackgroundColor properties.

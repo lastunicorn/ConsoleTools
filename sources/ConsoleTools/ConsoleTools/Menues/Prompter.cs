@@ -38,6 +38,10 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         private readonly List<PrompterItem> prompterItems = new List<PrompterItem>();
 
+        /// <summary>
+        /// Gets or sets an <see cref="IPrompterCommand"/> object to be executed in the situation when the
+        /// command provided by the user was not handled by none of the other mechanisms.
+        /// </summary>
         public IPrompterCommand UnhandledItemCommand { get; set; } = new UnknownPrompterCommand();
 
         /// <summary>
@@ -167,11 +171,11 @@ namespace DustInTheWind.ConsoleTools.Menues
 
         private void WriteRightMargin()
         {
-            if (MarginRight > 0)
-            {
-                string rightMargin = new string(' ', MarginRight);
-                Console.Write(rightMargin);
-            }
+            if (MarginRight <= 0)
+                return;
+
+            string rightMargin = new string(' ', MarginRight);
+            Console.Write(rightMargin);
         }
 
         private bool ReadUserInput()
@@ -197,6 +201,11 @@ namespace DustInTheWind.ConsoleTools.Menues
             return true;
         }
 
+        /// <summary>
+        /// If a command is available it is processed by raising the <see cref="NewCommand"/> event,
+        /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above suceeded,
+        /// by raising the <see cref="UnhandledCommand"/> event.
+        /// </summary>
         protected override void OnAfterDisplay()
         {
             base.OnAfterDisplay();
@@ -210,6 +219,9 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                 if (!isHandled)
                     AnnounceUnhandledCommand();
+                
+                if (!isHandled)
+                    UnhandledItemCommand?.Execute(LastCommand);
             }
         }
 

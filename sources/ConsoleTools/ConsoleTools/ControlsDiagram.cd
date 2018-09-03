@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Pause" Collapsed="true">
-    <Position X="12.25" Y="4.5" Width="1.5" />
+    <Position X="10.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAACAAAAAAAAAAAAgIAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Pause.cs</FileName>
@@ -52,7 +52,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Menues.TextMenu" Collapsed="true">
-    <Position X="10.5" Y="4.5" Width="1.5" />
+    <Position X="12.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAIAgAAAHEQCAEBIgAAQIAgAgIBAAAAAANAAAACQAQA=</HashCode>
       <FileName>Menues\TextMenu.cs</FileName>

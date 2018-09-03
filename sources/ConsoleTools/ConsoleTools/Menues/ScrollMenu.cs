@@ -36,6 +36,16 @@ namespace DustInTheWind.ConsoleTools.Menues
         private readonly MenuItemCollection menuItems = new MenuItemCollection();
         private bool closeWasRequested;
         private Location menuLocation;
+        private Location itemsLocation;
+
+        /// <summary>
+        /// Gets or sets the title that is displayed at the top of the menu.
+        /// </summary>
+        public TextBlock Title { get; set; } = new TextBlock
+        {
+            Text = "Title",
+            MarginBottom = 1
+        };
 
         /// <summary>
         /// Gets the item that is currently selected.
@@ -166,8 +176,9 @@ namespace DustInTheWind.ConsoleTools.Menues
                 throw new ApplicationException("There are no menu items to be displayed.");
 
             closeWasRequested = false;
-
-            InnerSize = CalculateControlSize();
+            InnerSize = Size.Empty;
+            menuLocation = Location.Origin;
+            itemsLocation = Location.Origin;
 
             for (int i = 0; i < InnerSize.Height; i++)
                 Console.WriteLine();
@@ -189,8 +200,31 @@ namespace DustInTheWind.ConsoleTools.Menues
             {
                 menuLocation = CalculateMenuLocation();
 
-                for (int i = 0; i < menuItems.Count; i++)
-                    DrawMenuItem(i);
+                Title.Display();
+
+                Size titleSize = Title.CalculateOuterSize();
+                InnerSize = InnerSize.InflateHeight(titleSize.Height);
+
+                Size itemsSize = CalculateItemsSize();
+                InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);
+
+                itemsLocation = CalculateMenuLocation();
+
+                foreach (IMenuItem menuItem in menuItems)
+                {
+                    if (!menuItem.IsVisible)
+                        continue;
+
+                    int left = itemsLocation.Left;
+                    int top = Console.CursorTop;
+
+                    Console.SetCursorPosition(left, top);
+
+                    Size menuItemSize = new Size(InnerSize.Width, 1);
+                    menuItem.Display(menuItemSize, false);
+
+                    Console.WriteLine();
+                }
 
                 if (SelectFirstByDefault)
                     menuItems.SelectFirst();
@@ -219,13 +253,6 @@ namespace DustInTheWind.ConsoleTools.Menues
                 DrawMenuItem(e.CurrentIndex.Value);
         }
 
-        protected override void OnAfterDisplay()
-        {
-            base.OnAfterDisplay();
-
-            SelectedItem?.Command?.Execute();
-        }
-
         private Location CalculateMenuLocation()
         {
             HorizontalAlignment calcualtedHorizontalAlignment = CalcualteHorizontalAlignment();
@@ -245,41 +272,28 @@ namespace DustInTheWind.ConsoleTools.Menues
             }
         }
 
-        private HorizontalAlignment CalcualteHorizontalAlignment()
-        {
-            HorizontalAlignment calcualtedHorizontalAlignment = HorizontalAlignment;
-
-            if (calcualtedHorizontalAlignment == HorizontalAlignment.Default)
-                calcualtedHorizontalAlignment = DefaultHorizontalAlignment;
-
-            return calcualtedHorizontalAlignment;
-        }
-
-        private Size CalculateControlSize()
+        private Size CalculateItemsSize()
         {
             int menuHeight = menuItems
-                .Count(x => x != null && x.IsVisible);
+                .Count(x => x.IsVisible);
 
             int menuWidth = menuItems
-                .Where(x => x != null && x.IsVisible)
+                .Where(x => x.IsVisible)
                 .Select(x => x.Size)
                 .Max(x => x.Width);
 
             return new Size(menuWidth, menuHeight);
         }
 
-        private void DrawMenuItem(int? index)
+        private void DrawMenuItem(int index)
         {
-            if (index == null)
-                return;
-
-            IMenuItem menuItemToDraw = menuItems[index.Value];
+            IMenuItem menuItemToDraw = menuItems[index];
             int? visibleIndex = menuItems.CalculateVisibleIndex(menuItemToDraw);
 
             if (visibleIndex.HasValue && visibleIndex.Value >= 0)
             {
-                int left = menuLocation.Left;
-                int top = menuLocation.Top + visibleIndex.Value;
+                int left = itemsLocation.Left;
+                int top = itemsLocation.Top + visibleIndex.Value;
 
                 Console.SetCursorPosition(left, top);
 
@@ -288,6 +302,16 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                 menuItemToDraw.Display(menuItemSize, isHighlighted);
             }
+        }
+
+        private HorizontalAlignment CalcualteHorizontalAlignment()
+        {
+            HorizontalAlignment calcualtedHorizontalAlignment = HorizontalAlignment;
+
+            if (calcualtedHorizontalAlignment == HorizontalAlignment.Default)
+                calcualtedHorizontalAlignment = DefaultHorizontalAlignment;
+
+            return calcualtedHorizontalAlignment;
         }
 
         private void ReadUserSelection()
@@ -354,20 +378,19 @@ namespace DustInTheWind.ConsoleTools.Menues
             return true;
         }
 
+        protected override void OnAfterDisplay()
+        {
+            base.OnAfterDisplay();
+
+            SelectedItem?.Command?.Execute();
+        }
+
         /// <summary>
         /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
         /// </summary>
         public void RequestClose()
         {
             closeWasRequested = true;
-        }
-
-        /// <summary>
-        /// Raises the <see cref="Closed"/> event.
-        /// </summary>
-        protected virtual void OnClosed()
-        {
-            Closed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

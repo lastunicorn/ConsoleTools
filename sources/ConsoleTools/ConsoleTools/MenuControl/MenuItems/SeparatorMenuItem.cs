@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl.MenuItems
         /// <summary>
         /// Gets or sets the menu that contains the current instance.
         /// </summary>
-        public ScrollableMenu ParentMenu { get; set; }
+        public ScrollMenu ParentMenu { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the left of the text.

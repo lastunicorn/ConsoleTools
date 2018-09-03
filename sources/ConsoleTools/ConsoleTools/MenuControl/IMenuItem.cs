@@ -25,7 +25,7 @@ using System.ComponentModel;
 namespace DustInTheWind.ConsoleTools.MenuControl
 {
     /// <summary>
-    /// Represent a menu item displayed by the <see cref="ScrollableMenu"/>.
+    /// Represent a menu item displayed by the <see cref="ScrollMenu"/>.
     /// </summary>
     public interface IMenuItem
     {
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.MenuControl
         /// <summary>
         /// Gets or sets the menu that contains the current instance.
         /// </summary>
-        ScrollableMenu ParentMenu { get; set; }
+        ScrollMenu ParentMenu { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the left of the text.

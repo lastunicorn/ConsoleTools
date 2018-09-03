@@ -59,11 +59,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollableMenu" Collapsed="true">
+  <Class Name="DustInTheWind.ConsoleTools.MenuControl.ScrollMenu" Collapsed="true">
     <Position X="14" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAEAEEQAAABAoAAQIAgAgIBMAACAAdAAAECAICE=</HashCode>
-      <FileName>MenuControl\ScrollableMenu.cs</FileName>
+      <FileName>MenuControl\ScrollMenu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

@@ -28,7 +28,7 @@ using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustIntheWind.ConsoleTools.Tutorial
 {
-    internal class MainMenu : ScrollableMenu
+    internal class MainMenu : ScrollMenu
     {
         public MainMenu(AddressBookApplication addressBookApplication, AddressBook addressBook)
         {

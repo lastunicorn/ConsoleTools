@@ -21,7 +21,7 @@ using DustInTheWind.ConsoleTools.MenuControl.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControls
 {
-    internal class MainMenu : ScrollableMenu
+    internal class MainMenu : ScrollMenu
     {
         public MainMenu()
         {

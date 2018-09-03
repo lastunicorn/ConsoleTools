@@ -17,7 +17,7 @@
 using System;
 using System.ComponentModel;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollableMenu
+namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
 {
     internal class ApplicationBase
     {

@@ -17,6 +17,7 @@ ver 0.5.0 - !!! Breaking changes present
 - TextBlock: Added an optional title.
 - TextBlock: [bugfix] ForegroundColor and BackgroundColor properties were not working.
 - TextBlock: [bugfix] MarginLeft and MarginRight properties were not working.
+- TextBlock: Added a Margin property to set all the margins at once.
 - CustomConsole: Added the BuildHorizontalWindowLine method.
 - CustomConsole: Added the BuildHorizontalBufferLine method.
 - RepeaterControl: Created the RepeaterControl that can be used to repeatedly display the TextMenu, ScrollableMenu and the Prompter.

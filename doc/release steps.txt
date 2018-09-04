@@ -8,6 +8,10 @@ There are a few steps that has to be done manually.
 Local
 --------------------------------------------------------------------------------
 
+Step 0: Build
+- Release45 configuration
+- Release461 configuration
+
 Step 1: Update changelog file.
 - File: /doc/changelog.txt
 	- Add the list of changes.

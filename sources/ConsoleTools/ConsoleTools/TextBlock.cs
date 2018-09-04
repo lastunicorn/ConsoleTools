@@ -47,6 +47,21 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
+        /// Gets or sets all the margins at once.
+        /// </summary>
+        public Thickness Margin
+        {
+            get => new Thickness(MarginLeft, MarginTop, MarginRight, MarginBottom);
+            set
+            {
+                MarginLeft = value.Left;
+                MarginTop = value.Top;
+                MarginRight = value.Right;
+                MarginBottom = value.Bottom;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the maximum width allowed including the margins.
         /// Negative value means the limit is the console's width.
         /// </summary>

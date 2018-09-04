@@ -67,9 +67,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
 
         private static void HandleMenuBeforeDisplay(object sender, EventArgs args)
         {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
+            HorizontalLine horizontalLine = new HorizontalLine();
+            horizontalLine.Display();
         }
 
         private static void DisplayApplicationHeader()

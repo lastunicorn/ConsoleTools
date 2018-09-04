@@ -38,14 +38,10 @@ namespace DustInTheWind.ConsoleTools.Menues
         private Location menuLocation;
         private Location itemsLocation;
 
-        /// <summary>
-        /// Gets or sets the title that is displayed at the top of the menu.
-        /// </summary>
-        public TextBlock Title { get; set; } = new TextBlock
-        {
-            Text = "Title",
-            MarginBottom = 1
-        };
+        ///// <summary>
+        ///// Gets or sets the title that is displayed at the top of the menu.
+        ///// </summary>
+        //public TextBlock Title { get; set; }
 
         /// <summary>
         /// Gets the item that is currently selected.
@@ -200,10 +196,10 @@ namespace DustInTheWind.ConsoleTools.Menues
             {
                 menuLocation = CalculateMenuLocation();
 
-                Title.Display();
+                //Title.Display();
 
-                Size titleSize = Title.CalculateOuterSize();
-                InnerSize = InnerSize.InflateHeight(titleSize.Height);
+                //Size titleSize = Title.CalculateOuterSize();
+                //InnerSize = InnerSize.InflateHeight(titleSize.Height);
 
                 Size itemsSize = CalculateItemsSize();
                 InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);

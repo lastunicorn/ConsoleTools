@@ -33,6 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
                 new DefaultCommand(),
                 new CustomCharCommand(),
                 new CustomMarginCommand(),
+                new CustomPaddingCommand(),
                 new CustomForegroundColorCommand(),
                 new CustomBackgroundColorCommand(),
                 new CustomWidthCommand(),

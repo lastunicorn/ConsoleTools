@@ -20,7 +20,7 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
 {
     internal class CustomBackgroundColorCommand : CommandBase
     {
-        public override string Title => "Custom BackgroundColor (Magenta)";
+        public override string Title => "Custom BackgroundColor (Blue)";
 
         protected override void DoExecute()
         {

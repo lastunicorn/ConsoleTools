@@ -210,6 +210,14 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
+        /// Created a <see cref="Thickness"/> object having all the values equal to the specified <see cref="int"/> value.
+        /// </summary>
+        public static implicit operator Thickness(int value)
+        {
+            return new Thickness(value);
+        }
+
+        /// <summary>
         /// Converts a <see cref="string"/> object into its <see cref="Thickness"/> representation.
         /// </summary>
         public static implicit operator string(Thickness margins)

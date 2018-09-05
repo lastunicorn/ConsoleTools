@@ -18,15 +18,15 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
 {
-    internal class CustomMarginCommand : CommandBase
+    internal class CustomPaddingCommand : CommandBase
     {
-        public override string Title => "Custom Margins (3 3 3 3)";
+        public override string Title => "Custom Paddings (3 3 3 3)";
 
         protected override void DoExecute()
         {
             HorizontalLine horizontalLine = new HorizontalLine
             {
-                Margin = 3,
+                Padding = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
             };
             horizontalLine.Display();

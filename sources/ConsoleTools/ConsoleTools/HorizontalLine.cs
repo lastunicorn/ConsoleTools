@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
-        /// Gets or sets all the margins at once.
+        /// Gets or sets the space outside the control that should be empty.
         /// </summary>
         public Thickness Margin
         {
@@ -72,6 +72,11 @@ namespace DustInTheWind.ConsoleTools
                 MarginBottom = value.Bottom;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the space between the content and the margin of the control.
+        /// </summary>
+        public Thickness Padding { get; set; }
 
         private int ActualOuterWidth
         {
@@ -115,6 +120,27 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        private int ActualContentWidth
+        {
+            get
+            {
+                if (Width.HasValue)
+                    return Width.Value - Padding.Left - Padding.Right;
+
+                switch (DefaultParent)
+                {
+                    case DefaultParent.ConsoleBuffer:
+                        return Console.BufferWidth - MarginLeft - MarginRight - Padding.Left - Padding.Right;
+
+                    case DefaultParent.ConsoleWindow:
+                        return Console.WindowWidth - MarginLeft - MarginRight - Padding.Left - Padding.Right;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
         /// </summary>
@@ -126,16 +152,39 @@ namespace DustInTheWind.ConsoleTools
 
         protected override void DoDisplayContent()
         {
-            MultilineText multilineText = GenerateText();
-            IEnumerable<string> lines = multilineText.GetLines(ActualInnerWidth);
+            WriteTopPadding();
 
-            foreach (string line in lines)
-                WriteTextLine(line);
+            string text = GenerateText();
+            WriteTextLine(text);
+
+            WriteBottomPadding();
+        }
+
+        private void WriteTopPadding()
+        {
+            if (Padding.Top <= 0)
+                return;
+
+            string text = new string(' ', ActualContentWidth);
+
+            for (int i = 0; i < Padding.Top; i++)
+                WriteTextLine(text);
+        }
+
+        private void WriteBottomPadding()
+        {
+            if (Padding.Bottom <= 0)
+                return;
+
+            string text = new string(' ', ActualContentWidth);
+
+            for (int i = 0; i < Padding.Bottom; i++)
+                WriteTextLine(text);
         }
 
         private MultilineText GenerateText()
         {
-            return new string(Character, ActualInnerWidth);
+            return new string(Character, ActualContentWidth);
         }
 
         private void WriteTextLine(string text)
@@ -146,6 +195,24 @@ namespace DustInTheWind.ConsoleTools
         }
 
         private void StartTextLine()
+        {
+            WriteLeftEmptySpace();
+            WriteLeftMargin();
+            WriteLeftPadding();
+        }
+
+        private void EndTextLine()
+        {
+            WriteRightPadding();
+            WriteRightMargin();
+            WriteRightEmptySpace();
+
+            // Decide if new line is needed.
+            if (ActualOuterWidth % Console.BufferWidth != 0)
+                Console.WriteLine();
+        }
+
+        private void WriteLeftEmptySpace()
         {
             int availableWidth = DefaultParent == DefaultParent.ConsoleWindow
                 ? Console.WindowWidth
@@ -179,28 +246,10 @@ namespace DustInTheWind.ConsoleTools
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            // Write left margin.
-            string marginLeftText = MarginLeft > 0
-                ? new string(' ', MarginLeft)
-                : string.Empty;
-            Console.Write(marginLeftText);
-
-            // todo: Write left padding.
         }
 
-        private void EndTextLine()
+        private void WriteRightEmptySpace()
         {
-            // todo: Write right padding.
-
-            // Write right margin.
-            string marginRightText = MarginRight > 0
-                ? new string(' ', MarginRight)
-                : string.Empty;
-            Console.Write(marginRightText);
-
-            // 
-
             int availableWidth = DefaultParent == DefaultParent.ConsoleWindow
                 ? Console.WindowWidth
                 : Console.BufferWidth;
@@ -212,20 +261,20 @@ namespace DustInTheWind.ConsoleTools
                 case HorizontalAlignment.Stretch:
                 case HorizontalAlignment.Default:
                 case HorizontalAlignment.Left:
-                    {
-                        int allSpaces = availableWidth - outerWidth;
-                        Console.Write(new string(' ', allSpaces));
-                        break;
-                    }
+                {
+                    int allSpaces = availableWidth - outerWidth;
+                    Console.Write(new string(' ', allSpaces));
+                    break;
+                }
 
                 case HorizontalAlignment.Center:
-                    {
-                        int allSpaces = availableWidth - outerWidth;
-                        double halfSpaces = (double)allSpaces / 2;
-                        int leftSpaces = (int)Math.Ceiling(halfSpaces);
-                        Console.Write(new string(' ', leftSpaces));
-                        break;
-                    }
+                {
+                    int allSpaces = availableWidth - outerWidth;
+                    double halfSpaces = (double)allSpaces / 2;
+                    int leftSpaces = (int)Math.Ceiling(halfSpaces);
+                    Console.Write(new string(' ', leftSpaces));
+                    break;
+                }
 
                 case HorizontalAlignment.Right:
                     break;
@@ -233,10 +282,42 @@ namespace DustInTheWind.ConsoleTools
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
-            // Decide if new line is needed.
-            if (outerWidth % Console.BufferWidth != 0)
-                Console.WriteLine();
+        private void WriteLeftMargin()
+        {
+            if (Margin.Left <= 0)
+                return;
+
+            string text = new string(' ', Margin.Left);
+            Console.Write(text);
+        }
+
+        private void WriteRightMargin()
+        {
+            if (Margin.Right <= 0)
+                return;
+
+            string text = new string(' ', Margin.Right);
+            Console.Write(text);
+        }
+
+        private void WriteLeftPadding()
+        {
+            if (Padding.Left <= 0)
+                return;
+
+            string text = new string(' ', Padding.Left);
+            WriteText(text);
+        }
+
+        private void WriteRightPadding()
+        {
+            if (Padding.Right <= 0)
+                return;
+
+            string text = new string(' ', Padding.Right);
+            WriteText(text);
         }
     }
 }

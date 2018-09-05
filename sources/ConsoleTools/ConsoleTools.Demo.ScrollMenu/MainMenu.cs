@@ -16,13 +16,13 @@
 
 using System;
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.Demo.ScrollMenu.Commands;
+using DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo.Commands;
 using DustInTheWind.ConsoleTools.Menues;
 using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
+namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 {
-    internal class MainMenu : Menues.ScrollMenu
+    internal class MainMenu : ScrollMenu
     {
         public MainMenu(GameApplication application)
         {
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);
-            
+
 
             // You can play with the following values.
 

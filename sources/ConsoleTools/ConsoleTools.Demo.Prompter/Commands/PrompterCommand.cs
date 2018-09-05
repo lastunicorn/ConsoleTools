@@ -23,11 +23,11 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {
     internal class PrompterCommand : IPrompterCommand
     {
-        private readonly Menues.Prompter prompter;
+        private readonly Prompter prompter;
 
         public bool IsActive { get; } = true;
 
-        public PrompterCommand(Menues.Prompter prompter)
+        public PrompterCommand(Prompter prompter)
         {
             this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
         }
@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
                 prompter.PrompterText = cliCommand.Parameters[0].Value;
             else
                 ChangePrompter();
-       }
+        }
 
         private void ChangePrompter()
         {

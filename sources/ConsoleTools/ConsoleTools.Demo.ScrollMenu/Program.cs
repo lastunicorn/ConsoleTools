@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu
+namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 {
     internal static class Program
     {

@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBarDemo", "ConsoleTools.Demo.ProgressBarDemo\ConsoleTools.Demo.ProgressBarDemo.csproj", "{099E13DC-313B-4901-9B75-0F400F8E94A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollMenu", "ConsoleTools.Demo.ScrollMenu\ConsoleTools.Demo.ScrollMenu.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollMenuDemo", "ConsoleTools.Demo.ScrollMenu\ConsoleTools.Demo.ScrollMenuDemo.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.HorizontalLineDemo", "ConsoleTools.Demo.HorizontalLineDemo\ConsoleTools.Demo.HorizontalLineDemo.csproj", "{42ABE719-CA05-421F-99BC-5F5D2D0C385B}"
 EndProject

@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollMenu.Commands
+namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo.Commands
 {
     internal class SaveGameCommand : ICommand
     {

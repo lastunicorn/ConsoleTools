@@ -33,6 +33,12 @@ namespace DustInTheWind.ConsoleTools
     public abstract class BlockControl : Control
     {
         /// <summary>
+        /// Gets or sets a value that specifies who should be considered the parent if none is specified.
+        /// This is useful for calculating the alignment for example.
+        /// </summary>
+        public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
+
+        /// <summary>
         /// Gets or sets the number of empty lines displayed before the pause text.
         /// Default value: 0
         /// </summary>

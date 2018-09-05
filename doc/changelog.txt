@@ -3,6 +3,11 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+ver 0.6.0
+---------
+- Control: Added the DefaultParent property.
+- HorizontalLine: Created the HorizontalLine control.
+
 ver 0.5.0 - !!! Breaking changes present
 ---------
 - Refactored the base abstract class hierarchy. Now there are two base classes (BlockControl and InlineControl) that inherit from the Control class.

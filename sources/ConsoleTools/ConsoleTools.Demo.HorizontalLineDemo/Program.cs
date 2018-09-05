@@ -15,6 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands;
+using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {
@@ -22,92 +24,26 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
     {
         private static void Main()
         {
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
+
             DisplayApplicationHeader();
 
-            Default();
-            CustomChar();
-            CustomMargin();
-            CustomForegroundColor();
-            CustomBackgroundColor();
-            CustomWidth();
+            ICommand[] commands = {
+                new DefaultCommand(),
+                new CustomCharCommand(),
+                new CustomMarginCommand(),
+                new CustomForegroundColorCommand(),
+                new CustomBackgroundColorCommand(),
+                new CustomWidthCommand(),
+                new AlignedCenterCommand(),
+                new AlignedRightCommand()
+            };
+
+            foreach (ICommand command in commands)
+                command.Execute();
 
             Pause.QuickDisplay();
-        }
-
-        private static void Default()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Default:");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine();
-            horizontalLine.Display();
-        }
-
-        private static void CustomChar()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Custom Character (*):");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Character = '*'
-            };
-            horizontalLine.Display();
-        }
-
-        private static void CustomMargin()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Custom Margins (3 3):");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                MarginTop = 3,
-                MarginBottom = 3
-            };
-            horizontalLine.Display();
-        }
-
-        private static void CustomForegroundColor()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Custom ForegroundColor (Magenta):");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                ForegroundColor = ConsoleColor.Magenta
-            };
-            horizontalLine.Display();
-        }
-
-        private static void CustomBackgroundColor()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Custom BackgroundColor (Magenta):");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                BackgroundColor = ConsoleColor.Magenta
-            };
-            horizontalLine.Display();
-        }
-
-        private static void CustomWidth()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("- Custom Width (50):");
-            CustomConsole.WriteLine();
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 2048
-            };
-            horizontalLine.Display();
         }
 
         private static void DisplayApplicationHeader()

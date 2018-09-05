@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -29,6 +30,29 @@ namespace DustInTheWind.ConsoleTools
 
         public int? Width { get; set; }
 
+        public HorizontalAlignment HorizontalAlignment { get; set; }
+
+        private int InnerWidth
+        {
+            get
+            {
+                switch (DefaultParent)
+                {
+                    case DefaultParent.ConsoleBuffer:
+                        return Console.BufferWidth;
+
+                    case DefaultParent.ConsoleWindow:
+                        return Console.WindowWidth;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
+        /// </summary>
         public HorizontalLine()
         {
             MarginTop = 1;
@@ -37,13 +61,32 @@ namespace DustInTheWind.ConsoleTools
 
         protected override void DoDisplayContent()
         {
-            int calculatedWidth = Width ?? Console.BufferWidth;
+            MultilineText multilineText = BuildLineText(InnerWidth);
 
-            string text = new string(Character, calculatedWidth);
-            WriteText(text);
+            IEnumerable<string> lines = multilineText.GetLines(InnerWidth);
 
-            if (text.Length % Console.BufferWidth == 0)
-                Console.WriteLine();
+            foreach (string line in lines)
+            {
+                AlignedText alignedText = new AlignedText
+                {
+                    Text = line,
+                    Width = InnerWidth,
+                    HorizontalAlignment = HorizontalAlignment
+                };
+
+                string alignedLine = alignedText.ToString();
+
+                WriteText(alignedLine);
+
+                if (alignedLine.Length % Console.BufferWidth != 0)
+                    Console.WriteLine();
+            }
+        }
+
+        private MultilineText BuildLineText(int innerWidth)
+        {
+            int lineWidth = Width ?? innerWidth;
+            return new string(Character, lineWidth);
         }
     }
 }

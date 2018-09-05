@@ -39,6 +39,15 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="CommandBase.cs" />
+    <Compile Include="Commands\CustomMarginCommand.cs" />
+    <Compile Include="Commands\CustomForegroundColorCommand.cs" />
+    <Compile Include="Commands\CustomBackgroundColorCommand.cs" />
+    <Compile Include="Commands\CustomWidthCommand.cs" />
+    <Compile Include="Commands\AlignedCenterCommand.cs" />
+    <Compile Include="Commands\CustomCharCommand.cs" />
+    <Compile Include="Commands\AlignedRightCommand.cs" />
+    <Compile Include="Commands\DefaultCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,5 +60,6 @@
       <Name>ConsoleTools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

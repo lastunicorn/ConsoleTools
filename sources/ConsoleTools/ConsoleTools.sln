@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.GuardDemo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TabularData", "ConsoleTools.Demo.TabularData\ConsoleTools.Demo.TabularData.csproj", "{9EC116AF-EF51-49F4-BDB1-921DD586C7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Prompter", "ConsoleTools.Demo.Prompter\ConsoleTools.Demo.Prompter.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.PrompterDemo", "ConsoleTools.Demo.Prompter\ConsoleTools.Demo.PrompterDemo.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.InputControls", "ConsoleTools.Demo.InputControls\ConsoleTools.Demo.InputControls.csproj", "{61AA97AF-A87A-4EB2-AF78-CB4067C80704}"
 EndProject

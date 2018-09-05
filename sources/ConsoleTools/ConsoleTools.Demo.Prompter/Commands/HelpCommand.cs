@@ -17,7 +17,7 @@
 using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {
     internal class HelpCommand : IPrompterCommand
     {

@@ -15,14 +15,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.Demo.Prompter.Commands;
+using DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 {
-    internal class DemoPrompter : Menues.Prompter
+    internal class OceanPrompter : Prompter
     {
-        public DemoPrompter()
+        public OceanPrompter()
         {
             IEnumerable<PrompterItem> items = CreatePrompterItems();
             AddItems(items);

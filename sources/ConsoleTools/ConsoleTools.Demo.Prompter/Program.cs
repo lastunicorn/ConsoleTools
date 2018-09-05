@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 {
     internal class Program
     {
@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Prompter
         {
             prompterRepeater = new ControlRepeater
             {
-                Control = new DemoPrompter()
+                Control = new OceanPrompter()
             };
 
             prompterRepeater.Display();

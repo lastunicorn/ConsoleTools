@@ -16,11 +16,11 @@
 
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.CommandLine;
-using DustInTheWind.ConsoleTools.Demo.Prompter.Ocean;
+using DustInTheWind.ConsoleTools.Demo.PrompterDemo.Ocean;
 using DustInTheWind.ConsoleTools.Menues;
 using DustInTheWind.ConsoleTools.TabularData;
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {
     internal class WhaleCommand : IPrompterCommand
     {

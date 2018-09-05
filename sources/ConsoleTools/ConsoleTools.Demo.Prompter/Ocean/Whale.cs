@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Prompter.Ocean
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Ocean
 {
     internal class Whale
     {

@@ -33,8 +33,11 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
                 spinner.MarginTop = 2;
                 spinner.MarginBottom = 2;
                 spinner.FrameIntervalMilliseconds = SpinnerStepMilliseconds;
-                spinner.Label = "Doing some work";
-                spinner.Label.MarginRight = 1;
+                spinner.Label = new InlineTextBlock
+                {
+                    Text = "Doing some work",
+                    MarginRight = 1
+                };
 
                 spinner.Display();
 

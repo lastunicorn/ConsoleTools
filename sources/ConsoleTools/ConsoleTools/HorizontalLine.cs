@@ -27,6 +27,8 @@ namespace DustInTheWind.ConsoleTools
     {
         public char Character { get; set; } = '-';
 
+        public int? Width { get; set; }
+
         public HorizontalLine()
         {
             MarginTop = 1;
@@ -35,12 +37,12 @@ namespace DustInTheWind.ConsoleTools
 
         protected override void DoDisplayContent()
         {
-            int calculatedWidth = Console.BufferWidth;
+            int calculatedWidth = Width ?? Console.BufferWidth;
 
             string text = new string(Character, calculatedWidth);
             WriteText(text);
 
-            if (text.Length != Console.BufferWidth)
+            if (text.Length % Console.BufferWidth == 0)
                 Console.WriteLine();
         }
     }

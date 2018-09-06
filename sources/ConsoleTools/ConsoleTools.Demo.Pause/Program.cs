@@ -28,8 +28,25 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
             Console.SetBufferSize(160, 512);
 
             DisplayApplicationHeader();
+            RunDemos();
 
-            ICommand[] commands = {
+            DummyText.Display("- This demo is over.", 3);
+            Pause.QuickDisplay();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            ApplicationHeader applicationHeader = new ApplicationHeader
+            {
+                Title = "ConsoleTools Demo - Pause"
+            };
+            applicationHeader.Display();
+        }
+
+        private static void RunDemos()
+        {
+            ICommand[] commands =
+            {
                 new DefaultCommand(),
                 new CustomUnlockKeyCommand(),
                 new ErasablePauseCommand(),
@@ -39,16 +56,6 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 
             foreach (ICommand command in commands)
                 command.Execute();
-
-            DummyText.Display("- This demo is over.", 3);
-            Pause.QuickDisplay();
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Pause");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
-            CustomConsole.WriteLine();
         }
     }
 }

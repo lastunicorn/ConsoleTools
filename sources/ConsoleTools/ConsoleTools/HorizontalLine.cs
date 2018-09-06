@@ -58,5 +58,20 @@ namespace DustInTheWind.ConsoleTools
         {
             return new string(Character, ActualContentWidth);
         }
+
+        public static void QuickDisplay()
+        {
+            HorizontalLine horizontalLine = new HorizontalLine();
+            horizontalLine.Display();
+        }
+
+        public static void QuickDisplay(char character)
+        {
+            HorizontalLine horizontalLine = new HorizontalLine
+            {
+                Character = character
+            };
+            horizontalLine.Display();
+        }
     }
 }

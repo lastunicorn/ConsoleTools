@@ -46,8 +46,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public Pause()
         {
-            MarginTop = 1;
-            MarginBottom = 1;
+            Margin = "0 1";
         }
 
         /// <summary>

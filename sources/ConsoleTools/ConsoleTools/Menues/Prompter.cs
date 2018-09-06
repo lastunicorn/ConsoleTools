@@ -90,8 +90,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         public Prompter()
         {
-            MarginTop = 1;
-            MarginBottom = 1;
+            Margin = "0 1";
         }
 
         /// <summary>

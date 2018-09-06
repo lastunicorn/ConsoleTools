@@ -46,8 +46,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControls.Commands
                 },
                 Values = colors.ToList(),
                 Bullet = "#",
-                MarginTop = 2,
-                MarginBottom = 2
+                Margin = "0 2"
                 // etc...
             };
 

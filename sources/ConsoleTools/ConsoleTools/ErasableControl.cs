@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            int outerHeight = MarginTop + InnerSize.Height + MarginBottom;
+            int outerHeight = Margin.Top + InnerSize.Height + Margin.Bottom;
 
             Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
 

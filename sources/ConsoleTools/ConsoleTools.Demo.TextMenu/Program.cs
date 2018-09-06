@@ -86,7 +86,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             {
                 Text = "Bye!",
                 ForegroundColor = CustomConsole.EmphasiesColor,
-                MarginTop = 1
+                Margin = "0 1 0 0"
             };
             goodbyText.Display();
         }

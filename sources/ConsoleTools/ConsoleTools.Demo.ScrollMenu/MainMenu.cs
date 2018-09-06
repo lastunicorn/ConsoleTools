@@ -29,8 +29,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             if (application == null) throw new ArgumentNullException(nameof(application));
 
             EraseAfterClose = true;
-            MarginTop = 1;
-            MarginBottom = 1;
+            Margin = "0 1";
             SelectFirstByDefault = true;
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);

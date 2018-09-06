@@ -35,33 +35,6 @@ namespace DustInTheWind.ConsoleTools
         public MultilineText Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of spaces to be written before the text (to the left).
-        /// Default value: 0
-        /// </summary>
-        public int MarginLeft { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of spaces to be written after the text (to the right).
-        /// Default value: 0
-        /// </summary>
-        public int MarginRight { get; set; }
-
-        /// <summary>
-        /// Gets or sets all the margins at once.
-        /// </summary>
-        public Thickness Margin
-        {
-            get => new Thickness(MarginLeft, MarginTop, MarginRight, MarginBottom);
-            set
-            {
-                MarginLeft = value.Left;
-                MarginTop = value.Top;
-                MarginRight = value.Right;
-                MarginBottom = value.Bottom;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the maximum width allowed including the margins.
         /// Negative value means the limit is the console's width.
         /// </summary>
@@ -103,16 +76,16 @@ namespace DustInTheWind.ConsoleTools
             int consoleWidth = Console.BufferWidth;
 
             Size innerSize = Text.CalculateSize(consoleWidth);
-            Size outerSize = innerSize + new Size(MarginLeft + MarginRight, MarginTop + MarginBottom);
+            Size outerSize = innerSize + new Size(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
 
             bool isBlockEqualToConsoleWidth = outerSize.Width == consoleWidth;
 
-            string marginLeftText = MarginLeft > 0
-                ? new string(' ', MarginLeft)
+            string marginLeftText = Margin.Left > 0
+                ? new string(' ', Margin.Left)
                 : string.Empty;
 
-            string marginRightText = MarginRight > 0
-                ? new string(' ', MarginRight)
+            string marginRightText = Margin.Right > 0
+                ? new string(' ', Margin.Right)
                 : string.Empty;
 
             IEnumerable<string> chunks = Text.GetLines(innerSize.Width);
@@ -141,12 +114,12 @@ namespace DustInTheWind.ConsoleTools
                 ? Console.BufferWidth
                 : MaxWidth;
 
-            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
+            int innerMaxWidth = outerMaxWidth - Margin.Left - Margin.Right;
 
             Size contentSize = Text.CalculateSize(innerMaxWidth);
 
-            int totalWidth = MarginLeft + contentSize.Width + MarginRight;
-            int totalHeight = MarginTop + contentSize.Height + MarginBottom;
+            int totalWidth = Margin.Left + contentSize.Width + Margin.Right;
+            int totalHeight = Margin.Top + contentSize.Height + Margin.Bottom;
 
             return new Size(totalWidth, totalHeight);
         }
@@ -164,7 +137,7 @@ namespace DustInTheWind.ConsoleTools
                 ? Console.BufferWidth
                 : MaxWidth;
 
-            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
+            int innerMaxWidth = outerMaxWidth - Margin.Left - Margin.Right;
 
             return Text.CalculateSize(innerMaxWidth);
         }

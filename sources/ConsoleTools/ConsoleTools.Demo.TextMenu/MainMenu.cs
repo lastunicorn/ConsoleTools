@@ -42,14 +42,13 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             if (application == null) throw new ArgumentNullException(nameof(application));
 
             EraseAfterClose = true;
-            MarginTop = 1;
-            MarginBottom = 1;
+            Margin = "0 1";
 
             Title = new TextBlock
             {
                 Text = "Demo Application",
                 ForegroundColor = ConsoleColor.Cyan,
-                MarginBottom = 1
+                Margin = "0 0 0 1"
             };
 
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);

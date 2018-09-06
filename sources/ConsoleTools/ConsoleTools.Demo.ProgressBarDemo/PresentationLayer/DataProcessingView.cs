@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
         {
             TextBlock textBlock = new TextBlock
             {
-                MarginBottom = 1,
+                Margin = "0 0 0 1",
                 Text = "We create a DataProcessingJob object that will simulate some data processing."
             };
             textBlock.Display();
@@ -64,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
                 case JobState.Running:
                     TextBlock textBlockStart = new TextBlock
                     {
-                        MarginBottom = 1,
+                        Margin = "0 0 0 1",
                         Text = "The job was started."
                     };
                     textBlockStart.Display();
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
                     progressBar.Close();
                     TextBlock textBlockFinish = new TextBlock
                     {
-                        MarginTop = 1,
+                        Margin = "0 1 0 0",
                         Text = "The job was finished."
                     };
                     textBlockFinish.Display();

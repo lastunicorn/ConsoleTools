@@ -30,25 +30,25 @@ namespace DustInTheWind.ConsoleTools
         /// Gets the number of empty lines displayed before the content.
         /// Default value: 0
         /// </summary>
-        public int Top { get; }
+        public int Top { get; set; }
 
         /// <summary>
         /// Gets the number of empty lines displayed after the content.
         /// Default value: 0
         /// </summary>
-        public int Bottom { get; }
+        public int Bottom { get; set; }
 
         /// <summary>
         /// Gets the number of spaces to be written to the left of the content.
         /// Default value: 0
         /// </summary>
-        public int Left { get; }
+        public int Left { get; set; }
 
         /// <summary>
         /// Gets the number of spaces to be written to the right of the content.
         /// Default value: 0
         /// </summary>
-        public int Right { get; }
+        public int Right { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific lengths applied to each side of the rectangle.

@@ -18,7 +18,7 @@ using System;
 using System.Threading;
 using DustInTheWind.ConsoleTools.Spinners;
 
-namespace DustInTheWind.ConsoleTools.Demo.Spinners
+namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
     internal class Worker
     {

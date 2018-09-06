@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Spinners;
 
-namespace DustInTheWind.ConsoleTools.Demo.Spinners
+namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
     /// <summary>
     /// The <see cref="Spinner"/> example is in the Worker.cs file.
@@ -40,12 +40,24 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
         private static void DisplayApplicationHeader()
         {
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Progress spinner");
-            CustomConsole.WriteLine("===============================================================================");
-            CustomConsole.WriteLine();
+
+            HorizontalLine horizontalLine1 = new HorizontalLine
+            {
+                Character = '=',
+                Margin = "0 0 0 1"
+            };
+            horizontalLine1.Display();
+            
             CustomConsole.WriteLine("Step 1: Select a template for the spinner.");
-            CustomConsole.WriteLine("Step 2: The application will simulate an asyn work and display the spinner.");
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("Step 2: The application will simulate some work and display the spinner until work is finish.");
+
+            HorizontalLine horizontalLine2 = new HorizontalLine
+            {
+                Character = '-',
+                Margin = "0 0 0 1"
+            };
+            horizontalLine2.Display();
+
         }
 
         public static void RequestStop()

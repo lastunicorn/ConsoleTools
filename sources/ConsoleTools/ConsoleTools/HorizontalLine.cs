@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+using System;
+
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
@@ -70,6 +72,16 @@ namespace DustInTheWind.ConsoleTools
             HorizontalLine horizontalLine = new HorizontalLine
             {
                 Character = character
+            };
+            horizontalLine.Display();
+        }
+
+        public static void QuickDisplay(char character, ConsoleColor foregroundColor)
+        {
+            HorizontalLine horizontalLine = new HorizontalLine
+            {
+                Character = character,
+                ForegroundColor = foregroundColor
             };
             horizontalLine.Display();
         }

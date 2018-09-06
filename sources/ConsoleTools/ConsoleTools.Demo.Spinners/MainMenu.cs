@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands;
 using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.Spinners.Templates;
 
-namespace DustInTheWind.ConsoleTools.Demo.Spinners
+namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
     internal class MainMenu : TextMenu
     {
@@ -35,194 +34,84 @@ namespace DustInTheWind.ConsoleTools.Demo.Spinners
             {
                 Id = "1",
                 Text = "stick",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new StickSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new StickCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "2",
                 Text = "bubble",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new BubbleSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new BubbleCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "3",
                 Text = "boomerang",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new BoomerangSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new BoomerangCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "4",
                 Text = "half-block spin",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new HalfRotateSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new HalhBlockSpinCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "5",
                 Text = "half-block vertical",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new HalfBlinkSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new HalfBlockVerticalCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "6",
                 Text = "fan",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FanSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FanCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "11",
                 Text = "fill (dot, empty from start) - default",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FillSpinnerTemplate(),
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FillEmptyFromStartCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "12",
                 Text = "fill (dot, empty from end)",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FillSpinnerTemplate { FilledBehavior = FilledBehavior.EmptyFromEnd },
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FillEmptyFromEndCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "13",
                 Text = "fill (dot, sudden empty)",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FillSpinnerTemplate { FilledBehavior = FilledBehavior.SuddenEmpty },
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FillSuddenEmptyCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "14",
                 Text = "fill (dot, with borders)",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FillSpinnerTemplate { ShowBorders = true },
-                        SpinnerStepMilliseconds = 400,
-                        WorkPeriod = TimeSpan.FromSeconds(5)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FillWithBordersCommand()
             };
 
             yield return new TextMenuItem
             {
                 Id = "15",
                 Text = "fill (block, length: 10 chars, step: 100ms)",
-                Command = new ActionCommand(() =>
-                {
-                    Worker worker = new Worker
-                    {
-                        SpinnerTemplate = new FillSpinnerTemplate('▓', 10),
-                        SpinnerStepMilliseconds = 100,
-                        WorkPeriod = TimeSpan.FromSeconds(10)
-                    };
-
-                    worker.Run();
-                })
+                Command = new FillBlock10Command()
             };
 
             yield return new TextMenuItem
             {
                 Id = "0",
                 Text = "Exit",
-                Command = new ActionCommand(Program.RequestStop)
+                Command = new ExitCommand()
             };
         }
     }

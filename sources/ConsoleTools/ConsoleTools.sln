@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.WriteText
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextMenu", "ConsoleTools.Demo.TextMenu\ConsoleTools.Demo.TextMenu.csproj", "{03611F6A-F799-4A07-8288-41BD4BD21C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Spinners", "ConsoleTools.Demo.Spinners\ConsoleTools.Demo.Spinners.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.SpinnerDemo", "ConsoleTools.Demo.Spinners\ConsoleTools.Demo.SpinnerDemo.csproj", "{47D36AC9-80A3-45C5-8DC4-DE804C21ABA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.PauseDemo", "ConsoleTools.Demo.Pause\ConsoleTools.Demo.PauseDemo.csproj", "{5D585EE9-4B5C-4199-9F05-439B80F6B411}"
 EndProject

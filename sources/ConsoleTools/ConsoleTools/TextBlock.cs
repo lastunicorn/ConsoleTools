@@ -73,32 +73,10 @@ namespace DustInTheWind.ConsoleTools
             if (Text == null)
                 return;
 
-            int consoleWidth = Console.BufferWidth;
-
-            Size innerSize = Text.CalculateSize(consoleWidth);
-            Size outerSize = innerSize + new Size(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
-
-            bool isBlockEqualToConsoleWidth = outerSize.Width == consoleWidth;
-
-            string marginLeftText = Margin.Left > 0
-                ? new string(' ', Margin.Left)
-                : string.Empty;
-
-            string marginRightText = Margin.Right > 0
-                ? new string(' ', Margin.Right)
-                : string.Empty;
-
-            IEnumerable<string> chunks = Text.GetLines(innerSize.Width);
+            IEnumerable<string> chunks = Text.GetLines(ActualContentWidth);
 
             foreach (string chunk in chunks)
-            {
-                Console.Write(marginLeftText);
-                WriteText(chunk);
-                Console.Write(marginRightText);
-
-                if (!isBlockEqualToConsoleWidth)
-                    Console.WriteLine();
-            }
+                WriteTextLine(chunk);
         }
 
         /// <summary>

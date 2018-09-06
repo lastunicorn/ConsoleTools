@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollMen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.HorizontalLineDemo", "ConsoleTools.Demo.HorizontalLineDemo\ConsoleTools.Demo.HorizontalLineDemo.csproj", "{42ABE719-CA05-421F-99BC-5F5D2D0C385B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextBlockDemo", "ConsoleTools.Demo.TextBlockDemo\ConsoleTools.Demo.TextBlockDemo.csproj", "{6513994E-72C8-4C79-81FE-DB35FC190D10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,14 @@ Global
 		{42ABE719-CA05-421F-99BC-5F5D2D0C385B}.Release-Net45|Any CPU.Build.0 = Release|Any CPU
 		{42ABE719-CA05-421F-99BC-5F5D2D0C385B}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{42ABE719-CA05-421F-99BC-5F5D2D0C385B}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release-Net45|Any CPU.ActiveCfg = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release-Net45|Any CPU.Build.0 = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{6513994E-72C8-4C79-81FE-DB35FC190D10}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

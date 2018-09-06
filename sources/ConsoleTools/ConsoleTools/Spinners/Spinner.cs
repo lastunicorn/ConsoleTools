@@ -198,6 +198,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             isDisposed = true;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Spinner"/> instance with default properties and starts it.
+        /// </summary>
+        /// <returns>The newly created <see cref="Spinner"/> instance.</returns>
         public static Spinner StartNew()
         {
             Spinner spinner = new Spinner();
@@ -206,6 +210,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             return spinner;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Spinner"/> instance, configures it to use the specified template and starts it.
+        /// </summary>
+        /// <returns>The newly created <see cref="Spinner"/> instance.</returns>
         public static Spinner StartNew(ISpinnerTemplate template)
         {
             Spinner spinner = new Spinner(template);

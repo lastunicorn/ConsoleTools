@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
                 Margin = "0 0 0 1"
             };
             horizontalLine1.Display();
-            
+
             CustomConsole.WriteLine("Step 1: Select a template for the spinner.");
             CustomConsole.WriteLine("Step 2: The application will simulate some work and display the spinner until work is finish.");
 
@@ -57,7 +57,6 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
                 Margin = "0 0 0 1"
             };
             horizontalLine2.Display();
-
         }
 
         public static void RequestStop()

@@ -15,28 +15,33 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Threading;
+using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
+using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustInTheWind.ConsoleTools.Demo.Pause
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal class Program
     {
         private static void Main()
         {
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
+
             DisplayApplicationHeader();
 
-            WriteDummyText();
-            DisplayDefaultPause();
+            ICommand[] commands = {
+                new DefaultCommand(),
+                new CustomUnlockKeyCommand(),
+                new ErasablePauseCommand(),
+                new CustomMarginsCommand(),
+                new CustomPaddingsCommand()
+            };
 
-            WriteDummyText();
-            DisplayPPause();
+            foreach (ICommand command in commands)
+                command.Execute();
 
-            WriteDummyText();
-            DisplayErasablePause();
-
-            WriteDummyText();
-
-            ConsoleTools.Pause.QuickDisplay("The demo is ended. Press any key to exit...");
+            DummyText.Display("- This demo is over.", 3);
+            Pause.QuickDisplay();
         }
 
         private static void DisplayApplicationHeader()
@@ -44,46 +49,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Pause
             CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Pause");
             CustomConsole.WriteLineEmphasies("===============================================================================");
             CustomConsole.WriteLine();
-        }
-
-        private static void WriteDummyText()
-        {
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-            CustomConsole.WriteLine("some text");
-            Thread.Sleep(500);
-        }
-
-        private static void DisplayDefaultPause()
-        {
-            CustomConsole.WriteLine("This is the default pause:");
-
-            ConsoleTools.Pause.QuickDisplay();
-        }
-
-        private static void DisplayPPause()
-        {
-            CustomConsole.WriteLine("This is the pause with custom Text and custom UnlockKey:");
-
-            ConsoleTools.Pause pause = new ConsoleTools.Pause
-            {
-                Text = "Press P key to continue...",
-                UnlockKey = ConsoleKey.P
-            };
-            pause.Display();
-        }
-
-        private static void DisplayErasablePause()
-        {
-            CustomConsole.WriteLine("This pause will erase itself at the end:");
-
-            ConsoleTools.Pause pause = new ConsoleTools.Pause
-            {
-                EraseAfterClose = true
-            };
-            pause.Display();
         }
     }
 }

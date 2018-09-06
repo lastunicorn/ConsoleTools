@@ -16,20 +16,20 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 {
-    internal class CustomPaddingCommand : CommandBase
+    internal class CustomUnlockKeyCommand : CommandBase
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+        public override string Title => "This is the pause with custom Text and custom UnlockKey";
 
         protected override void DoExecute()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
+            Pause pause = new Pause
             {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+                Text = "Press P key to continue...",
+                UnlockKey = ConsoleKey.P
             };
-            horizontalLine.Display();
+            pause.Display();
         }
     }
 }

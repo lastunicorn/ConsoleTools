@@ -14,22 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
-    internal class CustomPaddingCommand : CommandBase
+    internal static class DummyText
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
-
-        protected override void DoExecute()
+        public static void Display(string text, int count)
         {
-            HorizontalLine horizontalLine = new HorizontalLine
+            for (int i = 0; i < count; i++)
             {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
-            };
-            horizontalLine.Display();
+                CustomConsole.WriteLine(text);
+                Thread.Sleep(500);
+            }
         }
     }
 }

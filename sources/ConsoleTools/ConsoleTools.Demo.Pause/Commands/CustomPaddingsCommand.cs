@@ -16,20 +16,20 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 {
-    internal class CustomPaddingCommand : CommandBase
+    internal class CustomPaddingsCommand : CommandBase
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+        public override string Title => "Custom paddings (3 3 3 3)";
 
         protected override void DoExecute()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
+            Pause pause = new Pause
             {
                 Padding = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
             };
-            horizontalLine.Display();
+            pause.Display();
         }
     }
 }

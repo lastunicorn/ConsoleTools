@@ -14,22 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 {
-    internal class CustomPaddingCommand : CommandBase
+    internal class DefaultCommand : CommandBase
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+        public override string Title => "Default Pause";
 
         protected override void DoExecute()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
-            };
-            horizontalLine.Display();
+            Pause.QuickDisplay();
         }
     }
 }

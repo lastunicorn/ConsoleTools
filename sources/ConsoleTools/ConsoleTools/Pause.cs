@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -28,6 +29,8 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public class Pause : ErasableControl
     {
+        private int lastLineLength;
+
         //public MultilineText Text2 { get; set; }
         /// <summary>
         /// Gets or sets the text to be displayed to the user while witing for the user to press a key.
@@ -54,42 +57,40 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected override void DoDisplayContent()
         {
-            int consoleWidth = Console.BufferWidth;
-            int lastLineLength = 0;
+            if (Text == null)
+                return;
 
-            for (int i = 0; i < Text.Lines.Count; i++)
+            lastLineLength = 0;
+
+            IEnumerable<string> lines = Text.GetLines(ActualContentWidth);
+
+            foreach (string line in lines)
             {
-                string line = Text.Lines[i];
                 lastLineLength = line.Length;
+                //string text = line;
+                
+                //if(text.Length < ActualContentWidth)
+                //    text += new string(' ', ActualContentWidth - lastLineLength);
 
-                bool textWidthIsConsoleWidth = lastLineLength % consoleWidth == 0;
-
-                if (textWidthIsConsoleWidth)
-                {
-                    Console.Write(line);
-                }
-                else
-                {
-                    bool isLastLine = i == Text.Lines.Count - 1;
-
-                    if (isLastLine)
-                    {
-                        Console.Write(line);
-                    }
-                    else
-                    {
-                        Console.WriteLine(line);
-                    }
-                }
-
-                int lineHeight = (int)Math.Ceiling(line.Length / (double)Console.BufferWidth);
-                InnerSize = InnerSize.InflateHeight(lineHeight);
+                WriteTextLine(line);
+                InnerSize = InnerSize.InflateHeight(1);
             }
+        }
+
+        protected override void OnAfterDisplay()
+        {
+            int oldCursorLeft = Console.CursorLeft;
+            int oldCursorTop = Console.CursorTop;
+
+            int cursorLeft = Margin.Left + Padding.Left + lastLineLength;
+            int cursorTop = Console.CursorTop - 1 - Margin.Bottom - Padding.Bottom;
+            Console.SetCursorPosition(cursorLeft, cursorTop);
 
             WaitForUnlockKey();
 
-            if (lastLineLength != consoleWidth)
-                Console.WriteLine();
+            Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
+
+            base.OnAfterDisplay();
         }
 
         private void WaitForUnlockKey()

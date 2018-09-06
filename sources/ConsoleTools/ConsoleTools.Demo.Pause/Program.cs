@@ -51,7 +51,9 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
                 new CustomUnlockKeyCommand(),
                 new ErasablePauseCommand(),
                 new CustomMarginsCommand(),
-                new CustomPaddingsCommand()
+                new CustomPaddingsCommand(),
+                new ForegroundColorCommand(), 
+                new BackgroundColorCommand()
             };
 
             foreach (ICommand command in commands)

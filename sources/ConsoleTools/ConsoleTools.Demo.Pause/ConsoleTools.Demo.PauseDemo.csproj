@@ -55,9 +55,11 @@
     </Compile>
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="CommandBase.cs" />
+    <Compile Include="Commands\BackgroundColorCommand.cs" />
     <Compile Include="Commands\CustomPaddingsCommand.cs" />
     <Compile Include="Commands\CustomUnlockKeyCommand.cs" />
     <Compile Include="Commands\CustomMarginsCommand.cs" />
+    <Compile Include="Commands\ForegroundColorCommand.cs" />
     <Compile Include="Commands\ErasablePauseCommand.cs" />
     <Compile Include="Commands\DefaultCommand.cs" />
     <Compile Include="DummyText.cs" />

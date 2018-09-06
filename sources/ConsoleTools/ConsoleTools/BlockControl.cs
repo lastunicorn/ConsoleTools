@@ -227,10 +227,10 @@ namespace DustInTheWind.ConsoleTools
         protected void WriteTextLine(string text)
         {
             StartTextLine();
-            
+
             if (text.Length < ActualContentWidth)
                 text += new string(' ', ActualContentWidth - text.Length);
-            
+
             WriteText(text);
 
             EndTextLine();

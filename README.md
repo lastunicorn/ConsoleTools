@@ -11,20 +11,6 @@ For any bug or feature request please add a **[new issue](https://github.com/las
 
 
 ## Most cool controls
-
-## What is it?
-
-ConsoleTools is a set of tools and "controls" for the .net Console that help reading and displaying data from/to the user.
-
-_**Note**: Until reaching the version 1.0.0 the controls will NOT ensure backwards compatibility._
-
-
-## Bugs and feature requests
-
-For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new)** on **GitHub**.
-
-
-## Controls
 This is a list of most important controls that are provided by this library.
 There is a DataGrid control that can display tabular data, there is a progress bar, a spinner, menus, etc.
 

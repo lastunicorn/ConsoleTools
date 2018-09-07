@@ -1,3 +1,7 @@
+todo: change - When Width property is explicitly set on a control, it take higher precedent during layout and will cancel the typical effects of setting HorizontalAlignment to Stretch.
+
+
+
 Width : int?
 MinWidth : int?
 MaxWidth : int?

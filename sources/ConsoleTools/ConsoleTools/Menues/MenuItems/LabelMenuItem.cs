@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
     public class LabelMenuItem : IMenuItem
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
-        
+
         private bool isVisible = true;
         private bool isEnabled = true;
 
@@ -150,35 +150,28 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
             // Write left empty space
             CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
 
+            // Write content
             if (highlighted)
-            {
-                // Write left padding
-                if (PaddingLeft > 0)
-                    CustomConsole.WriteInverted(new string(' ', PaddingLeft));
-
-                // Write content
-                CustomConsole.WriteInverted(Text);
-
-                // Write right padding
-                if (PaddingRight > 0)
-                    CustomConsole.WriteInverted(new string(' ', PaddingRight));
-            }
+                CustomConsole.WithInvertedColors(DisplayContent);
             else
-            {
-                // Write left padding
-                if (PaddingLeft > 0)
-                    CustomConsole.Write(new string(' ', PaddingLeft));
-
-                // Write content
-                CustomConsole.Write(Text);
-
-                // Write right padding
-                if (PaddingRight > 0)
-                    CustomConsole.Write(new string(' ', PaddingRight));
-            }
+                DisplayContent();
 
             // Write right empty space
             CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
+        }
+
+        private void DisplayContent()
+        {
+            // Write left padding
+            if (PaddingLeft > 0)
+                CustomConsole.Write(new string(' ', PaddingLeft));
+
+            // Write the text
+            CustomConsole.Write(Text);
+
+            // Write right padding
+            if (PaddingRight > 0)
+                CustomConsole.Write(new string(' ', PaddingRight));
         }
 
         private HorizontalAlignment CalculateHorizontalAlignment()

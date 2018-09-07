@@ -28,7 +28,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             if (demoApplication == null) throw new ArgumentNullException(nameof(demoApplication));
 
             Margin = "0 1";
-            QuestionText = "Make your choice";
+
+            QuestionText = new InlineTextBlock
+            {
+                Text = "Make your choice:",
+                MarginRight = 1
+            };
 
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(demoApplication);
             AddItems(menuItems);

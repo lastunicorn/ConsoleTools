@@ -114,7 +114,6 @@
     <Compile Include="Menues\ActionCommand.cs" />
     <Compile Include="Menues\EmptyCommand.cs" />
     <Compile Include="Menues\ICommand.cs" />
-    <Compile Include="Menues\MenuItems\HighlightType.cs" />
     <Compile Include="Menues\TextMenuItem.cs" />
     <Compile Include="Menues\TextMenuResources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Menues
 {
@@ -63,11 +62,6 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Specifies the horizontal alignment for the items displayed inside the menu.
         /// </summary>
         public HorizontalAlignment ItemsHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
-
-        /// <summary>
-        /// Specifies the highlight type applied to the menue's items.
-        /// </summary>
-        public HighlightType ItemsHighlightType { get; set; } = HighlightType.Default;
 
         /// <summary>
         /// Gets or sets a value that specifies if the first item is automatically selected when the menu is displayed.
@@ -339,6 +333,7 @@ namespace DustInTheWind.ConsoleTools.Menues
                             if (isSelectedSuccessfully)
                                 return;
                         }
+
                         break;
 
                     default:
@@ -350,6 +345,7 @@ namespace DustInTheWind.ConsoleTools.Menues
                             if (isSelectedSuccessfully)
                                 return;
                         }
+
                         break;
                 }
             }

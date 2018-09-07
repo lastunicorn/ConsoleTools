@@ -9,6 +9,8 @@ ver 0.6.0
 - HorizontalLine: Created the HorizontalLine control.
 - TextBlock: Removed the MarginLeft, MarginTop, MarginRight, MarginBottom properties.
 - Pause: Implemented left and right margins and paddings.
+- LabelMenuItem: Removed the HighlightType property.
+- ScrollMenu: Removed the ItemsHighlightType property.
 
 ver 0.5.0 - !!! Breaking changes present
 ---------

@@ -18,17 +18,17 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
 {
-    internal class CustomPaddingsCommand : CommandBase
+    internal class MarginsCommand : CommandBase
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+        public override string Title => "Custom Margins (3 3 3 3)";
 
         protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+                Margin = 3,
+                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
             };
             textBlock.Display();
         }

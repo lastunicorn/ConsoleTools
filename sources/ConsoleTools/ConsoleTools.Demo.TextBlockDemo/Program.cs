@@ -50,10 +50,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
                 new SingleLongLineCommand(),
                 new MultipleShortLinesCommand(),
                 new MultipleLongLinesCommand(),
-                new CustomMarginsCommand(),
-                new CustomPaddingsCommand(),
+                new MarginsCommand(),
+                new PaddingsCommand(),
                 new ForegroundColorCommand(),
-                new BackgroundColorCommand()
+                new BackgroundColorCommand(),
+                new MaxWidthCommand()
             };
 
             foreach (ICommand command in commands)

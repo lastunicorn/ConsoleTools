@@ -1,0 +1,62 @@
+Width : int?
+MinWidth : int?
+MaxWidth : int?
+
+HorizontalAlign : enum(Left, Center, Right, Stretch)
+
+
+--------------------------------------------------------------------------------
+CalculatedWidth
+--------------------------------------------------------------------------------
+
+If Width == null && MinWidth == null && MaxWidth == null
+Then
+	If HorizontalAlign == any(Left, Center, Right)
+	Then CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
+	And Parent will position the control (calculate left and right free space) according to its HorizontalAlign.
+	
+	If HorizontalAlign == Stretch
+	Then CalculatedWidth = Parent.CalculatedClientWidth
+
+
+--------------------------------------------------------------------------------
+CalculatedNormalWidth
+--------------------------------------------------------------------------------
+
+CalculatedNormalWidth is the width that the control would have if no restrictions are applied.
+
+
+If Width != null && MinWidth == null && MaxWidth == null
+Then CalculatedNormalWidth = Width
+
+If Width != null && MinWidth != null && MaxWidth == null
+Then CalculatedNormalWidth = max(Width, MinWidth)
+
+If Width != null && MinWidth == null && MaxWidth != null
+Then CalculatedNormalWidth = min(Width, MaxWidth)
+
+If Width != null && MinWidth != null && MaxWidth != null
+Then CalculatedNormalWidth = max(min(Width, MaxWidth), MinWidth)
+
+
+If Width == null && MinWidth == null && MaxWidth == null
+Then CalculatedNormalWidth = CalculatedContentWidth
+
+If Width == null && MinWidth != null && MaxWidth == null
+Then CalculatedNormalWidth = max(CalculatedContentWidth, MinWidth)
+
+If Width == null && MinWidth == null && MaxWidth != null
+Then CalculatedNormalWidth = min(CalculatedContentWidth, MaxWidth)
+
+If Width == null && MinWidth != null && MaxWidth != null
+Then CalculatedNormalWidth = max(min(CalculatedContentWidth, MaxWidth), MinWidth)
+
+
+Note: If there is a conflict between MinWidth, MaxWidth and Width, the order of application to determine the CalculatedNormalWidth is first MinWidth must be honored, then MaxWidth, and finally if each of these are within bounds, Width.
+
+
+--------------------------------------------------------------------------------
+CalculatedContentWidth
+--------------------------------------------------------------------------------
+
+CalculatedContentWidth is the with that the content has if no restrictions are applied.

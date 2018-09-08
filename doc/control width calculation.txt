@@ -21,13 +21,14 @@ Then
 	
 	If HorizontalAlign == Stretch
 	Then CalculatedWidth = Parent.CalculatedClientWidth
-
+Else TODO
 
 --------------------------------------------------------------------------------
 CalculatedNormalWidth
 --------------------------------------------------------------------------------
 
-CalculatedNormalWidth is the width that the control would have if no restrictions are applied.
+CalculatedNormalWidth is the width that the control would have if no outside restrictions are applied.
+The Width, MinWidth and MaxWidth are honored.
 
 
 If Width != null && MinWidth == null && MaxWidth == null
@@ -63,4 +64,5 @@ Note: If there is a conflict between MinWidth, MaxWidth and Width, the order of 
 CalculatedContentWidth
 --------------------------------------------------------------------------------
 
-CalculatedContentWidth is the with that the content has if no restrictions are applied.
+CalculatedContentWidth is the width that the content has if no restrictions are applied from the control itself.
+The Width, MinWidth and MaxWidth are not honored.

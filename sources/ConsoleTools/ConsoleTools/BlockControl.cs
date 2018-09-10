@@ -360,6 +360,49 @@ namespace DustInTheWind.ConsoleTools
             WriteText(text);
         }
 
+        public int? MinWidth { get; set; }
+
+        public int? MaxWidth { get; set; }
+
+        private int CalculatedNormalWidth
+        {
+            get
+            {
+                if (Width == null)
+                {
+                    if (MinWidth == null)
+                    {
+                        return MaxWidth == null
+                            ? CalculatedContentWidth
+                            : Math.Min(CalculatedContentWidth, MaxWidth.Value);
+                    }
+                    else
+                    {
+                        return MaxWidth == null
+                            ? Math.Max(CalculatedContentWidth, MinWidth.Value)
+                            : Math.Max(Math.Min(CalculatedContentWidth, MaxWidth.Value), MinWidth.Value);
+                    }
+                }
+                else
+                {
+                    if (MinWidth == null)
+                    {
+                        return MaxWidth == null
+                            ? Width.Value
+                            : Math.Min(Width.Value, MaxWidth.Value);
+                    }
+                    else
+                    {
+                        return MaxWidth == null
+                            ? Math.Max(Width.Value, MinWidth.Value)
+                            : Math.Max(Math.Min(Width.Value, MaxWidth.Value), MinWidth.Value);
+                    }
+                }
+            }
+        }
+
+        protected abstract int CalculatedContentWidth { get; }
+
         /// <summary>
         /// Method called immediately before writting the top margin.
         /// </summary>

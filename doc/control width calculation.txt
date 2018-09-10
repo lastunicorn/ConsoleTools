@@ -1,7 +1,3 @@
-todo: change - When Width property is explicitly set on a control, it take higher precedent during layout and will cancel the typical effects of setting HorizontalAlignment to Stretch.
-
-
-
 Width : int?
 MinWidth : int?
 MaxWidth : int?
@@ -13,32 +9,35 @@ HorizontalAlign : enum(Left, Center, Right, Stretch)
 CalculatedWidth
 --------------------------------------------------------------------------------
 
-If Width == null && MinWidth == null && MaxWidth == null
+If HorizontalAlign == Stretch
 Then
-	If HorizontalAlign == any(Left, Center, Right)
-	Then CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
-	And Parent will position the control (calculate left and right free space) according to its HorizontalAlign.
-	
-	If HorizontalAlign == Stretch
-	Then CalculatedWidth = Parent.CalculatedClientWidth
-Else TODO
+	If Width == null && MinWidth == null && MaxWidth == null
+	Then
+		CalculatedWidth = Parent.CalculatedClientWidth
+	Else
+		CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
+		And Parent will center the control (like HorizontalAlign = Center).
+Else
+	CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
+	And Parent will position the control (calculate left and right free space) according to the control's HorizontalAlign.
+
 
 --------------------------------------------------------------------------------
 CalculatedNormalWidth
 --------------------------------------------------------------------------------
 
 CalculatedNormalWidth is the width that the control would have if no outside restrictions are applied.
-The Width, MinWidth and MaxWidth are honored.
+Only the Width, MinWidth and MaxWidth are honored.
 
 
 If Width != null && MinWidth == null && MaxWidth == null
 Then CalculatedNormalWidth = Width
 
-If Width != null && MinWidth != null && MaxWidth == null
-Then CalculatedNormalWidth = max(Width, MinWidth)
-
 If Width != null && MinWidth == null && MaxWidth != null
 Then CalculatedNormalWidth = min(Width, MaxWidth)
+
+If Width != null && MinWidth != null && MaxWidth == null
+Then CalculatedNormalWidth = max(Width, MinWidth)
 
 If Width != null && MinWidth != null && MaxWidth != null
 Then CalculatedNormalWidth = max(min(Width, MaxWidth), MinWidth)
@@ -47,11 +46,11 @@ Then CalculatedNormalWidth = max(min(Width, MaxWidth), MinWidth)
 If Width == null && MinWidth == null && MaxWidth == null
 Then CalculatedNormalWidth = CalculatedContentWidth
 
-If Width == null && MinWidth != null && MaxWidth == null
-Then CalculatedNormalWidth = max(CalculatedContentWidth, MinWidth)
-
 If Width == null && MinWidth == null && MaxWidth != null
 Then CalculatedNormalWidth = min(CalculatedContentWidth, MaxWidth)
+
+If Width == null && MinWidth != null && MaxWidth == null
+Then CalculatedNormalWidth = max(CalculatedContentWidth, MinWidth)
 
 If Width == null && MinWidth != null && MaxWidth != null
 Then CalculatedNormalWidth = max(min(CalculatedContentWidth, MaxWidth), MinWidth)

@@ -44,6 +44,11 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// The element is displayed in the right side of the container.
         /// </summary>
-        Right
+        Right,
+
+        /// <summary>
+        /// The element is stretched to fill the entire horizontal space.
+        /// </summary>
+        Stretch
     }
 }

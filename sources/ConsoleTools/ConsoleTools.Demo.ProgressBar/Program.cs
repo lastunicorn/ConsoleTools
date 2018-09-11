@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,15 +50,25 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBar
 
             Task.Run<Task>(async () =>
             {
-                progressBar.Display();
-
-                for (int i = 0; i <= 100; i++)
+                try
                 {
-                    await Task.Delay(50);
-                    progressBar.Value = i;
-                }
+                    progressBar.Display();
 
-                finishEvent.Set();
+                    for (int i = 0; i <= 100; i++)
+                    {
+                        await Task.Delay(50);
+                        progressBar.Value = i;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CustomConsole.WriteLine();
+                    CustomConsole.WriteError(ex);
+                }
+                finally
+                {
+                    finishEvent.Set();
+                }
             });
 
             finishEvent.Wait();

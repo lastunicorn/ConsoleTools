@@ -85,6 +85,8 @@
     <Compile Include="SizeTests\ConstructorTests.cs" />
     <Compile Include="SizeTests\InflateWithNumberTests.cs" />
     <Compile Include="SizeTests\IsEmptyTests.cs" />
+    <Compile Include="Spinners\ProgressBarTests\MinValueTests.cs" />
+    <Compile Include="Spinners\ProgressBarTests\MaxValueTests.cs" />
     <Compile Include="TabularData\BorderTemplateTests\GenerateBottomBorderTests.cs" />
     <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator1Tests.cs" />
     <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator2Tests.cs" />

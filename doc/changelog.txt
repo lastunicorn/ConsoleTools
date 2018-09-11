@@ -12,6 +12,10 @@ ver 0.6.0
 - LabelMenuItem: Removed the HighlightType property.
 - ScrollMenu: Removed the ItemsHighlightType property.
 
+ver 0.5.1
+---------
+- ProgressBar: [bugfix] Fixed incorrect throw of out of range exception when setting the MaxValue property.
+
 ver 0.5.0 - !!! Breaking changes present
 ---------
 - Refactored the base abstract class hierarchy. Now there are two base classes (BlockControl and InlineControl) that inherit from the Control class.

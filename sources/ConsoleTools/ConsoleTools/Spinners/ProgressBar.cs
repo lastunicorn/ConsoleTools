@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             get { return maxValue; }
             set
             {
-                if (value > MinValue)
+                if (value < MinValue)
                     throw new ArgumentOutOfRangeException(nameof(value), "MaxValue cannot be less than MinValue.");
 
                 maxValue = value;
@@ -322,7 +322,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
         private int CalculateFillLength(int value)
         {
-            return (value - MinValue) * Length / (MaxValue - MinValue);
+            int valueRange = MaxValue - MinValue;
+
+            if (valueRange == 0)
+                return Length;
+
+            return (value - MinValue) * Length / valueRange;
         }
 
         /// <summary>

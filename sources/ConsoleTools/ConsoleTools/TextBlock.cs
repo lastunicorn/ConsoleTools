@@ -35,12 +35,6 @@ namespace DustInTheWind.ConsoleTools
         public MultilineText Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum width allowed including the margins.
-        /// Negative value means the limit is the console's width.
-        /// </summary>
-        public int MaxWidth { get; set; } = -1;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="TextBlock"/> class.
         /// </summary>
         public TextBlock()
@@ -85,21 +79,11 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
         public Size CalculateOuterSize()
         {
-            if (Text == null)
-                return Size.Empty;
+            Size contentSize = Text?.CalculateSize(ActualContentWidth) ?? Size.Empty;
+            Size paddingSize = new Size(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
+            Size marginSize = new Size(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
 
-            int outerMaxWidth = MaxWidth < 0
-                ? Console.BufferWidth
-                : MaxWidth;
-
-            int innerMaxWidth = outerMaxWidth - Margin.Left - Margin.Right;
-
-            Size contentSize = Text.CalculateSize(innerMaxWidth);
-
-            int totalWidth = Margin.Left + contentSize.Width + Margin.Right;
-            int totalHeight = Margin.Top + contentSize.Height + Margin.Bottom;
-
-            return new Size(totalWidth, totalHeight);
+            return contentSize + paddingSize + marginSize;
         }
 
         /// <summary>
@@ -108,17 +92,13 @@ namespace DustInTheWind.ConsoleTools
         /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
         public Size CalculateInnerSize()
         {
-            if (Text == null)
-                return Size.Empty;
+            Size contentSize = Text?.CalculateSize(ActualContentWidth) ?? Size.Empty;
+            Size paddingSize = new Size(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
 
-            int outerMaxWidth = MaxWidth < 0
-                ? Console.BufferWidth
-                : MaxWidth;
-
-            int innerMaxWidth = outerMaxWidth - Margin.Left - Margin.Right;
-
-            return Text.CalculateSize(innerMaxWidth);
+            return contentSize + paddingSize;
         }
+
+        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Displays the specified text into the console.

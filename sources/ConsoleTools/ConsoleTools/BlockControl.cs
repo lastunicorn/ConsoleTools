@@ -70,6 +70,122 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public ConsoleColor? BackgroundColor { get; set; }
 
+        /// <summary>
+        /// Gets the width available for the control to render itself.
+        /// </summary>
+        /// <remarks>
+        /// The parent's control is deciding this space.
+        /// </remarks>
+        protected int AvailableWidth
+        {
+            get
+            {
+                switch (DefaultParent)
+                {
+                    case DefaultParent.ConsoleBuffer:
+                        return Console.BufferWidth;
+
+                    case DefaultParent.ConsoleWindow:
+                        return Console.WindowWidth;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the actual width of the control including the left and right margins.
+        /// </summary>
+        /// <remarks>
+        /// This value is equal to the available width if the control is stretched.
+        /// </remarks>
+        protected int ActualFullWidth => AvailableWidth;
+
+        /// <summary>
+        /// Gets the actual width of the control without the left and right margins.
+        /// </summary>
+        protected int ActualWidth => ActualFullWidth - Margin.Left - Margin.Right;
+
+        /// <summary>
+        /// Gets the actual width of the client area (without the left and right paddings).
+        /// </summary>
+        protected int ActualClientWidth => ActualWidth - Padding.Left - Padding.Right;
+
+        /// <summary>
+        /// Gets the actual width of the content.
+        /// </summary>
+        protected int ActualContentWidth => Math.Min(RestrictedContentWidth, ActualClientWidth);
+
+        /// <summary>
+        /// Gets the desired width of the control calculated by honoring the
+        /// <see cref="Width"/>, <see cref="MinWidth"/> and <see cref="MaxWidth"/>.
+        /// </summary>
+        protected int RestrictedContentWidth
+        {
+            get
+            {
+                if (Width == null)
+                {
+                    if (MinWidth == null)
+                    {
+                        if (MaxWidth == null)
+                        {
+                            return DesiredContentWidth;
+                        }
+                        else
+                        {
+                            int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Min(DesiredContentWidth, contentMaxWidth);
+                        }
+                    }
+                    else
+                    {
+                        if (MaxWidth == null)
+                        {
+                            int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Max(DesiredContentWidth, contentMinWidth);
+                        }
+                        else
+                        {
+                            int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+                            int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Max(Math.Min(DesiredContentWidth, contentMaxWidth), contentMinWidth);
+                        }
+                    }
+                }
+                else
+                {
+                    if (MinWidth == null)
+                    {
+                        if (MaxWidth == null)
+                        {
+                            return Width.Value;
+                        }
+                        else
+                        {
+                            int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Min(Width.Value, contentMaxWidth);
+                        }
+                    }
+                    else
+                    {
+                        if (MaxWidth == null)
+                        {
+                            int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Max(Width.Value, contentMinWidth);
+                        }
+                        else
+                        {
+                            int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+                            int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                            return Math.Max(Math.Min(Width.Value, contentMaxWidth), contentMinWidth);
+                        }
+                    }
+                }
+            }
+        }
+
         protected int ActualOuterWidth
         {
             get
@@ -112,26 +228,26 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        protected int ActualContentWidth
-        {
-            get
-            {
-                if (Width.HasValue)
-                    return Width.Value - Padding.Left - Padding.Right;
+        //protected int ActualContentWidth
+        //{
+        //    get
+        //    {
+        //        if (Width.HasValue)
+        //            return Width.Value - Padding.Left - Padding.Right;
 
-                switch (DefaultParent)
-                {
-                    case DefaultParent.ConsoleBuffer:
-                        return Console.BufferWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
+        //        switch (DefaultParent)
+        //        {
+        //            case DefaultParent.ConsoleBuffer:
+        //                return Console.BufferWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
 
-                    case DefaultParent.ConsoleWindow:
-                        return Console.WindowWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
+        //            case DefaultParent.ConsoleWindow:
+        //                return Console.WindowWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+        //            default:
+        //                throw new ArgumentOutOfRangeException();
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Event raised immediately before writting the top margin.
@@ -364,44 +480,7 @@ namespace DustInTheWind.ConsoleTools
 
         public int? MaxWidth { get; set; }
 
-        private int CalculatedNormalWidth
-        {
-            get
-            {
-                if (Width == null)
-                {
-                    if (MinWidth == null)
-                    {
-                        return MaxWidth == null
-                            ? CalculatedContentWidth
-                            : Math.Min(CalculatedContentWidth, MaxWidth.Value);
-                    }
-                    else
-                    {
-                        return MaxWidth == null
-                            ? Math.Max(CalculatedContentWidth, MinWidth.Value)
-                            : Math.Max(Math.Min(CalculatedContentWidth, MaxWidth.Value), MinWidth.Value);
-                    }
-                }
-                else
-                {
-                    if (MinWidth == null)
-                    {
-                        return MaxWidth == null
-                            ? Width.Value
-                            : Math.Min(Width.Value, MaxWidth.Value);
-                    }
-                    else
-                    {
-                        return MaxWidth == null
-                            ? Math.Max(Width.Value, MinWidth.Value)
-                            : Math.Max(Math.Min(Width.Value, MaxWidth.Value), MinWidth.Value);
-                    }
-                }
-            }
-        }
-
-        protected abstract int CalculatedContentWidth { get; }
+        protected virtual int DesiredContentWidth { get; }
 
         /// <summary>
         /// Method called immediately before writting the top margin.

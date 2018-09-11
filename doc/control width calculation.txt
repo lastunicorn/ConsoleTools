@@ -11,12 +11,8 @@ CalculatedWidth
 
 If HorizontalAlign == Stretch
 Then
-	If Width == null && MinWidth == null && MaxWidth == null
-	Then
-		CalculatedWidth = Parent.CalculatedClientWidth
-	Else
-		CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
-		And Parent will center the control (like HorizontalAlign = Center).
+	CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
+	And Parent will center the control (like HorizontalAlign = Left).
 Else
 	CalculatedWidth = min(CalculatedNormalWidth, Parent.CalculatedClientWidth)
 	And Parent will position the control (calculate left and right free space) according to the control's HorizontalAlign.

@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             set
             {
                 if (value > MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(value), "MinValue cannot be grater than MaxValue.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "MinValue cannot be greater than MaxValue.");
 
                 minValue = value;
             }
@@ -214,7 +214,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Displays the current instance to the Console.
         /// Important: While the <see cref="ProgressBar"/> is displayed, it is important to not write anything else to the Console
-        /// until the <see cref="Close"/> method is called.
+        /// until the <see cref="LongRunningControl.Close"/> method is called.
         /// In the meantime, you can update its displayed value by setting the <see cref="Value"/> property. The control will
         /// automatically update itself in the Console.
         /// </summary>

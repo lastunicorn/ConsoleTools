@@ -65,6 +65,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +80,9 @@
     </Compile>
     <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
     <Compile Include="AlignedTextTests\ToStringTests.cs" />
+    <Compile Include="ConsoleOutput.cs" />
+    <Compile Include="ExpectedOutput.cs" />
+    <Compile Include="TextBlockTests\TextBlockTests.cs" />
     <Compile Include="MultilineTextTests\Constructor_InitializeLinesTests.cs" />
     <Compile Include="MultilineTextTests\Constructor_RawTextTests.cs" />
     <Compile Include="MultilineTextTests\GetLinesTest.cs" />
@@ -142,8 +146,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TextBlockTests\TextBlockTests.out\test2.out">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="TextBlockTests\TextBlockTests.out\test1.out">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

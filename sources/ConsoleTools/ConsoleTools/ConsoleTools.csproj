@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="DefaultParent.cs" />
     <Compile Include="HorizontalLine.cs" />
+    <Compile Include="SupremeParent.cs" />
     <Compile Include="Thickness.cs" />
     <Compile Include="Menues\IPrompterCommand.cs" />
     <Compile Include="Menues\PrompterItem.cs" />

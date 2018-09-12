@@ -44,6 +44,16 @@ namespace DustInTheWind.ConsoleTools
         public int? Width { get; set; }
 
         /// <summary>
+        /// Gets or sets the minimum width allowed for the control.
+        /// </summary>
+        public int? MinWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum width allowed for the control.
+        /// </summary>
+        public int? MaxWidth { get; set; }
+
+        /// <summary>
         /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
@@ -115,13 +125,13 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets the actual width of the content.
         /// </summary>
-        protected int ActualContentWidth => Math.Min(RestrictedContentWidth, ActualClientWidth);
+        protected int ActualContentWidth => Math.Min(CalculatedContentWidth, ActualClientWidth);
 
         /// <summary>
         /// Gets the desired width of the control calculated by honoring the
         /// <see cref="Width"/>, <see cref="MinWidth"/> and <see cref="MaxWidth"/>.
         /// </summary>
-        protected int RestrictedContentWidth
+        protected int CalculatedContentWidth
         {
             get
             {
@@ -185,69 +195,6 @@ namespace DustInTheWind.ConsoleTools
                 }
             }
         }
-
-        protected int ActualOuterWidth
-        {
-            get
-            {
-                if (Width.HasValue)
-                    return Width.Value + Margin.Left + Margin.Right;
-
-                switch (DefaultParent)
-                {
-                    case DefaultParent.ConsoleBuffer:
-                        return Console.BufferWidth;
-
-                    case DefaultParent.ConsoleWindow:
-                        return Console.WindowWidth;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
-        protected int ActualInnerWidth
-        {
-            get
-            {
-                if (Width.HasValue)
-                    return Width.Value;
-
-                switch (DefaultParent)
-                {
-                    case DefaultParent.ConsoleBuffer:
-                        return Console.BufferWidth - Margin.Left - Margin.Right;
-
-                    case DefaultParent.ConsoleWindow:
-                        return Console.WindowWidth - Margin.Left - Margin.Right;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
-        //protected int ActualContentWidth
-        //{
-        //    get
-        //    {
-        //        if (Width.HasValue)
-        //            return Width.Value - Padding.Left - Padding.Right;
-
-        //        switch (DefaultParent)
-        //        {
-        //            case DefaultParent.ConsoleBuffer:
-        //                return Console.BufferWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
-
-        //            case DefaultParent.ConsoleWindow:
-        //                return Console.WindowWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
-
-        //            default:
-        //                throw new ArgumentOutOfRangeException();
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Event raised immediately before writting the top margin.
@@ -366,17 +313,14 @@ namespace DustInTheWind.ConsoleTools
             WriteRightEmptySpace();
 
             // Decide if new line is needed.
-            if (ActualOuterWidth % Console.BufferWidth != 0)
+            if (ActualFullWidth % Console.BufferWidth != 0)
                 Console.WriteLine();
         }
 
         private void WriteLeftEmptySpace()
         {
-            int availableWidth = DefaultParent == DefaultParent.ConsoleWindow
-                ? Console.WindowWidth
-                : Console.BufferWidth;
-
-            int outerWidth = ActualOuterWidth;
+            int availableWidth = AvailableWidth;
+            int fullWidth = ActualFullWidth;
 
             switch (HorizontalAlignment)
             {
@@ -386,7 +330,7 @@ namespace DustInTheWind.ConsoleTools
 
                 case HorizontalAlignment.Center:
                     {
-                        int allSpaces = availableWidth - outerWidth;
+                        int allSpaces = availableWidth - fullWidth;
                         double halfSpaces = (double)allSpaces / 2;
                         int leftSpaces = (int)Math.Floor(halfSpaces);
                         Console.Write(new string(' ', leftSpaces));
@@ -395,7 +339,7 @@ namespace DustInTheWind.ConsoleTools
 
                 case HorizontalAlignment.Right:
                     {
-                        int allSpaces = availableWidth - outerWidth;
+                        int allSpaces = availableWidth - fullWidth;
                         Console.Write(new string(' ', allSpaces));
                         break;
                     }
@@ -407,25 +351,22 @@ namespace DustInTheWind.ConsoleTools
 
         private void WriteRightEmptySpace()
         {
-            int availableWidth = DefaultParent == DefaultParent.ConsoleWindow
-                ? Console.WindowWidth
-                : Console.BufferWidth;
-
-            int outerWidth = ActualOuterWidth;
+            int availableWidth = AvailableWidth;
+            int fullWidth = ActualFullWidth;
 
             switch (HorizontalAlignment)
             {
                 case HorizontalAlignment.Default:
                 case HorizontalAlignment.Left:
                     {
-                        int allSpaces = availableWidth - outerWidth;
+                        int allSpaces = availableWidth - fullWidth;
                         Console.Write(new string(' ', allSpaces));
                         break;
                     }
 
                 case HorizontalAlignment.Center:
                     {
-                        int allSpaces = availableWidth - outerWidth;
+                        int allSpaces = availableWidth - fullWidth;
                         double halfSpaces = (double)allSpaces / 2;
                         int leftSpaces = (int)Math.Ceiling(halfSpaces);
                         Console.Write(new string(' ', leftSpaces));
@@ -476,10 +417,10 @@ namespace DustInTheWind.ConsoleTools
             WriteText(text);
         }
 
-        public int? MinWidth { get; set; }
-
-        public int? MaxWidth { get; set; }
-
+        /// <summary>
+        /// When implemented by an inheritor, gets the width of the content when no restrictions are applied of any kind.
+        /// Not event the Width, MinWidth and MaxWidth are honored.
+        /// </summary>
         protected virtual int DesiredContentWidth { get; }
 
         /// <summary>

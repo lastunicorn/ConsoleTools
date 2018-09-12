@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Tests
 {
     internal class ConsoleOutput : IDisposable
     {
-        private StringWriter stringWriter;
+        private readonly StringWriter stringWriter;
         private readonly TextWriter originalOutput;
 
         public ConsoleOutput()

@@ -14,17 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests.TextBlockTests
 {
-    [TestClass]
+    [TestFixture]
+    [Explicit("Some Console calls crash in the Resharper's test runner.")]
     public class TextBlockTests
     {
-        ExpectedOutput expectedOutput = new ExpectedOutput(typeof(TextBlockTests), "TextBlockTests");
+        private readonly ExpectedOutput expectedOutput = new ExpectedOutput(typeof(TextBlockTests), "TextBlockTests");
 
-        [TestMethod]
-        public void test1()
+        [Test]
+        public void Test1()
         {
             using (ConsoleOutput consoleOutput = new ConsoleOutput())
             {
@@ -42,8 +43,8 @@ namespace DustInTheWind.ConsoleTools.Tests
             }
         }
 
-        [TestMethod]
-        public void test2()
+        [Test]
+        public void Test2()
         {
             using (ConsoleOutput consoleOutput = new ConsoleOutput())
             {

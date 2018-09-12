@@ -22,8 +22,8 @@ namespace DustInTheWind.ConsoleTools.Tests
 {
     internal class ExpectedOutput
     {
-        private Type testClassType;
         private readonly string basePath;
+        private readonly Type testClassType;
 
         public ExpectedOutput(Type testClassType, string basePath)
         {

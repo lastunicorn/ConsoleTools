@@ -78,6 +78,10 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        /// <summary>
+        /// Moves the cursor back to the end of the text and waits for the user to press the unlock key.
+        /// After the user presses the unlock key the cursor is moved back to the end of the control (after the bottom margin).
+        /// </summary>
         protected override void OnAfterDisplay()
         {
             int oldCursorLeft = Console.CursorLeft;

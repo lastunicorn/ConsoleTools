@@ -49,11 +49,28 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - HorizontalLine");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows the usage of the HorizontalLine controls.");
-            CustomConsole.WriteLine();
+            TextBlock title = new TextBlock
+            {
+                Text = "ConsoleTools Demo - HorizontalLine",
+                ForegroundColor = CustomConsole.EmphasiesColor
+            };
+
+            HorizontalLine horizontalLine = new HorizontalLine
+            {
+                Character = '=',
+                ForegroundColor = CustomConsole.EmphasiesColor,
+                Margin = 0
+            };
+
+            TextBlock description = new TextBlock
+            {
+                Text = "This demo shows the usage of the HorizontalLine controls.",
+                Margin = "0 1"
+            };
+
+            title.Display();
+            horizontalLine.Display();
+            description.Display();
         }
     }
 }

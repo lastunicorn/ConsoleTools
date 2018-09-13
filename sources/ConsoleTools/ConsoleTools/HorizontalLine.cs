@@ -40,6 +40,12 @@ namespace DustInTheWind.ConsoleTools
         public char Character { get; set; } = '-';
 
         /// <summary>
+        /// Gets the <see cref="int.MaxValue"/> value.
+        /// The horizontal line is willing to be as whide as necessary.
+        /// </summary>
+        protected override int DesiredContentWidth => int.MaxValue;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
         /// </summary>
         public HorizontalLine()

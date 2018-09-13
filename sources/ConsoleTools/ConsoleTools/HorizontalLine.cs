@@ -67,12 +67,18 @@ namespace DustInTheWind.ConsoleTools
             return new string(Character, ActualContentWidth);
         }
 
+        /// <summary>
+        /// Displays a horizontal line with default settings.
+        /// </summary>
         public static void QuickDisplay()
         {
             HorizontalLine horizontalLine = new HorizontalLine();
             horizontalLine.Display();
         }
 
+        /// <summary>
+        /// Displays a horizontal line constructed using the specified character.
+        /// </summary>
         public static void QuickDisplay(char character)
         {
             HorizontalLine horizontalLine = new HorizontalLine
@@ -82,6 +88,10 @@ namespace DustInTheWind.ConsoleTools
             horizontalLine.Display();
         }
 
+        /// <summary>
+        /// Displays a horizontal line constructed using the specified <see cref="P:character"/> and
+        /// the specified <see cref="P:foregroundColor"/>.
+        /// </summary>
         public static void QuickDisplay(char character, ConsoleColor foregroundColor)
         {
             HorizontalLine horizontalLine = new HorizontalLine

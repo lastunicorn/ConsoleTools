@@ -181,9 +181,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         private void DrawTitle()
         {
             Title.Display();
-
-            Size titleSize = Title.CalculateOuterSize();
-            InnerSize = InnerSize.InflateHeight(titleSize.Height);
+            InnerSize = InnerSize.InflateHeight(Title.ActualFullHeight);
         }
 
         private void DrawMenu()

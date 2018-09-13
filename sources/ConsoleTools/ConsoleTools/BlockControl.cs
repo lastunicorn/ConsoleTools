@@ -110,7 +110,7 @@ namespace DustInTheWind.ConsoleTools
         /// <remarks>
         /// This value is equal to the available width if the control is stretched.
         /// </remarks>
-        protected int ActualFullWidth => AvailableWidth;
+        public int ActualFullWidth => AvailableWidth;
 
         /// <summary>
         /// Gets the actual width of the control without the left and right margins.
@@ -125,7 +125,25 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets the actual width of the content.
         /// </summary>
-        protected int ActualContentWidth => Math.Min(CalculatedContentWidth, ActualClientWidth);
+        protected int ActualContentWidth
+        {
+            get
+            {
+                int availableClientWidth = AvailableWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
+                return Math.Min(CalculatedContentWidth, availableClientWidth);
+            }
+        }
+
+        /// <summary>
+        /// When implemented by an inheritor, gets the actual height of the content calculated
+        /// taking in account the <see cref="ActualContentWidth"/>.
+        /// </summary>
+        protected virtual int ActualContentHeight { get; }
+
+        public int ActualHeight => ActualContentHeight + Padding.Top + Padding.Bottom;
+
+        public int ActualFullHeight => ActualContentHeight + Margin.Top + Margin.Bottom;
+
 
         /// <summary>
         /// Gets the desired width of the control calculated by honoring the

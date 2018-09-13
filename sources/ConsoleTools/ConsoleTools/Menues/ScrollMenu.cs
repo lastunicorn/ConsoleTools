@@ -99,7 +99,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         public ScrollMenu()
         {
-            ShowCursor = false;
+            CursorVisibility = false;
             Margin = "0 1";
         }
 

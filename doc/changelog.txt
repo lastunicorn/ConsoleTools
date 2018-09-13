@@ -6,6 +6,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 ver 0.6.0
 ---------
 - Control: Added the DefaultParent property.
+- Control: ShowCursor renamed to CursorVisibility and made it nullable.
 - HorizontalLine: Created the HorizontalLine control.
 - TextBlock: Removed the MarginLeft, MarginTop, MarginRight, MarginBottom properties.
 - Pause: Implemented left and right margins and paddings.

@@ -36,8 +36,15 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public abstract class LongRunningControl
     {
-        private bool isRunning;
         private bool initialCursorVisible;
+
+        /// <summary>
+        /// Gets a value that specifies if the control is still active.
+        /// Active means that it will automatically refresh itself when its state is changed.
+        /// It become active when the <see cref="Display"/> method is called.
+        /// It is inactivated when the <see cref="Close"/> method is called.
+        /// </summary>
+        protected bool IsActive { get; private set; }
 
         /// <summary>
         /// Gets or sets the number of empty lines displayed before the pause text.
@@ -70,7 +77,7 @@ namespace DustInTheWind.ConsoleTools
         {
             OnBeforeDisplay();
 
-            if (isRunning)
+            if (IsActive)
                 return;
 
             initialCursorVisible = Console.CursorVisible;
@@ -83,7 +90,9 @@ namespace DustInTheWind.ConsoleTools
 
             DoDisplayContent();
 
-            isRunning = true;
+            IsActive = true;
+
+            Refresh();
         }
 
         /// <summary>
@@ -134,6 +143,14 @@ namespace DustInTheWind.ConsoleTools
             OnAfterBottomMargin();
         }
 
+        protected void Refresh()
+        {
+            if (IsActive)
+                DoRefresh();
+        }
+
+        protected abstract void DoRefresh();
+
         /// <summary>
         /// Changes the status of the control to "not running" and ends its display.
         /// </summary>
@@ -141,7 +158,7 @@ namespace DustInTheWind.ConsoleTools
         {
             OnClosing();
 
-            if (!isRunning)
+            if (!IsActive)
                 return;
 
             DoClose();
@@ -151,7 +168,7 @@ namespace DustInTheWind.ConsoleTools
             if (!ShowCursor)
                 Console.CursorVisible = initialCursorVisible;
 
-            isRunning = false;
+            IsActive = false;
 
             OnClosed();
         }

@@ -1,0 +1,45 @@
+1) Write Controls - Controls that display static data.
+	- start
+	- display
+	- end
+
+2) Read Controls - Controls that read data from user (display and read).
+	- start
+	- display
+	- read - (wait for user's input, thread is blocked)
+	- end
+
+3) Animated Controls - Controls that display dynamic data (animation)
+	- start
+	- display
+	- end - control remains active.
+	- display again - ui is updated as soon as data is changed
+	- end - when close is requested - control is not active.
+
+
+Control
+- Hide Cursor (optional) - while Display
+- events:
+	- BeforeDisplay
+	- AfterDisplay
+
+
+BlockControl
+- Width
+- Min Width
+- Max Width
+- Horizontal Alignment
+- Margins
+- Paddings
+- Foreground Color
+- Background Color
+- events:
+	- BeforeTopMargin
+	- AfterBottomMargin
+
+
+LongRunningControl
+- Hide Cursor - while it is active
+- MarginTop
+- MarginBottom
+- EnsureBeginOfLine

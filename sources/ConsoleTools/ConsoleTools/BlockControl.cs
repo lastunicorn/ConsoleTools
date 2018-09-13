@@ -197,6 +197,12 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
+        /// When implemented by an inheritor, gets the width of the content when no restrictions are applied of any kind.
+        /// Not event the Width, MinWidth and MaxWidth are honored.
+        /// </summary>
+        protected virtual int DesiredContentWidth { get; }
+
+        /// <summary>
         /// Event raised immediately before writting the top margin.
         /// </summary>
         public event EventHandler BeforeTopMargin;
@@ -416,12 +422,6 @@ namespace DustInTheWind.ConsoleTools
             string text = new string(' ', Padding.Right);
             WriteText(text);
         }
-
-        /// <summary>
-        /// When implemented by an inheritor, gets the width of the content when no restrictions are applied of any kind.
-        /// Not event the Width, MinWidth and MaxWidth are honored.
-        /// </summary>
-        protected virtual int DesiredContentWidth { get; }
 
         /// <summary>
         /// Method called immediately before writting the top margin.

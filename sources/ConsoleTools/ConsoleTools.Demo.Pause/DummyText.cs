@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
             for (int i = 0; i < count; i++)
             {
                 CustomConsole.WriteLine(text);
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
         }
     }

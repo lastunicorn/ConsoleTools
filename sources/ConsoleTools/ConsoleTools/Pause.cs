@@ -45,6 +45,11 @@ namespace DustInTheWind.ConsoleTools
         public ConsoleKey? UnlockKey { get; set; }
 
         /// <summary>
+        /// Gets the width of the displayed Text.
+        /// </summary>
+        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Pause"/> class.
         /// </summary>
         public Pause()
@@ -67,10 +72,6 @@ namespace DustInTheWind.ConsoleTools
             foreach (string line in lines)
             {
                 lastLineLength = line.Length;
-                //string text = line;
-                
-                //if(text.Length < ActualContentWidth)
-                //    text += new string(' ', ActualContentWidth - lastLineLength);
 
                 WriteTextLine(line);
                 InnerSize = InnerSize.InflateHeight(1);

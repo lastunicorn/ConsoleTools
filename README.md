@@ -7,7 +7,10 @@ _**Note**: Until reaching the version 1.0.0 the controls may change dramatically
 
 ## Bugs and feature requests
 
-For any bug or feature request please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new)** on **GitHub**.
+Please add a **[new issue](https://github.com/lastunicorn/ConsoleTools/issues/new)** if:
+- you found a bug;
+- you see an improvement that can be done;
+- you think of a control that is cool to add.
 
 
 ## Most cool controls

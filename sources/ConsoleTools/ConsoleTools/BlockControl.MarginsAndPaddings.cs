@@ -1,0 +1,138 @@
+﻿// ConsoleTools
+// Copyright (C) 2017-2018 Dust in the Wind
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+// --------------------------------------------------------------------------------
+// Bugs or feature requests
+// --------------------------------------------------------------------------------
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+
+using System;
+
+namespace DustInTheWind.ConsoleTools
+{
+    partial class BlockControl
+    {
+        /// <summary>
+        /// Gets or sets the amount of space that should be empty outside the control.
+        /// </summary>
+        public Thickness Margin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of space between the content and the margin of the control.
+        /// </summary>
+        public Thickness Padding { get; set; }
+
+        /// <summary>
+        /// Event raised immediately before writting the top margin.
+        /// </summary>
+        public event EventHandler BeforeTopMargin;
+
+        /// <summary>
+        /// Event raised immediately after writting the bottom margin.
+        /// </summary>
+        public event EventHandler AfterBottomMargin;
+
+        private void WriteTopMargin()
+        {
+            OnBeforeTopMargin();
+
+            for (int i = 0; i < Margin.Top; i++)
+                Console.WriteLine();
+        }
+
+        private void WriteBottomMargin()
+        {
+            for (int i = 0; i < Margin.Bottom; i++)
+                Console.WriteLine();
+
+            OnAfterBottomMargin();
+        }
+
+        private void WriteTopPadding()
+        {
+            if (Padding.Top <= 0)
+                return;
+
+            string text = new string(' ', ActualContentWidth);
+
+            for (int i = 0; i < Padding.Top; i++)
+                WriteTextLine(text);
+        }
+
+        private void WriteBottomPadding()
+        {
+            if (Padding.Bottom <= 0)
+                return;
+
+            string text = new string(' ', ActualContentWidth);
+
+            for (int i = 0; i < Padding.Bottom; i++)
+                WriteTextLine(text);
+        }
+
+        private void WriteLeftMargin()
+        {
+            if (Margin.Left <= 0)
+                return;
+
+            string text = new string(' ', Margin.Left);
+            Console.Write(text);
+        }
+
+        private void WriteRightMargin()
+        {
+            if (Margin.Right <= 0)
+                return;
+
+            string text = new string(' ', Margin.Right);
+            Console.Write(text);
+        }
+
+        private void WriteLeftPadding()
+        {
+            if (Padding.Left <= 0)
+                return;
+
+            string text = new string(' ', Padding.Left);
+            WriteText(text);
+        }
+
+        private void WriteRightPadding()
+        {
+            if (Padding.Right <= 0)
+                return;
+
+            string text = new string(' ', Padding.Right);
+            WriteText(text);
+        }
+
+        /// <summary>
+        /// Method called immediately before writting the top margin.
+        /// </summary>
+        protected virtual void OnBeforeTopMargin()
+        {
+            BeforeTopMargin?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Method called immediately after writting the bottom margin.
+        /// </summary>
+        protected virtual void OnAfterBottomMargin()
+        {
+            AfterBottomMargin?.Invoke(this, EventArgs.Empty);
+        }
+    }
+}

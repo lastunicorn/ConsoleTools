@@ -59,6 +59,7 @@
     <Compile Include="BlockControl.ContentLine.cs" />
     <Compile Include="BlockControl.MarginsAndPaddings.cs" />
     <Compile Include="BlockControl.WidthAndAlignment.cs" />
+    <Compile Include="ControlLayout.cs" />
     <Compile Include="DefaultParent.cs" />
     <Compile Include="HorizontalLine.cs" />
     <Compile Include="SupremeParent.cs" />

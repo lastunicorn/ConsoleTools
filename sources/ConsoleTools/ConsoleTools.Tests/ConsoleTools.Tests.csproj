@@ -80,6 +80,12 @@
     <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
     <Compile Include="AlignedTextTests\ToStringTests.cs" />
     <Compile Include="ConsoleOutput.cs" />
+    <Compile Include="ControlLayoutTests\ActualContentWidthTests_NoWidthConstraints.cs" />
+    <Compile Include="ControlLayoutTests\ActualClientWidthTests_NoWidthConstraints.cs" />
+    <Compile Include="ControlLayoutTests\ActualWidthTests_NoWidthConstraints.cs" />
+    <Compile Include="ControlLayoutTests\ActualFullWidthTests_NoWidthConstraints.cs" />
+    <Compile Include="ControlLayoutTests\PaddingTests.cs" />
+    <Compile Include="ControlLayoutTests\MarginTests.cs" />
     <Compile Include="ExpectedOutput.cs" />
     <Compile Include="TextBlockTests\TextBlockTests.cs" />
     <Compile Include="MultilineTextTests\Constructor_InitializeLinesTests.cs" />

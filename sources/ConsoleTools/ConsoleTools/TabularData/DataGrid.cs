@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
         /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets the list of columns contained by the current table.

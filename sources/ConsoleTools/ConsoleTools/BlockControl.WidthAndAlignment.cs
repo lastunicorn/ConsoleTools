@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
+        public HorizontalAlignment? HorizontalAlignment { get; set; }
 
         /// <summary>
         /// Gets the width available for the control to render itself.
@@ -70,34 +70,9 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Gets the actual width of the control including the left and right margins.
-        /// </summary>
-        /// <remarks>
-        /// This value is equal to the available width if the control is stretched.
-        /// </remarks>
-        public int ActualFullWidth => AvailableWidth;
-
-        /// <summary>
-        /// Gets the actual width of the control without the left and right margins.
-        /// </summary>
-        protected int ActualWidth => ActualFullWidth - Margin.Left - Margin.Right;
-
-        /// <summary>
-        /// Gets the actual width of the client area (without the left and right paddings).
-        /// </summary>
-        protected int ActualClientWidth => ActualWidth - Padding.Left - Padding.Right;
-
-        /// <summary>
         /// Gets the actual width of the content.
         /// </summary>
-        protected int ActualContentWidth
-        {
-            get
-            {
-                int availableClientWidth = AvailableWidth - Margin.Left - Margin.Right - Padding.Left - Padding.Right;
-                return Math.Min(CalculatedContentWidth, availableClientWidth);
-            }
-        }
+        protected int ActualContentWidth => controlLayout.ActualContentWidth;
 
         /// <summary>
         /// When implemented by an inheritor, gets the actual height of the content calculated

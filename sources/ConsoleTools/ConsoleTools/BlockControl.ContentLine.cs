@@ -29,8 +29,8 @@ namespace DustInTheWind.ConsoleTools
         {
             StartTextLine();
 
-            if (text.Length < ActualContentWidth)
-                text += new string(' ', ActualContentWidth - text.Length);
+            if (text.Length < controlLayout.ActualContentWidth)
+                text += new string(' ', controlLayout.ActualContentWidth - text.Length);
 
             WriteText(text);
 
@@ -51,22 +51,22 @@ namespace DustInTheWind.ConsoleTools
             WriteRightEmptySpace();
 
             // Decide if new line is needed.
-            if (ActualFullWidth % Console.BufferWidth != 0)
+            if (controlLayout.ActualFullWidth % Console.BufferWidth != 0)
                 Console.WriteLine();
         }
 
         private void WriteLeftEmptySpace()
         {
             int availableWidth = AvailableWidth;
-            int fullWidth = ActualFullWidth;
+            int fullWidth = controlLayout.ActualFullWidth;
 
             switch (HorizontalAlignment)
             {
-                case HorizontalAlignment.Default:
-                case HorizontalAlignment.Left:
+                case ConsoleTools.HorizontalAlignment.Default:
+                case ConsoleTools.HorizontalAlignment.Left:
                     break;
 
-                case HorizontalAlignment.Center:
+                case ConsoleTools.HorizontalAlignment.Center:
                     {
                         int allSpaces = availableWidth - fullWidth;
                         double halfSpaces = (double)allSpaces / 2;
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools
                         break;
                     }
 
-                case HorizontalAlignment.Right:
+                case ConsoleTools.HorizontalAlignment.Right:
                     {
                         int allSpaces = availableWidth - fullWidth;
                         Console.Write(new string(' ', allSpaces));
@@ -90,19 +90,19 @@ namespace DustInTheWind.ConsoleTools
         private void WriteRightEmptySpace()
         {
             int availableWidth = AvailableWidth;
-            int fullWidth = ActualFullWidth;
+            int fullWidth = controlLayout.ActualFullWidth;
 
             switch (HorizontalAlignment)
             {
-                case HorizontalAlignment.Default:
-                case HorizontalAlignment.Left:
+                case ConsoleTools.HorizontalAlignment.Default:
+                case ConsoleTools.HorizontalAlignment.Left:
                     {
                         int allSpaces = availableWidth - fullWidth;
                         Console.Write(new string(' ', allSpaces));
                         break;
                     }
 
-                case HorizontalAlignment.Center:
+                case ConsoleTools.HorizontalAlignment.Center:
                     {
                         int allSpaces = availableWidth - fullWidth;
                         double halfSpaces = (double)allSpaces / 2;
@@ -111,7 +111,7 @@ namespace DustInTheWind.ConsoleTools
                         break;
                     }
 
-                case HorizontalAlignment.Right:
+                case ConsoleTools.HorizontalAlignment.Right:
                     break;
 
                 default:

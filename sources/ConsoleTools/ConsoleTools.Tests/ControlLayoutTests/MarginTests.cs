@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using Moq;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
@@ -26,9 +27,12 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [SetUp]
         public void SetUp()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.Margin = "1 2 3 4";
+
             controlLayout = new ControlLayout
             {
-                Margin = "1 2 3 4"
+                Control = control.Object
             };
 
             controlLayout.Calculate();

@@ -25,124 +25,45 @@ namespace DustInTheWind.ConsoleTools
 {
     internal class ControlLayout
     {
-        private bool isCalculated;
+        public BlockControl Control { get; set; }
 
-        private Thickness margin;
-        private Thickness padding;
-        private int? width;
-        private int? minWidth;
-        private int? maxWidth;
-        private HorizontalAlignment? horizontalAlignment;
-        private int availableWidth;
-        private HorizontalAlignment contentHorizontalAlignment;
-        private int? desiredContentWidth;
+        public int AvailableWidth { get; set; }
 
-        public Thickness Margin
-        {
-            get => margin;
-            set
-            {
-                margin = value;
-                isCalculated = false;
-            }
-        }
+        public HorizontalAlignment ContentHorizontalAlignment { get; set; }
 
-        public Thickness Padding
-        {
-            get => padding;
-            set
-            {
-                padding = value;
-                isCalculated = false;
-            }
-        }
+        public int? DesiredContentWidth { get; set; }
 
-        public int? Width
-        {
-            get => width;
-            set
-            {
-                width = value;
-                isCalculated = false;
-            }
-        }
+        public int MarginLeft { get; private set; }
+        public int MarginRight { get; private set; }
+        public int MarginTop { get; private set; }
+        public int MarginBottom { get; private set; }
 
-        public int? MinWidth
-        {
-            get => minWidth;
-            set
-            {
-                minWidth = value;
-                isCalculated = false;
-            }
-        }
+        public int PaddingLeft { get; private set; }
+        public int PaddingRight { get; private set; }
+        public int PaddingTop { get; private set; }
+        public int PaddingBottom { get; private set; }
 
-        public int? MaxWidth
-        {
-            get => maxWidth;
-            set
-            {
-                maxWidth = value;
-                isCalculated = false;
-            }
-        }
-
-        public HorizontalAlignment? HorizontalAlignment
-        {
-            get => horizontalAlignment;
-            set
-            {
-                horizontalAlignment = value;
-                isCalculated = false;
-            }
-        }
-
-        public int AvailableWidth
-        {
-            get => availableWidth;
-            set
-            {
-                availableWidth = value;
-                isCalculated = false;
-            }
-        }
-
-        public HorizontalAlignment ContentHorizontalAlignment
-        {
-            get => contentHorizontalAlignment;
-            set
-            {
-                contentHorizontalAlignment = value;
-                isCalculated = false;
-            }
-        }
-
-        public int? DesiredContentWidth
-        {
-            get => desiredContentWidth;
-            set
-            {
-                desiredContentWidth = value;
-                isCalculated = false;
-            }
-        }
-
-        public int MarginLeft => Margin.Left;
-        public int MarginRight => Margin.Right;
-        public int MarginTop => Margin.Top;
-        public int MarginBottom => Margin.Bottom;
-
-        public int PaddingLeft => Padding.Left;
-        public int PaddingRight => Padding.Right;
-        public int PaddingTop => Padding.Top;
-        public int PaddingBottom => Padding.Bottom;
-
+        /// <summary>
+        /// Gets the actual calculated width of the control including the left and right margins.
+        /// </summary>
+        /// <remarks>
+        /// This value is equal to the available width if the control is stretched.
+        /// </remarks>
         public int ActualFullWidth { get; private set; }
 
+        /// <summary>
+        /// Gets the actual calculated width of the control without the left and right margins.
+        /// </summary>
         public int ActualWidth { get; private set; }
 
+        /// <summary>
+        /// Gets the actual calculated width of the client area (without the left and right paddings).
+        /// </summary>
         public int ActualClientWidth { get; private set; }
 
+        /// <summary>
+        /// Gets the actual calculated width of the content.
+        /// </summary>
         public int ActualContentWidth { get; private set; }
 
         public int EmptySpaceLeft { get; private set; }
@@ -151,27 +72,43 @@ namespace DustInTheWind.ConsoleTools
 
         public void Calculate()
         {
+            CalculateMargins();
+            CalculatePaddings();
             HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
             CalculateActualWidths(calculatedHorizontalAlignment);
             CalculateEmptySpace();
+        }
 
-            isCalculated = true;
+        private void CalculateMargins()
+        {
+            MarginLeft = Control.Margin.Left;
+            MarginTop = Control.Margin.Top;
+            MarginRight = Control.Margin.Right;
+            MarginBottom = Control.Margin.Bottom;
+        }
+
+        private void CalculatePaddings()
+        {
+            PaddingLeft = Control.Padding.Left;
+            PaddingTop = Control.Padding.Top;
+            PaddingRight = Control.Padding.Right;
+            PaddingBottom = Control.Padding.Bottom;
         }
 
         private HorizontalAlignment CalculateHorizontalAlignment()
         {
-            if (Width == null && MinWidth == null && MaxWidth == null)
+            if (Control.Width == null && Control.MinWidth == null && Control.MaxWidth == null)
             {
-                switch (HorizontalAlignment)
+                switch (Control.HorizontalAlignment)
                 {
-                    case ConsoleTools.HorizontalAlignment.Default:
-                        return ConsoleTools.HorizontalAlignment.Left;
+                    case HorizontalAlignment.Default:
+                        return HorizontalAlignment.Left;
 
-                    case ConsoleTools.HorizontalAlignment.Left:
-                    case ConsoleTools.HorizontalAlignment.Center:
-                    case ConsoleTools.HorizontalAlignment.Right:
-                    case ConsoleTools.HorizontalAlignment.Stretch:
-                        return HorizontalAlignment.Value;
+                    case HorizontalAlignment.Left:
+                    case HorizontalAlignment.Center:
+                    case HorizontalAlignment.Right:
+                    case HorizontalAlignment.Stretch:
+                        return Control.HorizontalAlignment.Value;
 
                     case null:
                         return ConsoleTools.HorizontalAlignment.Stretch;
@@ -182,23 +119,23 @@ namespace DustInTheWind.ConsoleTools
             }
             else
             {
-                switch (HorizontalAlignment)
+                switch (Control.HorizontalAlignment)
                 {
-                    case ConsoleTools.HorizontalAlignment.Default:
-                    case ConsoleTools.HorizontalAlignment.Left:
-                        return ConsoleTools.HorizontalAlignment.Left;
+                    case HorizontalAlignment.Default:
+                    case HorizontalAlignment.Left:
+                        return HorizontalAlignment.Left;
 
-                    case ConsoleTools.HorizontalAlignment.Center:
-                        return ConsoleTools.HorizontalAlignment.Center;
+                    case HorizontalAlignment.Center:
+                        return HorizontalAlignment.Center;
 
-                    case ConsoleTools.HorizontalAlignment.Right:
-                        return ConsoleTools.HorizontalAlignment.Right;
+                    case HorizontalAlignment.Right:
+                        return HorizontalAlignment.Right;
 
-                    case ConsoleTools.HorizontalAlignment.Stretch:
-                        return ConsoleTools.HorizontalAlignment.Left;
+                    case HorizontalAlignment.Stretch:
+                        return HorizontalAlignment.Left;
 
                     case null:
-                        return ConsoleTools.HorizontalAlignment.Left;
+                        return HorizontalAlignment.Left;
 
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -211,12 +148,12 @@ namespace DustInTheWind.ConsoleTools
             // Calculate max widths.
 
             int calculatedMaxFullWidth = AvailableWidth;
-            int calculatedMaxWidth = calculatedMaxFullWidth - Margin.Left - Margin.Right;
-            int calculatedMaxClientWidth = calculatedMaxWidth - Padding.Left - padding.Right;
+            int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
+            int calculatedMaxClientWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
 
             // Calculate actual widths.
 
-            if (calculatedHorizontalAlignment == ConsoleTools.HorizontalAlignment.Stretch)
+            if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch)
             {
                 ActualFullWidth = calculatedMaxFullWidth;
                 ActualWidth = calculatedMaxWidth;
@@ -237,25 +174,25 @@ namespace DustInTheWind.ConsoleTools
                     : calculatedMaxClientWidth;
 
                 ActualClientWidth = ActualContentWidth;
-                ActualWidth = ActualClientWidth + Padding.Left + Padding.Right;
-                ActualFullWidth = ActualWidth + Margin.Left + Margin.Right;
+                ActualWidth = ActualClientWidth + Control.Padding.Left + Control.Padding.Right;
+                ActualFullWidth = ActualWidth + Control.Margin.Left + Control.Margin.Right;
             }
         }
 
         private int? CalculateDesiredContentWidth()
         {
-            if (Width.HasValue)
-                return Width.Value;
+            if (Control.Width.HasValue)
+                return Control.Width.Value;
 
-            if (MinWidth == null)
+            if (Control.MinWidth == null)
             {
-                if (MaxWidth == null)
+                if (Control.MaxWidth == null)
                 {
                     return DesiredContentWidth;
                 }
                 else
                 {
-                    int clientMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
                     return DesiredContentWidth == null
                         ? clientMaxWidth
@@ -264,9 +201,9 @@ namespace DustInTheWind.ConsoleTools
             }
             else
             {
-                if (MaxWidth == null)
+                if (Control.MaxWidth == null)
                 {
-                    int clientMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
                     return DesiredContentWidth == null
                         ? clientMinWidth
@@ -274,8 +211,8 @@ namespace DustInTheWind.ConsoleTools
                 }
                 else
                 {
-                    int clientMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
-                    int clientMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
                     return DesiredContentWidth == null
                         ? clientMinWidth
@@ -290,24 +227,24 @@ namespace DustInTheWind.ConsoleTools
 
             switch (ContentHorizontalAlignment)
             {
-                case ConsoleTools.HorizontalAlignment.Default:
-                case ConsoleTools.HorizontalAlignment.Left:
+                case HorizontalAlignment.Default:
+                case HorizontalAlignment.Left:
                     EmptySpaceLeft = 0;
                     EmptySpaceRight = emptySpaceTotal;
                     break;
 
-                case ConsoleTools.HorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     double emptySpaceHalf = (double)emptySpaceTotal / 2;
                     EmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
                     EmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
                     break;
 
-                case ConsoleTools.HorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     EmptySpaceLeft = emptySpaceTotal;
                     EmptySpaceRight = 0;
                     break;
 
-                case ConsoleTools.HorizontalAlignment.Stretch:
+                case HorizontalAlignment.Stretch:
                     EmptySpaceLeft = 0;
                     EmptySpaceRight = 0;
                     break;

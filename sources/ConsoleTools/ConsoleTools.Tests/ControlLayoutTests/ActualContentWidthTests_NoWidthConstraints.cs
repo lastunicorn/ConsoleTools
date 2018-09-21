@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using Moq;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
@@ -24,11 +25,14 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_null_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
-                AvailableWidth = 100,
-                Margin = 10,
-                Padding = 7
+                Control = control.Object,
+                AvailableWidth = 100
             };
             controlLayout.Calculate();
             
@@ -40,12 +44,15 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                AvailableWidth = 102,
-                Margin = 10,
-                Padding = 7
+                Control = control.Object,
+                AvailableWidth = 102
             };
             controlLayout.Calculate();
 
@@ -57,11 +64,14 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_null_DesiredContentWidth_is_less_than_available_space__returns_ContentDesiredWidth()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
+                Control = control.Object,
                 AvailableWidth = 100,
-                Margin = 10,
-                Padding = 7,
                 DesiredContentWidth = 20
             };
             controlLayout.Calculate();
@@ -74,12 +84,15 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_more_than_available_space__returns_AvailableWidth_without_Margins_and_Paddings()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Control = control.Object,
                 AvailableWidth = 102,
-                Margin = 10,
-                Padding = 7,
                 DesiredContentWidth = 200
             };
             controlLayout.Calculate();

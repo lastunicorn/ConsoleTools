@@ -32,6 +32,8 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public abstract partial class BlockControl : Control
     {
+        private ControlLayout controlLayout;
+
         /// <summary>
         /// Gets or sets a value that specifies who should be considered the parent if none is specified.
         /// This is useful for calculating the alignment for example.
@@ -57,6 +59,16 @@ namespace DustInTheWind.ConsoleTools
         protected override void DoDisplay()
         {
             MoveToNextLineIfNecessary();
+
+            controlLayout = new ControlLayout
+            {
+                Control = this,
+                AvailableWidth = AvailableWidth,
+                //ContentHorizontalAlignment = 
+                //DesiredContentWidth = 
+            };
+
+            controlLayout.Calculate();
 
             WriteTopMargin();
             WriteTopPadding();

@@ -49,73 +49,79 @@ namespace DustInTheWind.ConsoleTools
         {
             OnBeforeTopMargin();
 
-            for (int i = 0; i < Margin.Top; i++)
+            if (controlLayout.MarginTop <= 0)
+                return;
+
+            for (int i = 0; i < controlLayout.MarginTop; i++)
                 Console.WriteLine();
         }
 
         private void WriteBottomMargin()
         {
-            for (int i = 0; i < Margin.Bottom; i++)
-                Console.WriteLine();
+            if (controlLayout.MarginBottom > 0)
+            {
+                for (int i = 0; i < controlLayout.MarginBottom; i++)
+                    Console.WriteLine();
+            }
 
             OnAfterBottomMargin();
         }
 
         private void WriteTopPadding()
         {
-            if (Padding.Top <= 0)
+            if (controlLayout.PaddingTop <= 0)
                 return;
 
-            string text = new string(' ', ActualContentWidth);
+            string text = new string(' ', controlLayout.ActualContentWidth);
 
-            for (int i = 0; i < Padding.Top; i++)
+            for (int i = 0; i < controlLayout.PaddingTop; i++)
                 WriteTextLine(text);
         }
 
         private void WriteBottomPadding()
         {
-            if (Padding.Bottom <= 0)
+            if (controlLayout.PaddingBottom <= 0)
                 return;
 
-            string text = new string(' ', ActualContentWidth);
+            string text = new string(' ', controlLayout.ActualContentWidth);
 
-            for (int i = 0; i < Padding.Bottom; i++)
+            for (int i = 0; i < controlLayout.PaddingBottom; i++)
                 WriteTextLine(text);
         }
 
         private void WriteLeftMargin()
         {
-            if (Margin.Left <= 0)
+            if (controlLayout.MarginLeft <= 0)
                 return;
 
-            string text = new string(' ', Margin.Left);
+            string text = new string(' ', controlLayout.MarginLeft);
             Console.Write(text);
         }
 
         private void WriteRightMargin()
         {
-            if (Margin.Right <= 0)
+            if (controlLayout.MarginRight <= 0)
                 return;
 
-            string text = new string(' ', Margin.Right);
+            string text = new string(' ', controlLayout.MarginRight);
             Console.Write(text);
         }
 
         private void WriteLeftPadding()
         {
-            if (Padding.Left <= 0)
+            if (controlLayout.PaddingLeft <= 0)
                 return;
 
-            string text = new string(' ', Padding.Left);
+            string text = new string(' ', controlLayout.PaddingLeft);
             WriteText(text);
         }
 
         private void WriteRightPadding()
         {
-            if (Padding.Right <= 0)
+            if (controlLayout.PaddingRight <= 0)
                 return;
 
-            string text = new string(' ', Padding.Right);
+            string text = new string(' ', controlLayout.PaddingRight);
             WriteText(text);
         }
 

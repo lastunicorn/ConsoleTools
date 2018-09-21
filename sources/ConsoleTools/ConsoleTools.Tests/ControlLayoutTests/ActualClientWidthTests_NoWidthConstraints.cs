@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using Moq;
+using Moq.Protected;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
@@ -24,14 +26,17 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_null__returns_AvailableWidth_without_Margins_and_Paddings()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
-                AvailableWidth = 100,
-                Margin = 10,
-                Padding = 7
+                Control =  control.Object,
+                AvailableWidth = 100
             };
             controlLayout.Calculate();
-            
+
             int actual = controlLayout.ActualClientWidth;
 
             Assert.That(actual, Is.EqualTo(66));
@@ -40,12 +45,15 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_Stretch__returns_AvailableWidth_without_Margins_and_Paddings()
         {
+            Mock<BlockControl> control = new Mock<BlockControl>();
+            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+            control.Object.Margin = 10;
+            control.Object.Padding = 7;
+
             ControlLayout controlLayout = new ControlLayout
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                AvailableWidth = 102,
-                Margin = 10,
-                Padding = 7
+                Control = control.Object,
+                AvailableWidth = 102
             };
             controlLayout.Calculate();
 

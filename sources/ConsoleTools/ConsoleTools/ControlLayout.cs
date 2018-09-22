@@ -181,43 +181,47 @@ namespace DustInTheWind.ConsoleTools
 
         private int? CalculateDesiredContentWidth()
         {
-            if (Control.Width.HasValue)
-                return Control.Width.Value;
-
-            if (Control.MinWidth == null)
+            if (Control.Width == null)
             {
-                if (Control.MaxWidth == null)
+                if (Control.MinWidth == null)
                 {
-                    return DesiredContentWidth;
+                    if (Control.MaxWidth == null)
+                    {
+                        return DesiredContentWidth;
+                    }
+                    else
+                    {
+                        int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+                        return DesiredContentWidth == null
+                            ? clientMaxWidth
+                            : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
+                    }
                 }
                 else
                 {
-                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                    if (Control.MaxWidth == null)
+                    {
+                        int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
-                    return DesiredContentWidth == null
-                        ? clientMaxWidth
-                        : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
+                        return DesiredContentWidth == null
+                            ? clientMinWidth
+                            : Math.Max(clientMinWidth, DesiredContentWidth.Value);
+                    }
+                    else
+                    {
+                        int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                        int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+                        return DesiredContentWidth == null
+                            ? clientMinWidth
+                            : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
+                    }
                 }
             }
             else
             {
-                if (Control.MaxWidth == null)
-                {
-                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                    return DesiredContentWidth == null
-                        ? clientMinWidth
-                        : Math.Max(clientMinWidth, DesiredContentWidth.Value);
-                }
-                else
-                {
-                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                    return DesiredContentWidth == null
-                        ? clientMinWidth
-                        : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
-                }
+                return Control.Width.Value;
             }
         }
 

@@ -56,7 +56,7 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="BlockControl.ContentLine.cs" />
+    <Compile Include="BlockControl.ContentRow.cs" />
     <Compile Include="BlockControl.MarginsAndPaddings.cs" />
     <Compile Include="BlockControl.WidthAndAlignment.cs" />
     <Compile Include="ControlLayout.cs" />

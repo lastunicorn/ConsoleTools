@@ -57,66 +57,14 @@ namespace DustInTheWind.ConsoleTools
 
         private void WriteLeftEmptySpace()
         {
-            int availableWidth = AvailableWidth;
-            int fullWidth = controlLayout.ActualFullWidth;
-
-            switch (HorizontalAlignment)
-            {
-                case ConsoleTools.HorizontalAlignment.Default:
-                case ConsoleTools.HorizontalAlignment.Left:
-                    break;
-
-                case ConsoleTools.HorizontalAlignment.Center:
-                    {
-                        int allSpaces = availableWidth - fullWidth;
-                        double halfSpaces = (double)allSpaces / 2;
-                        int leftSpaces = (int)Math.Floor(halfSpaces);
-                        Console.Write(new string(' ', leftSpaces));
-                        break;
-                    }
-
-                case ConsoleTools.HorizontalAlignment.Right:
-                    {
-                        int allSpaces = availableWidth - fullWidth;
-                        Console.Write(new string(' ', allSpaces));
-                        break;
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            int spaces = controlLayout.EmptySpaceLeft;
+            Console.Write(new string(' ', spaces));
         }
 
         private void WriteRightEmptySpace()
         {
-            int availableWidth = AvailableWidth;
-            int fullWidth = controlLayout.ActualFullWidth;
-
-            switch (HorizontalAlignment)
-            {
-                case ConsoleTools.HorizontalAlignment.Default:
-                case ConsoleTools.HorizontalAlignment.Left:
-                    {
-                        int allSpaces = availableWidth - fullWidth;
-                        Console.Write(new string(' ', allSpaces));
-                        break;
-                    }
-
-                case ConsoleTools.HorizontalAlignment.Center:
-                    {
-                        int allSpaces = availableWidth - fullWidth;
-                        double halfSpaces = (double)allSpaces / 2;
-                        int leftSpaces = (int)Math.Ceiling(halfSpaces);
-                        Console.Write(new string(' ', leftSpaces));
-                        break;
-                    }
-
-                case ConsoleTools.HorizontalAlignment.Right:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            int spaces = controlLayout.EmptySpaceLeft;
+            Console.Write(new string(' ', spaces));
         }
 
         /// <summary>

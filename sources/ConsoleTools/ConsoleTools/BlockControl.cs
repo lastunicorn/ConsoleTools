@@ -60,15 +60,7 @@ namespace DustInTheWind.ConsoleTools
         {
             MoveToNextLineIfNecessary();
 
-            controlLayout = new ControlLayout
-            {
-                Control = this,
-                AvailableWidth = AvailableWidth,
-                //ContentHorizontalAlignment = 
-                //DesiredContentWidth = 
-            };
-
-            controlLayout.Calculate();
+            CalculateLayout();
 
             WriteTopMargin();
             WriteTopPadding();
@@ -81,6 +73,18 @@ namespace DustInTheWind.ConsoleTools
         {
             if (Console.CursorLeft != 0)
                 Console.WriteLine();
+        }
+
+        private void CalculateLayout()
+        {
+            controlLayout = new ControlLayout
+            {
+                Control = this,
+                AvailableWidth = AvailableWidth,
+                DesiredContentWidth = DesiredContentWidth
+            };
+
+            controlLayout.Calculate();
         }
 
         /// <summary>

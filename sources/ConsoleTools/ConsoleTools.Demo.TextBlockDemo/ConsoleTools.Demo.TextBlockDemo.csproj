@@ -41,8 +41,11 @@
     </Compile>
     <Compile Include="ApplicationHeader.cs" />
     <Compile Include="CommandBase.cs" />
+    <Compile Include="Commands\HorizontalAlignmentCenterCommand.cs" />
+    <Compile Include="Commands\HorizontalAlignmentRightCommand.cs" />
     <Compile Include="Commands\BackgroundColorCommand.cs" />
     <Compile Include="Commands\MarginsCommand.cs" />
+    <Compile Include="Commands\MinWidthCommand.cs" />
     <Compile Include="Commands\PaddingsCommand.cs" />
     <Compile Include="Commands\DefaultCommand.cs" />
     <Compile Include="Commands\ForegroundColorCommand.cs" />
@@ -50,6 +53,7 @@
     <Compile Include="Commands\MultipleLongLinesCommand.cs" />
     <Compile Include="Commands\MultipleShortLinesCommand.cs" />
     <Compile Include="Commands\SingleLongLineCommand.cs" />
+    <Compile Include="Commands\WidthCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -64,7 +64,9 @@ namespace DustInTheWind.ConsoleTools
 
             WriteTopMargin();
             WriteTopPadding();
+
             DoDisplayContent();
+
             WriteBottomPadding();
             WriteBottomMargin();
         }

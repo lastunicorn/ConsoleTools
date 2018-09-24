@@ -14,17 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
 {
-    internal class SingleLongLineCommand : CommandBase
+    internal class MinWidthCommand : CommandBase
     {
-        public override string Title => "Single long line (text wrapping)";
+        public override string Title => "Custom MinWidth (50)";
 
         protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
-                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus."
+                Text = "Lorem ipsum dolor sit amet",
+                MinWidth = 50,
+                BackgroundColor = ConsoleColor.DarkGray
             };
             textBlock.Display();
         }

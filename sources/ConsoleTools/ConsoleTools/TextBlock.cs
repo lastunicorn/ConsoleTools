@@ -19,7 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
@@ -73,33 +72,7 @@ namespace DustInTheWind.ConsoleTools
                 WriteTextLine(chunk);
         }
 
-        // todo: remove this
-        ///// <summary>
-        ///// Calculates the size of the current instance including the margins.
-        ///// </summary>
-        ///// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        //public Size CalculateOuterSize()
-        //{
-        //    Size contentSize = Text?.CalculateSize(ActualContentWidth) ?? Size.Empty;
-        //    Size paddingSize = new Size(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
-        //    Size marginSize = new Size(Margin.Left + Margin.Right, Margin.Top + Margin.Bottom);
-
-        //    return contentSize + paddingSize + marginSize;
-        //}
-
         protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
-
-        ///// <summary>
-        ///// Calculates the size of the current instance's content. Margins are not included.
-        ///// </summary>
-        ///// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        //public Size CalculateInnerSize()
-        //{
-        //    Size contentSize = Text?.CalculateSize(ActualContentWidth) ?? Size.Empty;
-        //    Size paddingSize = new Size(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
-
-        //    return contentSize + paddingSize;
-        //}
 
         protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
 

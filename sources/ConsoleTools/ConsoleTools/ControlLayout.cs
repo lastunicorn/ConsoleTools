@@ -25,22 +25,65 @@ namespace DustInTheWind.ConsoleTools
 {
     internal class ControlLayout
     {
+        /// <summary>
+        /// Gets or sets the control for which the layout is calculated.
+        /// </summary>
         public BlockControl Control { get; set; }
 
+        /// <summary>
+        /// Gets or sets the available width in which the control can be displayed.
+        /// </summary>
         public int AvailableWidth { get; set; }
 
+        /// <summary>
+        /// Gets or sets the horizontal alignment of the content.
+        /// It is used to calculate the left and right empty space around the content.
+        /// </summary>
         public HorizontalAlignment ContentHorizontalAlignment { get; set; }
 
+        /// <summary>
+        /// Gets or sets the width of the content when the parent control does not enforce any restrictions.
+        /// </summary>
         public int? DesiredContentWidth { get; set; }
 
+        /// <summary>
+        /// Gets the calculated thickness of the left margin.
+        /// </summary>
         public int MarginLeft { get; private set; }
-        public int MarginRight { get; private set; }
-        public int MarginTop { get; private set; }
-        public int MarginBottom { get; private set; }
 
+        /// <summary>
+        /// Gets the calculated thickness of the right margin.
+        /// </summary>
+        public int MarginRight { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated thickness of the top margin.
+        /// </summary>
+        public int MarginTop { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated thickness of the bottom margin.
+        /// </summary>
+        public int MarginBottom { get; private set; }
+        
+        /// <summary>
+        /// Gets the calculated thickness of the left padding.
+        /// </summary>
         public int PaddingLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated thickness of the right padding.
+        /// </summary>
         public int PaddingRight { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated thickness of the top padding.
+        /// </summary>
         public int PaddingTop { get; private set; }
+
+        /// <summary>
+        /// Gets the calculated thickness of the bottom padding.
+        /// </summary>
         public int PaddingBottom { get; private set; }
 
         /// <summary>
@@ -62,14 +105,23 @@ namespace DustInTheWind.ConsoleTools
         public int ActualClientWidth { get; private set; }
 
         /// <summary>
-        /// Gets the actual calculated width of the content.
+        /// Gets the calculated width of the content.
         /// </summary>
         public int ActualContentWidth { get; private set; }
 
+        /// <summary>
+        /// Gets the empty space at the left of the content.
+        /// </summary>
         public int EmptySpaceLeft { get; private set; }
 
+        /// <summary>
+        /// Gets the empty space at the right of the content.
+        /// </summary>
         public int EmptySpaceRight { get; private set; }
 
+        /// <summary>
+        /// Calculates the position and dimentions of all the parts that must be displayed.
+        /// </summary>
         public void Calculate()
         {
             CalculateMargins();
@@ -111,7 +163,7 @@ namespace DustInTheWind.ConsoleTools
                         return Control.HorizontalAlignment.Value;
 
                     case null:
-                        return ConsoleTools.HorizontalAlignment.Stretch;
+                        return HorizontalAlignment.Stretch;
 
                     default:
                         throw new ArgumentOutOfRangeException();

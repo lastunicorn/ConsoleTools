@@ -54,7 +54,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
                 new PaddingsCommand(),
                 new ForegroundColorCommand(),
                 new BackgroundColorCommand(),
-                new MaxWidthCommand()
+                new MinWidthCommand(),
+                new MaxWidthCommand(),
+                new WidthCommand(),
+                new HorizontalAlignmentCenterCommand(),
+                new HorizontalAlignmentRightCommand()
             };
 
             foreach (ICommand command in commands)

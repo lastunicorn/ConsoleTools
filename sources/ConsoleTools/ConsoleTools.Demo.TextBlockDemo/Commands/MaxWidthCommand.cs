@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
 {
     internal class MaxWidthCommand : CommandBase
@@ -25,7 +27,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
             TextBlock textBlock = new TextBlock
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                MaxWidth = 50
+                MaxWidth = 50,
+                BackgroundColor = ConsoleColor.DarkGray
             };
             textBlock.Display();
         }

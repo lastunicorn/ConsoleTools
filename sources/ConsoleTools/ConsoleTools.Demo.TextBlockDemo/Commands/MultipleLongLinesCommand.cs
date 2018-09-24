@@ -18,7 +18,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
 {
     internal class MultipleLongLinesCommand : CommandBase
     {
-        public override string Title => "Multiple long lines";
+        public override string Title => "Multiple long lines (text wrapping)";
 
         protected override void DoExecute()
         {

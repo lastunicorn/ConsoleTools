@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         protected override void DoDisplayContent()
         {
             string text = GenerateText();
-            WriteTextLine(text);
+            WriteControlRow(text);
         }
 
         private MultilineText GenerateText()

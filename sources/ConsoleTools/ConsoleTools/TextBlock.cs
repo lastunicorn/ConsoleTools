@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools
             IEnumerable<string> chunks = Text.GetLines(ActualContentWidth);
 
             foreach (string chunk in chunks)
-                WriteTextLine(chunk);
+                WriteControlRow(chunk);
         }
 
         protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;

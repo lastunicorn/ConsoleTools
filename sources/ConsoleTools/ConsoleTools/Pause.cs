@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools
             {
                 lastLineLength = line.Length;
 
-                WriteTextLine(line);
+                WriteControlRow(line);
                 InnerSize = InnerSize.InflateHeight(1);
             }
         }

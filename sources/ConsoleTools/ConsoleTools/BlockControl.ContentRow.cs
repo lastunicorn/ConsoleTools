@@ -25,26 +25,32 @@ namespace DustInTheWind.ConsoleTools
 {
     partial class BlockControl
     {
-        protected void WriteTextLine(string text)
+        protected void WriteControlRow(string text)
         {
-            StartTextLine();
+            StartControlRow();
 
-            if (text.Length < controlLayout.ActualContentWidth)
-                text += new string(' ', controlLayout.ActualContentWidth - text.Length);
+            CustomConsole.WithColors(ForegroundColor, BackgroundColor, () =>
+            {
+                CustomConsole.Write(text);
 
-            WriteText(text);
+                if (text.Length < controlLayout.ActualContentWidth)
+                {
+                    string rightContentEmptySpace = new string(' ', controlLayout.ActualContentWidth - text.Length);
+                    CustomConsole.Write(rightContentEmptySpace);
+                }
+            });
 
-            EndTextLine();
+            EndControlRow();
         }
 
-        private void StartTextLine()
+        private void StartControlRow()
         {
             WriteLeftEmptySpace();
             WriteLeftMargin();
             WriteLeftPadding();
         }
 
-        private void EndTextLine()
+        private void EndControlRow()
         {
             WriteRightPadding();
             WriteRightMargin();
@@ -65,23 +71,6 @@ namespace DustInTheWind.ConsoleTools
         {
             int spaces = controlLayout.EmptySpaceLeft;
             Console.Write(new string(' ', spaces));
-        }
-
-        /// <summary>
-        /// Helper method that writes the specified text to the console using the
-        /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
-        /// </summary>
-        /// <param name="text">The text to be written to the console.</param>
-        protected void WriteText(string text)
-        {
-            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(text);
-            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
-            else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, text);
-            else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
         }
     }
 }

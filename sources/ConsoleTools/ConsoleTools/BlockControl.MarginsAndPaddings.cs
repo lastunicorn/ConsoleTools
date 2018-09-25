@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools
                 return;
 
             for (int i = 0; i < controlLayout.MarginTop; i++)
-                Console.WriteLine();
+                CustomConsole.WriteLine();
         }
 
         private void WriteBottomMargin()
@@ -61,7 +61,7 @@ namespace DustInTheWind.ConsoleTools
             if (controlLayout.MarginBottom > 0)
             {
                 for (int i = 0; i < controlLayout.MarginBottom; i++)
-                    Console.WriteLine();
+                    CustomConsole.WriteLine();
             }
 
             OnAfterBottomMargin();
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools
             string text = new string(' ', controlLayout.ActualContentWidth);
 
             for (int i = 0; i < controlLayout.PaddingTop; i++)
-                WriteTextLine(text);
+                WriteControlRow(text);
         }
 
         private void WriteBottomPadding()
@@ -86,7 +86,7 @@ namespace DustInTheWind.ConsoleTools
             string text = new string(' ', controlLayout.ActualContentWidth);
 
             for (int i = 0; i < controlLayout.PaddingBottom; i++)
-                WriteTextLine(text);
+                WriteControlRow(text);
         }
 
         private void WriteLeftMargin()
@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools
                 return;
 
             string text = new string(' ', controlLayout.MarginLeft);
-            Console.Write(text);
+            CustomConsole.Write(text);
         }
 
         private void WriteRightMargin()
@@ -104,7 +104,7 @@ namespace DustInTheWind.ConsoleTools
                 return;
 
             string text = new string(' ', controlLayout.MarginRight);
-            Console.Write(text);
+            CustomConsole.Write(text);
         }
 
         private void WriteLeftPadding()
@@ -113,7 +113,11 @@ namespace DustInTheWind.ConsoleTools
                 return;
 
             string text = new string(' ', controlLayout.PaddingLeft);
-            WriteText(text);
+
+            if (BackgroundColor.HasValue)
+                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
+            else
+                CustomConsole.Write(text);
         }
 
         private void WriteRightPadding()
@@ -122,7 +126,11 @@ namespace DustInTheWind.ConsoleTools
                 return;
 
             string text = new string(' ', controlLayout.PaddingRight);
-            WriteText(text);
+
+            if (BackgroundColor.HasValue)
+                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
+            else
+                CustomConsole.Write(text);
         }
 
         /// <summary>

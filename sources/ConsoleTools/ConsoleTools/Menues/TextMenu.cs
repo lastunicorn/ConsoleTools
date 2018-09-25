@@ -45,7 +45,11 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// <summary>
         /// Gets or sets the title to be displayed at the top of the control, before the list of items.
         /// </summary>
-        public TextBlock Title { get; set; }
+        public string TitleText { get; set; }
+
+        public ConsoleColor? TitleForegroundColor { get; set; }
+
+        public ConsoleColor? TitleBackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the text displayed after the menu to ask the user to choose an item.
@@ -171,7 +175,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         protected override void DoDisplayContent()
         {
-            if (Title != null)
+            if (TitleText != null)
                 DrawTitle();
 
             DrawMenu();
@@ -180,8 +184,11 @@ namespace DustInTheWind.ConsoleTools.Menues
 
         private void DrawTitle()
         {
-            Title.Display();
-            InnerSize = InnerSize.InflateHeight(Title.ActualFullHeight);
+            WriteControlRow(TitleText);
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine();
+            
+            InnerSize = InnerSize.InflateHeight(2);
         }
 
         private void DrawMenu()

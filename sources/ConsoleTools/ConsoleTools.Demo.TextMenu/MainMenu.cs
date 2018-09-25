@@ -44,12 +44,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenu
             EraseAfterClose = true;
             Margin = "0 1";
 
-            Title = new TextBlock
-            {
-                Text = "Demo Application",
-                ForegroundColor = ConsoleColor.Cyan,
-                Margin = "0 0 0 1"
-            };
+            TitleText = "Demo Application";
+            TitleForegroundColor = ConsoleColor.Cyan;
 
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);

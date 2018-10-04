@@ -56,13 +56,12 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="BlockControl.ContentRow.cs" />
     <Compile Include="BlockControl.MarginsAndPaddings.cs" />
     <Compile Include="BlockControl.WidthAndAlignment.cs" />
+    <Compile Include="ControlDisplay.cs" />
     <Compile Include="ControlLayout.cs" />
     <Compile Include="DefaultParent.cs" />
     <Compile Include="HorizontalLine.cs" />
-    <Compile Include="SupremeParent.cs" />
     <Compile Include="Thickness.cs" />
     <Compile Include="Menues\IPrompterCommand.cs" />
     <Compile Include="Menues\PrompterItem.cs" />

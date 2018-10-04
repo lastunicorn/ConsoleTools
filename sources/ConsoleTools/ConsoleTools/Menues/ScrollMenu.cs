@@ -37,11 +37,6 @@ namespace DustInTheWind.ConsoleTools.Menues
         private Location menuLocation;
         private Location itemsLocation;
 
-        ///// <summary>
-        ///// Gets or sets the title that is displayed at the top of the menu.
-        ///// </summary>
-        //public TextBlock Title { get; set; }
-
         /// <summary>
         /// Gets the item that is currently selected.
         /// </summary>
@@ -165,14 +160,14 @@ namespace DustInTheWind.ConsoleTools.Menues
                 throw new ApplicationException("There are no menu items to be displayed.");
 
             closeWasRequested = false;
-            InnerSize = Size.Empty;
+            //InnerSize = Size.Empty;
             menuLocation = Location.Origin;
             itemsLocation = Location.Origin;
 
-            for (int i = 0; i < InnerSize.Height; i++)
-                Console.WriteLine();
+            //for (int i = 0; i < InnerSize.Height; i++)
+            //    Console.WriteLine();
 
-            Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
+            //Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
 
             base.OnBeforeDisplay();
         }
@@ -181,7 +176,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
@@ -189,13 +184,8 @@ namespace DustInTheWind.ConsoleTools.Menues
             {
                 menuLocation = CalculateMenuLocation();
 
-                //Title.Display();
-
-                //Size titleSize = Title.CalculateOuterSize();
-                //InnerSize = InnerSize.InflateHeight(titleSize.Height);
-
                 Size itemsSize = CalculateItemsSize();
-                InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);
+                //InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);
 
                 itemsLocation = CalculateMenuLocation();
 
@@ -209,7 +199,7 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                     Console.SetCursorPosition(left, top);
 
-                    Size menuItemSize = new Size(InnerSize.Width, 1);
+                    Size menuItemSize = new Size(itemsSize.Width, 1);
                     menuItem.Display(menuItemSize, false);
 
                     Console.WriteLine();

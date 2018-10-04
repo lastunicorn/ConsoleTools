@@ -60,21 +60,20 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             if (Text == null)
                 return;
 
             lastLineLength = 0;
 
-            IEnumerable<string> lines = Text.GetLines(ActualContentWidth);
+            IEnumerable<string> lines = Text.GetLines(Layout.ActualContentWidth);
 
             foreach (string line in lines)
             {
                 lastLineLength = line.Length;
 
-                WriteControlRow(line);
-                InnerSize = InnerSize.InflateHeight(1);
+                display.WriteRow(line);
             }
         }
 

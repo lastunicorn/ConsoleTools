@@ -54,17 +54,13 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Displays the top padding, the content and the bottom padding.
+        /// Displays the horixontal line.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
-            string text = GenerateText();
-            WriteControlRow(text);
-        }
-
-        private MultilineText GenerateText()
-        {
-            return new string(Character, ActualContentWidth);
+            int actualContentWidth = Layout.ActualContentWidth;
+            string text = new string(Character, actualContentWidth);
+            display.WriteRow(text);
         }
 
         /// <summary>

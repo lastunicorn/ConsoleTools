@@ -69,20 +69,20 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        /// <summary>
-        /// Gets the actual width of the content.
-        /// </summary>
-        protected int ActualContentWidth => controlLayout.ActualContentWidth;
+        ///// <summary>
+        ///// Gets the actual width of the content.
+        ///// </summary>
+        //protected int ActualContentWidth => Layout.ActualContentWidth;
 
-        /// <summary>
-        /// When implemented by an inheritor, gets the actual height of the content calculated
-        /// taking in account the <see cref="ActualContentWidth"/>.
-        /// </summary>
-        protected virtual int ActualContentHeight { get; }
+        ///// <summary>
+        ///// When implemented by an inheritor, gets the actual height of the content calculated
+        ///// taking in account the <see cref="ActualContentWidth"/>.
+        ///// </summary>
+        //protected virtual int ActualContentHeight { get; }
 
-        public int ActualHeight => ActualContentHeight + Padding.Top + Padding.Bottom;
+        //public int ActualHeight => ActualContentHeight + Padding.Top + Padding.Bottom;
 
-        public int ActualFullHeight => ActualContentHeight + Margin.Top + Margin.Bottom;
+        //public int ActualFullHeight => ActualContentHeight + Margin.Top + Margin.Bottom;
 
         /// <summary>
         /// When implemented by an inheritor, gets the width of the content when no restrictions are applied of any kind.

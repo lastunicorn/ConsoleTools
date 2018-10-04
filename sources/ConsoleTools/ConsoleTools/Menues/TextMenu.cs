@@ -47,8 +47,14 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         public string TitleText { get; set; }
 
+        /// <summary>
+        /// Gets or sets the foreground color for the title.
+        /// </summary>
         public ConsoleColor? TitleForegroundColor { get; set; }
 
+        /// <summary>
+        /// Gets or sets the background color for the title.
+        /// </summary>
         public ConsoleColor? TitleBackgroundColor { get; set; }
 
         /// <summary>
@@ -164,7 +170,7 @@ namespace DustInTheWind.ConsoleTools.Menues
 
             SelectedItem = null;
             closeWasRequested = false;
-            InnerSize = Size.Empty;
+            //InnerSize = Size.Empty;
 
             base.OnBeforeDisplay();
         }
@@ -173,25 +179,25 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             if (TitleText != null)
-                DrawTitle();
+                DrawTitle(display);
 
-            DrawMenu();
-            ReadUserSelection();
+            DrawMenu(display);
+            ReadUserSelection(display);
         }
 
-        private void DrawTitle()
+        private void DrawTitle(ControlDisplay display)
         {
-            WriteControlRow(TitleText);
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine();
+            display.WriteRow(TitleText);
+            display.WriteRow();
+            display.WriteRow();
             
-            InnerSize = InnerSize.InflateHeight(2);
+            //InnerSize = InnerSize.InflateHeight(2);
         }
 
-        private void DrawMenu()
+        private void DrawMenu(ControlDisplay display)
         {
             IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
                 .Where(x => x.IsVisible);
@@ -199,16 +205,17 @@ namespace DustInTheWind.ConsoleTools.Menues
             foreach (TextMenuItem menuItem in menuItemsToDisplay)
             {
                 menuItem.Display();
-                CustomConsole.WriteLine();
+                display.WriteRow();
 
-                InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
+                //InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
             }
         }
 
-        private void ReadUserSelection()
+        private void ReadUserSelection(ControlDisplay display)
         {
-            Console.WriteLine();
-            InnerSize = InnerSize.InflateHeight(1);
+            display.WriteRow();
+            //Console.WriteLine();
+            //InnerSize = InnerSize.InflateHeight(1);
 
             while (!closeWasRequested)
             {
@@ -230,13 +237,13 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                 if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
                 {
-                    DisplayInvalidOptionWarning();
+                    DisplayInvalidOptionWarning(display);
                     continue;
                 }
 
                 if (!selectedMenuItem.CanBeSelected())
                 {
-                    DisplayDisabledItemWarning();
+                    DisplayDisabledItemWarning(display);
                     continue;
                 }
 
@@ -253,26 +260,32 @@ namespace DustInTheWind.ConsoleTools.Menues
 
             QuestionText.Display();
 
-            int textLength = QuestionText.CalculateOuterLength();
+            //int textLength = QuestionText.CalculateOuterLength();
 
-            int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
-            InnerSize = InnerSize.InflateHeight(questionHeight);
+            //int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
+            //InnerSize = InnerSize.InflateHeight(questionHeight);
         }
 
-        private void DisplayInvalidOptionWarning()
+        private void DisplayInvalidOptionWarning(ControlDisplay display)
         {
-            CustomConsole.WriteLineWarning(InvalidOptionText);
-            Console.WriteLine();
+            display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, InvalidOptionText);
+            display.WriteRow();
 
-            InnerSize = InnerSize.InflateHeight(2);
+            //CustomConsole.WriteLineWarning(InvalidOptionText);
+            //Console.WriteLine();
+
+            //InnerSize = InnerSize.InflateHeight(2);
         }
 
-        private void DisplayDisabledItemWarning()
+        private void DisplayDisabledItemWarning(ControlDisplay display)
         {
-            CustomConsole.WriteLineWarning(OptionDisabledText);
-            Console.WriteLine();
+            display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, OptionDisabledText);
+            display.WriteRow();
 
-            InnerSize = InnerSize.InflateHeight(2);
+            //CustomConsole.WriteLineWarning(OptionDisabledText);
+            //Console.WriteLine();
+
+            //InnerSize = InnerSize.InflateHeight(2);
         }
 
         /// <summary>

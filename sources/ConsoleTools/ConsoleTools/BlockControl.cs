@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -32,11 +33,13 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public abstract partial class BlockControl : Control
     {
-        private ControlLayout controlLayout;
+        protected ControlDisplay controlDisplay;
+
+        protected ControlLayout Layout { get; private set; }
 
         /// <summary>
         /// Gets or sets a value that specifies who should be considered the parent if none is specified.
-        /// This is useful for calculating the alignment for example.
+        /// This is useful when calculating the alignment.
         /// </summary>
         public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
@@ -61,14 +64,25 @@ namespace DustInTheWind.ConsoleTools
             MoveToNextLineIfNecessary();
 
             CalculateLayout();
+            controlDisplay = CreateControlDisplay();
 
             WriteTopMargin();
             WriteTopPadding();
 
-            DoDisplayContent();
+            DoDisplayContent(controlDisplay);
 
             WriteBottomPadding();
             WriteBottomMargin();
+        }
+
+        private ControlDisplay CreateControlDisplay()
+        {
+            return new ControlDisplay
+            {
+                Layout = Layout,
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
         }
 
         private static void MoveToNextLineIfNecessary()
@@ -79,19 +93,19 @@ namespace DustInTheWind.ConsoleTools
 
         private void CalculateLayout()
         {
-            controlLayout = new ControlLayout
+            Layout = new ControlLayout
             {
                 Control = this,
                 AvailableWidth = AvailableWidth,
                 DesiredContentWidth = DesiredContentWidth
             };
 
-            controlLayout.Calculate();
+            Layout.Calculate();
         }
 
         /// <summary>
         /// When implemented by an inheritor it displays the content of the control to the console.
         /// </summary>
-        protected abstract void DoDisplayContent();
+        protected abstract void DoDisplayContent(ControlDisplay display);
     }
 }

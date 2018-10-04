@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
         public void Execute(CliCommand cliCommand)
         {
             if (cliCommand.Parameters.Count > 0)
-                prompter.PrompterText = cliCommand.Parameters[0].Value;
+                prompter.Text = cliCommand.Parameters[0].Value;
             else
                 ChangePrompter();
         }
@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
         private void ChangePrompter()
         {
             ValueView<string> valueView = new ValueView<string>("New Prompter Text:");
-            prompter.PrompterText = valueView.Read();
+            prompter.Text = valueView.Read();
         }
     }
 }

@@ -61,18 +61,18 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the lines of text together with the left and right margins.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             if (Text == null)
                 return;
 
-            IEnumerable<string> chunks = Text.GetLines(ActualContentWidth);
+            IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth);
 
             foreach (string chunk in chunks)
-                WriteControlRow(chunk);
+                display.WriteRow(chunk);
         }
 
-        protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
+        //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
 
         protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
 

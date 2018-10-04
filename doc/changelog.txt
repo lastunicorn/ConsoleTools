@@ -7,11 +7,13 @@ ver 0.6.0
 ---------
 - Control: Added the DefaultParent property.
 - Control: ShowCursor renamed to CursorVisibility and made it nullable.
+- BlockControl: Changed the signature of the DoDisplayContent method.
 - HorizontalLine: Created the HorizontalLine control.
 - TextBlock: Removed the MarginLeft, MarginTop, MarginRight, MarginBottom properties.
 - Pause: Implemented left and right margins and paddings.
 - LabelMenuItem: Removed the HighlightType property.
 - ScrollMenu: Removed the ItemsHighlightType property.
+- Prompter: PrompterText was removed. Instead were added Text and TextFormat both of type string.
 
 ver 0.5.1
 ---------

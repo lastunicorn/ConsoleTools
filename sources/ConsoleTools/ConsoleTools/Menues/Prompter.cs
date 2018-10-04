@@ -52,12 +52,12 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// <summary>
         /// Gets or sets the text displayed in the prompter.
         /// </summary>
-        public InlineTextBlock PrompterText { get; set; }
+        public string Text { get; set; }
 
         /// <summary>
-        /// Gets or sets the glyph displayed after the prompter text.
+        /// Gets or sets a format string for the <see cref="Text"/> value.
         /// </summary>
-        public InlineTextBlock PrompterGlyph { get; set; } = ">";
+        public string TextFormat { get; set; } = "{0}> ";
 
         /// <summary>
         /// Gets or sets the count of spaces to be displayed before the prompter (text + glyph).
@@ -135,29 +135,27 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             bool success = false;
 
             while (!success && !closeWasRequested)
             {
-                DisplayPrompterText();
+                WriteLeftMargin();
+
+                display.StartRow();
+                string text = TextFormat == null
+                    ? Text
+                    : string.Format(TextFormat, Text);
+                CustomConsole.Write(text);
                 success = ReadUserInput();
+                display.EndRow();
+
+                WriteRightMargin();
             }
         }
 
-        /// <summary>
-        /// Displays the whole prompter (margins, text and glyph) to the console.
-        /// </summary>
-        protected virtual void DisplayPrompterText()
-        {
-            WriteLeftMargin();
-
-            PrompterText?.Display();
-            PrompterGlyph?.Display();
-
-            WriteRightMargin();
-        }
+        protected override int DesiredContentWidth => int.MaxValue;
 
         private void WriteLeftMargin()
         {
@@ -218,7 +216,7 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                 if (!isHandled)
                     AnnounceUnhandledCommand();
-                
+
                 if (!isHandled)
                     UnhandledItemCommand?.Execute(LastCommand);
             }

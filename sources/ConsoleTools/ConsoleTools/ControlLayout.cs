@@ -23,8 +23,10 @@ using System;
 
 namespace DustInTheWind.ConsoleTools
 {
-    internal class ControlLayout
+    public class ControlLayout
     {
+        private HorizontalAlignment calculatedHorizontalAlignment;
+
         /// <summary>
         /// Gets or sets the control for which the layout is calculated.
         /// </summary>
@@ -112,12 +114,22 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Gets the empty space at the left of the content.
         /// </summary>
-        public int EmptySpaceLeft { get; private set; }
+        public int InnerEmptySpaceLeft { get; private set; }
 
         /// <summary>
         /// Gets the empty space at the right of the content.
         /// </summary>
-        public int EmptySpaceRight { get; private set; }
+        public int InnerEmptySpaceRight { get; private set; }
+
+        /// <summary>
+        /// Gets the empty space at the left of the control.
+        /// </summary>
+        public int OuterEmptySpaceLeft { get; private set; }
+
+        /// <summary>
+        /// Gets the empty space at the right of the control.
+        /// </summary>
+        public int OuterEmptySpaceRight { get; private set; }
 
         /// <summary>
         /// Calculates the position and dimentions of all the parts that must be displayed.
@@ -126,9 +138,10 @@ namespace DustInTheWind.ConsoleTools
         {
             CalculateMargins();
             CalculatePaddings();
-            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
-            CalculateActualWidths(calculatedHorizontalAlignment);
-            CalculateEmptySpace();
+            calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+            CalculateActualWidths();
+            CalculateInnerEmptySpace();
+            CalculateOuterEmptySpace();
         }
 
         private void CalculateMargins()
@@ -195,7 +208,7 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        private void CalculateActualWidths(HorizontalAlignment calculatedHorizontalAlignment)
+        private void CalculateActualWidths()
         {
             // Calculate max widths.
 
@@ -211,11 +224,8 @@ namespace DustInTheWind.ConsoleTools
                 ActualWidth = calculatedMaxWidth;
                 ActualClientWidth = calculatedMaxClientWidth;
 
-                int? calculatedDesiredContentWidth = DesiredContentWidth;
-
-                ActualContentWidth = calculatedDesiredContentWidth.HasValue
-                    ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth)
-                    : calculatedMaxClientWidth;
+                int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
+                ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth);
             }
             else
             {
@@ -273,11 +283,11 @@ namespace DustInTheWind.ConsoleTools
             }
             else
             {
-                return Control.Width.Value;
+                return Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
             }
         }
 
-        private void CalculateEmptySpace()
+        private void CalculateInnerEmptySpace()
         {
             int emptySpaceTotal = ActualClientWidth - ActualContentWidth;
 
@@ -285,24 +295,57 @@ namespace DustInTheWind.ConsoleTools
             {
                 case HorizontalAlignment.Default:
                 case HorizontalAlignment.Left:
-                    EmptySpaceLeft = 0;
-                    EmptySpaceRight = emptySpaceTotal;
+                    InnerEmptySpaceLeft = 0;
+                    InnerEmptySpaceRight = emptySpaceTotal;
                     break;
 
                 case HorizontalAlignment.Center:
                     double emptySpaceHalf = (double)emptySpaceTotal / 2;
-                    EmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
-                    EmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
+                    InnerEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
+                    InnerEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
                     break;
 
                 case HorizontalAlignment.Right:
-                    EmptySpaceLeft = emptySpaceTotal;
-                    EmptySpaceRight = 0;
+                    InnerEmptySpaceLeft = emptySpaceTotal;
+                    InnerEmptySpaceRight = 0;
                     break;
 
                 case HorizontalAlignment.Stretch:
-                    EmptySpaceLeft = 0;
-                    EmptySpaceRight = 0;
+                    InnerEmptySpaceLeft = 0;
+                    InnerEmptySpaceRight = 0;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void CalculateOuterEmptySpace()
+        {
+            int emptySpaceTotal = AvailableWidth - ActualFullWidth;
+
+            switch (calculatedHorizontalAlignment)
+            {
+                case HorizontalAlignment.Default:
+                case HorizontalAlignment.Left:
+                    OuterEmptySpaceLeft = 0;
+                    OuterEmptySpaceRight = emptySpaceTotal;
+                    break;
+
+                case HorizontalAlignment.Center:
+                    double emptySpaceHalf = (double)emptySpaceTotal / 2;
+                    OuterEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
+                    OuterEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
+                    break;
+
+                case HorizontalAlignment.Right:
+                    OuterEmptySpaceLeft = emptySpaceTotal;
+                    OuterEmptySpaceRight = 0;
+                    break;
+
+                case HorizontalAlignment.Stretch:
+                    OuterEmptySpaceLeft = 0;
+                    OuterEmptySpaceRight = 0;
                     break;
 
                 default:

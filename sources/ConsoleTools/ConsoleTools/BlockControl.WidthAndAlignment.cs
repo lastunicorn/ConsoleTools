@@ -85,8 +85,8 @@ namespace DustInTheWind.ConsoleTools
         //public int ActualFullHeight => ActualContentHeight + Margin.Top + Margin.Bottom;
 
         /// <summary>
-        /// When implemented by an inheritor, gets the width of the content when no restrictions are applied of any kind.
-        /// Not event the Width, MinWidth and MaxWidth are honored.
+        /// When implemented by an inheritor, gets the width of the content when there are no restrictions applied.
+        /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
         /// </summary>
         protected virtual int DesiredContentWidth { get; }
     }

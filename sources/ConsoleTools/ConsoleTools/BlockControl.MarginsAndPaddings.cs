@@ -89,50 +89,6 @@ namespace DustInTheWind.ConsoleTools
                 controlDisplay.WriteRow(text);
         }
 
-        private void WriteLeftMargin()
-        {
-            if (Layout.MarginLeft <= 0)
-                return;
-
-            string text = new string(' ', Layout.MarginLeft);
-            CustomConsole.Write(text);
-        }
-
-        private void WriteRightMargin()
-        {
-            if (Layout.MarginRight <= 0)
-                return;
-
-            string text = new string(' ', Layout.MarginRight);
-            CustomConsole.Write(text);
-        }
-
-        private void WriteLeftPadding()
-        {
-            if (Layout.PaddingLeft <= 0)
-                return;
-
-            string text = new string(' ', Layout.PaddingLeft);
-
-            if (BackgroundColor.HasValue)
-                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
-            else
-                CustomConsole.Write(text);
-        }
-
-        private void WriteRightPadding()
-        {
-            if (Layout.PaddingRight <= 0)
-                return;
-
-            string text = new string(' ', Layout.PaddingRight);
-
-            if (BackgroundColor.HasValue)
-                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
-            else
-                CustomConsole.Write(text);
-        }
-
         /// <summary>
         /// Method called immediately before writting the top margin.
         /// </summary>

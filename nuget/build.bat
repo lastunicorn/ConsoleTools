@@ -62,12 +62,12 @@ if %errorlevel% neq 0 goto :error
 
 echo.
 echo ---
-echo --- Retrieve assemblies - Net45
+echo --- Retrieve assemblies - Net452
 echo ---
 echo.
-xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.dll" "lib\net45"
+xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net452\*.dll" "lib\net452"
 if %errorlevel% neq 0 goto :error
-xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.xml" "lib\net45"
+xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net452\*.xml" "lib\net452"
 if %errorlevel% neq 0 goto :error
 
 echo.

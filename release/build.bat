@@ -44,9 +44,9 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.dll" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net452\*.dll" "ConsoleTools\lib\Net452"
 if %errorlevel% neq 0 goto :error
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.xml" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net452\*.xml" "ConsoleTools\lib\Net452"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------

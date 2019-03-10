@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools", "ConsoleTools\ConsoleTools.csproj", "{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools", "ConsoleTools\ConsoleTools.csproj", "{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Tests", "ConsoleTools.Tests\ConsoleTools.Tests.csproj", "{54D61983-996F-436E-A265-01C616099367}"
 EndProject
@@ -47,14 +47,14 @@ Global
 		Release-Net461|Any CPU = Release-Net461|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net452|Any CPU.ActiveCfg = Debug-Net452|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net452|Any CPU.Build.0 = Debug-Net452|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net461|Any CPU.ActiveCfg = Debug-Net461|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net461|Any CPU.Build.0 = Debug-Net461|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net452|Any CPU.ActiveCfg = Release-Net452|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net452|Any CPU.Build.0 = Release-Net452|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net461|Any CPU.ActiveCfg = Release-Net461|Any CPU
-		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net461|Any CPU.Build.0 = Release-Net461|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net452|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net452|Any CPU.Build.0 = Debug|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net461|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Debug-Net461|Any CPU.Build.0 = Debug|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 		{54D61983-996F-436E-A265-01C616099367}.Debug-Net452|Any CPU.ActiveCfg = Debug-Net452|Any CPU
 		{54D61983-996F-436E-A265-01C616099367}.Debug-Net452|Any CPU.Build.0 = Debug-Net452|Any CPU
 		{54D61983-996F-436E-A265-01C616099367}.Debug-Net461|Any CPU.ActiveCfg = Debug-Net461|Any CPU

@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-      <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
+      <Project>{6E67DE9D-7AB8-4828-8DFA-78E2E9AC59E8}</Project>
       <Name>ConsoleTools</Name>
     </ProjectReference>
   </ItemGroup>

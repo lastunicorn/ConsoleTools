@@ -1,268 +1,78 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
+    <TargetFrameworks>netcoreapp2.2;net461</TargetFrameworks>
+    <ApplicationIcon />
+    <StartupObject />
     <AssemblyName>DustInTheWind.ConsoleTools</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
+	<GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
+	<Deterministic>false</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\DustInTheWind.ConsoleTools.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
-    <OutputPath>bin\Release-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\DustInTheWind.ConsoleTools.xml</DocumentationFile>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU'">
-    <OutputPath>bin\Release-Net45\</OutputPath>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\DustInTheWind.ConsoleTools.xml</DocumentationFile>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
+    <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="Thickness.cs" />
-    <Compile Include="Menues\IPrompterCommand.cs" />
-    <Compile Include="Menues\PrompterItem.cs" />
-    <Compile Include="Menues\UnhandledCommandEventArgs.cs" />
-    <Compile Include="Menues\UnknownPrompterCommand.cs" />
-    <Compile Include="Control.cs" />
-    <Compile Include="IRepeatableSupport.cs" />
-    <Compile Include="CustomConsole.HorizontalLines.cs" />
-    <Compile Include="InlineControl.cs" />
-    <Compile Include="InputControls\DoubleListView.cs" />
-    <Compile Include="InputControls\FloatListView.cs" />
-    <Compile Include="InputControls\Int32ListView.cs" />
-    <Compile Include="InputControls\Int64ListView.cs" />
-    <Compile Include="InputControls\ListView.cs" />
-    <Compile Include="InputControls\ReadWriteMode.cs" />
-    <Compile Include="InputControls\StringListView.cs" />
-    <Compile Include="LongRunningControl.cs" />
-    <Compile Include="BlockControl.cs" />
-    <Compile Include="CustomConsole.Colors.cs" />
-    <Compile Include="CustomConsole.WriteAligned.BothColors.cs" />
-    <Compile Include="CustomConsole.WriteAligned.BackgroundColor.cs" />
-    <Compile Include="CustomConsole.WriteAligned.ForegroundColor.cs" />
-    <Compile Include="CustomConsole.Write.BackgroundColor.cs" />
-    <Compile Include="CustomConsole.Write.BothColors.cs" />
-    <Compile Include="CustomConsole.WriteInverted.cs" />
-    <Compile Include="ErasableControl.cs" />
-    <Compile Include="InputControls\DoubleView.cs" />
-    <Compile Include="InputControls\FloatView.cs" />
-    <Compile Include="InlineTextBlock.cs" />
-    <Compile Include="InputControls\Int32View.cs" />
-    <Compile Include="InputControls\Int64View.cs" />
-    <Compile Include="Label.cs" />
-    <Compile Include="InputControls\ListInputResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Update="InputControls\ListInputResources.Designer.cs">
       <DependentUpon>ListInputResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="InputControls\StringView.cs" />
-    <Compile Include="ControlRepeater.cs" />
-    <Compile Include="TextBlock.cs" />
-    <Compile Include="InputControls\ValueView.cs" />
-    <Compile Include="InputControls\ValueInputResources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="InputControls\ValueInputResources.Designer.cs">
       <DependentUpon>ValueInputResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="InputControls\YesNoAnswer.cs" />
-    <Compile Include="InputControls\YesNoQuestion.cs" />
-    <Compile Include="InputControls\YesNoQuestionResources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="InputControls\YesNoQuestionResources.Designer.cs">
       <DependentUpon>YesNoQuestionResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Menues\ActionCommand.cs" />
-    <Compile Include="Menues\EmptyCommand.cs" />
-    <Compile Include="Menues\ICommand.cs" />
-    <Compile Include="Menues\MenuItems\HighlightType.cs" />
-    <Compile Include="Menues\TextMenuItem.cs" />
-    <Compile Include="Menues\TextMenuResources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Menues\TextMenuResources.Designer.cs">
       <DependentUpon>TextMenuResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Musical\MusicalNoteInfo.cs" />
-    <Compile Include="Location.cs" />
-    <Compile Include="Pause.cs" />
-    <Compile Include="PauseResources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="PauseResources.Designer.cs">
       <DependentUpon>PauseResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Spinners\ProgressBar.cs" />
-    <Compile Include="Spinners\SpinnerResources.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SpinnerResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Spinners\Templates\FilledBehavior.cs" />
-    <Compile Include="Spinners\Templates\FillSpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\HalfBlinkSpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\HalfRotateSpinnerTemplate.cs" />
-    <Compile Include="Spinners\ValuePosition.cs" />
-    <Compile Include="AlignedText.cs" />
-    <Compile Include="TabularData\BorderTemplate.cs" />
-    <Compile Include="TabularData\HorizontalSeparatorBuilder.cs" />
-    <Compile Include="TabularData\RenderingModel\BottomBorderData.cs" />
-    <Compile Include="TabularData\CellBase.cs" />
-    <Compile Include="TabularData\ColumnList.cs" />
-    <Compile Include="TabularData\RenderingModel\DataCellX.cs" />
-    <Compile Include="TabularData\RenderingModel\DataDataSeparator.cs" />
-    <Compile Include="TabularData\RenderingModel\DataGridX.cs" />
-    <Compile Include="TabularData\DataRowList.cs" />
-    <Compile Include="TabularData\RenderingModel\DataRowX.cs" />
-    <Compile Include="TabularData\RenderingModel\DataTopBorder.cs" />
-    <Compile Include="TabularData\RenderingModel\HeaderBottomBorder.cs" />
-    <Compile Include="TabularData\HeaderCell.cs" />
-    <Compile Include="TabularData\RenderingModel\HeaderDataSeparator.cs" />
-    <Compile Include="TabularData\RenderingModel\HeaderRowX.cs" />
-    <Compile Include="TabularData\RenderingModel\HeaderTopBorder.cs" />
-    <Compile Include="TabularData\Printers\StreamTablePrinter.cs" />
-    <Compile Include="TabularData\RenderingModel\DataGridXBuilder.cs" />
-    <Compile Include="CommandLine\CliParameter.cs" />
-    <Compile Include="ConsoleReader.cs" />
-    <Compile Include="CustomConsole.WriteAligned.DefaultColors.cs" />
-    <Compile Include="Guard\MachineLevelGuardian.cs" />
-    <Compile Include="Menues\CurrentIndexChangedEventArgs.cs" />
-    <Compile Include="Menues\IMenuItem.cs" />
-    <Compile Include="Menues\MenuItems\LabelMenuItem.cs" />
-    <Compile Include="Menues\MenuItemCollection.cs" />
-    <Compile Include="Menues\ScrollMenu.cs" />
-    <Compile Include="Menues\MenuItems\SeparatorMenuItem.cs" />
-    <Compile Include="Menues\MenuItems\YesNoMenuItem.cs" />
-    <Compile Include="Musical\MusicalNote.cs" />
-    <Compile Include="Musical\Sound.cs" />
-    <Compile Include="Menues\NewCommandEventArgs.cs" />
-    <Compile Include="Spinners\Templates\BoomerangSpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\StickSpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\BubbleSpinnerTemplate.cs" />
-    <Compile Include="Spinners\Spinner.cs" />
-    <Compile Include="Spinners\Templates\FanSpinnerTemplate.cs" />
-    <Compile Include="Spinners\ISpinnerTemplate.cs" />
-    <Compile Include="Spinners\Templates\SequenceSpinnerTemplate.cs" />
-    <Compile Include="Menues\Prompter.cs" />
-    <Compile Include="TabularData\DataCell.cs" />
-    <Compile Include="TabularData\Column.cs" />
-    <Compile Include="TabularData\Printers\ConsoleTablePrinter.cs" />
-    <Compile Include="HorizontalAlignment.cs" />
-    <Compile Include="TabularData\ITablePrinter.cs" />
-    <Compile Include="MultilineText.cs" />
-    <Compile Include="TabularData\DataRow.cs" />
-    <Compile Include="Size.cs" />
-    <Compile Include="TabularData\Printers\StringTablePrinter.cs" />
-    <Compile Include="TabularData\DataGrid.cs" />
-    <Compile Include="CustomConsole.WriteEmphasies.cs" />
-    <Compile Include="CustomConsole.WriteError.cs" />
-    <Compile Include="CustomConsole.WithoutCursor.cs" />
-    <Compile Include="CustomConsole.WriteNormal.cs" />
-    <Compile Include="CustomConsole.WriteSuccess.cs" />
-    <Compile Include="CustomConsole.WriteWarning.cs" />
-    <Compile Include="CustomConsole.Write.ForegroundColor.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Menues\TextMenu.cs" />
-    <Compile Include="CommandLine\CliCommand.cs" />
-    <Compile Include="TabularData\RenderingModel\TitleBottomBorder.cs" />
-    <Compile Include="TabularData\TitleCell.cs" />
-    <Compile Include="TabularData\RenderingModel\TitleDataSeparator.cs" />
-    <Compile Include="TabularData\RenderingModel\TitleHeaderSeparator.cs" />
-    <Compile Include="TabularData\TitleRow.cs" />
-    <Compile Include="TabularData\RenderingModel\TitleRowX.cs" />
-    <Compile Include="TabularData\RenderingModel\TitleTopBorder.cs" />
-    <Compile Include="ThreeStageFile.cs" />
+    <Compile Update="Spinners\SpinnerResources.Designer.cs">
+      <DependentUpon>SpinnerResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="InputControls\ListInputResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="InputControls\ListInputResources.resx">
       <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputControls\ListInputResources.fr.resx" />
-    <EmbeddedResource Include="InputControls\ListInputResources.ro.resx" />
-    <EmbeddedResource Include="InputControls\ValueInputResources.fr.resx" />
-    <EmbeddedResource Include="InputControls\ValueInputResources.ro.resx" />
-    <EmbeddedResource Include="InputControls\ValueInputResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InputControls\ValueInputResources.resx">
       <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputControls\YesNoQuestionResources.fr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InputControls\YesNoQuestionResources.ro.resx" />
-    <EmbeddedResource Include="InputControls\YesNoQuestionResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InputControls\YesNoQuestionResources.resx">
       <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Menues\TextMenuResources.fr.resx" />
-    <EmbeddedResource Include="Menues\TextMenuResources.ro.resx" />
-    <EmbeddedResource Include="Menues\TextMenuResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Menues\TextMenuResources.resx">
       <LastGenOutput>TextMenuResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PauseResources.fr.resx" />
-    <EmbeddedResource Include="PauseResources.ro.resx" />
-    <EmbeddedResource Include="PauseResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PauseResources.resx">
       <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Spinners\SpinnerResources.ro.resx" />
-    <EmbeddedResource Include="Spinners\SpinnerResources.fr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Spinners\SpinnerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Spinners\SpinnerResources.resx">
       <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ControlsDiagram.cd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

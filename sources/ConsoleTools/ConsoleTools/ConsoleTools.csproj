@@ -9,6 +9,7 @@
     <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
 	<GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
 	<Deterministic>false</Deterministic>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

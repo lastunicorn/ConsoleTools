@@ -3,6 +3,10 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+ver 0.5.2
+---------
+- double target: net core and net framework.
+
 ver 0.5.1
 ---------
 - ProgressBar: [bugfix] Fixed incorrect throw of out of range exception when setting the MaxValue property.

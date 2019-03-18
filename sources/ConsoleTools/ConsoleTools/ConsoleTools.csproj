@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netcoreapp2.2;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
     <ApplicationIcon />
     <StartupObject />
     <AssemblyName>DustInTheWind.ConsoleTools</AssemblyName>

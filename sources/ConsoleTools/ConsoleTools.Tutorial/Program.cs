@@ -20,9 +20,8 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
-using DustInTheWind.ConsoleTools;
 
-namespace DustIntheWind.ConsoleTools.Tutorial
+namespace DustInTheWind.ConsoleTools.Tutorial
 {
     internal class Program
     {

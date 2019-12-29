@@ -19,10 +19,9 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
-using DustInTheWind.ConsoleTools;
+using DustInTheWind.ConsoleTools.Tutorial.AddressBookModel;
 
-namespace DustIntheWind.ConsoleTools.Tutorial
+namespace DustInTheWind.ConsoleTools.Tutorial
 {
     internal class AddressBookApplication
     {

@@ -167,10 +167,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-      <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
-      <Name>ConsoleTools</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -182,6 +179,12 @@
     <None Include="TextBlockTests\TextBlockTests.out\Test1.out">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
+      <Project>{e43718e9-3b14-4fcb-b47e-34460e817824}</Project>
+      <Name>ConsoleTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

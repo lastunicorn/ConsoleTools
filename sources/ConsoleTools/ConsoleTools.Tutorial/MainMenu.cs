@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
-using DustIntheWind.ConsoleTools.Tutorial.Commands;
 using DustInTheWind.ConsoleTools.Menues;
 using DustInTheWind.ConsoleTools.Menues.MenuItems;
+using DustInTheWind.ConsoleTools.Tutorial.AddressBookModel;
+using DustInTheWind.ConsoleTools.Tutorial.Commands;
 
-namespace DustIntheWind.ConsoleTools.Tutorial
+namespace DustInTheWind.ConsoleTools.Tutorial
 {
     internal class MainMenu : ScrollMenu
     {

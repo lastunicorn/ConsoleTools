@@ -20,10 +20,10 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System.Collections.Generic;
-using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
 using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Tutorial.AddressBookModel;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
+namespace DustInTheWind.ConsoleTools.Tutorial.CustomControls
 {
     internal class PersonsView
     {

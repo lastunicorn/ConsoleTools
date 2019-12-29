@@ -15,6 +15,10 @@ ver 0.6.0
 - ScrollMenu: Removed the ItemsHighlightType property.
 - Prompter: PrompterText was removed. Instead were added Text and TextFormat both of type string.
 
+ver 0.5.2
+---------
+- double target: net core and net framework.
+
 ver 0.5.1
 ---------
 - ProgressBar: [bugfix] Fixed incorrect throw of out of range exception when setting the MaxValue property.

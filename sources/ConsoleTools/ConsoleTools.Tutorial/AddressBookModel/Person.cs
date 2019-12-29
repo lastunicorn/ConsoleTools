@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.AddressBookModel
+namespace DustInTheWind.ConsoleTools.Tutorial.AddressBookModel
 {
     internal class Person
     {

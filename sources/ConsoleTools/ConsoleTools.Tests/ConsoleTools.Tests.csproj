@@ -138,6 +138,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools.Tables\ConsoleTools.Tables.csproj">
+      <Project>{1378eec9-98b1-41ee-bf7e-b7ff7d3f9932}</Project>
+      <Name>ConsoleTools.Tables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
       <Project>{6E67DE9D-7AB8-4828-8DFA-78E2E9AC59E8}</Project>
       <Name>ConsoleTools</Name>

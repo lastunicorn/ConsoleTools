@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Represents a location in the 2D plane.
-    /// Imutable.
+    /// Immutable.
     /// </summary>
     public struct Location
     {

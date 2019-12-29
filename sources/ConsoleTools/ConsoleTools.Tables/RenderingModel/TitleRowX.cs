@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -19,16 +19,23 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    public class Label : InlineTextBlock
+    internal class TitleRowX
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Label"/> class.
-        /// </summary>
-        public Label()
+        public TitleRow TitleRow { get; }
+        public Size Size { get; set; }
+
+        public TitleRowX(TitleRow titleRow)
         {
-            MarginRight = 1;
+            TitleRow = titleRow;
+
+            Size = titleRow?.CalculatePreferedSize() ?? Size.Empty;
+        }
+
+        public void Render(ITablePrinter tablePrinter)
+        {
+            TitleRow?.Render(tablePrinter, Size);
         }
     }
 }

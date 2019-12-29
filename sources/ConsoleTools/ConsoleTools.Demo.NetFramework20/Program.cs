@@ -19,16 +19,17 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleTools.Demo.NetFramework20
 {
-    public class Label : InlineTextBlock
+    class Program
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Label"/> class.
-        /// </summary>
-        public Label()
+        static void Main(string[] args)
         {
-            MarginRight = 1;
+            Dust Pause.Display();
         }
     }
 }

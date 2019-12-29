@@ -128,7 +128,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Displays the label and waits for the user to provide a value.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             switch (ReadWriteMode)
             {
@@ -147,7 +147,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
                             Label.Display();
 
                         if (Value != null)
-                            WriteValue();
+                            WriteValue(display);
                     }
                     break;
 
@@ -196,9 +196,9 @@ namespace DustInTheWind.ConsoleTools.InputControls
             }
         }
 
-        private void WriteValue()
+        private void WriteValue(ControlDisplay display)
         {
-            CustomConsole.WriteLine(Value);
+            display.WriteRow(Value?.ToString());
         }
 
         private void DisplayLabel()

@@ -28,11 +28,19 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public abstract class Control
     {
+        private bool originalCursorVisility;
+
         /// <summary>
         /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool ShowCursor { get; set; } = true;
+        public bool? CursorVisibility { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the visibility of the cursor should be set back
+        /// to the value it was before displaying the control.
+        /// </summary>
+        protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
 
         /// <summary>
         /// Event raised at the begining of the <see cref="Display"/> method, before doing anything else.
@@ -51,10 +59,25 @@ namespace DustInTheWind.ConsoleTools
         {
             OnBeforeDisplay();
 
-            if (ShowCursor)
-                DoDisplay();
+            if (CursorVisibility.HasValue)
+            {
+                originalCursorVisility = Console.CursorVisible;
+                Console.CursorVisible = CursorVisibility.Value;
+
+                try
+                {
+                    DoDisplay();
+                }
+                finally
+                {
+                    if (RestoreCursorVisibilityAfterDisplay)
+                        Console.CursorVisible = originalCursorVisility;
+                }
+            }
             else
-                CustomConsole.RunWithoutCursor(DoDisplay);
+            {
+                DoDisplay();
+            }
 
             OnAfterDisplay();
         }

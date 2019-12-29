@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Text;
 
 namespace DustInTheWind.ConsoleTools.Menues.MenuItems
 {
@@ -31,26 +30,9 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
     public class LabelMenuItem : IMenuItem
     {
         private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
-        private const HighlightType DefaultHighlightType = HighlightType.OnlyText;
 
         private bool isVisible = true;
-
-        private string calculatedContent;
-        private string text;
-        private int paddingLeft = 1;
-        private int paddingRight = 1;
         private bool isEnabled = true;
-
-        private string CalculatedContent
-        {
-            get
-            {
-                if (calculatedContent == null)
-                    calculatedContent = CalculateText();
-
-                return calculatedContent;
-            }
-        }
 
         /// <summary>
         /// Gets the location in the console where the current instance was last rendered.
@@ -61,20 +43,21 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
         /// <summary>
         /// Gets the size in characters necessary for the current instance to be rendered.
         /// </summary>
-        public Size Size => new Size(CalculatedContent.Length, 1);
+        public Size Size
+        {
+            get
+            {
+                int width = PaddingLeft + (Text?.Length ?? 0) + PaddingRight;
+                int height = 1;
+
+                return new Size(width, height);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the text displayed by the current instance.
         /// </summary>
-        public string Text
-        {
-            get { return text; }
-            set
-            {
-                text = value;
-                calculatedContent = null;
-            }
-        }
+        public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the current instance is displayed.
@@ -131,32 +114,14 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
         /// The padding is part of the menu item's width.
         /// Default value: 1
         /// </summary>
-        public int PaddingLeft
-        {
-            get { return paddingLeft; }
-            set
-            {
-                paddingLeft = value;
-                calculatedContent = null;
-            }
-        }
+        public int PaddingLeft { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the padding applied to the right of the text.
         /// The padding is part of the menu item's width.
         /// Default value: 1
         /// </summary>
-        public int PaddingRight
-        {
-            get { return paddingRight; }
-            set
-            {
-                paddingRight = value;
-                calculatedContent = null;
-            }
-        }
-
-        public HighlightType HighlightType { get; set; } = HighlightType.Default;
+        public int PaddingRight { get; set; } = 1;
 
         /// <summary>
         /// Event raised before the current instance is selected.
@@ -177,61 +142,36 @@ namespace DustInTheWind.ConsoleTools.Menues.MenuItems
 
             AlignedText alignedText = new AlignedText
             {
-                Text = CalculatedContent,
+                Text = new string(' ', Size.Width),
                 HorizontalAlignment = calculatedHorizontalAlignment,
                 Width = size.Width
             };
 
+            // Write left empty space
+            CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
+
+            // Write content
             if (highlighted)
-            {
-                HighlightType calculatedHighliteType = CalculateHighlightType();
-
-                switch (calculatedHighliteType)
-                {
-                    case HighlightType.OnlyText:
-                        CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
-                        CustomConsole.WriteInverted(alignedText.Text);
-                        CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
-                        break;
-
-                    case HighlightType.WholeRow:
-                        CustomConsole.WriteInverted(alignedText);
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException("Invalid calculated highlight type.");
-                }
-            }
+                CustomConsole.WithInvertedColors(DisplayContent);
             else
-            {
-                CustomConsole.Write(alignedText);
-            }
+                DisplayContent();
+
+            // Write right empty space
+            CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
         }
 
-        private HighlightType CalculateHighlightType()
+        private void DisplayContent()
         {
-            if (HighlightType != HighlightType.Default)
-                return HighlightType;
-
-            if (ParentMenu != null && ParentMenu.ItemsHighlightType != HighlightType.Default)
-                return ParentMenu.ItemsHighlightType;
-
-            return DefaultHighlightType;
-        }
-
-        private string CalculateText()
-        {
-            StringBuilder sb = new StringBuilder();
-
+            // Write left padding
             if (PaddingLeft > 0)
-                sb.Append(new string(' ', PaddingLeft));
+                CustomConsole.Write(new string(' ', PaddingLeft));
 
-            sb.Append(Text);
+            // Write the text
+            CustomConsole.Write(Text);
 
+            // Write right padding
             if (PaddingRight > 0)
-                sb.Append(new string(' ', PaddingRight));
-
-            return sb.ToString();
+                CustomConsole.Write(new string(' ', PaddingRight));
         }
 
         private HorizontalAlignment CalculateHorizontalAlignment()

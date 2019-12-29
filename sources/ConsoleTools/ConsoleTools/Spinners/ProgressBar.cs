@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
-using DustInTheWind.ConsoleTools.InputControls;
 
 namespace DustInTheWind.ConsoleTools.Spinners
 {
@@ -31,8 +30,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
     public class ProgressBar : LongRunningControl
     {
         private readonly Label label = new Label();
-        private bool isDisplayed;
-
+        
         private int value;
         private int minValue;
         private int maxValue = 100;
@@ -69,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             set
             {
                 if (value > MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(value), "MinValue cannot be grater than MaxValue.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "MinValue cannot be greater than MaxValue.");
 
                 minValue = value;
             }
@@ -115,8 +113,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
                 this.value = value;
 
-                if (isDisplayed)
-                    Refresh();
+                Refresh();
             }
         }
 
@@ -214,15 +211,12 @@ namespace DustInTheWind.ConsoleTools.Spinners
         /// <summary>
         /// Displays the current instance to the Console.
         /// Important: While the <see cref="ProgressBar"/> is displayed, it is important to not write anything else to the Console
-        /// until the <see cref="Close"/> method is called.
+        /// until the <see cref="LongRunningControl.Close"/> method is called.
         /// In the meantime, you can update its displayed value by setting the <see cref="Value"/> property. The control will
         /// automatically update itself in the Console.
         /// </summary>
         protected override void DoDisplayContent()
         {
-            Console.CursorVisible = false;
-            isDisplayed = true;
-
             if (ShowLabel)
                 label.Display();
 
@@ -231,10 +225,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
             valueMaxLength = Math.Max(MinValue.ToString().Length, MaxValue.ToString().Length);
             unitOfMeasurementMaxLength = string.IsNullOrEmpty(UnitOfMeasurement) ? 0 : UnitOfMeasurement.Length;
-            Refresh();
         }
 
-        private void Refresh()
+        protected override void DoRefresh()
         {
             Console.SetCursorPosition(valueCursorLeft, valueCursonTop);
 
@@ -336,8 +329,6 @@ namespace DustInTheWind.ConsoleTools.Spinners
         protected override void DoClose()
         {
             CustomConsole.WriteLine();
-            isDisplayed = false;
-            Console.CursorVisible = true;
         }
     }
 }

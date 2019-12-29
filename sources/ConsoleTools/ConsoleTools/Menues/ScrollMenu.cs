@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Menues
 {
@@ -37,11 +36,6 @@ namespace DustInTheWind.ConsoleTools.Menues
         private bool closeWasRequested;
         private Location menuLocation;
         private Location itemsLocation;
-
-        ///// <summary>
-        ///// Gets or sets the title that is displayed at the top of the menu.
-        ///// </summary>
-        //public TextBlock Title { get; set; }
 
         /// <summary>
         /// Gets the item that is currently selected.
@@ -63,11 +57,6 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Specifies the horizontal alignment for the items displayed inside the menu.
         /// </summary>
         public HorizontalAlignment ItemsHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
-
-        /// <summary>
-        /// Specifies the highlight type applied to the menue's items.
-        /// </summary>
-        public HighlightType ItemsHighlightType { get; set; } = HighlightType.Default;
 
         /// <summary>
         /// Gets or sets a value that specifies if the first item is automatically selected when the menu is displayed.
@@ -105,9 +94,8 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// </summary>
         public ScrollMenu()
         {
-            ShowCursor = false;
-            MarginTop = 1;
-            MarginBottom = 1;
+            CursorVisibility = false;
+            Margin = "0 1";
         }
 
         /// <inheritdoc />
@@ -172,14 +160,14 @@ namespace DustInTheWind.ConsoleTools.Menues
                 throw new ApplicationException("There are no menu items to be displayed.");
 
             closeWasRequested = false;
-            InnerSize = Size.Empty;
+            //InnerSize = Size.Empty;
             menuLocation = Location.Origin;
             itemsLocation = Location.Origin;
 
-            for (int i = 0; i < InnerSize.Height; i++)
-                Console.WriteLine();
+            //for (int i = 0; i < InnerSize.Height; i++)
+            //    Console.WriteLine();
 
-            Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
+            //Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
 
             base.OnBeforeDisplay();
         }
@@ -188,7 +176,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 
@@ -196,13 +184,8 @@ namespace DustInTheWind.ConsoleTools.Menues
             {
                 menuLocation = CalculateMenuLocation();
 
-                //Title.Display();
-
-                //Size titleSize = Title.CalculateOuterSize();
-                //InnerSize = InnerSize.InflateHeight(titleSize.Height);
-
                 Size itemsSize = CalculateItemsSize();
-                InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);
+                //InnerSize = new Size(itemsSize.Width, InnerSize.Height + itemsSize.Height);
 
                 itemsLocation = CalculateMenuLocation();
 
@@ -216,7 +199,7 @@ namespace DustInTheWind.ConsoleTools.Menues
 
                     Console.SetCursorPosition(left, top);
 
-                    Size menuItemSize = new Size(InnerSize.Width, 1);
+                    Size menuItemSize = new Size(itemsSize.Width, 1);
                     menuItem.Display(menuItemSize, false);
 
                     Console.WriteLine();
@@ -340,6 +323,7 @@ namespace DustInTheWind.ConsoleTools.Menues
                             if (isSelectedSuccessfully)
                                 return;
                         }
+
                         break;
 
                     default:
@@ -351,6 +335,7 @@ namespace DustInTheWind.ConsoleTools.Menues
                             if (isSelectedSuccessfully)
                                 return;
                         }
+
                         break;
                 }
             }

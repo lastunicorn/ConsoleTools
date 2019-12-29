@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Menues
     /// <summary>
     /// Represent a menu item displayed by the <see cref="TextMenu"/>.
     /// </summary>
-    public class TextMenuItem
+    public class TextMenuItem : InlineControl
     {
         /// <summary>
         /// Gets or sets the id of the menu item.
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         /// <summary>
         /// Displays the current instance to the Console starting from the current location of the cursor.
         /// </summary>
-        public void Display()
+        protected override void DoDisplayContent()
         {
             if (CanBeSelected())
             {

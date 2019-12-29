@@ -17,7 +17,7 @@
 using System;
 using DustInTheWind.ConsoleTools.Guard;
 
-namespace DustInTheWind.ConsoleTools.Demo.Guard
+namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
 {
     internal class Program
     {

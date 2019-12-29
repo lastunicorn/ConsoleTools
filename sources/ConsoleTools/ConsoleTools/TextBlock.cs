@@ -19,7 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools
@@ -33,39 +32,6 @@ namespace DustInTheWind.ConsoleTools
         /// Gets or sets the text.
         /// </summary>
         public MultilineText Text { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of spaces to be written before the text (to the left).
-        /// Default value: 0
-        /// </summary>
-        public int MarginLeft { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of spaces to be written after the text (to the right).
-        /// Default value: 0
-        /// </summary>
-        public int MarginRight { get; set; }
-
-        /// <summary>
-        /// Gets or sets all the margins at once.
-        /// </summary>
-        public Thickness Margin
-        {
-            get => new Thickness(MarginLeft, MarginTop, MarginRight, MarginBottom);
-            set
-            {
-                MarginLeft = value.Left;
-                MarginTop = value.Top;
-                MarginRight = value.Right;
-                MarginBottom = value.Bottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the maximum width allowed including the margins.
-        /// Negative value means the limit is the console's width.
-        /// </summary>
-        public int MaxWidth { get; set; } = -1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextBlock"/> class.
@@ -95,79 +61,20 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// Displays the lines of text together with the left and right margins.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             if (Text == null)
                 return;
 
-            int consoleWidth = Console.BufferWidth;
-
-            Size innerSize = Text.CalculateSize(consoleWidth);
-            Size outerSize = innerSize + new Size(MarginLeft + MarginRight, MarginTop + MarginBottom);
-
-            bool isBlockEqualToConsoleWidth = outerSize.Width == consoleWidth;
-
-            string marginLeftText = MarginLeft > 0
-                ? new string(' ', MarginLeft)
-                : string.Empty;
-
-            string marginRightText = MarginRight > 0
-                ? new string(' ', MarginRight)
-                : string.Empty;
-
-            IEnumerable<string> chunks = Text.GetLines(innerSize.Width);
+            IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth);
 
             foreach (string chunk in chunks)
-            {
-                Console.Write(marginLeftText);
-                WriteText(chunk);
-                Console.Write(marginRightText);
-
-                if (!isBlockEqualToConsoleWidth)
-                    Console.WriteLine();
-            }
+                display.WriteRow(chunk);
         }
 
-        /// <summary>
-        /// Calculates the size of the current instance including the margins.
-        /// </summary>
-        /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        public Size CalculateOuterSize()
-        {
-            if (Text == null)
-                return Size.Empty;
+        //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
 
-            int outerMaxWidth = MaxWidth < 0
-                ? Console.BufferWidth
-                : MaxWidth;
-
-            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
-
-            Size contentSize = Text.CalculateSize(innerMaxWidth);
-
-            int totalWidth = MarginLeft + contentSize.Width + MarginRight;
-            int totalHeight = MarginTop + contentSize.Height + MarginBottom;
-
-            return new Size(totalWidth, totalHeight);
-        }
-
-        /// <summary>
-        /// Calculates the size of the current instance's content. Margins are not included.
-        /// </summary>
-        /// <returns>A <see cref="Size"/> instance representing the size of the control.</returns>
-        public Size CalculateInnerSize()
-        {
-            if (Text == null)
-                return Size.Empty;
-
-            int outerMaxWidth = MaxWidth < 0
-                ? Console.BufferWidth
-                : MaxWidth;
-
-            int innerMaxWidth = outerMaxWidth - MarginLeft - MarginRight;
-
-            return Text.CalculateSize(innerMaxWidth);
-        }
+        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Displays the specified text into the console.

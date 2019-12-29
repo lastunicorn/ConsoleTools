@@ -1,0 +1,3 @@
+change all the controls to use ControlDisplay class to write in the console. Especially the erasable controls (Pause, TextMenu and ScrollMenu).
+Remove Left/Right margin from Prompter
+Remove InnerSize prop from ErasableControl.

@@ -25,7 +25,7 @@ using System.Text;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Represents a text that can be horizontaly aligned into a space.
+    /// Represents a text that can be horizontally aligned into a space.
     /// </summary>
     public class AlignedText
     {

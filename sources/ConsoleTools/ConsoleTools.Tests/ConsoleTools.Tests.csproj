@@ -167,10 +167,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TextBlockTests\TextBlockTests.out\Test2.out">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -181,6 +180,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools.Tables\ConsoleTools.Tables.csproj">
+      <Project>{08c40188-94f1-47ee-aaaa-08a372bca026}</Project>
+      <Name>ConsoleTools.Tables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
       <Project>{e43718e9-3b14-4fcb-b47e-34460e817824}</Project>
       <Name>ConsoleTools</Name>

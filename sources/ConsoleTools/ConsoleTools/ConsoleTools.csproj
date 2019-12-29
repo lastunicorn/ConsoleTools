@@ -13,6 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TabularData\**" />
+    <EmbeddedResource Remove="TabularData\**" />
+    <None Remove="TabularData\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
   </ItemGroup>
 

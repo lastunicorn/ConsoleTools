@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017-2018 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -19,16 +19,41 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools
+using System;
+
+namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 {
-    public class Label : InlineTextBlock
+    internal class TitleTopBorder
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Label"/> class.
-        /// </summary>
-        public Label()
+        private readonly BorderTemplate borderTemplate;
+        private string borderText;
+        private int width;
+
+        public int Width
         {
-            MarginRight = 1;
+            get { return width; }
+            set
+            {
+                if (value == width)
+                    return;
+
+                width = value;
+                borderText = null;
+            }
+        }
+
+        public TitleTopBorder(BorderTemplate borderTemplate)
+        {
+            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
+            this.borderTemplate = borderTemplate;
+        }
+
+        public void Render(ITablePrinter tablePrinter)
+        {
+            if (borderText == null)
+                borderText = borderTemplate.GenerateTopBorder(width - 2);
+
+            tablePrinter.WriteLineBorder(borderText);
         }
     }
 }

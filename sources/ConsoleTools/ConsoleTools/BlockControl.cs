@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Provides base functionality for a block control like top/bottom margin.
     /// A block control does not accept other controls on the same horizontal.
-    /// It starts from the beginning of the next line if the currsor is not already
+    /// It starts from the beginning of the next line if the cursor is not already
     /// at the beginning of the line.
     /// It also provides a top and a bottom margin.
     /// </summary>

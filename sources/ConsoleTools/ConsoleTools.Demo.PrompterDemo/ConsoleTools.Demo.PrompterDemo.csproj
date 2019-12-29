@@ -78,6 +78,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleTools.Tables\ConsoleTools.Tables.csproj">
+      <Project>{1378eec9-98b1-41ee-bf7e-b7ff7d3f9932}</Project>
+      <Name>ConsoleTools.Tables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
       <Project>{e43718e9-3b14-4fcb-b47e-34460e817824}</Project>
       <Name>ConsoleTools</Name>

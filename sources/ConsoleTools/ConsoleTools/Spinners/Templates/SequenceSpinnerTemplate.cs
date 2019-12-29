@@ -40,8 +40,7 @@ namespace DustInTheWind.ConsoleTools.Spinners.Templates
         /// <param name="sequence">The list of frames.</param>
         public SequenceSpinnerTemplate(string[] sequence)
         {
-            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
-            this.sequence = sequence;
+            this.sequence = sequence ?? throw new ArgumentNullException(nameof(sequence));
         }
 
         /// <summary>

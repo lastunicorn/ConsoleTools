@@ -132,7 +132,7 @@ namespace DustInTheWind.ConsoleTools
         public int OuterEmptySpaceRight { get; private set; }
 
         /// <summary>
-        /// Calculates the position and dimentions of all the parts that must be displayed.
+        /// Calculates the position and dimensions of all the parts that must be displayed.
         /// </summary>
         public void Calculate()
         {

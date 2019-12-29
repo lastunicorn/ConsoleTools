@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools
     public static partial class CustomConsole
     {
         /// <summary>
-        /// Builds a string repeating the specified character and having the leangth equal to the width of the console's window.
+        /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
         /// </summary>
         public static string BuildHorizontalWindowLine(char c = '-') => new string(c, Console.WindowWidth);
 
@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Builds a string repeating the specified character and having the leangth equal to the width of the console's buffer.
+        /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
         /// </summary>
         public static string BuildHorizontalBufferLine(char c = '-') => new string(' ', Console.BufferWidth);
 

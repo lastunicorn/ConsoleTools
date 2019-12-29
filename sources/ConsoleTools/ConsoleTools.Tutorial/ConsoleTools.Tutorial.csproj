@@ -7,8 +7,8 @@
     <ProjectGuid>{0E8603FB-7EEB-40A3-97C0-35F1D038111B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustIntheWind.ConsoleTools.Tutorial</RootNamespace>
-    <AssemblyName>DustIntheWind.ConsoleTools.Tutorial</AssemblyName>
+    <RootNamespace>DustInTheWind.ConsoleTools.Tutorial</RootNamespace>
+    <AssemblyName>DustInTheWind.ConsoleTools.Tutorial</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

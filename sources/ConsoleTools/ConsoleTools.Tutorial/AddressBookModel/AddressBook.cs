@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.AddressBookModel
+namespace DustInTheWind.ConsoleTools.Tutorial.AddressBookModel
 {
     internal class AddressBook : IEnumerable<Person>
     {

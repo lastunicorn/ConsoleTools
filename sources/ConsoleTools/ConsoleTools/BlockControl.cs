@@ -30,19 +30,17 @@ namespace DustInTheWind.ConsoleTools
     /// at the beginning of the line.
     /// It also provides a top and a bottom margin.
     /// </summary>
-    public abstract class BlockControl : Control
+    public abstract partial class BlockControl : Control
     {
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed before the pause text.
-        /// Default value: 0
-        /// </summary>
-        public int MarginTop { get; set; }
+        protected ControlDisplay controlDisplay;
+
+        protected ControlLayout Layout { get; private set; }
 
         /// <summary>
-        /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
-        /// Default value: 0
+        /// Gets or sets a value that specifies who should be considered the parent if none is specified.
+        /// This is useful when calculating the alignment.
         /// </summary>
-        public int MarginBottom { get; set; }
+        public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
         /// <summary>
         /// Gets or sets the foreground color used to write the text.
@@ -57,16 +55,6 @@ namespace DustInTheWind.ConsoleTools
         public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
-        /// Event raised immediately before writting the top margin.
-        /// </summary>
-        public event EventHandler BeforeTopMargin;
-
-        /// <summary>
-        /// Event raised immediately after writting the bottom margin.
-        /// </summary>
-        public event EventHandler AfterBottomMargin;
-
-        /// <summary>
         /// Displays the margins and the content of the control.
         /// It also ensures that the control is displayed starting from a new line.
         /// </summary>
@@ -74,9 +62,26 @@ namespace DustInTheWind.ConsoleTools
         {
             MoveToNextLineIfNecessary();
 
+            CalculateLayout();
+            controlDisplay = CreateControlDisplay();
+
             WriteTopMargin();
-            DoDisplayContent();
+            WriteTopPadding();
+
+            DoDisplayContent(controlDisplay);
+
+            WriteBottomPadding();
             WriteBottomMargin();
+        }
+
+        private ControlDisplay CreateControlDisplay()
+        {
+            return new ControlDisplay
+            {
+                Layout = Layout,
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
         }
 
         private static void MoveToNextLineIfNecessary()
@@ -85,58 +90,21 @@ namespace DustInTheWind.ConsoleTools
                 Console.WriteLine();
         }
 
+        private void CalculateLayout()
+        {
+            Layout = new ControlLayout
+            {
+                Control = this,
+                AvailableWidth = AvailableWidth,
+                DesiredContentWidth = DesiredContentWidth
+            };
+
+            Layout.Calculate();
+        }
+
         /// <summary>
         /// When implemented by an inheritor it displays the content of the control to the console.
         /// </summary>
-        protected abstract void DoDisplayContent();
-
-        private void WriteTopMargin()
-        {
-            OnBeforeTopMargin();
-
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
-        }
-
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
-
-            OnAfterBottomMargin();
-        }
-
-        /// <summary>
-        /// Helper method that writes the specified text to the console using the
-        /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
-        /// </summary>
-        /// <param name="text">The text to be written to the console.</param>
-        protected void WriteText(string text)
-        {
-            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(text);
-            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
-            else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, text);
-            else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
-        }
-
-        /// <summary>
-        /// Method called immediately before writting the top margin.
-        /// </summary>
-        protected virtual void OnBeforeTopMargin()
-        {
-            BeforeTopMargin?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Method called immediately after writting the bottom margin.
-        /// </summary>
-        protected virtual void OnAfterBottomMargin()
-        {
-            AfterBottomMargin?.Invoke(this, EventArgs.Empty);
-        }
+        protected abstract void DoDisplayContent(ControlDisplay display);
     }
 }

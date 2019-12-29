@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools
         /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
         /// until the <see cref="RequestClose"/> method is called.
         /// </summary>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             isRunning = true;
             try

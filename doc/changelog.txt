@@ -3,6 +3,18 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+ver 0.6.0
+---------
+- Control: Added the DefaultParent property.
+- Control: ShowCursor renamed to CursorVisibility and made it nullable.
+- BlockControl: Changed the signature of the DoDisplayContent method.
+- HorizontalLine: Created the HorizontalLine control.
+- TextBlock: Removed the MarginLeft, MarginTop, MarginRight, MarginBottom properties.
+- Pause: Implemented left and right margins and paddings.
+- LabelMenuItem: Removed the HighlightType property.
+- ScrollMenu: Removed the ItemsHighlightType property.
+- Prompter: PrompterText was removed. Instead were added Text and TextFormat both of type string.
+
 ver 0.5.2
 ---------
 - double target: net core and net framework.
@@ -10,7 +22,6 @@ ver 0.5.2
 ver 0.5.1
 ---------
 - ProgressBar: [bugfix] Fixed incorrect throw of out of range exception when setting the MaxValue property.
-
 
 ver 0.5.0 - !!! Breaking changes present
 ---------

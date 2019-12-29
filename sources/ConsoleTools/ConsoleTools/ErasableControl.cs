@@ -51,7 +51,7 @@ namespace DustInTheWind.ConsoleTools
         /// When implemented by an inheritor it displays the content of the control to the console.
         /// The inheritor must also calculate and set the <see cref="InnerSize"/> proeprty.
         /// </summary>
-        protected abstract override void DoDisplayContent();
+        protected abstract override void DoDisplayContent(ControlDisplay display);
 
         /// <summary>
         /// Method called at the very end, after all the control was displayed.
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected override void OnAfterDisplay()
         {
-            if (EraseAfterClose && InnerSize.Height > 0)
+            if (EraseAfterClose && controlDisplay.RowCount > 0)
                 EraseControl();
 
             base.OnAfterDisplay();
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            int outerHeight = MarginTop + InnerSize.Height + MarginBottom;
+            int outerHeight = Margin.Top + controlDisplay.RowCount + Margin.Bottom;
 
             Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
 

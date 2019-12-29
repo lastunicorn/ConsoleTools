@@ -62,7 +62,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Menues.ScrollMenu" Collapsed="true">
     <Position X="14" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAEAEEQAAABAoAAQIAgAgIBMAACAAdAAAECAICE=</HashCode>
+      <HashCode>EAAAEAEAEEQAAABAogAQIAAAgIBMAACAAdAAAECAACE=</HashCode>
       <FileName>Menues\ScrollMenu.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -75,15 +75,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Spinners.Spinner" Collapsed="true">
-    <Position X="16" Y="4.5" Width="1.5" />
+    <Position X="16.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAEKAAAgBEEEACgAAAAIBACACEAAAAAAAAAAo=</HashCode>
+      <HashCode>AAQAAAAAEKAAAgBEEEACgCAAAIBCCACEAAAAAABAAAI=</HashCode>
       <FileName>Spinners\Spinner.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Spinners.ProgressBar" Collapsed="true">
-    <Position X="18" Y="4.5" Width="1.5" />
+    <Position X="18.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAoQAAABADBBxggAAAIAABAAIAAACCQAIAwAIoIAFA=</HashCode>
       <FileName>Spinners\ProgressBar.cs</FileName>
@@ -139,7 +139,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.LongRunningControl" Collapsed="true">
-    <Position X="17" Y="3" Width="1.5" />
+    <Position X="17.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAABABAAgCAgQhAAIBAAAiAAAAEKACAAAA=</HashCode>
       <FileName>LongRunningControl.cs</FileName>
@@ -156,26 +156,26 @@
   <Class Name="DustInTheWind.ConsoleTools.TextBlock" Collapsed="true">
     <Position X="5.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAIAiAAAAAAAAAAAAAIAAAACAAAAACAAAABA=</HashCode>
+      <HashCode>AAABAAAAAIAiAAAAAAAAAAAAAIAAAAGAAAAACAAAABA=</HashCode>
       <FileName>TextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineControl" Collapsed="true">
-    <Position X="20" Y="1.5" Width="1.5" />
+    <Position X="20.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAIQgAAAAAAAAAAAACIAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>InlineControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.InlineTextBlock" Collapsed="true">
-    <Position X="20" Y="3" Width="1.5" />
+    <Position X="20.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAJAAAAAAAAAAAAAAAAABAAIAAAAAAAAAICAAAAAA=</HashCode>
       <FileName>InlineTextBlock.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Label" Collapsed="true">
-    <Position X="20" Y="4.5" Width="1.5" />
+    <Position X="20.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Label.cs</FileName>
@@ -235,6 +235,13 @@
     <TypeIdentifier>
       <HashCode>AAAAABAAAAQAAAAAAAAAAQBAAABAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Control.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.HorizontalLine" Collapsed="true">
+    <Position X="15.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>HorizontalLine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="DustInTheWind.ConsoleTools.IRepeatableSupport" Collapsed="true">

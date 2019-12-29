@@ -52,22 +52,22 @@ rem ----------------------------------------------------------------------------
 
 echo.
 echo ---
-echo --- Retrieve assemblies - netcoreapp2.2
-echo ---
-echo.
-xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" "lib\netcoreapp2.2"
-if %errorlevel% neq 0 goto :error
-xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" "lib\netcoreapp2.2"
-if %errorlevel% neq 0 goto :error
-
-echo.
-echo ---
 echo --- Retrieve assemblies - net45
 echo ---
 echo.
 xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.dll" "lib\net45"
 if %errorlevel% neq 0 goto :error
 xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.xml" "lib\net45"
+if %errorlevel% neq 0 goto :error
+
+echo.
+echo ---
+echo --- Retrieve assemblies - netcoreapp2.2
+echo ---
+echo.
+xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" "lib\netcoreapp2.2"
+if %errorlevel% neq 0 goto :error
+xcopy /R/Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" "lib\netcoreapp2.2"
 if %errorlevel% neq 0 goto :error
 
 echo.

@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
-using System.Diagnostics;
 using System.Timers;
 using DustInTheWind.ConsoleTools.Spinners.Templates;
 
@@ -44,6 +43,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
     public class Spinner : LongRunningControl, IDisposable
     {
         private readonly ISpinnerTemplate template;
+        private string templateText;
         private bool isDisposed;
         private readonly Timer timer;
 
@@ -117,7 +117,8 @@ namespace DustInTheWind.ConsoleTools.Spinners
 
         private void HandleTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            Turn();
+            templateText = template.GetNext();
+            Refresh();
         }
 
         protected override void OnBeforeDisplay()
@@ -138,7 +139,7 @@ namespace DustInTheWind.ConsoleTools.Spinners
             if (ShowLabel)
                 Label?.Display();
 
-            Turn();
+            templateText = template.GetNext();
             timer.Start();
         }
 
@@ -169,10 +170,9 @@ namespace DustInTheWind.ConsoleTools.Spinners
             WriteAndGoBack(text);
         }
 
-        private void Turn()
+        protected override void DoRefresh()
         {
-            string text = template.GetNext();
-            WriteAndGoBack(text);
+            WriteAndGoBack(templateText);
         }
 
         private static void WriteAndGoBack(string text)
@@ -199,6 +199,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             isDisposed = true;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Spinner"/> instance with default properties and starts it.
+        /// </summary>
+        /// <returns>The newly created <see cref="Spinner"/> instance.</returns>
         public static Spinner StartNew()
         {
             Spinner spinner = new Spinner();
@@ -207,6 +211,10 @@ namespace DustInTheWind.ConsoleTools.Spinners
             return spinner;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Spinner"/> instance, configures it to use the specified template and starts it.
+        /// </summary>
+        /// <returns>The newly created <see cref="Spinner"/> instance.</returns>
         public static Spinner StartNew(ISpinnerTemplate template)
         {
             Spinner spinner = new Spinner(template);

@@ -24,10 +24,6 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools
 {
-    public struct AlignmentResult
-    {
-
-    }
     /// <summary>
     /// Represents a text that can be horizontaly aligned into a space.
     /// </summary>

@@ -109,6 +109,26 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
+        public static void WithColors(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Action action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            if (foregroundColor.HasValue)
+            {
+                if (backgroundColor.HasValue)
+                    WithColors(foregroundColor.Value, backgroundColor.Value, action);
+                else
+                    WithForegroundColor(foregroundColor.Value, action);
+            }
+            else
+            {
+                if (backgroundColor.HasValue)
+                    WithBackgroundColor(backgroundColor.Value, action);
+                else
+                    action();
+            }
+        }
+
         /// <summary>
         /// Executes the specified action while the foreground and background colors
         /// are set to the specified values.
@@ -131,6 +151,26 @@ namespace DustInTheWind.ConsoleTools
             {
                 Console.ForegroundColor = initialForegroundColor;
                 Console.BackgroundColor = initialBackgroundColor;
+            }
+        }
+
+        public static T WithColors<T>(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Func<T> func)
+        {
+            if (func == null) throw new ArgumentNullException(nameof(func));
+
+            if (foregroundColor.HasValue)
+            {
+                if (backgroundColor.HasValue)
+                    return WithColors(foregroundColor.Value, backgroundColor.Value, func);
+                else
+                    return WithForegroundColor(foregroundColor.Value, func);
+            }
+            else
+            {
+                if (backgroundColor.HasValue)
+                    return WithBackgroundColor(backgroundColor.Value, func);
+                else
+                    return func();
             }
         }
 

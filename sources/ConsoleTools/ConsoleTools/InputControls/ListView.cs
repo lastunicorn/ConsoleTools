@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         public TextBlock Label { get; set; } = new TextBlock
         {
-            MarginBottom = 1,
+            Margin = "0 0 0 1",
             ForegroundColor = CustomConsole.EmphasiesColor
         };
 
@@ -130,7 +130,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// The control reads values until the user inserts an empty string.
         /// </summary>
         /// <returns>The list with the values provided by the user.</returns>
-        protected override void DoDisplayContent()
+        protected override void DoDisplayContent(ControlDisplay display)
         {
             switch (ReadWriteMode)
             {

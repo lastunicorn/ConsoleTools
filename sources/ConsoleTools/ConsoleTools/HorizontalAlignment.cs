@@ -22,7 +22,7 @@
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Specifies the horizontal alignment of a content in a container.
+    /// Specifies the horizontal position of an element in a container.
     /// </summary>
     public enum HorizontalAlignment
     {
@@ -32,18 +32,23 @@ namespace DustInTheWind.ConsoleTools
         Default,
 
         /// <summary>
-        /// The content is displayed in the left side of the container.
+        /// The element is displayed in the left side of the container.
         /// </summary>
         Left,
 
         /// <summary>
-        /// The content is displayed in the center of the container.
+        /// The element is displayed in the center of the container.
         /// </summary>
         Center,
 
         /// <summary>
-        /// The content is displayed in the right side of the container.
+        /// The element is displayed in the right side of the container.
         /// </summary>
-        Right
+        Right,
+
+        /// <summary>
+        /// The element is stretched to fill the entire horizontal space.
+        /// </summary>
+        Stretch
     }
 }

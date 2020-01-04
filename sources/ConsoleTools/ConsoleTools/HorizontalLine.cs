@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Displays the horixontal line.
+        /// Displays the horizontal line.
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {
@@ -97,5 +97,15 @@ namespace DustInTheWind.ConsoleTools
             };
             horizontalLine.Display();
         }
+
+        /// <summary>
+        /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
+        /// </summary>
+        public static string WindowAsString(char c = '-') => new string(c, Console.WindowWidth);
+
+        /// <summary>
+        /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
+        /// </summary>
+        public static string BufferAsString(char c = '-') => new string(c, Console.BufferWidth);
     }
 }

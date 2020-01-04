@@ -62,14 +62,14 @@ namespace DustInTheWind.ConsoleTools
         public static ConsoleColor? ErrorBackgroundColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the color used to write Emphasiesed messages.
+        /// Gets or sets the color used to write Emphasized messages.
         /// </summary>
-        public static ConsoleColor EmphasiesColor { get; set; } = ConsoleColor.White;
+        public static ConsoleColor EmphasizedColor { get; set; } = ConsoleColor.White;
 
         /// <summary>
-        /// Gets or sets the background color used to write Emphasies messages.
+        /// Gets or sets the background color used to write Emphasis messages.
         /// If the color is null, default background color is used.
         /// </summary>
-        public static ConsoleColor? EmphasiesBackgroundColor { get; set; }
+        public static ConsoleColor? EmphasizedBackgroundColor { get; set; }
     }
 }

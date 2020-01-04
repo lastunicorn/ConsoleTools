@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
             TextBlock textBlock = new TextBlock
             {
                 Text = $"- {Title}:",
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = "0 2 0 1"
             };
             textBlock.Display();

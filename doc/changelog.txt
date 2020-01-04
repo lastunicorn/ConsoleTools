@@ -3,6 +3,10 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
+ver 0.7.0
+---------
+- CustomConsole - removed the methods building and writing a horizontal line.
+
 ver 0.6.0
 ---------
 - Control: Added the DefaultParent property.

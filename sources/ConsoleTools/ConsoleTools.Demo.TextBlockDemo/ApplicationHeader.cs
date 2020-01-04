@@ -35,13 +35,13 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
         {
             titleBlock = new TextBlock
             {
-                ForegroundColor = CustomConsole.EmphasiesColor
+                ForegroundColor = CustomConsole.EmphasizedColor
             };
 
             horizontalLine = new HorizontalLine
             {
                 Character = '=',
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = "0 0 0 1"
             };
         }

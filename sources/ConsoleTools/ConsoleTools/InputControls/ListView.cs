@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         public TextBlock Label { get; set; } = new TextBlock
         {
             Margin = "0 0 0 1",
-            ForegroundColor = CustomConsole.EmphasiesColor
+            ForegroundColor = CustomConsole.EmphasizedColor
         };
 
         /// <summary>

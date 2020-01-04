@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
     {
         private readonly Label labelControl = new Label
         {
-            ForegroundColor = CustomConsole.EmphasiesColor
+            ForegroundColor = CustomConsole.EmphasizedColor
         };
 
         /// <summary>

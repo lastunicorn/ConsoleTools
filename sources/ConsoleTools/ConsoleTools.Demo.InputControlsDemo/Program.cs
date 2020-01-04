@@ -46,12 +46,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
             //        new InlineTextBlock
             //        {
             //            Text = "ConsoleTools Demo - InputControls",
-            //            ForegroundColor = CustomConsole.EmphasiesColor
+            //            ForegroundColor = CustomConsole.EmphasizedColor
             //        },
             //        new TextBlock
             //        {
             //            Text = CustomConsole.HorizontalWindowLine,
-            //            ForegroundColor = CustomConsole.EmphasiesColor,
+            //            ForegroundColor = CustomConsole.EmphasizedColor,
             //            MarginBottom = 1
             //        },
             //        new TextBlock

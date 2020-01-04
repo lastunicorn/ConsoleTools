@@ -64,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         {
             Text = TextMenuResources.QuestionText,
             TextFormat = "{0}:",
-            ForegroundColor = CustomConsole.EmphasiesColor,
+            ForegroundColor = CustomConsole.EmphasizedColor,
             MarginRight = 1
         };
 

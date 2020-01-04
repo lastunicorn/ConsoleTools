@@ -52,13 +52,13 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
             TextBlock title = new TextBlock
             {
                 Text = "ConsoleTools Demo - HorizontalLine",
-                ForegroundColor = CustomConsole.EmphasiesColor
+                ForegroundColor = CustomConsole.EmphasizedColor
             };
 
             HorizontalLine horizontalLine = new HorizontalLine
             {
                 Character = '=',
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = 0
             };
 

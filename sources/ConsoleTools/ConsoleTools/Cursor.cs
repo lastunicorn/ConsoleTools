@@ -26,28 +26,50 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Contains a set of methods that help to write text to the Console.
     /// </summary>
-    public static partial class CustomConsole
+    public static class Cursor
     {
         /// <summary>
-        /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
+        /// Executes the specified action while hiding the cursor.
         /// </summary>
-        public static string BuildHorizontalWindowLine(char c = '-') => new string(c, Console.WindowWidth);
-
-        public static void WriteHorizontalWindowLine(char c = '-')
+        /// <param name="action">The action to be executed.</param>
+        public static void RunWithoutCursor(Action action)
         {
-            string line = new string(c, Console.WindowWidth);
-            WriteLine(line);
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            bool initialCursorVisible = Console.CursorVisible;
+            Console.CursorVisible = false;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Console.CursorVisible = initialCursorVisible;
+            }
         }
 
         /// <summary>
-        /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
+        /// Executes the specified function while hiding the cursor.
         /// </summary>
-        public static string BuildHorizontalBufferLine(char c = '-') => new string(' ', Console.BufferWidth);
-
-        public static void WriteHorizontalBufferLine(char c = '-')
+        /// <typeparam name="T">The type of the value to be returned.</typeparam>
+        /// <param name="action">The function to be executed.</param>
+        /// <returns></returns>
+        public static T RunWithoutCursor<T>(Func<T> action)
         {
-            string line = new string(c, Console.BufferWidth);
-            WriteLine(line);
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            bool initialCursorVisible = Console.CursorVisible;
+            Console.CursorVisible = false;
+
+            try
+            {
+                return action();
+            }
+            finally
+            {
+                Console.CursorVisible = initialCursorVisible;
+            }
         }
     }
 }

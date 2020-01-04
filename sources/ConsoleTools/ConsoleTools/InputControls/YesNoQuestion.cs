@@ -29,15 +29,20 @@ namespace DustInTheWind.ConsoleTools.InputControls
     /// </summary>
     public class YesNoQuestion : BlockControl
     {
-        private readonly Label labelControl = new Label
-        {
-            ForegroundColor = CustomConsole.EmphasizedColor
-        };
-
         /// <summary>
         /// Gets or sets trhe question that is displayed to the user.
         /// </summary>
         public string QuestionText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the foreground color used for displaying the question.
+        /// </summary>
+        public ConsoleColor? QuestionForegroundColor { get; set; } = CustomConsole.EmphasiesColor;
+
+        /// <summary>
+        /// Gets or sets the background color used for displaying the question.
+        /// </summary>
+        public ConsoleColor? QuestionBackgroundColor { get; set; }
 
         /// <summary>
         /// Gets or sets the number of spaces to be displayed after the question and the before the user types the answer.
@@ -161,14 +166,27 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
         private void DisplayQuestion()
         {
-            labelControl.Text = QuestionText;
+            InlineTextBlock labelControl = new InlineTextBlock
+            {
+                PaddingRight =  1,
+                ForegroundColor = QuestionForegroundColor ?? ForegroundColor,
+                BackgroundColor = QuestionBackgroundColor ?? BackgroundColor,
+                Text = QuestionText
+            };
             labelControl.Display();
         }
 
         private void DisplaySpaceAfterQuestion()
         {
             string space = new string(' ', SpaceAfterQuestion);
-            Console.Write(space);
+
+            InlineTextBlock inlineTextBlock = new InlineTextBlock
+            {
+                Text = space,
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
+            inlineTextBlock.Display();
         }
 
         /// <summary>
@@ -204,7 +222,13 @@ namespace DustInTheWind.ConsoleTools.InputControls
 
             sb.Append("]");
 
-            Console.Write(sb);
+            InlineTextBlock inlineTextBlock = new InlineTextBlock
+            {
+                Text = sb.ToString(),
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
+            inlineTextBlock.Display();
         }
 
         private YesNoAnswer ReadAnswerInternal()

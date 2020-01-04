@@ -19,6 +19,10 @@ ver 0.6.0
 - ScrollMenu: Removed the ItemsHighlightType property.
 - Prompter: PrompterText was removed. Instead were added Text and TextFormat both of type string.
 
+ver 0.5.3
+---------
+- YesNoQuestion: Added foreground and background color for the question text in the YesNoQuestion control.
+
 ver 0.5.2
 ---------
 - double target: net core and net framework.

@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// </summary>
         public InlineTextBlock Label { get; set; } = new InlineTextBlock
         {
-            ForegroundColor = CustomConsole.EmphasiesColor,
+            ForegroundColor = CustomConsole.EmphasizedColor,
             MarginRight = 1
         };
 

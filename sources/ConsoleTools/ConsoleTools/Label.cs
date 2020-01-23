@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools
     public class Label : InlineTextBlock
     {
         /// <summary>
-        /// Initializes a new instacne of the <see cref="Label"/> class.
+        /// Initializes a new instance of the <see cref="Label"/> class.
         /// </summary>
         public Label()
         {

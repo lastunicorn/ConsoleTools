@@ -22,7 +22,7 @@
 using System;
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.Commands
+namespace DustInTheWind.ConsoleTools.Tutorial.Commands
 {
     internal class ExitCommand : ICommand
     {

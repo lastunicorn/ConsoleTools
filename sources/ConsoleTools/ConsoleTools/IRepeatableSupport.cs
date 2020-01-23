@@ -24,7 +24,7 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Must be implemented by a control in order to offer additional supoport when used in the <see cref="ControlRepeater"/>.
+    /// Must be implemented by a control in order to offer additional support when used in the <see cref="ControlRepeater"/>.
     /// </summary>
     public interface IRepeatableSupport
     {

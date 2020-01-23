@@ -20,11 +20,11 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System;
-using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
-using DustIntheWind.ConsoleTools.Tutorial.CustomControls;
 using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Tutorial.AddressBookModel;
+using DustInTheWind.ConsoleTools.Tutorial.CustomControls;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.Commands
+namespace DustInTheWind.ConsoleTools.Tutorial.Commands
 {
     internal class DisplayPersonsCommand : ICommand
     {

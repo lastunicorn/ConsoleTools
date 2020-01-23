@@ -30,9 +30,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.Write(text);
 
@@ -45,9 +45,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.Write(format, arg);
 
@@ -60,9 +60,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.Write(o);
 
@@ -75,9 +75,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.WriteLine(text);
 
@@ -90,9 +90,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.WriteLine(format, arg);
 
@@ -105,9 +105,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             Console.WriteLine(o);
 
@@ -126,9 +126,9 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            Console.ForegroundColor = EmphasizedColor;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             try
             {
@@ -152,10 +152,10 @@ namespace DustInTheWind.ConsoleTools
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
 
-            Console.ForegroundColor = EmphasiesColor;
+            Console.ForegroundColor = EmphasizedColor;
 
-            if (EmphasiesBackgroundColor.HasValue)
-                Console.BackgroundColor = EmphasiesBackgroundColor.Value;
+            if (EmphasizedBackgroundColor.HasValue)
+                Console.BackgroundColor = EmphasizedBackgroundColor.Value;
 
             try
             {

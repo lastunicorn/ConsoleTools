@@ -42,6 +42,18 @@ namespace DustInTheWind.ConsoleTools
         public int MarginRight { get; set; }
 
         /// <summary>
+        /// Gets or sets the number of spaces to be written before the content (to the left).
+        /// Default value: 0
+        /// </summary>
+        public int PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of spaces to be written after the content (to the right).
+        /// Default value: 0
+        /// </summary>
+        public int PaddingRight { get; set; }
+
+        /// <summary>
         /// Gets or sets the foreground color used to write the text.
         /// Default value: <c>null</c>
         /// </summary>
@@ -61,7 +73,13 @@ namespace DustInTheWind.ConsoleTools
             if (MarginLeft > 0)
                 DisplayLeftMargin();
 
+            if (PaddingLeft > 0)
+                DisplayPaddingLeft();
+
             DoDisplayContent();
+
+            if (PaddingRight > 0)
+                DisplayPaddingRight();
 
             if (MarginRight > 0)
                 DisplayRightMargin();
@@ -77,6 +95,18 @@ namespace DustInTheWind.ConsoleTools
         {
             string space = new string(' ', MarginRight);
             Console.Write(space);
+        }
+
+        private void DisplayPaddingLeft()
+        {
+            string paddingLeft = new string(' ', PaddingLeft);
+            WriteText(paddingLeft);
+        }
+
+        private void DisplayPaddingRight()
+        {
+            string paddingRight = new string(' ', PaddingRight);
+            WriteText(paddingRight);
         }
 
         /// <summary>

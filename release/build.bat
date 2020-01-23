@@ -1,7 +1,14 @@
 @echo off
 
 set root_directory=..
-set version=0.5.1
+set version=0.5.3
+
+
+rem ----------------------------------------------------------------------------------------------------
+rem Build the project
+rem ----------------------------------------------------------------------------------------------------
+
+rem "c:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild" "%root_directory%\sources\ConsoleTools\ConsoleTools\ConsoleTools.csproj"
 
 rem ----------------------------------------------------------------------------------------------------
 rem Clean up existing files.
@@ -34,9 +41,9 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*.dll" "ConsoleTools\lib\Net461"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.dll" "ConsoleTools\lib\net45"
 if %errorlevel% neq 0 goto :error
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net461\*.xml" "ConsoleTools\lib\Net461"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.xml" "ConsoleTools\lib\net45"
 if %errorlevel% neq 0 goto :error
 
 echo.
@@ -44,9 +51,9 @@ echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.dll" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" "ConsoleTools\lib\netcoreapp2.2"
 if %errorlevel% neq 0 goto :error
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release-Net45\*.xml" "ConsoleTools\lib\Net45"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" "ConsoleTools\lib\netcoreapp2.2"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------

@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             TextBlock goodbyText = new TextBlock
             {
                 Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = "0 1 0 0"
             };
             goodbyText.Display();

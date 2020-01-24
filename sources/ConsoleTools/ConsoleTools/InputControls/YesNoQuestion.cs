@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.InputControls
         /// <summary>
         /// Gets or sets the foreground color used for displaying the question.
         /// </summary>
-        public ConsoleColor? QuestionForegroundColor { get; set; } = CustomConsole.EmphasiesColor;
+        public ConsoleColor? QuestionForegroundColor { get; set; } = CustomConsole.EmphasizedColor;
 
         /// <summary>
         /// Gets or sets the background color used for displaying the question.

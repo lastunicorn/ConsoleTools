@@ -53,6 +53,12 @@ namespace DustInTheWind.ConsoleTools
         /// Default value: <c>true</c>
         /// </summary>
         public bool ShowSeparator { get; set; } = true;
+        
+        /// <summary>
+        /// Event raised before the title is displayed.
+        /// It allows to alter the title before it is displayed. 
+        /// </summary>
+        public event EventHandler<TitleDisplayEventArgs> TitleDisplay;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationHeader"/> class.
@@ -74,15 +80,20 @@ namespace DustInTheWind.ConsoleTools
             Margin = "0 0 0 1";
         }
 
+        /// <summary>
+        /// This method actually displays the header.
+        /// Can be overwritten in order to fully control what is displayed.
+        /// </summary>
+        /// <param name="display">This instance can be used in order to interact with the console.</param>
         protected override void DoDisplayContent(ControlDisplay display)
         {
-            string title = Title ?? applicationInformation.GetProductName();
             Version version = applicationInformation.GetVersion();
 
             StringBuilder titleRowText = new StringBuilder();
 
+            string title = BuildTitle();
             if (title != null)
-                titleRowText.Append(string.Format("{0} {1}", Title, version.ToString(3)));
+                titleRowText.Append(title);
 
             if (ShowVersion)
             {
@@ -91,14 +102,26 @@ namespace DustInTheWind.ConsoleTools
 
                 titleRowText.Append(version.ToString(3));
             }
-
-
+            
             display.StartRow();
             display.Write(titleRowText.ToString());
             Console.WriteLine();
 
             if (ShowSeparator)
                 display.WriteRow(new string('=', Console.WindowWidth - 1));
+        }
+
+        private string BuildTitle()
+        {
+            TitleDisplayEventArgs titleDisplayEventArgs = new TitleDisplayEventArgs(Title);
+            OnTitleDisplay(titleDisplayEventArgs);
+
+            return titleDisplayEventArgs.Title;
+        }
+
+        protected virtual void OnTitleDisplay(TitleDisplayEventArgs e)
+        {
+            TitleDisplay?.Invoke(this, e);
         }
     }
 }

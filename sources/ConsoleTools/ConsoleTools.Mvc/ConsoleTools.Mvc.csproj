@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
+        <AssemblyName>DustInTheWind.ConsoleTools.Mvc</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Mvc</RootNamespace>
+        <GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
+        <Deterministic>false</Deterministic>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -5,7 +5,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 0.7.0
 ---------
-- CustomConsole - removed the methods building and writing a horizontal line.
+- CustomConsole - removed the methods for building and writing a horizontal line.
+- ApplicationHeader: Added new control.
+- Added the MVC project.
 
 ver 0.6.0
 ---------

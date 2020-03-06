@@ -118,21 +118,39 @@ namespace DustInTheWind.ConsoleTools.TabularData
 
         /// <summary>
         /// Gets or sets the foreground color for the borders.
-        /// Default value: Gray
+        /// Default value: <c>null</c>
         /// </summary>
         public ConsoleColor? BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color for the title.
-        /// Default value: White
+        /// Default value: <c>null</c>
         /// </summary>
         public ConsoleColor? TitleColor { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color for the column headers.
-        /// Default value: White
+        /// Default value: <c>null</c>
         /// </summary>
         public ConsoleColor? HeaderColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color for the borders.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BorderBackgroundColor { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the background color for the title.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? TitleBackgroundColor { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the background color for the column headers.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? HeaderBackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class.
@@ -200,10 +218,15 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter
             {
+                ForegroundColor = ForegroundColor,
                 BorderColor = BorderColor,
                 TitleColor = TitleColor,
                 HeaderColor = HeaderColor,
-                NormalColor = ForegroundColor
+
+                BackgroundColor = BackgroundColor,
+                BorderBackgroundColor = BorderBackgroundColor,
+                TitleBackgroundColor = TitleBackgroundColor,
+                HeaderBackgroundColor = HeaderBackgroundColor
             };
 
             RenderInternal(consoleTablePrinter);

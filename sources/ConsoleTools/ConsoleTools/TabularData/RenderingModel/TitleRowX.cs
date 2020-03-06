@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         {
             TitleRow = titleRow;
 
-            Size = titleRow?.CalculatePreferedSize() ?? Size.Empty;
+            Size = titleRow?.CalculatePreferredSize() ?? Size.Empty;
         }
 
         public void Render(ITablePrinter tablePrinter)

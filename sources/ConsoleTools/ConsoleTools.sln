@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.WriteText
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tables", "ConsoleTools.Tables\ConsoleTools.Tables.csproj", "{08C40188-94F1-47EE-AAAA-08A372BCA026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Mvc", "ConsoleTools.Mvc\ConsoleTools.Mvc.csproj", "{34D944CA-0276-4412-8387-58414E2F5631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Cli", "ConsoleTools.Mvc\ConsoleTools.Cli.csproj", "{34D944CA-0276-4412-8387-58414E2F5631}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

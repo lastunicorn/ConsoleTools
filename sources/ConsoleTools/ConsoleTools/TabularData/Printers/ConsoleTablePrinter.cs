@@ -33,25 +33,25 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// Gets or sets the foreground color for the borders.
         /// Default value: Gray
         /// </summary>
-        public ConsoleColor BorderColor { get; set; }
+        public ConsoleColor? BorderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color for the title.
         /// Default value: White
         /// </summary>
-        public ConsoleColor TitleColor { get; set; }
+        public ConsoleColor? TitleColor { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color for the column headers.
         /// Default value: White
         /// </summary>
-        public ConsoleColor HeaderColor { get; set; }
+        public ConsoleColor? HeaderColor { get; set; }
 
         /// <summary>
         /// Gets or sets the default foreground color.
         /// Default value: Gray
         /// </summary>
-        public ConsoleColor NormalColor { get; set; }
+        public ConsoleColor? NormalColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleTablePrinter"/> class.
@@ -69,7 +69,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteBorder(string text)
         {
-            CustomConsole.Write(BorderColor, text);
+            ConsoleColor? color = BorderColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.Write(color.Value, text);
+            else
+                CustomConsole.Write(text);
         }
 
         /// <summary>
@@ -77,7 +82,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteBorder(char c)
         {
-            CustomConsole.Write(BorderColor, c);
+            ConsoleColor? color = BorderColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.Write(color.Value, c);
+            else
+                CustomConsole.Write(c);
         }
 
         /// <summary>
@@ -86,7 +96,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteLineBorder(string text)
         {
-            CustomConsole.WriteLine(BorderColor, text);
+            ConsoleColor? color = BorderColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.WriteLine(color.Value, text);
+            else
+                CustomConsole.WriteLine(text);
         }
 
         /// <summary>
@@ -95,7 +110,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteLineBorder(char c)
         {
-            CustomConsole.WriteLine(BorderColor, c);
+            ConsoleColor? color = BorderColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.WriteLine(color.Value, c);
+            else
+                CustomConsole.WriteLine(c);
         }
 
         /// <summary>
@@ -103,7 +123,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteTitle(string text)
         {
-            CustomConsole.Write(TitleColor, text);
+            ConsoleColor? color = TitleColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.Write(color.Value, text);
+            else
+                CustomConsole.Write(text);
         }
 
         /// <summary>
@@ -111,7 +136,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteHeader(string text)
         {
-            CustomConsole.Write(HeaderColor, text);
+            ConsoleColor? color = HeaderColor ?? NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.Write(color.Value, text);
+            else
+                CustomConsole.Write(text);
         }
 
         /// <summary>
@@ -119,7 +149,12 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public void WriteNormal(string text)
         {
-            CustomConsole.Write(NormalColor, text);
+            ConsoleColor? color = NormalColor;
+
+            if (color.HasValue)
+                CustomConsole.Write(color.Value, text);
+            else
+                CustomConsole.Write(text);
         }
 
         /// <summary>

@@ -40,8 +40,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public StreamTablePrinter(Stream stream)
         {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-            this.stream = stream;
+            this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
 
             streamWriter = new StreamWriter(stream);
         }
@@ -103,7 +102,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         }
 
         /// <summary>
-        /// Writes the line teminator in the underlying <see cref="Stream"/>.
+        /// Writes the line terminator in the underlying <see cref="Stream"/>.
         /// </summary>
         public void WriteLine()
         {

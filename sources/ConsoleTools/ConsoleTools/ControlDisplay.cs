@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools
 
         public void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
         {
-            StartRow();
+            StartRow(foregroundColor, backgroundColor);
             Write(text);
             EndRow();
         }
@@ -98,8 +98,6 @@ namespace DustInTheWind.ConsoleTools
             WriteRightMargin();
             WriteOuterRightEmptySpace();
 
-            // Decide if new line is needed.
-            //if (Layout.ActualFullWidth % Console.BufferWidth != 0)
             if (!isConsoleRowFilled)
                 Console.WriteLine();
 

@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Gets the <see cref="int.MaxValue"/> value.
-        /// The horizontal line is willing to be as whide as necessary.
+        /// The horizontal line is willing to be as wide as necessary.
         /// </summary>
         protected override int DesiredContentWidth => int.MaxValue;
 
@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Displays the horixontal line.
+        /// Displays the horizontal line.
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {

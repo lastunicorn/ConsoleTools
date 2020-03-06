@@ -24,7 +24,7 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Provides functionality of erassing the control after it is displayed.
+    /// Provides functionality of erasing the control after it is displayed.
     /// It is sometime useful for the controls that wait for an user input
     /// and then must get themselves out of the way.
     /// </summary>
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         protected override void OnAfterDisplay()
         {
-            if (EraseAfterClose && controlDisplay.RowCount > 0)
+            if (EraseAfterClose && ControlDisplay.RowCount > 0)
                 EraseControl();
 
             base.OnAfterDisplay();
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            int outerHeight = Margin.Top + controlDisplay.RowCount + Margin.Bottom;
+            int outerHeight = Margin.Top + ControlDisplay.RowCount + Margin.Bottom;
 
             Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
 

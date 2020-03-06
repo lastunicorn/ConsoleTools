@@ -54,12 +54,12 @@ namespace DustInTheWind.ConsoleTools.TabularData
         public bool DisplayTitle { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets the padding applyed to the left side of every cell.
+        /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
         public int? PaddingLeft { get; set; } = 1;
 
         /// <summary>
-        /// Gets or sets the padding applyed to the right side of every cell.
+        /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
         public int? PaddingRight { get; set; } = 1;
 
@@ -83,11 +83,6 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// The list of rows contained by the current table.
         /// </summary>
         public DataRowList Rows { get; }
-
-        /// <summary>
-        /// Gets or sets the minimum width of the table.
-        /// </summary>
-        public int MinWidth { get; set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the column headers are displayed.
@@ -120,6 +115,24 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// Gets or sets the table borders.
         /// </summary>
         public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
+
+        /// <summary>
+        /// Gets or sets the foreground color for the borders.
+        /// Default value: Gray
+        /// </summary>
+        public ConsoleColor? BorderColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the foreground color for the title.
+        /// Default value: White
+        /// </summary>
+        public ConsoleColor? TitleColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the foreground color for the column headers.
+        /// Default value: White
+        /// </summary>
+        public ConsoleColor? HeaderColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class.
@@ -185,14 +198,21 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {
-            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
+            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter
+            {
+                BorderColor = BorderColor,
+                TitleColor = TitleColor,
+                HeaderColor = HeaderColor,
+                NormalColor = ForegroundColor
+            };
+
             RenderInternal(consoleTablePrinter);
         }
 
         /// <summary>
         /// Renders the current instance into the specified <see cref="ITablePrinter"/>.
         /// </summary>
-        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instacne used to render the data.</param>
+        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance used to render the data.</param>
         public void Render(ITablePrinter tablePrinter)
         {
             RenderInternal(tablePrinter);
@@ -202,7 +222,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         {
             DataGridXBuilder dataGridXBuilder = new DataGridXBuilder
             {
-                MinWidth = MinWidth,
+                MinWidth = MinWidth ?? 0,
                 TitleRow = TitleRow,
                 DisplayTitle = DisplayTitle,
                 Columns = Columns,

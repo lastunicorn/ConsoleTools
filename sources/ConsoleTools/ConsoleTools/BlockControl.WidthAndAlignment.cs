@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools
     partial class BlockControl
     {
         /// <summary>
-        /// Gets or sets the width of the control. It does not including the left and right margins.
+        /// Gets or sets the width of the control. The margins are not included.
         /// </summary>
         public int? Width { get; set; }
 
@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools
         //public int ActualFullHeight => ActualContentHeight + Margin.Top + Margin.Bottom;
 
         /// <summary>
-        /// When implemented by an inheritor, gets the width of the content when there are no restrictions applied.
+        /// When implemented by an inheritor, gets the width of the content when there are no other restrictions applied to the control.
         /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
         /// </summary>
         protected virtual int DesiredContentWidth { get; }

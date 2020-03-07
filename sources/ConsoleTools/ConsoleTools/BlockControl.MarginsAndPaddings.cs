@@ -36,12 +36,12 @@ namespace DustInTheWind.ConsoleTools
         public Thickness Padding { get; set; }
 
         /// <summary>
-        /// Event raised immediately before writting the top margin.
+        /// Event raised immediately before writing the top margin.
         /// </summary>
         public event EventHandler BeforeTopMargin;
 
         /// <summary>
-        /// Event raised immediately after writting the bottom margin.
+        /// Event raised immediately after writing the bottom margin.
         /// </summary>
         public event EventHandler AfterBottomMargin;
 
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools
             string text = new string(' ', Layout.ActualContentWidth);
 
             for (int i = 0; i < Layout.PaddingTop; i++)
-               controlDisplay.WriteRow(text);
+               ControlDisplay.WriteRow(text);
         }
 
         private void WriteBottomPadding()
@@ -86,11 +86,11 @@ namespace DustInTheWind.ConsoleTools
             string text = new string(' ', Layout.ActualContentWidth);
 
             for (int i = 0; i < Layout.PaddingBottom; i++)
-                controlDisplay.WriteRow(text);
+                ControlDisplay.WriteRow(text);
         }
 
         /// <summary>
-        /// Method called immediately before writting the top margin.
+        /// Method called immediately before writing the top margin.
         /// </summary>
         protected virtual void OnBeforeTopMargin()
         {
@@ -98,7 +98,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Method called immediately after writting the bottom margin.
+        /// Method called immediately after writing the bottom margin.
         /// </summary>
         protected virtual void OnAfterBottomMargin()
         {

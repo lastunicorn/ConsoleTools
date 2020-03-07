@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools
         public string RawText { get; }
 
         /// <summary>
-        /// Gets the text splitted in lines.
+        /// Gets the text split in lines.
         /// </summary>
         public ReadOnlyCollection<string> Lines { get; }
 
@@ -58,7 +58,7 @@ namespace DustInTheWind.ConsoleTools
         public bool IsEmpty => Size.IsEmpty;
 
         /// <summary>
-        /// Used only internaly when splitting the string in multiple lines.
+        /// Used only internally when splitting the string in multiple lines.
         /// </summary>
         private enum LineEndChar
         {

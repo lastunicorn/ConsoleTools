@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
             {
                 DataCellX cell = new DataCellX
                 {
-                    Size = column.HeaderCell.CalculatePreferedSize()
+                    Size = column.HeaderCell.CalculatePreferredSize()
                 };
 
                 AddCellToSize(cell);

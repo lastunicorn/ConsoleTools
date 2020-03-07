@@ -34,9 +34,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 
         public DataRowX(DataRow dataRow, bool hasBorder)
         {
-            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
-
-            this.dataRow = dataRow;
+            this.dataRow = dataRow ?? throw new ArgumentNullException(nameof(dataRow));
             this.hasBorder = hasBorder;
 
             CreateCells();
@@ -50,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
             {
                 DataCellX cell = new DataCellX
                 {
-                    Size = dataRow[i].CalculatePreferedSize()
+                    Size = dataRow[i].CalculatePreferredSize()
                 };
 
                 AddCellToSize(cell);

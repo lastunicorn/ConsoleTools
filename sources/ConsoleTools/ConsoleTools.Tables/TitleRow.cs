@@ -44,8 +44,8 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
         {
-            get { return TitleCell.HorizontalAlignment; }
-            set { TitleCell.HorizontalAlignment = value; }
+            get => TitleCell.HorizontalAlignment;
+            set => TitleCell.HorizontalAlignment = value;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Calculates the space (in characters) the current instance ocupies without other restrictions.
         /// </summary>
-        public Size CalculatePreferedSize()
+        public Size CalculatePreferredSize()
         {
             bool displayBorder = ParentDataGrid?.DisplayBorder ?? false;
 
@@ -119,7 +119,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (displayBorder)
                 titleRowWidth += 1;
 
-            Size cellSize = TitleCell.CalculatePreferedSize();
+            Size cellSize = TitleCell.CalculatePreferredSize();
             titleRowWidth += cellSize.Width;
 
             if (displayBorder)

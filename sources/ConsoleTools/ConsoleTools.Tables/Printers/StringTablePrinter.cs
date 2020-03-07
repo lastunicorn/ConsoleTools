@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
 {
     /// <summary>
     /// Collects the rendered parts of a <see cref="DataGrid"/> instance as a plain text that is later
-    /// returnd by the <see cref="ToString"/> method.
+    /// returned by the <see cref="ToString"/> method.
     /// </summary>
     public class StringTablePrinter : ITablePrinter
     {
@@ -46,8 +46,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.Printers
         /// </summary>
         public StringTablePrinter(StringBuilder sb)
         {
-            if (sb == null) throw new ArgumentNullException(nameof(sb));
-            this.sb = sb;
+            this.sb = sb ?? throw new ArgumentNullException(nameof(sb));
         }
 
         /// <summary>

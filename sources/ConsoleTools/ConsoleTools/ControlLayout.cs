@@ -23,6 +23,9 @@ using System;
 
 namespace DustInTheWind.ConsoleTools
 {
+    /// <summary>
+    /// Calculates the space needed for each component of the control: each margin, padding, content dimensions, empty spaces, etc.
+    /// </summary>
     public class ControlLayout
     {
         private HorizontalAlignment calculatedHorizontalAlignment;
@@ -67,7 +70,7 @@ namespace DustInTheWind.ConsoleTools
         /// Gets the calculated thickness of the bottom margin.
         /// </summary>
         public int MarginBottom { get; private set; }
-        
+
         /// <summary>
         /// Gets the calculated thickness of the left padding.
         /// </summary>
@@ -162,7 +165,9 @@ namespace DustInTheWind.ConsoleTools
 
         private HorizontalAlignment CalculateHorizontalAlignment()
         {
-            if (Control.Width == null && Control.MinWidth == null && Control.MaxWidth == null)
+            bool widthIsProvided = Control.Width != null || Control.MinWidth != null || Control.MaxWidth != null;
+
+            if (!widthIsProvided)
             {
                 switch (Control.HorizontalAlignment)
                 {

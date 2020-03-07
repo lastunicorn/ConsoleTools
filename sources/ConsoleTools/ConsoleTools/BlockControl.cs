@@ -26,19 +26,18 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Provides base functionality for a block control like top/bottom margin.
     /// A block control does not accept other controls on the same horizontal.
-    /// It starts from the beginning of the next line if the cursor is not already
-    /// at the beginning of the line.
-    /// It also provides a top and a bottom margin.
+    /// It starts from the beginning of the next line if the cursor is in the middle of a line.
     /// </summary>
     public abstract partial class BlockControl : Control
     {
-        protected ControlDisplay controlDisplay;
+        protected ControlDisplay ControlDisplay { get; private set; }
 
         protected ControlLayout Layout { get; private set; }
 
         /// <summary>
         /// Gets or sets a value that specifies who should be considered the parent if none is specified.
         /// This is useful when calculating the alignment.
+        /// Default value: ConsoleWindow
         /// </summary>
         public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
@@ -63,20 +62,20 @@ namespace DustInTheWind.ConsoleTools
             MoveToNextLineIfNecessary();
 
             CalculateLayout();
-            controlDisplay = CreateControlDisplay();
+            CreateControlDisplay();
 
             WriteTopMargin();
             WriteTopPadding();
 
-            DoDisplayContent(controlDisplay);
+            DoDisplayContent(ControlDisplay);
 
             WriteBottomPadding();
             WriteBottomMargin();
         }
 
-        private ControlDisplay CreateControlDisplay()
+        private void CreateControlDisplay()
         {
-            return new ControlDisplay
+            ControlDisplay = new ControlDisplay
             {
                 Layout = Layout,
                 ForegroundColor = ForegroundColor,

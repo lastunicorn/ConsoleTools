@@ -74,6 +74,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
                 },
                 new TextMenuItem
                 {
+                    Id = "6",
+                    Text = "Colors",
+                    Command = new ColorsCommand()
+                },
+                new TextMenuItem
+                {
                     Id = "11",
                     Text = "Single-line Border",
                     Command = new SingleLineBorderCommand()

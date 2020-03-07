@@ -31,9 +31,8 @@ namespace DustInTheWind.ConsoleTools
     {
         private int lastLineLength;
 
-        //public MultilineText Text2 { get; set; }
         /// <summary>
-        /// Gets or sets the text to be displayed to the user while witing for the user to press a key.
+        /// Gets or sets the text to be displayed to the user while waiting for the user to press a key.
         /// </summary>
         public MultilineText Text { get; set; } = PauseResources.PauseText;
 
@@ -130,7 +129,7 @@ namespace DustInTheWind.ConsoleTools
         /// Displays the pause with default settings.
         /// </summary>
         /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
-        /// <param name="unlockKey">The key thatthe user has to press to unlock the pause.</param>
+        /// <param name="unlockKey">The key that the user has to press to unlock the pause.</param>
         public static void QuickDisplay(string text, ConsoleKey unlockKey)
         {
             Pause pause = new Pause

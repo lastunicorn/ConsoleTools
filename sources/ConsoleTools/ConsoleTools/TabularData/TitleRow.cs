@@ -119,7 +119,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
             if (displayBorder)
                 titleRowWidth += 1;
 
-            Size cellSize = TitleCell.CalculatePreferedSize();
+            Size cellSize = TitleCell.CalculatePreferredSize();
             titleRowWidth += cellSize.Width;
 
             if (displayBorder)

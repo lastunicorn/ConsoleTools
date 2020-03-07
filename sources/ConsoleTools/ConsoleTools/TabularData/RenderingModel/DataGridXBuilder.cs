@@ -126,7 +126,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
                 if (DisplayBorderBetweenRows)
                     dataGridX.DataDataSeparator = new DataDataSeparator(BorderTemplate);
 
-                dataGridX.DataBottomBorder = new BottomBorderData(BorderTemplate);
+                dataGridX.DataBottomBorder = new DataBottomBorder(BorderTemplate);
             }
         }
     }

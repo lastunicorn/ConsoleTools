@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
         public HeaderBottomBorder HeaderBottomBorder { get; set; }
 
         public DataDataSeparator DataDataSeparator { get; set; }
-        public BottomBorderData DataBottomBorder { get; set; }
+        public DataBottomBorder DataBottomBorder { get; set; }
 
         public DataGridX(bool displayBorder)
         {
@@ -144,27 +144,42 @@ namespace DustInTheWind.ConsoleTools.TabularData.RenderingModel
 
         public void Render(ITablePrinter tablePrinter)
         {
+            RenderTitle(tablePrinter);
+            RenderHeader(tablePrinter);
+            RenderData(tablePrinter);
+        }
+
+        private void RenderTitle(ITablePrinter tablePrinter)
+        {
             TitleTopBorder?.Render(tablePrinter);
-            HeaderTopBorder?.Render(tablePrinter);
-            DataTopBorder?.Render(tablePrinter);
 
             titleRowX?.Render(tablePrinter);
 
             TitleHeaderSeparator?.Render(tablePrinter);
             TitleDataSeparator?.Render(tablePrinter);
             TitleBottomBorder?.Render(tablePrinter);
+        }
+
+        private void RenderHeader(ITablePrinter tablePrinter)
+        {
+            HeaderTopBorder?.Render(tablePrinter);
 
             headerRowX?.Render(tablePrinter, columnsWidths);
 
             HeaderDataSeparator?.Render(tablePrinter);
             HeaderBottomBorder?.Render(tablePrinter);
+        }
+
+        private void RenderData(ITablePrinter tablePrinter)
+        {
+            DataTopBorder?.Render(tablePrinter);
 
             RenderDataRows(tablePrinter);
 
             DataBottomBorder?.Render(tablePrinter);
         }
 
-        public void RenderDataRows(ITablePrinter tablePrinter)
+        private void RenderDataRows(ITablePrinter tablePrinter)
         {
             List<int> cellWidths = columnsWidths;
 

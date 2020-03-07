@@ -90,7 +90,7 @@ namespace DustInTheWind.ConsoleTools.TabularData
         /// <summary>
         /// Returns the size of the cell, including the padding.
         /// </summary>
-        public Size CalculatePreferedSize()
+        public Size CalculatePreferredSize()
         {
             int cellWidth;
             int cellHeight;

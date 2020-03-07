@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public string Text
         {
-            get { return text; }
+            get => text;
             set
             {
                 text = value;
@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public int Width
         {
-            get { return width; }
+            get => width;
             set
             {
                 width = value;
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Gets or sets the horizontal alignment to be applied if the <see cref="HorizontalAlignment"/> property
-        /// is set on <see cref="HorizontalAlignment.Default"/>.
+        /// is set on <see cref="DustInTheWind.ConsoleTools.HorizontalAlignment.Default"/>.
         /// </summary>
         public HorizontalAlignment DefaultHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 
@@ -75,7 +75,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
         {
-            get { return horizontalAlignment; }
+            get => horizontalAlignment;
             set
             {
                 horizontalAlignment = value;
@@ -187,7 +187,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Aligns a text, in the specified width as is specified by the horizontalAlignemnt value.
+        /// Aligns a text, in the specified width as is specified by the horizontalAlignment value.
         /// </summary>
         public static string QuickAlign(string text, HorizontalAlignment horizontalAlignment, int width)
         {
@@ -201,6 +201,12 @@ namespace DustInTheWind.ConsoleTools
             return alignedText.ToString();
         }
 
+        /// <summary>
+        /// Converts a simple <see cref="string"/> into an <see cref="AlignedText"/> instance
+        /// with default alignment.
+        /// </summary>
+        /// <param name="text">The text to be converted.</param>
+        /// <returns>An instance of the <see cref="AlignedText"/> containing the text.</returns>
         public static implicit operator AlignedText(string text)
         {
             return new AlignedText
@@ -209,6 +215,12 @@ namespace DustInTheWind.ConsoleTools
             };
         }
 
+        /// <summary>
+        /// Converts a <see cref="AlignedText"/> instance into a <see cref="string"/> by
+        /// extracting the underlying text from the <see cref="AlignedText"/> instance.
+        /// </summary>
+        /// <param name="alignedText">The original <see cref="AlignedText"/> instance that contains the test.</param>
+        /// <returns>The <see cref="string"/> extracted from the original <see cref="AlignedText"/> instance.</returns>
         public static implicit operator string(AlignedText alignedText)
         {
             return alignedText.ToString();

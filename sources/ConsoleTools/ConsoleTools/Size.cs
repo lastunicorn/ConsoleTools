@@ -153,21 +153,37 @@ namespace DustInTheWind.ConsoleTools
             return $"{{Width={widthAsString}, Height={heightAsString}}}";
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Size"/> instance having the width and height equal to the sums
+        /// of the widths and heights of the instances received as parameters.
+        /// </summary>
         public static Size operator +(Size size1, Size size2)
         {
             return new Size(size1.Width + size2.Width, size1.Height + size2.Height);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Size"/> instance having the width and height equal to the difference
+        /// of the widths and heights of the instances received as parameters.
+        /// </summary>
         public static Size operator -(Size size1, Size size2)
         {
             return new Size(size1.Width - size2.Width, size1.Height - size2.Height);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Size"/> instance having the width and height equal to the original values
+        /// to which the integer value is added.
+        /// </summary>
         public static Size operator +(Size size, int value)
         {
             return new Size(size.Width + value, size.Height + value);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Size"/> instance having the width and height equal to the original values
+        /// from which the integer value is subtracted.
+        /// </summary>
         public static Size operator -(Size size, int value)
         {
             return new Size(size.Width - value, size.Height - value);

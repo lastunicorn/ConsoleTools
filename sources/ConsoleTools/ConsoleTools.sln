@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Cli", "Console
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Core", "ConsoleTools.Core\ConsoleTools.Core.csproj", "{975D695D-1FD2-446F-BD7C-0F7839C1559D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Controls", "ConsoleTools.Controls\ConsoleTools.Controls.csproj", "{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -267,6 +269,18 @@ Global
 		{975D695D-1FD2-446F-BD7C-0F7839C1559D}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
 		{975D695D-1FD2-446F-BD7C-0F7839C1559D}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{975D695D-1FD2-446F-BD7C-0F7839C1559D}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug-Net452|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug-Net452|Any CPU.Build.0 = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug-Net461|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Debug-Net461|Any CPU.Build.0 = Debug|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

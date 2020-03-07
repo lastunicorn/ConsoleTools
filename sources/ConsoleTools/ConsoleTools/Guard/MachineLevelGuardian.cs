@@ -40,16 +40,14 @@ namespace DustInTheWind.ConsoleTools.Guard
         /// <summary>
         /// Initializes a new instance of the <see cref="MachineLevelGuardian"/> class with
         /// the name that identifies it and 
-        /// the level at which will have efect.
+        /// the level at which will have effect.
         /// </summary>
         /// <param name="name">The name that identifies the instance that will be created.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ApplicationException"></exception>
         public MachineLevelGuardian(string name)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
 
             // Create the mutex.
             mutex = new Mutex(false, name);
@@ -58,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Guard
             bool access = mutex.WaitOne(0, true);
 
             if (!access)
-                throw new ApplicationException(string.Format("Another instance with the name '{0}' already exists.", name));
+                throw new ApplicationException($"Another instance with the name '{name}' already exists.");
         }
 
         private bool isDisposed;
@@ -83,10 +81,8 @@ namespace DustInTheWind.ConsoleTools.Guard
         /// <param name="disposing">Specifies if the method has been called by a user's code (true) or by the runtime from inside the finalizer (false).</param>
         private void Dispose(bool disposing)
         {
-            // Check to see if Dispose has already been called.
             if (!isDisposed)
             {
-                // If disposing equals true, dispose all managed resources.
                 if (disposing)
                 {
                     // Dispose managed resources.

@@ -30,25 +30,25 @@ namespace DustInTheWind.ConsoleTools
         /// Gets the number of empty lines displayed before the content.
         /// Default value: 0
         /// </summary>
-        public int Top { get; set; }
+        public int Top { get;  }
 
         /// <summary>
         /// Gets the number of empty lines displayed after the content.
         /// Default value: 0
         /// </summary>
-        public int Bottom { get; set; }
+        public int Bottom { get; }
 
         /// <summary>
         /// Gets the number of spaces to be written to the left of the content.
         /// Default value: 0
         /// </summary>
-        public int Left { get; set; }
+        public int Left { get; }
 
         /// <summary>
         /// Gets the number of spaces to be written to the right of the content.
         /// Default value: 0
         /// </summary>
-        public int Right { get; set; }
+        public int Right { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific lengths applied to each side of the rectangle.
@@ -95,44 +95,47 @@ namespace DustInTheWind.ConsoleTools
         /// using a text representation of the thickness.
         /// </summary>
         /// <param name="text">Must be 4 integer values separated by spaces.</param>
-        /// <exception cref="ArgumentNullException">Exception thrown if the <see cref="text"/> parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Exception thrown if the <see cref="text"/> parameter does not have the correct format.</exception>
+        /// <exception cref="ArgumentNullException">Exception thrown if the 'text' parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Exception thrown if the 'text' parameter does not have the correct format.</exception>
         public Thickness(string text)
         {
             if (text == null) throw new ArgumentNullException(nameof(text));
 
             string[] chunks = text.Split(' ');
 
-            if (chunks.Length == 4)
+            switch (chunks.Length)
             {
-                Left = int.Parse(chunks[0]);
-                Top = int.Parse(chunks[1]);
-                Right = int.Parse(chunks[2]);
-                Bottom = int.Parse(chunks[3]);
-            }
-            else if (chunks.Length == 2)
-            {
-                int marginHorizontal = int.Parse(chunks[0]);
-                int marginVertical = int.Parse(chunks[1]);
+                case 4:
+                    Left = int.Parse(chunks[0]);
+                    Top = int.Parse(chunks[1]);
+                    Right = int.Parse(chunks[2]);
+                    Bottom = int.Parse(chunks[3]);
+                    
+                    break;
+                
+                case 2:
+                    int marginHorizontal = int.Parse(chunks[0]);
+                    int marginVertical = int.Parse(chunks[1]);
 
-                Left = marginHorizontal;
-                Top = marginVertical;
-                Right = marginHorizontal;
-                Bottom = marginVertical;
+                    Left = marginHorizontal;
+                    Top = marginVertical;
+                    Right = marginHorizontal;
+                    Bottom = marginVertical;
 
-            }
-            else if (chunks.Length == 1)
-            {
-                int margin = int.Parse(chunks[0]);
+                    break;
+                
+                case 1:
+                    int margin = int.Parse(chunks[0]);
 
-                Left = margin;
-                Top = margin;
-                Right = margin;
-                Bottom = margin;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid string representation.", nameof(text));
+                    Left = margin;
+                    Top = margin;
+                    Right = margin;
+                    Bottom = margin;
+                    
+                    break;
+                
+                default:
+                    throw new ArgumentException("Invalid string representation.", nameof(text));
             }
         }
 
@@ -159,8 +162,9 @@ namespace DustInTheWind.ConsoleTools
         /// <param name="obj">The object to compare.</param>
         public override bool Equals(object obj)
         {
-            if (obj is Thickness)
-                return this == (Thickness)obj;
+            if (obj is Thickness thickness)
+                return this == thickness;
+
             return false;
         }
 

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
+        <RootNamespace>DustInTheWind.ConsoleTools.Core</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Core</AssemblyName>
+    </PropertyGroup>
+
+</Project>

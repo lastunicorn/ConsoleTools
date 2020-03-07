@@ -3,7 +3,11 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-ver 0.6.0
+ver 0.5.4
+---------
+- DataGrid: [bugfix] Fixed the usage of ForegroundColor and BackgroundColor.
+
+ver 0.5.3
 ---------
 - Control: Added the DefaultParent property.
 - Control: ShowCursor renamed to CursorVisibility and made it nullable.

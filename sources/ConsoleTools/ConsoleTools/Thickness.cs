@@ -90,6 +90,13 @@ namespace DustInTheWind.ConsoleTools
             Bottom = uniformLength;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Thickness" /> structure
+        /// using a text representation of the thickness.
+        /// </summary>
+        /// <param name="text">Must be 4 integer values separated by spaces.</param>
+        /// <exception cref="ArgumentNullException">Exception thrown if the <see cref="text"/> parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Exception thrown if the <see cref="text"/> parameter does not have the correct format.</exception>
         public Thickness(string text)
         {
             if (text == null) throw new ArgumentNullException(nameof(text));

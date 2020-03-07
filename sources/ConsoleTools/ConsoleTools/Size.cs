@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
     /// Represents the size of a rectangle.
-    /// Imutable.
+    /// Immutable.
     /// </summary>
     public struct Size
     {

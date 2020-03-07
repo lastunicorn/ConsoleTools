@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>DustInTheWind.ConsoleTools.TabularData</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Tables</AssemblyName>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
+        <RootNamespace>DustInTheWind.ConsoleTools.TabularData</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Tables</AssemblyName>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj" />
+    </ItemGroup>
 
 </Project>

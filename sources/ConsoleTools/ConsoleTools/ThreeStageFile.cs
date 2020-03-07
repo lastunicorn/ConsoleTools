@@ -34,9 +34,8 @@ namespace DustInTheWind.ConsoleTools
 
         protected ThreeStageFile(string fileName)
         {
-            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
-
-            targetFileName = fileName;
+            targetFileName = fileName ?? throw new ArgumentNullException(nameof(fileName));
+            
             tempFileName = $"{fileName}.tmp";
             backupFileName = $"{fileName}.bak";
         }

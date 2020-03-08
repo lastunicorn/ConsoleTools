@@ -1,6 +1,6 @@
 ﻿using System;
-using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 {

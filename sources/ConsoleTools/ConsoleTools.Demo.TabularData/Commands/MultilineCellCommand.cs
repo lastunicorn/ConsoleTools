@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 {
@@ -27,8 +27,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         {
             DataGrid dataGrid = new DataGrid("Multiline Cell Content");
 
-            dataGrid.Rows.Add("You may write also the\rcontent of the table\non muiltiple lines", "1");
-            dataGrid.Rows.Add("And this is another\nmuiltiline row", "2");
+            dataGrid.Rows.Add("You may write also the\rcontent of the table\non multiple lines", "1");
+            dataGrid.Rows.Add("And this is another\nmultiline row", "2");
 
             dataGrid.Display();
         }

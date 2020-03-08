@@ -35,13 +35,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextMenuD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.WriteText", "ConsoleTools.Demo.WriteText\ConsoleTools.Demo.WriteText.csproj", "{8DD165BA-78C3-48A0-BF61-9673458A260C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tables", "ConsoleTools.Tables\ConsoleTools.Tables.csproj", "{08C40188-94F1-47EE-AAAA-08A372BCA026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls.Tables", "ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj", "{08C40188-94F1-47EE-AAAA-08A372BCA026}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Cli", "ConsoleTools.Mvc\ConsoleTools.Cli.csproj", "{34D944CA-0276-4412-8387-58414E2F5631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Core", "ConsoleTools.Core\ConsoleTools.Core.csproj", "{975D695D-1FD2-446F-BD7C-0F7839C1559D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Core", "ConsoleTools.Core\ConsoleTools.Core.csproj", "{975D695D-1FD2-446F-BD7C-0F7839C1559D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Controls", "ConsoleTools.Controls\ConsoleTools.Controls.csproj", "{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls", "ConsoleTools.Controls\ConsoleTools.Controls.csproj", "{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls.Spinners", "ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj", "{3C2B6DD0-CF97-4EA7-8565-A338892C0643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Controls.Menus", "ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj", "{439C9C20-BE41-4AE1-83D0-13AF94114EDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -281,6 +285,30 @@ Global
 		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
 		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug-Net452|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug-Net452|Any CPU.Build.0 = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug-Net461|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Debug-Net461|Any CPU.Build.0 = Debug|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2B6DD0-CF97-4EA7-8565-A338892C0643}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug-Net452|Any CPU.ActiveCfg = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug-Net452|Any CPU.Build.0 = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug-Net461|Any CPU.ActiveCfg = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Debug-Net461|Any CPU.Build.0 = Debug|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

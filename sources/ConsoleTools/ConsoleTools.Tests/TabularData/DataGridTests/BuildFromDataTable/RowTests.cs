@@ -21,7 +21,7 @@
 
 using System;
 using System.Data;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromDataTable

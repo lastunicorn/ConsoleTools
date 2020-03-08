@@ -20,7 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System.Data;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromDataTable

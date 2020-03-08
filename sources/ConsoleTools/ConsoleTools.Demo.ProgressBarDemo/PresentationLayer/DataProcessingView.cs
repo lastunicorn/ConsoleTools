@@ -16,9 +16,8 @@
 
 using System;
 using System.ComponentModel;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 using DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.BusinessLayer;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
 {

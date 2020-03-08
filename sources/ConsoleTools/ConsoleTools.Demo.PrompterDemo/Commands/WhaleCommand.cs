@@ -16,9 +16,9 @@
 
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.CommandLine;
+using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Demo.PrompterDemo.Ocean;
-using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.TabularData;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {

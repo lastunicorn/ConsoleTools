@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 using DustInTheWind.ConsoleTools.Mvc.UseCases;
 using DustInTheWind.ConsoleTools.Mvc.UserControls;
-using DustInTheWind.ConsoleTools.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Mvc
 {

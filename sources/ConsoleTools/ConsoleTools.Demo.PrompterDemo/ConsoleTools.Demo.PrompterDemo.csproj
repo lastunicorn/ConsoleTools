@@ -78,13 +78,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools.Tables\ConsoleTools.Tables.csproj">
-      <Project>{1378eec9-98b1-41ee-bf7e-b7ff7d3f9932}</Project>
-      <Name>ConsoleTools.Tables</Name>
+    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
+      <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
+      <Name>ConsoleTools.Controls.Menus</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-      <Project>{e43718e9-3b14-4fcb-b47e-34460e817824}</Project>
-      <Name>ConsoleTools</Name>
+    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
+      <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>
+      <Name>ConsoleTools.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">
+      <Project>{975d695d-1fd2-446f-bd7c-0f7839c1559d}</Project>
+      <Name>ConsoleTools.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj">
+      <Project>{08C40188-94F1-47EE-AAAA-08A372BCA026}</Project>
+      <Name>ConsoleTools.Controls.Tables</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

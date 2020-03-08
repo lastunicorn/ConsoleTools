@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {

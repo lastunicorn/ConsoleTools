@@ -16,7 +16,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {

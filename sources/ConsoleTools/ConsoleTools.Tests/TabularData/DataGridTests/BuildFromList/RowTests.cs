@@ -20,7 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromList
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromLi
         {
             List<CustomClass> data = new List<CustomClass>
             {
-                new CustomClass {Number = 4, Text = "bla"}
+                new CustomClass { Number = 4, Text = "bla" }
             };
 
             DataGrid actual = DataGrid.BuildFrom(data);
@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataGridTests.BuildFromLi
         {
             List<CustomClass> data = new List<CustomClass>
             {
-                new CustomClass {Number = 4, Text = "bla"}
+                new CustomClass { Number = 4, Text = "bla" }
             };
 
             DataGrid actual = DataGrid.BuildFrom(data);

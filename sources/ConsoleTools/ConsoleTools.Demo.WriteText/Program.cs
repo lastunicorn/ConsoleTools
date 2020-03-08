@@ -24,8 +24,9 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
         {
             DisplayApplicationHeader();
 
+            Console.SetWindowSize(80, 24);
             Console.SetBufferSize(80, 1024);
-            
+
             try
             {
                 CustomConsole.WriteLine();
@@ -56,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
         private static void RunAlignmentExample()
         {
             CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
-            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is anoter text aligned to left.");
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
             CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
@@ -77,7 +78,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
                 CustomConsole.WriteLine();
-                CustomConsole.WriteLineError("Error: If some error occures and the application will crush with an exception, I will display it on the screen immediately.");
+                CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
 
                 throw new Exception("Some demo exception occured.");
             }

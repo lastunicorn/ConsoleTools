@@ -16,7 +16,7 @@
 
 using System;
 using System.Threading;
-using DustInTheWind.ConsoleTools.Spinners;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {

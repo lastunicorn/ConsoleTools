@@ -16,8 +16,8 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
 {

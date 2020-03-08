@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests

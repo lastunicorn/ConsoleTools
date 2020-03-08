@@ -15,9 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls.Menus.MenuItems;
 using DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 {

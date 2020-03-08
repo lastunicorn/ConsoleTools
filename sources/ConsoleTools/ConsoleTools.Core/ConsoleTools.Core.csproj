@@ -2,8 +2,15 @@
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
-        <RootNamespace>DustInTheWind.ConsoleTools.Core</RootNamespace>
+        <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Core</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Deterministic>false</Deterministic>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
+    </ItemGroup>
 
 </Project>

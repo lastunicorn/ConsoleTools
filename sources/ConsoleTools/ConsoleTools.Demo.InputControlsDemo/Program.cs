@@ -24,8 +24,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 
         private static void Main()
         {
-            Console.SetBufferSize(80, 1024);
             Console.SetWindowSize(80, 60);
+            Console.SetBufferSize(80, 1024);
 
             DisplayApplicationHeader();
 

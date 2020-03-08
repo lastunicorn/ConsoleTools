@@ -16,8 +16,8 @@
 
 using System;
 using System.Linq;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {

@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.Spinners;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Spinners.ProgressBarTests
@@ -48,10 +48,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Spinners.ProgressBarTests
         {
             ProgressBar progressBar = new ProgressBar { MinValue = 10 };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                progressBar.MaxValue = 8;
-            });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { progressBar.MaxValue = 8; });
         }
     }
 }

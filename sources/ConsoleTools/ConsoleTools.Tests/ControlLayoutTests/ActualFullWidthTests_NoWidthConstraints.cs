@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
                 AvailableWidth = 100
             };
             controlLayout.Calculate();
-            
+
             int actual = controlLayout.ActualFullWidth;
 
             Assert.That(actual, Is.EqualTo(100));

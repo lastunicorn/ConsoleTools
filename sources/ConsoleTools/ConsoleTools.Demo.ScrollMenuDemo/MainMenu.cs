@@ -16,9 +16,9 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls.Menus.MenuItems;
 using DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
-using DustInTheWind.ConsoleTools.Menues.MenuItems;
 
 namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 {

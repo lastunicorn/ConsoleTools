@@ -12,6 +12,14 @@
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.2|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.2\DustInTheWind.ConsoleTools.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.2|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.2\DustInTheWind.ConsoleTools.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="TabularData\**" />
     <EmbeddedResource Remove="TabularData\**" />
@@ -23,63 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="InputControls\ListInputResources.Designer.cs">
-      <DependentUpon>ListInputResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="InputControls\ValueInputResources.Designer.cs">
-      <DependentUpon>ValueInputResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="InputControls\YesNoQuestionResources.Designer.cs">
-      <DependentUpon>YesNoQuestionResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Menues\TextMenuResources.Designer.cs">
-      <DependentUpon>TextMenuResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="PauseResources.Designer.cs">
-      <DependentUpon>PauseResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Spinners\SpinnerResources.Designer.cs">
-      <DependentUpon>SpinnerResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="InputControls\ListInputResources.resx">
-      <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="InputControls\ValueInputResources.resx">
-      <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="InputControls\YesNoQuestionResources.resx">
-      <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Menues\TextMenuResources.resx">
-      <LastGenOutput>TextMenuResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="PauseResources.resx">
-      <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Spinners\SpinnerResources.resx">
-      <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
+    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+    <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
   </ItemGroup>
 
 </Project>

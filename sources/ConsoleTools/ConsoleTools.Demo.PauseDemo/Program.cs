@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
@@ -52,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
                 new ErasablePauseCommand(),
                 new CustomMarginsCommand(),
                 new CustomPaddingsCommand(),
-                new ForegroundColorCommand(), 
+                new ForegroundColorCommand(),
                 new BackgroundColorCommand()
             };
 

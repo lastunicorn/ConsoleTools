@@ -1,0 +1,40 @@
+﻿Question
+
+What are the frequencies of musical notes like G and G# in k-hertz?
+
+Asked by: Undisclosed Sender
+
+Answer
+
+There are two accepted musical pitch standards, the so-called American Standard pitch, which takes A in the fourth piano octave (A4) to have a frequency of 440 Hz, and the older International pitch standard, which takes A4 to have the frequency of 435 Hz. Both of these pitch standards define what are called 'equal tempered chromatic scales.' Mathematically, this means that each successive pitch is related to the previous pitch by a factor of the twelfth root of 2. That is, the ratio between the frequencies of any two successive pitches in either standard is 1.05946309436. There is a third Scientific or Just Scale that is based on C4 having a frequency of 256 Hz, but this is not used for musical purposes.
+
+There are twelve half-tones (black and white keys on a piano), or steps, in an octave. Since the pitch (frequency) of each successive step is related to the previous pitch by the twelfth root of 2, the twelfth step above a given pitch is exactly twice the initial pitch. I.e., an octave corresponds exactly to a doubling of pitch.
+
+The frequency of intermediate notes, or pitches, can be found simply by multiplying (dividing) a given starting pitch by as many factors of the twelfth root of 2 as there are steps up to (down to) the desired pitch. For example, the G above A4 (that is, G5) in the American Standard has a frequency of 440 x (12th root of 2)^10 = 440 x 1.78179743628 = 783.99 Hz (approximately). Likewise, in the International standard, G5 has a frequency of 775.08 Hz (approximately). G#5 is another factor of the 12th root of 2 above these, or 830.61 and 821.17 Hz, respectively. Note when counting steps that there is a single half-tone (step) between B and C, and E and F.
+
+These pitch scales are referred to as 'equal tempered' or 'well tempered.' This refers to a compromise built into the use of the 12th root of 2 as the factor separating each successive pitch. For example, G and C are a so-called fifth apart. The frequencies of notes that are a 'perfect' fifth apart are in the ratio of 1.5, exactly. G is seven chromatic steps above C, so, using the 12th root of 2, the ratio between G and C on either standard scale is (12th root of 2)^7 = 1.49830707688, which is slightly less than the 1.5 required for a perfect fifth. This slight reduction (flattening) in frequency is referred to as 'tempering.' It is necessary on instruments such as the piano that can be played in any key because it is impossible to tune all 3rds, 5ths, etc. to their exact ratios (such as 1.5 for fifths) and simultaneously have, for example, all octaves come out being exactly in the ratio of 2.0.
+
+Answered by: Warren Davis, Ph.D., President, Davis Associates, Inc., Newton, MA USA
+
+
+The answer to these questions is easily determined mathematically, but a bit of background should help the student use the mathematical relationships with confidence and understanding.
+
+A piano keyboard is set up in octaves. Each octave has thirteen notes, with the thirteenth being the beginning of the next octave as well. Starting with A, an octave is A, A#, B, C, C#, D, D#, E, F, F#, G, G#, and again, A. The interval between each two successive notes is called a half-step. Therefore, there are 12 intervals of a half-step forming what is called an octave.
+
+For starters, each octave up or down represents a doubling of frequency. For example, the A above middle C on the piano is set to the standard value of 440 Hz, so the A an octave above that has a frequency of 880 Hz.
+
+Now, the particulars. The half-step is the smallest interval recognized in Western musical theory. Further, the frequencies of musical notes on a standard piano are now set according to a standard method, called 'equal temperament tuning'.
+
+Side notes: Tuning systems cannot be treated in detail here. In short, there is a tradeoff in using equal temperament in that all harmonies are very slightly imperfect , but this method brings the overwhelming advantage over its predecessors that music may be written in any key with equal harmonic quality for each.
+
+Bach largely popularized equal temperament and demonstrated its effectiveness with his series of pieces in all keys known as 'The Well-Tempered Clavier'. The equal-tempered tuning method's development is fascinating from a historical perspective (both scientifically and musically). The other methods of tuning and the whole nature of harmony, based on overtones of fundamental frequencies, with overtone frequencies determined as multiples of the fundamental frequencies, deserves further attention by the interested reader.
+
+Back to our original story. In this equal temperament system of tuning, the frequencies of notes on a keyboard are related by a fairly simple mathematical relationship involving the number of keys (half-steps) between the notes.
+
+To determine the relationship between the known frequency of a note and the unknown frequency (wished to be known) of another note, multiply the known frequency by 2 raised to the power (#ofhalf-steps/12). (#ofhalf-steps) is positive if one must move UP in frequency to arrive at the note with the unknown frequency, and negative if DOWN.
+
+For example, if the A above middle C is set to 440 Hz (which is standard, usually called A440), the G just below it would have a frequency of 440 Hz * 2^(-2/12), or about 392 Hz. The G# in between them would have a frequency of 440 Hz * 2^(-1/12), or about 415.3 Hz. The G# an octave below middle C would be 13 half-steps below A440, giving it a frequency of 440 Hz * 2^(-13/12) = 207.65 Hz.
+
+Note (pun intended) that the equation checks out with the previous assertion that octaves have factors of 2 differences in frequencies. Recall that there are twelve half-steps traversed in an octave: 2 ^ (12/12) is 2, while 2 ^ (-12/12) is 0.5.
+
+Answered by: Tyler Gruber, Ph.D., Adjunct Professor of Physics, Louisiana Tech U.

@@ -41,8 +41,8 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
             }
             catch (ApplicationException)
             {
-                CustomConsole.WriteLineError("Another instace of this application is already running.");
-                CustomConsole.WriteLineError("Current instace will shutdown.");
+                CustomConsole.WriteLineError("Another instance of this application is already running.");
+                CustomConsole.WriteLineError("Current instance will shutdown.");
                 Pause.QuickDisplay();
                 return 2;
             }

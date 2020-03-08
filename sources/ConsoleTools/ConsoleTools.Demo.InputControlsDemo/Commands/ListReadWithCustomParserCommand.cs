@@ -16,8 +16,8 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -51,7 +51,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         private static IReadOnlyList<ConsoleColor> ReadColors()
         {
             ListView<ConsoleColor> colorsRead = new ListView<ConsoleColor>("What are your prefered colors?");
-            colorsRead.CustomParser = value => (ConsoleColor) Enum.Parse(typeof(ConsoleColor), value, true);
+            colorsRead.CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true);
 
             return colorsRead.Read();
         }

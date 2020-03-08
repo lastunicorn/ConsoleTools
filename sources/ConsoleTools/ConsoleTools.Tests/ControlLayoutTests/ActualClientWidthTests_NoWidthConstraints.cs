@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using Moq;
-using Moq.Protected;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
@@ -32,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Tests.ControlLayoutTests
 
             ControlLayout controlLayout = new ControlLayout
             {
-                Control =  control.Object,
+                Control = control.Object,
                 AvailableWidth = 100
             };
             controlLayout.Calculate();

@@ -20,7 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.TabularData;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.TabularData.BorderTemplateTests
@@ -103,7 +103,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.BorderTemplateTests
         {
             BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateBottomBorder(new List<int> { 5, 5});
+            string actual = borderTemplate.GenerateBottomBorder(new List<int> { 5, 5 });
 
             Assert.That(actual, Is.EqualTo("└─────┴─────┘"));
         }

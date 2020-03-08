@@ -33,12 +33,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Your lucky numbers: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", numbers));
+            CustomConsole.WriteLineEmphasized(string.Join(", ", numbers));
         }
 
         private static IEnumerable<int> ReadNumbers()
         {
-            ListView<int> luckyNumbersRead = new ListView<int>("What are your lucky number?");
+            ValueList<int> luckyNumbersRead = new ValueList<int>("What are your lucky number?");
             luckyNumbersRead.Read();
             return luckyNumbersRead.Values;
         }

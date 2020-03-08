@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// </summary>
         public int? CurrentIndex
         {
-            get { return currentIndex; }
+            get => currentIndex;
             private set
             {
                 if (value < 0 || value >= Count)
@@ -74,7 +74,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         }
 
         /// <summary>
-        /// Gets or sets a vlue that specifies if circular selection is allowed.
+        /// Gets or sets a value that specifies if circular selection is allowed.
         /// When reaching the first item go to the last item.
         /// When reaching the last item go to the first item.
         /// Default value: <c>true</c>

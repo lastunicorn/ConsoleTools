@@ -107,17 +107,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// <summary>
         /// Adds a list of items to the current instance.
         /// </summary>
-        /// <param name="prompterItems">The list of items to be added to the current instance.</param>
-        public void AddItems(IEnumerable<PrompterItem> prompterItems)
+        /// <param name="items">The list of items to be added to the current instance.</param>
+        public void AddItems(IEnumerable<PrompterItem> items)
         {
-            if (prompterItems == null) throw new ArgumentNullException(nameof(prompterItems));
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
-            bool existsNullItems = prompterItems.Any(x => x == null);
+            bool existsNullItems = items.Any(x => x == null);
 
             if (existsNullItems)
-                throw new ArgumentException("Null items are not accepted.", nameof(prompterItems));
+                throw new ArgumentException("Null items are not accepted.", nameof(items));
 
-            this.prompterItems.AddRange(prompterItems.Where(x => x != null));
+            prompterItems.AddRange(items);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
         /// <summary>
         /// If a command is available it is processed by raising the <see cref="NewCommand"/> event,
-        /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above suceeded,
+        /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above succeeded,
         /// by raising the <see cref="UnhandledCommand"/> event.
         /// </summary>
         protected override void OnAfterDisplay()

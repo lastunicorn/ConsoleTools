@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
             AddItems(menuItems);
         }
 
-        private IEnumerable<IMenuItem> CreateMenuItems()
+        private static IEnumerable<IMenuItem> CreateMenuItems()
         {
             return new List<IMenuItem>
             {

@@ -30,19 +30,19 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 
         private static void DisplayHelp()
         {
-            CustomConsole.WriteLineEmphasies("Valid commands:");
+            CustomConsole.WriteLineEmphasized("Valid commands:");
             CustomConsole.WriteLine();
 
-            CustomConsole.WriteEmphasies("  - whale, whales   ");
+            CustomConsole.WriteEmphasized("  - whale, whales   ");
             CustomConsole.WriteLine("- Displays a table with whales.");
 
-            CustomConsole.WriteEmphasies("  - prompter        ");
+            CustomConsole.WriteEmphasized("  - prompter        ");
             CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
 
-            CustomConsole.WriteEmphasies("  - help            ");
+            CustomConsole.WriteEmphasized("  - help            ");
             CustomConsole.WriteLine("- Displays this help page");
 
-            CustomConsole.WriteEmphasies("  - quit, q, exit   ");
+            CustomConsole.WriteEmphasized("  - quit, q, exit   ");
             CustomConsole.WriteLine("- Exits the application.");
         }
     }

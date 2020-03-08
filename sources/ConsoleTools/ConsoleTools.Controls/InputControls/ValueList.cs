@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
     /// <summary>
     /// Reads or writes a list of values from/to the console.
     /// </summary>
-    public class ListView<T> : BlockControl
+    public class ValueList<T> : BlockControl
     {
         /// <summary>
         /// Gets or sets a value that specifies if the control should read or write the list represented by the <see cref="Values"/> property.
@@ -86,18 +86,18 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         public Func<string, T> CustomParser { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListView{T}"/> class.
+        /// Initializes a new instance of the <see cref="ValueList{T}"/> class.
         /// </summary>
-        public ListView()
+        public ValueList()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListView{T}"/> class with
+        /// Initializes a new instance of the <see cref="ValueList{T}"/> class with
         /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
         /// <param name="label">The label to be displayed before the content.</param>
-        public ListView(string label)
+        public ValueList(string label)
         {
             Label.Text = label;
         }
@@ -245,11 +245,11 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         /// <returns>The value read from the console.</returns>
         public static List<T> QuickRead(string label = null)
         {
-            ListView<T> listView = new ListView<T>(label)
+            ValueList<T> valueList = new ValueList<T>(label)
             {
                 ReadWriteMode = ReadWriteMode.Read,
             };
-            return listView.Read();
+            return valueList.Read();
         }
 
         /// <summary>
@@ -260,12 +260,12 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         /// <returns>The value read from the console.</returns>
         public static void QuickWrite(string label, IEnumerable<T> values)
         {
-            ListView<T> listView = new ListView<T>(label)
+            ValueList<T> valueList = new ValueList<T>(label)
             {
                 ReadWriteMode = ReadWriteMode.Write,
                 Values = values.ToList()
             };
-            listView.Write();
+            valueList.Write();
         }
     }
 }

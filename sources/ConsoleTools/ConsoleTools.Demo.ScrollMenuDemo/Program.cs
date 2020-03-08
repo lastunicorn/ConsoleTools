@@ -74,8 +74,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - ScrollMenu");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - ScrollMenu");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how the ScrollMenu can be used.");
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");

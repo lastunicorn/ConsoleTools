@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Beverages you like: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
+            CustomConsole.WriteLineEmphasized(string.Join(", ", beverages));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         /// </summary>
         private static List<string> ReadBeverages()
         {
-            ListView<string> beveragesRead = new ListView<string>
+            ValueList<string> beveragesRead = new ValueList<string>
             {
                 Label = new TextBlock
                 {

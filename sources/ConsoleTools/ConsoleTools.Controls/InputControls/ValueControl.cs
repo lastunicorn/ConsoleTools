@@ -27,12 +27,12 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
     /// Reads a value from the console.
     /// </summary>
     /// <typeparam name="T">The type of the value that is requested from the user.</typeparam>
-    public class ValueView<T> : BlockControl
+    public class ValueControl<T> : BlockControl
     {
         /// <summary>
         /// Gets or sets a value that specifies if the control should read or write the <see cref="Value"/> property.
         /// </summary>
-        public ReadWriteMode ReadWriteMode { get; set; } = ReadWriteMode.Unknown;
+        public ReadWriteMode ReadWriteMode { get; set; } = ReadWriteMode.Read;
 
         /// <summary>
         /// Gets or sets the label text to be displayed before the content.
@@ -86,18 +86,18 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         public Func<string, T> CustomParser { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueView{T}"/> class.
+        /// Initializes a new instance of the <see cref="ValueControl{T}"/> class.
         /// </summary>
-        public ValueView()
+        public ValueControl()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueView{T}"/> class with
+        /// Initializes a new instance of the <see cref="ValueControl{T}"/> class with
         /// the label to be displayed when the user is requested to provide the value.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the value.</param>
-        public ValueView(string label)
+        public ValueControl(string label)
         {
             Label.Text = label;
         }
@@ -226,29 +226,29 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueView{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueControl{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static T QuickRead(string label)
         {
-            ValueView<T> valueView = new ValueView<T>(label);
-            return valueView.Read();
+            ValueControl<T> valueControl = new ValueControl<T>(label);
+            return valueControl.Read();
         }
 
         /// <summary>
-        /// Reads a value from the console using a <see cref="ValueView{T}"/> with default configuration.
+        /// Reads a value from the console using a <see cref="ValueControl{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="value">The value to be displayed.</param>
         /// <returns>The value read from the console.</returns>
         public static void QuickWrite(string label, T value)
         {
-            ValueView<T> valueView = new ValueView<T>(label)
+            ValueControl<T> valueControl = new ValueControl<T>(label)
             {
                 Value = value
             };
-            valueView.Write();
+            valueControl.Write();
         }
     }
 }

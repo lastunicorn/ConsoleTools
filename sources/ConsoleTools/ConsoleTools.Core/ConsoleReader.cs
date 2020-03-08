@@ -57,22 +57,22 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
-        public static string ReadLine(int timeOutMillisecs = Timeout.Infinite)
+        public static string ReadLine(int timeOutMilliseconds = Timeout.Infinite)
         {
             getInput.Set();
 
-            bool success = gotInput.WaitOne(timeOutMillisecs);
+            bool success = gotInput.WaitOne(timeOutMilliseconds);
 
             if (!success)
-                throw new TimeoutException("User did not provide input within the timelimit.");
+                throw new TimeoutException("User did not provide input within the time limit.");
 
             return input;
         }
 
-        public static bool TryReadLine(out string line, int timeOutMillisecs = Timeout.Infinite)
+        public static bool TryReadLine(out string line, int timeOutMilliseconds = Timeout.Infinite)
         {
             getInput.Set();
-            bool success = gotInput.WaitOne(timeOutMillisecs);
+            bool success = gotInput.WaitOne(timeOutMilliseconds);
 
             line = success ? input : null;
 

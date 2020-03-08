@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Progress spinner");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Progress spinner");
 
             HorizontalLine horizontalLine1 = new HorizontalLine
             {

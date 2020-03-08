@@ -65,8 +65,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
             //
             //stackPanel.Display();
 
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - InputControls");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - InputControls");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows the usage of the input controls (text and list).");
             CustomConsole.WriteLine();

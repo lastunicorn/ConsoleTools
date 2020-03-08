@@ -25,7 +25,7 @@ using System.ComponentModel;
 namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
 {
     /// <summary>
-    /// Represents a separator used to create a spae between groups of menu items in a menu.
+    /// Represents a separator used to create a space between groups of menu items in a menu.
     /// </summary>
     public class SeparatorMenuItem : IMenuItem
     {
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public string Text
         {
-            get { return string.Empty; }
+            get => string.Empty;
             set { }
         }
 
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public bool IsEnabled
         {
-            get { return false; }
+            get => false;
             set { }
         }
 
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public ConsoleKey? ShortcutKey
         {
-            get { return null; }
+            get => null;
             set { }
         }
 
@@ -78,7 +78,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public ICommand Command
         {
-            get { return null; }
+            get => null;
             set { }
         }
 

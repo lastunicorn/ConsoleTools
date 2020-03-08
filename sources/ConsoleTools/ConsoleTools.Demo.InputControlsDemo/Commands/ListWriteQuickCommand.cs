@@ -33,12 +33,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListView{T}.QuickWrite"/> falls back
+        /// Using the static method <see cref="ValueList{T}.QuickWrite"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
         private static void DisplayColorsQuick(IEnumerable<string> colors)
         {
-            ListView<string>.QuickWrite("Colors:", colors);
+            ValueList<string>.QuickWrite("Colors:", colors);
         }
     }
 }

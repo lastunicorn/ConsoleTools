@@ -33,16 +33,16 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Beverages you like: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
+            CustomConsole.WriteLineEmphasized(string.Join(", ", beverages));
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListView{T}.QuickRead"/> falls back
+        /// Using the static method <see cref="ValueList{T}.QuickRead"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
         private static IEnumerable<string> ReadBeveragesQuick()
         {
-            return ListView<string>.QuickRead("What are your prefered beverages?");
+            return ValueList<string>.QuickRead("What are your prefered beverages?");
         }
     }
 }

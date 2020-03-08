@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         private static void DisplayColors(IReadOnlyList<ConsoleColor> colors)
         {
-            CustomConsole.Write("Your prefered colors: ");
+            CustomConsole.Write("Your preferred colors: ");
 
             for (int i = 0; i < colors.Count; i++)
             {
@@ -50,8 +50,10 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         private static IReadOnlyList<ConsoleColor> ReadColors()
         {
-            ListView<ConsoleColor> colorsRead = new ListView<ConsoleColor>("What are your prefered colors?");
-            colorsRead.CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true);
+            ValueList<ConsoleColor> colorsRead = new ValueList<ConsoleColor>("What are your preferred colors?")
+            {
+                CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true)
+            };
 
             return colorsRead.Read();
         }

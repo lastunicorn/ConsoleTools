@@ -66,8 +66,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - TextMenu");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TextMenu");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");

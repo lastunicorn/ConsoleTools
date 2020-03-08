@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - ProgressBar");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - ProgressBar");
             CustomConsole.WriteLine("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows the usage of the ProgressBar control.");

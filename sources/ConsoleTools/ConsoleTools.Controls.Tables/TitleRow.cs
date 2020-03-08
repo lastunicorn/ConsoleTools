@@ -108,7 +108,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Calculates the space (in characters) the current instance ocupies without other restrictions.
+        /// Calculates the space (in characters) the current instance occupies without other restrictions.
         /// </summary>
         public Size CalculatePreferredSize()
         {

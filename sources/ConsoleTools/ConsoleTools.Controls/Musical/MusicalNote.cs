@@ -26,6 +26,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Musical
     /// </summary>
     public enum MusicalNote
     {
+
+#pragma warning disable 1591
+
         None,
 
         C0,
@@ -178,5 +181,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Musical
         D8,
         Dd8,
         Eb8
+
+#pragma warning restore 1591
+
     }
 }

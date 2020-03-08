@@ -31,11 +31,11 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Prompter");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Prompter");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
 
-            CustomConsole.WriteEmphasies("Note: ");
+            CustomConsole.WriteEmphasized("Note: ");
             CustomConsole.WriteLine("type 'help' for a list of commands.");
             CustomConsole.WriteLine();
         }

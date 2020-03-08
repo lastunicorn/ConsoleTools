@@ -66,8 +66,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public bool IsVisible
         {
-            get { return VisibilityProvider?.Invoke() ?? isVisible; }
-            set { isVisible = value; }
+            get => VisibilityProvider?.Invoke() ?? isVisible;
+            set => isVisible = value;
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
 
         /// <summary>
         /// Gets or sets the horizontal alignment of the current instance inside the menu.
-        /// Default value: <see cref="HorizontalAlignment.Default"/>.
+        /// Default value: <see cref="DustInTheWind.ConsoleTools.HorizontalAlignment.Default"/>.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
@@ -87,8 +87,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
         /// </summary>
         public bool IsEnabled
         {
-            get { return Command?.IsActive ?? isEnabled; }
-            set { isEnabled = value; }
+            get => Command?.IsActive ?? isEnabled;
+            set => isEnabled = value;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
 
         /// <summary>
         /// Event raised before the current instance is selected.
-        /// It gives the oportunity for a subscriber to cancel the selection of the menu item.
+        /// It gives the opportunity for a subscriber to cancel the selection of the menu item.
         /// </summary>
         public event EventHandler<CancelEventArgs> BeforeSelect;
 

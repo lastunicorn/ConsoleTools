@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
     public class YesNoQuestion : BlockControl
     {
         /// <summary>
-        /// Gets or sets trhe question that is displayed to the user.
+        /// Gets or sets the question that is displayed to the user.
         /// </summary>
         public string QuestionText { get; set; }
 

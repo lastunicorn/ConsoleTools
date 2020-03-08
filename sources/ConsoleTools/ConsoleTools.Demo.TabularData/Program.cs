@@ -37,8 +37,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - TabularData");
-            CustomConsole.WriteLineEmphasies(new string('=', 79));
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TabularData");
+            CustomConsole.WriteLineEmphasized(new string('=', 79));
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how to display data in tables.");
             CustomConsole.WriteLine();

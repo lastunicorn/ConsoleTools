@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         {
             CustomConsole.WriteLine();
             CustomConsole.Write("Your answer: ");
-            CustomConsole.WriteLineEmphasies(answer);
+            CustomConsole.WriteLineEmphasized(answer);
             CustomConsole.WriteLine();
         }
     }

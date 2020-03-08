@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         /// </summary>
         private static void DisplayColors(string[] colors)
         {
-            ListView<string> colorsWrite = new ListView<string>
+            ValueList<string> colorsWrite = new ValueList<string>
             {
                 Label = new TextBlock
                 {

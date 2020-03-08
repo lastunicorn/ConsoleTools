@@ -73,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             {
                 CustomConsole.WriteLine("Normal: This is a normal line of text.");
                 CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasies("Emphasies: But I can also write an emphasized text.");
+                CustomConsole.WriteLineEmphasized("Emphasies: But I can also write an emphasized text.");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
                 CustomConsole.WriteLine();
@@ -92,8 +92,8 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
         }
     }

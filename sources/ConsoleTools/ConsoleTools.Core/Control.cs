@@ -26,6 +26,9 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Provides base functionality for a control.
     /// </summary>
+    /// <remarks>
+    ///
+    /// </remarks>
     public abstract class Control
     {
         private bool originalCursorVisibility;

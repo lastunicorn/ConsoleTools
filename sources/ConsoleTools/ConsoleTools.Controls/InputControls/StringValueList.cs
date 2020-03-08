@@ -22,23 +22,23 @@
 namespace DustInTheWind.ConsoleTools.Controls.InputControls
 {
     /// <summary>
-    /// Reads or writes a list of <see cref="long"/> values from the console.
+    /// Reads or writes a list of <see cref="string"/> values from the console.
     /// </summary>
-    public class Int64ListView : ListView<long>
+    public class StringValueList : ValueList<string>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64ListView"/> class.
+        /// Initializes a new instance of the <see cref="StringValueList"/> class.
         /// </summary>
-        public Int64ListView()
+        public StringValueList()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Int64ListView"/> class with
+        /// Initializes a new instance of the <see cref="StringValueList"/> class with
         /// the label to be displayed when the user is requested to provide the values.
         /// </summary>
         /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
-        public Int64ListView(string label)
+        public StringValueList(string label)
             : base(label)
         {
         }

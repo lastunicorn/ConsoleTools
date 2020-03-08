@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools
 {
     public partial class CustomConsole
     {
-        public static void WriteEmphasies(string text)
+        public static void WriteEmphasized(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteEmphasies(string format, params object[] arg)
+        public static void WriteEmphasized(string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -55,7 +55,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteEmphasies(object o)
+        public static void WriteEmphasized(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -70,7 +70,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineEmphasies(string text)
+        public static void WriteLineEmphasized(string text)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineEmphasies(string format, params object[] arg)
+        public static void WriteLineEmphasized(string format, params object[] arg)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools
             Console.BackgroundColor = initialBackgroundColor;
         }
 
-        public static void WriteLineEmphasies(object o)
+        public static void WriteLineEmphasized(object o)
         {
             ConsoleColor initialForegroundColor = Console.ForegroundColor;
             ConsoleColor initialBackgroundColor = Console.BackgroundColor;
@@ -117,9 +117,9 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Executes the specified action while the foreground and background colors
-        /// are changed to "Emphasies" colors.
+        /// are changed to "Emphasized" colors.
         /// </summary>
-        public static void WithEmphasiesColors(Action action)
+        public static void WithEmphasizedColors(Action action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
 
@@ -143,9 +143,9 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Executes the specified function while the foreground and background colors
-        /// are changed to "Emphasies" colors.
+        /// are changed to "Emphasized" colors.
         /// </summary>
-        public static T WithEmphasiesColors<T>(Func<T> func)
+        public static T WithEmphasizedColors<T>(Func<T> func)
         {
             if (func == null) throw new ArgumentNullException(nameof(func));
 

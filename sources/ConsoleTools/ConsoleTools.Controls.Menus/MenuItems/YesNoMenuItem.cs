@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
 {
     /// <summary>
     /// Displays a yes/no question at the right of the menu item.
-    /// If the user respondes with "No", the menu item is canceled (not selected).
+    /// If the user responds with "No", the menu item is canceled (not selected).
     /// </summary>
     public class YesNoMenuItem : LabelMenuItem
     {
@@ -70,7 +70,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
                 : QuestionText + " [Y/n]";
         }
 
-        private void DisplayQuestion(Location questionLocation, string questionText)
+        private static void DisplayQuestion(Location questionLocation, string questionText)
         {
             Console.SetCursorPosition(questionLocation.Left, questionLocation.Top);
             Console.Write(questionText);

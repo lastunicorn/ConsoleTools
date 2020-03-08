@@ -42,12 +42,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public DataGrid ParentDataGrid { get; set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the left side of every cell.
+        /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
         public int? PaddingLeft { get; set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the right side of every cell.
+        /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
         public int? PaddingRight { get; set; }
 
@@ -78,7 +78,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class with
-        /// the a name and the horizontal alignment applyed to the cells represented by the column.
+        /// the a name and the horizontal alignment applied to the cells represented by the column.
         /// </summary>
         public Column(string header, HorizontalAlignment horizontalAlignment)
         {

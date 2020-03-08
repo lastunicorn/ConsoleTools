@@ -34,9 +34,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public HeaderRowX(ColumnList columns, bool hasBorder)
         {
-            if (columns == null) throw new ArgumentNullException(nameof(columns));
-
-            this.columns = columns;
+            this.columns = columns ?? throw new ArgumentNullException(nameof(columns));
             this.hasBorder = hasBorder;
 
             CreateCells();

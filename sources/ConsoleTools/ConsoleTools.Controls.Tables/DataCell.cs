@@ -37,12 +37,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public DataRow ParentRow { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the left side of the cell.
+        /// Gets or sets the padding applied to the left side of the cell.
         /// </summary>
         public int? PaddingLeft { get; set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the right side of the cell.
+        /// Gets or sets the padding applied to the right side of the cell.
         /// </summary>
         public int? PaddingRight { get; set; }
 

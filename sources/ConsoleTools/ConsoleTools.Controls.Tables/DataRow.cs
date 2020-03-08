@@ -52,12 +52,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the left side of every cell.
+        /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
         public int? PaddingLeft { get; set; }
 
         /// <summary>
-        /// Gets or sets the padding applyed to the right side of every cell.
+        /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
         public int? PaddingRight { get; set; }
 
@@ -126,7 +126,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with
-        /// the list of <see cref="MultilineText"/> ojects representing the cells content.
+        /// the list of <see cref="MultilineText"/> objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
         public DataRow(IEnumerable<MultilineText> cellContents)
@@ -140,7 +140,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with
-        /// the list of <see cref="MultilineText"/> ojects representing the cells content.
+        /// the list of <see cref="MultilineText"/> objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
         public DataRow(params MultilineText[] cellContents)
@@ -181,7 +181,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
         /// </summary>
         public void AddCell(DataCell cell)
         {
@@ -201,7 +201,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
         /// </summary>
         public void AddCell(string cellContent)
         {
@@ -217,7 +217,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
         /// </summary>
         public void AddCell(MultilineText cellContent)
         {
@@ -233,7 +233,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instace of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
         /// </summary>
         public void AddCell(object cellContent)
         {
@@ -256,8 +256,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public DataCell this[int index]
         {
-            get { return cells[index]; }
-            set { cells[index] = value; }
+            get => cells[index];
+            set => cells[index] = value;
         }
 
         /// <summary>

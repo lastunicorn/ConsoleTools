@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public List<int> ColumnsWidths
         {
-            get { return columnsWidths; }
+            get => columnsWidths;
             set
             {
                 if (value == columnsWidths)
@@ -45,8 +45,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public BottomBorderData(BorderTemplate borderTemplate)
         {
-            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
-            this.borderTemplate = borderTemplate;
+            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
         }
 
         public void Render(ITablePrinter tablePrinter)

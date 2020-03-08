@@ -58,8 +58,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <param name="parentDataGrid">The table that owns the new instance.</param>
         public ColumnList(DataGrid parentDataGrid)
         {
-            if (parentDataGrid == null) throw new ArgumentNullException(nameof(parentDataGrid));
-            this.parentDataGrid = parentDataGrid;
+            this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
         }
 
         /// <summary>
@@ -136,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="Column"/>s containined by the current instance.
+        /// Returns an enumerator that iterates through the <see cref="Column"/>s contained by the current instance.
         /// </summary>
         public IEnumerator<Column> GetEnumerator()
         {

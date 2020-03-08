@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public int Width
         {
-            get { return width; }
+            get => width;
             set
             {
                 if (value == width)
@@ -44,8 +44,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public TitleBottomBorder(BorderTemplate borderTemplate)
         {
-            if (borderTemplate == null) throw new ArgumentNullException(nameof(borderTemplate));
-            this.borderTemplate = borderTemplate;
+            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
         }
 
         public void Render(ITablePrinter tablePrinter)

@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
         <RootNamespace>DustInTheWind.ConsoleTools.Controls.Menus</RootNamespace>
-        <AssemblyName>DustInTheWind.ConsoleTools.Constorls.Menus</AssemblyName>
+        <AssemblyName>DustInTheWind.ConsoleTools.Controls.Menus</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Deterministic>false</Deterministic>

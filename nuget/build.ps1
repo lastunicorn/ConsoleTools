@@ -31,32 +31,35 @@ Write-Output "------------------------------------------------------------------
 Write-Output "Retrieve all files."
 Write-Output "----------------------------------------------------------------------------------------------------"
 
-Write-Output "---"
-Write-Output "--- Retrieve assemblies - net45"
-Write-Output "---"
-
 New-Item -ItemType Directory -Force -Path "lib\net45"
-Copy-Item -Path "$rootDirectory\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.dll" -Destination "lib\net45" -Recurse -Container
-Copy-Item -Path "$rootDirectory\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.xml" -Destination "lib\net45" -Recurse -Container
-
-Write-Output "---"
-Write-Output "--- Retrieve assemblies - netcoreapp2.2"
-Write-Output "---"
-
 New-Item -ItemType Directory -Force -Path "lib\netcoreapp2.2"
-Copy-Item -Path "$rootDirectory\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" -Destination "lib\netcoreapp2.2" -Recurse -Container
-Copy-Item -Path "$rootDirectory\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" -Destination "lib\netcoreapp2.2" -Recurse -Container
 
-Write-Output "---"
-Write-Output "--- Retrieve changelog file"
-Write-Output "---"
+$projectDirs = @(
+"$rootDirectory\sources\ConsoleTools\ConsoleTools.Core",
+"$rootDirectory\sources\ConsoleTools\ConsoleTools.Controls",
+"$rootDirectory\sources\ConsoleTools\ConsoleTools.Controls.Menus"
+"$rootDirectory\sources\ConsoleTools\ConsoleTools.Controls.Spinners"
+"$rootDirectory\sources\ConsoleTools\ConsoleTools.Controls.Tables"
+)
 
+for ($i = 0; $i -lt $projectDirs.length; $i++)
+{
+	$projectDir = $projectDirs[$i]
+	
+	Write-Output "---> Retrieve assemblies from project: $projectDir"
+	
+	Copy-Item -Path "$projectDir\bin\Release\net45\*.dll" -Destination "lib\net45" -Recurse -Container
+	Copy-Item -Path "$projectDir\bin\Release\net45\*.xml" -Destination "lib\net45" -Recurse -Container
+
+	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.dll" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.xml" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.json" -Destination "lib\netcoreapp2.2" -Recurse -Container
+}
+
+Write-Output "---> Retrieve changelog file"
 Copy-Item -Path "$rootDirectory\doc\changelog.txt" -Destination "." -Recurse -Container
 
-Write-Output "---"
-Write-Output "--- Retrieve readme file"
-Write-Output "---"
-
+Write-Output "---> Retrieve readme file"
 Copy-Item -Path "$rootDirectory\readme.txt" -Destination "." -Recurse -Container
 
 
@@ -70,7 +73,6 @@ nuget pack
 Write-Output "----------------------------------------------------------------------------------------------------"
 Write-Output "Clean up files."
 Write-Output "----------------------------------------------------------------------------------------------------"
-
 
 if (Test-Path "lib")
 {

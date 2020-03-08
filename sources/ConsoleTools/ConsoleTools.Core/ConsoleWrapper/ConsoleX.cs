@@ -1,7 +1,7 @@
 ﻿using System;
 using DustInTheWind.ConsoleTools.Themes;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.ConsoleWrapper
 {
     internal class ConsoleX
     {

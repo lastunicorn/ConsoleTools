@@ -19,7 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls
 {
     /// <summary>
     /// Contains the answers that can be returned by the <see cref="YesNoQuestion"/>.

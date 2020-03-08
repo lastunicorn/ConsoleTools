@@ -22,7 +22,7 @@
 using System;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls
 {
     /// <summary>
     /// This control reads a yes/no answer from the console.

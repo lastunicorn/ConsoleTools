@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// This control displays a multiline text to the console.

@@ -15,7 +15,6 @@
     <ItemGroup>
         <ProjectReference Include="..\ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj" />
         <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
-        <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj" />
     </ItemGroup>
 
 </Project>

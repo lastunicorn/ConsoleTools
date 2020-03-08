@@ -19,7 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls
 {
     /// <summary>
     /// Reads or writes a list of <see cref="float"/> values from the console.

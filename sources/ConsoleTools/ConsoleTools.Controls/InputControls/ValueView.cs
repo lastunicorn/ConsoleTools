@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls
 {
     /// <summary>
     /// Reads a value from the console.

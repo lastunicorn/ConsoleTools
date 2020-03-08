@@ -16,6 +16,7 @@
 
 using System;
 using System.Reflection;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
 {

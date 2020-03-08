@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DustInTheWind.ConsoleTools.InputControls {
+namespace DustInTheWind.ConsoleTools.Controls.InputControls {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.InputControls {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.ConsoleTools.InputControls.ValueInputResources", typeof(ValueInputResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.ConsoleTools.Controls.InputControls.ValueInputResources", typeof(ValueInputResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Musical
+namespace DustInTheWind.ConsoleTools.Controls.Musical
 {
     public static class Sound
     {

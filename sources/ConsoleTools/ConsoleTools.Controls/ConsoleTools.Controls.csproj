@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netcoreapp2.2;net45</TargetFrameworks>
-        <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
+        <RootNamespace>DustInTheWind.ConsoleTools.Controls</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

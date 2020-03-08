@@ -23,7 +23,7 @@ using System;
 using System.Reflection;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Displays a header containing the application's name and version.

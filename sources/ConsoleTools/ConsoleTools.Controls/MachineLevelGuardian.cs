@@ -22,7 +22,7 @@
 using System;
 using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Guard
+namespace DustInTheWind.ConsoleTools.Controls
 {
     public class MachineLevelGuardian
     {

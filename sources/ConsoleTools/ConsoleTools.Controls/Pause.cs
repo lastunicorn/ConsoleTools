@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// A control that displays a message and waits for the user to press any key.

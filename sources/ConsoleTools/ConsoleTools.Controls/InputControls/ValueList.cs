@@ -34,7 +34,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         /// <summary>
         /// Gets or sets a value that specifies if the control should read or write the list represented by the <see cref="Values"/> property.
         /// </summary>
-        public ReadWriteMode ReadWriteMode { get; set; } = ReadWriteMode.Unknown;
+        public ReadWriteMode ReadWriteMode { get; set; } = ReadWriteMode.Read;
 
         /// <summary>
         /// Gets or sets the label text to be displayed before the content.
@@ -165,20 +165,20 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         {
             Values = new List<T>();
 
-            string leftpart = BuildItemLeftPart();
+            string leftPart = BuildItemLeftPart();
 
             while (true)
             {
                 int cursorLeft = Console.CursorLeft;
                 int cursorTop = Console.CursorTop;
 
-                CustomConsole.Write(leftpart);
+                CustomConsole.Write(leftPart);
                 string rawValue = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(rawValue))
                 {
                     Console.SetCursorPosition(cursorLeft, cursorTop);
-                    string emptyText = new string(' ', leftpart.Length);
+                    string emptyText = new string(' ', leftPart.Length);
                     Console.Write(emptyText);
                     Console.SetCursorPosition(cursorLeft, cursorTop);
                     break;
@@ -229,17 +229,17 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
 
         private void WriteAllValues()
         {
-            string leftpart = BuildItemLeftPart();
+            string leftPart = BuildItemLeftPart();
 
             foreach (T value in Values)
             {
-                CustomConsole.Write(leftpart);
+                CustomConsole.Write(leftPart);
                 CustomConsole.WriteLine(value);
             }
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListRead{T}"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ValueList{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <returns>The value read from the console.</returns>
@@ -253,7 +253,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         }
 
         /// <summary>
-        /// Reads a list of values from the console using a <see cref="ListWrite{T}"/> with default configuration.
+        /// Reads a list of values from the console using a <see cref="ValueList{T}"/> with default configuration.
         /// </summary>
         /// <param name="label">The label text to be displayed.</param>
         /// <param name="values">The list of values to be displayed.</param>

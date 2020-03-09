@@ -5,9 +5,10 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver next
 ---------
-- CustomConsole - removed the methods for building and writing a horizontal line.
+- CustomConsole: removed the methods for building and writing a horizontal line.
 - ApplicationHeader: Added new control.
 - Splitted the library in multiple assemblies.
+- Breaking changes: Renamed multiple controls and moved them in other namespaces.
 
 ver 0.5.4
 ---------

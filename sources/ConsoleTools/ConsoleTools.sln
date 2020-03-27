@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Tests", "ConsoleTools.Tests\ConsoleTools.Tests.csproj", "{54D61983-996F-436E-A265-01C616099367}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests", "ConsoleTools.Tests\ConsoleTools.Tests.csproj", "{54D61983-996F-436E-A265-01C616099367}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{2C2BFA30-8815-4269-AC92-DDE5589BD958}"
 EndProject
@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls.Spinners", "ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj", "{3C2B6DD0-CF97-4EA7-8565-A338892C0643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Controls.Menus", "ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj", "{439C9C20-BE41-4AE1-83D0-13AF94114EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls.Menus", "ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj", "{439C9C20-BE41-4AE1-83D0-13AF94114EDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.PauseDemo.NetCore", "ConsoleTools.Demo.PauseDemo.NetCore\ConsoleTools.Demo.PauseDemo.NetCore.csproj", "{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -295,6 +297,18 @@ Global
 		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
 		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{439C9C20-BE41-4AE1-83D0-13AF94114EDE}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug-Net452|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug-Net452|Any CPU.Build.0 = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug-Net461|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Debug-Net461|Any CPU.Build.0 = Debug|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,6 +327,7 @@ Global
 		{6513994E-72C8-4C79-81FE-DB35FC190D10} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{03611F6A-F799-4A07-8288-41BD4BD21C1A} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{8DD165BA-78C3-48A0-BF61-9673458A260C} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

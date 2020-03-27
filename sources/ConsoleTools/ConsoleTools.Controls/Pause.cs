@@ -94,7 +94,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
 
             base.OnAfterDisplay();
-        }
+         }
 
         private void WaitForUnlockKey()
         {

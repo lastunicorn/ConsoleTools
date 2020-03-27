@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Reflection;
 using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
@@ -280,80 +278,37 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
         public static DataGrid BuildFrom(DataTable dataTable)
         {
-            DataGrid dataGrid = new DataGrid(dataTable.TableName);
+            if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
 
-            foreach (DataColumn dataColumn in dataTable.Columns)
-            {
-                string columnHeader = string.IsNullOrEmpty(dataColumn.Caption)
-                    ? dataColumn.ColumnName
-                    : dataColumn.Caption;
-
-                dataGrid.Columns.Add(columnHeader);
-            }
-
-            foreach (System.Data.DataRow dataRow in dataTable.Rows)
-            {
-                DataRow row = new DataRow(dataRow.ItemArray);
-                dataGrid.Rows.Add(row);
-            }
-
-            return dataGrid;
+            DataGridBuilderFromDataTable builder = new DataGridBuilderFromDataTable(dataTable);
+            return builder.DataGrid;
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
+        /// fields and properties from the specified collection of objects.
+        /// </summary>
+        /// <typeparam name="T">The type of the objects used to populate the <see cref="DataGrid"/>.</typeparam>
+        /// <param name="data">The collection of objects to be added to the <see cref="DataGrid"/>.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
         public static DataGrid BuildFrom<T>(IEnumerable<T> data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            Type type = typeof(T);
+            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(typeof(T));
+            builder.Add(data);
 
-            DataGrid dataGrid = new DataGrid(type.Name);
+            return builder.DataGrid;
+        }
 
-            List<MemberInfo> members = new List<MemberInfo>();
+        public static DataGrid BuildFrom<T>(T data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-            FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
+            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(typeof(T));
+            builder.Add(data);
 
-            foreach (FieldInfo fieldInfo in fields)
-            {
-                dataGrid.Columns.Add(fieldInfo.Name);
-                members.Add(fieldInfo);
-            }
-
-            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(x => x.CanRead);
-
-            foreach (PropertyInfo propertyInfo in properties)
-            {
-                dataGrid.Columns.Add(propertyInfo.Name);
-                members.Add(propertyInfo);
-            }
-
-            foreach (T item in data)
-            {
-                DataRow dataRow = new DataRow();
-
-                foreach (MemberInfo memberInfo in members)
-                {
-                    switch (memberInfo)
-                    {
-                        case FieldInfo fieldInfo:
-                            {
-                                object value = fieldInfo.GetValue(item);
-                                dataRow.AddCell(value);
-                                break;
-                            }
-                        case PropertyInfo propertyInfo:
-                            {
-                                object value = propertyInfo.GetValue(item);
-                                dataRow.AddCell(value);
-                                break;
-                            }
-                    }
-                }
-
-                dataGrid.Rows.Add(dataRow);
-            }
-
-            return dataGrid;
+            return builder.DataGrid;
         }
     }
 }

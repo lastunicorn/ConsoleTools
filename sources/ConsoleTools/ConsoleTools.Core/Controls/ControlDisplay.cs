@@ -124,7 +124,7 @@ namespace DustInTheWind.ConsoleTools
             string rightContentEmptySpace = new string(' ', emptySpaceRight);
             CustomConsole.Write(rightContentEmptySpace);
 
-            bool isConsoleRowFilled = cursorLeft + emptySpaceRight == Console.BufferWidth;
+            bool isConsoleRowFilled = cursorLeft + emptySpaceRight + paddingRight + marginRight == Console.BufferWidth;
             return isConsoleRowFilled;
         }
 
@@ -178,6 +178,27 @@ namespace DustInTheWind.ConsoleTools
             //{
             //    CustomConsole.Write(text.Substring(0, Layout.ActualContentWidth));
             //}
+        }
+
+        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+        {
+            if (text == null)
+                return;
+
+            if (foregroundColor.HasValue)
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.Write(foregroundColor.Value, backgroundColor.Value, text);
+                else
+                    CustomConsole.Write(foregroundColor.Value, text);
+            }
+            else
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.WriteBackgroundColor(backgroundColor.Value, text);
+                else
+                    CustomConsole.Write(text);
+            }
         }
 
         private void WriteOuterLeftEmptySpace()

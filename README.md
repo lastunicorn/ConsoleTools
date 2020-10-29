@@ -1,3 +1,9 @@
+# Donations
+
+If you like my work and want to support me, you can buy me a coffee:
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y62EZ8H)
+
 # Console Tools
 
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.

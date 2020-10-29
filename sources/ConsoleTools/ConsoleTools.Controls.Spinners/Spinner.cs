@@ -17,7 +17,7 @@
 // --------------------------------------------------------------------------------
 // Bugs or feature requests
 // --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
 using System.Timers;
@@ -46,15 +46,24 @@ namespace DustInTheWind.ConsoleTools.Controls.Spinners
         private string templateText;
         private bool isDisposed;
         private readonly Timer timer;
+        private InlineTextBlock label = new InlineTextBlock(SpinnerResources.DefaultLabelText)
+        {
+            MarginRight = 1
+        };
 
         /// <summary>
         /// Gets or sets the label displayed in front of the spinner.
         /// Default value: "Please wait"
         /// </summary>
-        public InlineTextBlock Label { get; set; } = new InlineTextBlock(SpinnerResources.DefaultLabelText)
+        public InlineTextBlock Label
         {
-            MarginRight = 1
-        };
+            get => label;
+            set
+            {
+                label = value;
+                Refresh();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a velue that specifies if the text label should be displayed.

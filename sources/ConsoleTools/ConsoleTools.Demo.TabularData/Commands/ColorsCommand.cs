@@ -26,8 +26,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.DisplayColumnHeaders = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            dataGrid.Rows[1].ForegroundColor = ConsoleColor.Yellow;
-
             dataGrid.Display();
         }
 

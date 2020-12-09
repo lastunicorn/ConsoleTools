@@ -128,8 +128,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 if (ParentColumn.PaddingLeft.HasValue)
                     return ParentColumn.PaddingLeft.Value;
 
-                if (ParentColumn.ParentDataGrid?.PaddingLeft != null)
-                    return ParentColumn.ParentDataGrid.PaddingLeft.Value;
+                if (ParentColumn.ParentDataGrid?.CellPaddingLeft != null)
+                    return ParentColumn.ParentDataGrid.CellPaddingLeft.Value;
             }
 
             return 0;
@@ -149,8 +149,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 if (ParentColumn.PaddingRight.HasValue)
                     return ParentColumn.PaddingRight.Value;
 
-                if (ParentColumn.ParentDataGrid?.PaddingRight != null)
-                    return ParentColumn.ParentDataGrid.PaddingRight.Value;
+                if (ParentColumn.ParentDataGrid?.CellPaddingRight != null)
+                    return ParentColumn.ParentDataGrid.CellPaddingRight.Value;
             }
 
             return 0;

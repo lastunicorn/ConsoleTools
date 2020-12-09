@@ -92,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Stores the specified text in the internal <see cref="StringBuilder"/>.
         /// </summary>
-        public void WriteHeader(string text)
+        public void WriteColumnHeader(string text)
         {
             sb.Append(text);
         }

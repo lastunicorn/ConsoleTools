@@ -54,12 +54,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
-        public int? PaddingLeft { get; set; }
+        public int? CellPaddingLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
-        public int? PaddingRight { get; set; }
+        public int? CellPaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with default values.

@@ -54,12 +54,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
-        public int? PaddingLeft { get; set; } = 1;
+        public int? CellPaddingLeft { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
-        public int? PaddingRight { get; set; } = 1;
+        public int? CellPaddingRight { get; set; } = 1;
 
         /// <summary>
         /// Gets a value that specifies if border lines should be drawn between rows.

@@ -88,7 +88,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Writes the specified text in the underlying <see cref="Stream"/>.
         /// </summary>
-        public void WriteHeader(string text)
+        public void WriteColumnHeader(string text)
         {
             streamWriter.Write(text);
         }

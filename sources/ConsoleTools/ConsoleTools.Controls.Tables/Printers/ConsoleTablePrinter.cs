@@ -137,7 +137,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Writes the specified text to the <see cref="Console"/> using the <see cref="HeaderColor"/>.
         /// </summary>
-        public void WriteHeader(string text)
+        public void WriteColumnHeader(string text)
         {
             ConsoleColor? foregroundColor = HeaderColor ?? ForegroundColor;
             ConsoleColor? backgroundColor = HeaderBackgroundColor ?? BackgroundColor;

@@ -9,6 +9,8 @@ ver next
 - ApplicationHeader: Added new control.
 - Splitted the library in multiple assemblies.
 - Breaking changes: Renamed multiple controls and moved them in other namespaces.
+- DataGrid: Renamed DataGrid.PaddingLeft to DataGrid.CellPaddingLeft
+- DataGrid: Renamed DataGrid.PaddingRight to DataGrid.CellPaddingRight
 
 ver 0.5.4
 ---------

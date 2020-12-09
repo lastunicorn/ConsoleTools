@@ -127,8 +127,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.BorderTemplate = new BorderTemplate("1234567890abcde");
             dataGrid.Title = "My Title";
             dataGrid.DisplayColumnHeaders = true;
-            dataGrid.PaddingLeft = 3;
-            dataGrid.PaddingRight = 3;
+            dataGrid.CellPaddingLeft = 3;
+            dataGrid.CellPaddingRight = 3;
             dataGrid.Columns.Add(new Column("One"));
             dataGrid.Columns.Add(new Column("Two"));
             dataGrid.Columns.Add(new Column("Three"));

@@ -29,8 +29,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Assert.That(dataGrid.Title, Is.EqualTo(MultilineText.Empty));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
             Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
@@ -43,8 +43,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
             Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
@@ -57,8 +57,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 
             Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
             Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));

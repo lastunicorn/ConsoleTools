@@ -122,8 +122,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow
             {
-                PaddingLeft = 2,
-                PaddingRight = 0
+                CellPaddingLeft = 2,
+                CellPaddingRight = 0
             };
             dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text");
@@ -140,8 +140,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         {
             DataGrid dataGrid = new DataGrid
             {
-                PaddingLeft = 2,
-                PaddingRight = 0
+                CellPaddingLeft = 2,
+                CellPaddingRight = 0
             };
             DataRow row = new DataRow();
             dataGrid.Rows.Add(row);
@@ -204,8 +204,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataGrid dataGrid = new DataGrid();
             DataRow row = new DataRow
             {
-                PaddingLeft = 0,
-                PaddingRight = 2
+                CellPaddingLeft = 0,
+                CellPaddingRight = 2
             };
             dataGrid.Rows.Add(row);
             DataCell cell = new DataCell("text")
@@ -225,8 +225,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
         {
             DataGrid dataGrid = new DataGrid
             {
-                PaddingLeft = 0,
-                PaddingRight = 2
+                CellPaddingLeft = 0,
+                CellPaddingRight = 2
             };
             DataRow row = new DataRow();
             dataGrid.Rows.Add(row);

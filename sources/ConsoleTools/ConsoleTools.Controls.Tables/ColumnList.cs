@@ -117,7 +117,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 {
                     // Write cell content.
                     string content = cellContents[columnIndex][headerLineIndex];
-                    tablePrinter.WriteHeader(content);
+                    tablePrinter.WriteColumnHeader(content);
 
                     // Write intermediate or right border.
                     if (displayBorder && borderTemplate != null)

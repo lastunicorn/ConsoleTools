@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Writes the specified text, applying the formatting specific for the column headers.
         /// </summary>
-        void WriteHeader(string text);
+        void WriteColumnHeader(string text);
 
         /// <summary>
         /// Writes the specified text, applying the default formatting.

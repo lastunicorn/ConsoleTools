@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
@@ -125,8 +127,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
             if (ParentRow != null)
             {
-                if (ParentRow.PaddingLeft.HasValue)
-                    return ParentRow.PaddingLeft.Value;
+                if (ParentRow.CellPaddingLeft.HasValue)
+                    return ParentRow.CellPaddingLeft.Value;
 
                 if (ParentRow.ParentDataGrid != null)
                 {
@@ -135,8 +137,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                     if (column?.PaddingLeft != null)
                         return column.PaddingLeft.Value;
 
-                    if (ParentRow.ParentDataGrid.PaddingLeft.HasValue)
-                        return ParentRow.ParentDataGrid.PaddingLeft.Value;
+                    if (ParentRow.ParentDataGrid.CellPaddingLeft.HasValue)
+                        return ParentRow.ParentDataGrid.CellPaddingLeft.Value;
                 }
             }
 
@@ -154,8 +156,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
             if (ParentRow != null)
             {
-                if (ParentRow.PaddingRight.HasValue)
-                    return ParentRow.PaddingRight.Value;
+                if (ParentRow.CellPaddingRight.HasValue)
+                    return ParentRow.CellPaddingRight.Value;
 
 
                 if (ParentRow.ParentDataGrid != null)
@@ -165,8 +167,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                     if (column?.PaddingRight != null)
                         return column.PaddingRight.Value;
 
-                    if (ParentRow.ParentDataGrid.PaddingRight.HasValue)
-                        return ParentRow.ParentDataGrid.PaddingRight.Value;
+                    if (ParentRow.ParentDataGrid.CellPaddingRight.HasValue)
+                        return ParentRow.ParentDataGrid.CellPaddingRight.Value;
                 }
             }
 

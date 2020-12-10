@@ -175,6 +175,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return 0;
         }
 
+        public override ConsoleColor? CalculateForegroundColor()
+        {
+            return ForegroundColor
+                   ?? ParentRow?.ForegroundColor
+                   ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+        }
+
+        public override ConsoleColor? CalculateBackgroundColor()
+        {
+            return BackgroundColor
+                   ?? ParentRow?.BackgroundColor
+                   ?? ParentRow?.ParentDataGrid?.BackgroundColor;
+        }
+
         /// <summary>
         /// Returns the calculated horizontal alignment for the content of the current data cell.
         /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current data cell,

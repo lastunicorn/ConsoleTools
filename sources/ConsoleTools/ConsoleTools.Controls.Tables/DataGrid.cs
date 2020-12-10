@@ -47,11 +47,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Gets or sets a value that specifies if the title is displayed.
-        /// </summary>
-        public bool DisplayTitle { get; set; } = true;
-
-        /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
         public int? CellPaddingLeft { get; set; } = 1;
@@ -78,15 +73,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public ColumnList Columns { get; }
 
         /// <summary>
+        /// Gets the <see cref="HeaderRow"/> instance that represents the columns header row of the table.
+        /// </summary>
+        public HeaderRow HeaderRow { get; }
+
+        /// <summary>
         /// The list of rows contained by the current table.
         /// </summary>
         public DataRowList Rows { get; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the column headers are displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool DisplayColumnHeaders { get; set; } = true;
 
         /// <summary>
         /// Gets the row at the specified index.
@@ -121,34 +115,67 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public ConsoleColor? BorderColor { get; set; }
 
         /// <summary>
+        /// Gets or sets the background color for the borders.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BorderBackgroundColor { get; set; }
+
+        public ConsoleColor? ForegroundColor { get; set; }
+        
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        #region Obsolete Properties
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the title is displayed.
+        /// </summary>
+        [Obsolete("Use TitleRow.IsVisible property instead.")]
+        public bool DisplayTitle
+        {
+            get => TitleRow.IsVisible;
+            set => TitleRow.IsVisible = value;
+        }
+
+        /// <summary>
         /// Gets or sets the foreground color for the title.
         /// Default value: <c>null</c>
         /// </summary>
+        [Obsolete("Use TitleRow.Color property instead.")]
         public ConsoleColor? TitleColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color for the title.
+        /// Default value: <c>null</c>
+        /// </summary>
+        [Obsolete("Use TitleRow.BackgroundColor property instead.")]
+        public ConsoleColor? TitleBackgroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the column headers are displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
+        [Obsolete("Use HeaderRow.IsVisible property instead.")]
+        public bool DisplayColumnHeaders
+        {
+            get => HeaderRow.IsVisible;
+            set => HeaderRow.IsVisible = value;
+        }
 
         /// <summary>
         /// Gets or sets the foreground color for the column headers.
         /// Default value: <c>null</c>
         /// </summary>
+        [Obsolete("Use HeaderRow.Color property instead.")]
         public ConsoleColor? HeaderColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the background color for the borders.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BorderBackgroundColor { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the background color for the title.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? TitleBackgroundColor { get; set; }
-        
         /// <summary>
         /// Gets or sets the background color for the column headers.
         /// Default value: <c>null</c>
         /// </summary>
+        [Obsolete("Use HeaderRow.BackgroundColor property instead.")]
         public ConsoleColor? HeaderBackgroundColor { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class.
@@ -157,6 +184,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
+            HeaderRow = new HeaderRow(Columns, this);
 
             TitleRow = new TitleRow
             {
@@ -172,6 +200,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
+            HeaderRow = new HeaderRow(Columns, this);
 
             TitleRow = new TitleRow(title)
             {
@@ -187,6 +216,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
+            HeaderRow = new HeaderRow(Columns, this);
 
             TitleRow = new TitleRow(title)
             {
@@ -202,6 +232,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
+            HeaderRow = new HeaderRow(Columns, this);
 
             TitleRow = new TitleRow(title)
             {
@@ -218,13 +249,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ForegroundColor = ForegroundColor,
                 BorderColor = BorderColor,
-                TitleColor = TitleColor,
-                HeaderColor = HeaderColor,
+                TitleColor = TitleRow.ForegroundColor,
+                HeaderColor = HeaderRow.ForegroundColor,
 
                 BackgroundColor = BackgroundColor,
                 BorderBackgroundColor = BorderBackgroundColor,
-                TitleBackgroundColor = TitleBackgroundColor,
-                HeaderBackgroundColor = HeaderBackgroundColor
+                TitleBackgroundColor = TitleRow.BackgroundColor,
+                HeaderBackgroundColor = HeaderRow.BackgroundColor
             };
 
             RenderInternal(consoleTablePrinter);
@@ -245,9 +276,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 MinWidth = MinWidth ?? 0,
                 TitleRow = TitleRow,
-                DisplayTitle = DisplayTitle,
-                Columns = Columns,
-                DisplayColumnHeaders = DisplayColumnHeaders,
+                HeaderRow = HeaderRow,
                 Rows = Rows,
                 DisplayBorderBetweenRows = DisplayBorderBetweenRows,
                 BorderTemplate = BorderTemplate,

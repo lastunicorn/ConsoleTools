@@ -70,7 +70,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.Columns.Add(new Column("One"));
             dataGrid.Columns.Add(new Column("Two"));
             dataGrid.Columns.Add(new Column("Three"));
@@ -97,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             DataGrid dataGrid = new DataGrid();
             dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Title = "My Title";
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.Columns.Add(new Column("One"));
             dataGrid.Columns.Add(new Column("Two"));
             dataGrid.Columns.Add(new Column("Three"));
@@ -126,7 +126,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             DataGrid dataGrid = new DataGrid();
             dataGrid.BorderTemplate = new BorderTemplate("1234567890abcde");
             dataGrid.Title = "My Title";
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.CellPaddingLeft = 3;
             dataGrid.CellPaddingRight = 3;
             dataGrid.Columns.Add(new Column("One"));

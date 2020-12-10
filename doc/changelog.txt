@@ -11,6 +11,7 @@ ver next
 - Breaking changes: Renamed multiple controls and moved them in other namespaces.
 - DataGrid: Renamed DataGrid.PaddingLeft to DataGrid.CellPaddingLeft
 - DataGrid: Renamed DataGrid.PaddingRight to DataGrid.CellPaddingRight
+- DataGrid: Added ForegroundColor and BackgroundColor at cell and row level.
 
 ver 0.5.4
 ---------

@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
@@ -40,6 +41,18 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public DataGrid ParentDataGrid { get; internal set; }
 
         /// <summary>
+        /// Gets or sets the foreground color for the title.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color for the title.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets the content alignment.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment
@@ -52,6 +65,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
         /// </summary>
         public bool HasContent => TitleCell?.Content?.IsEmpty == false;
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the title row is displayed.
+        /// Default value: <c>true</c>
+        /// </summary>
+        public bool IsVisible { get; set; } = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleRow"/> class with

@@ -27,14 +27,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     internal class HeaderRowX
     {
         private readonly bool hasBorder;
-        private readonly ColumnList columns;
-        private readonly List<DataCellX> cells = new List<DataCellX>();
+        private readonly HeaderRow headerRow;
+        private readonly List<CellX> cells = new List<CellX>();
 
         public Size Size { get; private set; }
 
-        public HeaderRowX(ColumnList columns, bool hasBorder)
+        public HeaderRowX(HeaderRow headerRow, bool hasBorder)
         {
-            this.columns = columns ?? throw new ArgumentNullException(nameof(columns));
+            this.headerRow = headerRow ?? throw new ArgumentNullException(nameof(headerRow));
             this.hasBorder = hasBorder;
 
             CreateCells();
@@ -42,19 +42,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void CreateCells()
         {
-            foreach (Column column in columns)
+            foreach (HeaderCell headerCell in headerRow)
             {
-                DataCellX cell = new DataCellX
-                {
-                    Size = column.HeaderCell.CalculatePreferredSize()
-                };
+                CellX cell = new CellX(headerCell);
 
                 AddCellToSize(cell);
                 cells.Add(cell);
             }
         }
 
-        private void AddCellToSize(DataCellX cell)
+        private void AddCellToSize(CellX cell)
         {
             int width = cells.Count == 0 && hasBorder
                 ? 1
@@ -75,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
         {
             int rowHeight = Size.Height;
-            columns.RenderHeaderRow(tablePrinter, cellWidths, rowHeight);
+            headerRow.Render(tablePrinter, cellWidths, rowHeight);
         }
 
         public void UpdateColumnsWidths(List<int> columnsWidths)

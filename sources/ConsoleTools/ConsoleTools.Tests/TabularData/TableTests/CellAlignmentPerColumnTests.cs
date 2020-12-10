@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void column_0_is_aligned_to_Right()
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.DisplayColumnHeaders = false;
+            dataGrid.HeaderRow.IsVisible = false;
 
             Column column0 = new Column("Col 0");
             column0.HorizontalAlignment = HorizontalAlignment.Right;
@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void column_0_is_aligned_to_Right_and_cell_1_0_is_aligned_to_Left()
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.DisplayColumnHeaders = false;
+            dataGrid.HeaderRow.IsVisible = false;
 
             Column column0 = new Column("Col 0");
             column0.HorizontalAlignment = HorizontalAlignment.Right;

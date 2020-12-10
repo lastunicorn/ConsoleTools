@@ -148,11 +148,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Writes the specified text to the <see cref="Console"/> using the <see cref="ForegroundColor"/>.
         /// </summary>
-        public void WriteNormal(string text)
+        public void WriteNormal(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
-            ConsoleColor? foregroundColor = ForegroundColor;
-            ConsoleColor? backgroundColor = BackgroundColor;
-
             Write(foregroundColor, backgroundColor, text);
         }
 

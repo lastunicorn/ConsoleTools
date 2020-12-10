@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
@@ -28,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     {
         private readonly bool hasBorder;
         private readonly DataRow dataRow;
-        private readonly List<DataCellX> cells = new List<DataCellX>();
+        private readonly List<CellX> cells = new List<CellX>();
 
         public Size Size { get; private set; }
 
@@ -42,22 +43,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void CreateCells()
         {
-            cells.Clear();
+            IEnumerable<CellX> dataCellXes = dataRow
+                .Select(x => new CellX(x));
 
-            for (int i = 0; i < dataRow.CellCount; i++)
+            foreach (CellX dataCellX in dataCellXes)
             {
-                DataCellX cell = new DataCellX
-                {
-                    Size = dataRow[i].CalculatePreferredSize()
-                };
-
-                AddCellToSize(cell);
-
-                cells.Add(cell);
+                AddCellToSize(dataCellX);
+                cells.Add(dataCellX);
             }
         }
 
-        private void AddCellToSize(DataCellX cell)
+        private void AddCellToSize(CellX cell)
         {
             int initialCount = cells.Count;
 
@@ -79,7 +75,39 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
         {
-            dataRow.Render(tablePrinter, cellWidths, Size.Height);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                CellX cellX = cells[i];
+
+                Size size = new Size(cellWidths[i], Size.Height);
+                cellX.InitializeRendering(size);
+            }
+
+            BorderTemplate borderTemplate = dataRow.ParentDataGrid?.BorderTemplate;
+            bool displayBorder = borderTemplate != null && dataRow.ParentDataGrid?.DisplayBorder == true;
+
+            for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
+            {
+                if (displayBorder)
+                    tablePrinter.WriteBorder(borderTemplate.Left);
+
+                for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
+                {
+                    CellX cellX = cells[columnIndex];
+                    cellX.RenderNextLine(tablePrinter);
+
+                    if (displayBorder)
+                    {
+                        char cellBorderRight = columnIndex < cells.Count - 1
+                            ? borderTemplate.Vertical
+                            : borderTemplate.Right;
+
+                        tablePrinter.WriteBorder(cellBorderRight);
+                    }
+                }
+
+                tablePrinter.WriteLine();
+            }
         }
 
         public void UpdateColumnsWidths(List<int> columnsWidths)

@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
@@ -136,6 +138,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 return PaddingRight.Value;
 
             return ParentRow?.ParentDataGrid?.CellPaddingRight ?? 0;
+        }
+
+        public override ConsoleColor? CalculateForegroundColor()
+        {
+            return ForegroundColor
+                   ?? ParentRow?.ForegroundColor
+                   ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+        }
+
+        public override ConsoleColor? CalculateBackgroundColor()
+        {
+            return BackgroundColor
+                   ?? ParentRow?.BackgroundColor
+                   ?? ParentRow?.ParentDataGrid?.BackgroundColor;
         }
 
         /// <summary>

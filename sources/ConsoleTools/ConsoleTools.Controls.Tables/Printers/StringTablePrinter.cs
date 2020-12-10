@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Stores the specified text in the internal <see cref="StringBuilder"/>.
         /// </summary>
-        public void WriteNormal(string text)
+        public void WriteNormal(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             sb.Append(text);
         }

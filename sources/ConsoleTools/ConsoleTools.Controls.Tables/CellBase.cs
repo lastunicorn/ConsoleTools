@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
@@ -42,6 +43,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets or sets the horizontal alignment of the content displayed in the cell.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
+
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
@@ -121,6 +126,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Returns the number of spaces representing the right padding.
         /// </summary>
         protected abstract int CalculatePaddingRight();
+
+        public abstract ConsoleColor? CalculateForegroundColor();
+        
+        public abstract ConsoleColor? CalculateBackgroundColor();
 
         /// <summary>
         /// Returns the string representation of the content of the cell.

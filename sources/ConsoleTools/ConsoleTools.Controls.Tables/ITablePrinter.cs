@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
@@ -62,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Writes the specified text, applying the default formatting.
         /// </summary>
-        void WriteNormal(string text);
+        void WriteNormal(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the current line terminator.

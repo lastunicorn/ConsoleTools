@@ -53,9 +53,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColumnList"/> class with
-        /// the table that owns it.
+        /// the <see cref="DataGrid"/> that owns it.
         /// </summary>
-        /// <param name="parentDataGrid">The table that owns the new instance.</param>
+        /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
         public ColumnList(DataGrid parentDataGrid)
         {
             this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
@@ -84,54 +84,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
             column.ParentDataGrid = parentDataGrid;
             columns.Add(column);
-        }
-
-        /// <summary>
-        /// Renders the row containing the column headers.
-        /// </summary>
-        /// <param name="tablePrinter">The destination where the current instance must be rendered.</param>
-        /// <param name="cellWidths">The widths of each header cell that must be rendered.</param>
-        /// <param name="rowHeight">The height of the row to be rendered. If there are not enough text lines
-        /// in the content of a cell, spaces are written instead.</param>
-        public void RenderHeaderRow(ITablePrinter tablePrinter, List<int> cellWidths, int rowHeight)
-        {
-            // Get cells content.
-            List<List<string>> cellContents = columns
-                .Select((x, i) =>
-                {
-                    Size size = new Size(cellWidths[i], rowHeight);
-                    return x.HeaderCell.Render(size).ToList();
-                })
-                .ToList();
-
-            bool displayBorder = parentDataGrid?.DisplayBorder ?? true;
-            BorderTemplate borderTemplate = parentDataGrid?.BorderTemplate;
-
-            for (int headerLineIndex = 0; headerLineIndex < rowHeight; headerLineIndex++)
-            {
-                // Write left border.
-                if (displayBorder && borderTemplate != null)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
-
-                for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++)
-                {
-                    // Write cell content.
-                    string content = cellContents[columnIndex][headerLineIndex];
-                    tablePrinter.WriteColumnHeader(content);
-
-                    // Write intermediate or right border.
-                    if (displayBorder && borderTemplate != null)
-                    {
-                        char cellBorderRight = columnIndex < columns.Count - 1
-                            ? borderTemplate.Vertical
-                            : borderTemplate.Right;
-
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
-                }
-
-                tablePrinter.WriteLine();
-            }
         }
 
         /// <summary>

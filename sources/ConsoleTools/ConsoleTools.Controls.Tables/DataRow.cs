@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// <summary>
     /// Represents a row in the <see cref="DataGrid"/> class.
     /// </summary>
-    public class DataRow
+    public class DataRow : IEnumerable<DataCell>
     {
         /// <summary>
         /// Gets the list of cells contained by the row.
@@ -60,6 +60,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
         public int? CellPaddingRight { get; set; }
+        
+        public ConsoleColor? ForegroundColor { get; set; }
+        
+        public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRow"/> class with default values.
@@ -270,49 +274,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return indexOfCell == -1 ? (int?) null : indexOfCell;
         }
 
-        /// <summary>
-        /// Renders the row current row.
-        /// </summary>
-        /// <param name="tablePrinter">The destination where the current instance must be rendered.</param>
-        /// <param name="cellWidths">The widths of each cell that must be rendered.</param>
-        /// <param name="height">The height of the row to be rendered. If there are not enough text lines
-        /// in the content of a cell, spaces are written instead.</param>
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths, int height)
+        public IEnumerator<DataCell> GetEnumerator()
         {
-            List<List<string>> cellContents = cells
-                .Select((x, i) =>
-                {
-                    Size size = new Size(cellWidths[i], height);
-                    return x.Render(size).ToList();
-                })
-                .ToList();
+            return cells.GetEnumerator();
+        }
 
-            BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
-
-            bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
-
-            for (int rowLineIndex = 0; rowLineIndex < height; rowLineIndex++)
-            {
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
-
-                for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
-                {
-                    string content = cellContents[columnIndex][rowLineIndex];
-                    tablePrinter.WriteNormal(content);
-
-                    if (displayBorder)
-                    {
-                        char cellBorderRight = columnIndex < cells.Count - 1
-                            ? borderTemplate.Vertical
-                            : borderTemplate.Right;
-
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
-                }
-
-                tablePrinter.WriteLine();
-            }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

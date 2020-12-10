@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableStreaming", "TableStreaming\TableStreaming.csproj", "{5557567D-5F85-4913-B2AB-99E5B976001C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableStreaming.Tests", "TableStreaming.Tests\TableStreaming.Tests.csproj", "{075C1F96-6FDD-43E7-A00A-8EFB349249DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5557567D-5F85-4913-B2AB-99E5B976001C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5557567D-5F85-4913-B2AB-99E5B976001C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5557567D-5F85-4913-B2AB-99E5B976001C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5557567D-5F85-4913-B2AB-99E5B976001C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075C1F96-6FDD-43E7-A00A-8EFB349249DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075C1F96-6FDD-43E7-A00A-8EFB349249DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075C1F96-6FDD-43E7-A00A-8EFB349249DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075C1F96-6FDD-43E7-A00A-8EFB349249DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7606B6FD-507A-4344-8ECC-78ECAB48C009}
+	EndGlobalSection
+EndGlobal

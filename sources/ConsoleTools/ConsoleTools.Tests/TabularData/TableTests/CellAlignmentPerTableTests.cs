@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void whole_table_is_aligned_to_Right_without_explicit_columns()
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.DisplayColumnHeaders = false;
+            dataGrid.HeaderRow.IsVisible = false;
             dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
 
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
@@ -50,9 +50,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.DisplayColumnHeaders = false;
             dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
-            dataGrid.DisplayColumnHeaders = false;
+            dataGrid.HeaderRow.IsVisible = false;
 
             Column column0 = new Column("Col 0");
             dataGrid.Columns.Add(column0);

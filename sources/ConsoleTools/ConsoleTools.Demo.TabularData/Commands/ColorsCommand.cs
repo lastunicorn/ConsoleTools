@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Title = "Table without colors";
 
             dataGrid.DisplayBorderBetweenRows = true;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
             dataGrid.Display();
@@ -37,11 +37,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.ForegroundColor = ConsoleColor.Blue;
             dataGrid.BorderColor = ConsoleColor.DarkBlue;
-            dataGrid.TitleColor = ConsoleColor.Yellow;
-            dataGrid.HeaderColor = ConsoleColor.DarkYellow;
+            dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
+            dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
 
             dataGrid.DisplayBorderBetweenRows = true;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
             dataGrid.Display();
@@ -55,13 +55,13 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.ForegroundColor = ConsoleColor.Blue;
             dataGrid.BorderColor = ConsoleColor.DarkBlue;
-            dataGrid.TitleColor = ConsoleColor.Yellow;
-            dataGrid.HeaderColor = ConsoleColor.DarkYellow;
+            dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
+            dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
 
             dataGrid.BackgroundColor = ConsoleColor.Gray;
 
             dataGrid.DisplayBorderBetweenRows = true;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
             dataGrid.Display();
@@ -75,16 +75,16 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.ForegroundColor = ConsoleColor.Blue;
             dataGrid.BorderColor = ConsoleColor.DarkBlue;
-            dataGrid.TitleColor = ConsoleColor.Yellow;
-            dataGrid.HeaderColor = ConsoleColor.DarkYellow;
+            dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
+            dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
 
             dataGrid.BackgroundColor = ConsoleColor.Gray;
             dataGrid.BorderBackgroundColor = ConsoleColor.White;
-            dataGrid.TitleBackgroundColor = ConsoleColor.DarkYellow;
-            dataGrid.HeaderBackgroundColor = ConsoleColor.Yellow;
+            dataGrid.TitleRow.BackgroundColor = ConsoleColor.DarkYellow;
+            dataGrid.HeaderRow.BackgroundColor = ConsoleColor.Yellow;
 
             dataGrid.DisplayBorderBetweenRows = true;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
             dataGrid.Display();

@@ -19,10 +19,41 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class DataCellX
+    internal class CellX
     {
+        private readonly CellBase dataCell;
+        private IEnumerator<string> lineEnumerator;
+        private ConsoleColor? foregroundColor;
+        private ConsoleColor? backgroundColor;
+
         public Size Size { get; set; }
+        
+        public CellX(CellBase dataCell)
+        {
+            this.dataCell = dataCell ?? throw new ArgumentNullException(nameof(dataCell));
+
+            Size = dataCell.CalculatePreferredSize();
+        }
+
+        public void InitializeRendering(Size size)
+        {
+            lineEnumerator = dataCell.Render(size).GetEnumerator();
+            foregroundColor = dataCell.CalculateForegroundColor();
+            backgroundColor = dataCell.CalculateBackgroundColor();
+        }
+
+        public void RenderNextLine(ITablePrinter tablePrinter)
+        {
+            string content = lineEnumerator.MoveNext()
+                ? lineEnumerator.Current
+                : null;
+
+            tablePrinter.WriteNormal(content, foregroundColor, backgroundColor);
+        }
     }
 }

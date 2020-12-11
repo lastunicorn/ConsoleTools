@@ -41,15 +41,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StringTablePrinter"/> class with
-        /// the <see cref="StringBuilder"/> into which tp store the texts.
-        /// </summary>
-        public StringTablePrinter(StringBuilder sb)
-        {
-            this.sb = sb ?? throw new ArgumentNullException(nameof(sb));
-        }
-
-        /// <summary>
         /// Stores the specified text in the internal <see cref="StringBuilder"/>.
         /// </summary>
         public void WriteBorder(string text)
@@ -74,33 +65,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         }
 
         /// <summary>
-        /// Stores the specified character in the internal <see cref="StringBuilder"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(char c)
-        {
-            sb.AppendLine(c.ToString());
-        }
-
-        /// <summary>
         /// Stores the specified text in the internal <see cref="StringBuilder"/>.
         /// </summary>
-        public void WriteTitle(string text)
-        {
-            sb.Append(text);
-        }
-
-        /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void WriteHeader(string text)
-        {
-            sb.Append(text);
-        }
-
-        /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void WriteNormal(string text)
+        public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             sb.Append(text);
         }

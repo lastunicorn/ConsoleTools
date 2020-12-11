@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("Forth item", 4.ToString());
             dataGrid.Rows.Add("Fifth item", 5.ToString());
 
-            dataGrid.PaddingLeft = 3;
+            dataGrid.CellPaddingLeft = 3;
 
             dataGrid.Display();
         }
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("Forth item", 4.ToString());
             dataGrid.Rows.Add("Fifth item", 5.ToString());
 
-            dataGrid.PaddingRight = 3;
+            dataGrid.CellPaddingRight = 3;
 
             dataGrid.Display();
         }

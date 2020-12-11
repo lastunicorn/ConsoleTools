@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools
         /// <summary>
         /// The container's default value will be used.
         /// </summary>
-        Default,
+        Default = 0,
 
         /// <summary>
         /// The element is displayed in the left side of the container.

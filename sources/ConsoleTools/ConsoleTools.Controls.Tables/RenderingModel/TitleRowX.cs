@@ -23,19 +23,47 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class TitleRowX
     {
-        public TitleRow TitleRow { get; }
+        private readonly TitleRow titleRow;
+        private readonly bool isVisible;
+        private readonly CellX cellX;
+
         public Size Size { get; set; }
 
         public TitleRowX(TitleRow titleRow)
         {
-            TitleRow = titleRow;
+            this.titleRow = titleRow;
 
+            isVisible = titleRow != null;
             Size = titleRow?.CalculatePreferredSize() ?? Size.Empty;
+            cellX = new CellX(titleRow?.TitleCell);
         }
 
         public void Render(ITablePrinter tablePrinter)
         {
-            TitleRow?.Render(tablePrinter, Size);
+            if (!isVisible)
+                return;
+
+            BorderTemplate borderTemplate = titleRow?.ParentDataGrid?.BorderTemplate;
+            bool displayBorder = borderTemplate != null && titleRow?.ParentDataGrid?.DisplayBorder == true;
+
+            Size cellSize = displayBorder
+                ? Size.InflateWidth(-2)
+                : Size;
+
+            cellX.InitializeRendering(cellSize);
+
+            for (int lineIndex = 0; lineIndex < cellSize.Height; lineIndex++)
+            {
+                if (displayBorder)
+                    tablePrinter.WriteBorder(borderTemplate.Left);
+
+                cellX.RenderNextLine(tablePrinter);
+
+                if (displayBorder)
+                    tablePrinter.WriteBorder(borderTemplate.Right);
+
+                tablePrinter.WriteLine();
+            }
         }
     }
 }

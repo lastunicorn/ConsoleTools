@@ -32,10 +32,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private bool areDataRowsVisible;
 
         public TitleRow TitleRow { get; set; }
-        public bool DisplayTitle { get; set; }
 
-        public ColumnList Columns { get; set; }
-        public bool DisplayColumnHeaders { get; set; }
+        public HeaderRow HeaderRow { get; set; }
 
         public DataRowList Rows { get; set; }
 
@@ -52,8 +50,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 MinWidth = MinWidth
             };
 
-            isTitleVisible = DisplayTitle && TitleRow != null && TitleRow.HasContent;
-            isColumnHeaderRowVisible = DisplayColumnHeaders && Columns != null && Columns.Count > 0 && Columns.Any(x => x?.HeaderCell?.IsEmpty == false);
+            isTitleVisible = TitleRow != null && TitleRow.IsVisible && TitleRow.HasContent;
+            isColumnHeaderRowVisible = HeaderRow != null && HeaderRow.IsVisible && HeaderRow.CellCount > 0;
             areDataRowsVisible = Rows.Count > 0;
 
             if (isTitleVisible)
@@ -81,13 +79,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void AddHeader()
         {
-            HeaderRowX headerRowX = new HeaderRowX(Columns, DisplayBorder);
+            HeaderRowX headerRowX = new HeaderRowX(HeaderRow, DisplayBorder);
             dataGridX.AddHeaderRow(headerRowX);
         }
 
         private void AddRows()
         {
             IEnumerable<DataRowX> rows = Rows
+                .Where(x => x.IsVisible)
                 .Select(x => new DataRowX(x, DisplayBorder));
 
             foreach (DataRowX row in rows)

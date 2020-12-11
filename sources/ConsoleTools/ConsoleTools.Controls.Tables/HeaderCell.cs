@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
@@ -27,24 +29,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public class HeaderCell : CellBase
     {
         /// <summary>
-        /// Gets the default horizontal alignment for a column header cell.
-        /// </summary>
-        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
-
-        /// <summary>
         /// Gets or sets the column that contains the current cell.
         /// </summary>
         public Column ParentColumn { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the padding applied to the left side of the cell.
-        /// </summary>
-        public int? PaddingLeft { get; set; }
-
-        /// <summary>
-        /// Gets or sets the padding applied to the right side of the cell.
-        /// </summary>
-        public int? PaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeaderCell" /> class with
@@ -120,19 +107,25 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected override int CalculatePaddingLeft()
         {
-            if (PaddingLeft.HasValue)
-                return PaddingLeft.Value;
+            int? paddingLeft = PaddingLeft;
+            if (paddingLeft != null)
+                return paddingLeft.Value;
 
-            if (ParentColumn != null)
-            {
-                if (ParentColumn.PaddingLeft.HasValue)
-                    return ParentColumn.PaddingLeft.Value;
+            paddingLeft = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingLeft;
+            if (paddingLeft != null)
+                return paddingLeft.Value;
 
-                if (ParentColumn.ParentDataGrid?.PaddingLeft != null)
-                    return ParentColumn.ParentDataGrid.PaddingLeft.Value;
-            }
+            paddingLeft = ParentColumn?.CellPaddingLeft;
+            if (paddingLeft != null)
+                return paddingLeft.Value;
 
-            return 0;
+            paddingLeft = ParentColumn?.ParentDataGrid?.CellPaddingLeft;
+            if (paddingLeft != null)
+                return paddingLeft.Value;
+
+            paddingLeft = DefaultPaddingLeft;
+
+            return paddingLeft.Value;
         }
 
         /// <summary>
@@ -141,19 +134,65 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected override int CalculatePaddingRight()
         {
-            if (PaddingRight.HasValue)
-                return PaddingRight.Value;
+            int? paddingRight = PaddingRight;
+            if (paddingRight != null)
+                return paddingRight.Value;
 
-            if (ParentColumn != null)
-            {
-                if (ParentColumn.PaddingRight.HasValue)
-                    return ParentColumn.PaddingRight.Value;
+            paddingRight = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingRight;
+            if (paddingRight != null)
+                return paddingRight.Value;
 
-                if (ParentColumn.ParentDataGrid?.PaddingRight != null)
-                    return ParentColumn.ParentDataGrid.PaddingRight.Value;
-            }
+            paddingRight = ParentColumn?.CellPaddingRight;
+            if (paddingRight != null)
+                return paddingRight.Value;
 
-            return 0;
+            paddingRight = ParentColumn?.ParentDataGrid?.CellPaddingRight;
+            if (paddingRight != null)
+                return paddingRight.Value;
+
+            paddingRight = DefaultPaddingRight;
+
+            return paddingRight.Value;
+        }
+
+        /// <inheritdoc />
+        public override ConsoleColor? CalculateForegroundColor()
+        {
+            ConsoleColor? color = ForegroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.ParentDataGrid?.HeaderRow?.ForegroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.ForegroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.ParentDataGrid?.ForegroundColor;
+
+            return color;
+        }
+
+        /// <inheritdoc />
+        public override ConsoleColor? CalculateBackgroundColor()
+        {
+            ConsoleColor? color = BackgroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.ParentDataGrid?.HeaderRow?.BackgroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.BackgroundColor;
+            if (color != null)
+                return color;
+
+            color = ParentColumn?.ParentDataGrid?.BackgroundColor;
+
+            return color;
         }
 
         /// <summary>
@@ -163,17 +202,39 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         protected override HorizontalAlignment CalculateHorizontalAlignment()
         {
             HorizontalAlignment alignment = HorizontalAlignment;
+            if (alignment != HorizontalAlignment.Default)
+                return alignment;
 
-            if (alignment == HorizontalAlignment.Default)
-                alignment = ParentColumn?.HorizontalAlignment ?? HorizontalAlignment.Default;
+            alignment = CalculateHorizontalAlignmentAtHeaderRowLevel();
+            if (alignment != HorizontalAlignment.Default)
+                return alignment;
 
-            if (alignment == HorizontalAlignment.Default)
-                alignment = ParentColumn?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+            alignment = CalculateHorizontalAlignmentAtColumnLevel();
+            if (alignment != HorizontalAlignment.Default)
+                return alignment;
 
-            if (alignment == HorizontalAlignment.Default)
-                alignment = DefaultHorizontalAlignment;
+            alignment = CalculateHorizontalAlignmentAtTableLevel();
+            if (alignment != HorizontalAlignment.Default)
+                return alignment;
+
+            alignment = DefaultHorizontalAlignment;
 
             return alignment;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtHeaderRowLevel()
+        {
+            return ParentColumn?.ParentDataGrid?.HeaderRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
+        {
+            return ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
+        {
+            return ParentColumn?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
         /// <summary>

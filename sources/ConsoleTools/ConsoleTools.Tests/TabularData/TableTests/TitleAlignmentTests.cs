@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid("Title");
             dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
-            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Default;
+            dataGrid.TitleRow.CellHorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
                 @"+--------------------------------+
@@ -60,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid("Title");
             dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
-            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Left;
+            dataGrid.TitleRow.CellHorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
                 @"+--------------------------------+
@@ -77,7 +77,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid("Title");
             dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
-            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Center;
+            dataGrid.TitleRow.CellHorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
                 @"+--------------------------------+
@@ -94,7 +94,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         {
             DataGrid dataGrid = new DataGrid("Title");
             dataGrid.Rows.Add("Cell 0,0", "Cell 0,1", "Cell 0,2");
-            dataGrid.TitleRow.HorizontalAlignment = HorizontalAlignment.Right;
+            dataGrid.TitleRow.CellHorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
                 @"+--------------------------------+

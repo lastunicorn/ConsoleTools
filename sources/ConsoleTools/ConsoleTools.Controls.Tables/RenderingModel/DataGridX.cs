@@ -97,31 +97,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void MakeFinalAdjustments()
         {
-            int totalWidth = MinWidth;
-
-            if (titleRowX?.Size.Width > totalWidth)
-                totalWidth = titleRowX.Size.Width;
-
-            if (columnsWidths.Count > 0)
-            {
-                int columnsTotalWidth = columnsWidths.Sum();
-
-                if (displayBorder)
-                    columnsTotalWidth += columnsWidths.Count + 1;
-
-                if (columnsTotalWidth < totalWidth)
-                {
-                    int diff = totalWidth - columnsTotalWidth;
-                    int colCount = columnsWidths.Count;
-
-                    for (int i = 0; i < diff; i++)
-                        columnsWidths[i % colCount]++;
-                }
-                else if (columnsTotalWidth > totalWidth)
-                {
-                    totalWidth = columnsTotalWidth;
-                }
-            }
+            int totalWidth = CalculateTotalWidth();
 
             if (titleRowX?.Size.Width < totalWidth)
                 titleRowX.Size = new Size(totalWidth, titleRowX.Size.Height);
@@ -140,6 +116,37 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             if (DataDataSeparator != null) DataDataSeparator.ColumnsWidths = columnsWidths;
             if (DataBottomBorder != null) DataBottomBorder.ColumnsWidths = columnsWidths;
+        }
+
+        private int CalculateTotalWidth()
+        {
+            int totalWidth = MinWidth;
+
+            if (titleRowX?.Size.Width > totalWidth)
+                totalWidth = titleRowX.Size.Width;
+
+            if (columnsWidths.Count <= 0)
+                return totalWidth;
+
+            int columnsTotalWidth = columnsWidths.Sum();
+
+            if (displayBorder)
+                columnsTotalWidth += columnsWidths.Count + 1;
+
+            if (columnsTotalWidth < totalWidth)
+            {
+                int diff = totalWidth - columnsTotalWidth;
+                int colCount = columnsWidths.Count;
+
+                for (int i = 0; i < diff; i++)
+                    columnsWidths[i % colCount]++;
+            }
+            else if (columnsTotalWidth > totalWidth)
+            {
+                totalWidth = columnsTotalWidth;
+            }
+
+            return totalWidth;
         }
 
         public void Render(ITablePrinter tablePrinter)

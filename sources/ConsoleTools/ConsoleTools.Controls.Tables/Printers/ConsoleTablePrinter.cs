@@ -36,18 +36,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         public ConsoleColor? BorderColor { get; set; } = ConsoleColor.Gray;
 
         /// <summary>
-        /// Gets or sets the foreground color for the title.
-        /// Default value: White
-        /// </summary>
-        public ConsoleColor? TitleColor { get; set; } = ConsoleColor.White;
-
-        /// <summary>
-        /// Gets or sets the foreground color for the column headers.
-        /// Default value: White
-        /// </summary>
-        public ConsoleColor? HeaderColor { get; set; } = ConsoleColor.White;
-
-        /// <summary>
         /// Gets or sets the default foreground color.
         /// Default value: Gray
         /// </summary>
@@ -64,29 +52,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// Default value: <c>null</c>
         /// </summary>
         public ConsoleColor? BorderBackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the title.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? TitleBackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the column headers.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? HeaderBackgroundColor { get; set; }
-
-        /// <summary>
-        /// Writes the specified text to the <see cref="Console"/> using the <see cref="BorderColor"/>.
-        /// </summary>
-        public void WriteBorder(string text)
-        {
-            ConsoleColor? foregroundColor = BorderColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = BorderBackgroundColor ?? BackgroundColor;
-
-            Write(foregroundColor, backgroundColor, text);
-        }
 
         /// <summary>
         /// Writes the specified character to the <see cref="Console"/> using the <see cref="BorderColor"/>.
@@ -112,47 +77,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         }
 
         /// <summary>
-        /// Writes the specified character to the <see cref="Console"/> using the <see cref="BorderColor"/>,
-        /// followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(char c)
-        {
-            ConsoleColor? foregroundColor = BorderColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = BorderBackgroundColor ?? BackgroundColor;
-
-            WriteLine(foregroundColor, backgroundColor, c);
-        }
-
-        /// <summary>
-        /// Writes the specified text to the <see cref="Console"/> using the <see cref="TitleColor"/>.
-        /// </summary>
-        public void WriteTitle(string text)
-        {
-            ConsoleColor? foregroundColor = TitleColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = TitleBackgroundColor ?? BackgroundColor;
-
-            Write(foregroundColor, backgroundColor, text);
-        }
-
-        /// <summary>
-        /// Writes the specified text to the <see cref="Console"/> using the <see cref="HeaderColor"/>.
-        /// </summary>
-        public void WriteHeader(string text)
-        {
-            ConsoleColor? foregroundColor = HeaderColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = HeaderBackgroundColor ?? BackgroundColor;
-
-            Write(foregroundColor, backgroundColor, text);
-        }
-
-        /// <summary>
         /// Writes the specified text to the <see cref="Console"/> using the <see cref="ForegroundColor"/>.
         /// </summary>
-        public void WriteNormal(string text)
+        public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
-            ConsoleColor? foregroundColor = ForegroundColor;
-            ConsoleColor? backgroundColor = BackgroundColor;
-
             Write(foregroundColor, backgroundColor, text);
         }
 

@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
             dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
             dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
-            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Default;
+            dataGrid.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Default;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
             dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
             dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
-            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Left;
+            dataGrid.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Left;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -109,7 +109,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
             dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
             dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
-            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Center;
+            dataGrid.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Center;
 
             string expected =
                 @"+--------------------------------------------------------+
@@ -135,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
             dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
             dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
-            dataGrid.Columns[1].HorizontalAlignment = HorizontalAlignment.Right;
+            dataGrid.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Right;
 
             string expected =
                 @"+--------------------------------------------------------+

@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
 
             dataGrid.DisplayBorderBetweenRows = true;
-            dataGrid.DisplayColumnHeaders = true;
+            dataGrid.HeaderRow.IsVisible = true;
 
             dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
 

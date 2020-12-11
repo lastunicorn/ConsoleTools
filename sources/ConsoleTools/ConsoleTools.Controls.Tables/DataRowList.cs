@@ -51,9 +51,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataRowList"/> class with
-        /// the table that owns it.
+        /// the <see cref="DataGrid"/> that owns it.
         /// </summary>
-        /// <param name="parentDataGrid">The table that owns the new instance.</param>
+        /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
         public DataRowList(DataGrid parentDataGrid)
         {
             this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));

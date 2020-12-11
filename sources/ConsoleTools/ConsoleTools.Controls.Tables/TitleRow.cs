@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
@@ -26,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// <summary>
     /// Represents the title row of a table.
     /// </summary>
-    public class TitleRow
+    public class TitleRow : RowBase
     {
         /// <summary>
         /// Gets or sets the cell displayed in the title row.
@@ -35,18 +37,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public TitleCell TitleCell { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current title.
+        /// Gets the number of cells contained by the title row.
+        /// It is always 1.
         /// </summary>
-        public DataGrid ParentDataGrid { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the content alignment.
-        /// </summary>
-        public HorizontalAlignment HorizontalAlignment
-        {
-            get => TitleCell.HorizontalAlignment;
-            set => TitleCell.HorizontalAlignment = value;
-        }
+        public override int CellCount { get; } = 1;
 
         /// <summary>
         /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
@@ -128,36 +122,45 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return new Size(titleRowWidth, cellSize.Height);
         }
 
-        /// <summary>
-        /// Renders the current instance in the specified <see cref="ITablePrinter"/>.
-        /// </summary>
-        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance that will display the rendered title row.</param>
-        /// <param name="size">The minimum width into which the current instance must be rendered.</param>
-        public void Render(ITablePrinter tablePrinter, Size size)
+        public override IEnumerator<CellBase> GetEnumerator()
         {
-            BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
+            return new TitleCellEnumerator(this);
+        }
 
-            bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
+        #region Enumerator Class
 
-            Size cellSize = displayBorder
-                ? size.InflateWidth(-2)
-                : size;
+        private class TitleCellEnumerator : IEnumerator<TitleCell>
+        {
+            private readonly TitleRow titleRow;
 
-            IEnumerable<string> cellContents = TitleCell.Render(cellSize);
+            public TitleCell Current { get; private set; }
 
-            // Write title
-            foreach (string line in cellContents)
+            object IEnumerator.Current => Current;
+
+            public TitleCellEnumerator(TitleRow titleRow)
             {
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
+                this.titleRow = titleRow ?? throw new ArgumentNullException(nameof(titleRow));
+            }
 
-                tablePrinter.WriteTitle(line);
+            public bool MoveNext()
+            {
+                if (Current != null)
+                    return false;
 
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Right);
+                Current = titleRow.TitleCell;
+                return true;
+            }
 
-                tablePrinter.WriteLine();
+            public void Reset()
+            {
+                Current = null;
+            }
+
+            public void Dispose()
+            {
             }
         }
+
+        #endregion
     }
 }

@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
         [Test]
         public void added_a_padding_left_of_2()
         {
-            dataGrid.PaddingLeft = 2;
+            dataGrid.CellPaddingLeft = 2;
 
             const string expected =
                 @"+-------------------------------+
@@ -49,15 +49,15 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+---------+----------+
 ";
 
-            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(2));
-            Assert.That(dataGrid.PaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(2));
+            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
             CustomAssert.TableRender(dataGrid, expected);
         }
 
         [Test]
         public void added_a_padding_right_of_2()
         {
-            dataGrid.PaddingRight = 2;
+            dataGrid.CellPaddingRight = 2;
 
             const string expected =
                 @"+-------------------------------+
@@ -69,8 +69,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
 +----------+---------+----------+
 ";
 
-            Assert.That(dataGrid.PaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.PaddingRight, Is.EqualTo(2));
+            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(2));
             CustomAssert.TableRender(dataGrid, expected);
         }
     }

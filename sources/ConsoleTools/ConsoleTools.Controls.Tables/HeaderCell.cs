@@ -111,11 +111,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (paddingLeft != null)
                 return paddingLeft.Value;
 
-            paddingLeft = ParentColumn?.CellPaddingLeft;
+            paddingLeft = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingLeft;
             if (paddingLeft != null)
                 return paddingLeft.Value;
 
-            paddingLeft = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingLeft;
+            paddingLeft = ParentColumn?.CellPaddingLeft;
             if (paddingLeft != null)
                 return paddingLeft.Value;
 
@@ -138,11 +138,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (paddingRight != null)
                 return paddingRight.Value;
 
-            paddingRight = ParentColumn?.CellPaddingRight;
+            paddingRight = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingRight;
             if (paddingRight != null)
                 return paddingRight.Value;
 
-            paddingRight = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingRight;
+            paddingRight = ParentColumn?.CellPaddingRight;
             if (paddingRight != null)
                 return paddingRight.Value;
 
@@ -162,11 +162,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (color != null)
                 return color;
 
-            color = ParentColumn?.ForegroundColor;
+            color = ParentColumn?.ParentDataGrid?.HeaderRow?.ForegroundColor;
             if (color != null)
                 return color;
 
-            color = ParentColumn?.ParentDataGrid?.HeaderRow?.ForegroundColor;
+            color = ParentColumn?.ForegroundColor;
             if (color != null)
                 return color;
 
@@ -182,11 +182,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (color != null)
                 return color;
 
-            color = ParentColumn?.BackgroundColor;
+            color = ParentColumn?.ParentDataGrid?.HeaderRow?.BackgroundColor;
             if (color != null)
                 return color;
 
-            color = ParentColumn?.ParentDataGrid?.HeaderRow?.BackgroundColor;
+            color = ParentColumn?.BackgroundColor;
             if (color != null)
                 return color;
 
@@ -205,11 +205,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (alignment != HorizontalAlignment.Default)
                 return alignment;
 
-            alignment = CalculateHorizontalAlignmentAtColumnLevel();
+            alignment = CalculateHorizontalAlignmentAtHeaderRowLevel();
             if (alignment != HorizontalAlignment.Default)
                 return alignment;
 
-            alignment = CalculateHorizontalAlignmentAtHeaderRowLevel();
+            alignment = CalculateHorizontalAlignmentAtColumnLevel();
             if (alignment != HorizontalAlignment.Default)
                 return alignment;
 
@@ -222,14 +222,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return alignment;
         }
 
-        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-        {
-            return ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
         private HorizontalAlignment CalculateHorizontalAlignmentAtHeaderRowLevel()
         {
             return ParentColumn?.ParentDataGrid?.HeaderRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        }
+
+        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
+        {
+            return ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
 
         private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()

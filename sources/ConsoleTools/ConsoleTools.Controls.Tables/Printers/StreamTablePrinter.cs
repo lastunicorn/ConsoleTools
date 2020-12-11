@@ -46,14 +46,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         }
 
         /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void WriteBorder(string text)
-        {
-            streamWriter.Write(text);
-        }
-
-        /// <summary>
         /// Writes the specified character in the underlying <see cref="Stream"/>.
         /// </summary>
         public void WriteBorder(char c)
@@ -67,30 +59,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         public void WriteLineBorder(string text)
         {
             streamWriter.WriteLine(text);
-        }
-
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(char c)
-        {
-            streamWriter.WriteLine(c.ToString());
-        }
-
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void WriteTitle(string text)
-        {
-            streamWriter.Write(text);
-        }
-
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void WriteColumnHeader(string text)
-        {
-            streamWriter.Write(text);
         }
 
         /// <summary>

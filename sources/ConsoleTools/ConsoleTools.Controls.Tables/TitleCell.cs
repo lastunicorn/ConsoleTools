@@ -115,10 +115,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (paddingLeft != null)
                 return paddingLeft.Value;
 
-            paddingLeft = ParentRow?.ParentDataGrid?.CellPaddingLeft;
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
             paddingLeft = DefaultPaddingLeft;
 
             return paddingLeft.Value;
@@ -135,10 +131,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 return paddingRight.Value;
 
             paddingRight = ParentRow?.CellPaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
-
-            paddingRight = ParentRow?.ParentDataGrid?.CellPaddingRight;
             if (paddingRight != null)
                 return paddingRight.Value;
 
@@ -177,10 +169,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (alignment != HorizontalAlignment.Default)
                 return alignment;
 
-            alignment = CalculateHorizontalAlignmentAtTableLevel();
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
-
             alignment = DefaultHorizontalAlignment;
 
             return alignment;
@@ -189,12 +177,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
         {
             return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
-        {
-            DataGrid dataGrid = ParentRow?.ParentDataGrid;
-            return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         }
     }
 }

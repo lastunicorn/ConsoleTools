@@ -86,6 +86,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private void AddRows()
         {
             IEnumerable<DataRowX> rows = Rows
+                .Where(x => x.IsVisible)
                 .Select(x => new DataRowX(x, DisplayBorder));
 
             foreach (DataRowX row in rows)

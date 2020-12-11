@@ -20,13 +20,15 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
     /// Represents the title row of a table.
     /// </summary>
-    public class TitleRow
+    public class TitleRow : RowBase
     {
         /// <summary>
         /// Gets or sets the cell displayed in the title row.
@@ -35,47 +37,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public TitleCell TitleCell { get; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current title.
+        /// Gets the number of cells contained by the title row.
+        /// It is always 1.
         /// </summary>
-        public DataGrid ParentDataGrid { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the foreground color for the title.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the title.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the content alignment.
-        /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+        public override int CellCount { get; } = 1;
 
         /// <summary>
         /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
         /// </summary>
         public bool HasContent => TitleCell?.Content?.IsEmpty == false;
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the title row is displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool IsVisible { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the padding applied to the left side of every cell.
-        /// </summary>
-        public int? CellPaddingLeft { get; set; }
-
-        /// <summary>
-        /// Gets or sets the padding applied to the right side of every cell.
-        /// </summary>
-        public int? CellPaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleRow"/> class with
@@ -151,5 +121,46 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
             return new Size(titleRowWidth, cellSize.Height);
         }
+
+        public override IEnumerator<CellBase> GetEnumerator()
+        {
+            return new TitleCellEnumerator(this);
+        }
+
+        #region Enumerator Class
+
+        private class TitleCellEnumerator : IEnumerator<TitleCell>
+        {
+            private readonly TitleRow titleRow;
+
+            public TitleCell Current { get; private set; }
+
+            object IEnumerator.Current => Current;
+
+            public TitleCellEnumerator(TitleRow titleRow)
+            {
+                this.titleRow = titleRow ?? throw new ArgumentNullException(nameof(titleRow));
+            }
+
+            public bool MoveNext()
+            {
+                if (Current != null)
+                    return false;
+
+                Current = titleRow.TitleCell;
+                return true;
+            }
+
+            public void Reset()
+            {
+                Current = null;
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        #endregion
     }
 }

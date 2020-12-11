@@ -248,13 +248,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ForegroundColor = ForegroundColor,
                 BorderColor = BorderColor,
-                TitleColor = TitleRow.ForegroundColor,
-                HeaderColor = HeaderRow.ForegroundColor,
 
                 BackgroundColor = BackgroundColor,
                 BorderBackgroundColor = BorderBackgroundColor,
-                TitleBackgroundColor = TitleRow.BackgroundColor,
-                HeaderBackgroundColor = HeaderRow.BackgroundColor
             };
 
             RenderInternal(consoleTablePrinter);

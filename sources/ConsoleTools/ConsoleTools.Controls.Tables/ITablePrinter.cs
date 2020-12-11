@@ -41,11 +41,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         void WriteBorder(char c);
 
         /// <summary>
-        /// Writes the specified text, applying the formatting specific for the column headers.
-        /// </summary>
-        void WriteColumnHeader(string text);
-
-        /// <summary>
         /// Writes the specified text, applying the default formatting.
         /// </summary>
         void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);

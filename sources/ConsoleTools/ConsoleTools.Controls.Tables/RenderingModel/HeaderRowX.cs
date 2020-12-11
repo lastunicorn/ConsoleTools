@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
@@ -42,18 +43,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void CreateCells()
         {
-            foreach (HeaderCell headerCell in headerRow)
-            {
-                CellX cell = new CellX(headerCell);
+            IEnumerable<CellX> dataCellXes = headerRow
+                .Select(x => new CellX(x));
 
-                AddCellToSize(cell);
-                cells.Add(cell);
+            foreach (CellX dataCellX in dataCellXes)
+            {
+                AddCellToSize(dataCellX);
+                cells.Add(dataCellX);
             }
         }
 
         private void AddCellToSize(CellX cell)
         {
-            int width = cells.Count == 0 && hasBorder
+            int initialCount = cells.Count;
+
+            int width = initialCount == 0 && hasBorder
                 ? 1
                 : Size.Width;
 
@@ -71,8 +75,39 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
         {
-            int rowHeight = Size.Height;
-            headerRow.Render(tablePrinter, cellWidths, rowHeight);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                CellX cellX = cells[i];
+
+                Size size = new Size(cellWidths[i], Size.Height);
+                cellX.InitializeRendering(size);
+            }
+
+            BorderTemplate borderTemplate = headerRow.ParentDataGrid?.BorderTemplate;
+            bool displayBorder = borderTemplate != null && headerRow.ParentDataGrid?.DisplayBorder == true;
+
+            for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
+            {
+                if (displayBorder)
+                    tablePrinter.WriteBorder(borderTemplate.Left);
+
+                for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
+                {
+                    CellX cellX = cells[columnIndex];
+                    cellX.RenderNextLine(tablePrinter);
+
+                    if (displayBorder)
+                    {
+                        char cellBorderRight = columnIndex < cells.Count - 1
+                            ? borderTemplate.Vertical
+                            : borderTemplate.Right;
+
+                        tablePrinter.WriteBorder(cellBorderRight);
+                    }
+                }
+
+                tablePrinter.WriteLine();
+            }
         }
 
         public void UpdateColumnsWidths(List<int> columnsWidths)

@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataCell cell = new DataCell("text");
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "text      " }));
         }
@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataCell cell = new DataCell("some long text");
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "some long text" }));
         }
@@ -52,7 +52,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataCell cell = new DataCell("text");
             Size size = new Size(10, 2);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string>
             {
@@ -67,7 +67,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataCell cell = new DataCell(new MultilineText(new[] { "line1", "line2", "line3" }));
             Size size = new Size(10, 2);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string>
             {
@@ -90,7 +90,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
@@ -101,8 +101,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataGrid dataGrid = new DataGrid();
             Column column = new Column(string.Empty)
             {
-                PaddingLeft = 2,
-                PaddingRight = 0
+                CellPaddingLeft = 2,
+                CellPaddingRight = 0
             };
             dataGrid.Columns.Add(column);
             DataRow row = new DataRow();
@@ -111,7 +111,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
@@ -130,7 +130,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
@@ -149,7 +149,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "  text    " }));
         }
@@ -169,7 +169,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
@@ -180,8 +180,8 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             DataGrid dataGrid = new DataGrid();
             Column column = new Column(string.Empty)
             {
-                PaddingLeft = 0,
-                PaddingRight = 2
+                CellPaddingLeft = 0,
+                CellPaddingRight = 2
             };
             dataGrid.Columns.Add(column);
             DataRow row = new DataRow();
@@ -193,7 +193,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
@@ -215,7 +215,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }
@@ -237,7 +237,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.DataCellTests
             row.AddCell(cell);
             Size size = new Size(10, 1);
 
-            List<string> actual = cell.Render(size).ToList();
+            List<string> actual = cell.RenderText(size).ToList();
 
             Assert.That(actual, Is.EqualTo(new List<string> { "    text  " }));
         }

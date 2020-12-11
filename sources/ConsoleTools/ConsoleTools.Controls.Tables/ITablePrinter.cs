@@ -30,11 +30,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public interface ITablePrinter
     {
         /// <summary>
-        /// Writes the specified text, applying the formatting specific for a border.
-        /// </summary>
-        void WriteBorder(string text);
-
-        /// <summary>
         /// Writes the specified text, applying the formatting specific for a border,
         /// followed by the current line terminator.
         /// </summary>
@@ -46,17 +41,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         void WriteBorder(char c);
 
         /// <summary>
-        /// Writes the specified character, applying the formatting specific for a border,
-        /// followed by the current line terminator.
-        /// </summary>
-        void WriteLineBorder(char c);
-
-        /// <summary>
-        /// Writes the specified text, applying the formatting specific for the title.
-        /// </summary>
-        void WriteTitle(string text);
-
-        /// <summary>
         /// Writes the specified text, applying the formatting specific for the column headers.
         /// </summary>
         void WriteColumnHeader(string text);
@@ -64,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Writes the specified text, applying the default formatting.
         /// </summary>
-        void WriteNormal(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+        void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the current line terminator.

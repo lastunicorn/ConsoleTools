@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.HeaderRow.IsVisible = false;
 
             Column column0 = new Column("Col 0");
-            column0.HorizontalAlignment = HorizontalAlignment.Right;
+            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
             dataGrid.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TabularData.TableTests
             dataGrid.HeaderRow.IsVisible = false;
 
             Column column0 = new Column("Col 0");
-            column0.HorizontalAlignment = HorizontalAlignment.Right;
+            column0.CellHorizontalAlignment = HorizontalAlignment.Right;
             dataGrid.Columns.Add(column0);
 
             Column column1 = new Column("Col 1");

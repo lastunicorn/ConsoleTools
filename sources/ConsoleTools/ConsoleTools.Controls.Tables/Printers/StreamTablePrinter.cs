@@ -96,7 +96,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Writes the specified text in the underlying <see cref="Stream"/>.
         /// </summary>
-        public void WriteNormal(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             streamWriter.Write(text);
         }

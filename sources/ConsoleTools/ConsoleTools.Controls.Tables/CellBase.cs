@@ -30,6 +30,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public abstract class CellBase
     {
         /// <summary>
+        /// Gets the default horizontal alignment for a cell.
+        /// </summary>
+        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
+
+        /// <summary>
+        /// Gets the default left padding applied for a cell.
+        /// </summary>
+        public static int DefaultPaddingLeft { get; } = 1;
+
+        /// <summary>
+        /// Gets the default left padding applied for a cell.
+        /// </summary>
+        public static int DefaultPaddingRight { get; } = 1;
+
+        /// <summary>
         /// Gets or sets the content of the cell.
         /// </summary>
         public MultilineText Content { get; set; }
@@ -40,22 +55,40 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public bool IsEmpty => Content == null || Content.IsEmpty;
 
         /// <summary>
+        /// Gets or sets the foreground color for the cell.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color for the cell.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets or sets the horizontal alignment of the content displayed in the cell.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
-        public ConsoleColor? ForegroundColor { get; set; }
+        /// <summary>
+        /// Gets or sets the padding applied to the left side of the cell.
+        /// </summary>
+        public int? PaddingLeft { get; set; }
 
-        public ConsoleColor? BackgroundColor { get; set; }
+        /// <summary>
+        /// Gets or sets the padding applied to the right side of the cell.
+        /// </summary>
+        public int? PaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CellBase" /> class with
         /// empty content.
         /// </summary>
-        protected CellBase()
+        protected CellBase(HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
         {
             Content = MultilineText.Empty;
-            HorizontalAlignment = HorizontalAlignment.Default;
+            HorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -127,8 +160,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected abstract int CalculatePaddingRight();
 
+        /// <summary>
+        /// Returns the foreground color calculated based on the hierarchy from which the current cell is part of.
+        /// </summary>
         public abstract ConsoleColor? CalculateForegroundColor();
-        
+
+        /// <summary>
+        /// Returns the background color calculated based on the hierarchy from which the current cell is part of.
+        /// </summary>
         public abstract ConsoleColor? CalculateBackgroundColor();
 
         /// <summary>
@@ -150,7 +189,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// If the size is grater than the content, empty spaces are written.
         /// </param>
         /// <returns></returns>
-        public IEnumerable<string> Render(Size size)
+        public IEnumerable<string> RenderText(Size size)
         {
             for (int i = 0; i < size.Height; i++)
                 yield return RenderLine(i, size.Width);

@@ -19,10 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class TitleRowX

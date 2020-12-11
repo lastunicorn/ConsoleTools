@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void InitializeRendering(Size size)
         {
-            lineEnumerator = dataCell.Render(size).GetEnumerator();
+            lineEnumerator = dataCell.RenderText(size).GetEnumerator();
             foregroundColor = dataCell.CalculateForegroundColor();
             backgroundColor = dataCell.CalculateBackgroundColor();
         }
@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 ? lineEnumerator.Current
                 : null;
 
-            tablePrinter.WriteNormal(content, foregroundColor, backgroundColor);
+            tablePrinter.Write(content, foregroundColor, backgroundColor);
         }
     }
 }

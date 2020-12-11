@@ -32,10 +32,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// </summary>
     public class DataGrid : BlockControl
     {
+        private TitleRow titleRow;
+        private HeaderRow headerRow;
+
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the table.
         /// </summary>
-        public TitleRow TitleRow { get; }
+        public TitleRow TitleRow
+        {
+            get => titleRow;
+            private set
+            {
+                titleRow = value;
+                titleRow.ParentDataGrid = this;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the title of the current instance of the <see cref="DataGrid"/>.
@@ -47,25 +58,25 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
+        /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
+        /// </summary>
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
+
+        /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
-        public int? CellPaddingLeft { get; set; } = 1;
+        public int? CellPaddingLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
-        public int? CellPaddingRight { get; set; } = 1;
+        public int? CellPaddingRight { get; set; }
 
         /// <summary>
         /// Gets a value that specifies if border lines should be drawn between rows.
         /// Default value: false
         /// </summary>
         public bool DisplayBorderBetweenRows { get; set; }
-
-        /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
-        /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets the list of columns contained by the current table.
@@ -75,7 +86,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the <see cref="HeaderRow"/> instance that represents the columns header row of the table.
         /// </summary>
-        public HeaderRow HeaderRow { get; }
+        public HeaderRow HeaderRow
+        {
+            get => headerRow;
+            set
+            {
+                headerRow = value;
+                headerRow.ParentDataGrid = this;
+            }
+        }
 
         /// <summary>
         /// The list of rows contained by the current table.
@@ -120,10 +139,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public ConsoleColor? BorderBackgroundColor { get; set; }
 
-        public ConsoleColor? ForegroundColor { get; set; }
-        
-        public ConsoleColor? BackgroundColor { get; set; }
-
         #region Obsolete Properties
 
         /// <summary>
@@ -140,7 +155,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets or sets the foreground color for the title.
         /// Default value: <c>null</c>
         /// </summary>
-        [Obsolete("Use TitleRow.Color property instead.")]
+        [Obsolete("Use TitleRow.ForegroundColor property instead.")]
         public ConsoleColor? TitleColor { get; set; }
 
         /// <summary>
@@ -165,7 +180,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets or sets the foreground color for the column headers.
         /// Default value: <c>null</c>
         /// </summary>
-        [Obsolete("Use HeaderRow.Color property instead.")]
+        [Obsolete("Use HeaderRow.ForegroundColor property instead.")]
         public ConsoleColor? HeaderColor { get; set; }
 
         /// <summary>
@@ -184,12 +199,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
-            HeaderRow = new HeaderRow(Columns, this);
-
-            TitleRow = new TitleRow
-            {
-                ParentDataGrid = this
-            };
+            HeaderRow = new HeaderRow(Columns);
+            TitleRow = new TitleRow();
         }
 
         /// <summary>
@@ -200,12 +211,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
-            HeaderRow = new HeaderRow(Columns, this);
-
-            TitleRow = new TitleRow(title)
-            {
-                ParentDataGrid = this
-            };
+            HeaderRow = new HeaderRow(Columns);
+            TitleRow = new TitleRow(title);
         }
 
         /// <summary>
@@ -216,12 +223,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
-            HeaderRow = new HeaderRow(Columns, this);
-
-            TitleRow = new TitleRow(title)
-            {
-                ParentDataGrid = this
-            };
+            HeaderRow = new HeaderRow(Columns);
+            TitleRow = new TitleRow(title);
         }
 
         /// <summary>
@@ -232,12 +235,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             Rows = new DataRowList(this);
             Columns = new ColumnList(this);
-            HeaderRow = new HeaderRow(Columns, this);
-
-            TitleRow = new TitleRow(title)
-            {
-                ParentDataGrid = this
-            };
+            HeaderRow = new HeaderRow(Columns);
+            TitleRow = new TitleRow(title);
         }
 
         /// <summary>

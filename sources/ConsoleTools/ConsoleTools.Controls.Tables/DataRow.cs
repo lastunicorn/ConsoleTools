@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
@@ -49,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance of the <see cref="DataRow"/>.
         /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; }
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
@@ -60,9 +59,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
         public int? CellPaddingRight { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the foreground color applied to all the cells in the row.
+        /// Default value: <c>null</c>
+        /// </summary>
         public ConsoleColor? ForegroundColor { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the background color applied to all the cells in the row.
+        /// Default value: <c>null</c>
+        /// </summary>
         public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
@@ -271,7 +278,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int? IndexOfCell(DataCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
-            return indexOfCell == -1 ? (int?) null : indexOfCell;
+            return indexOfCell == -1 ? (int?)null : indexOfCell;
         }
 
         public IEnumerator<DataCell> GetEnumerator()

@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
@@ -55,11 +54,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the content alignment.
         /// </summary>
-        public HorizontalAlignment HorizontalAlignment
-        {
-            get => TitleCell.HorizontalAlignment;
-            set => TitleCell.HorizontalAlignment = value;
-        }
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
@@ -71,6 +66,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Default value: <c>true</c>
         /// </summary>
         public bool IsVisible { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the padding applied to the left side of every cell.
+        /// </summary>
+        public int? CellPaddingLeft { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding applied to the right side of every cell.
+        /// </summary>
+        public int? CellPaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleRow"/> class with
@@ -145,38 +150,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 titleRowWidth += 1;
 
             return new Size(titleRowWidth, cellSize.Height);
-        }
-
-        /// <summary>
-        /// Renders the current instance in the specified <see cref="ITablePrinter"/>.
-        /// </summary>
-        /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance that will display the rendered title row.</param>
-        /// <param name="size">The minimum width into which the current instance must be rendered.</param>
-        public void Render(ITablePrinter tablePrinter, Size size)
-        {
-            BorderTemplate borderTemplate = ParentDataGrid?.BorderTemplate;
-
-            bool displayBorder = borderTemplate != null && ParentDataGrid?.DisplayBorder == true;
-
-            Size cellSize = displayBorder
-                ? size.InflateWidth(-2)
-                : size;
-
-            IEnumerable<string> cellContents = TitleCell.Render(cellSize);
-
-            // Write title
-            foreach (string line in cellContents)
-            {
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
-
-                tablePrinter.WriteTitle(line);
-
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Right);
-
-                tablePrinter.WriteLine();
-            }
         }
     }
 }

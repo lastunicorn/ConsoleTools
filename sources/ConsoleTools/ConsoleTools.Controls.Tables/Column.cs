@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
@@ -32,24 +34,36 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public HeaderCell HeaderCell { get; }
         
         /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
-        /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="DataGrid"/> instance that contains the current <see cref="Column"/> instance.
         /// </summary>
         public DataGrid ParentDataGrid { get; set; }
 
         /// <summary>
+        /// Gets or sets the foreground color applied to all the cells in the column.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color applied to all the cells in the column.
+        /// Default value: <c>null</c>
+        /// </summary>
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the horizontal alignment for the content of the cells represented by the current instance of the <see cref="Column"/>.
+        /// </summary>
+        public HorizontalAlignment CellHorizontalAlignment { get; set; }
+
+        /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
         /// </summary>
-        public int? PaddingLeft { get; set; }
+        public int? CellPaddingLeft { get; set; }
 
         /// <summary>
         /// Gets or sets the padding applied to the right side of every cell.
         /// </summary>
-        public int? PaddingRight { get; set; }
+        public int? CellPaddingRight { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
@@ -60,7 +74,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = HorizontalAlignment.Default;
+            CellHorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -73,7 +87,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = HorizontalAlignment.Default;
+            CellHorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -86,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = horizontalAlignment;
+            CellHorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -98,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = HorizontalAlignment.Default;
+            CellHorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -110,7 +124,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = horizontalAlignment;
+            CellHorizontalAlignment = horizontalAlignment;
         }
 
         /// <summary>
@@ -122,7 +136,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = HorizontalAlignment.Default;
+            CellHorizontalAlignment = HorizontalAlignment.Default;
         }
 
         /// <summary>
@@ -134,7 +148,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 ParentColumn = this
             };
-            HorizontalAlignment = horizontalAlignment;
+            CellHorizontalAlignment = horizontalAlignment;
         }
     }
 }

@@ -248,47 +248,43 @@ namespace DustInTheWind.ConsoleTools
 
         private int? CalculateDesiredContentWidth()
         {
-            if (Control.Width == null)
-            {
-                if (Control.MinWidth == null)
-                {
-                    if (Control.MaxWidth == null)
-                    {
-                        return DesiredContentWidth;
-                    }
-                    else
-                    {
-                        int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+            if (Control.Width != null)
+                return Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
 
-                        return DesiredContentWidth == null
-                            ? clientMaxWidth
-                            : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
-                    }
+            if (Control.MinWidth == null)
+            {
+                if (Control.MaxWidth == null)
+                {
+                    return DesiredContentWidth;
                 }
                 else
                 {
-                    if (Control.MaxWidth == null)
-                    {
-                        int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
-                        return DesiredContentWidth == null
-                            ? clientMinWidth
-                            : Math.Max(clientMinWidth, DesiredContentWidth.Value);
-                    }
-                    else
-                    {
-                        int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-                        int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                        return DesiredContentWidth == null
-                            ? clientMinWidth
-                            : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
-                    }
+                    return DesiredContentWidth == null
+                        ? clientMaxWidth
+                        : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
                 }
             }
             else
             {
-                return Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
+                if (Control.MaxWidth == null)
+                {
+                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+                    return DesiredContentWidth == null
+                        ? clientMinWidth
+                        : Math.Max(clientMinWidth, DesiredContentWidth.Value);
+                }
+                else
+                {
+                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+                    return DesiredContentWidth == null
+                        ? clientMinWidth
+                        : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
+                }
             }
         }
 

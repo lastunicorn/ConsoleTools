@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
@@ -151,16 +150,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns the number of spaces representing the left padding.
-        /// </summary>
-        protected abstract int CalculatePaddingLeft();
-
-        /// <summary>
-        /// Returns the number of spaces representing the right padding.
-        /// </summary>
-        protected abstract int CalculatePaddingRight();
-
-        /// <summary>
         /// Returns the foreground color calculated based on the hierarchy from which the current cell is part of.
         /// </summary>
         public abstract ConsoleColor? CalculateForegroundColor();
@@ -171,63 +160,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public abstract ConsoleColor? CalculateBackgroundColor();
 
         /// <summary>
-        /// Returns the string representation of the content of the cell.
+        /// Returns the number of spaces representing the left padding.
         /// </summary>
-        public override string ToString()
-        {
-            return Content?.ToString() ?? string.Empty;
-        }
+        public abstract int CalculatePaddingLeft();
 
         /// <summary>
-        /// Returns a list of text lines that represent the string representation of the cell.
-        /// Every line from the list has the same length, and the length is equal to the specified width value.
-        /// The number of lines in the list is equal to the specified height value.
+        /// Returns the number of spaces representing the right padding.
         /// </summary>
-        /// <param name="size">
-        /// The size into which the cell must be rendered.
-        /// If the size is smaller than the content, the content is trimmed.
-        /// If the size is grater than the content, empty spaces are written.
-        /// </param>
-        /// <returns></returns>
-        public IEnumerable<string> RenderText(Size size)
-        {
-            for (int i = 0; i < size.Height; i++)
-                yield return RenderLine(i, size.Width);
-        }
-
-        /// <summary>
-        /// Returns a single line from the cell including the paddings.
-        /// </summary>
-        /// <param name="lineIndex">The index of the line to be generated.</param>
-        /// <param name="width">The width of the cell.</param>
-        /// <returns>A <see cref="string"/> representing a single line from the cell.</returns>
-        private string RenderLine(int lineIndex, int width)
-        {
-            int paddingLeftLength = CalculatePaddingLeft();
-            int paddingRightLength = CalculatePaddingRight();
-
-            int cellContentWidth = width - paddingLeftLength - paddingRightLength;
-
-            bool existsContentLine = lineIndex < Content.Size.Height;
-            if (!existsContentLine)
-                return new string(' ', width);
-
-            // Build inner content.
-
-            string innerContent = Content.Lines[lineIndex];
-            HorizontalAlignment alignment = CalculateHorizontalAlignment();
-
-            innerContent = AlignedText.QuickAlign(innerContent, alignment, cellContentWidth);
-
-            // Build paddings.
-
-            string paddingLeft = new string(' ', paddingLeftLength);
-            string paddingRight = new string(' ', paddingRightLength);
-
-            // Concatenate everything.
-
-            return paddingLeft + innerContent + paddingRight;
-        }
+        public abstract int CalculatePaddingRight();
 
         /// <summary>
         /// Returns the calculated horizontal alignment for the content of the current instance.
@@ -235,6 +175,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// and the values specified by the parents.
         /// It should never return <see cref="HorizontalAlignment.Default"/>.
         /// </summary>
-        protected abstract HorizontalAlignment CalculateHorizontalAlignment();
+        public abstract HorizontalAlignment CalculateHorizontalAlignment();
+
+        /// <summary>
+        /// Returns the string representation of the content of the cell.
+        /// </summary>
+        public override string ToString()
+        {
+            return Content?.ToString() ?? string.Empty;
+        }
     }
 }

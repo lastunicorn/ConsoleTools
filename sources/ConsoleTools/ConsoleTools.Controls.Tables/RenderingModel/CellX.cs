@@ -26,34 +26,76 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class CellX
     {
-        private readonly CellBase dataCell;
         private IEnumerator<string> lineEnumerator;
-        private ConsoleColor? foregroundColor;
-        private ConsoleColor? backgroundColor;
+
+        public MultilineText Content { get; set; }
 
         public Size Size { get; set; }
+
+        public ConsoleColor? ForegroundColor { get; set; }
         
-        public CellX(CellBase dataCell)
-        {
-            this.dataCell = dataCell ?? throw new ArgumentNullException(nameof(dataCell));
+        public ConsoleColor? BackgroundColor { get; set; }
 
-            Size = dataCell.CalculatePreferredSize();
-        }
+        public int PaddingLeft { get; set; }
 
-        public void InitializeRendering(Size size)
-        {
-            lineEnumerator = dataCell.RenderText(size).GetEnumerator();
-            foregroundColor = dataCell.CalculateForegroundColor();
-            backgroundColor = dataCell.CalculateBackgroundColor();
-        }
+        public int PaddingRight { get; set; }
 
+        public HorizontalAlignment HorizontalAlignment { get; set; }
+        
         public void RenderNextLine(ITablePrinter tablePrinter)
         {
+            if(lineEnumerator == null)
+                lineEnumerator = RenderContent(Size).GetEnumerator();
+
             string content = lineEnumerator.MoveNext()
                 ? lineEnumerator.Current
                 : null;
 
-            tablePrinter.Write(content, foregroundColor, backgroundColor);
+            tablePrinter.Write(content, ForegroundColor, BackgroundColor);
+        }
+
+        private IEnumerable<string> RenderContent(Size size)
+        {
+            for (int i = 0; i < size.Height; i++)
+                yield return RenderLine(i, size.Width);
+        }
+
+        private string RenderLine(int lineIndex, int width)
+        {
+            int cellContentWidth = width - PaddingLeft - PaddingRight;
+
+            bool existsContentLine = lineIndex < Content.Size.Height;
+            if (!existsContentLine)
+                return new string(' ', width);
+
+            // Build inner content.
+
+            string innerContent = Content.Lines[lineIndex];
+
+            innerContent = AlignedText.QuickAlign(innerContent, HorizontalAlignment, cellContentWidth);
+
+            // Build paddings.
+
+            string paddingLeft = new string(' ', PaddingLeft);
+            string paddingRight = new string(' ', PaddingRight);
+
+            // Concatenate everything.
+
+            return paddingLeft + innerContent + paddingRight;
+        }
+
+        public static CellX CreateFrom(CellBase cellBase)
+        {
+            return new CellX
+            {
+                ForegroundColor = cellBase.CalculateForegroundColor(),
+                BackgroundColor = cellBase.CalculateBackgroundColor(),
+                PaddingLeft = cellBase.CalculatePaddingLeft(),
+                PaddingRight = cellBase.CalculatePaddingRight(),
+                HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
+                Size = cellBase.CalculatePreferredSize(),
+                Content = cellBase.Content
+            };
         }
     }
 }

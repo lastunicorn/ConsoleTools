@@ -44,7 +44,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private void CreateCells()
         {
             IEnumerable<CellX> dataCellXes = dataRow
-                .Select(x => new CellX(x));
+                .Select(CellX.CreateFrom);
 
             foreach (CellX dataCellX in dataCellXes)
             {
@@ -78,9 +78,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             for (int i = 0; i < cells.Count; i++)
             {
                 CellX cellX = cells[i];
-
-                Size size = new Size(cellWidths[i], Size.Height);
-                cellX.InitializeRendering(size);
+                cellX.Size = new Size(cellWidths[i], Size.Height);
             }
 
             BorderTemplate borderTemplate = dataRow.ParentDataGrid?.BorderTemplate;

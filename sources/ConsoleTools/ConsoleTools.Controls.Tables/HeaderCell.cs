@@ -105,7 +105,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Calculates and returns the left padding for the content displayed in the cell.
         /// The value is calculated taking into account also the parent column and parent table.
         /// </summary>
-        protected override int CalculatePaddingLeft()
+        public override int CalculatePaddingLeft()
         {
             int? paddingLeft = PaddingLeft;
             if (paddingLeft != null)
@@ -132,7 +132,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Calculates and returns the right padding for the content displayed in the cell.
         /// The value is calculated taking into account also the parent column and parent table.
         /// </summary>
-        protected override int CalculatePaddingRight()
+        public override int CalculatePaddingRight()
         {
             int? paddingRight = PaddingRight;
             if (paddingRight != null)
@@ -199,7 +199,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Calculates and returns the horizontal alignment of the content displayed in the cell.
         /// The value is calculated taking into account also the parent row and parent table.
         /// </summary>
-        protected override HorizontalAlignment CalculateHorizontalAlignment()
+        public override HorizontalAlignment CalculateHorizontalAlignment()
         {
             HorizontalAlignment alignment = HorizontalAlignment;
             if (alignment != HorizontalAlignment.Default)

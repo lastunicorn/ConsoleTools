@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             isVisible = titleRow != null;
             Size = titleRow?.CalculatePreferredSize() ?? Size.Empty;
-            cellX = new CellX(titleRow?.TitleCell);
+            cellX = CellX.CreateFrom(titleRow?.TitleCell);
         }
 
         public void Render(ITablePrinter tablePrinter)
@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 ? Size.InflateWidth(-2)
                 : Size;
 
-            cellX.InitializeRendering(cellSize);
+            cellX.Size = cellSize;
 
             for (int lineIndex = 0; lineIndex < cellSize.Height; lineIndex++)
             {

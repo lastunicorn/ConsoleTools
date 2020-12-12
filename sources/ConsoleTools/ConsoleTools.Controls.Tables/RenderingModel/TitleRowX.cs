@@ -19,19 +19,21 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class TitleRowX
     {
-        private readonly TitleRow titleRow;
         private readonly bool isVisible;
         private readonly CellX cellX;
+        private readonly DataGridBorderX dataGridBorderX;
 
         public Size Size { get; set; }
 
-        public TitleRowX(TitleRow titleRow)
+        public TitleRowX(TitleRow titleRow, DataGridBorderX dataGridBorderX)
         {
-            this.titleRow = titleRow;
+            this.dataGridBorderX = dataGridBorderX ?? throw new ArgumentNullException(nameof(dataGridBorderX));
 
             isVisible = titleRow != null;
             Size = titleRow?.CalculatePreferredSize() ?? Size.Empty;
@@ -43,10 +45,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (!isVisible)
                 return;
 
-            BorderTemplate borderTemplate = titleRow?.ParentDataGrid?.BorderTemplate;
-            bool displayBorder = borderTemplate != null && titleRow?.ParentDataGrid?.DisplayBorder == true;
-
-            Size cellSize = displayBorder
+            Size cellSize = dataGridBorderX.IsVisible
                 ? Size.InflateWidth(-2)
                 : Size;
 
@@ -54,13 +53,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             for (int lineIndex = 0; lineIndex < cellSize.Height; lineIndex++)
             {
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
-
+                dataGridBorderX.RenderRowLeftBorder(tablePrinter);
                 cellX.RenderNextLine(tablePrinter);
-
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Right);
+                dataGridBorderX.RenderRowRightBorder(tablePrinter);
 
                 tablePrinter.WriteLine();
             }

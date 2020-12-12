@@ -27,16 +27,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class HeaderRowX
     {
-        private readonly bool hasBorder;
         private readonly HeaderRow headerRow;
         private readonly List<CellX> cells = new List<CellX>();
+        private readonly DataGridBorderX dataGridBorderX;
 
         public Size Size { get; private set; }
 
-        public HeaderRowX(HeaderRow headerRow, bool hasBorder)
+        public HeaderRowX(HeaderRow headerRow, DataGridBorderX dataGridBorderX)
         {
             this.headerRow = headerRow ?? throw new ArgumentNullException(nameof(headerRow));
-            this.hasBorder = hasBorder;
+            this.dataGridBorderX = dataGridBorderX ?? throw new ArgumentNullException(nameof(dataGridBorderX));
 
             CreateCells();
         }
@@ -57,13 +57,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             int initialCount = cells.Count;
 
-            int width = initialCount == 0 && hasBorder
+            int width = initialCount == 0 && dataGridBorderX.IsVisible
                 ? 1
                 : Size.Width;
 
             width += cell.Size.Width;
 
-            if (hasBorder)
+            if (dataGridBorderX.IsVisible)
                 width++;
 
             int height = Size.Height < cell.Size.Height
@@ -81,27 +81,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 cellX.Size = new Size(cellWidths[i], Size.Height);
             }
 
-            BorderTemplate borderTemplate = headerRow.ParentDataGrid?.BorderTemplate;
-            bool displayBorder = borderTemplate != null && headerRow.ParentDataGrid?.DisplayBorder == true;
-
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                if (displayBorder)
-                    tablePrinter.WriteBorder(borderTemplate.Left);
+                dataGridBorderX.RenderRowLeftBorder(tablePrinter);
 
                 for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
                 {
                     CellX cellX = cells[columnIndex];
                     cellX.RenderNextLine(tablePrinter);
 
-                    if (displayBorder)
-                    {
-                        char cellBorderRight = columnIndex < cells.Count - 1
-                            ? borderTemplate.Vertical
-                            : borderTemplate.Right;
+                    bool isLastCell = columnIndex >= cells.Count - 1;
 
-                        tablePrinter.WriteBorder(cellBorderRight);
-                    }
+                    if (isLastCell)
+                        dataGridBorderX.RenderRowRightBorder(tablePrinter);
+                    else
+                        dataGridBorderX.RenderRowInsideBorder(tablePrinter);
                 }
 
                 tablePrinter.WriteLine();

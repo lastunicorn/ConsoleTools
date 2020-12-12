@@ -27,7 +27,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class TitleDataSeparator
     {
-        private readonly BorderTemplate borderTemplate;
         private string borderText;
         private List<int> columnsWidths;
 
@@ -44,10 +43,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             }
         }
 
-        public TitleDataSeparator(BorderTemplate borderTemplate)
-        {
-            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
-        }
+        public BorderTemplate BorderTemplate { get; set; }
+
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        public ConsoleColor? BackgroundColor { get; set; }
 
         public void Render(ITablePrinter tablePrinter)
         {
@@ -60,7 +60,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             //    borderText = borderTemplate.GenerateHorizontalSeparator(new[] { titleCellWidth }, columnsWidths);
             //}
 
-            tablePrinter.WriteLineBorder(borderText);
+            tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }
 
         /// <summary>
@@ -71,21 +71,31 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(borderTemplate.LeftIntersection);
+            sb.Append(BorderTemplate.LeftIntersection);
 
             for (int columnIndex = 0; columnIndex < columnsWidths.Count; columnIndex++)
             {
                 int columnWidth = columnsWidths[columnIndex];
-                sb.Append(new string(borderTemplate.Horizontal, columnWidth));
+                sb.Append(new string(BorderTemplate.Horizontal, columnWidth));
 
                 char columnBorderRight = columnIndex < columnsWidths.Count - 1
-                    ? borderTemplate.TopIntersection
-                    : borderTemplate.RightIntersection;
+                    ? BorderTemplate.TopIntersection
+                    : BorderTemplate.RightIntersection;
 
                 sb.Append(columnBorderRight);
             }
 
             return sb.ToString();
+        }
+
+        public static TitleDataSeparator CreateFrom(DataGridBorder dataGridBorder)
+        {
+            return new TitleDataSeparator
+            {
+                BorderTemplate = dataGridBorder.Template,
+                ForegroundColor = dataGridBorder.CalculateForegroundColor(),
+                BackgroundColor = dataGridBorder.CalculateBackgroundColor()
+            };
         }
     }
 }

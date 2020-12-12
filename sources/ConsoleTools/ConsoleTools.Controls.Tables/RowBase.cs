@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public abstract class RowBase : IEnumerable<CellBase>
     {
         /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current <see cref="DataRow"/> instance.
+        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current instance.
         /// </summary>
         public DataGrid ParentDataGrid { get; internal set; }
 
@@ -45,7 +45,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance of the <see cref="DataRow"/>.
+        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance.
         /// </summary>
         public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 

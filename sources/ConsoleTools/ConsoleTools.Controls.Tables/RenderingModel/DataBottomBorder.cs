@@ -26,7 +26,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class DataBottomBorder
     {
-        private readonly BorderTemplate borderTemplate;
         private string borderText;
         private List<int> columnsWidths;
 
@@ -43,17 +42,28 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             }
         }
 
-        public DataBottomBorder(BorderTemplate borderTemplate)
-        {
-            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
-        }
+        public BorderTemplate BorderTemplate { get; set; }
+
+        public ConsoleColor? ForegroundColor { get; set; }
+
+        public ConsoleColor? BackgroundColor { get; set; }
 
         public void Render(ITablePrinter tablePrinter)
         {
             if (borderText == null)
-                borderText = borderTemplate.GenerateBottomBorder(columnsWidths);
+                borderText = BorderTemplate.GenerateBottomBorder(columnsWidths);
 
-            tablePrinter.WriteLineBorder(borderText);
+            tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
+        }
+
+        public static DataBottomBorder CreateFrom(DataGridBorder dataGridBorder)
+        {
+            return new DataBottomBorder
+            {
+                BorderTemplate = dataGridBorder.Template,
+                ForegroundColor = dataGridBorder.CalculateForegroundColor(),
+                BackgroundColor = dataGridBorder.CalculateBackgroundColor()
+            };
         }
     }
 }

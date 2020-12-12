@@ -41,27 +41,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         }
 
         /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void WriteBorder(string text)
-        {
-            sb.Append(text);
-        }
-
-        /// <summary>
         /// Stores the specified character in the internal <see cref="StringBuilder"/>.
         /// </summary>
-        public void WriteBorder(char c)
+        public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             sb.Append(c);
-        }
-
-        /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(string text)
-        {
-            sb.AppendLine(text);
         }
 
         /// <summary>
@@ -70,6 +54,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             sb.Append(text);
+        }
+
+        /// <summary>
+        /// Stores the specified text in the internal <see cref="StringBuilder"/>, followed by a line terminator.
+        /// </summary>
+        public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        {
+            sb.AppendLine(text);
         }
 
         /// <summary>

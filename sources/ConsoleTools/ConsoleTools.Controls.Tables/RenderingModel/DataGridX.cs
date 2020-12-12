@@ -28,6 +28,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     {
         private readonly bool displayBorder;
 
+        private DataGridBorderX dataGridBorderX;
         private TitleRowX titleRowX;
         private HeaderRowX headerRowX;
         private readonly List<DataRowX> dataRowXs = new List<DataRowX>();
@@ -52,6 +53,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public DataGridX(bool displayBorder)
         {
             this.displayBorder = displayBorder;
+        }
+
+        public void AddBorder(DataGridBorderX dataGridBorderX)
+        {
+            this.dataGridBorderX = dataGridBorderX;
         }
 
         public void AddTitleRow(TitleRowX titleRowX)
@@ -116,6 +122,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             if (DataDataSeparator != null) DataDataSeparator.ColumnsWidths = columnsWidths;
             if (DataBottomBorder != null) DataBottomBorder.ColumnsWidths = columnsWidths;
+
+            dataGridBorderX.TotalWidth = totalWidth;
+            dataGridBorderX.ColumnWidths = columnsWidths;
         }
 
         private int CalculateTotalWidth()

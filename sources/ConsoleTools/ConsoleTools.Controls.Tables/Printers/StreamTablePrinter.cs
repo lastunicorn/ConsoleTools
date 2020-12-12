@@ -48,17 +48,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// <summary>
         /// Writes the specified character in the underlying <see cref="Stream"/>.
         /// </summary>
-        public void WriteBorder(char c)
+        public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             streamWriter.Write(c);
-        }
-
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(string text)
-        {
-            streamWriter.WriteLine(text);
         }
 
         /// <summary>
@@ -67,6 +59,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             streamWriter.Write(text);
+        }
+
+        /// <summary>
+        /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
+        /// </summary>
+        public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        {
+            streamWriter.WriteLine(text);
         }
 
         /// <summary>

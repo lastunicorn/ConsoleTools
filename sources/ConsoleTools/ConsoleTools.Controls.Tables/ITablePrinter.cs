@@ -30,20 +30,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public interface ITablePrinter
     {
         /// <summary>
-        /// Writes the specified text, applying the formatting specific for a border,
-        /// followed by the current line terminator.
+        /// Writes the specified character, using the specified colors.
         /// </summary>
-        void WriteLineBorder(string text);
+        void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
-        /// Writes the specified character, applying the formatting specific for a border.
-        /// </summary>
-        void WriteBorder(char c);
-
-        /// <summary>
-        /// Writes the specified text, applying the default formatting.
+        /// Writes the specified text, using the specified colors.
         /// </summary>
         void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+
+        /// <summary>
+        /// Writes the specified text, using the specified colors,
+        /// followed by the current line terminator.
+        /// </summary>
+        void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the current line terminator.

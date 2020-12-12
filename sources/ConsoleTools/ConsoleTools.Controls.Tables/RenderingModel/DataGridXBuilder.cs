@@ -30,6 +30,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private bool isTitleVisible;
         private bool isColumnHeaderRowVisible;
         private bool areDataRowsVisible;
+        private DataGridBorderX dataGridBorderX;
 
         public TitleRow TitleRow { get; set; }
 
@@ -37,15 +38,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public DataRowList Rows { get; set; }
 
-        public BorderTemplate BorderTemplate { get; set; }
-        public bool DisplayBorder { get; set; }
-        public bool DisplayBorderBetweenRows { get; set; }
+        public DataGridBorder DataGridBorder { get; set; }
 
         public int MinWidth { get; set; }
 
         public DataGridX Build()
         {
-            dataGridX = new DataGridX(DisplayBorder)
+            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true)
             {
                 MinWidth = MinWidth
             };
@@ -53,6 +52,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             isTitleVisible = TitleRow != null && TitleRow.IsVisible && TitleRow.HasContent;
             isColumnHeaderRowVisible = HeaderRow != null && HeaderRow.IsVisible && HeaderRow.CellCount > 0;
             areDataRowsVisible = Rows.Count > 0;
+
+            dataGridBorderX = DataGridBorderX.CreateFrom(DataGridBorder);
+            dataGridX.AddBorder(dataGridBorderX);
 
             if (isTitleVisible)
                 AddTitle();
@@ -63,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (areDataRowsVisible)
                 AddRows();
 
-            if (DisplayBorder)
+            if (DataGridBorder?.IsVisible == true)
                 AddHorizontalBorders();
 
             dataGridX.MakeFinalAdjustments();
@@ -73,13 +75,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void AddTitle()
         {
-            TitleRowX titleRowX = new TitleRowX(TitleRow);
+            TitleRowX titleRowX = new TitleRowX(TitleRow, dataGridBorderX);
             dataGridX.AddTitleRow(titleRowX);
         }
 
         private void AddHeader()
         {
-            HeaderRowX headerRowX = new HeaderRowX(HeaderRow, DisplayBorder);
+            HeaderRowX headerRowX = new HeaderRowX(HeaderRow, dataGridBorderX);
             dataGridX.AddHeaderRow(headerRowX);
         }
 
@@ -87,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             IEnumerable<DataRowX> rows = Rows
                 .Where(x => x.IsVisible)
-                .Select(x => new DataRowX(x, DisplayBorder));
+                .Select(x => new DataRowX(x, dataGridBorderX));
 
             foreach (DataRowX row in rows)
                 dataGridX.AddDataRow(row);
@@ -96,36 +98,36 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private void AddHorizontalBorders()
         {
             if (isTitleVisible)
-                dataGridX.TitleTopBorder = new TitleTopBorder(BorderTemplate);
+                dataGridX.TitleTopBorder = TitleTopBorder.CreateFrom(DataGridBorder);
             else if (isColumnHeaderRowVisible)
-                dataGridX.HeaderTopBorder = new HeaderTopBorder(BorderTemplate);
+                dataGridX.HeaderTopBorder = HeaderTopBorder.CreateFrom(DataGridBorder);
             else if (areDataRowsVisible)
-                dataGridX.DataTopBorder = new DataTopBorder(BorderTemplate);
+                dataGridX.DataTopBorder = DataTopBorder.CreateFrom(DataGridBorder);
 
             if (isTitleVisible)
             {
                 if (isColumnHeaderRowVisible)
-                    dataGridX.TitleHeaderSeparator = new TitleHeaderSeparator(BorderTemplate);
+                    dataGridX.TitleHeaderSeparator = TitleHeaderSeparator.CreateFrom(DataGridBorder);
                 else if (areDataRowsVisible)
-                    dataGridX.TitleDataSeparator = new TitleDataSeparator(BorderTemplate);
+                    dataGridX.TitleDataSeparator = TitleDataSeparator.CreateFrom(DataGridBorder);
                 else
-                    dataGridX.TitleBottomBorder = new TitleBottomBorder(BorderTemplate);
+                    dataGridX.TitleBottomBorder = TitleBottomBorder.CreateFrom(DataGridBorder);
             }
 
             if (isColumnHeaderRowVisible)
             {
                 if (areDataRowsVisible)
-                    dataGridX.HeaderDataSeparator = new HeaderDataSeparator(BorderTemplate);
+                    dataGridX.HeaderDataSeparator = HeaderDataSeparator.CreateFrom(DataGridBorder);
                 else
-                    dataGridX.HeaderBottomBorder = new HeaderBottomBorder(BorderTemplate);
+                    dataGridX.HeaderBottomBorder = HeaderBottomBorder.CreateFrom(DataGridBorder);
             }
 
             if (areDataRowsVisible)
             {
-                if (DisplayBorderBetweenRows)
-                    dataGridX.DataDataSeparator = new DataDataSeparator(BorderTemplate);
+                if (DataGridBorder?.DisplayBorderBetweenRows == true)
+                    dataGridX.DataDataSeparator = DataDataSeparator.CreateFrom(DataGridBorder);
 
-                dataGridX.DataBottomBorder = new DataBottomBorder(BorderTemplate);
+                dataGridX.DataBottomBorder = DataBottomBorder.CreateFrom(DataGridBorder);
             }
         }
     }

@@ -30,58 +30,27 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
     public class ConsoleTablePrinter : ITablePrinter
     {
         /// <summary>
-        /// Gets or sets the foreground color for the borders.
-        /// Default value: Gray
+        /// Writes the specified character to the <see cref="Console"/>.
         /// </summary>
-        public ConsoleColor? BorderColor { get; set; } = ConsoleColor.Gray;
-
-        /// <summary>
-        /// Gets or sets the default foreground color.
-        /// Default value: Gray
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; } = ConsoleColor.Gray;
-
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the borders.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BorderBackgroundColor { get; set; }
-
-        /// <summary>
-        /// Writes the specified character to the <see cref="Console"/> using the <see cref="BorderColor"/>.
-        /// </summary>
-        public void WriteBorder(char c)
+        public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
-            ConsoleColor? foregroundColor = BorderColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = BorderBackgroundColor ?? BackgroundColor;
-
             Write(foregroundColor, backgroundColor, c);
         }
 
         /// <summary>
-        /// Writes the specified text to the <see cref="Console"/> using the <see cref="BorderColor"/>,
-        /// followed by a line terminator.
-        /// </summary>
-        public void WriteLineBorder(string text)
-        {
-            ConsoleColor? foregroundColor = BorderColor ?? ForegroundColor;
-            ConsoleColor? backgroundColor = BorderBackgroundColor ?? BackgroundColor;
-
-            WriteLine(foregroundColor, backgroundColor, text);
-        }
-
-        /// <summary>
-        /// Writes the specified text to the <see cref="Console"/> using the <see cref="ForegroundColor"/>.
+        /// Writes the specified text to the <see cref="Console"/>.
         /// </summary>
         public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             Write(foregroundColor, backgroundColor, text);
+        }
+
+        /// <summary>
+        /// Writes the specified text to the <see cref="Console"/>, followed by a line terminator.
+        /// </summary>
+        public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        {
+            WriteLine(foregroundColor, backgroundColor, text);
         }
 
         /// <summary>

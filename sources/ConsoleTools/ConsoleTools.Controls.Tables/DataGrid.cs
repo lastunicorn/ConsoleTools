@@ -28,15 +28,16 @@ using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
-    /// A control that renders a table with data into the console.
+    /// A control that renders a data grid into the console.
     /// </summary>
     public class DataGrid : BlockControl
     {
         private TitleRow titleRow;
         private HeaderRow headerRow;
+        private DataGridBorder border;
 
         /// <summary>
-        /// Gets the <see cref="TitleRow"/> instance that represents the title row of the table.
+        /// Gets the <see cref="TitleRow"/> instance that represents the title row of the data grid.
         /// </summary>
         public TitleRow TitleRow
         {
@@ -58,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells contained by the current table.
+        /// Gets or sets the horizontal alignment for the content of the cells contained by the current data grid.
         /// </summary>
         public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
 
@@ -73,23 +74,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int? CellPaddingRight { get; set; }
 
         /// <summary>
-        /// Gets a value that specifies if border lines should be drawn between rows.
-        /// Default value: false
-        /// </summary>
-        public bool DisplayBorderBetweenRows { get; set; }
-
-        /// <summary>
-        /// Gets the list of columns contained by the current table.
+        /// Gets the list of columns contained by the current data grid.
         /// </summary>
         public ColumnList Columns { get; }
 
         /// <summary>
-        /// Gets the <see cref="HeaderRow"/> instance that represents the columns header row of the table.
+        /// Gets the columns header row of the data grid.
         /// </summary>
         public HeaderRow HeaderRow
         {
             get => headerRow;
-            set
+            private set
             {
                 headerRow = value;
                 headerRow.ParentDataGrid = this;
@@ -97,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// The list of rows contained by the current table.
+        /// Gets the list of rows contained by the current data grid.
         /// </summary>
         public DataRowList Rows { get; }
 
@@ -117,27 +112,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public DataCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
 
         /// <summary>
-        /// Gets or sets a value that specifies if the borders are visible.
-        /// Default value: <c>true</c>
+        /// Gets an object representing the border of the data grid.
         /// </summary>
-        public bool DisplayBorder { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the table borders.
-        /// </summary>
-        public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
-
-        /// <summary>
-        /// Gets or sets the foreground color for the borders.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BorderColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the borders.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BorderBackgroundColor { get; set; }
+        public DataGridBorder Border
+        {
+            get => border;
+            private set
+            {
+                border = value;
+                border.ParentDataGrid = this;
+            }
+        }
 
         #region Obsolete Properties
 
@@ -156,14 +141,22 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Default value: <c>null</c>
         /// </summary>
         [Obsolete("Use TitleRow.ForegroundColor property instead.")]
-        public ConsoleColor? TitleColor { get; set; }
+        public ConsoleColor? TitleColor
+        {
+            get => TitleRow.ForegroundColor;
+            set => TitleRow.ForegroundColor = value;
+        }
 
         /// <summary>
         /// Gets or sets the background color for the title.
         /// Default value: <c>null</c>
         /// </summary>
         [Obsolete("Use TitleRow.BackgroundColor property instead.")]
-        public ConsoleColor? TitleBackgroundColor { get; set; }
+        public ConsoleColor? TitleBackgroundColor
+        {
+            get => TitleRow.BackgroundColor;
+            set => TitleRow.BackgroundColor = value;
+        }
 
         /// <summary>
         /// Gets or sets a value that specifies if the column headers are displayed.
@@ -181,14 +174,72 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Default value: <c>null</c>
         /// </summary>
         [Obsolete("Use HeaderRow.ForegroundColor property instead.")]
-        public ConsoleColor? HeaderColor { get; set; }
+        public ConsoleColor? HeaderColor
+        {
+            get => HeaderRow.ForegroundColor;
+            set => HeaderRow.ForegroundColor = value;
+        }
 
         /// <summary>
         /// Gets or sets the background color for the column headers.
         /// Default value: <c>null</c>
         /// </summary>
         [Obsolete("Use HeaderRow.BackgroundColor property instead.")]
-        public ConsoleColor? HeaderBackgroundColor { get; set; }
+        public ConsoleColor? HeaderBackgroundColor
+        {
+            get => HeaderRow.BackgroundColor;
+            set => HeaderRow.BackgroundColor = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies if the borders are visible.
+        /// Default value: <c>true</c>
+        /// </summary>
+        [Obsolete("Use Border.IsVisible property instead.")]
+        public bool DisplayBorder { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the data grid borders.
+        /// </summary>
+        [Obsolete("Use Border.Template property instead.")]
+        public BorderTemplate BorderTemplate
+        {
+            get => Border.Template;
+            set => Border.Template = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the foreground color for the borders.
+        /// Default value: <c>null</c>
+        /// </summary>
+        [Obsolete("Use Border.ForegroundColor property instead.")]
+        public ConsoleColor? BorderColor
+        {
+            get => Border.ForegroundColor;
+            set => Border.ForegroundColor = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the background color for the borders.
+        /// Default value: <c>null</c>
+        /// </summary>
+        [Obsolete("Use Border.BackgroundColor property instead.")]
+        public ConsoleColor? BorderBackgroundColor
+        {
+            get => Border.BackgroundColor;
+            set => Border.BackgroundColor = value;
+        }
+
+        /// <summary>
+        /// Gets a value that specifies if border lines should be drawn between rows.
+        /// Default value: false
+        /// </summary>
+        [Obsolete("Use Border.DisplayBorderBetweenRows property instead.")]
+        public bool DisplayBorderBetweenRows
+        {
+            get => border.DisplayBorderBetweenRows;
+            set => border.DisplayBorderBetweenRows = value;
+        }
 
         #endregion
 
@@ -201,11 +252,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
+            Border = new DataGridBorder();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class with
-        /// the table title.
+        /// the data grid title.
         /// </summary>
         public DataGrid(string title)
         {
@@ -213,11 +265,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            Border = new DataGridBorder();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class with
-        /// the table title.
+        /// the data grid title.
         /// </summary>
         public DataGrid(MultilineText title)
         {
@@ -225,11 +278,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            Border = new DataGridBorder();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGrid"/> class with
-        /// the table title.
+        /// the data grid title.
         /// </summary>
         public DataGrid(object title)
         {
@@ -237,6 +291,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            Border = new DataGridBorder();
         }
 
         /// <summary>
@@ -244,15 +299,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {
-            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter
-            {
-                ForegroundColor = ForegroundColor,
-                BorderColor = BorderColor,
-
-                BackgroundColor = BackgroundColor,
-                BorderBackgroundColor = BorderBackgroundColor,
-            };
-
+            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
             RenderInternal(consoleTablePrinter);
         }
 
@@ -273,9 +320,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 TitleRow = TitleRow,
                 HeaderRow = HeaderRow,
                 Rows = Rows,
-                DisplayBorderBetweenRows = DisplayBorderBetweenRows,
-                BorderTemplate = BorderTemplate,
-                DisplayBorder = DisplayBorder
+                DataGridBorder = Border
             };
 
             DataGridX dataGridX = dataGridXBuilder.Build();

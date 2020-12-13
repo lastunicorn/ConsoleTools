@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public Size Size { get; set; }
 
         public ConsoleColor? ForegroundColor { get; set; }
-        
+
         public ConsoleColor? BackgroundColor { get; set; }
 
         public int PaddingLeft { get; set; }
@@ -41,11 +41,37 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public int PaddingRight { get; set; }
 
         public HorizontalAlignment HorizontalAlignment { get; set; }
-        
-        public void RenderNextLine(ITablePrinter tablePrinter)
+
+        public void CalculateLayout()
         {
-            if(lineEnumerator == null)
-                lineEnumerator = RenderContent(Size).GetEnumerator();
+            Size = CalculatePreferredSize();
+        }
+
+        private Size CalculatePreferredSize()
+        {
+            int cellWidth;
+            int cellHeight;
+
+            bool isEmpty = Content == null || Content.IsEmpty;
+
+            if (isEmpty)
+            {
+                cellWidth = PaddingLeft + PaddingRight;
+                cellHeight = 0;
+            }
+            else
+            {
+                cellWidth = PaddingLeft + Content.Size.Width + PaddingRight;
+                cellHeight = Content.Size.Height;
+            }
+
+            return new Size(cellWidth, cellHeight);
+        }
+
+        public void RenderNextLine(ITablePrinter tablePrinter, Size actualSize)
+        {
+            if (lineEnumerator == null)
+                lineEnumerator = RenderContent(actualSize).GetEnumerator();
 
             string content = lineEnumerator.MoveNext()
                 ? lineEnumerator.Current
@@ -86,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public static CellX CreateFrom(CellBase cellBase)
         {
-            return new CellX
+            CellX cellX = new CellX
             {
                 ForegroundColor = cellBase.CalculateForegroundColor(),
                 BackgroundColor = cellBase.CalculateBackgroundColor(),
@@ -96,6 +122,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 Size = cellBase.CalculatePreferredSize(),
                 Content = cellBase.Content
             };
+
+            cellX.CalculateLayout();
+
+            return cellX;
         }
     }
 }

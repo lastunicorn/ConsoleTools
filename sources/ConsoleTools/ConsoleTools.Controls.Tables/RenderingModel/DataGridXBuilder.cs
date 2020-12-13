@@ -30,7 +30,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private bool isTitleVisible;
         private bool isColumnHeaderRowVisible;
         private bool areDataRowsVisible;
-        private DataGridBorderX dataGridBorderX;
 
         public TitleRow TitleRow { get; set; }
 
@@ -44,17 +43,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public DataGridX Build()
         {
-            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true)
-            {
-                MinWidth = MinWidth
-            };
+            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true);
 
             isTitleVisible = TitleRow != null && TitleRow.IsVisible && TitleRow.HasContent;
             isColumnHeaderRowVisible = HeaderRow != null && HeaderRow.IsVisible && HeaderRow.CellCount > 0;
             areDataRowsVisible = Rows.Count > 0;
-
-            dataGridBorderX = DataGridBorderX.CreateFrom(DataGridBorder);
-            dataGridX.AddBorder(dataGridBorderX);
 
             if (isTitleVisible)
                 AddTitle();
@@ -68,20 +61,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (DataGridBorder?.IsVisible == true)
                 AddHorizontalBorders();
 
-            dataGridX.MakeFinalAdjustments();
+            dataGridX.CalculateLayout(MinWidth);
 
             return dataGridX;
         }
 
         private void AddTitle()
         {
-            TitleRowX titleRowX = new TitleRowX(TitleRow, dataGridBorderX);
+            TitleRowX titleRowX = TitleRowX.CreateFrom(TitleRow);
             dataGridX.AddTitleRow(titleRowX);
         }
 
         private void AddHeader()
         {
-            HeaderRowX headerRowX = new HeaderRowX(HeaderRow, dataGridBorderX);
+            HeaderRowX headerRowX = HeaderRowX.CreateFrom(HeaderRow);
             dataGridX.AddHeaderRow(headerRowX);
         }
 
@@ -89,7 +82,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             IEnumerable<DataRowX> rows = Rows
                 .Where(x => x.IsVisible)
-                .Select(x => new DataRowX(x, dataGridBorderX));
+                .Select(DataRowX.CreateFrom);
 
             foreach (DataRowX row in rows)
                 dataGridX.AddDataRow(row);

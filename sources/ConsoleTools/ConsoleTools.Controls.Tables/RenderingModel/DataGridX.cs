@@ -28,13 +28,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     {
         private readonly bool displayBorder;
 
-        private DataGridBorderX dataGridBorderX;
         private TitleRowX titleRowX;
         private HeaderRowX headerRowX;
-        private readonly List<DataRowX> dataRowXs = new List<DataRowX>();
-        private readonly List<int> columnsWidths = new List<int>();
-
-        public int MinWidth { get; set; }
+        private readonly List<DataRowX> dataRows = new List<DataRowX>();
+        private readonly List<ColumnX> columns = new List<ColumnX>();
+        private int actualWidth;
 
         public TitleTopBorder TitleTopBorder { get; set; }
         public HeaderTopBorder HeaderTopBorder { get; set; }
@@ -55,11 +53,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             this.displayBorder = displayBorder;
         }
 
-        public void AddBorder(DataGridBorderX dataGridBorderX)
-        {
-            this.dataGridBorderX = dataGridBorderX;
-        }
-
         public void AddTitleRow(TitleRowX titleRowX)
         {
             this.titleRowX = titleRowX;
@@ -68,87 +61,44 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public void AddHeaderRow(HeaderRowX headerRowX)
         {
             this.headerRowX = headerRowX;
-            headerRowX.UpdateColumnsWidths(columnsWidths);
+            headerRowX.UpdateColumnsWidths(columns);
         }
 
         public void AddDataRow(DataRowX dataRowX)
         {
-            dataRowX.UpdateColumnsWidths(columnsWidths);
-            dataRowXs.Add(dataRowX);
+            dataRowX.UpdateColumnsWidths(columns);
+            dataRows.Add(dataRowX);
         }
 
-        public void Clear()
+        public void CalculateLayout(int minWidth)
         {
-            titleRowX = null;
-            headerRowX = null;
-            dataRowXs.Clear();
-            columnsWidths.Clear();
-
-            MinWidth = 0;
-
-            TitleTopBorder = null;
-            HeaderTopBorder = null;
-            DataTopBorder = null;
-
-            TitleHeaderSeparator = null;
-            TitleDataSeparator = null;
-            TitleBottomBorder = null;
-
-            HeaderDataSeparator = null;
-            HeaderBottomBorder = null;
-
-            DataDataSeparator = null;
-            DataBottomBorder = null;
+            actualWidth = CalculateTotalWidth(minWidth);
         }
 
-        public void MakeFinalAdjustments()
+        private int CalculateTotalWidth(int minWidth)
         {
-            int totalWidth = CalculateTotalWidth();
-
-            if (titleRowX?.Size.Width < totalWidth)
-                titleRowX.Size = new Size(totalWidth, titleRowX.Size.Height);
-
-            if (TitleTopBorder != null) TitleTopBorder.Width = totalWidth;
-
-            if (HeaderTopBorder != null) HeaderTopBorder.ColumnsWidths = columnsWidths;
-            if (DataTopBorder != null) DataTopBorder.ColumnsWidths = columnsWidths;
-
-            if (TitleHeaderSeparator != null) TitleHeaderSeparator.ColumnsWidths = columnsWidths;
-            if (TitleDataSeparator != null) TitleDataSeparator.ColumnsWidths = columnsWidths;
-            if (TitleBottomBorder != null) TitleBottomBorder.Width = totalWidth;
-
-            if (HeaderDataSeparator != null) HeaderDataSeparator.ColumnsWidths = columnsWidths;
-            if (HeaderBottomBorder != null) HeaderBottomBorder.ColumnsWidths = columnsWidths;
-
-            if (DataDataSeparator != null) DataDataSeparator.ColumnsWidths = columnsWidths;
-            if (DataBottomBorder != null) DataBottomBorder.ColumnsWidths = columnsWidths;
-
-            dataGridBorderX.TotalWidth = totalWidth;
-            dataGridBorderX.ColumnWidths = columnsWidths;
-        }
-
-        private int CalculateTotalWidth()
-        {
-            int totalWidth = MinWidth;
+            int totalWidth = minWidth;
 
             if (titleRowX?.Size.Width > totalWidth)
                 totalWidth = titleRowX.Size.Width;
 
-            if (columnsWidths.Count <= 0)
+            if (columns.Count <= 0)
                 return totalWidth;
 
-            int columnsTotalWidth = columnsWidths.Sum();
+            int columnsTotalWidth = columns
+                .Select(x => x.Width)
+                .Sum();
 
             if (displayBorder)
-                columnsTotalWidth += columnsWidths.Count + 1;
+                columnsTotalWidth += columns.Count + 1;
 
             if (columnsTotalWidth < totalWidth)
             {
                 int diff = totalWidth - columnsTotalWidth;
-                int colCount = columnsWidths.Count;
+                int colCount = columns.Count;
 
                 for (int i = 0; i < diff; i++)
-                    columnsWidths[i % colCount]++;
+                    columns[i % colCount].Width++;
             }
             else if (columnsTotalWidth > totalWidth)
             {
@@ -167,47 +117,49 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void RenderTitle(ITablePrinter tablePrinter)
         {
-            TitleTopBorder?.Render(tablePrinter);
+            TitleTopBorder?.Render(tablePrinter, actualWidth);
 
-            titleRowX?.Render(tablePrinter);
+            if (titleRowX != null)
+            {
+                Size rowSize = new Size(actualWidth, titleRowX.Size.Height);
+                titleRowX?.Render(tablePrinter, rowSize);
+            }
 
-            TitleHeaderSeparator?.Render(tablePrinter);
-            TitleDataSeparator?.Render(tablePrinter);
-            TitleBottomBorder?.Render(tablePrinter);
+            TitleHeaderSeparator?.Render(tablePrinter, columns);
+            TitleDataSeparator?.Render(tablePrinter, columns);
+            TitleBottomBorder?.Render(tablePrinter, actualWidth);
         }
 
         private void RenderHeader(ITablePrinter tablePrinter)
         {
-            HeaderTopBorder?.Render(tablePrinter);
+            HeaderTopBorder?.Render(tablePrinter, columns);
 
-            headerRowX?.Render(tablePrinter, columnsWidths);
+            headerRowX?.Render(tablePrinter, columns);
 
-            HeaderDataSeparator?.Render(tablePrinter);
-            HeaderBottomBorder?.Render(tablePrinter);
+            HeaderDataSeparator?.Render(tablePrinter, columns);
+            HeaderBottomBorder?.Render(tablePrinter, columns);
         }
 
         private void RenderData(ITablePrinter tablePrinter)
         {
-            DataTopBorder?.Render(tablePrinter);
+            DataTopBorder?.Render(tablePrinter, columns);
 
             RenderDataRows(tablePrinter);
 
-            DataBottomBorder?.Render(tablePrinter);
+            DataBottomBorder?.Render(tablePrinter, columns);
         }
 
         private void RenderDataRows(ITablePrinter tablePrinter)
         {
-            List<int> cellWidths = columnsWidths;
-
-            for (int rowIndex = 0; rowIndex < dataRowXs.Count; rowIndex++)
+            for (int rowIndex = 0; rowIndex < dataRows.Count; rowIndex++)
             {
-                DataRowX row = dataRowXs[rowIndex];
-                row.Render(tablePrinter, cellWidths);
+                DataRowX row = dataRows[rowIndex];
+                row.Render(tablePrinter, columns);
 
-                bool isLastRow = rowIndex == dataRowXs.Count - 1;
+                bool isLastRow = rowIndex == dataRows.Count - 1;
 
                 if (!isLastRow)
-                    DataDataSeparator?.Render(tablePrinter);
+                    DataDataSeparator?.Render(tablePrinter, columns);
             }
         }
     }

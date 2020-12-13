@@ -28,20 +28,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     internal class TitleHeaderSeparator
     {
         private string borderText;
-        private List<int> columnsWidths;
-
-        public List<int> ColumnsWidths
-        {
-            get => columnsWidths;
-            set
-            {
-                if (value == columnsWidths)
-                    return;
-
-                columnsWidths = value;
-                borderText = null;
-            }
-        }
 
         public BorderTemplate BorderTemplate { get; set; }
 
@@ -49,10 +35,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter)
+        public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
         {
             if (borderText == null)
-                borderText = GenerateTitleHeaderSeparator();
+                borderText = GenerateTitleHeaderSeparator(columns);
 
             tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }
@@ -61,18 +47,19 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         /// Generates the border displayed between title and column header rows.
         /// This border is used only when both title and column header rows are visible.
         /// </summary>
-        private string GenerateTitleHeaderSeparator()
+        /// <param name="columns"></param>
+        private string GenerateTitleHeaderSeparator(List<ColumnX> columns)
         {
             StringBuilder sb = new StringBuilder();
 
             sb.Append(BorderTemplate.LeftIntersection);
 
-            for (int columnIndex = 0; columnIndex < columnsWidths.Count; columnIndex++)
+            for (int columnIndex = 0; columnIndex < columns.Count; columnIndex++)
             {
-                int columnWidth = columnsWidths[columnIndex];
+                int columnWidth = columns[columnIndex].Width;
                 sb.Append(new string(BorderTemplate.Horizontal, columnWidth));
 
-                char columnBorderRight = columnIndex < columnsWidths.Count - 1
+                char columnBorderRight = columnIndex < columns.Count - 1
                     ? BorderTemplate.TopIntersection
                     : BorderTemplate.RightIntersection;
 

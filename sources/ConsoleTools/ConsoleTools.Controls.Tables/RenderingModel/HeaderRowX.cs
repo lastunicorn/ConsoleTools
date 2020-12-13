@@ -27,93 +27,98 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class HeaderRowX
     {
-        private readonly HeaderRow headerRow;
-        private readonly List<CellX> cells = new List<CellX>();
-        private readonly DataGridBorderX dataGridBorderX;
-
         public Size Size { get; private set; }
 
-        public HeaderRowX(HeaderRow headerRow, DataGridBorderX dataGridBorderX)
-        {
-            this.headerRow = headerRow ?? throw new ArgumentNullException(nameof(headerRow));
-            this.dataGridBorderX = dataGridBorderX ?? throw new ArgumentNullException(nameof(dataGridBorderX));
+        public DataGridBorderX DataGridBorderX { get; set; }
 
-            CreateCells();
+        public List<CellX> Cells { get; set; }
+
+        public void CalculateLayout()
+        {
+            Size = CalculatePreferredSize();
         }
 
-        private void CreateCells()
+        private Size CalculatePreferredSize()
         {
-            IEnumerable<CellX> dataCellXes = headerRow
-                .Select(CellX.CreateFrom);
+            int width = 0;
+            int height = 0;
 
-            foreach (CellX dataCellX in dataCellXes)
+            if (Cells != null)
             {
-                AddCellToSize(dataCellX);
-                cells.Add(dataCellX);
+                foreach (CellX cell in Cells)
+                {
+                    width += cell.Size.Width;
+                    height = Math.Max(height, cell.Size.Height);
+                }
             }
+
+            if (DataGridBorderX != null)
+                width += Cells?.Count ?? 0 + 1;
+
+            return new Size(width, height);
         }
-
-        private void AddCellToSize(CellX cell)
+        
+        public void Render(ITablePrinter tablePrinter, List<ColumnX> cellWidths)
         {
-            int initialCount = cells.Count;
-
-            int width = initialCount == 0 && dataGridBorderX.IsVisible
-                ? 1
-                : Size.Width;
-
-            width += cell.Size.Width;
-
-            if (dataGridBorderX.IsVisible)
-                width++;
-
-            int height = Size.Height < cell.Size.Height
-                ? cell.Size.Height
-                : Size.Height;
-
-            Size = new Size(width, height);
-        }
-
-        public void Render(ITablePrinter tablePrinter, List<int> cellWidths)
-        {
-            for (int i = 0; i < cells.Count; i++)
-            {
-                CellX cellX = cells[i];
-                cellX.Size = new Size(cellWidths[i], Size.Height);
-            }
+            //for (int i = 0; i < Cells.Count; i++)
+            //{
+            //    CellX cellX = Cells[i];
+            //    cellX.Size = new Size(cellWidths[i].Width, Size.Height);
+            //}
 
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                dataGridBorderX.RenderRowLeftBorder(tablePrinter);
+                DataGridBorderX.RenderRowLeftBorder(tablePrinter);
 
-                for (int columnIndex = 0; columnIndex < cells.Count; columnIndex++)
+                for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
-                    CellX cellX = cells[columnIndex];
-                    cellX.RenderNextLine(tablePrinter);
+                    CellX cellX = Cells[columnIndex];
+                    Size cellSize = new Size(cellWidths[columnIndex].Width, Size.Height);
+                    cellX.RenderNextLine(tablePrinter, cellSize);
 
-                    bool isLastCell = columnIndex >= cells.Count - 1;
+                    bool isLastCell = columnIndex >= Cells.Count - 1;
 
                     if (isLastCell)
-                        dataGridBorderX.RenderRowRightBorder(tablePrinter);
+                        DataGridBorderX.RenderRowRightBorder(tablePrinter);
                     else
-                        dataGridBorderX.RenderRowInsideBorder(tablePrinter);
+                        DataGridBorderX.RenderRowInsideBorder(tablePrinter);
                 }
 
                 tablePrinter.WriteLine();
             }
         }
 
-        public void UpdateColumnsWidths(List<int> columnsWidths)
+        public void UpdateColumnsWidths(List<ColumnX> columnsWidths)
         {
-            for (int i = 0; i < cells.Count; i++)
+            for (int i = 0; i < Cells.Count; i++)
             {
                 while (columnsWidths.Count <= i)
-                    columnsWidths.Add(0);
+                    columnsWidths.Add(new ColumnX());
 
-                Size cellSize = cells[i].Size;
+                Size cellSize = Cells[i].Size;
 
-                if (cellSize.Width > columnsWidths[i])
-                    columnsWidths[i] = cellSize.Width;
+                if (cellSize.Width > columnsWidths[i].Width)
+                    columnsWidths[i].Width = cellSize.Width;
             }
+        }
+
+        public static HeaderRowX CreateFrom(HeaderRow headerRow)
+        {
+            if (headerRow == null) throw new ArgumentNullException(nameof(headerRow));
+
+            HeaderRowX headerRowX = new HeaderRowX
+            {
+                DataGridBorderX = headerRow.ParentDataGrid?.Border != null
+                    ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
+                    : null,
+                Cells = headerRow
+                    .Select(CellX.CreateFrom)
+                    .ToList()
+            };
+
+            headerRowX.CalculateLayout();
+
+            return headerRowX;
         }
     }
 }

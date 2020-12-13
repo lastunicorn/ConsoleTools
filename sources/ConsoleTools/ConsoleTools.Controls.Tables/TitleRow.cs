@@ -101,27 +101,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             };
         }
 
-        /// <summary>
-        /// Calculates the space (in characters) the current instance occupies without other restrictions.
-        /// </summary>
-        public Size CalculatePreferredSize()
-        {
-            bool displayBorder = ParentDataGrid?.DisplayBorder ?? false;
-
-            int titleRowWidth = 0;
-
-            if (displayBorder)
-                titleRowWidth += 1;
-
-            Size cellSize = TitleCell.CalculatePreferredSize();
-            titleRowWidth += cellSize.Width;
-
-            if (displayBorder)
-                titleRowWidth += 1;
-
-            return new Size(titleRowWidth, cellSize.Height);
-        }
-
         public override IEnumerator<CellBase> GetEnumerator()
         {
             return new TitleCellEnumerator(this);

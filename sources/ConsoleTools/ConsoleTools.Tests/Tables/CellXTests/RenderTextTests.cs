@@ -48,11 +48,10 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
         {
             CellX cell = new CellX
             {
-                Content = "text",
-                Size = new Size(10, 1)
+                Content = "text"
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 1));
 
             Assert.That(renderOutput, Is.EqualTo(new[] { "text      " }));
         }
@@ -62,11 +61,10 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
         {
             CellX cell = new CellX
             {
-                Content = "some long text",
-                Size = new Size(10, 1)
+                Content = "some long text"
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 1));
 
             Assert.That(renderOutput, Is.EqualTo(new List<string> { "some long text" }));
         }
@@ -76,11 +74,10 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
         {
             CellX cell = new CellX
             {
-                Content = "text",
-                Size = new Size(10, 2)
+                Content = "text"
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 2));
 
             Assert.That(renderOutput, Is.EqualTo(new List<string>
             {
@@ -95,10 +92,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
             CellX cell = new CellX
             {
                 Content = new MultilineText(new[] { "line1", "line2", "line3" }),
-                Size = new Size(10, 2)
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 2));
 
             Assert.That(renderOutput, Is.EqualTo(new List<string>
             {
@@ -113,11 +109,10 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
             CellX cell = new CellX
             {
                 Content = "text",
-                Size = new Size(10, 1),
                 PaddingLeft = 2
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 1));
 
             Assert.That(renderOutput, Is.EqualTo(new[] { "  text    " }));
         }
@@ -128,20 +123,19 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
             CellX cell = new CellX
             {
                 Content = "text",
-                Size = new Size(10, 1),
                 PaddingRight = 2,
                 HorizontalAlignment = HorizontalAlignment.Right
             };
 
-            RenderAllLines(cell);
+            RenderAllLines(cell, new Size(10, 1));
 
             Assert.That(renderOutput, Is.EqualTo(new[] { "    text  " }));
         }
 
-        private void RenderAllLines(CellX cellX)
+        private void RenderAllLines(CellX cellX, Size size)
         {
             for (int i = 0; i < cellX.Size.Height; i++)
-                cellX.RenderNextLine(tablePrinter.Object);
+                cellX.RenderNextLine(tablePrinter.Object, size);
         }
     }
 }

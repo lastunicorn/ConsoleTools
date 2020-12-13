@@ -21,26 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class HeaderBottomBorder
     {
         private string borderText;
-        private List<int> columnsWidths;
-
-        public List<int> ColumnsWidths
-        {
-            get => columnsWidths;
-            set
-            {
-                if (value == columnsWidths)
-                    return;
-
-                columnsWidths = value;
-                borderText = null;
-            }
-        }
 
         public BorderTemplate BorderTemplate { get; set; }
 
@@ -48,10 +35,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter)
+        public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
         {
             if (borderText == null)
-                borderText = BorderTemplate.GenerateBottomBorder(columnsWidths);
+            {
+                List<int> columnWidths = columns
+                    .Select(x => x.Width)
+                    .ToList();
+
+                borderText = BorderTemplate.GenerateBottomBorder(columnWidths);}
 
             tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }

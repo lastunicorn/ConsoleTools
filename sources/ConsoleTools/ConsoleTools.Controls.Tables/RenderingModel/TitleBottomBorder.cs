@@ -26,20 +26,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     internal class TitleBottomBorder
     {
         private string borderText;
-        private int width;
-
-        public int Width
-        {
-            get => width;
-            set
-            {
-                if (value == width)
-                    return;
-
-                width = value;
-                borderText = null;
-            }
-        }
 
         public BorderTemplate BorderTemplate { get; set; }
 
@@ -47,10 +33,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter)
+        public void Render(ITablePrinter tablePrinter, int actualWidth)
         {
             if (borderText == null)
-                borderText = BorderTemplate.GenerateBottomBorder(width - 2);
+                borderText = BorderTemplate.GenerateBottomBorder(actualWidth - 2);
 
             tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }

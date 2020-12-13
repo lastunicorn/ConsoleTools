@@ -19,46 +19,63 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class TitleRowX
     {
-        private readonly bool isVisible;
-        private readonly CellX cellX;
-        private readonly DataGridBorderX dataGridBorderX;
-
         public Size Size { get; set; }
 
-        public TitleRowX(TitleRow titleRow, DataGridBorderX dataGridBorderX)
-        {
-            this.dataGridBorderX = dataGridBorderX ?? throw new ArgumentNullException(nameof(dataGridBorderX));
+        public CellX CellX { get; set; }
 
-            isVisible = titleRow != null;
-            Size = titleRow?.CalculatePreferredSize() ?? Size.Empty;
-            cellX = CellX.CreateFrom(titleRow?.TitleCell);
+        public DataGridBorderX GridBorderX { get; set; }
+
+        public void CalculateLayout()
+        {
+            Size = CalculatePreferredSize();
         }
 
-        public void Render(ITablePrinter tablePrinter)
+        private Size CalculatePreferredSize()
         {
-            if (!isVisible)
-                return;
+            Size cellSize = CellX.Size;
 
-            Size cellSize = dataGridBorderX.IsVisible
-                ? Size.InflateWidth(-2)
-                : Size;
+            int rowWidth = cellSize.Width;
+            int rowHeight = cellSize.Height;
 
-            cellX.Size = cellSize;
+            if (GridBorderX != null)
+                rowWidth += 2;
+
+            return new Size(rowWidth, rowHeight);
+        }
+
+        public void Render(ITablePrinter tablePrinter, Size actualSize)
+        {
+            Size cellSize = GridBorderX != null
+                ? actualSize.InflateWidth(-2)
+                : actualSize;
 
             for (int lineIndex = 0; lineIndex < cellSize.Height; lineIndex++)
             {
-                dataGridBorderX.RenderRowLeftBorder(tablePrinter);
-                cellX.RenderNextLine(tablePrinter);
-                dataGridBorderX.RenderRowRightBorder(tablePrinter);
+                GridBorderX?.RenderRowLeftBorder(tablePrinter);
+                CellX.RenderNextLine(tablePrinter, cellSize);
+                GridBorderX?.RenderRowRightBorder(tablePrinter);
 
                 tablePrinter.WriteLine();
             }
+        }
+
+        public static TitleRowX CreateFrom(TitleRow titleRow)
+        {
+            TitleRowX titleRowX = new TitleRowX
+            {
+                CellX = CellX.CreateFrom(titleRow.TitleCell),
+                GridBorderX = titleRow.ParentDataGrid.Border.IsVisible
+                    ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
+                    : null
+            };
+
+            titleRowX.CalculateLayout();
+
+            return titleRowX;
         }
     }
 }

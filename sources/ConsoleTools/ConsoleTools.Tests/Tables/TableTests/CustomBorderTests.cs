@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_simple_table_with_custom_border()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
@@ -47,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         {
             DataGrid dataGrid = new DataGrid();
             dataGrid.Title = "My Title";
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_table_with_custom_border_and_headers()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.HeaderRow.IsVisible = true;
             dataGrid.Columns.Add(new Column("One"));
             dataGrid.Columns.Add(new Column("Two"));
@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_table_with_custom_border_title_and_headers()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Title = "My Title";
             dataGrid.HeaderRow.IsVisible = true;
             dataGrid.Columns.Add(new Column("One"));
@@ -124,7 +124,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_table_with_digit_and_letter_border()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = new BorderTemplate("1234567890abcde");
+            dataGrid.Border.Template = new BorderTemplate("1234567890abcde");
             dataGrid.Title = "My Title";
             dataGrid.HeaderRow.IsVisible = true;
             dataGrid.CellPaddingLeft = 3;
@@ -138,7 +138,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
 
             string expected =
                 @"122222222222222222222222222222222223
-8   My Title                       4
+8 My Title                         4
 beeeeeeeeeee9eeeeeeeeee9eeeeeeeeeee0
 8   One     d   Two    d   Three   4
 beeeeeeeeeeeceeeeeeeeeeceeeeeeeeeee0

@@ -25,6 +25,9 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
+    /// <summary>
+    /// The base class for a data grid row.
+    /// </summary>
     public abstract class RowBase : IEnumerable<CellBase>
     {
         /// <summary>

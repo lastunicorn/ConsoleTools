@@ -23,43 +23,43 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
     public class ConstructorTests
     {
         [Test]
-        public void TestConstructor1()
+        public void WhenInstantiatingDataGridWithoutParameters_ThenPropertiesAreCorrectlyInitialized()
         {
             DataGrid dataGrid = new DataGrid();
 
             Assert.That(dataGrid.Title, Is.EqualTo(MultilineText.Empty));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
-            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.CellPaddingLeft, Is.Null);
+            Assert.That(dataGrid.CellPaddingRight, Is.Null);
+            Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void TestConstructor2()
+        public void WhenInstantiatingDataGridWithStringTitle_ThenPropertiesAreCorrectlyInitialized()
         {
             DataGrid dataGrid = new DataGrid("My Title");
 
             Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
-            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.CellPaddingLeft, Is.Null);
+            Assert.That(dataGrid.CellPaddingRight, Is.Null);
+            Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void TestConstructor3()
+        public void WhenInstantiatingDataGridWithMultilineTextTitle_ThenPropertiesAreCorrectlyInitialized()
         {
             DataGrid dataGrid = new DataGrid(new MultilineText("My Title"));
 
             Assert.That(dataGrid.Title, Is.EqualTo(new MultilineText("My Title")));
             Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
-            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
-            Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
+            Assert.That(dataGrid.CellPaddingLeft, Is.Null);
+            Assert.That(dataGrid.CellPaddingRight, Is.Null);
+            Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
             Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
             Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
         }

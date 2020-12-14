@@ -26,20 +26,20 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
     [TestFixture]
     public class RenderTextTests
     {
-        private List<string> renderOutput;
+        private List<string> renderingOutput;
         private Mock<ITablePrinter> tablePrinter;
 
         [SetUp]
         public void SetUp()
         {
-            renderOutput = new List<string>();
+            renderingOutput = new List<string>();
 
             tablePrinter = new Mock<ITablePrinter>();
             tablePrinter
                 .Setup(x => x.Write(It.IsAny<string>(), It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>()))
                 .Callback<string, ConsoleColor?, ConsoleColor?>((line, fg, bg) =>
                 {
-                    renderOutput.Add(line);
+                    renderingOutput.Add(line);
                 });
         }
 
@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderOutput, Is.EqualTo(new[] { "text      " }));
+            Assert.That(renderingOutput, Is.EqualTo(new[] { "text      " }));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderOutput, Is.EqualTo(new List<string> { "some long text" }));
+            Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long text" }));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 2));
 
-            Assert.That(renderOutput, Is.EqualTo(new List<string>
+            Assert.That(renderingOutput, Is.EqualTo(new List<string>
             {
                 "text      ",
                 "          "
@@ -96,7 +96,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 2));
 
-            Assert.That(renderOutput, Is.EqualTo(new List<string>
+            Assert.That(renderingOutput, Is.EqualTo(new List<string>
             {
                 "line1     ",
                 "line2     "
@@ -114,7 +114,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderOutput, Is.EqualTo(new[] { "  text    " }));
+            Assert.That(renderingOutput, Is.EqualTo(new[] { "  text    " }));
         }
 
         [Test]
@@ -129,12 +129,12 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.CellXTests
 
             RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderOutput, Is.EqualTo(new[] { "    text  " }));
+            Assert.That(renderingOutput, Is.EqualTo(new[] { "    text  " }));
         }
 
         private void RenderAllLines(CellX cellX, Size size)
         {
-            for (int i = 0; i < cellX.Size.Height; i++)
+            for (int i = 0; i < size.Height; i++)
                 cellX.RenderNextLine(tablePrinter.Object, size);
         }
     }

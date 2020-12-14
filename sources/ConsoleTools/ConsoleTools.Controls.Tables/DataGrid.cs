@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
@@ -374,7 +375,23 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(typeof(T));
+            DataGridBuilderFromObject builder;
+
+            Type enumerableType = typeof(T).GetInterfaces()
+                .FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+
+            if (enumerableType != null)
+            {
+                Type[] genericArguments = enumerableType.GetGenericArguments();
+
+                Type genericArgument = genericArguments[0];
+                builder = new DataGridBuilderFromObject(genericArgument);
+            }
+            else
+            {
+                builder = new DataGridBuilderFromObject(typeof(T));
+            }
+
             builder.Add(data);
 
             return builder.DataGrid;

@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
 
             const string expected =
                 @"+-------------------------------+
-|  My Title                     |
+| My Title                      |
 +----------+---------+----------+
 |  1234567 |  123456 |  one two |
 |  1       |  asd    |  asas    |
@@ -50,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
 ";
 
             Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(2));
-            Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingRight, Is.Null);
             CustomAssert.TableRender(dataGrid, expected);
         }
 
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
 +----------+---------+----------+
 ";
 
-            Assert.That(dataGrid.CellPaddingLeft, Is.EqualTo(1));
+            Assert.That(dataGrid.CellPaddingLeft, Is.Null);
             Assert.That(dataGrid.CellPaddingRight, Is.EqualTo(2));
             CustomAssert.TableRender(dataGrid, expected);
         }

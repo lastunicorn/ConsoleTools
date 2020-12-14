@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
@@ -33,7 +32,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     public class ColumnList : IEnumerable<Column>
     {
         private readonly DataGrid parentDataGrid;
-
         private readonly List<Column> columns = new List<Column>();
 
         /// <summary>

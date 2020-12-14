@@ -1,9 +1,14 @@
 .vs/
-*.suo
 bin/
 obj/
+
 *.user
-packages/
+*.suo
 *.TMP
+
+packages/
 *.nupkg
 ExternalLibraries/
+
+CoverageReport/
+TestResults/

@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Tests
             this.basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
-        public string GeExpectedtOut([CallerMemberName] string testName = "")
+        public string GeExpectedOut([CallerMemberName] string testName = "")
         {
             string directoryName = testClassType.Name + ".out";
             string outFileName = testName + ".out";

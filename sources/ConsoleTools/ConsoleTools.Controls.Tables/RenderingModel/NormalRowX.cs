@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class DataRowX
+    internal class NormalRowX
     {
         public Size Size { get; private set; }
 
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                DataGridBorderX.RenderRowLeftBorder(tablePrinter);
+                DataGridBorderX?.RenderRowLeftBorder(tablePrinter);
 
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
@@ -79,9 +79,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     bool isLastCell = columnIndex >= Cells.Count - 1;
 
                     if (isLastCell)
-                        DataGridBorderX.RenderRowRightBorder(tablePrinter);
+                        DataGridBorderX?.RenderRowRightBorder(tablePrinter);
                     else
-                        DataGridBorderX.RenderRowInsideBorder(tablePrinter);
+                        DataGridBorderX?.RenderRowInsideBorder(tablePrinter);
                 }
 
                 tablePrinter.WriteLine();
@@ -102,23 +102,23 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             }
         }
 
-        public static DataRowX CreateFrom(DataRow dataRow)
+        public static NormalRowX CreateFrom(NormalRow normalRow)
         {
-            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
+            if (normalRow == null) throw new ArgumentNullException(nameof(normalRow));
 
-            DataRowX dataRowX = new DataRowX
+            NormalRowX normalRowX = new NormalRowX
             {
-                DataGridBorderX = dataRow.ParentDataGrid?.Border != null
-                    ? DataGridBorderX.CreateFrom(dataRow.ParentDataGrid.Border)
+                DataGridBorderX = normalRow.ParentDataGrid?.Border?.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(normalRow.ParentDataGrid.Border)
                     : null,
-                Cells = dataRow
+                Cells = normalRow
                     .Select(CellX.CreateFrom)
                     .ToList()
             };
 
-            dataRowX.CalculateLayout();
+            normalRowX.CalculateLayout();
 
-            return dataRowX;
+            return normalRowX;
         }
     }
 }

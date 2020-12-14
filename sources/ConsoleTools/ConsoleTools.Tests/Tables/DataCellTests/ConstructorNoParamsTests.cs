@@ -22,30 +22,30 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.DataCellTests
     [TestFixture]
     public class ConstructorNoParamsTests
     {
-        private DataCell dataCell;
+        private NormalCell normalCell;
 
         [SetUp]
         public void SetUp()
         {
-            dataCell = new DataCell();
+            normalCell = new NormalCell();
         }
 
         [Test]
         public void Content_is_empty()
         {
-            Assert.That(dataCell.Content, Is.SameAs(MultilineText.Empty));
+            Assert.That(normalCell.Content, Is.SameAs(MultilineText.Empty));
         }
 
         [Test]
         public void IsEmpty_is_true()
         {
-            Assert.That(dataCell.IsEmpty, Is.True);
+            Assert.That(normalCell.IsEmpty, Is.True);
         }
 
         [Test]
         public void HorizontalAlignment_is_Default()
         {
-            Assert.That(dataCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(normalCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         }
     }
 }

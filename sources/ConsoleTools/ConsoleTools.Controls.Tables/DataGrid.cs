@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -95,14 +96,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the list of rows contained by the current data grid.
         /// </summary>
-        public DataRowList Rows { get; }
+        public NormalRowList Rows { get; }
 
         /// <summary>
         /// Gets the row at the specified index.
         /// </summary>
         /// <param name="rowIndex">The zero-based index of the row to get.</param>
         /// <returns>The row at the specified index.</returns>
-        public DataRow this[int rowIndex] => Rows[rowIndex];
+        public NormalRow this[int rowIndex] => Rows[rowIndex];
 
         /// <summary>
         /// Gets the cell at the specified location.
@@ -110,7 +111,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
-        public DataCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
+        public NormalCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Gets an object representing the border of the data grid.
@@ -197,7 +198,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Default value: <c>true</c>
         /// </summary>
         [Obsolete("Use Border.IsVisible property instead.")]
-        public bool DisplayBorder { get; set; } = true;
+        public bool DisplayBorder
+        {
+            get => Border.IsVisible;
+            set => Border.IsVisible = value;
+        }
 
         /// <summary>
         /// Gets or sets the data grid borders.
@@ -249,7 +254,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid()
         {
-            Rows = new DataRowList(this);
+            Rows = new NormalRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
@@ -262,7 +267,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(string title)
         {
-            Rows = new DataRowList(this);
+            Rows = new NormalRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
@@ -275,7 +280,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(MultilineText title)
         {
-            Rows = new DataRowList(this);
+            Rows = new NormalRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
@@ -288,7 +293,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(object title)
         {
-            Rows = new DataRowList(this);
+            Rows = new NormalRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
@@ -386,13 +391,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
                 Type genericArgument = genericArguments[0];
                 builder = new DataGridBuilderFromObject(genericArgument);
+
+                builder.Add((IEnumerable)data);
             }
             else
             {
                 builder = new DataGridBuilderFromObject(typeof(T));
-            }
 
-            builder.Add(data);
+                builder.Add(data);
+            }
 
             return builder.DataGrid;
         }

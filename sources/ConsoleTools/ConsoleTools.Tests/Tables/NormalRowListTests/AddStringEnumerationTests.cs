@@ -20,55 +20,55 @@ using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
     public class AddStringEnumerationTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private NormalRowList normalRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            normalRowList = new NormalRowList(dataGrid);
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
         {
             IEnumerable<string> values = new List<string>
             {
                 "value 1", "value 2", "value 3"
             };
 
-            dataRowList.Add(values);
+            normalRowList.Add(values);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(normalRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
         {
             IEnumerable<string> values = new List<string>
             {
                 "value 1", "value 2", "value 3"
             };
 
-            dataRowList.Add(values);
+            normalRowList.Add(values);
 
-            IEnumerable<string> actual = dataRowList[0]
+            IEnumerable<string> actual = normalRowList[0]
                 .Select(x => x.Content.ToString());
             Assert.That(actual, Is.EqualTo(values));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenNullStringEnumerationIsAdded_ThenThrows()
+        public void HavingAnEmptyNormalRowList_WhenNullStringEnumerationIsAdded_ThenThrows()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                dataRowList.Add((IEnumerable<string>)null);
+                normalRowList.Add((IEnumerable<string>)null);
             });
         }
     }

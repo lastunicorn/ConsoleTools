@@ -25,11 +25,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables
         [Test]
         public void Constructor_sets_ParentRow_for_each_cell()
         {
-            DataCell cell0 = new DataCell("cell content");
-            DataCell cell1 = new DataCell("cell content");
-            DataCell cell2 = new DataCell("cell content");
+            NormalCell cell0 = new NormalCell("cell content");
+            NormalCell cell1 = new NormalCell("cell content");
+            NormalCell cell2 = new NormalCell("cell content");
 
-            DataRow row = new DataRow(cell0, cell1, cell2);
+            NormalRow row = new NormalRow(cell0, cell1, cell2);
 
             Assert.That(cell0.ParentRow, Is.SameAs(row));
             Assert.That(cell1.ParentRow, Is.SameAs(row));
@@ -39,11 +39,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables
         [Test]
         public void Constructor_keeps_the_received_Cell_instances()
         {
-            DataCell cell0 = new DataCell("cell content");
-            DataCell cell1 = new DataCell("cell content");
-            DataCell cell2 = new DataCell("cell content");
+            NormalCell cell0 = new NormalCell("cell content");
+            NormalCell cell1 = new NormalCell("cell content");
+            NormalCell cell2 = new NormalCell("cell content");
 
-            DataRow row = new DataRow(cell0, cell1, cell2);
+            NormalRow row = new NormalRow(cell0, cell1, cell2);
 
             Assert.That(row[0], Is.SameAs(cell0));
             Assert.That(row[1], Is.SameAs(cell1));
@@ -53,12 +53,12 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables
         [Test]
         public void Constructor_created_empty_Cell_if_one_item_is_null()
         {
-            DataCell cell0 = new DataCell("cell content");
-            DataCell cell2 = new DataCell("cell content");
+            NormalCell cell0 = new NormalCell("cell content");
+            NormalCell cell2 = new NormalCell("cell content");
 
-            DataRow row = new DataRow(cell0, null, cell2);
+            NormalRow row = new NormalRow(cell0, null, cell2);
 
-            Assert.That(row[1], Is.InstanceOf<DataCell>());
+            Assert.That(row[1], Is.InstanceOf<NormalCell>());
             Assert.That(row[1].IsEmpty, Is.True);
         }
     }

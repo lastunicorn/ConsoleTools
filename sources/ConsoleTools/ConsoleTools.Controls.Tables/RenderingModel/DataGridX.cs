@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private TitleRowX titleRowX;
         private HeaderRowX headerRowX;
-        private readonly List<DataRowX> dataRows = new List<DataRowX>();
+        private readonly List<NormalRowX> dataRows = new List<NormalRowX>();
         private readonly List<ColumnX> columns = new List<ColumnX>();
         private int actualWidth;
 
@@ -64,10 +64,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             headerRowX.UpdateColumnsWidths(columns);
         }
 
-        public void AddDataRow(DataRowX dataRowX)
+        public void AddNormalRow(NormalRowX normalRowX)
         {
-            dataRowX.UpdateColumnsWidths(columns);
-            dataRows.Add(dataRowX);
+            normalRowX.UpdateColumnsWidths(columns);
+            dataRows.Add(normalRowX);
         }
 
         public void CalculateLayout(int minWidth)
@@ -144,16 +144,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             DataTopBorder?.Render(tablePrinter, columns);
 
-            RenderDataRows(tablePrinter);
+            RenderNormalRows(tablePrinter);
 
             DataBottomBorder?.Render(tablePrinter, columns);
         }
 
-        private void RenderDataRows(ITablePrinter tablePrinter)
+        private void RenderNormalRows(ITablePrinter tablePrinter)
         {
             for (int rowIndex = 0; rowIndex < dataRows.Count; rowIndex++)
             {
-                DataRowX row = dataRows[rowIndex];
+                NormalRowX row = dataRows[rowIndex];
                 row.Render(tablePrinter, columns);
 
                 bool isLastRow = rowIndex == dataRows.Count - 1;

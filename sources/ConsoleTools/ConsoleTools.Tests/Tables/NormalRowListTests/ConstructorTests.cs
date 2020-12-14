@@ -18,26 +18,26 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
     public class ConstructorTests
     {
         [Test]
-        public void HavingNullDataGrid_WhenDataRowListIsInstantiated_ThenThrows()
+        public void HavingNullDataGrid_WhenNormalRowListIsInstantiated_ThenThrows()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                DataRowList dataRowList = new DataRowList(null);
+                NormalRowList normalRowList = new NormalRowList(null);
             });
         }
 
         [Test]
-        public void HavingValidDataGrid_WhenDataRowListIsInstantiated_ThenSuccess()
+        public void HavingValidDataGrid_WhenNormalRowListIsInstantiated_ThenSuccess()
         {
             DataGrid dataGrid = new DataGrid();
 
-            DataRowList dataRowList = new DataRowList(dataGrid);
+            NormalRowList normalRowList = new NormalRowList(dataGrid);
         }
     }
 }

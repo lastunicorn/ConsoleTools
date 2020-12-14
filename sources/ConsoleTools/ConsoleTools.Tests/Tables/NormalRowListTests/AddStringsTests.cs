@@ -19,35 +19,35 @@ using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
     public class AddStringsTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private NormalRowList normalRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            normalRowList = new NormalRowList(dataGrid);
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
         {
-            dataRowList.Add("value 1", "value 2", "value 3");
+            normalRowList.Add("value 1", "value 2", "value 3");
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(normalRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
         {
-            dataRowList.Add("value 1", "value 2", "value 3");
+            normalRowList.Add("value 1", "value 2", "value 3");
 
-            IEnumerable<string> actual = dataRowList[0]
+            IEnumerable<string> actual = normalRowList[0]
                 .Select(x => x.Content.ToString());
             IEnumerable<string> expected = new List<string>
             {
@@ -58,11 +58,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenNullStringIsAdded_ThenRowContainsEmptyCell()
+        public void HavingAnEmptyNormalRowList_WhenNullStringIsAdded_ThenRowContainsEmptyCell()
         {
-            dataRowList.Add((string)null);
+            normalRowList.Add((string)null);
 
-            Assert.That(dataRowList[0][0].IsEmpty, Is.True);
+            Assert.That(normalRowList[0][0].IsEmpty, Is.True);
         }
     }
 }

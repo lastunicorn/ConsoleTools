@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TextBlockTests
 
                 textBlock.Display();
 
-                string actual = consoleOutput.GetOuput();
+                string actual = consoleOutput.GetOutput();
 
                 string expected = expectedOutput.GeExpectedtOut();
                 Assert.AreEqual(expected, actual);
@@ -57,7 +57,7 @@ namespace DustInTheWind.ConsoleTools.Tests.TextBlockTests
 
                 textBlock.Display();
 
-                string actual = consoleOutput.GetOuput();
+                string actual = consoleOutput.GetOutput();
 
                 string expected = expectedOutput.GeExpectedtOut();
                 Assert.AreEqual(expected, actual);

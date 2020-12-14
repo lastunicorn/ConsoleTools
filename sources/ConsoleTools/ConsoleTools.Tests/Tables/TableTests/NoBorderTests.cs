@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_simple_table_without_border()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.DisplayBorder = false;
+            dataGrid.Border.IsVisible = false;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
@@ -44,7 +44,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
         public void render_table_with_title_and_no_border()
         {
             DataGrid dataGrid = new DataGrid();
-            dataGrid.DisplayBorder = false;
+            dataGrid.Border.IsVisible = false;
             dataGrid.Title = "My Title";
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
@@ -52,6 +52,30 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
 
             string expected =
                 @" My Title          
+ one    ichi  eins 
+ two    ni    zwei 
+ three  san   drei 
+";
+
+            CustomAssert.TableRender(dataGrid, expected);
+        }
+
+        [Test]
+        public void render_table_with_title_and_headers_and_no_border()
+        {
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Border.IsVisible = false;
+            dataGrid.Title = "My Title";
+            dataGrid.Columns.Add("1");
+            dataGrid.Columns.Add("2");
+            dataGrid.Columns.Add("3");
+            dataGrid.Rows.Add("one", "ichi", "eins");
+            dataGrid.Rows.Add("two", "ni", "zwei");
+            dataGrid.Rows.Add("three", "san", "drei");
+
+            string expected =
+                @" My Title          
+ 1      2     3    
  one    ichi  eins 
  two    ni    zwei 
  three  san   drei 

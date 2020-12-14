@@ -27,13 +27,13 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
-    /// Contains the list of <see cref="DataRow"/>s displayed by the table.
+    /// Contains the list of <see cref="NormalRow"/>s displayed by the table.
     /// </summary>
-    public class DataRowList : IEnumerable<DataRow>
+    public class NormalRowList : IEnumerable<NormalRow>
     {
         private readonly DataGrid parentDataGrid;
 
-        private readonly List<DataRow> rows = new List<DataRow>();
+        private readonly List<NormalRow> rows = new List<NormalRow>();
 
         /// <summary>
         /// Gets the number of rows contained in the current instance.
@@ -41,21 +41,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int Count => rows.Count;
 
         /// <summary>
-        /// Gets the <see cref="DataRow"/> at the specified index.
+        /// Gets the <see cref="NormalRow"/> at the specified index.
         /// If the index is outside of the bounds of the list, <c>null</c> is returned.
         /// </summary>
-        /// <param name="rowIndex">The index of the <see cref="DataRow"/> to return.</param>
-        /// <returns>The <see cref="DataRow"/> at the specified index.</returns>
-        public DataRow this[int rowIndex] => rowIndex >= 0 && rowIndex < rows.Count
+        /// <param name="rowIndex">The index of the <see cref="NormalRow"/> to return.</param>
+        /// <returns>The <see cref="NormalRow"/> at the specified index.</returns>
+        public NormalRow this[int rowIndex] => rowIndex >= 0 && rowIndex < rows.Count
             ? rows[rowIndex]
             : null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRowList"/> class with
+        /// Initializes a new instance of the <see cref="NormalRowList"/> class with
         /// the <see cref="DataGrid"/> that owns it.
         /// </summary>
         /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
-        public DataRowList(DataGrid parentDataGrid)
+        public NormalRowList(DataGrid parentDataGrid)
         {
             this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
         }
@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         /// <param name="row">The row to be added.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Add(DataRow row)
+        public void Add(NormalRow row)
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
 
@@ -77,11 +77,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void Add(IEnumerable<DataCell> cells)
+        public void Add(IEnumerable<NormalCell> cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            DataRow row = new DataRow(cells)
+            NormalRow row = new NormalRow(cells)
             {
                 ParentDataGrid = parentDataGrid
             };
@@ -92,11 +92,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void Add(params DataCell[] cells)
+        public void Add(params NormalCell[] cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            DataRow row = new DataRow(cells)
+            NormalRow row = new NormalRow(cells)
             {
                 ParentDataGrid = parentDataGrid
             };
@@ -111,13 +111,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
-                row.AddCell(new DataCell(text));
+                row.AddCell(new NormalCell(text));
 
             rows.Add(row);
         }
@@ -130,13 +130,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
-                row.AddCell(new DataCell(text));
+                row.AddCell(new NormalCell(text));
 
             rows.Add(row);
         }
@@ -149,13 +149,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
-                row.AddCell(new DataCell(text));
+                row.AddCell(new NormalCell(text));
 
             rows.Add(row);
         }
@@ -168,13 +168,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
-                row.AddCell(new DataCell(text));
+                row.AddCell(new NormalCell(text));
 
             rows.Add(row);
         }
@@ -187,13 +187,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)
-                row.AddCell(new DataCell(cellContent));
+                row.AddCell(new NormalCell(cellContent));
 
             rows.Add(row);
         }
@@ -206,13 +206,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            DataRow row = new DataRow
+            NormalRow row = new NormalRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)
-                row.AddCell(new DataCell(cellContent));
+                row.AddCell(new NormalCell(cellContent));
 
             rows.Add(row);
         }
@@ -227,11 +227,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Removes the first occurrence of the <see cref="DataRow"/> instance from the list.
+        /// Removes the first occurrence of the <see cref="NormalRow"/> instance from the list.
         /// </summary>
         /// <returns><c>true</c> if item is successfully removed; otherwise, <c>false</c>.
         /// This method also returns <c>false</c> if item was not found in the list.</returns>
-        public bool Remove(DataRow row)
+        public bool Remove(NormalRow row)
         {
             return rows.Remove(row);
         }
@@ -245,9 +245,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="DataRow"/>s contained by the current instance.
+        /// Returns an enumerator that iterates through the <see cref="NormalRow"/>s contained by the current instance.
         /// </summary>
-        public IEnumerator<DataRow> GetEnumerator()
+        public IEnumerator<NormalRow> GetEnumerator()
         {
             return rows.GetEnumerator();
         }

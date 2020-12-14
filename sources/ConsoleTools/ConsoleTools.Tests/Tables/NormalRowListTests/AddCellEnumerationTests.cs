@@ -19,57 +19,57 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
     public class AddCellEnumerationTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private NormalRowList normalRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            normalRowList = new NormalRowList(dataGrid);
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
+        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
         {
-            IEnumerable<DataCell> cells = new List<DataCell>
+            IEnumerable<NormalCell> cells = new List<NormalCell>
             {
-                new DataCell(),
-                new DataCell(),
-                new DataCell()
+                new NormalCell(),
+                new NormalCell(),
+                new NormalCell()
             };
 
-            dataRowList.Add(cells);
+            normalRowList.Add(cells);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(normalRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
+        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
         {
-            IEnumerable<DataCell> cells = new List<DataCell>
+            IEnumerable<NormalCell> cells = new List<NormalCell>
             {
-                new DataCell(),
-                new DataCell(),
-                new DataCell()
+                new NormalCell(),
+                new NormalCell(),
+                new NormalCell()
             };
 
-            dataRowList.Add(cells);
+            normalRowList.Add(cells);
 
-            Assert.That(dataRowList[0], Is.EqualTo(cells));
+            Assert.That(normalRowList[0], Is.EqualTo(cells));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenNullDataCellEnumerationIsAdded_ThenThrows()
+        public void HavingAnEmptyNormalRowList_WhenNullDataCellEnumerationIsAdded_ThenThrows()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                dataRowList.Add((List<DataCell>)null);
+                normalRowList.Add((List<NormalCell>)null);
             });
         }
     }

@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Tests
             Console.SetOut(stringWriter);
         }
 
-        public string GetOuput()
+        public string GetOutput()
         {
             return stringWriter.ToString();
         }

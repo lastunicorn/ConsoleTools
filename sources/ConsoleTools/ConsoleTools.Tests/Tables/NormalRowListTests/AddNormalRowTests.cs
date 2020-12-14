@@ -18,57 +18,57 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
-    public class AddDataRowTests
+    public class AddNormalRowTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private NormalRowList normalRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            normalRowList = new NormalRowList(dataGrid);
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenOneDataRowIsAdded_ThenRowCountIs1()
+        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenRowCountIs1()
         {
-            DataRow dataRow = new DataRow();
+            NormalRow normalRow = new NormalRow();
 
-            dataRowList.Add(dataRow);
+            normalRowList.Add(normalRow);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(normalRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenOneDataRowIsAdded_ThenListContainsTheDataRow()
+        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenListContainsTheNormalRow()
         {
-            DataRow dataRow = new DataRow();
+            NormalRow normalRow = new NormalRow();
 
-            dataRowList.Add(dataRow);
+            normalRowList.Add(normalRow);
 
-            Assert.That(dataRowList[0], Is.SameAs(dataRow));
+            Assert.That(normalRowList[0], Is.SameAs(normalRow));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenOneDataRowIsAdded_ThenDataGridIsSetToDataRow()
+        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenDataGridIsSetToNormalRow()
         {
-            DataRow dataRow = new DataRow();
+            NormalRow normalRow = new NormalRow();
 
-            dataRowList.Add(dataRow);
+            normalRowList.Add(normalRow);
 
-            Assert.That(dataRow.ParentDataGrid, Is.SameAs(dataGrid));
+            Assert.That(normalRow.ParentDataGrid, Is.SameAs(dataGrid));
         }
 
         [Test]
-        public void HavingAnEmptyDataRowList_WhenNullDataRowIsAdded_ThenThrows()
+        public void HavingAnEmptyNormalRowList_WhenNullNormalRowIsAdded_ThenThrows()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                dataRowList.Add((DataRow)null);
+                normalRowList.Add((NormalRow)null);
             });
         }
     }

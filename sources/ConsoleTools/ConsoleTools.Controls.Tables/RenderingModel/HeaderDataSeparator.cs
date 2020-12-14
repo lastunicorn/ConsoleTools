@@ -38,12 +38,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
         {
             if (borderText == null)
-                borderText = GenerateDataRowSeparatorBorder(columns);
+                borderText = GenerateNormalRowSeparatorBorder(columns);
 
             tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }
         
-        private string GenerateDataRowSeparatorBorder(List<ColumnX> columns)
+        private string GenerateNormalRowSeparatorBorder(List<ColumnX> columns)
         {
             StringBuilder sb = new StringBuilder();
 

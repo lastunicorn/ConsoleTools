@@ -17,35 +17,48 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Tables.DataCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Tables.NormalRowListTests
 {
     [TestFixture]
-    public class ConstructorStringAndAlignmentTests
+    public class ClearTests
     {
-        private NormalCell normalCell;
+        private DataGrid dataGrid;
+        private NormalRowList normalRowList;
 
         [SetUp]
         public void SetUp()
         {
-            normalCell = new NormalCell("some content", HorizontalAlignment.Center);
+            dataGrid = new DataGrid();
+            normalRowList = new NormalRowList(dataGrid);
         }
 
         [Test]
-        public void Content_is_the_one_provided_on_constructor()
+        public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
         {
-            Assert.That(normalCell.Content, Is.EqualTo(new MultilineText("some content")));
+            normalRowList.Clear();
+
+            Assert.That(normalRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void IsEmpty_is_false()
+        public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
         {
-            Assert.That(normalCell.IsEmpty, Is.False);
+            normalRowList.Add(new NormalRow());
+
+            normalRowList.Clear();
+
+            Assert.That(normalRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void HorizontalAlignment_is_Center()
+        public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
         {
-            Assert.That(normalCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
+            normalRowList.Add(new NormalRow());
+            normalRowList.Add(new NormalRow());
+
+            normalRowList.Clear();
+
+            Assert.That(normalRowList.Count, Is.EqualTo(0));
         }
     }
 }

@@ -57,18 +57,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             return new Size(width, height);
         }
-        
+
         public void Render(ITablePrinter tablePrinter, List<ColumnX> cellWidths)
         {
-            //for (int i = 0; i < Cells.Count; i++)
-            //{
-            //    CellX cellX = Cells[i];
-            //    cellX.Size = new Size(cellWidths[i].Width, Size.Height);
-            //}
-
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                DataGridBorderX.RenderRowLeftBorder(tablePrinter);
+                DataGridBorderX?.RenderRowLeftBorder(tablePrinter);
 
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
@@ -79,9 +73,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     bool isLastCell = columnIndex >= Cells.Count - 1;
 
                     if (isLastCell)
-                        DataGridBorderX.RenderRowRightBorder(tablePrinter);
+                        DataGridBorderX?.RenderRowRightBorder(tablePrinter);
                     else
-                        DataGridBorderX.RenderRowInsideBorder(tablePrinter);
+                        DataGridBorderX?.RenderRowInsideBorder(tablePrinter);
                 }
 
                 tablePrinter.WriteLine();
@@ -108,7 +102,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             HeaderRowX headerRowX = new HeaderRowX
             {
-                DataGridBorderX = headerRow.ParentDataGrid?.Border != null
+                DataGridBorderX = headerRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
                     : null,
                 Cells = headerRow

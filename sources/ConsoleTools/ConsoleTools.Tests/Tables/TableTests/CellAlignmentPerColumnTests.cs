@@ -72,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Tables.TableTests
             dataGrid.Columns.Add(column2);
 
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            dataGrid.Rows.Add(new NormalCell[] { new NormalCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =

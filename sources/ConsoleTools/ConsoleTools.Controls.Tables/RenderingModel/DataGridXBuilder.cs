@@ -74,17 +74,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void AddHeader()
         {
-            HeaderRowX headerRowX = HeaderRowX.CreateFrom(HeaderRow);
+            RowX headerRowX = RowX.CreateFrom(HeaderRow);
             dataGridX.AddHeaderRow(headerRowX);
         }
 
         private void AddRows()
         {
-            IEnumerable<NormalRowX> rows = Rows
+            IEnumerable<RowX> rows = Rows
                 .Where(x => x.IsVisible)
-                .Select(NormalRowX.CreateFrom);
+                .Select(RowX.CreateFrom);
 
-            foreach (NormalRowX row in rows)
+            foreach (RowX row in rows)
                 dataGridX.AddNormalRow(row);
         }
 

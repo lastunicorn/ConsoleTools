@@ -25,9 +25,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     {
         public Size Size { get; set; }
 
-        public CellX CellX { get; set; }
+        public DataGridBorderX Border { get; set; }
 
-        public DataGridBorderX GridBorderX { get; set; }
+        public CellX Cell { get; set; }
 
         public void CalculateLayout()
         {
@@ -36,12 +36,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private Size CalculatePreferredSize()
         {
-            Size cellSize = CellX.Size;
+            Size cellSize = Cell.Size;
 
             int rowWidth = cellSize.Width;
             int rowHeight = cellSize.Height;
 
-            if (GridBorderX != null)
+            if (Border != null)
                 rowWidth += 2;
 
             return new Size(rowWidth, rowHeight);
@@ -49,15 +49,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void Render(ITablePrinter tablePrinter, Size actualSize)
         {
-            Size cellSize = GridBorderX != null
+            Size cellSize = Border != null
                 ? actualSize.InflateWidth(-2)
                 : actualSize;
 
             for (int lineIndex = 0; lineIndex < cellSize.Height; lineIndex++)
             {
-                GridBorderX?.RenderRowLeftBorder(tablePrinter);
-                CellX.RenderNextLine(tablePrinter, cellSize);
-                GridBorderX?.RenderRowRightBorder(tablePrinter);
+                Border?.RenderRowLeftBorder(tablePrinter);
+                Cell.RenderNextLine(tablePrinter, cellSize);
+                Border?.RenderRowRightBorder(tablePrinter);
 
                 tablePrinter.WriteLine();
             }
@@ -67,8 +67,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             TitleRowX titleRowX = new TitleRowX
             {
-                CellX = CellX.CreateFrom(titleRow.TitleCell),
-                GridBorderX = titleRow.ParentDataGrid.Border.IsVisible
+                Cell = CellX.CreateFrom(titleRow.TitleCell),
+                Border = titleRow.ParentDataGrid.Border.IsVisible
                     ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
                     : null
             };

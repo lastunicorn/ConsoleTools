@@ -42,6 +42,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
+        public int HorizontalMerge { get; set; }
+
         public void CalculateLayout()
         {
             Size = CalculatePreferredSize();

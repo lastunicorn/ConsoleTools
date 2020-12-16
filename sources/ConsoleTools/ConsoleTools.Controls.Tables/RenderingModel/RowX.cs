@@ -25,11 +25,11 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class HeaderRowX
+    internal class RowX
     {
         public Size Size { get; private set; }
 
-        public DataGridBorderX DataGridBorderX { get; set; }
+        public DataGridBorderX Border { get; set; }
 
         public List<CellX> Cells { get; set; }
 
@@ -52,8 +52,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 }
             }
 
-            if (DataGridBorderX != null)
-                width += Cells?.Count ?? 0 + 1;
+            if (Border != null)
+            {
+                int cellsCount = Cells?.Count ?? 0;
+
+                if (cellsCount == 0)
+                    cellsCount = 1;
+
+                width += cellsCount + 1;
+            }
 
             return new Size(width, height);
         }
@@ -62,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                DataGridBorderX?.RenderRowLeftBorder(tablePrinter);
+                Border?.RenderRowLeftBorder(tablePrinter);
 
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
@@ -73,36 +80,41 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     bool isLastCell = columnIndex >= Cells.Count - 1;
 
                     if (isLastCell)
-                        DataGridBorderX?.RenderRowRightBorder(tablePrinter);
+                        Border?.RenderRowRightBorder(tablePrinter);
                     else
-                        DataGridBorderX?.RenderRowInsideBorder(tablePrinter);
+                        Border?.RenderRowInsideBorder(tablePrinter);
                 }
 
                 tablePrinter.WriteLine();
             }
         }
 
-        public void UpdateColumnsWidths(List<ColumnX> columnsWidths)
+        public static RowX CreateFrom(NormalRow normalRow)
         {
-            for (int i = 0; i < Cells.Count; i++)
+            if (normalRow == null) throw new ArgumentNullException(nameof(normalRow));
+
+            RowX rowX = new RowX
             {
-                while (columnsWidths.Count <= i)
-                    columnsWidths.Add(new ColumnX());
+                Border = normalRow.ParentDataGrid?.Border?.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(normalRow.ParentDataGrid.Border)
+                    : null,
+                Cells = normalRow
+                    .Select(CellX.CreateFrom)
+                    .ToList()
+            };
 
-                Size cellSize = Cells[i].Size;
+            rowX.CalculateLayout();
 
-                if (cellSize.Width > columnsWidths[i].Width)
-                    columnsWidths[i].Width = cellSize.Width;
-            }
+            return rowX;
         }
 
-        public static HeaderRowX CreateFrom(HeaderRow headerRow)
+        public static RowX CreateFrom(HeaderRow headerRow)
         {
             if (headerRow == null) throw new ArgumentNullException(nameof(headerRow));
 
-            HeaderRowX headerRowX = new HeaderRowX
+            RowX headerRowX = new RowX
             {
-                DataGridBorderX = headerRow.ParentDataGrid?.Border?.IsVisible == true
+                Border = headerRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
                     : null,
                 Cells = headerRow

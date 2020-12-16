@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,8 +30,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         private readonly bool displayBorder;
 
         private TitleRowX titleRowX;
-        private HeaderRowX headerRowX;
-        private readonly List<NormalRowX> dataRows = new List<NormalRowX>();
+        private RowX headerRowX;
+        private readonly List<RowX> normalRows = new List<RowX>();
         private readonly List<ColumnX> columns = new List<ColumnX>();
         private int actualWidth;
 
@@ -58,16 +59,46 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             this.titleRowX = titleRowX;
         }
 
-        public void AddHeaderRow(HeaderRowX headerRowX)
+        public void AddHeaderRow(RowX headerRowX)
         {
             this.headerRowX = headerRowX;
-            headerRowX.UpdateColumnsWidths(columns);
+            UpdateColumnsWidths(headerRowX);
         }
 
-        public void AddNormalRow(NormalRowX normalRowX)
+        public void AddNormalRow(RowX rowX)
         {
-            normalRowX.UpdateColumnsWidths(columns);
-            dataRows.Add(normalRowX);
+            normalRows.Add(rowX);
+            UpdateColumnsWidths(rowX);
+        }
+
+        private void UpdateColumnsWidths(RowX row)
+        {
+            //bool isFullRow = row.Cells.Count == 0 && row.Cells[0].HorizontalMerge < 0;
+
+            //if (isFullRow)
+            //{
+            //    int columnsTotalWidth = columns
+            //        .Select(x => x.Width)
+            //        .Sum();
+
+            //    CellX cell = row.Cells[0];
+
+            //    int diff = cell.Size.Width - columnsTotalWidth;
+
+            //    for (int i = 0; i < diff; i++)
+            //        columns[i % columns.Count].Width++;
+            //}
+
+            for (int i = 0; i < row.Cells.Count; i++)
+            {
+                while (columns.Count <= i)
+                    columns.Add(new ColumnX());
+
+                Size cellSize = row.Cells[i].Size;
+
+                if (cellSize.Width > columns[i].Width)
+                    columns[i].Width = cellSize.Width;
+            }
         }
 
         public void CalculateLayout(int minWidth)
@@ -151,12 +182,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void RenderNormalRows(ITablePrinter tablePrinter)
         {
-            for (int rowIndex = 0; rowIndex < dataRows.Count; rowIndex++)
+            for (int rowIndex = 0; rowIndex < normalRows.Count; rowIndex++)
             {
-                NormalRowX row = dataRows[rowIndex];
+                RowX row = normalRows[rowIndex];
                 row.Render(tablePrinter, columns);
 
-                bool isLastRow = rowIndex == dataRows.Count - 1;
+                bool isLastRow = rowIndex == normalRows.Count - 1;
 
                 if (!isLastRow)
                     DataDataSeparator?.Render(tablePrinter, columns);

@@ -22,30 +22,30 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
     [TestFixture]
     public class ConstructorStringTests
     {
-        private NormalCell normalCell;
+        private DataCell dataCell;
 
         [SetUp]
         public void SetUp()
         {
-            normalCell = new NormalCell("some content");
+            dataCell = new DataCell("some content");
         }
 
         [Test]
         public void Content_is_the_one_provided_on_constructor()
         {
-            Assert.That(normalCell.Content, Is.EqualTo(new MultilineText("some content")));
+            Assert.That(dataCell.Content, Is.EqualTo(new MultilineText("some content")));
         }
 
         [Test]
         public void IsEmpty_is_false()
         {
-            Assert.That(normalCell.IsEmpty, Is.False);
+            Assert.That(dataCell.IsEmpty, Is.False);
         }
 
         [Test]
         public void HorizontalAlignment_is_Default()
         {
-            Assert.That(normalCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(dataCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         }
     }
 }

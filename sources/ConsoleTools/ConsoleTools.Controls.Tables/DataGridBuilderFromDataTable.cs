@@ -40,9 +40,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 DataGrid.Columns.Add(columnHeader);
             }
 
-            foreach (DataRow dataRow in dataTable.Rows)
+            foreach (System.Data.DataRow dataRow in dataTable.Rows)
             {
-                NormalRow row = new NormalRow(dataRow.ItemArray);
+                DataRow row = new DataRow(dataRow.ItemArray);
                 DataGrid.Rows.Add(row);
             }
         }

@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             if (item == null)
                 return;
 
-            NormalRow normalRow = new NormalRow();
+            DataRow dataRow = new DataRow();
 
             foreach (MemberInfo memberInfo in members)
             {
@@ -77,19 +77,19 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                     case FieldInfo fieldInfo:
                         {
                             object value = fieldInfo.GetValue(item);
-                            normalRow.AddCell(value);
+                            dataRow.AddCell(value);
                             break;
                         }
                     case PropertyInfo propertyInfo:
                         {
                             object value = propertyInfo.GetValue(item);
-                            normalRow.AddCell(value);
+                            dataRow.AddCell(value);
                             break;
                         }
                 }
             }
 
-            DataGrid.Rows.Add(normalRow);
+            DataGrid.Rows.Add(dataRow);
         }
     }
 }

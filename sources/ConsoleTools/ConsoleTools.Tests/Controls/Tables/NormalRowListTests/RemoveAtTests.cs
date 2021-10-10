@@ -23,76 +23,76 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class RemoveAtTests
     {
         private DataGrid dataGrid;
-        private NormalRowList normalRowList;
+        private DataRowList dataRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            normalRowList = new NormalRowList(dataGrid);
+            dataRowList = new DataRowList(dataGrid);
         }
 
         [Test]
         public void HavingANormalRowListWithOneRow_WhenRemoveTheRow_ThenCountIs0()
         {
-            NormalRow normalRow = new NormalRow("value 1");
-            normalRowList.Add(normalRow);
+            DataRow dataRow = new DataRow("value 1");
+            dataRowList.Add(dataRow);
 
-            normalRowList.RemoveAt(0);
+            dataRowList.RemoveAt(0);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(0));
+            Assert.That(dataRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveFirstRow_ThenCountIs1()
         {
-            NormalRow normalRow1 = new NormalRow("value 1");
-            NormalRow normalRow2 = new NormalRow("value 2");
-            normalRowList.Add(normalRow1);
-            normalRowList.Add(normalRow2);
+            DataRow dataRow1 = new DataRow("value 1");
+            DataRow dataRow2 = new DataRow("value 2");
+            dataRowList.Add(dataRow1);
+            dataRowList.Add(dataRow2);
 
-            normalRowList.RemoveAt(0);
+            dataRowList.RemoveAt(0);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveFirstRow_ThenSecondRowIsStillInList()
         {
-            NormalRow normalRow1 = new NormalRow("value 1");
-            NormalRow normalRow2 = new NormalRow("value 2");
-            normalRowList.Add(normalRow1);
-            normalRowList.Add(normalRow2);
+            DataRow dataRow1 = new DataRow("value 1");
+            DataRow dataRow2 = new DataRow("value 2");
+            dataRowList.Add(dataRow1);
+            dataRowList.Add(dataRow2);
 
-            normalRowList.RemoveAt(0);
+            dataRowList.RemoveAt(0);
 
-            Assert.That(normalRowList[0], Is.EqualTo(normalRow2));
+            Assert.That(dataRowList[0], Is.EqualTo(dataRow2));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveSecondRow_ThenCountIs1()
         {
-            NormalRow normalRow1 = new NormalRow("value 1");
-            NormalRow normalRow2 = new NormalRow("value 2");
-            normalRowList.Add(normalRow1);
-            normalRowList.Add(normalRow2);
+            DataRow dataRow1 = new DataRow("value 1");
+            DataRow dataRow2 = new DataRow("value 2");
+            dataRowList.Add(dataRow1);
+            dataRowList.Add(dataRow2);
 
-            normalRowList.RemoveAt(1);
+            dataRowList.RemoveAt(1);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveSecondRow_ThenFirstRowIsStillInList()
         {
-            NormalRow normalRow1 = new NormalRow("value 1");
-            NormalRow normalRow2 = new NormalRow("value 2");
-            normalRowList.Add(normalRow1);
-            normalRowList.Add(normalRow2);
+            DataRow dataRow1 = new DataRow("value 1");
+            DataRow dataRow2 = new DataRow("value 2");
+            dataRowList.Add(dataRow1);
+            dataRowList.Add(dataRow2);
 
-            normalRowList.RemoveAt(1);
+            dataRowList.RemoveAt(1);
 
-            Assert.That(normalRowList[0], Is.EqualTo(normalRow1));
+            Assert.That(dataRowList[0], Is.EqualTo(dataRow1));
         }
     }
 }

@@ -24,51 +24,51 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddCellsTests
     {
         private DataGrid dataGrid;
-        private NormalRowList normalRowList;
+        private DataRowList dataRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            normalRowList = new NormalRowList(dataGrid);
+            dataRowList = new DataRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
         {
-            NormalCell normalCell1 = new NormalCell();
-            NormalCell normalCell2 = new NormalCell();
-            NormalCell normalCell3 = new NormalCell();
+            DataCell dataCell1 = new DataCell();
+            DataCell dataCell2 = new DataCell();
+            DataCell dataCell3 = new DataCell();
 
-            normalRowList.Add(normalCell1, normalCell2, normalCell3);
+            dataRowList.Add(dataCell1, dataCell2, dataCell3);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
         {
-            NormalCell normalCell1 = new NormalCell();
-            NormalCell normalCell2 = new NormalCell();
-            NormalCell normalCell3 = new NormalCell();
+            DataCell dataCell1 = new DataCell();
+            DataCell dataCell2 = new DataCell();
+            DataCell dataCell3 = new DataCell();
 
-            normalRowList.Add(normalCell1, normalCell2, normalCell3);
+            dataRowList.Add(dataCell1, dataCell2, dataCell3);
 
-            List<NormalCell> expected = new List<NormalCell>
+            List<DataCell> expected = new List<DataCell>
             {
-                normalCell1,
-                normalCell2,
-                normalCell3
+                dataCell1,
+                dataCell2,
+                dataCell3
             };
-            Assert.That(normalRowList[0], Is.EqualTo(expected));
+            Assert.That(dataRowList[0], Is.EqualTo(expected));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenNullDataCellIsAdded_ThenRowContainsEmptyCell()
         {
-            normalRowList.Add((NormalCell)null);
+            dataRowList.Add((DataCell)null);
 
-            Assert.That(normalRowList[0][0].IsEmpty, Is.True);
+            Assert.That(dataRowList[0][0].IsEmpty, Is.True);
         }
     }
 }

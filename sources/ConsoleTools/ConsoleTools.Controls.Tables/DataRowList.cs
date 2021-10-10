@@ -22,18 +22,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
-    /// Contains the list of <see cref="NormalRow"/>s displayed by the table.
+    /// Contains the list of <see cref="DataRow"/>s displayed by the table.
     /// </summary>
-    public class NormalRowList : IEnumerable<NormalRow>
+    public class DataRowList : IEnumerable<DataRow>
     {
         private readonly DataGrid parentDataGrid;
 
-        private readonly List<NormalRow> rows = new List<NormalRow>();
+        private readonly List<DataRow> rows = new List<DataRow>();
 
         /// <summary>
         /// Gets the number of rows contained in the current instance.
@@ -41,21 +40,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int Count => rows.Count;
 
         /// <summary>
-        /// Gets the <see cref="NormalRow"/> at the specified index.
+        /// Gets the <see cref="DataRow"/> at the specified index.
         /// If the index is outside of the bounds of the list, <c>null</c> is returned.
         /// </summary>
-        /// <param name="rowIndex">The index of the <see cref="NormalRow"/> to return.</param>
-        /// <returns>The <see cref="NormalRow"/> at the specified index.</returns>
-        public NormalRow this[int rowIndex] => rowIndex >= 0 && rowIndex < rows.Count
+        /// <param name="rowIndex">The index of the <see cref="DataRow"/> to return.</param>
+        /// <returns>The <see cref="DataRow"/> at the specified index.</returns>
+        public DataRow this[int rowIndex] => rowIndex >= 0 && rowIndex < rows.Count
             ? rows[rowIndex]
             : null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalRowList"/> class with
+        /// Initializes a new instance of the <see cref="DataRowList"/> class with
         /// the <see cref="DataGrid"/> that owns it.
         /// </summary>
         /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
-        public NormalRowList(DataGrid parentDataGrid)
+        public DataRowList(DataGrid parentDataGrid)
         {
             this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
         }
@@ -64,157 +63,184 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="row">The row to be added.</param>
+        /// <returns>The added row.</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Add(NormalRow row)
+        public DataRow Add(DataRow row)
         {
             if (row == null) throw new ArgumentNullException(nameof(row));
 
             row.ParentDataGrid = parentDataGrid;
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void Add(IEnumerable<NormalCell> cells)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(IEnumerable<DataCell> cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            NormalRow row = new NormalRow(cells)
+            DataRow row = new DataRow(cells)
             {
                 ParentDataGrid = parentDataGrid
             };
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cells">The list of cells of the new row.</param>
-        public void Add(params NormalCell[] cells)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(params DataCell[] cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
 
-            NormalRow row = new NormalRow(cells)
+            DataRow row = new DataRow(cells)
             {
                 ParentDataGrid = parentDataGrid
             };
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(IEnumerable<string> cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(IEnumerable<string> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
-                row.AddCell(new NormalCell(text));
+                row.AddCell(new DataCell(text));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(params string[] cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(params string[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (string text in cellContents)
-                row.AddCell(new NormalCell(text));
+                row.AddCell(new DataCell(text));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(IEnumerable<MultilineText> cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(IEnumerable<MultilineText> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
-                row.AddCell(new NormalCell(text));
+                row.AddCell(new DataCell(text));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(params MultilineText[] cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(params MultilineText[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (MultilineText text in cellContents)
-                row.AddCell(new NormalCell(text));
+                row.AddCell(new DataCell(text));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(IEnumerable<object> cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(IEnumerable<object> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)
-                row.AddCell(new NormalCell(cellContent));
+                row.AddCell(new DataCell(cellContent));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
         /// Adds a new row to the current table.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
-        public void Add(params object[] cellContents)
+        /// <returns>The newly created row.</returns>
+        public DataRow Add(params object[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
 
-            NormalRow row = new NormalRow
+            DataRow row = new DataRow
             {
                 ParentDataGrid = parentDataGrid
             };
 
             foreach (object cellContent in cellContents)
-                row.AddCell(new NormalCell(cellContent));
+                row.AddCell(new DataCell(cellContent));
 
             rows.Add(row);
+
+            return row;
         }
 
         /// <summary>
@@ -227,11 +253,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Removes the first occurrence of the <see cref="NormalRow"/> instance from the list.
+        /// Removes the first occurrence of the <see cref="DataRow"/> instance from the list.
         /// </summary>
         /// <returns><c>true</c> if item is successfully removed; otherwise, <c>false</c>.
         /// This method also returns <c>false</c> if item was not found in the list.</returns>
-        public bool Remove(NormalRow row)
+        public bool Remove(DataRow row)
         {
             return rows.Remove(row);
         }
@@ -245,9 +271,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="NormalRow"/>s contained by the current instance.
+        /// Returns an enumerator that iterates through the <see cref="DataRow"/>s contained by the current instance.
         /// </summary>
-        public IEnumerator<NormalRow> GetEnumerator()
+        public IEnumerator<DataRow> GetEnumerator()
         {
             return rows.GetEnumerator();
         }

@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                NormalRowList normalRowList = new NormalRowList(null);
+                DataRowList dataRowList = new DataRowList(null);
             });
         }
 
@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             DataGrid dataGrid = new DataGrid();
 
-            NormalRowList normalRowList = new NormalRowList(dataGrid);
+            DataRowList dataRowList = new DataRowList(dataGrid);
         }
     }
 }

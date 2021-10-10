@@ -59,12 +59,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public bool DisplayBorderBetweenRows { get; set; }
 
+        /// <summary>
+        /// Decides what is the foreground color.
+        /// If the foreground color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
+        /// </summary>
         public ConsoleColor? CalculateForegroundColor()
         {
             return ForegroundColor ??
                    ParentDataGrid?.ForegroundColor;
         }
 
+        /// <summary>
+        /// Decides what is the background color.
+        /// If the background color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
+        /// </summary>
         public ConsoleColor? CalculateBackgroundColor()
         {
             return BackgroundColor ??

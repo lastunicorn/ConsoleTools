@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the <see cref="DataGrid"/> instance that contains the current <see cref="Column"/> instance.
         /// </summary>
-        public DataGrid ParentDataGrid { get; set; }
+        public DataGrid ParentDataGrid { get; internal set; }
 
         /// <summary>
         /// Gets or sets the foreground color applied to all the cells in the column.

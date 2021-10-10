@@ -25,43 +25,43 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddCellEnumerationTests
     {
         private DataGrid dataGrid;
-        private NormalRowList normalRowList;
+        private DataRowList dataRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            normalRowList = new NormalRowList(dataGrid);
+            dataRowList = new DataRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
         {
-            IEnumerable<NormalCell> cells = new List<NormalCell>
+            IEnumerable<DataCell> cells = new List<DataCell>
             {
-                new NormalCell(),
-                new NormalCell(),
-                new NormalCell()
+                new DataCell(),
+                new DataCell(),
+                new DataCell()
             };
 
-            normalRowList.Add(cells);
+            dataRowList.Add(cells);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
         {
-            IEnumerable<NormalCell> cells = new List<NormalCell>
+            IEnumerable<DataCell> cells = new List<DataCell>
             {
-                new NormalCell(),
-                new NormalCell(),
-                new NormalCell()
+                new DataCell(),
+                new DataCell(),
+                new DataCell()
             };
 
-            normalRowList.Add(cells);
+            dataRowList.Add(cells);
 
-            Assert.That(normalRowList[0], Is.EqualTo(cells));
+            Assert.That(dataRowList[0], Is.EqualTo(cells));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                normalRowList.Add((List<NormalCell>)null);
+                dataRowList.Add((List<DataCell>)null);
             });
         }
     }

@@ -89,16 +89,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             }
         }
 
-        public static RowX CreateFrom(NormalRow normalRow)
+        public static RowX CreateFrom(DataRow dataRow)
         {
-            if (normalRow == null) throw new ArgumentNullException(nameof(normalRow));
+            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
 
             RowX rowX = new RowX
             {
-                Border = normalRow.ParentDataGrid?.Border?.IsVisible == true
-                    ? DataGridBorderX.CreateFrom(normalRow.ParentDataGrid.Border)
+                Border = dataRow.ParentDataGrid?.Border?.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(dataRow.ParentDataGrid.Border)
                     : null,
-                Cells = normalRow
+                Cells = dataRow
                     .Select(CellX.CreateFrom)
                     .ToList()
             };

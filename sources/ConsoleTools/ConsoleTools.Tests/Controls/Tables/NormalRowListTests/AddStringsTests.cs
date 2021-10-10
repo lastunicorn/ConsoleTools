@@ -25,29 +25,29 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddStringsTests
     {
         private DataGrid dataGrid;
-        private NormalRowList normalRowList;
+        private DataRowList dataRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            normalRowList = new NormalRowList(dataGrid);
+            dataRowList = new DataRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
         {
-            normalRowList.Add("value 1", "value 2", "value 3");
+            dataRowList.Add("value 1", "value 2", "value 3");
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
         {
-            normalRowList.Add("value 1", "value 2", "value 3");
+            dataRowList.Add("value 1", "value 2", "value 3");
 
-            IEnumerable<string> actual = normalRowList[0]
+            IEnumerable<string> actual = dataRowList[0]
                 .Select(x => x.Content.ToString());
             IEnumerable<string> expected = new List<string>
             {
@@ -60,9 +60,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         [Test]
         public void HavingAnEmptyNormalRowList_WhenNullStringIsAdded_ThenRowContainsEmptyCell()
         {
-            normalRowList.Add((string)null);
+            dataRowList.Add((string)null);
 
-            Assert.That(normalRowList[0][0].IsEmpty, Is.True);
+            Assert.That(dataRowList[0][0].IsEmpty, Is.True);
         }
     }
 }

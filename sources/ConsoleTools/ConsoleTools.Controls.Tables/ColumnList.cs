@@ -63,25 +63,31 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Adds a new <see cref="Column"/> to the end of the list.
         /// </summary>
         /// <param name="columnHeader">The text to be displayed in the header of the column.</param>
-        public void Add(string columnHeader)
+        /// <returns>The newly created column.</returns>
+        public Column Add(string columnHeader)
         {
             Column column = new Column(columnHeader)
             {
                 ParentDataGrid = parentDataGrid
             };
             columns.Add(column);
+
+            return column;
         }
 
         /// <summary>
         /// Adds a new <see cref="Column"/> to the end of the list.
         /// </summary>
         /// <param name="column">The <see cref="Column"/> instance to be added.</param>
-        public void Add(Column column)
+        /// <returns>The newly added column.</returns>
+        public Column Add(Column column)
         {
             if (column == null) throw new ArgumentNullException(nameof(column));
 
             column.ParentDataGrid = parentDataGrid;
             columns.Add(column);
+
+            return column;
         }
 
         /// <summary>

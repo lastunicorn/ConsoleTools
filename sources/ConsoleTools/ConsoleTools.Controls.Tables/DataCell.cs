@@ -26,77 +26,77 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// <summary>
     /// Represents a cell that contains data.
     /// </summary>
-    public class NormalCell : CellBase
+    public class DataCell : CellBase
     {
         /// <summary>
         /// Gets or sets the row that contains the current cell.
         /// </summary>
-        public NormalRow ParentRow { get; internal set; }
+        public DataRow ParentRow { get; internal set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// empty content.
         /// </summary>
-        public NormalCell()
+        public DataCell()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// the text contained by it.
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
-        public NormalCell(string text)
+        public DataCell(string text)
             : base(text)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// the text contained by it and its horizontal alignment.
         /// </summary>
         /// <param name="text">The text displayed in the cell.</param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public NormalCell(string text, HorizontalAlignment horizontalAlignment)
+        public DataCell(string text, HorizontalAlignment horizontalAlignment)
             : base(text, horizontalAlignment)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// the text contained by it.
         /// </summary>
         /// <param name="text"></param>
-        public NormalCell(MultilineText text)
+        public DataCell(MultilineText text)
             : base(text)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// the text contained by it and its horizontal alignment.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public NormalCell(MultilineText text, HorizontalAlignment horizontalAlignment)
+        public DataCell(MultilineText text, HorizontalAlignment horizontalAlignment)
             : base(text, horizontalAlignment)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// an object representing the content.
         /// </summary>
-        public NormalCell(object content)
+        public DataCell(object content)
             : base(content)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalCell" /> class with
+        /// Initializes a new instance of the <see cref="DataCell" /> class with
         /// an object representing the content and its horizontal alignment.
         /// </summary>
-        public NormalCell(object content, HorizontalAlignment horizontalAlignment)
+        public DataCell(object content, HorizontalAlignment horizontalAlignment)
             : base(content, horizontalAlignment)
         {
         }
@@ -258,20 +258,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Converts a <see cref="string"/> into a <see cref="NormalCell"/> instance.
+        /// Converts a <see cref="string"/> into a <see cref="DataCell"/> instance.
         /// </summary>
         /// <param name="text">The text to be converted.</param>
-        public static implicit operator NormalCell(string text)
+        public static implicit operator DataCell(string text)
         {
             MultilineText multilineText = new MultilineText(text);
-            return new NormalCell(multilineText);
+            return new DataCell(multilineText);
         }
 
         /// <summary>
-        /// Converts a <see cref="NormalCell"/> into its <see cref="string"/> representation.
+        /// Converts a <see cref="DataCell"/> into its <see cref="string"/> representation.
         /// </summary>
-        /// <param name="cell">The <see cref="NormalCell"/> to be converted.</param>
-        public static implicit operator string(NormalCell cell)
+        /// <param name="cell">The <see cref="DataCell"/> to be converted.</param>
+        public static implicit operator string(DataCell cell)
         {
             return cell.Content?.ToString() ?? string.Empty;
         }

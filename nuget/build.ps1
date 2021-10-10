@@ -31,8 +31,7 @@ Write-Output "------------------------------------------------------------------
 Write-Output "Retrieve all files."
 Write-Output "----------------------------------------------------------------------------------------------------"
 
-New-Item -ItemType Directory -Force -Path "lib\net45"
-New-Item -ItemType Directory -Force -Path "lib\netcoreapp2.2"
+New-Item -ItemType Directory -Force -Path "lib\netstandard2.0"
 
 $projectDirs = @(
 "$rootDirectory\sources\ConsoleTools\ConsoleTools.Core",
@@ -48,12 +47,16 @@ for ($i = 0; $i -lt $projectDirs.length; $i++)
 	
 	Write-Output "---> Retrieve assemblies from project: $projectDir"
 	
-	Copy-Item -Path "$projectDir\bin\Release\net45\*.dll" -Destination "lib\net45" -Recurse -Container
-	Copy-Item -Path "$projectDir\bin\Release\net45\*.xml" -Destination "lib\net45" -Recurse -Container
-
-	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.dll" -Destination "lib\netcoreapp2.2" -Recurse -Container
-	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.xml" -Destination "lib\netcoreapp2.2" -Recurse -Container
-	Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.json" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	#Copy-Item -Path "$projectDir\bin\Release\net45\*.dll" -Destination "lib\net45" -Recurse -Container
+	#Copy-Item -Path "$projectDir\bin\Release\net45\*.xml" -Destination "lib\net45" -Recurse -Container
+	#
+	#Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.dll" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	#Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.xml" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	#Copy-Item -Path "$projectDir\bin\Release\netcoreapp2.2\*.json" -Destination "lib\netcoreapp2.2" -Recurse -Container
+	
+	Copy-Item -Path "$projectDir\bin\Release\netstandard2.0\*.dll" -Destination "lib\netstandard2.0" -Recurse -Container
+	Copy-Item -Path "$projectDir\bin\Release\netstandard2.0\*.xml" -Destination "lib\netstandard2.0" -Recurse -Container
+	Copy-Item -Path "$projectDir\bin\Release\netstandard2.0\*.json" -Destination "lib\netstandard2.0" -Recurse -Container
 }
 
 Write-Output "---> Retrieve changelog file"

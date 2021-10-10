@@ -24,43 +24,43 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddNormalRowTests
     {
         private DataGrid dataGrid;
-        private NormalRowList normalRowList;
+        private DataRowList dataRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            normalRowList = new NormalRowList(dataGrid);
+            dataRowList = new DataRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenRowCountIs1()
         {
-            NormalRow normalRow = new NormalRow();
+            DataRow dataRow = new DataRow();
 
-            normalRowList.Add(normalRow);
+            dataRowList.Add(dataRow);
 
-            Assert.That(normalRowList.Count, Is.EqualTo(1));
+            Assert.That(dataRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenListContainsTheNormalRow()
         {
-            NormalRow normalRow = new NormalRow();
+            DataRow dataRow = new DataRow();
 
-            normalRowList.Add(normalRow);
+            dataRowList.Add(dataRow);
 
-            Assert.That(normalRowList[0], Is.SameAs(normalRow));
+            Assert.That(dataRowList[0], Is.SameAs(dataRow));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenDataGridIsSetToNormalRow()
         {
-            NormalRow normalRow = new NormalRow();
+            DataRow dataRow = new DataRow();
 
-            normalRowList.Add(normalRow);
+            dataRowList.Add(dataRow);
 
-            Assert.That(normalRow.ParentDataGrid, Is.SameAs(dataGrid));
+            Assert.That(dataRow.ParentDataGrid, Is.SameAs(dataGrid));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                normalRowList.Add((NormalRow)null);
+                dataRowList.Add((DataRow)null);
             });
         }
     }

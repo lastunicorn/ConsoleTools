@@ -5,6 +5,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver next
 ---------
+- Compiled for netstandard2.0
 - CustomConsole: removed the methods for building and writing a horizontal line.
 - ApplicationHeader: Added new control.
 - Splitted the library in multiple assemblies.

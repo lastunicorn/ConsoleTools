@@ -123,7 +123,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// When implemented by an inheritor it displays the content of the control to the console.
+        /// When implemented by an inheritor, it displays the content of the control to the console.
         /// </summary>
         protected abstract void DoDisplayContent();
 
@@ -143,12 +143,19 @@ namespace DustInTheWind.ConsoleTools
             OnAfterBottomMargin();
         }
 
+        /// <summary>
+        /// Displays again the control in the console.
+        /// This is done only if the control is active. 
+        /// </summary>
         protected void Refresh()
         {
             if (IsActive)
                 DoRefresh();
         }
 
+        /// <summary>
+        /// When implemented by an inheritor, it performs the necessary actions to show the control in the console.
+        /// </summary>
         protected abstract void DoRefresh();
 
         /// <summary>
@@ -173,14 +180,20 @@ namespace DustInTheWind.ConsoleTools
             OnClosed();
         }
 
+        /// <summary>
+        /// Method called at the very beginning of the <see cref="Close"/> method.
+        /// </summary>
         protected virtual void OnClosing()
         {
         }
 
+        /// <summary>
+        /// When implemented by an inheritor, it performs the necessary actions to close the control.
+        /// </summary>
         protected abstract void DoClose();
 
         /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning.
+        /// Method called at the very end of the <see cref="Close"/> method, before returning.
         /// </summary>
         protected virtual void OnClosed()
         {

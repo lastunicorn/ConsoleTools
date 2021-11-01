@@ -5,12 +5,8 @@
         <AssemblyName>DustInTheWind.ConsoleTools.Mvc</AssemblyName>
         <RootNamespace>DustInTheWind.ConsoleTools.Mvc</RootNamespace>
         <GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
-        <Deterministic>false</Deterministic>
+        <Description>This is a framework to help you structure the presentation layer of a Console Application. Similar to ASP.NET MVC.</Description>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
-    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj" />

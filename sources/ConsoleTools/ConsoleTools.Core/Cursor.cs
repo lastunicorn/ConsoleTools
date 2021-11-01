@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Threading.Tasks;
 
 namespace DustInTheWind.ConsoleTools
 {
@@ -54,7 +55,7 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         /// <typeparam name="T">The type of the value to be returned.</typeparam>
         /// <param name="action">The function to be executed.</param>
-        /// <returns></returns>
+        /// <returns>The value returned by the executed function.</returns>
         public static T RunWithoutCursor<T>(Func<T> action)
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -65,6 +66,29 @@ namespace DustInTheWind.ConsoleTools
             try
             {
                 return action();
+            }
+            finally
+            {
+                Console.CursorVisible = initialCursorVisible;
+            }
+        }
+
+        /// <summary>
+        /// Executes asynchronously the specified function while hiding the cursor.
+        /// </summary>
+        /// <typeparam name="T">The type of the value to be returned.</typeparam>
+        /// <param name="action">The function to be executed.</param>
+        /// <returns>A <see cref="Task{T}"/> instance representing the asynchronous execution.</returns>
+        public static async Task<T> RunWithoutCursorAsync<T>(Func<Task<T>> action)
+        {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            bool initialCursorVisible = Console.CursorVisible;
+            Console.CursorVisible = false;
+
+            try
+            {
+                return await action();
             }
             finally
             {

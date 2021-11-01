@@ -24,14 +24,25 @@ using System;
 namespace DustInTheWind.ConsoleTools
 {
     /// <summary>
-    /// Provides base functionality for a block control like top/bottom margin.
-    /// A block control does not accept other controls on the same horizontal.
-    /// It starts from the beginning of the next line if the cursor is in the middle of a line.
+    /// Provides base functionality for a block control like top and bottom margins, paddings, etc.
+    /// A block control does not accept other controls on the same horizontal space.
+    /// It also force the rendering to start from the beginning of the next line if the cursor is
+    /// in the middle of a line.
     /// </summary>
     public abstract partial class BlockControl : Control
     {
+        /// <summary>
+        /// Gets an instance that represents the display available for the control to write on.
+        /// It also provides helper methods to write partial or entire rows.
+        /// </summary>
         protected ControlDisplay ControlDisplay { get; private set; }
 
+        /// <summary>
+        /// Gets the calculated layout for the current instance.
+        /// This value is calculated at the beginning of the display process and it is available throughout
+        /// the entire display process.
+        /// Before and after the display has unknown value.
+        /// </summary>
         protected ControlLayout Layout { get; private set; }
 
         /// <summary>
@@ -102,7 +113,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// When implemented by an inheritor it displays the content of the control to the console.
+        /// When implemented by an inheritor, it displays the content of the control to the console.
         /// </summary>
         protected abstract void DoDisplayContent(ControlDisplay display);
     }

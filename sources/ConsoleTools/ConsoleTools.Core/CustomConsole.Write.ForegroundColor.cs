@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        ///  Writes the specified string value, followed by the current line terminator, to the Console.
+        /// Writes the specified string value, followed by the current line terminator, to the Console.
         /// An additional parameter can be specified for the foreground color used to write the text.
         /// </summary>
         /// <param name="foregroundColor">The foreground color used to write the text.</param>

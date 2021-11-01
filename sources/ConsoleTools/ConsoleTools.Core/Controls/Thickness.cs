@@ -24,28 +24,32 @@ using System.Globalization;
 
 namespace DustInTheWind.ConsoleTools
 {
+    /// <summary>
+    /// Represents the thickness of a rectangle.
+    /// There can be provided different values for the top, bottom, left and right thicknesses.
+    /// </summary>
     public struct Thickness : IEquatable<Thickness>
     {
         /// <summary>
-        /// Gets the number of empty lines displayed before the content.
+        /// Gets the top value.
         /// Default value: 0
         /// </summary>
         public int Top { get;  }
 
         /// <summary>
-        /// Gets the number of empty lines displayed after the content.
+        /// Gets the bottom value.
         /// Default value: 0
         /// </summary>
         public int Bottom { get; }
 
         /// <summary>
-        /// Gets the number of spaces to be written to the left of the content.
+        /// Gets the left value.
         /// Default value: 0
         /// </summary>
         public int Left { get; }
 
         /// <summary>
-        /// Gets the number of spaces to be written to the right of the content.
+        /// Gets the right value.
         /// Default value: 0
         /// </summary>
         public int Right { get; }

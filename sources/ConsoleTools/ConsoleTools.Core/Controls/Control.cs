@@ -26,9 +26,6 @@ namespace DustInTheWind.ConsoleTools
     /// <summary>
     /// Provides base functionality for a control.
     /// </summary>
-    /// <remarks>
-    ///
-    /// </remarks>
     public abstract class Control
     {
         private bool originalCursorVisibility;
@@ -86,12 +83,14 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Displays the margins and the content of the control.
+        /// When implemented by an inheritor, displays the margins and the content of the control.
         /// </summary>
         protected abstract void DoDisplay();
 
         /// <summary>
-        /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else.
+        /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
+        /// to raise the <see cref="BeforeDisplay"/> event.
+        /// When overwritten, the base method must be called in order to allow the event to be raised.
         /// </summary>
         protected virtual void OnBeforeDisplay()
         {
@@ -99,7 +98,9 @@ namespace DustInTheWind.ConsoleTools
         }
 
         /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning.
+        /// Method called at the very end of the <see cref="Display"/> method, before returning
+        /// to raise the <see cref="AfterDisplay"/> event.
+        /// When overwritten, the base method must be called in order to allow the event to be raised.
         /// </summary>
         protected virtual void OnAfterDisplay()
         {

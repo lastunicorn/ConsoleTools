@@ -19,63 +19,79 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
 using System.Data;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTable
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests
 {
     [TestFixture]
-    public class RowTests
+    public class ColumnTests
     {
         [Test]
-        public void one_row_exists_if_DataTable_has_one_row()
+        public void one_column_exists_if_DataTable_has_one_column()
         {
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows.Count, Is.EqualTo(1));
+            Assert.That(actual.Columns.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__string()
+        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_not_set()
         {
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("value 1")));
+            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__int()
+        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_null()
         {
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(15);
+            DataColumn dataColumn = new DataColumn("col1")
+            {
+                Caption = null
+            };
+            dataTable.Columns.Add(dataColumn);
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("15")));
+            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
         }
 
         [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__DateTime()
+        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_string_empty()
         {
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(new DateTime(2018, 06, 13));
+            DataColumn dataColumn = new DataColumn("col1")
+            {
+                Caption = string.Empty
+            };
+            dataTable.Columns.Add(dataColumn);
 
             DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            MultilineText expected = new MultilineText(new DateTime(2018, 06, 13));
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(expected));
+            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
+        }
+
+        [Test]
+        public void column_header_content_is_equal_to_DataTable_column_caption_if_it_is_set()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add(new DataColumn
+            {
+                Caption = "Column 1"
+            });
+
+            DataGrid actual = DataGrid.BuildFrom(dataTable);
+
+            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Column 1")));
         }
     }
 }

@@ -126,11 +126,13 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Gets the empty space at the left of the control.
+        /// This may be greater than 0 when the control is centered on the screen or aligned to the right.
         /// </summary>
         public int OuterEmptySpaceLeft { get; private set; }
 
         /// <summary>
         /// Gets the empty space at the right of the control.
+        /// This may be greater than 0 when the control is centered on the screen or aligned to the left.
         /// </summary>
         public int OuterEmptySpaceRight { get; private set; }
 
@@ -290,24 +292,24 @@ namespace DustInTheWind.ConsoleTools
 
         private void CalculateInnerEmptySpace()
         {
-            int emptySpaceTotal = ActualClientWidth - ActualContentWidth;
+            int innerEmptySpaceTotal = ActualClientWidth - ActualContentWidth;
 
             switch (ContentHorizontalAlignment)
             {
                 case HorizontalAlignment.Default:
                 case HorizontalAlignment.Left:
                     InnerEmptySpaceLeft = 0;
-                    InnerEmptySpaceRight = emptySpaceTotal;
+                    InnerEmptySpaceRight = innerEmptySpaceTotal;
                     break;
 
                 case HorizontalAlignment.Center:
-                    double emptySpaceHalf = (double)emptySpaceTotal / 2;
+                    double emptySpaceHalf = (double)innerEmptySpaceTotal / 2;
                     InnerEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
                     InnerEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
                     break;
 
                 case HorizontalAlignment.Right:
-                    InnerEmptySpaceLeft = emptySpaceTotal;
+                    InnerEmptySpaceLeft = innerEmptySpaceTotal;
                     InnerEmptySpaceRight = 0;
                     break;
 
@@ -323,24 +325,24 @@ namespace DustInTheWind.ConsoleTools
 
         private void CalculateOuterEmptySpace()
         {
-            int emptySpaceTotal = AvailableWidth - ActualFullWidth;
+            int outerEmptySpaceTotal = AvailableWidth - ActualFullWidth;
 
             switch (calculatedHorizontalAlignment)
             {
                 case HorizontalAlignment.Default:
                 case HorizontalAlignment.Left:
                     OuterEmptySpaceLeft = 0;
-                    OuterEmptySpaceRight = emptySpaceTotal;
+                    OuterEmptySpaceRight = outerEmptySpaceTotal;
                     break;
 
                 case HorizontalAlignment.Center:
-                    double emptySpaceHalf = (double)emptySpaceTotal / 2;
+                    double emptySpaceHalf = (double)outerEmptySpaceTotal / 2;
                     OuterEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
                     OuterEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
                     break;
 
                 case HorizontalAlignment.Right:
-                    OuterEmptySpaceLeft = emptySpaceTotal;
+                    OuterEmptySpaceLeft = outerEmptySpaceTotal;
                     OuterEmptySpaceRight = 0;
                     break;
 

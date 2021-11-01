@@ -161,6 +161,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return paddingRight.Value;
         }
 
+        /// <summary>
+        /// Calculates and returns the foreground color for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row, parent column and parent table.
+        /// </summary>
         public override ConsoleColor? CalculateForegroundColor()
         {
             ConsoleColor? color = ForegroundColor;
@@ -181,6 +185,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return color;
         }
 
+        /// <summary>
+        /// Calculates and returns the background color for the content displayed in the cell.
+        /// The value is calculated taking into account also the parent row, parent column and parent table.
+        /// </summary>
         public override ConsoleColor? CalculateBackgroundColor()
         {
             ConsoleColor? color = BackgroundColor;

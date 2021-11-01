@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
-    /// A control that displays a message and waits for the user to press any key.
+    /// A control that displays a message and blocks the console until the user presses a key.
     /// </summary>
     public class Pause : ErasableControl
     {

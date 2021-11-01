@@ -23,7 +23,7 @@ using System.Data;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTable
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests
 {
     [TestFixture]
     public class TitleTests

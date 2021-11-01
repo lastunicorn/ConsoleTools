@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConsoleTools</id>
+    <version>$version$</version>
+    <authors>Dust in the Wind</authors>
+    <license type="file">LICENSE.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
+    <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
+    <copyright>Copyright © Dust in the Wind 2017-2021</copyright>
+    <tags>console cli prompter menu progressbar spinner table read write textblock inlinetextblock blockcontrol inlinecontrol</tags>
+    <readme>README.md</readme>
+    <repository type="git" url="https://github.com/lastunicorn/ConsoleTools" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="DustInTheWind.ConsoleTools.Core" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="DustInTheWind.ConsoleTools.Controls" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="DustInTheWind.ConsoleTools.Controls.Menus" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="DustInTheWind.ConsoleTools.Controls.Spinners" version="$version$" exclude="Build,Analyzers" />
+        <dependency id="DustInTheWind.ConsoleTools.Controls.Tables" version="$version$" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\sources\ConsoleTools\LICENSE.txt" target="LICENSE.txt" />
+    <file src="..\sources\ConsoleTools\README.md" target="README.md" />
+  </files>
+</package>

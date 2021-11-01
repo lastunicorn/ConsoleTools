@@ -16,7 +16,6 @@
 
 using System;
 using ConsoleTools.Demo.PauseDemo.NetCore.Commands;
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace ConsoleTools.Demo.PauseDemo.NetCore
@@ -25,14 +24,33 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
     {
         private static void Main()
         {
-            Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(160, 512);
+            Console.WriteLine($"Window: {Console.WindowWidth} : {Console.WindowHeight}");
+            Console.WriteLine($"Buffer: {Console.BufferWidth} : {Console.BufferHeight}");
 
-            DisplayApplicationHeader();
-            RunDemos();
+            ConsoleColor oldColor = Console.BackgroundColor;
+            Console.BackgroundColor = ConsoleColor.Blue;
 
-            DummyText.Display("- This demo is over.", 3);
-            Pause.QuickDisplay();
+            string lessThanLine = new string('*', 100);
+            string fullLine = new string('*', 120);
+            string moreThanLine = new string('*', 140);
+            
+            Console.WriteLine();
+            Console.WriteLine(lessThanLine);
+
+            Console.WriteLine();
+            Console.WriteLine(fullLine);
+            Console.WriteLine("something");
+
+            Console.WriteLine();
+            Console.WriteLine(moreThanLine);
+
+            Console.BackgroundColor = oldColor;
+
+            //Console.SetWindowSize(80, 50);
+            //Console.SetBufferSize(160, 512);
+
+            //DisplayApplicationHeader();
+            //RunDemos();
         }
 
         private static void DisplayApplicationHeader()
@@ -46,19 +64,68 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
 
         private static void RunDemos()
         {
-            ICommand[] commands =
-            {
-                new DefaultCommand(),
-                new CustomUnlockKeyCommand(),
-                new ErasablePauseCommand(),
-                new CustomMarginsCommand(),
-                new CustomPaddingsCommand(),
-                new ForegroundColorCommand(),
-                new BackgroundColorCommand()
-            };
+            bool exitWasRequested = false;
 
-            foreach (ICommand command in commands)
-                command.Execute();
+            TextMenu textMenu = new TextMenu();
+            textMenu.AddItems(new[]
+            {
+                new TextMenuItem
+                {
+                    Id = "1",
+                    Text = "Default",
+                    Command = new DefaultCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "2",
+                    Text = "Custom Unlock Key",
+                    Command = new CustomUnlockKeyCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "3",
+                    Text = "Erasable Pause",
+                    Command = new ErasablePauseCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "4",
+                    Text = "Custom Margins",
+                    Command = new CustomMarginsCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "5",
+                    Text = "Custom Paddings",
+                    Command = new CustomPaddingsCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "6",
+                    Text = "Foreground Color",
+                    Command = new ForegroundColorCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "7",
+                    Text = "Background Color",
+                    Command = new BackgroundColorCommand()
+                },
+                new TextMenuItem
+                {
+                    Id = "0",
+                    Text = "Exit",
+                    Command = new ActionCommand(() =>
+                    {
+                        exitWasRequested = true;
+                    })
+                }
+            });
+
+            while (!exitWasRequested)
+            {
+                textMenu.Display();
+            }
         }
     }
 }

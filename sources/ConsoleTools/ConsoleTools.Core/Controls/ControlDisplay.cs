@@ -2,13 +2,24 @@
 
 namespace DustInTheWind.ConsoleTools
 {
+    /// <summary>
+    /// Represents the display available for a control to write on.
+    /// It also provides helper methods to write partial or entire rows.
+    /// </summary>
     public class ControlDisplay
     {
         private ConsoleColor? initialForegroundColor;
         private ConsoleColor? initialBackgroundColor;
 
+        /// <summary>
+        /// Gets the number of rows already displayed.
+        /// </summary>
         public int RowCount { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the calculated layout for the current instance.
+        /// Some details like margin and padding are displayed based on the values provided by this instance.
+        /// </summary>
         public ControlLayout Layout { get; set; }
 
         /// <summary>
@@ -23,11 +34,24 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public ConsoleColor? BackgroundColor { get; set; }
 
+        /// <summary>
+        /// Writes an entire row using the default <see cref="ForegroundColor"/>
+        /// and <see cref="BackgroundColor"/> values.
+        /// The left and right margins and paddings are added automatically.
+        /// </summary>
+        /// <param name="text">The text to be written as the content of th row.</param>
         public void WriteRow(string text)
         {
             WriteRow(ForegroundColor, BackgroundColor, text);
         }
 
+        /// <summary>
+        /// Writes an entire row using the specified foreground and background values.
+        /// The left and right margins and paddings are added automatically.
+        /// </summary>
+        /// <param name="backgroundColor">The background color to be used for the content of the row.</param>
+        /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
+        /// <param name="text">The text representing the content of th row.</param>
         public void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
         {
             StartRow(foregroundColor, backgroundColor);
@@ -35,17 +59,30 @@ namespace DustInTheWind.ConsoleTools
             EndRow();
         }
 
+        /// <summary>
+        /// Writes an empty row.
+        /// The left and right margins and paddings are added automatically.
+        /// </summary>
         public void WriteRow()
         {
             StartRow();
             EndRow();
         }
 
+        /// <summary>
+        /// Writes the starting of a row using the default <see cref="ForegroundColor"/>
+        /// and <see cref="BackgroundColor"/> values.
+        /// It includes the left margin and padding.
+        /// </summary>
         public void StartRow()
         {
             StartRow(ForegroundColor, BackgroundColor);
         }
 
+        /// <summary>
+        /// Writes the starting of a row using the specified foreground and background values.
+        /// It includes the left margin and padding.
+        /// </summary>
         public void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
             WriteOuterLeftEmptySpace();
@@ -87,9 +124,13 @@ namespace DustInTheWind.ConsoleTools
             }
         }
 
+        /// <summary>
+        /// Writes the ending of a row.
+        /// It includes the right margin and padding.
+        /// </summary>
         public void EndRow()
         {
-            bool isConsoleRowFilled = FillEmptySpace();
+            bool isConsoleRowFull = FillEmptySpace();
             WriteRightPadding();
 
             RestoreForegroundColor();
@@ -98,7 +139,7 @@ namespace DustInTheWind.ConsoleTools
             WriteRightMargin();
             WriteOuterRightEmptySpace();
 
-            if (!isConsoleRowFilled)
+            if (!isConsoleRowFull)
                 Console.WriteLine();
 
             RowCount++;
@@ -124,8 +165,9 @@ namespace DustInTheWind.ConsoleTools
             string rightContentEmptySpace = new string(' ', emptySpaceRight);
             CustomConsole.Write(rightContentEmptySpace);
 
-            bool isConsoleRowFilled = cursorLeft + emptySpaceRight + paddingRight + marginRight == Console.BufferWidth;
-            return isConsoleRowFilled;
+            int currentCursorPosition = cursorLeft + emptySpaceRight + paddingRight + marginRight;
+            bool isConsoleRowFull = currentCursorPosition == Console.BufferWidth;
+            return isConsoleRowFull;
         }
 
         private void RestoreForegroundColor()
@@ -203,14 +245,18 @@ namespace DustInTheWind.ConsoleTools
 
         private void WriteOuterLeftEmptySpace()
         {
-            int spaces = Layout.OuterEmptySpaceLeft;
-            Console.Write(new string(' ', spaces));
+            int spacesCount = Layout.OuterEmptySpaceLeft;
+
+            if (spacesCount > 0)
+                Console.Write(new string(' ', spacesCount));
         }
 
         private void WriteOuterRightEmptySpace()
         {
-            int spaces = Layout.OuterEmptySpaceRight;
-            Console.Write(new string(' ', spaces));
+            int spacesCount = Layout.OuterEmptySpaceRight;
+
+            if (spacesCount > 0)
+                Console.Write(new string(' ', spacesCount));
         }
 
         private void WriteLeftMargin()

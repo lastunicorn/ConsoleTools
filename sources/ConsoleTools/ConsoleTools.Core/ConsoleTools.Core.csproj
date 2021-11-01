@@ -1,16 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Core</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <Deterministic>false</Deterministic>
+        <Description>This is a set of tools for the .net Console.</Description>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="..\AssemblyInfo.Shared.cs" Link="Properties\AssemblyInfo.Shared.cs" />
-    </ItemGroup>
 
 </Project>

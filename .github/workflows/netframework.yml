@@ -16,22 +16,22 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
+    name: Main Build
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
       
       - name: Setup msbuild
-        uses: microsoft/setup-msbuild@v1
+        uses: actions/setup-dotnet@v1.7.2
         
-      - name: Setup NuGet
-        # You may pin to the exact commit or the version.
-        # uses: NuGet/setup-nuget@255f46e14d51fbc603743e2aa2907954463fbeb9
-        uses: NuGet/setup-nuget@v1.0.2
-      
-      - name: Restore NuGet packages
-        run: nuget restore ./sources/ConsoleTools/ConsoleTools.sln
-      
-      - name: Build the solution
-        run: msbuild ./sources/ConsoleTools/ConsoleTools.sln
+      - name: Install dependencies
+        run: dotnet restore "sources/ConsoleTools/ConsoleTools.sln"
+        
+      - name: Build 
+        run: dotnet build --configuration Release --no-restore "sources/ConsoleTools/ConsoleTools.sln"
+        
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal "sources/ConsoleTools/ConsoleTools.sln"

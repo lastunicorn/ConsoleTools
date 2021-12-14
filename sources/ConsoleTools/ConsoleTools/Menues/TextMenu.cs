@@ -34,12 +34,7 @@ namespace DustInTheWind.ConsoleTools.Menues
     public class TextMenu : ErasableControl, IRepeatableSupport
     {
         private bool closeWasRequested;
-
-        /// <summary>
-        /// Gets the list of items contained by the current instance.
-        /// </summary>
         private readonly List<TextMenuItem> menuItems = new List<TextMenuItem>();
-
         private TextMenuItem selectedItem;
 
         /// <summary>
@@ -69,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Menues
         };
 
         /// <summary>
-        /// Gets or sets the text displayed when the user chooses an inexistent option.
+        /// Gets or sets the text displayed when the user chooses an non-existent option.
         /// </summary>
         public string InvalidOptionText { get; set; } = TextMenuResources.InvalidOptionMessage;
 
@@ -114,14 +109,14 @@ namespace DustInTheWind.ConsoleTools.Menues
         public event EventHandler Closed;
 
         /// <summary>
-        /// Initialize a new instace of the <see cref="TextMenu"/> calss.
+        /// Initialize a new instance of the <see cref="TextMenu"/> class.
         /// </summary>
         public TextMenu()
         {
         }
 
         /// <summary>
-        /// Initialize a new instace of the <see cref="TextMenu"/> calss with
+        /// Initialize a new instance of the <see cref="TextMenu"/> class with
         /// the list of items to be displayed.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
@@ -190,7 +185,7 @@ namespace DustInTheWind.ConsoleTools.Menues
 
         private void DrawTitle(ControlDisplay display)
         {
-            display.WriteRow(TitleText);
+            display.WriteRow(TitleForegroundColor, TitleBackgroundColor, TitleText);
             display.WriteRow();
             display.WriteRow();
             

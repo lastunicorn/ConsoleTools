@@ -46,6 +46,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
 
             TitleText = "Demo Application";
             TitleForegroundColor = ConsoleColor.Cyan;
+            TitleBackgroundColor = ConsoleColor.DarkGreen;
 
             IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);

@@ -19,7 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Core
 {
     public enum DefaultParent
     {

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Provides functionality of erasing the control after it is displayed.

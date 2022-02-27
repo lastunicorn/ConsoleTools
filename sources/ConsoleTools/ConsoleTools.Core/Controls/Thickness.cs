@@ -22,7 +22,7 @@
 using System;
 using System.Globalization;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents the thickness of a rectangle.

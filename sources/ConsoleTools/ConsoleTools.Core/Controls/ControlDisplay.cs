@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents the display available for a control to write on.

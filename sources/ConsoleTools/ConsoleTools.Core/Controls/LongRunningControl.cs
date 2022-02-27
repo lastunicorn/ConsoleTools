@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.

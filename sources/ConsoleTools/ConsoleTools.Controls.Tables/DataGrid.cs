@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current data grid.
         /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = Controls.HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
@@ -96,14 +96,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the list of rows contained by the current data grid.
         /// </summary>
-        public DataRowList Rows { get; }
+        public ContentRowList Rows { get; }
 
         /// <summary>
         /// Gets the row at the specified index.
         /// </summary>
         /// <param name="rowIndex">The zero-based index of the row to get.</param>
         /// <returns>The row at the specified index.</returns>
-        public DataRow this[int rowIndex] => Rows[rowIndex];
+        public ContentRow this[int rowIndex] => Rows[rowIndex];
 
         /// <summary>
         /// Gets the cell at the specified location.
@@ -111,7 +111,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
-        public DataCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
+        public ContentCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Gets an object representing the border of the data grid.
@@ -254,7 +254,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid()
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
@@ -267,7 +267,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(string title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
@@ -280,7 +280,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(MultilineText title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
@@ -293,7 +293,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(object title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);

@@ -25,43 +25,43 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddCellEnumerationTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private ContentRowList contentRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            contentRowList = new ContentRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
         {
-            IEnumerable<DataCell> cells = new List<DataCell>
+            IEnumerable<ContentCell> cells = new List<ContentCell>
             {
-                new DataCell(),
-                new DataCell(),
-                new DataCell()
+                new ContentCell(),
+                new ContentCell(),
+                new ContentCell()
             };
 
-            dataRowList.Add(cells);
+            contentRowList.Add(cells);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(contentRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
         {
-            IEnumerable<DataCell> cells = new List<DataCell>
+            IEnumerable<ContentCell> cells = new List<ContentCell>
             {
-                new DataCell(),
-                new DataCell(),
-                new DataCell()
+                new ContentCell(),
+                new ContentCell(),
+                new ContentCell()
             };
 
-            dataRowList.Add(cells);
+            contentRowList.Add(cells);
 
-            Assert.That(dataRowList[0], Is.EqualTo(cells));
+            Assert.That(contentRowList[0], Is.EqualTo(cells));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                dataRowList.Add((List<DataCell>)null);
+                contentRowList.Add((List<ContentCell>)null);
             });
         }
     }

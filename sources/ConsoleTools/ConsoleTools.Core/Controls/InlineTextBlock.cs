@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents a text to be displayed in the console.

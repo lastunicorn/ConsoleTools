@@ -26,13 +26,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class AddStringEnumerationTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private ContentRowList contentRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            contentRowList = new ContentRowList(dataGrid);
         }
 
         [Test]
@@ -43,9 +43,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
                 "value 1", "value 2", "value 3"
             };
 
-            dataRowList.Add(values);
+            contentRowList.Add(values);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(contentRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -56,9 +56,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
                 "value 1", "value 2", "value 3"
             };
 
-            dataRowList.Add(values);
+            contentRowList.Add(values);
 
-            IEnumerable<string> actual = dataRowList[0]
+            IEnumerable<string> actual = contentRowList[0]
                 .Select(x => x.Content.ToString());
             Assert.That(actual, Is.EqualTo(values));
         }
@@ -68,7 +68,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                dataRowList.Add((IEnumerable<string>)null);
+                contentRowList.Add((IEnumerable<string>)null);
             });
         }
     }

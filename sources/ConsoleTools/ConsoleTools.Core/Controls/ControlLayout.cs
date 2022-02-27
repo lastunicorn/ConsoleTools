@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Calculates the space needed for each component of the control: each margin, padding, content dimensions, empty spaces, etc.

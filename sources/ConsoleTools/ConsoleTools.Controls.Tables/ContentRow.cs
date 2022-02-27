@@ -28,12 +28,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// <summary>
     /// Represents a row in the <see cref="DataGrid"/> class.
     /// </summary>
-    public class DataRow : RowBase
+    public class ContentRow : RowBase
     {
         /// <summary>
         /// Gets the list of cells contained by the row.
         /// </summary>
-        private readonly List<DataCell> cells = new List<DataCell>();
+        private readonly List<ContentCell> cells = new List<ContentCell>();
 
         /// <summary>
         /// Gets the number of cells contained by the current instance.
@@ -46,53 +46,53 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <param name="index">The zero-based index of the cell to get or set.</param>
         /// <returns>The cell at the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public DataCell this[int index]
+        public ContentCell this[int index]
         {
             get => cells[index];
             set => cells[index] = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with default values.
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with default values.
         /// </summary>
-        public DataRow()
+        public ContentRow()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of cells.
         /// </summary>
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
-        public DataRow(IEnumerable<DataCell> cells)
+        public ContentRow(IEnumerable<ContentCell> cells)
         {
             if (cells == null)
                 return;
 
-            foreach (DataCell cell in cells)
+            foreach (ContentCell cell in cells)
                 AddCell(cell);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of cells.
         /// </summary>
         /// <param name="cells">The list of cells that will be contained by the new row.</param>
-        public DataRow(params DataCell[] cells)
+        public ContentRow(params ContentCell[] cells)
         {
             if (cells == null)
                 return;
 
-            foreach (DataCell cell in cells)
+            foreach (ContentCell cell in cells)
                 AddCell(cell);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of texts representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of texts that will be placed in cells.</param>
-        public DataRow(IEnumerable<string> cellContents)
+        public ContentRow(IEnumerable<string> cellContents)
         {
             if (cellContents == null)
                 return;
@@ -102,11 +102,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of texts representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of texts that will be placed in cells.</param>
-        public DataRow(params string[] cellContents)
+        public ContentRow(params string[] cellContents)
         {
             if (cellContents == null)
                 return;
@@ -116,11 +116,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of <see cref="MultilineText"/> objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
-        public DataRow(IEnumerable<MultilineText> cellContents)
+        public ContentRow(IEnumerable<MultilineText> cellContents)
         {
             if (cellContents == null)
                 return;
@@ -130,11 +130,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of <see cref="MultilineText"/> objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of <see cref="MultilineText"/> objects that will be placed in cells.</param>
-        public DataRow(params MultilineText[] cellContents)
+        public ContentRow(params MultilineText[] cellContents)
         {
             if (cellContents == null)
                 return;
@@ -144,11 +144,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of objects that will be placed in cells.</param>
-        public DataRow(IEnumerable cellContents)
+        public ContentRow(IEnumerable cellContents)
         {
             if (cellContents == null)
                 return;
@@ -158,11 +158,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataRow"/> class with
+        /// Initializes a new instance of the <see cref="ContentRow"/> class with
         /// the list of objects representing the cells content.
         /// </summary>
         /// <param name="cellContents">The list of objects that will be placed in cells.</param>
-        public DataRow(params object[] cellContents)
+        public ContentRow(params object[] cellContents)
         {
             if (cellContents == null)
                 return;
@@ -172,13 +172,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
-        public void AddCell(DataCell cell)
+        public void AddCell(ContentCell cell)
         {
             if (cell == null)
             {
-                DataCell newCell = new DataCell
+                ContentCell newCell = new ContentCell
                 {
                     ParentRow = this
                 };
@@ -192,11 +192,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
         public void AddCell(string cellContent)
         {
-            DataCell newCell = new DataCell
+            ContentCell newCell = new ContentCell
             {
                 ParentRow = this
             };
@@ -208,11 +208,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
         public void AddCell(MultilineText cellContent)
         {
-            DataCell newCell = new DataCell
+            ContentCell newCell = new ContentCell
             {
                 ParentRow = this
             };
@@ -224,11 +224,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new cell to the current instance of <see cref="DataRow"/>.
+        /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
         public void AddCell(object cellContent)
         {
-            DataCell newCell = new DataCell
+            ContentCell newCell = new ContentCell
             {
                 ParentRow = this
             };
@@ -240,10 +240,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns the index of the specified cell or <c>null</c> if the <see cref="DataCell"/> instance
-        /// is not found in the current <see cref="DataRow"/> instance.
+        /// Returns the index of the specified cell or <c>null</c> if the <see cref="ContentCell"/> instance
+        /// is not found in the current <see cref="ContentRow"/> instance.
         /// </summary>
-        public int? IndexOfCell(DataCell cell)
+        public int? IndexOfCell(ContentCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
             return indexOfCell == -1 ? (int?)null : indexOfCell;

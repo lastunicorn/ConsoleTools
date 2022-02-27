@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Must be implemented by a control in order to offer additional support when used in the <see cref="ControlRepeater"/>.

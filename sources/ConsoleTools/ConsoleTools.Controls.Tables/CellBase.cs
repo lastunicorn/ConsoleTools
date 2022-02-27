@@ -31,17 +31,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the default horizontal alignment for a cell.
         /// </summary>
-        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
+        public static HorizontalAlignment DefaultHorizontalAlignment => HorizontalAlignment.Left;
 
         /// <summary>
         /// Gets the default left padding applied for a cell.
         /// </summary>
-        public static int DefaultPaddingLeft { get; } = 1;
+        public static int DefaultPaddingLeft => 1;
 
         /// <summary>
         /// Gets the default left padding applied for a cell.
         /// </summary>
-        public static int DefaultPaddingRight { get; } = 1;
+        public static int DefaultPaddingRight => 1;
 
         /// <summary>
         /// Gets or sets the content of the cell.

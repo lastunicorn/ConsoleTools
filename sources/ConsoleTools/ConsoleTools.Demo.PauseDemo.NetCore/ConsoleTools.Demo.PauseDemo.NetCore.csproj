@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />
-    <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" />
     <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
   </ItemGroup>
 

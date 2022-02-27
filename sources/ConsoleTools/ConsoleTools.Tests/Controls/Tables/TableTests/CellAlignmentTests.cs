@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
@@ -111,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Default), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
@@ -132,7 +133,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
@@ -153,7 +154,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Center), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
@@ -174,7 +175,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         {
             DataGrid dataGrid = new DataGrid("This is a cell alignment test");
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Right), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =
@@ -197,7 +198,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Title = "My Title";
 
             dataGrid.Rows.Add("1234567", "123456", "one two");
-            dataGrid.Rows.Add(new DataCell("1", HorizontalAlignment.Center), new DataCell("asd", HorizontalAlignment.Center), new DataCell("asas"));
+            dataGrid.Rows.Add(new ContentCell("1", HorizontalAlignment.Center), new ContentCell("asd", HorizontalAlignment.Center), new ContentCell("asas"));
             dataGrid.Rows.Add("12", "a", "errr");
 
             string expected =

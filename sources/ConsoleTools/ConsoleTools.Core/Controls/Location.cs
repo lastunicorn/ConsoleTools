@@ -21,7 +21,7 @@
 
 using System.Globalization;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents a location in the 2D plane.

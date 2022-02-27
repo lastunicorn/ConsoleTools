@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public HeaderRow HeaderRow { get; set; }
 
-        public DataRowList Rows { get; set; }
+        public ContentRowList Rows { get; set; }
 
         public DataGridBorder DataGridBorder { get; set; }
 

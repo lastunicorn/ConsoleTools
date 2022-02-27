@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests

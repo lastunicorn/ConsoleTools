@@ -21,6 +21,7 @@
 
 using System;
 using System.Data;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 

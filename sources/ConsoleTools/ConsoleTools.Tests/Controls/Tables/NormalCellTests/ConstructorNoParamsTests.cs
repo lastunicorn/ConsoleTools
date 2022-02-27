@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
@@ -22,30 +23,30 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
     [TestFixture]
     public class ConstructorNoParamsTests
     {
-        private DataCell dataCell;
+        private ContentCell contentCell;
 
         [SetUp]
         public void SetUp()
         {
-            dataCell = new DataCell();
+            contentCell = new ContentCell();
         }
 
         [Test]
         public void Content_is_empty()
         {
-            Assert.That(dataCell.Content, Is.SameAs(MultilineText.Empty));
+            Assert.That(contentCell.Content, Is.SameAs(MultilineText.Empty));
         }
 
         [Test]
         public void IsEmpty_is_true()
         {
-            Assert.That(dataCell.IsEmpty, Is.True);
+            Assert.That(contentCell.IsEmpty, Is.True);
         }
 
         [Test]
         public void HorizontalAlignment_is_Default()
         {
-            Assert.That(dataCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         }
     }
 }

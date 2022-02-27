@@ -23,42 +23,42 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class ClearTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private ContentRowList contentRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            contentRowList = new ContentRowList(dataGrid);
         }
 
         [Test]
         public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
         {
-            dataRowList.Clear();
+            contentRowList.Clear();
 
-            Assert.That(dataRowList.Count, Is.EqualTo(0));
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
         {
-            dataRowList.Add(new DataRow());
+            contentRowList.Add(new ContentRow());
 
-            dataRowList.Clear();
+            contentRowList.Clear();
 
-            Assert.That(dataRowList.Count, Is.EqualTo(0));
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
         {
-            dataRowList.Add(new DataRow());
-            dataRowList.Add(new DataRow());
+            contentRowList.Add(new ContentRow());
+            contentRowList.Add(new ContentRow());
 
-            dataRowList.Clear();
+            contentRowList.Clear();
 
-            Assert.That(dataRowList.Count, Is.EqualTo(0));
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
     }
 }

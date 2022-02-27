@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
             foreach (System.Data.DataRow dataRow in dataTable.Rows)
             {
-                DataRow row = new DataRow(dataRow.ItemArray);
+                ContentRow row = new ContentRow(dataRow.ItemArray);
                 DataGrid.Rows.Add(row);
             }
         }

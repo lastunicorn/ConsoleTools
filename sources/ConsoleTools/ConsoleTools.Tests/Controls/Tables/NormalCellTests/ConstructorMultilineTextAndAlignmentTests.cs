@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
@@ -22,31 +23,31 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
     [TestFixture]
     public class ConstructorMultilineTextAndAlignmentTests
     {
-        private DataCell dataCell;
+        private ContentCell contentCell;
 
         [SetUp]
         public void SetUp()
         {
             MultilineText multilineText = new MultilineText("some content");
-            dataCell = new DataCell(multilineText, HorizontalAlignment.Center);
+            contentCell = new ContentCell(multilineText, HorizontalAlignment.Center);
         }
 
         [Test]
         public void Content_is_the_one_provided_on_constructor()
         {
-            Assert.That(dataCell.Content, Is.EqualTo(new MultilineText("some content")));
+            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
         }
 
         [Test]
         public void IsEmpty_is_false()
         {
-            Assert.That(dataCell.IsEmpty, Is.False);
+            Assert.That(contentCell.IsEmpty, Is.False);
         }
 
         [Test]
         public void HorizontalAlignment_is_Center()
         {
-            Assert.That(dataCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
+            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
         }
     }
 }

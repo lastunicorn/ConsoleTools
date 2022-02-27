@@ -23,76 +23,76 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
     public class RemoveTests
     {
         private DataGrid dataGrid;
-        private DataRowList dataRowList;
+        private ContentRowList contentRowList;
 
         [SetUp]
         public void SetUp()
         {
             dataGrid = new DataGrid();
-            dataRowList = new DataRowList(dataGrid);
+            contentRowList = new ContentRowList(dataGrid);
         }
 
         [Test]
         public void HavingANormalRowListWithOneRow_WhenRemoveTheRow_ThenCountIs0()
         {
-            DataRow dataRow = new DataRow("value 1");
-            dataRowList.Add(dataRow);
+            ContentRow contentRow = new ContentRow("value 1");
+            contentRowList.Add(contentRow);
 
-            dataRowList.Remove(dataRow);
+            contentRowList.Remove(contentRow);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(0));
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveFirstRow_ThenCountIs1()
         {
-            DataRow dataRow1 = new DataRow("value 1");
-            DataRow dataRow2 = new DataRow("value 2");
-            dataRowList.Add(dataRow1);
-            dataRowList.Add(dataRow2);
+            ContentRow contentRow1 = new ContentRow("value 1");
+            ContentRow contentRow2 = new ContentRow("value 2");
+            contentRowList.Add(contentRow1);
+            contentRowList.Add(contentRow2);
 
-            dataRowList.Remove(dataRow1);
+            contentRowList.Remove(contentRow1);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(contentRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveFirstRow_ThenSecondRowIsStillInList()
         {
-            DataRow dataRow1 = new DataRow("value 1");
-            DataRow dataRow2 = new DataRow("value 2");
-            dataRowList.Add(dataRow1);
-            dataRowList.Add(dataRow2);
+            ContentRow contentRow1 = new ContentRow("value 1");
+            ContentRow contentRow2 = new ContentRow("value 2");
+            contentRowList.Add(contentRow1);
+            contentRowList.Add(contentRow2);
 
-            dataRowList.Remove(dataRow1);
+            contentRowList.Remove(contentRow1);
 
-            Assert.That(dataRowList[0], Is.EqualTo(dataRow2));
+            Assert.That(contentRowList[0], Is.EqualTo(contentRow2));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveSecondRow_ThenCountIs1()
         {
-            DataRow dataRow1 = new DataRow("value 1");
-            DataRow dataRow2 = new DataRow("value 2");
-            dataRowList.Add(dataRow1);
-            dataRowList.Add(dataRow2);
+            ContentRow contentRow1 = new ContentRow("value 1");
+            ContentRow contentRow2 = new ContentRow("value 2");
+            contentRowList.Add(contentRow1);
+            contentRowList.Add(contentRow2);
 
-            dataRowList.Remove(dataRow2);
+            contentRowList.Remove(contentRow2);
 
-            Assert.That(dataRowList.Count, Is.EqualTo(1));
+            Assert.That(contentRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
         public void HavingANormalRowListWithTwoRows_WhenRemoveSecondRow_ThenFirstRowIsStillInList()
         {
-            DataRow dataRow1 = new DataRow("value 1");
-            DataRow dataRow2 = new DataRow("value 2");
-            dataRowList.Add(dataRow1);
-            dataRowList.Add(dataRow2);
+            ContentRow contentRow1 = new ContentRow("value 1");
+            ContentRow contentRow2 = new ContentRow("value 2");
+            contentRowList.Add(contentRow1);
+            contentRowList.Add(contentRow2);
 
-            dataRowList.Remove(dataRow2);
+            contentRowList.Remove(contentRow2);
 
-            Assert.That(dataRowList[0], Is.EqualTo(dataRow1));
+            Assert.That(contentRowList[0], Is.EqualTo(contentRow1));
         }
     }
 }

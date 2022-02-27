@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 using Moq;

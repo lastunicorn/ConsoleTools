@@ -1,0 +1,22 @@
+<Project>
+
+    <PropertyGroup>
+        <Company>Dust in the Wind</Company>
+        <Product>Console Tools</Product>
+        <Copyright>Copyright © Dust in the Wind 2017-2021</Copyright>
+        <Version>1.0.0.0</Version>
+        <NeutralLanguage>en</NeutralLanguage>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <PackageProjectUrl>https://github.com/lastunicorn/ConsoleTools</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/lastunicorn/ConsoleTools</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="..\LICENSE.txt" Link="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+        <Content Include="..\README.md" Link="README.md" Pack="true" PackagePath="README.md" />
+    </ItemGroup>
+
+</Project>

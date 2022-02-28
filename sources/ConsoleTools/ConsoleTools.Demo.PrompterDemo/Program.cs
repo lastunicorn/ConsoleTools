@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 {
@@ -29,11 +31,11 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Prompter");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Prompter");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
 
-            CustomConsole.WriteEmphasies("Note: ");
+            CustomConsole.WriteEmphasized("Note: ");
             CustomConsole.WriteLine("type 'help' for a list of commands.");
             CustomConsole.WriteLine();
         }
@@ -53,7 +55,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
             TextBlock goodbyText = new TextBlock
             {
                 Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = "0 1 0 0"
             };
             goodbyText.Display();

@@ -87,9 +87,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-      <Project>{5A50AA3D-E14A-4E0C-BC6A-06AA1D6A5524}</Project>
-      <Name>ConsoleTools</Name>
+    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
+      <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
+      <Name>ConsoleTools.Controls.Menus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
+      <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>
+      <Name>ConsoleTools.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">
+      <Project>{975d695d-1fd2-446f-bd7c-0f7839c1559d}</Project>
+      <Name>ConsoleTools.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

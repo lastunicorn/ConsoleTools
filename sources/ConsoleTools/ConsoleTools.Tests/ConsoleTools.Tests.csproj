@@ -1,194 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{54D61983-996F-436E-A265-01C616099367}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net452|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug-Net452\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net461|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
-    <OutputPath>bin\Release-Net452\</OutputPath>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
-    <OutputPath>bin\Release-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.10.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.10.0\lib\net45\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="AlignedTextTests\SpaceLeftTests.cs" />
-    <Compile Include="AlignedTextTests\ToStringTests.cs" />
-    <Compile Include="ConsoleOutput.cs" />
-    <Compile Include="ControlLayoutTests\ActualClientWidthTests_NoWidthConstraints.cs" />
-    <Compile Include="ControlLayoutTests\ActualContentWidthTests_NoWidthConstraints.cs" />
-    <Compile Include="ControlLayoutTests\ActualFullWidthTests_NoWidthConstraints.cs" />
-    <Compile Include="ControlLayoutTests\ActualWidthTests_NoWidthConstraints.cs" />
-    <Compile Include="ControlLayoutTests\MarginTests.cs" />
-    <Compile Include="ControlLayoutTests\PaddingTests.cs" />
-    <Compile Include="ExpectedOutput.cs" />
-    <Compile Include="TextBlockTests\TextBlockTests.cs" />
-    <Compile Include="MultilineTextTests\Constructor_InitializeLinesTests.cs" />
-    <Compile Include="MultilineTextTests\Constructor_RawTextTests.cs" />
-    <Compile Include="MultilineTextTests\GetLinesTest.cs" />
-    <Compile Include="SizeTests\ConstructorTests.cs" />
-    <Compile Include="SizeTests\InflateWithNumberTests.cs" />
-    <Compile Include="SizeTests\IsEmptyTests.cs" />
-    <Compile Include="Spinners\ProgressBarTests\MinValueTests.cs" />
-    <Compile Include="Spinners\ProgressBarTests\MaxValueTests.cs" />
-    <Compile Include="TabularData\BorderTemplateTests\GenerateBottomBorderTests.cs" />
-    <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator1Tests.cs" />
-    <Compile Include="TabularData\BorderTemplateTests\GenerateHorizontalSeparator2Tests.cs" />
-    <Compile Include="TabularData\BorderTemplateTests\GenerateTopBorderTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorNoParamsTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorMultilineTextAndAlignmentTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorObjectAndAlignmentTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorStringAndAlignmentTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorMultilineTextTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorObjectTests.cs" />
-    <Compile Include="TabularData\DataCellTests\ConstructorStringTests.cs" />
-    <Compile Include="TabularData\DataCellTests\RenderLineTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\RowTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\ColumnTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromDataTable\TitleTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromList\ColumnTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromList\RowTests.cs" />
-    <Compile Include="TabularData\DataGridTests\BuildFromList\TitleTests.cs" />
-    <Compile Include="MultilineTextTests\ImplicitConversionFromMultilineTextTests.cs" />
-    <Compile Include="MultilineTextTests\ImplicitConversionToMultilineTextTests.cs" />
-    <Compile Include="TabularData\RowTests.cs" />
-    <Compile Include="TabularData\TableTests\HeaderAlignmentTests.cs" />
-    <Compile Include="TabularData\TableTests\CellMultilineTests.cs" />
-    <Compile Include="CustomAssert.cs" />
-    <Compile Include="MultilineTextTests\Constructor_EmptyTests.cs" />
-    <Compile Include="TabularData\TableTests\CellAlignmentPerTableTests.cs" />
-    <Compile Include="TabularData\TableTests\CellAlignmentPerColumnTests.cs" />
-    <Compile Include="TabularData\TableTests\SpecialCaseBorder.LongTitle.Tests.cs" />
-    <Compile Include="TabularData\TableTests\SpecialCaseBorder.ShortTitle.Tests.cs" />
-    <Compile Include="TabularData\TableTests\NoBorderTests.cs" />
-    <Compile Include="TabularData\TableTests\CellAlignmentTests.cs" />
-    <Compile Include="MultilineTextTests\Constructor_InitializeSizeTests.cs" />
-    <Compile Include="TabularData\TableTests\CustomBorderTests.cs" />
-    <Compile Include="TabularData\TableTests\TablePaddingTests.cs" />
-    <Compile Include="TabularData\TableTests\ConstructorTests.cs" />
-    <Compile Include="TabularData\TableTests\LinesBetweenRowsTests.cs" />
-    <Compile Include="TabularData\TableTests\TitleAlignmentTests.cs" />
-    <Compile Include="TabularData\TableTests\TitleTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools\ConsoleTools.csproj">
-      <Project>{5a50aa3d-e14a-4e0c-bc6a-06aa1d6a5524}</Project>
-      <Name>ConsoleTools</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="TextBlockTests\TextBlockTests.out\Test2.out">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TextBlockTests\TextBlockTests.out\Test1.out">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.msbuild" Version="3.1.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+    </ItemGroup>
+
 </Project>

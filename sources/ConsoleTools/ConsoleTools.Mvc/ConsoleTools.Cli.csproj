@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>DustInTheWind.ConsoleTools.Mvc</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Mvc</RootNamespace>
+        <GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
+        <Description>This is a framework to help you structure the presentation layer of a Console Application. Similar to ASP.NET MVC.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+    </ItemGroup>
+
+</Project>

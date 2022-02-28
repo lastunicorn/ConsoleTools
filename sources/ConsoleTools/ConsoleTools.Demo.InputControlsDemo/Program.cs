@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 {
@@ -24,8 +25,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 
         private static void Main()
         {
-            Console.SetBufferSize(80, 1024);
             Console.SetWindowSize(80, 60);
+            Console.SetBufferSize(80, 1024);
 
             DisplayApplicationHeader();
 
@@ -46,12 +47,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
             //        new InlineTextBlock
             //        {
             //            Text = "ConsoleTools Demo - InputControls",
-            //            ForegroundColor = CustomConsole.EmphasiesColor
+            //            ForegroundColor = CustomConsole.EmphasizedColor
             //        },
             //        new TextBlock
             //        {
             //            Text = CustomConsole.HorizontalWindowLine,
-            //            ForegroundColor = CustomConsole.EmphasiesColor,
+            //            ForegroundColor = CustomConsole.EmphasizedColor,
             //            MarginBottom = 1
             //        },
             //        new TextBlock
@@ -64,8 +65,8 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
             //
             //stackPanel.Display();
 
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - InputControls");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - InputControls");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows the usage of the input controls (text and list).");
             CustomConsole.WriteLine();

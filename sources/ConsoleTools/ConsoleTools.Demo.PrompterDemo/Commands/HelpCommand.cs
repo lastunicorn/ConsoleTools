@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.CommandLine;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {
@@ -30,19 +30,19 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 
         private static void DisplayHelp()
         {
-            CustomConsole.WriteLineEmphasies("Valid commands:");
+            CustomConsole.WriteLineEmphasized("Valid commands:");
             CustomConsole.WriteLine();
 
-            CustomConsole.WriteEmphasies("  - whale, whales   ");
+            CustomConsole.WriteEmphasized("  - whale, whales   ");
             CustomConsole.WriteLine("- Displays a table with whales.");
 
-            CustomConsole.WriteEmphasies("  - prompter        ");
+            CustomConsole.WriteEmphasized("  - prompter        ");
             CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
 
-            CustomConsole.WriteEmphasies("  - help            ");
+            CustomConsole.WriteEmphasized("  - help            ");
             CustomConsole.WriteLine("- Displays this help page");
 
-            CustomConsole.WriteEmphasies("  - quit, q, exit   ");
+            CustomConsole.WriteEmphasized("  - quit, q, exit   ");
             CustomConsole.WriteLine("- Exits the application.");
         }
     }

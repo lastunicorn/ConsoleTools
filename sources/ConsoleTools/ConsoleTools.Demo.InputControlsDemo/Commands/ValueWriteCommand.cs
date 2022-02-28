@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -26,24 +26,24 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         public void Execute()
         {
-            StringView firstNameView = new StringView("First Name:");
-            firstNameView.Label.ForegroundColor = ConsoleColor.DarkGreen;
+            StringValue firstNameControl = new StringValue("First Name:");
+            firstNameControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-            StringView lastNameView = new StringView("Last Name:");
-            lastNameView.Label.ForegroundColor = ConsoleColor.DarkGreen;
+            StringValue lastNameControl = new StringValue("Last Name:");
+            lastNameControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-            Int32View ageView = new Int32View("Age:");
-            ageView.Label.ForegroundColor = ConsoleColor.DarkGreen;
+            Int32Value ageControl = new Int32Value("Age:");
+            ageControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
 
-            firstNameView.Value = "Joe";
-            firstNameView.Write();
+            firstNameControl.Value = "Joe";
+            firstNameControl.Write();
 
-            lastNameView.Value = "Doe";
-            lastNameView.Write();
+            lastNameControl.Value = "Doe";
+            lastNameControl.Write();
 
-            ageView.Value = 25;
-            ageView.Write();
+            ageControl.Value = 25;
+            ageControl.Write();
         }
     }
 }

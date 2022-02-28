@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -33,16 +33,16 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Beverages you like: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", beverages));
+            CustomConsole.WriteLineEmphasized(string.Join(", ", beverages));
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListView{T}.QuickRead"/> falls back
+        /// Using the static method <see cref="ValueList{T}.QuickRead"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
         private static IEnumerable<string> ReadBeveragesQuick()
         {
-            return ListView<string>.QuickRead("What are your prefered beverages?");
+            return ValueList<string>.QuickRead("What are your prefered beverages?");
         }
     }
 }

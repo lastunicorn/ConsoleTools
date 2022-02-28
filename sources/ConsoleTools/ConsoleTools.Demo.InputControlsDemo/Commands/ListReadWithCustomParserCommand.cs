@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
 
 using System;
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         private static void DisplayColors(IReadOnlyList<ConsoleColor> colors)
         {
-            CustomConsole.Write("Your prefered colors: ");
+            CustomConsole.Write("Your preferred colors: ");
 
             for (int i = 0; i < colors.Count; i++)
             {
@@ -50,8 +50,10 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         private static IReadOnlyList<ConsoleColor> ReadColors()
         {
-            ListView<ConsoleColor> colorsRead = new ListView<ConsoleColor>("What are your prefered colors?");
-            colorsRead.CustomParser = value => (ConsoleColor) Enum.Parse(typeof(ConsoleColor), value, true);
+            ValueList<ConsoleColor> colorsRead = new ValueList<ConsoleColor>("What are your preferred colors?")
+            {
+                CustomParser = value => (ConsoleColor)Enum.Parse(typeof(ConsoleColor), value, true)
+            };
 
             return colorsRead.Read();
         }

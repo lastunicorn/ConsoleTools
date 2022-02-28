@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Controls</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Controls</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="InputControls\ListInputResources.Designer.cs">
+            <DependentUpon>ListInputResources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+        <Compile Update="InputControls\ValueInputResources.Designer.cs">
+            <DependentUpon>ValueInputResources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+        <Compile Update="InputControls\YesNoQuestionResources.Designer.cs">
+            <DependentUpon>YesNoQuestionResources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+        <Compile Update="PauseResources.Designer.cs">
+            <DependentUpon>PauseResources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="InputControls\ListInputResources.resx">
+            <LastGenOutput>ListInputResources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="InputControls\ValueInputResources.resx">
+            <LastGenOutput>ValueInputResources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="InputControls\YesNoQuestionResources.resx">
+            <LastGenOutput>YesNoQuestionResources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="PauseResources.resx">
+            <LastGenOutput>PauseResources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
+
+</Project>

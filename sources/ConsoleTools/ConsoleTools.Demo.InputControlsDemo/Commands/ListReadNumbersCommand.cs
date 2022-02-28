@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -33,12 +33,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
             CustomConsole.WriteLine();
 
             CustomConsole.Write("Your lucky numbers: ");
-            CustomConsole.WriteLineEmphasies(string.Join(", ", numbers));
+            CustomConsole.WriteLineEmphasized(string.Join(", ", numbers));
         }
 
         private static IEnumerable<int> ReadNumbers()
         {
-            ListView<int> luckyNumbersRead = new ListView<int>("What are your lucky number?");
+            ValueList<int> luckyNumbersRead = new ValueList<int>("What are your lucky number?");
             luckyNumbersRead.Read();
             return luckyNumbersRead.Values;
         }

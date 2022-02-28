@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Core</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Description>This is a set of tools for the .net Console.</Description>
+    </PropertyGroup>
+
+</Project>

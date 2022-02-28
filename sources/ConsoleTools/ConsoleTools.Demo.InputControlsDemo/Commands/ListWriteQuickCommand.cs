@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
 
 using System;
 using System.Collections.Generic;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -33,12 +33,12 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         }
 
         /// <summary>
-        /// Using the static method <see cref="ListView{T}.QuickWrite"/> falls back
+        /// Using the static method <see cref="ValueList{T}.QuickWrite"/> falls back
         /// to the default properties for colors, bullet, spaces, etc.
         /// </summary>
         private static void DisplayColorsQuick(IEnumerable<string> colors)
         {
-            ListView<string>.QuickWrite("Colors:", colors);
+            ValueList<string>.QuickWrite("Colors:", colors);
         }
     }
 }

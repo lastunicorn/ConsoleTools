@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.Guard;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
 {
@@ -41,8 +41,8 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
             }
             catch (ApplicationException)
             {
-                CustomConsole.WriteLineError("Another instace of this application is already running.");
-                CustomConsole.WriteLineError("Current instace will shutdown.");
+                CustomConsole.WriteLineError("Another instance of this application is already running.");
+                CustomConsole.WriteLineError("Current instance will shutdown.");
                 Pause.QuickDisplay();
                 return 2;
             }
@@ -58,8 +58,8 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Guard");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Guard");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows the usage of the Guardian class.");
             CustomConsole.WriteLine();

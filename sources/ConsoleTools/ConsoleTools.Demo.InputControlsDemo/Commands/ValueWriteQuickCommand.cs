@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -25,15 +25,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         public void Execute()
         {
-            StringView.QuickWrite("First Name:", "John");
-            StringView.QuickWrite("Last Name:", "Doe");
-            Int32View.QuickWrite("Age:", 25);
+            StringValue.QuickWrite("First Name:", "John");
+            StringValue.QuickWrite("Last Name:", "Doe");
+            Int32Value.QuickWrite("Age:", 25);
 
             // or
 
-            ValueView<string>.QuickWrite("First Name:", "John");
-            ValueView<string>.QuickWrite("Last Name:", "Doe");
-            ValueView<int>.QuickWrite("Age:", 25);
+            ValueControl<string>.QuickWrite("First Name:", "John");
+            ValueControl<string>.QuickWrite("Last Name:", "Doe");
+            ValueControl<int>.QuickWrite("Age:", 25);
         }
     }
 }

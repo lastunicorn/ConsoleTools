@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 {
@@ -73,8 +74,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - ScrollMenu");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - ScrollMenu");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how the ScrollMenu can be used.");
             CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
@@ -93,7 +94,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             TextBlock goodbyText = new TextBlock
             {
                 Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasiesColor,
+                ForegroundColor = CustomConsole.EmphasizedColor,
                 Margin = "0 1 0 0"
             };
             goodbyText.Display();

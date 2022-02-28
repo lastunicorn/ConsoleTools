@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 // --------------------------------------------------------------------------------
 // Bugs or feature requests
 // --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System.Reflection;
 
@@ -26,7 +26,7 @@ using System.Reflection;
 // associated with an assembly.
 [assembly: AssemblyCompany("Dust in the Wind")]
 [assembly: AssemblyProduct("Console Tools")]
-[assembly: AssemblyCopyright("Copyright © Dust in the Wind 2017-2018")]
+[assembly: AssemblyCopyright("Copyright © Dust in the Wind 2017-2020")]
 [assembly: AssemblyTrademark("")]
 
 // Version information for an assembly consists of the following four values:
@@ -39,5 +39,5 @@ using System.Reflection;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.5.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
 //[assembly: AssemblyFileVersion("1.0.0.*")]

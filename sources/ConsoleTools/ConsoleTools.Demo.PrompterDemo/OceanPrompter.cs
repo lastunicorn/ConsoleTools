@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
-using DustInTheWind.ConsoleTools.Menues;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 {

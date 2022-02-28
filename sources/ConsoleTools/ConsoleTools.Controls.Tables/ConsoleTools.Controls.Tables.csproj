@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Controls.Tables</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Controls.Tables</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+    </ItemGroup>
+
+</Project>

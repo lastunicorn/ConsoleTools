@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,7 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Musical;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Musical;
 
 namespace DustInTheWind.ConsoleTools.Demo.Musical
 {
@@ -33,8 +34,8 @@ namespace DustInTheWind.ConsoleTools.Demo.Musical
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Musical");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Musical");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how to make sounds in Console.");
             CustomConsole.WriteLine();

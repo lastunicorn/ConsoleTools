@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
 
 using System;
 using DustInTheWind.ConsoleTools.CommandLine;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 {
@@ -42,8 +42,8 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 
         private void ChangePrompter()
         {
-            ValueView<string> valueView = new ValueView<string>("New Prompter Text:");
-            prompter.Text = valueView.Read();
+            ValueControl<string> valueControl = new ValueControl<string>("New Prompter Text:");
+            prompter.Text = valueControl.Read();
         }
     }
 }

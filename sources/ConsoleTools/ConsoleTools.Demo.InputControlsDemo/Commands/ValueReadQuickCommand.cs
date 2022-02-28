@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -33,10 +33,10 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         /// </summary>
         private static void RunExample()
         {
-            string firstName = ValueView<string>.QuickRead("First Name:");
-            string lastName = ValueView<string>.QuickRead("Last Name:");
+            string firstName = ValueControl<string>.QuickRead("First Name:");
+            string lastName = ValueControl<string>.QuickRead("Last Name:");
 
-            // Display th read values.
+            // Display the read values.
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
         }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Tests
             this.basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
         }
 
-        public string GeExpectedtOut([CallerMemberName] string testName = "")
+        public string GeExpectedOut([CallerMemberName] string testName = "")
         {
             string directoryName = testClassType.Name + ".out";
             string outFileName = testName + ".out";

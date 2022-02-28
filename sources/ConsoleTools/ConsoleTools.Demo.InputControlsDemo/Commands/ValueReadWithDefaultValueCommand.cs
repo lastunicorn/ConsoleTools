@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -30,14 +30,14 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 
         private static void RunExample()
         {
-            ValueView<int> numberView = new ValueView<int>("Number ({0}):");
-            numberView.AcceptDefaultValue = true;
-            numberView.DefaultValue = 42;
+            ValueControl<int> numberControl = new ValueControl<int>("Number ({0}):");
+            numberControl.AcceptDefaultValue = true;
+            numberControl.DefaultValue = 42;
 
-            CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueView control.");
+            CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueControl control.");
             CustomConsole.WriteLine();
 
-            int number = numberView.Read();
+            int number = numberControl.Read();
 
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("You selected {0}.", number);

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.WriteText
 {
@@ -24,8 +25,9 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
         {
             DisplayApplicationHeader();
 
+            Console.SetWindowSize(80, 24);
             Console.SetBufferSize(80, 1024);
-            
+
             try
             {
                 CustomConsole.WriteLine();
@@ -56,7 +58,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
         private static void RunAlignmentExample()
         {
             CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
-            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is anoter text aligned to left.");
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
             CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
@@ -71,13 +73,13 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             {
                 CustomConsole.WriteLine("Normal: This is a normal line of text.");
                 CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasies("Emphasies: But I can also write an emphasized text.");
+                CustomConsole.WriteLineEmphasized("Emphasies: But I can also write an emphasized text.");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
                 CustomConsole.WriteLine();
-                CustomConsole.WriteLineError("Error: If some error occures and the application will crush with an exception, I will display it on the screen immediately.");
+                CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
 
                 throw new Exception("Some demo exception occured.");
             }
@@ -90,8 +92,8 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
-            CustomConsole.WriteLineEmphasies("===============================================================================");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
         }
     }

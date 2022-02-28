@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,8 +16,9 @@
 
 using System;
 using System.Linq;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -37,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         /// </summary>
         private static void DisplayColors(string[] colors)
         {
-            ListView<string> colorsWrite = new ListView<string>
+            ValueList<string> colorsWrite = new ValueList<string>
             {
                 Label = new TextBlock
                 {

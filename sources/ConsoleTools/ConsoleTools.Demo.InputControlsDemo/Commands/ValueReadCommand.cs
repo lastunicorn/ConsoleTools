@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.InputControls;
-using DustInTheWind.ConsoleTools.Menues;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
 {
@@ -37,15 +37,15 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         {
             // Create the input controls
 
-            ValueView<string> firstNameView = new ValueView<string>("First Name:");
-            firstNameView.Label.ForegroundColor = ConsoleColor.Cyan;
+            ValueControl<string> firstNameControl = new ValueControl<string>("First Name:");
+            firstNameControl.Label.ForegroundColor = ConsoleColor.Cyan;
 
-            ValueView<string> lastNameView = new ValueView<string>("Last Name:");
-            lastNameView.Label.ForegroundColor = ConsoleColor.Cyan;
+            ValueControl<string> lastNameControl = new ValueControl<string>("Last Name:");
+            lastNameControl.Label.ForegroundColor = ConsoleColor.Cyan;
 
             // Read values using the input controls
-            string firstName = firstNameView.Read();
-            string lastName = lastNameView.Read();
+            string firstName = firstNameControl.Read();
+            string lastName = lastNameControl.Read();
 
             // Display the read values.
             CustomConsole.WriteLine();

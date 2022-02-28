@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Controls.Spinners</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Controls.Spinners</AssemblyName>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="SpinnerResources.Designer.cs">
+            <DependentUpon>SpinnerResources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="SpinnerResources.resx">
+            <LastGenOutput>SpinnerResources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
+
+</Project>

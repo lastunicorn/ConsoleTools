@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2018 Dust in the Wind
+// Copyright (C) 2017-2020 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,7 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Spinners;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
@@ -39,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasies("ConsoleTools Demo - Progress spinner");
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Progress spinner");
 
             HorizontalLine horizontalLine1 = new HorizontalLine
             {

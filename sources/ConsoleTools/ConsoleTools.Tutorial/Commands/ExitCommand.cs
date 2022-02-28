@@ -17,12 +17,12 @@
 // --------------------------------------------------------------------------------
 // Bugs or feature requests
 // --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
 using DustInTheWind.ConsoleTools.Menues;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.Commands
+namespace DustInTheWind.ConsoleTools.Tutorial.Commands
 {
     internal class ExitCommand : ICommand
     {

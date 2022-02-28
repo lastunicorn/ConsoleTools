@@ -30,8 +30,7 @@ namespace ConsoleTools.PerformanceTests.Common
 
         public TestRunner(Action actionToTest)
         {
-            if (actionToTest == null) throw new ArgumentNullException(nameof(actionToTest));
-            this.actionToTest = actionToTest;
+            this.actionToTest = actionToTest ?? throw new ArgumentNullException(nameof(actionToTest));
         }
 
         public void PerformTest()

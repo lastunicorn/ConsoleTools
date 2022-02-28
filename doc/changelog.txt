@@ -1,7 +1,17 @@
 ConsoleTools
 ============
 
-Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+
+ver 1.0.0
+---------
+- Compiled for netstandard2.0
+- CustomConsole: removed the methods for building and writing a horizontal line.
+- ApplicationHeader: Added new control.
+- Breaking changes: Renamed multiple controls and moved them in other namespaces.
+- DataGrid: Renamed DataGrid.PaddingLeft to DataGrid.CellPaddingLeft
+- DataGrid: Renamed DataGrid.PaddingRight to DataGrid.CellPaddingRight
+- DataGrid: Added ForegroundColor and BackgroundColor at cell and row level.
 
 ver 0.5.5
 ---------
@@ -22,6 +32,14 @@ ver 0.5.3
 - LabelMenuItem: Removed the HighlightType property.
 - ScrollMenu: Removed the ItemsHighlightType property.
 - Prompter: PrompterText was removed. Instead were added Text and TextFormat both of type string.
+
+ver 0.5.3
+---------
+- YesNoQuestion: Added foreground and background color for the question text in the YesNoQuestion control.
+
+ver 0.5.2
+---------
+- double target: net core and net framework.
 
 ver 0.5.1
 ---------

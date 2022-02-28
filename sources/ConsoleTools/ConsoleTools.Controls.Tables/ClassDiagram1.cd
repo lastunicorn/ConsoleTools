@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.DataGrid">
+    <Position X="6" Y="0.5" Width="2.25" />
+    <AssociationLine Name="Columns" Type="DustInTheWind.ConsoleTools.Controls.Tables.ColumnList" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="4.562" />
+        <Point X="13.875" Y="4.562" />
+        <Point X="13.875" Y="8.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.475" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="HeaderRow" Type="DustInTheWind.ConsoleTools.Controls.Tables.HeaderRow" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="4.688" />
+        <Point X="5.125" Y="4.688" />
+        <Point X="5.125" Y="12.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Rows" Type="DustInTheWind.ConsoleTools.Controls.Tables.ContentRowList" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="5.75" />
+        <Point X="10.781" Y="5.75" />
+        <Point X="10.781" Y="8.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.485" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACIAwIAAAWAAEAkCUAAAQhCFICEAAAAABAAAIgACAQ=</HashCode>
+      <FileName>DataGrid.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TitleRow" />
+      <Property Name="Columns" />
+      <Property Name="HeaderRow" />
+      <Property Name="Rows" />
+      <Property Name="Border" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.TitleRow">
+    <Position X="0.75" Y="12.75" Width="2.25" />
+    <NestedTypes>
+      <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.TitleRow.TitleCellEnumerator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TitleRow.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAEAAAAAABAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TitleRow.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TitleCell" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.TitleCell">
+    <Position X="0.75" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAABAAABAAAAgAAAAEAAAABAAAAAA=</HashCode>
+      <FileName>TitleCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.ContentRowList">
+    <Position X="8.75" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAACABABAQAAAAAAAAECAAAEABAAAA=</HashCode>
+      <FileName>ContentRowList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.ColumnList">
+    <Position X="12.5" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAACAAAAAQAAAAAAAAECAAAEAAAAAA=</HashCode>
+      <FileName>ColumnList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.BorderTemplate">
+    <Position X="15.75" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gwAAAAAICBBAABAAACAQAAIAAAEYAAIgCACAgAAAAkA=</HashCode>
+      <FileName>BorderTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.ContentRow">
+    <Position X="8.75" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAgAAABAACAAAgAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContentRow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.Column">
+    <Position X="12.5" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAACgAAAAAAAAFAAADAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Column.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.DataGridBorder">
+    <Position X="15.75" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAgEBAAAAAAERAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataGridBorder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Template" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.HeaderRow">
+    <Position X="4.25" Y="12.75" Width="2.25" />
+    <NestedTypes>
+      <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.HeaderRow.HeaderCellEnumerator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>HeaderRow.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAABAACAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>HeaderRow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.HeaderCell">
+    <Position X="3.75" Y="16.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAACAAABAAAAAAABAAAAABAAQEAAIABAACAAA=</HashCode>
+      <FileName>HeaderCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.ContentCell">
+    <Position X="8.25" Y="16.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAYAAAACAAABAAABAIABAAAAgAAAAEAAAABAACAAA=</HashCode>
+      <FileName>ContentCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Tables.CellBase">
+    <Position X="4.25" Y="22.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABQAAAAAmAgABAEgAAAABAACBGAAAAEAAAADAAAAAA=</HashCode>
+      <FileName>CellBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

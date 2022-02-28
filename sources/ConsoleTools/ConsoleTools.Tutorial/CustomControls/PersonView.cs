@@ -17,13 +17,13 @@
 // --------------------------------------------------------------------------------
 // Bugs or feature requests
 // --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new
+// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using DustIntheWind.ConsoleTools.Tutorial.AddressBookModel;
 using DustInTheWind.ConsoleTools.InputControls;
+using DustInTheWind.ConsoleTools.Tutorial.AddressBookModel;
 
-namespace DustIntheWind.ConsoleTools.Tutorial.CustomControls
+namespace DustInTheWind.ConsoleTools.Tutorial.CustomControls
 {
     internal class PersonView
     {

@@ -1,23 +1,27 @@
 <?xml version="1.0"?>
 <package>
-  <metadata>
-    <id>ConsoleTools</id>
-    <version>1.0.0</version>
-    <authors>Dust in the Wind</authors>
-	<title>ConsoleTools</title>
-    <owners>Dust in the Wind</owners>
-	<licenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</licenseUrl>
-    <projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
-	<summary>A set of tools and "controls" for the .net Console.</summary>
-    <releaseNotes>Added ForegroundColor and BackgroundColor at cell level in the DataGrid.</releaseNotes>
-    <copyright>Copyright 2017-2020 Dust in the Wind</copyright>
-    <tags>console cli prompter menu progressbar spinner table read write textblock inlinetextblock blockcontrol, inlinecontrol</tags>
-  </metadata>
-  <files>
-    <file src="lib\**" target="lib" />
-    <file src="changelog.txt" target="changelog.txt" />
-    <file src="readme.txt" target="readme.txt" />
-  </files>
+	<metadata>
+		<id>ConsoleTools</id>
+		<version>1.0.0</version>
+		<authors>Dust in the Wind</authors>
+		<title>ConsoleTools</title>
+		<owners>Dust in the Wind</owners>
+		<license type="file">LICENSE.txt</license>
+		<projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
+		<summary>A set of tools and "controls" for the .net Console.</summary>
+		<releaseNotes>Added ForegroundColor and BackgroundColor at cell level in the DataGrid.</releaseNotes>
+		<copyright>Copyright 2017-2020 Dust in the Wind</copyright>
+		<tags>console cli prompter menu progressbar spinner table read write textblock inlinetextblock blockcontrol, inlinecontrol</tags>
+		<dependencies>
+			<group targetFramework=".NETStandard2.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="lib\**" target="lib" />
+		<file src="changelog.txt" target="changelog.txt" />
+		<file src="readme.txt" target="readme.txt" />
+		<file src="..\sources\ConsoleTools\LICENSE.txt" target="LICENSE.txt" />
+	</files>
 </package>

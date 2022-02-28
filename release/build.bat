@@ -16,7 +16,7 @@ rem ----------------------------------------------------------------------------
 
 echo.
 echo ---
-echo --- Clenup existing files - ConsoleTools directoty
+echo --- Clenup existing files - ConsoleTools directory
 echo ---
 echo.
 if EXIST "ConsoleTools" (
@@ -36,24 +36,55 @@ rem ----------------------------------------------------------------------------
 rem Retrieve assemblies.
 rem ----------------------------------------------------------------------------------------------------
 
-echo.
-echo ---
-echo --- Retrieve assemblies
-echo ---
-echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.dll" "ConsoleTools\lib\net45"
-if %errorlevel% neq 0 goto :error
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.xml" "ConsoleTools\lib\net45"
-if %errorlevel% neq 0 goto :error
+:: echo.
+:: echo ---
+:: echo --- Retrieve assemblies
+:: echo ---
+:: echo.
+:: xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.dll" "ConsoleTools\lib\net45"
+:: if %errorlevel% neq 0 goto :error
+:: xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\net45\*.xml" "ConsoleTools\lib\net45"
+:: if %errorlevel% neq 0 goto :error
+:: 
+:: echo.
+:: echo ---
+:: echo --- Retrieve assemblies
+:: echo ---
+:: echo.
+:: xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" "ConsoleTools\lib\netcoreapp2.2"
+:: if %errorlevel% neq 0 goto :error
+:: xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" "ConsoleTools\lib\netcoreapp2.2"
+:: if %errorlevel% neq 0 goto :error
 
 echo.
 echo ---
 echo --- Retrieve assemblies
 echo ---
 echo.
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.dll" "ConsoleTools\lib\netcoreapp2.2"
+
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Core\bin\Release\netstandard2.0\*.dll" "ConsoleTools\lib\netstandard2.0"
 if %errorlevel% neq 0 goto :error
-xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools\bin\Release\netcoreapp2.2\*.xml" "ConsoleTools\lib\netcoreapp2.2"
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Core\bin\Release\netstandard2.0\*.xml" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\netstandard2.0\*.dll" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\netstandard2.0\*.xml" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\netstandard2.0\*.dll" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\netstandard2.0\*.xml" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\netstandard2.0\*.dll" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\netstandard2.0\*.xml" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\netstandard2.0\*.dll" "ConsoleTools\lib\netstandard2.0"
+if %errorlevel% neq 0 goto :error
+xcopy /Y/S/I "%root_directory%\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\netstandard2.0\*.xml" "ConsoleTools\lib\netstandard2.0"
 if %errorlevel% neq 0 goto :error
 
 rem ----------------------------------------------------------------------------------------------------

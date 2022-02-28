@@ -3,12 +3,11 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-ver next
+ver 1.0.0
 ---------
 - Compiled for netstandard2.0
 - CustomConsole: removed the methods for building and writing a horizontal line.
 - ApplicationHeader: Added new control.
-- Splitted the library in multiple assemblies.
 - Breaking changes: Renamed multiple controls and moved them in other namespaces.
 - DataGrid: Renamed DataGrid.PaddingLeft to DataGrid.CellPaddingLeft
 - DataGrid: Renamed DataGrid.PaddingRight to DataGrid.CellPaddingRight

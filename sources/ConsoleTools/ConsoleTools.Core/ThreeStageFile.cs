@@ -22,7 +22,7 @@
 using System;
 using System.IO;
 
-namespace DustInTheWind.ConsoleTools.Core
+namespace DustInTheWind.ConsoleTools
 {
     internal abstract class ThreeStageFile : IDisposable
     {

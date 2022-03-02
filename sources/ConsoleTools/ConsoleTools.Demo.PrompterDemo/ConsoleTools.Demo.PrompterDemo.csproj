@@ -11,22 +11,12 @@
     <AssemblyName>DustInTheWind.ConsoleTools.Demo.PrompterDemo</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net452|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug-Net452\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net461|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <OutputPath>bin\Debug-Net461\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,20 +24,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
-    <OutputPath>bin\Release-Net452\</OutputPath>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
-    <OutputPath>bin\Release-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -81,6 +60,10 @@
     <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
       <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
       <Name>ConsoleTools.Controls.Menus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj">
+      <Project>{496B9723-31DD-4200-BA8A-437D20C6D004}</Project>
+      <Name>ConsoleTools.Controls.Tables</Name>
     </ProjectReference>
     <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
       <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>

@@ -27,7 +27,7 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.CommandLine
 {
     /// <summary>
-    /// Represents a command typed by the user at the prompter created by <see cref="Prompter"/> class.
+    /// Represents a command typed by the user at the prompter.
     /// </summary>
     public class CliCommand
     {

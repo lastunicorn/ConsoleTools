@@ -26,6 +26,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
     public class Argument
     {
         public string Name { get; }
+
         public string Value { get; }
 
         public Argument(string name)

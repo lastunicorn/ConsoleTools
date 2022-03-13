@@ -24,6 +24,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
     public interface IUseCase
     {
         string Description { get; }
+
         void Execute(Arguments arguments);
     }
 }

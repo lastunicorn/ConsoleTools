@@ -28,6 +28,7 @@ namespace DustInTheWind.ConsoleTools.Mvc
         public string Command { get; }
 
         public List<Argument> Values { get; } = new List<Argument>();
+
         public int Count => Values.Count;
 
         public string this[int index] => Values[index]?.Value ?? Values[index]?.Name;

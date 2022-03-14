@@ -1,0 +1,150 @@
+<Project
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	DefaultTargets="Build">
+
+	<PropertyGroup>
+		<OutputPath>output</OutputPath>
+		<TempPath>temp</TempPath>
+		<Version>1.1.0</Version>
+		<OutputZipFileName>ConsoleTools-$(Version).zip</OutputZipFileName>
+		<RepositoryRoot>..</RepositoryRoot>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<CoreFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\netstandard2.0\**\*.dll" />
+		<CoreFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\netstandard2.0\**\*.xml" />
+		<CoreFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\netstandard2.0\**\*.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ControlsFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\netstandard2.0\**\*.dll" />
+		<ControlsFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\netstandard2.0\**\*.xml" />
+		<ControlsFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\netstandard2.0\**\*.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<MenusFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\netstandard2.0\**\*.dll" />
+		<MenusFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\netstandard2.0\**\*.xml" />
+		<MenusFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\netstandard2.0\**\*.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<SpinnersFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\netstandard2.0\**\*.dll" />
+		<SpinnersFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\netstandard2.0\**\*.xml" />
+		<SpinnersFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\netstandard2.0\**\*.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<TablesFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\netstandard2.0\**\*.dll" />
+		<TablesFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\netstandard2.0\**\*.xml" />
+		<TablesFile Include="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\netstandard2.0\**\*.json" />
+	</ItemGroup>
+
+	<Target Name="Build">
+		<MSBuild
+			Projects="..\sources\ConsoleTools\ConsoleTools.sln"
+			Properties="Configuration=Release;Platform=Any CPU;Version=$(Version);GeneratePackageOnBuild=true"/>
+		
+		<MakeDir
+			Directories="$(TempPath)\Zip\ConsoleTools"
+			Condition="!Exists('$(TempPath)\Zip\ConsoleTools')" />
+		
+        <Copy
+            SourceFiles="@(CoreFile)"
+            DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
+        <Copy
+            SourceFiles="@(ControlsFile)"
+            DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
+        <Copy
+            SourceFiles="@(MenusFile)"
+            DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
+        <Copy
+            SourceFiles="@(SpinnersFile)"
+            DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
+        <Copy
+            SourceFiles="@(TablesFile)"
+            DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\LICENSE"
+            DestinationFolder="$(TempPath)\Zip\ConsoleTools\" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\readme.txt"
+            DestinationFolder="$(TempPath)\Zip\ConsoleTools\" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\doc\changelog.txt"
+            DestinationFolder="$(TempPath)\Zip\ConsoleTools\" />
+		
+		<!-- Create the zip file. -->
+		
+		<MakeDir
+			Directories="$(OutputPath)"
+			Condition="!Exists('$(OutputPath)')" />
+		
+		<ZipDirectory
+            SourceDirectory="$(TempPath)\Zip"
+            DestinationFile="$(OutputPath)\$(OutputZipFileName)" />
+        
+		<!-- Create the nuget package file. -->
+		
+		<!--
+		<Copy
+            SourceFiles="ConsoleTools.nuspec"
+            DestinationFolder="$(TempPath)\ConsoleTools\" />
+		<Exec
+			WorkingDirectory="$(TempPath)\ConsoleTools\"
+			Command="nuget pack -Properties version=$(version)" />
+		<Move
+            SourceFiles="$(TempPath)\ConsoleTools\ConsoleTools.$(version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+		-->
+        
+		<!-- Create the nuget package file. -->
+		
+        <Copy
+            SourceFiles="$(RepositoryRoot)\LICENSE"
+            DestinationFolder="$(TempPath)\Nuget" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\readme.txt"
+            DestinationFiles="$(TempPath)\Nuget\readme.md" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\doc\changelog.txt"
+            DestinationFolder="$(TempPath)\Nuget" />
+        <Copy
+            SourceFiles="ConsoleTools.nuspec"
+            DestinationFolder="$(TempPath)\Nuget" />
+		<Exec
+			WorkingDirectory="$(TempPath)\Nuget"
+			Command="nuget pack -Properties version=$(version)" />
+        <Copy
+            SourceFiles="$(TempPath)\Nuget\ConsoleTools.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+		
+		
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\DustInTheWind.ConsoleTools.Core.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\DustInTheWind.ConsoleTools.Controls.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\DustInTheWind.ConsoleTools.Controls.Menus.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\DustInTheWind.ConsoleTools.Controls.Spinners.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\DustInTheWind.ConsoleTools.Controls.Tables.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+		
+	</Target>
+
+	<Target Name="PrepareForBuild" BeforeTargets="Build">
+		<RemoveDir Directories="$(TempPath)" />
+		<RemoveDir Directories="$(OutputPath)" />
+	</Target>
+
+	<Target Name="FinalCleanup" AfterTargets="Build">
+		<RemoveDir Directories="$(TempPath)" />
+	</Target>
+
+</Project>

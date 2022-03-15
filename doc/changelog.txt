@@ -3,6 +3,11 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+ver 1.1.0
+---------
+- [feature] Splitted the one nuget package into multiple packages.
+- [feature] DataGrid: Add multiple rows ar once.
+
 ver 1.0.0
 ---------
 - Compiled for netstandard2.0

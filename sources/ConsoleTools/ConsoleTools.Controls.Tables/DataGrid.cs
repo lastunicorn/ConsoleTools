@@ -126,6 +126,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             }
         }
 
+        /// <summary>
+        /// Gets a value that specifies if border lines should be drawn between rows.
+        /// Default value: false
+        /// </summary>
+        public bool DisplayBorderBetweenRows
+        {
+            get => border.DisplayBorderBetweenRows;
+            set => border.DisplayBorderBetweenRows = value;
+        }
+
         #region Obsolete Properties
 
         /// <summary>
@@ -234,17 +244,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             get => Border.BackgroundColor;
             set => Border.BackgroundColor = value;
-        }
-
-        /// <summary>
-        /// Gets a value that specifies if border lines should be drawn between rows.
-        /// Default value: false
-        /// </summary>
-        [Obsolete("Use Border.DisplayBorderBetweenRows property instead.")]
-        public bool DisplayBorderBetweenRows
-        {
-            get => border.DisplayBorderBetweenRows;
-            set => border.DisplayBorderBetweenRows = value;
         }
 
         #endregion

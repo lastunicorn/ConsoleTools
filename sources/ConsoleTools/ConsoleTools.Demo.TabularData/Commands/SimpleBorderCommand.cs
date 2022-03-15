@@ -36,11 +36,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("2,1", "2,2", "2,3", "2,4");
             dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
             dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
-
+            
             dataGrid.DisplayBorderBetweenRows = true;
             dataGrid.HeaderRow.IsVisible = true;
 
-            dataGrid.BorderTemplate = BorderTemplate.PlusMinusBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.PlusMinusBorderTemplate;
 
             dataGrid.Display();
         }

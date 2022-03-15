@@ -126,6 +126,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             }
         }
 
+        /// <summary>
+        /// Gets a value that specifies if border lines should be drawn between rows.
+        /// Default value: false
+        /// </summary>
+        public bool DisplayBorderBetweenRows
+        {
+            get => border.DisplayBorderBetweenRows;
+            set => border.DisplayBorderBetweenRows = value;
+        }
+
         #region Obsolete Properties
 
         /// <summary>
@@ -234,17 +244,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             get => Border.BackgroundColor;
             set => Border.BackgroundColor = value;
-        }
-
-        /// <summary>
-        /// Gets a value that specifies if border lines should be drawn between rows.
-        /// Default value: false
-        /// </summary>
-        [Obsolete("Use Border.DisplayBorderBetweenRows property instead.")]
-        public bool DisplayBorderBetweenRows
-        {
-            get => border.DisplayBorderBetweenRows;
-            set => border.DisplayBorderBetweenRows = value;
         }
 
         #endregion
@@ -361,7 +360,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
-        /// fields and properties from the specified collection of objects.
+        /// fields and properties of the objects from the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the objects used to populate the <see cref="DataGrid"/>.</typeparam>
         /// <param name="data">The collection of objects to be added to the <see cref="DataGrid"/>.</param>
@@ -376,6 +375,28 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return builder.DataGrid;
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
+        /// fields and properties of the objects from the specified collection.
+        /// </summary>
+        /// <param name="data">The collection of objects to be added to the <see cref="DataGrid"/>.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
+        public static DataGrid BuildFrom(IEnumerable data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(data.GetType());
+            builder.Add(data);
+
+            return builder.DataGrid;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
+        /// fields and properties of the specified object.
+        /// </summary>
+        /// <param name="data">The object to be added to the <see cref="DataGrid"/>.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
         public static DataGrid BuildFrom<T>(T data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));

@@ -41,9 +41,18 @@
 	</ItemGroup>
 
 	<Target Name="Build">
+	
+		<MakeDir
+			Directories="$(OutputPath)"
+			Condition="!Exists('$(OutputPath)')" />
+		
+		<!-- Build the solution. -->
+		
 		<MSBuild
 			Projects="..\sources\ConsoleTools\ConsoleTools.sln"
 			Properties="Configuration=Release;Platform=Any CPU;Version=$(Version);GeneratePackageOnBuild=true"/>
+		
+		<!-- Create the zip file. -->
 		
 		<MakeDir
 			Directories="$(TempPath)\Zip\ConsoleTools"
@@ -65,7 +74,7 @@
             SourceFiles="@(TablesFile)"
             DestinationFiles="$(TempPath)\Zip\ConsoleTools\lib\netstandard2.0\%(RecursiveDir)%(Filename)%(Extension)" />
         <Copy
-            SourceFiles="$(RepositoryRoot)\LICENSE"
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\LICENSE.txt"
             DestinationFolder="$(TempPath)\Zip\ConsoleTools\" />
         <Copy
             SourceFiles="$(RepositoryRoot)\readme.txt"
@@ -74,34 +83,32 @@
             SourceFiles="$(RepositoryRoot)\doc\changelog.txt"
             DestinationFolder="$(TempPath)\Zip\ConsoleTools\" />
 		
-		<!-- Create the zip file. -->
-		
-		<MakeDir
-			Directories="$(OutputPath)"
-			Condition="!Exists('$(OutputPath)')" />
-		
 		<ZipDirectory
             SourceDirectory="$(TempPath)\Zip"
             DestinationFile="$(OutputPath)\$(OutputZipFileName)" />
-        
-		<!-- Create the nuget package file. -->
 		
-		<!--
-		<Copy
-            SourceFiles="ConsoleTools.nuspec"
-            DestinationFolder="$(TempPath)\ConsoleTools\" />
-		<Exec
-			WorkingDirectory="$(TempPath)\ConsoleTools\"
-			Command="nuget pack -Properties version=$(version)" />
-		<Move
-            SourceFiles="$(TempPath)\ConsoleTools\ConsoleTools.$(version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-		-->
-        
-		<!-- Create the nuget package file. -->
+		<!-- Copy the nuget package files. -->
 		
         <Copy
-            SourceFiles="$(RepositoryRoot)\LICENSE"
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\ConsoleTools.Core.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\ConsoleTools.Controls.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\ConsoleTools.Controls.Menus.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\ConsoleTools.Controls.Spinners.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\ConsoleTools.Controls.Tables.$(Version).nupkg"
+            DestinationFolder="$(OutputPath)" />
+        
+		<!-- Create the alias nuget package file. -->
+		
+        <Copy
+            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\LICENSE.txt"
             DestinationFolder="$(TempPath)\Nuget" />
         <Copy
             SourceFiles="$(RepositoryRoot)\readme.txt"
@@ -117,23 +124,6 @@
 			Command="nuget pack -Properties version=$(version)" />
         <Copy
             SourceFiles="$(TempPath)\Nuget\ConsoleTools.$(Version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-		
-		
-        <Copy
-            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Core\bin\Release\DustInTheWind.ConsoleTools.Core.$(Version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-        <Copy
-            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls\bin\Release\DustInTheWind.ConsoleTools.Controls.$(Version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-        <Copy
-            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Menus\bin\Release\DustInTheWind.ConsoleTools.Controls.Menus.$(Version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-        <Copy
-            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Spinners\bin\Release\DustInTheWind.ConsoleTools.Controls.Spinners.$(Version).nupkg"
-            DestinationFolder="$(OutputPath)" />
-        <Copy
-            SourceFiles="$(RepositoryRoot)\sources\ConsoleTools\ConsoleTools.Controls.Tables\bin\Release\DustInTheWind.ConsoleTools.Controls.Tables.$(Version).nupkg"
             DestinationFolder="$(OutputPath)" />
 		
 	</Target>

@@ -90,6 +90,10 @@ namespace DustInTheWind.ConsoleTools.Controls
             WriteText(formattedText);
         }
 
+        /// <summary>
+        /// Calculates and returns the length of the control, including the margins.
+        /// </summary>
+        /// <returns>The number of characters representing the length of the control including the margins.</returns>
         public int CalculateOuterLength()
         {
             int length = MarginLeft;

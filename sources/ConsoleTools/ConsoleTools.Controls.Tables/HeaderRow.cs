@@ -56,6 +56,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             this.columns = columns ?? throw new ArgumentNullException(nameof(columns));
         }
 
+        /// <summary>
+        /// Enumerates all the cells contained by the current instance.
+        /// </summary>
+        /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()
         {
             return new HeaderCellEnumerator(this);

@@ -6,7 +6,7 @@
 		<authors>Dust in the Wind</authors>
 		<title>ConsoleTools</title>
 		<owners>Dust in the Wind</owners>
-		<license type="file">LICENSE</license>
+		<license type="file">LICENSE.txt</license>
 		<licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
 		<projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
 		<description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
@@ -26,7 +26,7 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="LICENSE" target="LICENSE" />
+		<file src="LICENSE.txt" target="LICENSE.txt" />
 		<file src="readme.md" target="readme.md" />
 	</files>
 </package>

@@ -61,6 +61,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Adds a new row to the current table.
+        /// If successfully added, the <see cref="RowBase.ParentDataGrid"/> property is set,
+        /// removing it from any other <see cref="DataGrid"/> instance.
         /// </summary>
         /// <param name="row">The row to be added.</param>
         /// <returns>The added row.</returns>
@@ -76,10 +78,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table containing the specified cells.
         /// </summary>
-        /// <param name="cells">The list of cells of the new row.</param>
+        /// <param name="cells">The list of cells for the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(IEnumerable<ContentCell> cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
@@ -94,10 +97,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table containing the specified cells.
         /// </summary>
-        /// <param name="cells">The list of cells of the new row.</param>
+        /// <param name="cells">The list of cells for the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(params ContentCell[] cells)
         {
             if (cells == null) throw new ArgumentNullException(nameof(cells));
@@ -112,10 +116,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided string.
         /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
+        /// <param name="cellContents">The text contents for the cells in the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(IEnumerable<string> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -134,10 +139,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided string.
         /// </summary>
-        /// <param name="cellContents">The list of cell contents of the new row.</param>
+        /// <param name="cellContents">The text contents for the cells in the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(params string[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -156,10 +162,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided <see cref="MultilineText"/> instance.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(IEnumerable<MultilineText> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -178,10 +185,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided <see cref="MultilineText"/> instance.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(params MultilineText[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -200,10 +208,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided <see cref="object"/>.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(IEnumerable<object> cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -222,10 +231,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Adds a new row to the current table.
+        /// Adds a new row to the current table and creates a content cell for each provided <see cref="object"/>.
         /// </summary>
         /// <param name="cellContents">The list of cell contents of the new row.</param>
         /// <returns>The newly created row.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public ContentRow Add(params object[] cellContents)
         {
             if (cellContents == null) throw new ArgumentNullException(nameof(cellContents));
@@ -241,6 +251,42 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             rows.Add(row);
 
             return row;
+        }
+
+        /// <summary>
+        /// Adds multiple rows to the current table.
+        /// If a row is successfully added, the <see cref="RowBase.ParentDataGrid"/> property is set,
+        /// removing it from any other <see cref="DataGrid"/> instance.
+        /// </summary>
+        /// <param name="rows">The collection of rows to be added.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void AddRange(IEnumerable<ContentRow> rows)
+        {
+            if (rows == null) throw new ArgumentNullException(nameof(rows));
+
+            foreach (ContentRow contentRow in rows)
+            {
+                contentRow.ParentDataGrid = parentDataGrid;
+                this.rows.Add(contentRow);
+            }
+        }
+
+        /// <summary>
+        /// Adds multiple rows to the current table.
+        /// If a row is successfully added, the <see cref="RowBase.ParentDataGrid"/> property is set,
+        /// removing it from any other <see cref="DataGrid"/> instance.
+        /// </summary>
+        /// <param name="rows">The collection of rows to be added.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void AddRange(params ContentRow[] rows)
+        {
+            if (rows == null) throw new ArgumentNullException(nameof(rows));
+
+            foreach (ContentRow contentRow in rows)
+            {
+                contentRow.ParentDataGrid = parentDataGrid;
+                this.rows.Add(contentRow);
+            }
         }
 
         /// <summary>

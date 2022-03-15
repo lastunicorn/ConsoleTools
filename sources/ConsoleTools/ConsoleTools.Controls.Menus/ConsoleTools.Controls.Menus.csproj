@@ -5,6 +5,7 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Controls.Menus</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls.Menus</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageId>ConsoleTools.Controls.Menus</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

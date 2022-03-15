@@ -240,8 +240,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Returns the index of the specified cell or <c>null</c> if the <see cref="ContentCell"/> instance
-        /// is not found in the current <see cref="ContentRow"/> instance.
+        /// Returns the index of the specified cell.
+        /// If the cell is not part of the current <see cref="ContentRow"/> instance, returns <c>null</c>.
         /// </summary>
         public int? IndexOfCell(ContentCell cell)
         {
@@ -249,6 +249,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             return indexOfCell == -1 ? (int?)null : indexOfCell;
         }
 
+        /// <summary>
+        /// Enumerates all the cells contained by the current instance.
+        /// </summary>
+        /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()
         {
             return cells.GetEnumerator();

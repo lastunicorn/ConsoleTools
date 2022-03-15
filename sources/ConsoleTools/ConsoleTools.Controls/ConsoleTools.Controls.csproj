@@ -5,6 +5,7 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Controls</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageId>ConsoleTools.Controls</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

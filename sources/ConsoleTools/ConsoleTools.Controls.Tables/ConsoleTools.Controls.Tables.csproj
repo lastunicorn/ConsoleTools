@@ -5,6 +5,7 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Controls.Tables</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls.Tables</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageId>ConsoleTools.Controls.Tables</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

@@ -50,6 +50,10 @@
 		
 		<MSBuild
 			Projects="..\sources\ConsoleTools\ConsoleTools.sln"
+			Targets="Restore"/>
+		
+		<MSBuild
+			Projects="..\sources\ConsoleTools\ConsoleTools.sln"
 			Properties="Configuration=Release;Platform=Any CPU;Version=$(Version);GeneratePackageOnBuild=true"/>
 		
 		<!-- Create the zip file. -->

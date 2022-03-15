@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return new Size(width, height);
         }
 
-        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> cellWidths)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
         {
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
@@ -74,7 +74,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
                     CellX cellX = Cells[columnIndex];
-                    Size cellSize = new(cellWidths[columnIndex].Width, Size.Height);
+                    Size cellSize = CalculateCellSize(columns, columnIndex, cellX.HorizontalMerge);
+
                     cellX.RenderNextLine(tablePrinter, cellSize);
 
                     bool isLastCell = columnIndex >= Cells.Count - 1;
@@ -87,6 +88,34 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
                 tablePrinter.WriteLine();
             }
+        }
+
+        private Size CalculateCellSize(IReadOnlyList<ColumnX> columns, int columnIndex, int columnSpan)
+        {
+            int cellWidth;
+
+            if (columnSpan >= 2)
+            {
+                ColumnX[] spannedColumns = columns
+                    .Skip(columnIndex)
+                    .Take(columnSpan)
+                    .ToArray();
+
+                cellWidth = spannedColumns
+                    .Select(x => x.Width)
+                    .Sum();
+
+                if (spannedColumns.Length > 0)
+                    cellWidth += spannedColumns.Length - 1;
+            }
+            else
+            {
+                cellWidth = columns[columnIndex].Width;
+            }
+
+            int cellHeight = Size.Height;
+
+            return new Size(cellWidth, cellHeight);
         }
 
         public static RowX CreateFrom(ContentRow contentRow)
@@ -131,20 +160,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             if (titleRow == null) throw new ArgumentNullException(nameof(titleRow));
 
-            RowX titleRowX = new()
+            CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
+            cellX.HorizontalMerge = int.MaxValue;
+
+            RowX rowX = new()
             {
                 Border = titleRow.ParentDataGrid?.Border.IsVisible == true
                     ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
                     : null,
-                Cells = new List<CellX>
-                {
-                    CellX.CreateFrom(titleRow.TitleCell)
-                }
+                Cells = new List<CellX> { cellX }
             };
 
-            titleRowX.CalculateLayout();
+            rowX.CalculateLayout();
 
-            return titleRowX;
+            return rowX;
         }
     }
 }

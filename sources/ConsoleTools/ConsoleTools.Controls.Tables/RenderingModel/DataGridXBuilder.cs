@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
@@ -68,8 +69,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void AddTitle()
         {
-            TitleRowX titleRowX = TitleRowX.CreateFrom(TitleRow);
-            dataGridX.AddTitleRow(titleRowX);
+            RowX rowX = RowX.CreateFrom(TitleRow);
+            dataGridX.AddTitleRow(rowX);
         }
 
         private void AddHeader()

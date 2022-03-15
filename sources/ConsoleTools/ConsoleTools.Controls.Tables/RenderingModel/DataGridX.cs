@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     {
         private readonly bool displayBorder;
 
-        private TitleRowX titleRowX;
+        private RowX titleRowX;
         private RowX headerRowX;
         private readonly List<RowX> normalRows = new();
         private readonly DataGridLayout dataGridLayout = new();
@@ -57,18 +57,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             this.displayBorder = displayBorder;
         }
 
-        public void AddTitleRow(TitleRowX titleRowX)
+        public void AddTitleRow(RowX rowX)
         {
-            this.titleRowX = titleRowX;
-
-            RowX rowX = new()
-            {
-                Border = titleRowX.Border,
-                Cells = new List<CellX>
-                {
-                    titleRowX.Cell,
-                }
-            };
+            titleRowX = rowX;
             dataGridLayout.AddRow(rowX);
         }
 
@@ -103,12 +94,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             TitleTopBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);
 
-            if (titleRowX != null)
-            {
-                Size rowSize = new(dataGridLayout.ActualWidth, titleRowX.Size.Height);
-                titleRowX?.Render(tablePrinter, rowSize);
-            }
-
+            titleRowX?.Render(tablePrinter, dataGridLayout.Columns);
             TitleHeaderSeparator?.Render(tablePrinter, dataGridLayout.Columns);
             TitleDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
             TitleBottomBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);

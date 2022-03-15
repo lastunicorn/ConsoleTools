@@ -19,7 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -38,19 +37,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public int MaxWidth { get; set; }
 
         public int ActualWidth { get; private set; }
+
         public ReadOnlyCollection<ColumnX> Columns => columns.AsReadOnly();
-
-        public void AddTitleRow(TitleRowX titleRowX)
-        {
-            if (titleRowX == null) throw new ArgumentNullException(nameof(titleRowX));
-
-            ColumnSpanX columnSpanX = new()
-            {
-                MinContentWidth = titleRowX.Size.Width
-            };
-            columnSpans.Add(columnSpanX);
-        }
-
+        
         public void AddRow(RowX rowX)
         {
             UpdateColumnsWidths(rowX);
@@ -68,12 +57,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
                 if (cellX.HorizontalMerge > 1)
                 {
-                    columnSpans.Add(new ColumnSpanX
+                    ColumnSpanX columnSpanX = new()
                     {
                         StartColumnIndex = i,
                         EndColumnIndex = i + cellX.HorizontalMerge - 1,
                         MinContentWidth = cellSize.Width
-                    });
+                    };
+                    columnSpans.Add(columnSpanX);
                 }
                 else
                 {
@@ -111,30 +101,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 totalWidth += columns.Count + 1;
 
             return totalWidth;
-
-
-
-            //int columnsTotalWidth = columns
-            //    .Select(x => x.Width)
-            //    .Sum();
-
-            //if (BorderVisibility)
-            //    columnsTotalWidth += columns.Count + 1;
-
-            //if (columnsTotalWidth < totalWidth)
-            //{
-            //    int diff = totalWidth - columnsTotalWidth;
-            //    int colCount = columns.Count;
-
-            //    for (int i = 0; i < diff; i++)
-            //        columns[i % colCount].Width++;
-            //}
-            //else if (columnsTotalWidth > totalWidth)
-            //{
-            //    totalWidth = columnsTotalWidth;
-            //}
-
-            //return totalWidth;
         }
 
         internal void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)

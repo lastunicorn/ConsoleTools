@@ -22,51 +22,51 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
 {
     [TestFixture]
-    public class CalculatePaddingLeftTests
+    public class CalculatePaddingRightRight
     {
         [Test]
-        public void HavingCellWithNoPadding_WhenCalculatingPaddingLeft_ThenPaddingLeftIs1()
+        public void HavingCellWithNoPadding_WhenCalculatingPaddingRight_ThenPaddingRightIs1()
         {
             ContentCell contentCell = new ContentCell();
 
-            int actual = contentCell.CalculatePaddingLeft();
+            int actual = contentCell.CalculatePaddingRight();
 
             Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingCellWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+        public void HavingCellWithPaddingRight5_WhenCalculatingPaddingRight_ThenPaddingRightIs5()
         {
             ContentCell contentCell = new ContentCell
             {
-                PaddingLeft = 5
+                PaddingRight = 5
             };
 
-            int actual = contentCell.CalculatePaddingLeft();
+            int actual = contentCell.CalculatePaddingRight();
 
             Assert.That(actual, Is.EqualTo(5));
         }
 
         [Test]
-        public void HavingRowWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+        public void HavingRowWithPaddingRight5_WhenCalculatingPaddingRight_ThenPaddingRightIs5()
         {
             ContentCell contentCell = new ContentCell();
             ContentRow contentRow = new ContentRow
             {
-                CellPaddingLeft = 5
+                CellPaddingRight = 5
             };
             contentRow.AddCell(contentCell);
 
-            int actual = contentCell.CalculatePaddingLeft();
+            int actual = contentCell.CalculatePaddingRight();
 
             Assert.That(actual, Is.EqualTo(5));
         }
 
         [Test]
-        public void HavingDataGridWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+        public void HavingDataGridWithPaddingRight5_WhenCalculatingPaddingRight_ThenPaddingRightIs5()
         {
             ContentCell contentCell = new ContentCell();
 
@@ -75,17 +75,17 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
 
             DataGrid dataGrid = new DataGrid
             {
-                CellPaddingLeft = 5
+                CellPaddingRight = 5
             };
             dataGrid.Rows.Add(contentRow);
 
-            int actual = contentCell.CalculatePaddingLeft();
+            int actual = contentCell.CalculatePaddingRight();
 
             Assert.That(actual, Is.EqualTo(5));
         }
 
         [Test]
-        public void HavingColumnWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+        public void HavingColumnWithPaddingRight5_WhenCalculatingPaddingRight_ThenPaddingRightIs5()
         {
             ContentCell contentCell = new ContentCell();
 
@@ -97,11 +97,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
 
             Column column = new Column
             {
-                CellPaddingLeft = 5
+                CellPaddingRight = 5
             };
             dataGrid.Columns.Add(column);
 
-            int actual = contentCell.CalculatePaddingLeft();
+            int actual = contentCell.CalculatePaddingRight();
 
             Assert.That(actual, Is.EqualTo(5));
         }

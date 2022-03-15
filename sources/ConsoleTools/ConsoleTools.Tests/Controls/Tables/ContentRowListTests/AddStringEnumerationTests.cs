@@ -16,13 +16,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
 {
     [TestFixture]
-    public class AddCellEnumerationTests
+    public class AddStringEnumerationTests
     {
         private DataGrid dataGrid;
         private ContentRowList contentRowList;
@@ -35,41 +36,39 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
         }
 
         [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
         {
-            IEnumerable<ContentCell> cells = new List<ContentCell>
+            IEnumerable<string> values = new List<string>
             {
-                new ContentCell(),
-                new ContentCell(),
-                new ContentCell()
+                "value 1", "value 2", "value 3"
             };
 
-            contentRowList.Add(cells);
+            contentRowList.Add(values);
 
             Assert.That(contentRowList.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
+        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
         {
-            IEnumerable<ContentCell> cells = new List<ContentCell>
+            IEnumerable<string> values = new List<string>
             {
-                new ContentCell(),
-                new ContentCell(),
-                new ContentCell()
+                "value 1", "value 2", "value 3"
             };
 
-            contentRowList.Add(cells);
+            contentRowList.Add(values);
 
-            Assert.That(contentRowList[0], Is.EqualTo(cells));
+            IEnumerable<string> actual = contentRowList[0]
+                .Select(x => x.Content.ToString());
+            Assert.That(actual, Is.EqualTo(values));
         }
 
         [Test]
-        public void HavingAnEmptyNormalRowList_WhenNullDataCellEnumerationIsAdded_ThenThrows()
+        public void HavingAnEmptyNormalRowList_WhenNullStringEnumerationIsAdded_ThenThrows()
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                contentRowList.Add((List<ContentCell>)null);
+                contentRowList.Add((IEnumerable<string>)null);
             });
         }
     }

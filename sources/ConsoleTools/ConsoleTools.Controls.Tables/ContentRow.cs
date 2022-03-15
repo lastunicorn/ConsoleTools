@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the list of cells contained by the row.
         /// </summary>
-        private readonly List<ContentCell> cells = new List<ContentCell>();
+        private readonly List<ContentCell> cells = new();
 
         /// <summary>
         /// Gets the number of cells contained by the current instance.
@@ -173,70 +173,75 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         /// <summary>
         /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
+        /// If no cell is provided, a new one is created.
         /// </summary>
-        public void AddCell(ContentCell cell)
+        /// <returns>The added cell.</returns>
+        public ContentCell AddCell(ContentCell cell = null)
         {
             if (cell == null)
-            {
-                ContentCell newCell = new ContentCell
-                {
-                    ParentRow = this
-                };
-                cells.Add(newCell);
-            }
-            else
-            {
-                cell.ParentRow = this;
-                cells.Add(cell);
-            }
+                cell = new ContentCell();
+
+            cell.ParentRow = this;
+            cells.Add(cell);
+
+            return cell;
         }
 
         /// <summary>
         /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
-        public void AddCell(string cellContent)
+        /// <returns>The newly created cell.</returns>
+        public ContentCell AddCell(string cellContent)
         {
-            ContentCell newCell = new ContentCell
+            ContentCell cell = new()
             {
                 ParentRow = this
             };
 
             if (cellContent != null)
-                newCell.Content = new MultilineText(cellContent);
+                cell.Content = new MultilineText(cellContent);
 
-            cells.Add(newCell);
+            cells.Add(cell);
+
+            return cell;
         }
 
         /// <summary>
         /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
-        public void AddCell(MultilineText cellContent)
+        /// <returns>The newly created cell.</returns>
+        public ContentCell AddCell(MultilineText cellContent)
         {
-            ContentCell newCell = new ContentCell
+            ContentCell cell = new()
             {
                 ParentRow = this
             };
 
             if (cellContent != null)
-                newCell.Content = cellContent;
+                cell.Content = cellContent;
 
-            cells.Add(newCell);
+            cells.Add(cell);
+
+            return cell;
         }
 
         /// <summary>
         /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
         /// </summary>
-        public void AddCell(object cellContent)
+        /// <returns>The newly created cell.</returns>
+        public ContentCell AddCell(object cellContent)
         {
-            ContentCell newCell = new ContentCell
+            ContentCell cell = new()
             {
                 ParentRow = this
             };
 
             if (cellContent != null)
-                newCell.Content = new MultilineText(cellContent.ToString());
+                cell.Content = new MultilineText(cellContent.ToString());
 
-            cells.Add(newCell);
+            cells.Add(cell);
+
+            return cell;
         }
 
         /// <summary>
@@ -246,7 +251,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int? IndexOfCell(ContentCell cell)
         {
             int indexOfCell = cells.IndexOf(cell);
-            return indexOfCell == -1 ? (int?)null : indexOfCell;
+
+            return indexOfCell == -1
+                ? null
+                : indexOfCell;
         }
 
         /// <summary>

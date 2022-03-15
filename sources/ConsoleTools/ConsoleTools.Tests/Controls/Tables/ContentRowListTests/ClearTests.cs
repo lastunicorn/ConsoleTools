@@ -14,40 +14,51 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
 {
     [TestFixture]
-    public class ConstructorMultilineTextAndAlignmentTests
+    public class ClearTests
     {
-        private ContentCell contentCell;
+        private DataGrid dataGrid;
+        private ContentRowList contentRowList;
 
         [SetUp]
         public void SetUp()
         {
-            MultilineText multilineText = new MultilineText("some content");
-            contentCell = new ContentCell(multilineText, HorizontalAlignment.Center);
+            dataGrid = new DataGrid();
+            contentRowList = new ContentRowList(dataGrid);
         }
 
         [Test]
-        public void Content_is_the_one_provided_on_constructor()
+        public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
         {
-            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
+            contentRowList.Clear();
+
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void IsEmpty_is_false()
+        public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
         {
-            Assert.That(contentCell.IsEmpty, Is.False);
+            contentRowList.Add(new ContentRow());
+
+            contentRowList.Clear();
+
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
 
         [Test]
-        public void HorizontalAlignment_is_Center()
+        public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
         {
-            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
+            contentRowList.Add(new ContentRow());
+            contentRowList.Add(new ContentRow());
+
+            contentRowList.Clear();
+
+            Assert.That(contentRowList.Count, Is.EqualTo(0));
         }
     }
 }

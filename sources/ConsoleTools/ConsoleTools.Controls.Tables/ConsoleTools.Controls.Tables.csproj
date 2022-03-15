@@ -29,6 +29,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
         <AssemblyName>DustInTheWind.ConsoleTools.Controls.Tables</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageId>ConsoleTools.Controls.Tables</PackageId>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

@@ -18,32 +18,24 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
 {
     [TestFixture]
-    public class ConstructorObjectTests
+    public class ConstructorMultilineTextAndAlignmentTests
     {
         private ContentCell contentCell;
-
-        private class Content
-        {
-            public override string ToString()
-            {
-                return "content";
-            }
-        }
 
         [SetUp]
         public void SetUp()
         {
-            Content content = new Content();
-            contentCell = new ContentCell(content);
+            MultilineText multilineText = new MultilineText("some content");
+            contentCell = new ContentCell(multilineText, HorizontalAlignment.Center);
         }
 
         [Test]
         public void Content_is_the_one_provided_on_constructor()
         {
-            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("content")));
+            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
         }
 
         [Test]
@@ -53,9 +45,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
         }
 
         [Test]
-        public void HorizontalAlignment_is_Default()
+        public void HorizontalAlignment_is_Center()
         {
-            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
+            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
         }
     }
 }

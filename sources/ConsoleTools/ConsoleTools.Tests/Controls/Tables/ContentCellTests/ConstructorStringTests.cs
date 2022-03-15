@@ -14,51 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
 {
     [TestFixture]
-    public class ClearTests
+    public class ConstructorStringTests
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        private ContentCell contentCell;
 
         [SetUp]
         public void SetUp()
         {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
+            contentCell = new ContentCell("some content");
         }
 
         [Test]
-        public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
+        public void Content_is_the_one_provided_on_constructor()
         {
-            contentRowList.Clear();
-
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
+            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
         }
 
         [Test]
-        public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
+        public void IsEmpty_is_false()
         {
-            contentRowList.Add(new ContentRow());
-
-            contentRowList.Clear();
-
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
+            Assert.That(contentCell.IsEmpty, Is.False);
         }
 
         [Test]
-        public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
+        public void HorizontalAlignment_is_Default()
         {
-            contentRowList.Add(new ContentRow());
-            contentRowList.Add(new ContentRow());
-
-            contentRowList.Clear();
-
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
+            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         }
     }
 }

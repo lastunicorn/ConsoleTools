@@ -18,29 +18,30 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.NormalCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
 {
     [TestFixture]
-    public class ConstructorNoParamsTests
+    public class ConstructorMultilineTextTests
     {
         private ContentCell contentCell;
 
         [SetUp]
         public void SetUp()
         {
-            contentCell = new ContentCell();
+            MultilineText multilineText = new MultilineText("some content");
+            contentCell = new ContentCell(multilineText);
         }
 
         [Test]
-        public void Content_is_empty()
+        public void Content_is_the_one_provided_on_constructor()
         {
-            Assert.That(contentCell.Content, Is.SameAs(MultilineText.Empty));
+            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
         }
 
         [Test]
-        public void IsEmpty_is_true()
+        public void IsEmpty_is_false()
         {
-            Assert.That(contentCell.IsEmpty, Is.True);
+            Assert.That(contentCell.IsEmpty, Is.False);
         }
 
         [Test]

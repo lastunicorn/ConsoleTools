@@ -23,10 +23,13 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
+    /// <summary>
+    /// Describes how the border of a <see cref="DataGrid"/> should be displayed.
+    /// </summary>
     public class DataGridBorder
     {
         /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> that contains the current instance.
+        /// Gets or sets the <see cref="DataGrid"/> for which the current instance should apply.
         /// </summary>
         public DataGrid ParentDataGrid { get; internal set; }
 

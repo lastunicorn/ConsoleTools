@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
@@ -30,22 +29,27 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private TitleRowX titleRowX;
         private RowX headerRowX;
-        private readonly List<RowX> normalRows = new List<RowX>();
-        private readonly List<ColumnX> columns = new List<ColumnX>();
-        private int actualWidth;
+        private readonly List<RowX> normalRows = new();
+        private readonly DataGridLayout dataGridLayout = new();
 
         public TitleTopBorder TitleTopBorder { get; set; }
+
         public HeaderTopBorder HeaderTopBorder { get; set; }
+
         public DataTopBorder DataTopBorder { get; set; }
 
         public TitleHeaderSeparator TitleHeaderSeparator { get; set; }
+
         public TitleDataSeparator TitleDataSeparator { get; set; }
+
         public TitleBottomBorder TitleBottomBorder { get; set; }
 
         public HeaderDataSeparator HeaderDataSeparator { get; set; }
+
         public HeaderBottomBorder HeaderBottomBorder { get; set; }
 
         public DataDataSeparator DataDataSeparator { get; set; }
+
         public DataBottomBorder DataBottomBorder { get; set; }
 
         public DataGridX(bool displayBorder)
@@ -56,86 +60,36 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public void AddTitleRow(TitleRowX titleRowX)
         {
             this.titleRowX = titleRowX;
+
+            RowX rowX = new()
+            {
+                Border = titleRowX.Border,
+                Cells = new List<CellX>
+                {
+                    titleRowX.Cell,
+                }
+            };
+            dataGridLayout.AddRow(rowX);
         }
 
         public void AddHeaderRow(RowX headerRowX)
         {
             this.headerRowX = headerRowX;
-            UpdateColumnsWidths(headerRowX);
+            dataGridLayout.AddRow(headerRowX);
         }
 
         public void AddNormalRow(RowX rowX)
         {
             normalRows.Add(rowX);
-            UpdateColumnsWidths(rowX);
+            dataGridLayout.AddRow(rowX);
         }
-
-        private void UpdateColumnsWidths(RowX row)
-        {
-            //bool isFullRow = row.Cells.Count == 0 && row.Cells[0].HorizontalMerge < 0;
-
-            //if (isFullRow)
-            //{
-            //    int columnsTotalWidth = columns
-            //        .Select(x => x.Width)
-            //        .Sum();
-
-            //    CellX cell = row.Cells[0];
-
-            //    int diff = cell.Size.Width - columnsTotalWidth;
-
-            //    for (int i = 0; i < diff; i++)
-            //        columns[i % columns.Count].Width++;
-            //}
-
-            for (int i = 0; i < row.Cells.Count; i++)
-            {
-                while (columns.Count <= i)
-                    columns.Add(new ColumnX());
-
-                Size cellSize = row.Cells[i].Size;
-
-                if (cellSize.Width > columns[i].Width)
-                    columns[i].Width = cellSize.Width;
-            }
-        }
-
+        
         public void CalculateLayout(int minWidth)
         {
-            actualWidth = CalculateTotalWidth(minWidth);
-        }
-
-        private int CalculateTotalWidth(int minWidth)
-        {
-            int totalWidth = minWidth;
-
-            if (titleRowX?.Size.Width > totalWidth)
-                totalWidth = titleRowX.Size.Width;
-
-            if (columns.Count <= 0)
-                return totalWidth;
-
-            int columnsTotalWidth = columns
-                .Select(x => x.Width)
-                .Sum();
-
-            if (displayBorder)
-                columnsTotalWidth += columns.Count + 1;
-
-            if (columnsTotalWidth < totalWidth)
-            {
-                int diff = totalWidth - columnsTotalWidth;
-                int colCount = columns.Count;
-
-                for (int i = 0; i < diff; i++)
-                    columns[i % colCount].Width++;
-            }
-            else if (columnsTotalWidth > totalWidth)
-            {
-                totalWidth = columnsTotalWidth;
-            }
-
-            return totalWidth;
+            dataGridLayout.BorderVisibility = displayBorder;
+            dataGridLayout.MinWidth = minWidth;
+            dataGridLayout.MaxWidth = int.MaxValue;
+            dataGridLayout.FinalizeLayout();
         }
 
         public void Render(ITablePrinter tablePrinter)
@@ -147,36 +101,36 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private void RenderTitle(ITablePrinter tablePrinter)
         {
-            TitleTopBorder?.Render(tablePrinter, actualWidth);
+            TitleTopBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);
 
             if (titleRowX != null)
             {
-                Size rowSize = new Size(actualWidth, titleRowX.Size.Height);
+                Size rowSize = new(dataGridLayout.ActualWidth, titleRowX.Size.Height);
                 titleRowX?.Render(tablePrinter, rowSize);
             }
 
-            TitleHeaderSeparator?.Render(tablePrinter, columns);
-            TitleDataSeparator?.Render(tablePrinter, columns);
-            TitleBottomBorder?.Render(tablePrinter, actualWidth);
+            TitleHeaderSeparator?.Render(tablePrinter, dataGridLayout.Columns);
+            TitleDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
+            TitleBottomBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);
         }
 
         private void RenderHeader(ITablePrinter tablePrinter)
         {
-            HeaderTopBorder?.Render(tablePrinter, columns);
+            HeaderTopBorder?.Render(tablePrinter, dataGridLayout.Columns);
 
-            headerRowX?.Render(tablePrinter, columns);
+            headerRowX?.Render(tablePrinter, dataGridLayout.Columns);
 
-            HeaderDataSeparator?.Render(tablePrinter, columns);
-            HeaderBottomBorder?.Render(tablePrinter, columns);
+            HeaderDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
+            HeaderBottomBorder?.Render(tablePrinter, dataGridLayout.Columns);
         }
 
         private void RenderData(ITablePrinter tablePrinter)
         {
-            DataTopBorder?.Render(tablePrinter, columns);
+            DataTopBorder?.Render(tablePrinter, dataGridLayout.Columns);
 
             RenderNormalRows(tablePrinter);
 
-            DataBottomBorder?.Render(tablePrinter, columns);
+            DataBottomBorder?.Render(tablePrinter, dataGridLayout.Columns);
         }
 
         private void RenderNormalRows(ITablePrinter tablePrinter)
@@ -184,12 +138,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             for (int rowIndex = 0; rowIndex < normalRows.Count; rowIndex++)
             {
                 RowX row = normalRows[rowIndex];
-                row.Render(tablePrinter, columns);
+                row.Render(tablePrinter, dataGridLayout.Columns);
 
                 bool isLastRow = rowIndex == normalRows.Count - 1;
 
                 if (!isLastRow)
-                    DataDataSeparator?.Render(tablePrinter, columns);
+                    DataDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
             }
         }
     }

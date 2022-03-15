@@ -65,9 +65,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public static TitleRowX CreateFrom(TitleRow titleRow)
         {
-            TitleRowX titleRowX = new TitleRowX
+            CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
+            cellX.HorizontalMerge = int.MaxValue;
+
+            TitleRowX titleRowX = new()
             {
-                Cell = CellX.CreateFrom(titleRow.TitleCell),
+                Cell = cellX,
                 Border = titleRow.ParentDataGrid.Border.IsVisible
                     ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
                     : null

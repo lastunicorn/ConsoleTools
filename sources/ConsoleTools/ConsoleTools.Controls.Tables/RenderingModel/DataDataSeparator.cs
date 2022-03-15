@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
         {
             if (borderText == null)
                 borderText = GenerateNormalRowSeparatorBorder(columns);
@@ -43,9 +43,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
         }
 
-        private string GenerateNormalRowSeparatorBorder(List<ColumnX> columns)
+        private string GenerateNormalRowSeparatorBorder(IReadOnlyList<ColumnX> columns)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.Append(BorderTemplate.LeftIntersection);
 

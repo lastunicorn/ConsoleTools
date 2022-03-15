@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return new Size(width, height);
         }
 
-        public void Render(ITablePrinter tablePrinter, List<ColumnX> cellWidths)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> cellWidths)
         {
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
@@ -74,7 +74,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
                     CellX cellX = Cells[columnIndex];
-                    Size cellSize = new Size(cellWidths[columnIndex].Width, Size.Height);
+                    Size cellSize = new(cellWidths[columnIndex].Width, Size.Height);
                     cellX.RenderNextLine(tablePrinter, cellSize);
 
                     bool isLastCell = columnIndex >= Cells.Count - 1;
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             if (contentRow == null) throw new ArgumentNullException(nameof(contentRow));
 
-            RowX rowX = new RowX
+            RowX rowX = new()
             {
                 Border = contentRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(contentRow.ParentDataGrid.Border)
@@ -112,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             if (headerRow == null) throw new ArgumentNullException(nameof(headerRow));
 
-            RowX headerRowX = new RowX
+            RowX headerRowX = new()
             {
                 Border = headerRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
@@ -125,6 +125,26 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             headerRowX.CalculateLayout();
 
             return headerRowX;
+        }
+
+        public static RowX CreateFrom(TitleRow titleRow)
+        {
+            if (titleRow == null) throw new ArgumentNullException(nameof(titleRow));
+
+            RowX titleRowX = new()
+            {
+                Border = titleRow.ParentDataGrid?.Border.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
+                    : null,
+                Cells = new List<CellX>
+                {
+                    CellX.CreateFrom(titleRow.TitleCell)
+                }
+            };
+
+            titleRowX.CalculateLayout();
+
+            return titleRowX;
         }
     }
 }

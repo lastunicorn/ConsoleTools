@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
         {
             if (borderText == null)
             {

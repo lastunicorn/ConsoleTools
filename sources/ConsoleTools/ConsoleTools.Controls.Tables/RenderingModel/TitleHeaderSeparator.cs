@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter, List<ColumnX> columns)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
         {
             if (borderText == null)
                 borderText = GenerateTitleHeaderSeparator(columns);
@@ -48,9 +48,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         /// This border is used only when both title and column header rows are visible.
         /// </summary>
         /// <param name="columns"></param>
-        private string GenerateTitleHeaderSeparator(List<ColumnX> columns)
+        private string GenerateTitleHeaderSeparator(IReadOnlyList<ColumnX> columns)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             sb.Append(BorderTemplate.LeftIntersection);
 

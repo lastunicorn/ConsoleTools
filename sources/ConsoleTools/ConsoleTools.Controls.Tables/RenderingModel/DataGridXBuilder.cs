@@ -45,8 +45,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             dataGridX = new DataGridX(DataGridBorder?.IsVisible == true);
 
-            isTitleVisible = TitleRow != null && TitleRow.IsVisible && TitleRow.HasContent;
-            isColumnHeaderRowVisible = HeaderRow != null && HeaderRow.IsVisible && HeaderRow.CellCount > 0;
+            isTitleVisible = TitleRow is { IsVisible: true, HasContent: true };
+            isColumnHeaderRowVisible = HeaderRow is { IsVisible: true, CellCount: > 0 };
             areNormalRowsVisible = Rows.Count > 0;
 
             if (isTitleVisible)

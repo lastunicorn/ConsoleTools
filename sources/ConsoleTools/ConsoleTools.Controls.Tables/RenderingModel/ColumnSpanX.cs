@@ -19,40 +19,16 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class TitleTopBorder
+    internal struct ColumnSpanX
     {
-        private int? lastWidth;
-        private string borderText;
-
-        public BorderTemplate BorderTemplate { get; set; }
-
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        public void Render(ITablePrinter tablePrinter, int actualWidth)
-        {
-            if (lastWidth != actualWidth || borderText == null)
-            {
-                borderText = BorderTemplate.GenerateTopBorder(actualWidth - 2);
-                lastWidth = actualWidth;
-            }
-
-            tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
-        }
-
-        public static TitleTopBorder CreateFrom(DataGridBorder dataGridBorder)
-        {
-            return new TitleTopBorder
-            {
-                BorderTemplate = dataGridBorder.Template,
-                ForegroundColor = dataGridBorder.CalculateForegroundColor(),
-                BackgroundColor = dataGridBorder.CalculateBackgroundColor()
-            };
-        }
+        public int StartColumnIndex { get; set; }
+        
+        public int? SpanValue { get; set; }
+        
+        public int? EndColumnIndex { get; set; }
+        
+        public int MinContentWidth { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         private TitleRow titleRow;
         private HeaderRow headerRow;
         private DataGridBorder border;
+        private FooterRow footerRow;
 
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the data grid.
@@ -134,6 +135,19 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             get => border.DisplayBorderBetweenRows;
             set => border.DisplayBorderBetweenRows = value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="FooterRow"/> instance that represents the footer row of the data grid.
+        /// </summary>
+        public FooterRow FooterRow
+        {
+            get => footerRow;
+            private set
+            {
+                footerRow = value;
+                footerRow.ParentDataGrid = this;
+            }
         }
 
         #region Obsolete Properties
@@ -257,6 +271,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -270,6 +285,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -283,6 +299,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -296,6 +313,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -304,7 +322,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {
-            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
+            ConsoleTablePrinter consoleTablePrinter = new();
             RenderInternal(consoleTablePrinter);
         }
 
@@ -319,13 +337,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         private void RenderInternal(ITablePrinter tablePrinter)
         {
-            DataGridXBuilder dataGridXBuilder = new DataGridXBuilder
+            DataGridXBuilder dataGridXBuilder = new()
             {
-                MinWidth = MinWidth ?? 0,
-                TitleRow = TitleRow,
-                HeaderRow = HeaderRow,
-                Rows = Rows,
-                DataGridBorder = Border
+                DataGrid = this
             };
 
             DataGridX dataGridX = dataGridXBuilder.Build();
@@ -339,7 +353,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>The string representation of the current instance.</returns>
         public override string ToString()
         {
-            StringTablePrinter tablePrinter = new StringTablePrinter();
+            StringTablePrinter tablePrinter = new();
             RenderInternal(tablePrinter);
 
             return tablePrinter.ToString();
@@ -354,7 +368,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
 
-            DataGridBuilderFromDataTable builder = new DataGridBuilderFromDataTable(dataTable);
+            DataGridBuilderFromDataTable builder = new(dataTable);
             return builder.DataGrid;
         }
 
@@ -369,7 +383,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(typeof(T));
+            DataGridBuilderFromObject builder = new(typeof(T));
             builder.Add(data);
 
             return builder.DataGrid;
@@ -385,7 +399,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(data.GetType());
+            DataGridBuilderFromObject builder = new(data.GetType());
             builder.Add(data);
 
             return builder.DataGrid;

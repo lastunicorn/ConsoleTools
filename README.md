@@ -8,8 +8,6 @@ If you like my work and want to support me, you can buy me a coffee:
 
 A set of tools and "controls" for the .net Console. They help displaying and reading data to/from the user.
 
-_**Note**: Until reaching the version 1.0.0 the controls may change dramatically and will not ensure backwards compatibility._
-
 
 ## Bugs and feature requests
 

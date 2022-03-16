@@ -104,8 +104,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             // Build paddings.
 
-            string paddingLeft = new string(' ', PaddingLeft);
-            string paddingRight = new string(' ', PaddingRight);
+            string paddingLeft = new(' ', PaddingLeft);
+            string paddingRight = new(' ', PaddingRight);
 
             // Concatenate everything.
 
@@ -114,7 +114,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public static CellX CreateFrom(CellBase cellBase)
         {
-            CellX cellX = new CellX
+            CellX cellX = new()
             {
                 ForegroundColor = cellBase.CalculateForegroundColor(),
                 BackgroundColor = cellBase.CalculateBackgroundColor(),

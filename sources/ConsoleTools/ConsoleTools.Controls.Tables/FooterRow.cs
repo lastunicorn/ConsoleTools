@@ -26,34 +26,34 @@ using System.Collections.Generic;
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
     /// <summary>
-    /// Represents the title row of a table.
+    /// Represents the footer row of a table.
     /// </summary>
-    public class TitleRow : RowBase
+    public class FooterRow : RowBase
     {
         /// <summary>
-        /// Gets or sets the cell displayed in the title row.
+        /// Gets or sets the cell displayed in the footer row.
         /// This is the unique cell of the row.
         /// </summary>
-        public TitleCell TitleCell { get; }
+        public FooterCell FooterCell { get; }
 
         /// <summary>
-        /// Gets the number of cells contained by the title row.
+        /// Gets the number of cells contained by the footer row.
         /// It is always 1.
         /// </summary>
         public override int CellCount => 1;
 
         /// <summary>
-        /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
+        /// Gets a value that specifies if the current instance of the <see cref="FooterRow"/> has a content to be displayed.
         /// </summary>
-        public bool HasContent => TitleCell?.Content?.IsEmpty == false;
+        public bool HasContent => FooterCell?.Content?.IsEmpty == false;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// Initializes a new instance of the <see cref="FooterRow"/> class with
         /// empty content.
         /// </summary>
-        public TitleRow()
+        public FooterRow()
         {
-            TitleCell = new TitleCell
+            FooterCell = new FooterCell
             {
                 ParentRow = this,
                 Content = MultilineText.Empty
@@ -61,43 +61,43 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// Initializes a new instance of the <see cref="FooterRow"/> class with
         /// the text content.
         /// </summary>
-        public TitleRow(string title)
+        public FooterRow(string content)
         {
-            TitleCell = new TitleCell
+            FooterCell = new FooterCell
             {
                 ParentRow = this,
-                Content = title == null
+                Content = content == null
                     ? MultilineText.Empty
-                    : new MultilineText(title)
+                    : new MultilineText(content)
             };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// Initializes a new instance of the <see cref="FooterRow"/> class with
         /// a <see cref="MultilineText"/> content.
         /// </summary>
-        public TitleRow(MultilineText title)
+        public FooterRow(MultilineText content)
         {
-            TitleCell = new TitleCell
+            FooterCell = new FooterCell
             {
                 ParentRow = this,
-                Content = title ?? MultilineText.Empty
+                Content = content ?? MultilineText.Empty
             };
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TitleRow"/> class with
+        /// Initializes a new instance of the <see cref="FooterRow"/> class with
         /// an <see cref="object"/> representing the content.
         /// </summary>
-        public TitleRow(object title)
+        public FooterRow(object content)
         {
-            TitleCell = new TitleCell
+            FooterCell = new FooterCell
             {
                 ParentRow = this,
-                Content = title?.ToString() ?? MultilineText.Empty
+                Content = content?.ToString() ?? MultilineText.Empty
             };
         }
 
@@ -107,22 +107,22 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()
         {
-            return new TitleCellEnumerator(this);
+            return new FooterCellEnumerator(this);
         }
 
         #region Enumerator Class
 
-        private class TitleCellEnumerator : IEnumerator<TitleCell>
+        private class FooterCellEnumerator : IEnumerator<FooterCell>
         {
-            private readonly TitleRow titleRow;
+            private readonly FooterRow footerRow;
 
-            public TitleCell Current { get; private set; }
+            public FooterCell Current { get; private set; }
 
             object IEnumerator.Current => Current;
 
-            public TitleCellEnumerator(TitleRow titleRow)
+            public FooterCellEnumerator(FooterRow footerRow)
             {
-                this.titleRow = titleRow ?? throw new ArgumentNullException(nameof(titleRow));
+                this.footerRow = footerRow ?? throw new ArgumentNullException(nameof(footerRow));
             }
 
             public bool MoveNext()
@@ -130,7 +130,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 if (Current != null)
                     return false;
 
-                Current = titleRow.TitleCell;
+                Current = footerRow.FooterCell;
                 return true;
             }
 

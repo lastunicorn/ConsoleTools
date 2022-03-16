@@ -26,111 +26,54 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     internal class DataGridX
     {
         private readonly bool displayBorder;
-
-        private RowX titleRowX;
-        private RowX headerRowX;
-        private readonly List<RowX> normalRows = new();
         private readonly DataGridLayout dataGridLayout = new();
+        private readonly List<IItemX> items = new();
+        private IItemX lastItem;
 
-        public TitleTopBorder TitleTopBorder { get; set; }
-
-        public HeaderTopBorder HeaderTopBorder { get; set; }
-
-        public DataTopBorder DataTopBorder { get; set; }
-
-        public TitleHeaderSeparator TitleHeaderSeparator { get; set; }
-
-        public TitleDataSeparator TitleDataSeparator { get; set; }
-
-        public TitleBottomBorder TitleBottomBorder { get; set; }
-
-        public HeaderDataSeparator HeaderDataSeparator { get; set; }
-
-        public HeaderBottomBorder HeaderBottomBorder { get; set; }
-
-        public DataDataSeparator DataDataSeparator { get; set; }
-
-        public DataBottomBorder DataBottomBorder { get; set; }
+        public int MinWidth { get; set; }
 
         public DataGridX(bool displayBorder)
         {
             this.displayBorder = displayBorder;
         }
 
-        public void AddTitleRow(RowX rowX)
+        public void AddItem(IItemX item)
         {
-            titleRowX = rowX;
-            dataGridLayout.AddRow(rowX);
+            items.Add(item);
+
+            if (item is RowX rowX)
+                dataGridLayout.AddRow(rowX);
         }
 
-        public void AddHeaderRow(RowX headerRowX)
+        public void AddSeparator(SeparatorX separator)
         {
-            this.headerRowX = headerRowX;
-            dataGridLayout.AddRow(headerRowX);
+            separator.Row1 = lastItem as RowX;
+            items.Add(separator);
+            lastItem = separator;
         }
 
-        public void AddNormalRow(RowX rowX)
+        public void AddRow(RowX rowX)
         {
-            normalRows.Add(rowX);
+            if (lastItem is SeparatorX lastSeparator) 
+                lastSeparator.Row2 = rowX;
+
+            items.Add(rowX);
             dataGridLayout.AddRow(rowX);
+            lastItem = rowX;
         }
-        
-        public void CalculateLayout(int minWidth)
+
+        public void Close()
         {
             dataGridLayout.BorderVisibility = displayBorder;
-            dataGridLayout.MinWidth = minWidth;
+            dataGridLayout.MinWidth = MinWidth;
             dataGridLayout.MaxWidth = int.MaxValue;
             dataGridLayout.FinalizeLayout();
         }
 
         public void Render(ITablePrinter tablePrinter)
         {
-            RenderTitle(tablePrinter);
-            RenderHeader(tablePrinter);
-            RenderData(tablePrinter);
-        }
-
-        private void RenderTitle(ITablePrinter tablePrinter)
-        {
-            TitleTopBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);
-
-            titleRowX?.Render(tablePrinter, dataGridLayout.Columns);
-            TitleHeaderSeparator?.Render(tablePrinter, dataGridLayout.Columns);
-            TitleDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
-            TitleBottomBorder?.Render(tablePrinter, dataGridLayout.ActualWidth);
-        }
-
-        private void RenderHeader(ITablePrinter tablePrinter)
-        {
-            HeaderTopBorder?.Render(tablePrinter, dataGridLayout.Columns);
-
-            headerRowX?.Render(tablePrinter, dataGridLayout.Columns);
-
-            HeaderDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
-            HeaderBottomBorder?.Render(tablePrinter, dataGridLayout.Columns);
-        }
-
-        private void RenderData(ITablePrinter tablePrinter)
-        {
-            DataTopBorder?.Render(tablePrinter, dataGridLayout.Columns);
-
-            RenderNormalRows(tablePrinter);
-
-            DataBottomBorder?.Render(tablePrinter, dataGridLayout.Columns);
-        }
-
-        private void RenderNormalRows(ITablePrinter tablePrinter)
-        {
-            for (int rowIndex = 0; rowIndex < normalRows.Count; rowIndex++)
-            {
-                RowX row = normalRows[rowIndex];
-                row.Render(tablePrinter, dataGridLayout.Columns);
-
-                bool isLastRow = rowIndex == normalRows.Count - 1;
-
-                if (!isLastRow)
-                    DataDataSeparator?.Render(tablePrinter, dataGridLayout.Columns);
-            }
+            foreach (IItemX item in items)
+                item.Render(tablePrinter, dataGridLayout.Columns);
         }
     }
 }

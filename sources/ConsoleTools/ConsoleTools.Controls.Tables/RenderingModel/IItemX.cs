@@ -19,44 +19,12 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class HeaderTopBorder
+    internal interface IItemX
     {
-        private string borderText;
-
-        public BorderTemplate BorderTemplate { get; set; }
-
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
-        {
-            if (borderText == null)
-            {
-                List<int> columnWidths = columns
-                    .Select(x => x.Width)
-                    .ToList();
-
-                borderText = BorderTemplate.GenerateTopBorder(columnWidths);
-            }
-
-            tablePrinter.WriteLine(borderText, ForegroundColor, BackgroundColor);
-        }
-
-        public static HeaderTopBorder CreateFrom(DataGridBorder dataGridBorder)
-        {
-            return new HeaderTopBorder
-            {
-                BorderTemplate = dataGridBorder.Template,
-                ForegroundColor = dataGridBorder.CalculateForegroundColor(),
-                BackgroundColor = dataGridBorder.CalculateBackgroundColor()
-            };
-        }
+        void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns);
     }
 }

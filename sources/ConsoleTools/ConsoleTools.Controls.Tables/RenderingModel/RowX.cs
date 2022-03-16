@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class RowX
+    internal class RowX : IItemX
     {
         public Size Size { get; private set; }
 
@@ -116,6 +116,24 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             int cellHeight = Size.Height;
 
             return new Size(cellWidth, cellHeight);
+        }
+
+        public List<bool> CalculateVerticalBorderVisibility(int columnCount)
+        {
+            List<bool> visibilities = new() { true };
+
+            foreach (CellX cell in Cells)
+            {
+                for (int i = 0; i < cell.HorizontalMerge - 1 && visibilities.Count < columnCount; i++)
+                    visibilities.Add(false);
+
+                visibilities.Add(true);
+            }
+
+            while (visibilities.Count <= columnCount)
+                visibilities.Add(false);
+
+            return visibilities;
         }
 
         public static RowX CreateFrom(ContentRow contentRow)

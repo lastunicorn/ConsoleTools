@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
@@ -44,7 +43,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public DataGridX Build()
         {
-            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true);
+            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true)
+            {
+                MinWidth = MinWidth
+            };
 
             isTitleVisible = TitleRow is { IsVisible: true, HasContent: true };
             isColumnHeaderRowVisible = HeaderRow is { IsVisible: true, CellCount: > 0 };
@@ -59,24 +61,39 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (areNormalRowsVisible)
                 AddRows();
 
-            if (DataGridBorder?.IsVisible == true)
-                AddHorizontalBorders();
+            if (DataGridBorder?.IsVisible ?? false)
+            {
+                SeparatorX separatorX = SeparatorX.CreateFrom(DataGridBorder);
+                dataGridX.AddSeparator(separatorX);
+            }
 
-            dataGridX.CalculateLayout(MinWidth);
+            dataGridX.Close();
 
             return dataGridX;
         }
 
         private void AddTitle()
         {
+            if (DataGridBorder?.IsVisible ?? false)
+            {
+                SeparatorX separatorX = SeparatorX.CreateFrom(DataGridBorder);
+                dataGridX.AddSeparator(separatorX);
+            }
+
             RowX rowX = RowX.CreateFrom(TitleRow);
-            dataGridX.AddTitleRow(rowX);
+            dataGridX.AddRow(rowX);
         }
 
         private void AddHeader()
         {
+            if (DataGridBorder?.IsVisible ?? false)
+            {
+                SeparatorX separatorX = SeparatorX.CreateFrom(DataGridBorder);
+                dataGridX.AddSeparator(separatorX);
+            }
+
             RowX headerRowX = RowX.CreateFrom(HeaderRow);
-            dataGridX.AddHeaderRow(headerRowX);
+            dataGridX.AddRow(headerRowX);
         }
 
         private void AddRows()
@@ -86,42 +103,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 .Select(RowX.CreateFrom);
 
             foreach (RowX row in rows)
-                dataGridX.AddNormalRow(row);
-        }
-
-        private void AddHorizontalBorders()
-        {
-            if (isTitleVisible)
-                dataGridX.TitleTopBorder = TitleTopBorder.CreateFrom(DataGridBorder);
-            else if (isColumnHeaderRowVisible)
-                dataGridX.HeaderTopBorder = HeaderTopBorder.CreateFrom(DataGridBorder);
-            else if (areNormalRowsVisible)
-                dataGridX.DataTopBorder = DataTopBorder.CreateFrom(DataGridBorder);
-
-            if (isTitleVisible)
             {
-                if (isColumnHeaderRowVisible)
-                    dataGridX.TitleHeaderSeparator = TitleHeaderSeparator.CreateFrom(DataGridBorder);
-                else if (areNormalRowsVisible)
-                    dataGridX.TitleDataSeparator = TitleDataSeparator.CreateFrom(DataGridBorder);
-                else
-                    dataGridX.TitleBottomBorder = TitleBottomBorder.CreateFrom(DataGridBorder);
-            }
+                if (DataGridBorder?.IsVisible ?? false)
+                {
+                    SeparatorX separatorX = SeparatorX.CreateFrom(DataGridBorder);
+                    dataGridX.AddSeparator(separatorX);
+                }
 
-            if (isColumnHeaderRowVisible)
-            {
-                if (areNormalRowsVisible)
-                    dataGridX.HeaderDataSeparator = HeaderDataSeparator.CreateFrom(DataGridBorder);
-                else
-                    dataGridX.HeaderBottomBorder = HeaderBottomBorder.CreateFrom(DataGridBorder);
-            }
-
-            if (areNormalRowsVisible)
-            {
-                if (DataGridBorder?.DisplayBorderBetweenRows == true)
-                    dataGridX.DataDataSeparator = DataDataSeparator.CreateFrom(DataGridBorder);
-
-                dataGridX.DataBottomBorder = DataBottomBorder.CreateFrom(DataGridBorder);
+                dataGridX.AddRow(row);
             }
         }
     }

@@ -32,27 +32,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public int MinWidth { get; set; }
 
+        public int ItemCount => items.Count;
+
         public DataGridX(bool displayBorder)
         {
             this.displayBorder = displayBorder;
         }
-
-        public void AddItem(IItemX item)
-        {
-            items.Add(item);
-
-            if (item is RowX rowX)
-                dataGridLayout.AddRow(rowX);
-        }
-
-        public void AddSeparator(SeparatorX separator)
+        
+        public void Add(SeparatorX separator)
         {
             separator.Row1 = lastItem as RowX;
             items.Add(separator);
             lastItem = separator;
         }
 
-        public void AddRow(RowX rowX)
+        public void Add(RowX rowX)
         {
             if (lastItem is SeparatorX lastSeparator) 
                 lastSeparator.Row2 = rowX;
@@ -62,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             lastItem = rowX;
         }
 
-        public void Close()
+        public void Finish()
         {
             dataGridLayout.BorderVisibility = displayBorder;
             dataGridLayout.MinWidth = MinWidth;

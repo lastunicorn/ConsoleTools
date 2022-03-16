@@ -25,8 +25,8 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void all()
         {
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new();
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Title = "This is a title longer than the rows";
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
+            const string expected =
                 @"╔══════════════════════════════════════╗
 ║ This is a title longer than the rows ║
 ╠════════════╦════════════╦════════════╣
@@ -53,8 +53,8 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void no_title()
         {
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new();
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
             dataGrid.Columns.Add(new Column("Header 3"));
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
+            const string expected =
                 @"╔══════════╦══════════╦══════════╗
 ║ Header 1 ║ Header 2 ║ Header 3 ║
 ╠══════════╬══════════╬══════════╣
@@ -78,9 +78,9 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void no_header()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Title = "This is a title longer than the rows";
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
@@ -101,14 +101,14 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void no_data()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Title = "This is a title longer than the rows";
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
             dataGrid.Columns.Add(new Column("Header 3"));
 
-            string expected =
+            const string expected =
                 @"╔══════════════════════════════════════╗
 ║ This is a title longer than the rows ║
 ╠════════════╦════════════╦════════════╣
@@ -122,13 +122,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void only_data()
         {
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new();
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
+            const string expected =
                 @"╔═══════╦══════╦══════╗
 ║ one   ║ ichi ║ eins ║
 ║ two   ║ ni   ║ zwei ║
@@ -142,13 +142,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void only_header()
         {
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new();
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Columns.Add(new Column("Header 1"));
             dataGrid.Columns.Add(new Column("Header 2"));
             dataGrid.Columns.Add(new Column("Header 3"));
 
-            string expected =
+            const string expected =
                 @"╔══════════╦══════════╦══════════╗
 ║ Header 1 ║ Header 2 ║ Header 3 ║
 ╚══════════╩══════════╩══════════╝
@@ -160,11 +160,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void only_title()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Title = "This is a title longer than the rows";
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
 
-            string expected =
+            const string expected =
                 @"╔══════════════════════════════════════╗
 ║ This is a title longer than the rows ║
 ╚══════════════════════════════════════╝
@@ -176,8 +176,8 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void no_title_no_header_no_data()
         {
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
+            DataGrid dataGrid = new();
+            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
 
             string expected = string.Empty;
 

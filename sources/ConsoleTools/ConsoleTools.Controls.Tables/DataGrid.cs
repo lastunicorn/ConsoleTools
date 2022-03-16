@@ -343,7 +343,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             };
 
             DataGridX dataGridX = dataGridXBuilder.Build();
-
             dataGridX.Render(tablePrinter);
         }
 

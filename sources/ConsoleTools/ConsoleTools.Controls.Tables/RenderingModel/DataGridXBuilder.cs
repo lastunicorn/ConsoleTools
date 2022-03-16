@@ -30,18 +30,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public DataGrid DataGrid { get; set; }
 
-        //public TitleRow TitleRow { get; set; }
-
-        //public HeaderRow HeaderRow { get; set; }
-
-        //public ContentRowList Rows { get; set; }
-
-        //public FooterRow FooterRow { get; set; }
-
-        //public DataGridBorder DataGridBorder { get; set; }
-
-        //public int MinWidth { get; set; }
-
         public DataGridX Build()
         {
             dataGridX = new DataGridX(DataGrid.Border?.IsVisible == true)
@@ -65,9 +53,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (isFooterVisible)
                 AddFooter();
 
-            AddRowSeparatorIfBorderIsVisible();
+            if (dataGridX.ItemCount > 0)
+                AddRowSeparatorIfBorderIsVisible();
 
-            dataGridX.Close();
+            dataGridX.Finish();
 
             return dataGridX;
         }
@@ -77,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             AddRowSeparatorIfBorderIsVisible();
 
             RowX rowX = RowX.CreateFrom(DataGrid.TitleRow);
-            dataGridX.AddRow(rowX);
+            dataGridX.Add(rowX);
         }
 
         private void AddHeader()
@@ -85,7 +74,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             AddRowSeparatorIfBorderIsVisible();
 
             RowX headerRowX = RowX.CreateFrom(DataGrid.HeaderRow);
-            dataGridX.AddRow(headerRowX);
+            dataGridX.Add(headerRowX);
         }
 
         private void AddRows()
@@ -108,7 +97,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     AddRowSeparatorIfBorderIsVisible();
                 }
 
-                dataGridX.AddRow(row);
+                dataGridX.Add(row);
             }
         }
 
@@ -117,7 +106,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             AddRowSeparatorIfBorderIsVisible();
 
             RowX rowX = RowX.CreateFrom(DataGrid.FooterRow);
-            dataGridX.AddRow(rowX);
+            dataGridX.Add(rowX);
         }
 
         private void AddRowSeparatorIfBorderIsVisible()
@@ -125,7 +114,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             if (DataGrid.Border?.IsVisible == true)
             {
                 SeparatorX separatorX = SeparatorX.CreateFor(DataGrid);
-                dataGridX.AddSeparator(separatorX);
+                dataGridX.Add(separatorX);
             }
         }
     }

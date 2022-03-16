@@ -61,14 +61,29 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 char cornerChar = CalculateCornerChar(i);
                 sb.Append(cornerChar);
 
-                string mainLine = new(BorderTemplate.Horizontal, columns[i].Width);
-                sb.Append(mainLine);
+                char bodyChar = CalculateBodyChar();
+                string bodyLine = new(bodyChar, columns[i].Width);
+                sb.Append(bodyLine);
             }
 
             char endingCorner = CalculateCornerChar(columns.Count);
             sb.Append(endingCorner);
 
             return sb.ToString();
+        }
+
+        private char CalculateBodyChar()
+        {
+            if (Row1 == null && Row2 == null)
+                return BorderTemplate.Horizontal;
+
+            if (Row1 == null)
+                return BorderTemplate.Top;
+
+            if (Row2 == null)
+                return BorderTemplate.Bottom;
+
+            return BorderTemplate.Horizontal;
         }
 
         private char CalculateCornerChar(int verticalBorderIndex)
@@ -78,15 +93,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             if (row1VerticalBorder)
             {
-                return row2VerticalBorder
-                    ? GetMiddleRowCorner(verticalBorderIndex)
-                    : GetBottomRowCorner(verticalBorderIndex);
+                if (row2VerticalBorder)
+                    return GetMiddleRowCorner(verticalBorderIndex);
+                else
+                    return GetBottomRowCorner(verticalBorderIndex);
             }
             else
             {
-                return row2VerticalBorder
-                    ? GetTopRowCorner(verticalBorderIndex)
-                    : GetNoRowCorner();
+                if (row2VerticalBorder)
+                    return GetTopRowCorner(verticalBorderIndex);
+                else
+                    return GetNoRowCorner();
             }
         }
 
@@ -131,6 +148,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private char GetNoRowCorner()
         {
+            if (Row1 == null && Row2 == null)
+                return BorderTemplate.Horizontal;
+
+            if (Row1 == null)
+                return BorderTemplate.Top;
+
+            if (Row2 == null)
+                return BorderTemplate.Bottom;
+
             return BorderTemplate.Horizontal;
         }
 

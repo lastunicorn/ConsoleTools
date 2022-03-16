@@ -105,7 +105,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     .Select(x => x.Width)
                     .Sum();
 
-                if (spannedColumns.Length > 0)
+                if (Border != null && spannedColumns.Length > 0)
                     cellWidth += spannedColumns.Length - 1;
             }
             else

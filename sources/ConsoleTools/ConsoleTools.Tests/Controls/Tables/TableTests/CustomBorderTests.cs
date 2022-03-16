@@ -25,14 +25,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_simple_table_with_custom_border()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
-                @"╔═══════╦══════╦══════╗
+            const string expected = @"╔═══════╦══════╦══════╗
 ║ one   ║ ichi ║ eins ║
 ║ two   ║ ni   ║ zwei ║
 ║ three ║ san  ║ drei ║
@@ -45,15 +44,14 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_custom_border_and_title()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Title = "My Title";
             dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
-                @"╔═════════════════════╗
+            const string expected = @"╔═════════════════════╗
 ║ My Title            ║
 ╠═══════╦══════╦══════╣
 ║ one   ║ ichi ║ eins ║
@@ -68,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_custom_border_and_headers()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.HeaderRow.IsVisible = true;
             dataGrid.Columns.Add(new Column("One"));
@@ -78,8 +76,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
-                @"╔═══════╦══════╦═══════╗
+            const string expected = @"╔═══════╦══════╦═══════╗
 ║ One   ║ Two  ║ Three ║
 ╠═══════╬══════╬═══════╣
 ║ one   ║ ichi ║ eins  ║
@@ -94,7 +91,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_custom_border_title_and_headers()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
             dataGrid.Title = "My Title";
             dataGrid.HeaderRow.IsVisible = true;
@@ -105,8 +102,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
-                @"╔══════════════════════╗
+            const string expected = @"╔══════════════════════╗
 ║ My Title             ║
 ╠═══════╦══════╦═══════╣
 ║ One   ║ Two  ║ Three ║
@@ -123,12 +119,14 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_digit_and_letter_border()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
+            
             dataGrid.Border.Template = new BorderTemplate("1234567890abcde");
             dataGrid.Title = "My Title";
             dataGrid.HeaderRow.IsVisible = true;
             dataGrid.CellPaddingLeft = 3;
             dataGrid.CellPaddingRight = 3;
+
             dataGrid.Columns.Add(new Column("One"));
             dataGrid.Columns.Add(new Column("Two"));
             dataGrid.Columns.Add(new Column("Three"));
@@ -136,8 +134,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Rows.Add("two", "ni", "zwei");
             dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected =
-                @"122222222222222222222222222222222223
+            const string expected = @"122222222222222222222222222222222223
 8 My Title                         4
 beeeeeeeeeee9eeeeeeeeee9eeeeeeeeeee0
 8   One     d   Two    d   Three   4

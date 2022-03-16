@@ -37,6 +37,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         private TitleRow titleRow;
         private HeaderRow headerRow;
         private DataGridBorder border;
+        private FooterRow footerRow;
 
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the data grid.
@@ -134,6 +135,19 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             get => border.DisplayBorderBetweenRows;
             set => border.DisplayBorderBetweenRows = value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="FooterRow"/> instance that represents the footer row of the data grid.
+        /// </summary>
+        public FooterRow FooterRow
+        {
+            get => footerRow;
+            private set
+            {
+                footerRow = value;
+                footerRow.ParentDataGrid = this;
+            }
         }
 
         #region Obsolete Properties
@@ -257,6 +271,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -270,6 +285,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -283,6 +299,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -296,6 +313,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -325,6 +343,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
                 TitleRow = TitleRow,
                 HeaderRow = HeaderRow,
                 Rows = Rows,
+                FooterRow = FooterRow,
                 DataGridBorder = Border
             };
 

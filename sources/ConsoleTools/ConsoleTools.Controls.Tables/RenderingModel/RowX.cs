@@ -193,5 +193,25 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             return rowX;
         }
+
+        public static RowX CreateFrom(FooterRow footerRow)
+        {
+            if (footerRow == null) throw new ArgumentNullException(nameof(footerRow));
+
+            CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
+            cellX.HorizontalMerge = int.MaxValue;
+
+            RowX rowX = new()
+            {
+                Border = footerRow.ParentDataGrid?.Border.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(footerRow.ParentDataGrid.Border)
+                    : null,
+                Cells = new List<CellX> { cellX }
+            };
+
+            rowX.CalculateLayout();
+
+            return rowX;
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             else
             {
                 return row2VerticalBorder
-                    ? GetTopRowCorner(verticalBorderIndex) 
+                    ? GetTopRowCorner(verticalBorderIndex)
                     : GetNoRowCorner();
             }
         }
@@ -134,13 +134,18 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return BorderTemplate.Horizontal;
         }
 
-        public static SeparatorX CreateFrom(DataGridBorder dataGridBorder)
+        public static SeparatorX CreateFor(DataGrid dataGrid)
         {
+            if (dataGrid == null) throw new ArgumentNullException(nameof(dataGrid));
+
+            if (dataGrid.Border?.IsVisible != true)
+                return null;
+
             return new SeparatorX
             {
-                BorderTemplate = dataGridBorder.Template,
-                ForegroundColor = dataGridBorder.ForegroundColor,
-                BackgroundColor = dataGridBorder.BackgroundColor
+                BorderTemplate = dataGrid.Border.Template,
+                ForegroundColor = dataGrid.Border.CalculateForegroundColor(),
+                BackgroundColor = dataGrid.Border.CalculateBackgroundColor()
             };
         }
     }

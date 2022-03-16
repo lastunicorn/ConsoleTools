@@ -339,12 +339,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             DataGridXBuilder dataGridXBuilder = new()
             {
-                MinWidth = MinWidth ?? 0,
-                TitleRow = TitleRow,
-                HeaderRow = HeaderRow,
-                Rows = Rows,
-                FooterRow = FooterRow,
-                DataGridBorder = Border
+                DataGrid = this
             };
 
             DataGridX dataGridX = dataGridXBuilder.Build();

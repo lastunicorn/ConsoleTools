@@ -24,33 +24,11 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
     {
         private static void Main()
         {
-            Console.WriteLine($"Window: {Console.WindowWidth} : {Console.WindowHeight}");
-            Console.WriteLine($"Buffer: {Console.BufferWidth} : {Console.BufferHeight}");
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
 
-            ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = ConsoleColor.Blue;
-
-            string lessThanLine = new string('*', 100);
-            string fullLine = new string('*', 120);
-            string moreThanLine = new string('*', 140);
-            
-            Console.WriteLine();
-            Console.WriteLine(lessThanLine);
-
-            Console.WriteLine();
-            Console.WriteLine(fullLine);
-            Console.WriteLine("something");
-
-            Console.WriteLine();
-            Console.WriteLine(moreThanLine);
-
-            Console.BackgroundColor = oldColor;
-
-            //Console.SetWindowSize(80, 50);
-            //Console.SetBufferSize(160, 512);
-
-            //DisplayApplicationHeader();
-            //RunDemos();
+            DisplayApplicationHeader();
+            RunDemos();
         }
 
         private static void DisplayApplicationHeader()

@@ -151,7 +151,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public void EndRow()
         {
-            bool isConsoleRowFull = FillEmptySpace();
+            FillContentEmptySpace();
             WriteRightPadding();
 
             RestoreForegroundColor();
@@ -159,36 +159,31 @@ namespace DustInTheWind.ConsoleTools.Controls
 
             WriteRightMargin();
             WriteOuterRightEmptySpace();
-
-            if (!isConsoleRowFull)
-                Console.WriteLine();
+            
+            Console.WriteLine();
 
             RowCount++;
         }
 
-        private bool FillEmptySpace()
+        private void FillContentEmptySpace()
         {
             if (Layout == null)
-                return false;
+                return;
 
             int cursorLeft = Console.CursorLeft;
 
             if (cursorLeft >= Layout.ActualFullWidth)
-                return false;
+                return;
 
             int marginRight = Layout.MarginRight;
             int paddingRight = Layout.PaddingRight;
             int emptySpaceRight = Layout.ActualFullWidth - cursorLeft - paddingRight - marginRight;
 
             if (emptySpaceRight <= 0)
-                return false;
+                return;
 
             string rightContentEmptySpace = new string(' ', emptySpaceRight);
             CustomConsole.Write(rightContentEmptySpace);
-
-            int currentCursorPosition = cursorLeft + emptySpaceRight + paddingRight + marginRight;
-            bool isConsoleRowFull = currentCursorPosition == Console.BufferWidth;
-            return isConsoleRowFull;
         }
 
         private void RestoreForegroundColor()

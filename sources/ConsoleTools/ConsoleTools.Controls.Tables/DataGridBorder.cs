@@ -60,6 +60,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets a value that specifies if border lines should be drawn between rows.
         /// Default value: false
         /// </summary>
+        [Obsolete("Use DataGrid.DisplayBorderBetweenRows property instead.")]
         public bool DisplayBorderBetweenRows { get; set; }
 
         /// <summary>

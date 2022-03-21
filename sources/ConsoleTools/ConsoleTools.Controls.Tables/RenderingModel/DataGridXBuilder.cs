@@ -92,7 +92,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     AddRowSeparatorIfBorderIsVisible();
                     isFirstRow = false;
                 }
-                else if (DataGrid.Border?.DisplayBorderBetweenRows == true)
+                else if (DataGrid.DisplayBorderBetweenRows)
                 {
                     AddRowSeparatorIfBorderIsVisible();
                 }

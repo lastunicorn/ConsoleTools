@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             this.displayBorder = displayBorder;
         }
-        
+
         public void Add(SeparatorX separator)
         {
             separator.Row1 = lastItem as RowX;
@@ -48,7 +48,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void Add(RowX rowX)
         {
-            if (lastItem is SeparatorX lastSeparator) 
+            if (lastItem is SeparatorX lastSeparator)
                 lastSeparator.Row2 = rowX;
 
             items.Add(rowX);

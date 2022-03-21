@@ -15,7 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using ConsoleTools.Demo.PauseDemo.NetCore.Commands;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace ConsoleTools.Demo.PauseDemo.NetCore
@@ -24,33 +27,11 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
     {
         private static void Main()
         {
-            Console.WriteLine($"Window: {Console.WindowWidth} : {Console.WindowHeight}");
-            Console.WriteLine($"Buffer: {Console.BufferWidth} : {Console.BufferHeight}");
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
 
-            ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = ConsoleColor.Blue;
-
-            string lessThanLine = new string('*', 100);
-            string fullLine = new string('*', 120);
-            string moreThanLine = new string('*', 140);
-            
-            Console.WriteLine();
-            Console.WriteLine(lessThanLine);
-
-            Console.WriteLine();
-            Console.WriteLine(fullLine);
-            Console.WriteLine("something");
-
-            Console.WriteLine();
-            Console.WriteLine(moreThanLine);
-
-            Console.BackgroundColor = oldColor;
-
-            //Console.SetWindowSize(80, 50);
-            //Console.SetBufferSize(160, 512);
-
-            //DisplayApplicationHeader();
-            //RunDemos();
+            DisplayApplicationHeader();
+            RunDemos();
         }
 
         private static void DisplayApplicationHeader()

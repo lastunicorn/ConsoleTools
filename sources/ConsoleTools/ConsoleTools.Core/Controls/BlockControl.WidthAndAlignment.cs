@@ -58,10 +58,10 @@ namespace DustInTheWind.ConsoleTools.Controls
                 switch (DefaultParent)
                 {
                     case DefaultParent.ConsoleBuffer:
-                        return Console.BufferWidth;
+                        return Console.BufferWidth - 1;
 
                     case DefaultParent.ConsoleWindow:
-                        return Console.WindowWidth;
+                        return Console.WindowWidth - 1;
 
                     default:
                         throw new ArgumentOutOfRangeException();

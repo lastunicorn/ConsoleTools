@@ -7,6 +7,7 @@ ver 1.1.0
 ---------
 - [feature] Splitted the one nuget package into multiple packages.
 - [feature] DataGrid: Add multiple rows ar once.
+- [bugfix ] BlockControl: Fixed row shifting when console window is resized.
 
 ver 1.0.0
 ---------

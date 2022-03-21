@@ -230,8 +230,6 @@ namespace DustInTheWind.ConsoleTools
 
         private static bool SetVisibilityOnWindows(bool value)
         {
-            Console.WriteLine("Windows OS");
-
             bool initialValue = Console.CursorVisible;
 
             if (value != initialValue)
@@ -242,8 +240,6 @@ namespace DustInTheWind.ConsoleTools
 
         private static bool SetVisibilityOnLinux(bool value)
         {
-            Console.WriteLine("Linux OS");
-
             string parameter = value
                 ? "cnorm"
                 : "civis";

@@ -80,9 +80,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (IsActive)
                 return;
 
-            initialCursorVisible = Console.CursorVisible;
-            if (!ShowCursor)
-                Console.CursorVisible = false;
+            initialCursorVisible = Cursor.SetVisibility(ShowCursor);
 
             MoveToNextLineIfNecessary();
 
@@ -172,8 +170,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
             WriteBottomMargin();
 
-            if (!ShowCursor)
-                Console.CursorVisible = initialCursorVisible;
+            Cursor.SetVisibility(initialCursorVisible);
 
             IsActive = false;
 

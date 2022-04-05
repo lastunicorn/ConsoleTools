@@ -1,0 +1,8 @@
+OperatingSystemDetection
+====================================================================================================
+
+This tool tests the behaviour of the net5 on windows, linux and mac os.
+
+Two tested functions:
+- Console.CursorVisible
+- RuntimeInformation.IsOSPlatform()

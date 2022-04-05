@@ -22,7 +22,7 @@
 namespace DustInTheWind.ConsoleTools.Controls.Spinners
 {
     /// <summary>
-    /// In the<see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
+    /// In the <see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
     /// </summary>
     public enum ValuePosition
     {

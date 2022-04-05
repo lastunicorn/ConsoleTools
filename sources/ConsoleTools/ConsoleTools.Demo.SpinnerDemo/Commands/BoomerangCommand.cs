@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands
             {
                 SpinnerTemplate = new BoomerangSpinnerTemplate(),
                 SpinnerStepMilliseconds = 400,
-                WorkPeriod = TimeSpan.FromSeconds(5)
+                WorkTimeSpan = TimeSpan.FromSeconds(5)
             };
 
             worker.Run();

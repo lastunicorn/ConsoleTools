@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Spinners
         }
 
         /// <summary>
-        /// Gets or sets a velue that specifies if the text label should be displayed.
+        /// Gets or sets a value that specifies if the text label should be displayed.
         /// Default value: <c>true</c>
         /// </summary>
         public bool ShowLabel { get; set; } = true;

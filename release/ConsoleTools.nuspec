@@ -17,11 +17,11 @@
 		<repository type="git" url="https://github.com/lastunicorn/ConsoleTools" />
 		<dependencies>
 			<group targetFramework=".NETStandard2.0">
-				<dependency id="DustInTheWind.ConsoleTools.Core" version="$version$" exclude="Build,Analyzers" />
-				<dependency id="DustInTheWind.ConsoleTools.Controls" version="$version$" exclude="Build,Analyzers" />
-				<dependency id="DustInTheWind.ConsoleTools.Controls.Menus" version="$version$" exclude="Build,Analyzers" />
-				<dependency id="DustInTheWind.ConsoleTools.Controls.Spinners" version="$version$" exclude="Build,Analyzers" />
-				<dependency id="DustInTheWind.ConsoleTools.Controls.Tables" version="$version$" exclude="Build,Analyzers" />
+				<dependency id="ConsoleTools.Core" version="$version$" exclude="Build,Analyzers" />
+				<dependency id="ConsoleTools.Controls" version="$version$" exclude="Build,Analyzers" />
+				<dependency id="ConsoleTools.Controls.Menus" version="$version$" exclude="Build,Analyzers" />
+				<dependency id="ConsoleTools.Controls.Spinners" version="$version$" exclude="Build,Analyzers" />
+				<dependency id="ConsoleTools.Controls.Tables" version="$version$" exclude="Build,Analyzers" />
 			</group>
 		</dependencies>
 	</metadata>

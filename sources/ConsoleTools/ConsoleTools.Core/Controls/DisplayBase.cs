@@ -20,16 +20,11 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
     public abstract class DisplayBase : IDisplay
     {
-        private List<ConsoleColor> foregroundColors = new List<ConsoleColor>();
-        
-        private List<ConsoleColor> backgroundColors = new List<ConsoleColor>();
-
         /// <summary>
         /// Gets the number of rows already displayed.
         /// </summary>
@@ -123,7 +118,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public void EndRow()
         {
-            bool isConsoleRowFull = FillEmptySpace();
+            FillContentEmptySpace();
             WriteRightPadding();
 
             RestoreForegroundColor();
@@ -132,35 +127,30 @@ namespace DustInTheWind.ConsoleTools.Controls
             WriteRightMargin();
             WriteOuterRightEmptySpace();
 
-            if (!isConsoleRowFull)
-                Console.WriteLine();
+            Console.WriteLine();
 
             DisplayedRowCount++;
         }
 
-        private bool FillEmptySpace()
+        private void FillContentEmptySpace()
         {
             if (Layout == null)
-                return false;
+                return;
 
             int cursorLeft = Console.CursorLeft;
 
             if (cursorLeft >= Layout.ActualFullWidth)
-                return false;
+                return;
 
             int marginRight = Layout.MarginRight;
             int paddingRight = Layout.PaddingRight;
             int emptySpaceRight = Layout.ActualFullWidth - cursorLeft - paddingRight - marginRight;
 
             if (emptySpaceRight <= 0)
-                return false;
+                return;
 
             string rightContentEmptySpace = new string(' ', emptySpaceRight);
             WriteInternal(rightContentEmptySpace);
-
-            int currentCursorPosition = cursorLeft + emptySpaceRight + paddingRight + marginRight;
-            bool isConsoleRowFull = currentCursorPosition == Console.BufferWidth;
-            return isConsoleRowFull;
         }
 
         protected abstract void RestoreForegroundColor();
@@ -172,7 +162,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (text == null)
                 return;
 
-            CustomConsole.Write(text);
+            WriteInternal(text);
 
             //if (text == null)
             //{
@@ -215,7 +205,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (foregroundColor.HasValue)
             {
                 if (backgroundColor.HasValue)
-                    CustomConsole.Write(foregroundColor.Value, backgroundColor.Value, text);
+                    WriteInternal(foregroundColor.Value, backgroundColor.Value, text);
                 else
                     CustomConsole.Write(foregroundColor.Value, text);
             }
@@ -224,7 +214,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 if (backgroundColor.HasValue)
                     CustomConsole.WriteBackgroundColor(backgroundColor.Value, text);
                 else
-                    CustomConsole.Write(text);
+                    WriteInternal(text);
             }
         }
 
@@ -233,7 +223,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (foregroundColor.HasValue)
             {
                 if (backgroundColor.HasValue)
-                    CustomConsole.Write(foregroundColor.Value, backgroundColor.Value, c);
+                    WriteInternal(foregroundColor.Value, backgroundColor.Value, c);
                 else
                     CustomConsole.Write(foregroundColor.Value, c);
             }
@@ -247,9 +237,9 @@ namespace DustInTheWind.ConsoleTools.Controls
         }
 
         protected abstract void WriteInternal(string text);
-        
+
         protected abstract void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text);
-        
+
         protected abstract void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, char c);
 
         private void WriteOuterLeftEmptySpace()

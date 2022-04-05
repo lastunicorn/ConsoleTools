@@ -44,7 +44,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Title = "Table without colors";
 
             dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.DisplayBorderBetweenRows = true;
+            dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.IsVisible = true;
 
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.Border.ForegroundColor = ConsoleColor.DarkBlue;
             dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.DisplayBorderBetweenRows = true;
+            dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
             dataGrid.HeaderRow.IsVisible = true;
@@ -82,7 +82,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.Border.ForegroundColor = ConsoleColor.DarkBlue;
             dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.DisplayBorderBetweenRows = true;
+            dataGrid.DisplayBorderBetweenRows = true;
             
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
             dataGrid.HeaderRow.IsVisible = true;
@@ -104,7 +104,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
             dataGrid.Border.ForegroundColor = ConsoleColor.DarkBlue;
             dataGrid.Border.BackgroundColor = ConsoleColor.White;
-            dataGrid.Border.DisplayBorderBetweenRows = true;
+            dataGrid.DisplayBorderBetweenRows = true;
             
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
             dataGrid.HeaderRow.BackgroundColor = ConsoleColor.Yellow;

@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public int ActualWidth { get; private set; }
 
         public ReadOnlyCollection<ColumnX> Columns => columns.AsReadOnly();
-        
+
         public void AddRow(RowX rowX)
         {
             UpdateColumnsWidths(rowX);
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         private int CalculateTotalWidth()
         {
-            if (columns.Count <= 0)
+            if (columns.Count == 0)
                 return MinWidth;
 
             // Distribute column span spaces
@@ -90,8 +90,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             // Distribute space to reach min width.
 
-            InflateColumns(0, int.MaxValue, MinWidth);
+            int desiredWidthWithoutExternalBorders = BorderVisibility
+                ? MinWidth - 2
+                : MinWidth;
 
+            InflateColumns(0, int.MaxValue, desiredWidthWithoutExternalBorders);
+            
 
             int totalWidth = columns
                 .Select(x => x.Width)

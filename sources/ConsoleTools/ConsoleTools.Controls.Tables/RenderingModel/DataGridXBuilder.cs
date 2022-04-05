@@ -37,10 +37,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public DataGridX Build()
         {
+            int dataGridMinWidth = dataGrid.MinWidth ?? 0;
+            dataGridMinWidth -= dataGrid.Padding.Left + dataGrid.Padding.Right;
+
+            if (dataGridMinWidth < 0)
+                dataGridMinWidth = 0;
+
             dataGridX = new DataGridX
             {
                 IsBorderVisible = dataGrid.Border?.IsVisible == true,
-                MinWidth = dataGrid.MinWidth ?? 0
+                MinWidth = dataGridMinWidth
             };
 
             bool isTitleVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };

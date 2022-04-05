@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
     public class StringTablePrinter : ITablePrinter
     {
         private readonly StringBuilder sb;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="StringTablePrinter"/> class.
         /// </summary>

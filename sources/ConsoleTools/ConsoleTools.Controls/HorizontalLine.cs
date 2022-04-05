@@ -56,7 +56,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// Displays the horizontal line.
         /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
             int actualContentWidth = Layout.ActualContentWidth;
             string text = new string(Character, actualContentWidth);

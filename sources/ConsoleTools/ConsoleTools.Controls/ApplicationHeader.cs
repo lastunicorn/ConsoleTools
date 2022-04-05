@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Can be overwritten in order to fully control what is displayed.
         /// </summary>
         /// <param name="display">This instance can be used in order to interact with the console.</param>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
             Version version = applicationInformation.GetVersion();
 

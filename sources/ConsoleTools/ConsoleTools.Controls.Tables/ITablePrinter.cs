@@ -27,27 +27,32 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
     /// The implementors of this interface represent the target where a <see cref="DataGrid"/> is rendered.
     /// They provide methods to sequentially render the parts of the <see cref="DataGrid"/> instance.
     /// </summary>
+    [Obsolete("Use IDisplay instead.")]
     public interface ITablePrinter
     {
         /// <summary>
         /// Writes the specified character, using the specified colors.
         /// </summary>
+        [Obsolete("Use IDisplay instead.")]
         void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the specified text, using the specified colors.
         /// </summary>
+        [Obsolete("Use IDisplay instead.")]
         void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the specified text, using the specified colors,
         /// followed by the current line terminator.
         /// </summary>
+        [Obsolete("Use IDisplay instead.")]
         void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
         /// Writes the current line terminator.
         /// </summary>
+        [Obsolete("Use IDisplay instead.")]
         void WriteLine();
     }
 }

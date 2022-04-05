@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,30 +27,35 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class DataGridXBuilder
     {
+        private readonly DataGrid dataGrid;
         private DataGridX dataGridX;
 
-        public DataGrid DataGrid { get; set; }
+        public DataGridXBuilder(DataGrid dataGrid)
+        {
+            this.dataGrid = dataGrid ?? throw new ArgumentNullException(nameof(dataGrid));
+        }
 
         public DataGridX Build()
         {
-            dataGridX = new DataGridX(DataGrid.Border?.IsVisible == true)
+            dataGridX = new DataGridX
             {
-                MinWidth = DataGrid.MinWidth ?? 0
+                IsBorderVisible = dataGrid.Border?.IsVisible == true,
+                MinWidth = dataGrid.MinWidth ?? 0
             };
 
-            bool isTitleVisible = DataGrid.TitleRow is { IsVisible: true, HasContent: true };
+            bool isTitleVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };
             if (isTitleVisible)
                 AddTitle();
 
-            bool isColumnHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 };
+            bool isColumnHeaderRowVisible = dataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 };
             if (isColumnHeaderRowVisible)
                 AddHeader();
 
-            bool areNormalRowsVisible = DataGrid.Rows.Count > 0;
+            bool areNormalRowsVisible = dataGrid.Rows.Count > 0;
             if (areNormalRowsVisible)
                 AddRows();
 
-            bool isFooterVisible = DataGrid.FooterRow is { IsVisible: true, HasContent: true };
+            bool isFooterVisible = dataGrid.FooterRow is { IsVisible: true, HasContent: true };
             if (isFooterVisible)
                 AddFooter();
 
@@ -65,7 +71,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             AddRowSeparatorIfBorderIsVisible();
 
-            RowX rowX = RowX.CreateFrom(DataGrid.TitleRow);
+            RowX rowX = RowX.CreateFrom(dataGrid.TitleRow);
             dataGridX.Add(rowX);
         }
 
@@ -73,13 +79,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             AddRowSeparatorIfBorderIsVisible();
 
-            RowX headerRowX = RowX.CreateFrom(DataGrid.HeaderRow);
+            RowX headerRowX = RowX.CreateFrom(dataGrid.HeaderRow);
             dataGridX.Add(headerRowX);
         }
 
         private void AddRows()
         {
-            IEnumerable<RowX> rows = DataGrid.Rows
+            IEnumerable<RowX> rows = dataGrid.Rows
                 .Where(x => x.IsVisible)
                 .Select(RowX.CreateFrom);
 
@@ -92,7 +98,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                     AddRowSeparatorIfBorderIsVisible();
                     isFirstRow = false;
                 }
-                else if (DataGrid.DisplayBorderBetweenRows)
+                else if (dataGrid.DisplayBorderBetweenRows)
                 {
                     AddRowSeparatorIfBorderIsVisible();
                 }
@@ -105,15 +111,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             AddRowSeparatorIfBorderIsVisible();
 
-            RowX rowX = RowX.CreateFrom(DataGrid.FooterRow);
+            RowX rowX = RowX.CreateFrom(dataGrid.FooterRow);
             dataGridX.Add(rowX);
         }
 
         private void AddRowSeparatorIfBorderIsVisible()
         {
-            if (DataGrid.Border?.IsVisible == true)
+            if (dataGrid.Border?.IsVisible == true)
             {
-                SeparatorX separatorX = SeparatorX.CreateFor(DataGrid);
+                SeparatorX separatorX = SeparatorX.CreateFor(dataGrid);
                 dataGridX.Add(separatorX);
             }
         }

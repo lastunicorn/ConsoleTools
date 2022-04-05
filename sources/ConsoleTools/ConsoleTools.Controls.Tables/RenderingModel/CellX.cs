@@ -70,16 +70,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return new Size(cellWidth, cellHeight);
         }
 
-        public void RenderNextLine(ITablePrinter tablePrinter, Size actualSize)
+        public void RenderNextLine(IDisplay display, Size actualSize)
         {
-            if (lineEnumerator == null)
-                lineEnumerator = RenderContent(actualSize).GetEnumerator();
+            lineEnumerator ??= RenderContent(actualSize).GetEnumerator();
 
             string content = lineEnumerator.MoveNext()
                 ? lineEnumerator.Current
                 : null;
 
-            tablePrinter.Write(content, ForegroundColor, BackgroundColor);
+            display.Write(ForegroundColor, BackgroundColor, content);
         }
 
         private IEnumerable<string> RenderContent(Size size)

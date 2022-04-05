@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// Displays the pause text and waits for the user to press a key.
         /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
             if (Text == null)
                 return;

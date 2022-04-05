@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
@@ -31,24 +30,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         public ConsoleColor? ForegroundColor { get; set; }
 
         public ConsoleColor? BackgroundColor { get; set; }
-
-        public int TotalWidth { get; set; }
-
-        public List<ColumnX> ColumnWidths { get; set; }
-
-        public void RenderRowLeftBorder(ITablePrinter tablePrinter)
+        
+        public void RenderRowLeftBorder(IDisplay display)
         {
-            tablePrinter.Write(Template.Left, ForegroundColor, BackgroundColor);
+            display.Write(ForegroundColor, BackgroundColor, Template.Left);
         }
 
-        public void RenderRowRightBorder(ITablePrinter tablePrinter)
+        public void RenderRowRightBorder(IDisplay display)
         {
-            tablePrinter.Write(Template.Right, ForegroundColor, BackgroundColor);
+            display.Write(ForegroundColor, BackgroundColor, Template.Right);
         }
 
-        public void RenderRowInsideBorder(ITablePrinter tablePrinter)
+        public void RenderRowInsideBorder(IDisplay display)
         {
-            tablePrinter.Write(Template.Vertical, ForegroundColor, BackgroundColor);
+            display.Write(ForegroundColor, BackgroundColor, Template.Vertical);
         }
 
         public static DataGridBorderX CreateFrom(DataGridBorder dataGridBorder)

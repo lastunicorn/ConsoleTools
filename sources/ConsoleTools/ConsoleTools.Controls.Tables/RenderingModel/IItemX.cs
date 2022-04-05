@@ -25,6 +25,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal interface IItemX
     {
-        void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns);
+        void Render(IDisplay display, IReadOnlyList<ColumnX> columns);
     }
 }

@@ -65,28 +65,29 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return new Size(width, height);
         }
 
-        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
+        public void Render(IDisplay display, IReadOnlyList<ColumnX> columns)
         {
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
-                Border?.RenderRowLeftBorder(tablePrinter);
+                display.StartRow();
+                Border?.RenderRowLeftBorder(display);
 
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
                     CellX cellX = Cells[columnIndex];
                     Size cellSize = CalculateCellSize(columns, columnIndex, cellX.HorizontalMerge);
 
-                    cellX.RenderNextLine(tablePrinter, cellSize);
+                    cellX.RenderNextLine(display, cellSize);
 
                     bool isLastCell = columnIndex >= Cells.Count - 1;
 
                     if (isLastCell)
-                        Border?.RenderRowRightBorder(tablePrinter);
+                        Border?.RenderRowRightBorder(display);
                     else
-                        Border?.RenderRowInsideBorder(tablePrinter);
+                        Border?.RenderRowInsideBorder(display);
                 }
 
-                tablePrinter.WriteLine();
+                display.EndRow();
             }
         }
 

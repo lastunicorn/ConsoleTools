@@ -320,30 +320,36 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Renders the current instance into the console.
         /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
-            ConsoleTablePrinter consoleTablePrinter = new();
-            RenderInternal(consoleTablePrinter);
+            RenderInternal(display);
         }
 
         /// <summary>
         /// Renders the current instance into the specified <see cref="ITablePrinter"/>.
         /// </summary>
         /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance used to render the data.</param>
+        [Obsolete("Use Render(IDisplay) instead.")]
         public void Render(ITablePrinter tablePrinter)
         {
-            RenderInternal(tablePrinter);
+            TablePrinterDisplay display = new(tablePrinter);
+            RenderInternal(display);
         }
 
-        private void RenderInternal(ITablePrinter tablePrinter)
+        /// <summary>
+        /// Renders the current instance into the specified <see cref="IDisplay"/>.
+        /// </summary>
+        /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
+        public void Render(IDisplay display)
         {
-            DataGridXBuilder dataGridXBuilder = new()
-            {
-                DataGrid = this
-            };
+            RenderInternal(display);
+        }
 
+        private void RenderInternal(IDisplay display)
+        {
+            DataGridXBuilder dataGridXBuilder = new(this);
             DataGridX dataGridX = dataGridXBuilder.Build();
-            dataGridX.Render(tablePrinter);
+            dataGridX.Render(display);
         }
 
         /// <summary>
@@ -352,10 +358,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>The string representation of the current instance.</returns>
         public override string ToString()
         {
-            StringTablePrinter tablePrinter = new();
-            RenderInternal(tablePrinter);
+            StringDisplay stringDisplay = new();
+            RenderInternal(stringDisplay);
 
-            return tablePrinter.ToString();
+            return stringDisplay.ToString();
         }
 
         /// <summary>

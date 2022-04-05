@@ -179,7 +179,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// Displays the menu and waits for the user to choose an item.
         /// This method blocks until the user chooses an item.
         /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
             if (TitleText != null)
                 DrawTitle(display);
@@ -188,7 +188,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             ReadUserSelection(display);
         }
 
-        private void DrawTitle(ControlDisplay display)
+        private void DrawTitle(IDisplay display)
         {
             display.WriteRow(TitleText);
             display.WriteRow();
@@ -197,7 +197,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             //InnerSize = InnerSize.InflateHeight(2);
         }
 
-        private void DrawMenu(ControlDisplay display)
+        private void DrawMenu(IDisplay display)
         {
             IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
                 .Where(x => x.IsVisible);
@@ -211,7 +211,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             }
         }
 
-        private void ReadUserSelection(ControlDisplay display)
+        private void ReadUserSelection(IDisplay display)
         {
             display.WriteRow();
             //Console.WriteLine();
@@ -266,7 +266,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             //InnerSize = InnerSize.InflateHeight(questionHeight);
         }
 
-        private void DisplayInvalidOptionWarning(ControlDisplay display)
+        private void DisplayInvalidOptionWarning(IDisplay display)
         {
             display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, InvalidOptionText);
             display.WriteRow();
@@ -277,7 +277,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             //InnerSize = InnerSize.InflateHeight(2);
         }
 
-        private void DisplayDisabledItemWarning(ControlDisplay display)
+        private void DisplayDisabledItemWarning(IDisplay display)
         {
             display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, OptionDisabledText);
             display.WriteRow();

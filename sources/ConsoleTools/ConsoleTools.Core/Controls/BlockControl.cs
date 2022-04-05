@@ -79,6 +79,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             WriteTopPadding();
 
             DoDisplayContent(ControlDisplay);
+            DoDisplayContent((IDisplay)ControlDisplay);
 
             WriteBottomPadding();
             WriteBottomMargin();
@@ -115,6 +116,14 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// When implemented by an inheritor, it displays the content of the control to the console.
         /// </summary>
-        protected abstract void DoDisplayContent(ControlDisplay display);
+        [Obsolete("Use the DoDisplayContent(IDisplay display) overload instead.")]
+        protected virtual void DoDisplayContent(ControlDisplay display)
+        {
+        }
+
+        /// <summary>
+        /// When implemented by an inheritor, it displays the content of the control to the specified <see cref="IDisplay"/> instance.
+        /// </summary>
+        protected abstract void DoDisplayContent(IDisplay display);
     }
 }

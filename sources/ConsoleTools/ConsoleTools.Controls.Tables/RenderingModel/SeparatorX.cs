@@ -42,10 +42,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public ConsoleColor? BackgroundColor { get; set; }
 
-        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
+        public void Render(IDisplay display, IReadOnlyList<ColumnX> columns)
         {
             string line = BuildLine(columns);
-            tablePrinter.WriteLine(line, ForegroundColor, BackgroundColor);
+            display.WriteRow(ForegroundColor, BackgroundColor, line);
         }
 
         private string BuildLine(IReadOnlyList<ColumnX> columns)

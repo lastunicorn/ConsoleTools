@@ -61,7 +61,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// Displays the lines of text together with the left and right margins.
         /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        protected override void DoDisplayContent(IDisplay display)
         {
             if (Text == null)
                 return;

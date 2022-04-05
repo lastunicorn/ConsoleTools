@@ -17,7 +17,6 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 using Moq;
 using NUnit.Framework;
@@ -28,17 +27,17 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
     public class RenderTextTests
     {
         private List<string> renderingOutput;
-        private Mock<ITablePrinter> tablePrinter;
+        private Mock<IDisplay> display;
 
         [SetUp]
         public void SetUp()
         {
             renderingOutput = new List<string>();
 
-            tablePrinter = new Mock<ITablePrinter>();
-            tablePrinter
-                .Setup(x => x.Write(It.IsAny<string>(), It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>()))
-                .Callback<string, ConsoleColor?, ConsoleColor?>((line, fg, bg) =>
+            display = new Mock<IDisplay>();
+            display
+                .Setup(x => x.Write(It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>(), It.IsAny<string>()))
+                .Callback<ConsoleColor?, ConsoleColor?, string>((fg, bg, line) =>
                 {
                     renderingOutput.Add(line);
                 });
@@ -47,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingContentShorterThanCellWidth_WhenRendered_LineIsFilledWithSpaces()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = "text"
             };
@@ -60,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingContentLongerThanCellWidth_WhenRendered_ThenLineIsNotTrimmed()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = "some long text"
             };
@@ -73,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingContentWithLessLinesThanCellHeight_WhenRendered_ThenEmptyLinesAreAdded()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = "text"
             };
@@ -90,7 +89,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingContentWithMoreLinesThanCellHeight_WhenRendered_ThenOnlyTheRequiredLinesAreRendered()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = new MultilineText(new[] { "line1", "line2", "line3" }),
             };
@@ -107,7 +106,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingPaddingLeftAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingLeft()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = "text",
                 PaddingLeft = 2
@@ -121,7 +120,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         [Test]
         public void HavingPaddingRightAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingRight()
         {
-            CellX cell = new CellX
+            CellX cell = new()
             {
                 Content = "text",
                 PaddingRight = 2,
@@ -136,7 +135,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
         private void RenderAllLines(CellX cellX, Size size)
         {
             for (int i = 0; i < size.Height; i++)
-                cellX.RenderNextLine(tablePrinter.Object, size);
+                cellX.RenderNextLine(display.Object, size);
         }
     }
 }

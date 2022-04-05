@@ -25,7 +25,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
     internal class DataGridX
     {
-        private readonly bool displayBorder;
         private readonly DataGridLayout dataGridLayout = new();
         private readonly List<IItemX> items = new();
         private IItemX lastItem;
@@ -34,10 +33,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public int ItemCount => items.Count;
 
-        public DataGridX(bool displayBorder)
-        {
-            this.displayBorder = displayBorder;
-        }
+        public bool IsBorderVisible { get; set; }
 
         public void Add(SeparatorX separator)
         {
@@ -58,16 +54,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public void Finish()
         {
-            dataGridLayout.BorderVisibility = displayBorder;
+            dataGridLayout.BorderVisibility = IsBorderVisible;
             dataGridLayout.MinWidth = MinWidth;
             dataGridLayout.MaxWidth = int.MaxValue;
             dataGridLayout.FinalizeLayout();
         }
 
-        public void Render(ITablePrinter tablePrinter)
+        public void Render(IDisplay display)
         {
             foreach (IItemX item in items)
-                item.Render(tablePrinter, dataGridLayout.Columns);
+                item.Render(display, dataGridLayout.Columns);
         }
     }
 }

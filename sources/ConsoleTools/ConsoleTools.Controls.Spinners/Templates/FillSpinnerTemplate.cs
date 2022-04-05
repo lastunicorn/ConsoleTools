@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
         /// </summary>
         public FilledBehavior FilledBehavior
         {
-            get { return filledBehavior; }
+            get => filledBehavior;
             set
             {
                 bool valueIsDefined = Enum.IsDefined(typeof(FilledBehavior), value);

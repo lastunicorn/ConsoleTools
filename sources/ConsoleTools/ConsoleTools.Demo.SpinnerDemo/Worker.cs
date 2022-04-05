@@ -23,8 +23,10 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
     internal class Worker
     {
-        public TimeSpan WorkPeriod { get; set; }
+        public TimeSpan WorkTimeSpan { get; set; }
+        
         public ISpinnerTemplate SpinnerTemplate { get; set; }
+        
         public int SpinnerStepMilliseconds { get; set; }
 
         public void Run()
@@ -45,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
                 try
                 {
                     // Simulate work
-                    Thread.Sleep(WorkPeriod);
+                    Thread.Sleep(WorkTimeSpan);
 
                     spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
                     spinner.Close();

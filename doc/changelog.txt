@@ -5,8 +5,11 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 1.1.0
 ---------
-- [feature] Splitted the one nuget package into multiple packages.
-- [feature] DataGrid: Add multiple rows ar once.
+- [feature] Splitted the single nuget package into multiple packages.
+- [feature] DataGrid: Add multiple rows at once.
+- [feature] DataGrid: Added a footer row.
+- [feature] DataGrid: "AddCell" method returns the newly created cell.
+- [feature] DataGrid: Add multiple rows at once.
 - [bugfix ] BlockControl: Fixed row shifting when console window is resized.
 
 ver 1.0.0

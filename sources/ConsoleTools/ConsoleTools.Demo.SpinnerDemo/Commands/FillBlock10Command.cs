@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands
             {
                 SpinnerTemplate = new FillSpinnerTemplate('▓', 10),
                 SpinnerStepMilliseconds = 100,
-                WorkPeriod = TimeSpan.FromSeconds(10)
+                WorkTimeSpan = TimeSpan.FromSeconds(10)
             };
 
             worker.Run();

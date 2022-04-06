@@ -29,38 +29,53 @@ namespace DustInTheWind.ConsoleTools.Controls
     public interface IDisplay
     {
         /// <summary>
-        /// Gets the number of rows already displayed.
+        /// When implemented by an inheritor, gets the number of rows already displayed.
         /// </summary>
         int DisplayedRowCount { get; }
 
         /// <summary>
-        /// Gets or sets the calculated layout for the current instance.
+        /// When implemented by an inheritor, gets or sets the calculated layout for the current instance.
         /// Some details like margin and padding are displayed based on the values provided by this instance.
         /// </summary>
         ControlLayout Layout { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreground color used to write the text.
+        /// When implemented by an inheritor, gts or sets the foreground color used to write the text.
         /// Default value: <c>null</c>
         /// </summary>
         ConsoleColor? ForegroundColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the background color used to write the text.
+        /// When implemented by an inheritor, gets or sets the background color used to write the text.
         /// Default value: <c>null</c>
         /// </summary>
         ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
-        /// Writes an entire row using the default <see cref="ControlDisplay.ForegroundColor"/>
-        /// and <see cref="ControlDisplay.BackgroundColor"/> values.
+        /// When implemented by an inheritor, gets the horizontal location of the cursor, starting from
+        /// the beginning of the current line.
+        /// </summary>
+        int CursorPosition { get; }
+
+        /// <summary>
+        /// When implemented by an inheritor, gets a value specifying if the cursor is at the start of a line.
+        /// </summary>
+        bool IsBeginOfLine { get; }
+
+        bool IsCursorVisible { get; set; }
+
+        int AvailableWidth { get; }
+
+        /// <summary>
+        /// When implemented by an inheritor, writes an entire row using the default <see cref="ForegroundColor"/>
+        /// and <see cref="BackgroundColor"/> values.
         /// The left and right margins and paddings are added automatically.
         /// </summary>
         /// <param name="text">The text to be written as the content of th row.</param>
         void WriteRow(string text);
 
         /// <summary>
-        /// Writes an entire row using the specified foreground and background values.
+        /// When implemented by an inheritor, writes an entire row using the specified foreground and background values.
         /// The left and right margins and paddings are added automatically.
         /// </summary>
         /// <param name="backgroundColor">The background color to be used for the content of the row.</param>
@@ -69,38 +84,43 @@ namespace DustInTheWind.ConsoleTools.Controls
         void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text);
 
         /// <summary>
-        /// Writes an empty row.
+        /// When implemented by an inheritor, writes an empty row using the default <see cref="BackgroundColor"/>.
         /// The left and right margins and paddings are added automatically.
         /// </summary>
         void WriteRow();
 
         /// <summary>
-        /// Writes the starting of a row using the default <see cref="ControlDisplay.ForegroundColor"/>
-        /// and <see cref="ControlDisplay.BackgroundColor"/> values.
+        /// When implemented by an inheritor, writes the starting of a row using the default <see cref="ForegroundColor"/>
+        /// and <see cref="BackgroundColor"/> values.
         /// It includes the left margin and padding.
         /// </summary>
         void StartRow();
 
         /// <summary>
-        /// Writes the starting of a row using the specified foreground and background values.
+        /// When implemented by an inheritor, writes the starting of a row using the specified foreground and background colors.
         /// It includes the left margin and padding.
         /// </summary>
         void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
         /// <summary>
-        /// Writes the ending of a row.
+        /// When implemented by an inheritor, writes the ending of a row.
         /// It includes the right margin and padding.
         /// </summary>
         void EndRow();
 
         /// <summary>
-        /// Writes the specified text using the default foreground and background colors.
+        /// When implemented by an inheritor, writes the newline character and moves the cursor at the beginning of the next line.
+        /// </summary>
+        void WriteNewLine();
+
+        /// <summary>
+        /// When implemented by an inheritor, writes the specified text using the default foreground and background colors.
         /// </summary>
         /// <param name="text">The text to be displayed.</param>
         void Write(string text);
 
         /// <summary>
-        /// Writes the specified text using the specified foreground and background colors.
+        /// When implemented by an inheritor, writes the specified text using the specified foreground and background colors.
         /// </summary>
         /// <param name="backgroundColor">The background color to be used for the text.</param>
         /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
@@ -108,7 +128,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text);
 
         /// <summary>
-        /// Writes the specified character using the specified foreground and background colors.
+        /// When implemented by an inheritor, writes the specified character using the specified foreground and background colors.
         /// </summary>
         /// <param name="backgroundColor">The background color to be used for the text.</param>
         /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>

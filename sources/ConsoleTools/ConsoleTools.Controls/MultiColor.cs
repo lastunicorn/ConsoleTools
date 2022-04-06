@@ -23,28 +23,36 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public class MultiColor : Control
+    public class MultiColor : BlockControl
     {
-        protected override void DoDisplay()
+        protected override void DoDisplayContent(IDisplay display)
         {
-            CustomConsole.WriteLine("Player", ConsoleColor.Black);
-            CustomConsole.WriteLine("Player", ConsoleColor.White);
-            CustomConsole.WriteLine("Player", ConsoleColor.Gray);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkGray);
+            DisplayLine(display, ConsoleColor.Black, "Black");
+            DisplayLine(display, ConsoleColor.White, "White");
+            DisplayLine(display, ConsoleColor.Gray, "Gray");
+            DisplayLine(display, ConsoleColor.DarkGray, "DarkGray");
+            display.WriteRow();
+            DisplayLine(display, ConsoleColor.Blue, "Blue");
+            DisplayLine(display, ConsoleColor.Green, "Green");
+            DisplayLine(display, ConsoleColor.Cyan, "Cyan");
+            DisplayLine(display, ConsoleColor.Red, "Red");
+            DisplayLine(display, ConsoleColor.Magenta, "Magenta");
+            DisplayLine(display, ConsoleColor.Yellow, "Yellow");
+            display.WriteRow();
+            DisplayLine(display, ConsoleColor.DarkBlue, "DarkBlue");
+            DisplayLine(display, ConsoleColor.DarkGreen, "DarkGreen");
+            DisplayLine(display, ConsoleColor.DarkCyan, "DarkCyan");
+            DisplayLine(display, ConsoleColor.DarkRed, "DarkRed");
+            DisplayLine(display, ConsoleColor.DarkMagenta, "DarkMagenta");
+            DisplayLine(display, ConsoleColor.DarkYellow, "DarkYellow");
+        }
 
-            CustomConsole.WriteLine("Player", ConsoleColor.Blue);
-            CustomConsole.WriteLine("Player", ConsoleColor.Green);
-            CustomConsole.WriteLine("Player", ConsoleColor.Cyan);
-            CustomConsole.WriteLine("Player", ConsoleColor.Red);
-            CustomConsole.WriteLine("Player", ConsoleColor.Magenta);
-            CustomConsole.WriteLine("Player", ConsoleColor.Yellow);
-            
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkBlue);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkGreen);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkCyan);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkRed);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkMagenta);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkYellow);
+        private static void DisplayLine(IDisplay display, ConsoleColor foregroundColor, string text)
+        {
+            display.StartRow();
+            display.Write("» ");
+            display.Write(foregroundColor, null, text);
+            display.EndRow();
         }
     }
 }

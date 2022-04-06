@@ -45,48 +45,48 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public event EventHandler AfterBottomMargin;
 
-        private void WriteTopMargin()
+        private void WriteTopMargin(IDisplay display)
         {
             OnBeforeTopMargin();
 
-            if (Layout.MarginTop <= 0)
+            if (display.Layout.MarginTop <= 0)
                 return;
 
-            for (int i = 0; i < Layout.MarginTop; i++)
-                CustomConsole.WriteLine();
+            for (int i = 0; i < display.Layout.MarginTop; i++)
+                display.WriteNewLine();
         }
 
-        private void WriteBottomMargin()
+        private void WriteBottomMargin(IDisplay display)
         {
-            if (Layout.MarginBottom > 0)
+            if (display.Layout.MarginBottom > 0)
             {
-                for (int i = 0; i < Layout.MarginBottom; i++)
-                    CustomConsole.WriteLine();
+                for (int i = 0; i < display.Layout.MarginBottom; i++)
+                    display.WriteNewLine();
             }
 
             OnAfterBottomMargin();
         }
 
-        private void WriteTopPadding()
+        private void WriteTopPadding(IDisplay display)
         {
-            if (Layout.PaddingTop <= 0)
+            if (display.Layout.PaddingTop <= 0)
                 return;
 
-            string text = new string(' ', Layout.ActualContentWidth);
+            string text = new string(' ', display.Layout.ActualContentWidth);
 
-            for (int i = 0; i < Layout.PaddingTop; i++)
-               ControlDisplay.WriteRow(text);
+            for (int i = 0; i < display.Layout.PaddingTop; i++)
+                display.WriteRow(text);
         }
 
-        private void WriteBottomPadding()
+        private void WriteBottomPadding(IDisplay display)
         {
-            if (Layout.PaddingBottom <= 0)
+            if (display.Layout.PaddingBottom <= 0)
                 return;
 
-            string text = new string(' ', Layout.ActualContentWidth);
+            string text = new string(' ', display.Layout.ActualContentWidth);
 
-            for (int i = 0; i < Layout.PaddingBottom; i++)
-                ControlDisplay.WriteRow(text);
+            for (int i = 0; i < display.Layout.PaddingBottom; i++)
+                display.WriteRow(text);
         }
 
         /// <summary>

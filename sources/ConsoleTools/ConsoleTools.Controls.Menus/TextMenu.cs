@@ -114,14 +114,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         public event EventHandler Closed;
 
         /// <summary>
-        /// Initialize a new instace of the <see cref="TextMenu"/> calss.
+        /// Initialize a new instance of the <see cref="TextMenu"/> calls.
         /// </summary>
         public TextMenu()
         {
         }
 
         /// <summary>
-        /// Initialize a new instace of the <see cref="TextMenu"/> calss with
+        /// Initialize a new instance of the <see cref="TextMenu"/> calls with
         /// the list of items to be displayed.
         /// </summary>
         /// <param name="menuItems">The list of items to be displayed by the menu.</param>
@@ -162,7 +162,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// <summary>
         /// Erases all the information of the previous display.
         /// </summary>
-        protected override void OnBeforeDisplay()
+        protected override void OnBeforeDisplay(DisplayEventArgs e)
         {
             bool existsItems = menuItems.Any(x => x.IsVisible);
             if (!existsItems)
@@ -172,7 +172,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             closeWasRequested = false;
             //InnerSize = Size.Empty;
 
-            base.OnBeforeDisplay();
+            base.OnBeforeDisplay(e);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
             foreach (TextMenuItem menuItem in menuItemsToDisplay)
             {
-                menuItem.Display();
+                menuItem.Display(display);
                 display.WriteRow();
 
                 //InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
@@ -291,9 +291,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// <summary>
         /// Executes the selected item.
         /// </summary>
-        protected override void OnAfterDisplay()
+        protected override void OnAfterDisplay(DisplayEventArgs e)
         {
-            base.OnAfterDisplay();
+            base.OnAfterDisplay(e);
 
             SelectedItem?.Execute();
         }

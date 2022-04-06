@@ -78,7 +78,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// Displays the <see cref="Text"/> value.
         /// </summary>
-        protected override void DoDisplayContent()
+        /// <param name="display"></param>
+        protected override void DoDisplayContent(IDisplay display)
         {
             if (Text == null)
                 return;
@@ -87,7 +88,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 ? Text
                 : string.Format(TextFormat, Text);
 
-            WriteText(formattedText);
+            WriteText(formattedText, display);
         }
 
         /// <summary>

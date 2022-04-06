@@ -19,8 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
@@ -32,95 +30,29 @@ namespace DustInTheWind.ConsoleTools.Controls
     public abstract partial class BlockControl : Control
     {
         /// <summary>
-        /// Gets an instance that represents the display available for the control to write on.
-        /// It also provides helper methods to write partial or entire rows.
-        /// </summary>
-        protected ControlDisplay ControlDisplay { get; private set; }
-
-        /// <summary>
-        /// Gets the calculated layout for the current instance.
-        /// This value is calculated at the beginning of the display process and it is available throughout
-        /// the entire display process.
-        /// Before and after the display has unknown value.
-        /// </summary>
-        protected ControlLayout Layout { get; private set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies who should be considered the parent if none is specified.
-        /// This is useful when calculating the alignment.
-        /// Default value: ConsoleWindow
-        /// </summary>
-        public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
-
-        /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
         /// Displays the margins and the content of the control.
         /// It also ensures that the control is displayed starting from a new line.
         /// </summary>
-        protected override void DoDisplay()
+        /// <param name="display"></param>
+        protected override void DoDisplay(IDisplay display)
         {
-            MoveToNextLineIfNecessary();
+            MoveToNextLineIfNecessary(display);
 
-            CalculateLayout();
-            CreateControlDisplay();
+            WriteTopMargin(display);
+            WriteTopPadding(display);
+            
+            DoDisplayContent(display);
 
-            WriteTopMargin();
-            WriteTopPadding();
-
-            DoDisplayContent(ControlDisplay);
-            DoDisplayContent((IDisplay)ControlDisplay);
-
-            WriteBottomPadding();
-            WriteBottomMargin();
+            WriteBottomPadding(display);
+            WriteBottomMargin(display);
         }
 
-        private void CreateControlDisplay()
+        private void MoveToNextLineIfNecessary(IDisplay display)
         {
-            ControlDisplay = new ControlDisplay
-            {
-                Layout = Layout,
-                ForegroundColor = ForegroundColor,
-                BackgroundColor = BackgroundColor
-            };
+            if (!display.IsBeginOfLine)
+                display.WriteNewLine();
         }
-
-        private static void MoveToNextLineIfNecessary()
-        {
-            if (Console.CursorLeft != 0)
-                Console.WriteLine();
-        }
-
-        private void CalculateLayout()
-        {
-            Layout = new ControlLayout
-            {
-                Control = this,
-                AvailableWidth = AvailableWidth,
-                DesiredContentWidth = DesiredContentWidth
-            };
-
-            Layout.Calculate();
-        }
-
-        /// <summary>
-        /// When implemented by an inheritor, it displays the content of the control to the console.
-        /// </summary>
-        [Obsolete("Use the DoDisplayContent(IDisplay display) overload instead.")]
-        protected virtual void DoDisplayContent(ControlDisplay display)
-        {
-        }
-
+        
         /// <summary>
         /// When implemented by an inheritor, it displays the content of the control to the specified <see cref="IDisplay"/> instance.
         /// </summary>

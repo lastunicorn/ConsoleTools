@@ -43,68 +43,114 @@ namespace DustInTheWind.ConsoleTools.Controls
         protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
 
         /// <summary>
-        /// Event raised at the beginning of the <see cref="Display"/> method, before doing anything else.
+        /// Gets or sets the foreground color used to write the text.
+        /// Default value: <c>null</c>
         /// </summary>
-        public virtual event EventHandler BeforeDisplay;
+        public ConsoleColor? ForegroundColor { get; set; }
 
         /// <summary>
-        /// Event raised at the very end of the <see cref="Display"/> method, before returning.
+        /// Gets or sets the background color used to write the text.
+        /// Default value: <c>null</c>
         /// </summary>
-        public virtual event EventHandler AfterDisplay;
+        public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
+        /// When implemented by an inheritor, gets the desired width of the content when there are no other restrictions applied to the control.
+        /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
+        /// </summary>
+        protected virtual int? DesiredContentWidth { get; }
+
+        /// <summary>
+        /// Event raised at the beginning of the <see cref="Display()"/> method, before doing anything else.
+        /// </summary>
+        public virtual event EventHandler<DisplayEventArgs> BeforeDisplay;
+
+        /// <summary>
+        /// Event raised at the very end of the <see cref="Display()"/> method, before returning.
+        /// </summary>
+        public virtual event EventHandler<DisplayEventArgs> AfterDisplay;
 
         /// <summary>
         /// Displays the control in the console.
         /// </summary>
         public void Display()
         {
-            OnBeforeDisplay();
+            ControlDisplay display = new ControlDisplay
+            {
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
+
+            ControlLayout layout = new ControlLayout
+            {
+                Control = this,
+                Display = display,
+                DesiredContentWidth = DesiredContentWidth
+            };
+
+            layout.Calculate();
+
+            Display(display);
+        }
+
+        /// <summary>
+        /// Displays the control using the specified display.
+        /// </summary>
+        public void Display(IDisplay display)
+        {
+            if (display == null) throw new ArgumentNullException(nameof(display));
+
+            DisplayEventArgs beforeDisplayArgs = new DisplayEventArgs(display);
+            OnBeforeDisplay(beforeDisplayArgs);
 
             if (CursorVisibility.HasValue)
             {
-                originalCursorVisibility = Console.CursorVisible;
-                Console.CursorVisible = CursorVisibility.Value;
+                originalCursorVisibility = display.IsCursorVisible;
+                display.IsCursorVisible = CursorVisibility.Value;
 
                 try
                 {
-                    DoDisplay();
+                    DoDisplay(display);
                 }
                 finally
                 {
                     if (RestoreCursorVisibilityAfterDisplay)
-                        Console.CursorVisible = originalCursorVisibility;
+                        display.IsCursorVisible = originalCursorVisibility;
                 }
             }
             else
             {
-                DoDisplay();
+                DoDisplay(display);
             }
 
-            OnAfterDisplay();
+            DisplayEventArgs afterDisplayArgs = new DisplayEventArgs(display);
+            OnAfterDisplay(afterDisplayArgs);
         }
 
         /// <summary>
         /// When implemented by an inheritor, displays the margins and the content of the control.
         /// </summary>
-        protected abstract void DoDisplay();
+        /// <param name="display"></param>
+        protected abstract void DoDisplay(IDisplay display);
 
         /// <summary>
-        /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
+        /// Method called at the beginning of the <see cref="Display()"/> method, before doing anything else
         /// to raise the <see cref="BeforeDisplay"/> event.
         /// When overwritten, the base method must be called in order to allow the event to be raised.
         /// </summary>
-        protected virtual void OnBeforeDisplay()
+        protected virtual void OnBeforeDisplay(DisplayEventArgs e)
         {
-            BeforeDisplay?.Invoke(this, EventArgs.Empty);
+            BeforeDisplay?.Invoke(this, e);
         }
 
         /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning
+        /// Method called at the very end of the <see cref="Display()"/> method, before returning
         /// to raise the <see cref="AfterDisplay"/> event.
         /// When overwritten, the base method must be called in order to allow the event to be raised.
         /// </summary>
-        protected virtual void OnAfterDisplay()
+        protected virtual void OnAfterDisplay(DisplayEventArgs e)
         {
-            AfterDisplay?.Invoke(this, EventArgs.Empty);
+            AfterDisplay?.Invoke(this, e);
         }
     }
 }

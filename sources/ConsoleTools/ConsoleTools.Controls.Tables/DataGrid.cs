@@ -357,7 +357,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>The string representation of the current instance.</returns>
         public override string ToString()
         {
-            StringDisplay stringDisplay = new();
+            StringDisplay stringDisplay = new()
+            {
+                ForegroundColor = ForegroundColor,
+                BackgroundColor = BackgroundColor
+            };
+
+            ControlLayout layout = new()
+            {
+                Control = this,
+                Display = stringDisplay,
+                DesiredContentWidth = DesiredContentWidth
+            };
+            
+            layout.Calculate();
             RenderInternal(stringDisplay);
 
             return stringDisplay.ToString();

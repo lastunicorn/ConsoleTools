@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {
@@ -32,6 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
+                Pause.QuickDisplay();
             }
         }
 

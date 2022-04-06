@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Gets the <see cref="int.MaxValue"/> value.
         /// The horizontal line is willing to be as wide as necessary.
         /// </summary>
-        protected override int DesiredContentWidth => int.MaxValue;
+        protected override int? DesiredContentWidth => int.MaxValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
@@ -58,7 +58,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         protected override void DoDisplayContent(IDisplay display)
         {
-            int actualContentWidth = Layout.ActualContentWidth;
+            int actualContentWidth = display.Layout.ActualContentWidth;
             string text = new string(Character, actualContentWidth);
             display.WriteRow(text);
         }

@@ -23,78 +23,72 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
-    internal class TablePrinterDisplay : IDisplay
+    internal class TablePrinterDisplay : DisplayBase
     {
         private readonly ITablePrinter tablePrinter;
 
-        private string temporaryContent;
         private ConsoleColor? temporaryForegroundColor;
         private ConsoleColor? temporaryBackgroundColor;
 
-        public int DisplayedRowCount { get; }
-
-        public ControlLayout Layout { get; set; }
-
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        public ConsoleColor? BackgroundColor { get; set; }
-
         public TablePrinterDisplay(ITablePrinter tablePrinter)
         {
-            this.tablePrinter = tablePrinter;
+            this.tablePrinter = tablePrinter ?? throw new ArgumentNullException(nameof(tablePrinter));
         }
 
-        public void WriteRow(string text)
+        public override bool IsCursorVisible { get; set; } = Console.CursorVisible;
+
+        public override int AvailableWidth { get; } = Console.WindowWidth;
+
+        protected override void SetRowForegroundColor(ConsoleColor? foregroundColor)
         {
-            tablePrinter.WriteLine(text, ForegroundColor, BackgroundColor);
+            temporaryForegroundColor = foregroundColor;
         }
 
-        public void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+        protected override void SetRowBackgroundColor(ConsoleColor? backgroundColor)
         {
-            tablePrinter.WriteLine(text, foregroundColor, backgroundColor);
+            temporaryBackgroundColor = backgroundColor;
         }
 
-        public void WriteRow()
+        protected override void ResetRowForegroundColor()
+        {
+            temporaryForegroundColor = null;
+        }
+
+        protected override void ResetRowBackgroundColor()
+        {
+            temporaryBackgroundColor = null;
+        }
+
+        protected override void WriteNewLineInternal()
         {
             tablePrinter.WriteLine();
         }
 
-        public void StartRow()
+        protected override void WriteInternal(string text)
         {
-            temporaryContent = string.Empty;
-            temporaryForegroundColor = ForegroundColor;
-            temporaryBackgroundColor = BackgroundColor;
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            ConsoleColor? actualForegroundColor = temporaryForegroundColor ?? ForegroundColor;
+            ConsoleColor? actualBackgroundColor = temporaryBackgroundColor ?? BackgroundColor;
+            tablePrinter.Write(text, actualForegroundColor, actualBackgroundColor);
         }
 
-        public void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
         {
-            temporaryContent = string.Empty;
-            temporaryForegroundColor = foregroundColor;
-            temporaryBackgroundColor = backgroundColor;
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            ConsoleColor? actualForegroundColor = foregroundColor ?? ForegroundColor;
+            ConsoleColor? actualBackgroundColor = backgroundColor ?? BackgroundColor;
+            tablePrinter.Write(text, actualForegroundColor, actualBackgroundColor);
         }
 
-        public void EndRow()
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
         {
-            tablePrinter.WriteLine(temporaryContent, temporaryForegroundColor, temporaryBackgroundColor);
-
-            temporaryContent = null;
-            temporaryForegroundColor = null;
-            temporaryBackgroundColor = null;
-        }
-
-        public void Write(string text)
-        {
-            tablePrinter.Write(text, ForegroundColor, BackgroundColor);
-        }
-
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
-        {
-            tablePrinter.Write(text, foregroundColor, backgroundColor);
-        }
-
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
-        {
-            tablePrinter.Write(c.ToString(), foregroundColor, backgroundColor);
+            ConsoleColor? actualForegroundColor = foregroundColor ?? ForegroundColor;
+            ConsoleColor? actualBackgroundColor = backgroundColor ?? BackgroundColor;
+            tablePrinter.Write(c.ToString(), actualForegroundColor, actualBackgroundColor);
         }
     }
 }

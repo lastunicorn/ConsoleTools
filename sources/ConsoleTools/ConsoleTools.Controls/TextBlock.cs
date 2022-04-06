@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (Text == null)
                 return;
 
-            IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth);
+            IEnumerable<string> chunks = Text.GetLines(display.Layout.ActualContentWidth);
 
             foreach (string chunk in chunks)
                 display.WriteRow(chunk);
@@ -74,7 +74,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
 
-        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
+        protected override int? DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Displays the specified text into the console.

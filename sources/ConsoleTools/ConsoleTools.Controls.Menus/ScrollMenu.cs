@@ -154,7 +154,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// Erases oll the information of the previous display.
         /// Calculates the inner size (without the margins) of the control.
         /// </summary>
-        protected override void OnBeforeDisplay()
+        protected override void OnBeforeDisplay(DisplayEventArgs e)
         {
             if (menuItems.SelectableItemsCount == 0)
                 throw new ApplicationException("There are no menu items to be displayed.");
@@ -169,7 +169,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
             //Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
 
-            base.OnBeforeDisplay();
+            base.OnBeforeDisplay(e);
         }
 
         /// <summary>
@@ -359,9 +359,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             return true;
         }
 
-        protected override void OnAfterDisplay()
+        protected override void OnAfterDisplay(DisplayEventArgs e)
         {
-            base.OnAfterDisplay();
+            base.OnAfterDisplay(e);
 
             SelectedItem?.Command?.Execute();
         }

@@ -32,6 +32,44 @@ namespace DustInTheWind.ConsoleTools.Controls
         private ConsoleColor? initialForegroundColor;
         private ConsoleColor? initialBackgroundColor;
 
+        public override bool IsCursorVisible
+        {
+            get => Console.CursorVisible;
+            set => Console.CursorVisible = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value that specifies who should be considered the parent if none is specified.
+        /// This is useful when calculating the alignment.
+        /// Default value: ConsoleWindow
+        /// </summary>
+        public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
+
+        /// <summary>
+        /// Gets the width available for the control to render itself.
+        /// </summary>
+        /// <remarks>
+        /// The parent's control is deciding this space.
+        /// </remarks>
+        public override int AvailableWidth
+        {
+            get
+            {
+                switch (DefaultParent)
+                {
+                    case DefaultParent.ConsoleBuffer:
+                        return Console.BufferWidth - 1;
+
+                    case DefaultParent.ConsoleWindow:
+                        return Console.WindowWidth - 1;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+
         protected override void SetRowForegroundColor(ConsoleColor? foregroundColor)
         {
             ConsoleColor? calculatedForegroundColor = foregroundColor ?? ForegroundColor;
@@ -45,12 +83,6 @@ namespace DustInTheWind.ConsoleTools.Controls
             {
                 initialForegroundColor = null;
             }
-        }
-
-        protected override void RestoreForegroundColor()
-        {
-            if (initialForegroundColor.HasValue)
-                Console.ForegroundColor = initialForegroundColor.Value;
         }
 
         protected override void SetRowBackgroundColor(ConsoleColor? backgroundColor)
@@ -68,10 +100,21 @@ namespace DustInTheWind.ConsoleTools.Controls
             }
         }
 
-        protected override void RestoreBackgroundColor()
+        protected override void ResetRowForegroundColor()
+        {
+            if (initialForegroundColor.HasValue)
+                Console.ForegroundColor = initialForegroundColor.Value;
+        }
+
+        protected override void ResetRowBackgroundColor()
         {
             if (initialBackgroundColor.HasValue)
                 Console.BackgroundColor = initialBackgroundColor.Value;
+        }
+
+        protected override void WriteNewLineInternal()
+        {
+            Console.WriteLine();
         }
 
         protected override void WriteInternal(string text)
@@ -79,14 +122,40 @@ namespace DustInTheWind.ConsoleTools.Controls
             CustomConsole.Write(text);
         }
 
-        protected override void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
         {
-            CustomConsole.Write(foregroundColor, backgroundColor, text);
+            if (foregroundColor.HasValue)
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.Write(foregroundColor.Value, backgroundColor.Value, text);
+                else
+                    CustomConsole.Write(foregroundColor.Value, text);
+            }
+            else
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.WriteBackgroundColor(backgroundColor.Value, text);
+                else
+                    CustomConsole.Write(text);
+            }
         }
 
-        protected override void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, char c)
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
         {
-            CustomConsole.Write(foregroundColor, backgroundColor, c);
+            if (foregroundColor.HasValue)
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.Write(foregroundColor.Value, backgroundColor.Value, c);
+                else
+                    CustomConsole.Write(foregroundColor.Value, c);
+            }
+            else
+            {
+                if (backgroundColor.HasValue)
+                    CustomConsole.WriteBackgroundColor(backgroundColor.Value, c);
+                else
+                    CustomConsole.Write(c);
+            }
         }
     }
 }

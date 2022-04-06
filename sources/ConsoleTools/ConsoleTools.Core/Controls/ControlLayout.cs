@@ -29,16 +29,17 @@ namespace DustInTheWind.ConsoleTools.Controls
     public class ControlLayout
     {
         private HorizontalAlignment calculatedHorizontalAlignment;
+        private IDisplay display;
 
         /// <summary>
         /// Gets or sets the control for which the layout is calculated.
         /// </summary>
-        public BlockControl Control { get; set; }
+        public Control Control { get; set; }
 
-        /// <summary>
-        /// Gets or sets the available width in which the control can be displayed.
-        /// </summary>
-        public int AvailableWidth { get; set; }
+        ///// <summary>
+        ///// Gets or sets the available width in which the control can be displayed.
+        ///// </summary>
+        //public int AvailableWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal alignment of the content.
@@ -136,6 +137,22 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public int OuterEmptySpaceRight { get; private set; }
 
+        public IDisplay Display
+        {
+            get => display;
+            set
+            {
+                if (display != null)
+                    display.Layout = null;
+
+                display = value;
+
+                if (display != null)
+                    display.Layout = this;
+
+            }
+        }
+
         /// <summary>
         /// Calculates the position and dimensions of all the parts that must be displayed.
         /// </summary>
@@ -151,142 +168,217 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void CalculateMargins()
         {
-            MarginLeft = Control.Margin.Left;
-            MarginTop = Control.Margin.Top;
-            MarginRight = Control.Margin.Right;
-            MarginBottom = Control.Margin.Bottom;
+            switch (Control)
+            {
+                case BlockControl blockControl:
+                    MarginLeft = blockControl.Margin.Left;
+                    MarginTop = blockControl.Margin.Top;
+                    MarginRight = blockControl.Margin.Right;
+                    MarginBottom = blockControl.Margin.Bottom;
+                    break;
+
+                case InlineControl inlineControl:
+                    MarginLeft = inlineControl.MarginLeft;
+                    MarginTop = 0;
+                    MarginRight = inlineControl.MarginRight;
+                    MarginBottom = 0;
+                    break;
+
+                default:
+                    MarginLeft = 0;
+                    MarginTop = 0;
+                    MarginRight = 0;
+                    MarginBottom = 0;
+                    break;
+            }
         }
 
         private void CalculatePaddings()
         {
-            PaddingLeft = Control.Padding.Left;
-            PaddingTop = Control.Padding.Top;
-            PaddingRight = Control.Padding.Right;
-            PaddingBottom = Control.Padding.Bottom;
+            switch (Control)
+            {
+                case BlockControl blockControl:
+                    PaddingLeft = blockControl.Padding.Left;
+                    PaddingTop = blockControl.Padding.Top;
+                    PaddingRight = blockControl.Padding.Right;
+                    PaddingBottom = blockControl.Padding.Bottom;
+                    break;
+
+                case InlineControl inlineControl:
+                    PaddingLeft = inlineControl.PaddingLeft;
+                    PaddingTop = 0;
+                    PaddingRight = inlineControl.PaddingRight;
+                    PaddingBottom = 0;
+                    break;
+
+                default:
+                    PaddingLeft = 0;
+                    PaddingTop = 0;
+                    PaddingRight = 0;
+                    PaddingBottom = 0;
+                    break;
+            }
         }
 
         private HorizontalAlignment CalculateHorizontalAlignment()
         {
-            bool widthIsProvided = Control.Width != null || Control.MinWidth != null || Control.MaxWidth != null;
-
-            if (!widthIsProvided)
+            if (Control is BlockControl blockControl)
             {
-                switch (Control.HorizontalAlignment)
+                bool widthIsProvided = blockControl.Width != null || blockControl.MinWidth != null || blockControl.MaxWidth != null;
+
+                if (!widthIsProvided)
                 {
-                    case HorizontalAlignment.Default:
-                        return HorizontalAlignment.Left;
+                    switch (blockControl.HorizontalAlignment)
+                    {
+                        case HorizontalAlignment.Default:
+                            return HorizontalAlignment.Left;
 
-                    case HorizontalAlignment.Left:
-                    case HorizontalAlignment.Center:
-                    case HorizontalAlignment.Right:
-                    case HorizontalAlignment.Stretch:
-                        return Control.HorizontalAlignment.Value;
+                        case HorizontalAlignment.Left:
+                        case HorizontalAlignment.Center:
+                        case HorizontalAlignment.Right:
+                        case HorizontalAlignment.Stretch:
+                            return blockControl.HorizontalAlignment.Value;
 
-                    case null:
-                        return HorizontalAlignment.Stretch;
+                        case null:
+                            return HorizontalAlignment.Stretch;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                {
+                    switch (blockControl.HorizontalAlignment)
+                    {
+                        case HorizontalAlignment.Default:
+                        case HorizontalAlignment.Left:
+                            return HorizontalAlignment.Left;
+
+                        case HorizontalAlignment.Center:
+                            return HorizontalAlignment.Center;
+
+                        case HorizontalAlignment.Right:
+                            return HorizontalAlignment.Right;
+
+                        case HorizontalAlignment.Stretch:
+                            return HorizontalAlignment.Left;
+
+                        case null:
+                            return HorizontalAlignment.Left;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
             else
             {
-                switch (Control.HorizontalAlignment)
-                {
-                    case HorizontalAlignment.Default:
-                    case HorizontalAlignment.Left:
-                        return HorizontalAlignment.Left;
-
-                    case HorizontalAlignment.Center:
-                        return HorizontalAlignment.Center;
-
-                    case HorizontalAlignment.Right:
-                        return HorizontalAlignment.Right;
-
-                    case HorizontalAlignment.Stretch:
-                        return HorizontalAlignment.Left;
-
-                    case null:
-                        return HorizontalAlignment.Left;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                return HorizontalAlignment.Stretch;
             }
         }
 
         private void CalculateActualWidths()
         {
-            // Calculate max widths.
-
-            int calculatedMaxFullWidth = AvailableWidth;
-            int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
-            int calculatedMaxClientWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
-
-            // Calculate actual widths.
-
-            if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch)
+            if (Control is BlockControl blockControl)
             {
-                ActualFullWidth = calculatedMaxFullWidth;
-                ActualWidth = calculatedMaxWidth;
-                ActualClientWidth = calculatedMaxClientWidth;
+                // Calculate max widths.
 
-                int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
-                ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth);
+                int calculatedMaxFullWidth = display.AvailableWidth;
+                int calculatedMaxWidth = calculatedMaxFullWidth - blockControl.Margin.Left - blockControl.Margin.Right;
+                int calculatedMaxClientWidth = calculatedMaxWidth - blockControl.Padding.Left - blockControl.Padding.Right;
+
+                // Calculate actual widths.
+
+                if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch)
+                {
+                    ActualFullWidth = calculatedMaxFullWidth;
+                    ActualWidth = calculatedMaxWidth;
+                    ActualClientWidth = calculatedMaxClientWidth;
+
+                    int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
+                    ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth);
+                }
+                else
+                {
+                    int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
+
+                    ActualContentWidth = calculatedDesiredContentWidth.HasValue
+                        ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth)
+                        : calculatedMaxClientWidth;
+
+                    ActualClientWidth = ActualContentWidth;
+                    ActualWidth = ActualClientWidth + blockControl.Padding.Left + blockControl.Padding.Right;
+                    ActualFullWidth = ActualWidth + blockControl.Margin.Left + blockControl.Margin.Right;
+                }
             }
-            else
+            else if (Control is InlineControl inlineControl)
             {
                 int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
 
-                ActualContentWidth = calculatedDesiredContentWidth.HasValue
-                    ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth)
-                    : calculatedMaxClientWidth;
-
+                ActualContentWidth = calculatedDesiredContentWidth ?? 0;
                 ActualClientWidth = ActualContentWidth;
-                ActualWidth = ActualClientWidth + Control.Padding.Left + Control.Padding.Right;
-                ActualFullWidth = ActualWidth + Control.Margin.Left + Control.Margin.Right;
+                ActualWidth = ActualClientWidth + inlineControl.PaddingLeft + inlineControl.PaddingRight;
+                ActualFullWidth = ActualWidth + inlineControl.MarginLeft + inlineControl.MarginRight;
+            }
+            else
+            {
+                ActualContentWidth = 0;
+                ActualClientWidth = 0;
+                ActualWidth = 0;
+                ActualFullWidth = 0;
             }
         }
 
         private int? CalculateDesiredContentWidth()
         {
-            if (Control.Width != null)
-                return Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
-
-            if (Control.MinWidth == null)
+            if (Control is BlockControl blockControl)
             {
-                if (Control.MaxWidth == null)
+                if (blockControl.Width != null)
+                    return blockControl.Width.Value - blockControl.Padding.Left - blockControl.Padding.Right;
+
+                if (blockControl.MinWidth == null)
                 {
-                    return DesiredContentWidth;
+                    if (blockControl.MaxWidth == null)
+                    {
+                        return DesiredContentWidth;
+                    }
+                    else
+                    {
+                        int clientMaxWidth = blockControl.MaxWidth.Value - blockControl.Padding.Left - blockControl.Padding.Right;
+
+                        return DesiredContentWidth == null
+                            ? clientMaxWidth
+                            : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
+                    }
                 }
                 else
                 {
-                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+                    if (blockControl.MaxWidth == null)
+                    {
+                        int clientMinWidth = blockControl.MinWidth.Value - blockControl.Padding.Left - blockControl.Padding.Right;
 
-                    return DesiredContentWidth == null
-                        ? clientMaxWidth
-                        : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
+                        return DesiredContentWidth == null
+                            ? clientMinWidth
+                            : Math.Max(clientMinWidth, DesiredContentWidth.Value);
+                    }
+                    else
+                    {
+                        int clientMinWidth = blockControl.MinWidth.Value - blockControl.Padding.Left - blockControl.Padding.Right;
+                        int clientMaxWidth = blockControl.MaxWidth.Value - blockControl.Padding.Left - blockControl.Padding.Right;
+
+                        return DesiredContentWidth == null
+                            ? clientMinWidth
+                            : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
+                    }
                 }
+            }
+            else if (Control is InlineControl inlineControl)
+            {
+                return DesiredContentWidth ?? 0;
             }
             else
             {
-                if (Control.MaxWidth == null)
-                {
-                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                    return DesiredContentWidth == null
-                        ? clientMinWidth
-                        : Math.Max(clientMinWidth, DesiredContentWidth.Value);
-                }
-                else
-                {
-                    int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-                    int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                    return DesiredContentWidth == null
-                        ? clientMinWidth
-                        : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
-                }
+                return 0;
             }
         }
 
@@ -325,7 +417,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void CalculateOuterEmptySpace()
         {
-            int outerEmptySpaceTotal = AvailableWidth - ActualFullWidth;
+            int outerEmptySpaceTotal = display.AvailableWidth - ActualFullWidth;
 
             switch (calculatedHorizontalAlignment)
             {

@@ -57,26 +57,27 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Method called at the very end, after all the control was displayed.
         /// It Erases the control if requested.
         /// </summary>
-        protected override void OnAfterDisplay()
+        protected override void OnAfterDisplay(DisplayEventArgs e)
         {
-            if (EraseAfterClose && ControlDisplay.DisplayedRowCount > 0)
-                EraseControl();
+            if (EraseAfterClose && e.Display.DisplayedRowCount > 0)
+                EraseControl(e.Display);
 
-            base.OnAfterDisplay();
+            base.OnAfterDisplay(e);
         }
 
-        private void EraseControl()
+        private void EraseControl(IDisplay display)
         {
             string emptyLine = new string(' ', Console.BufferWidth);
 
-            int outerHeight = Margin.Top + ControlDisplay.DisplayedRowCount + Margin.Bottom;
+            int outerHeight = Margin.Top + display.DisplayedRowCount + Margin.Bottom;
 
-            Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
+            int firstLineIndex = Console.CursorTop - outerHeight;
+            Console.SetCursorPosition(0, firstLineIndex);
 
             for (int i = 0; i < outerHeight; i++)
                 Console.Write(emptyLine);
 
-            Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
+            Console.SetCursorPosition(0, firstLineIndex);
         }
     }
 }

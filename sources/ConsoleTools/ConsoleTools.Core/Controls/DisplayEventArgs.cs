@@ -23,26 +23,13 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    partial class BlockControl
+    public class DisplayEventArgs : EventArgs
     {
-        /// <summary>
-        /// Gets or sets the width of the control. The margins are not included.
-        /// </summary>
-        public int? Width { get; set; }
+        public IDisplay Display { get; }
 
-        /// <summary>
-        /// Gets or sets the minimum width allowed for the control.
-        /// </summary>
-        public int? MinWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets the maximum width allowed for the control.
-        /// </summary>
-        public int? MaxWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
-        /// </summary>
-        public HorizontalAlignment? HorizontalAlignment { get; set; }
+        public DisplayEventArgs(IDisplay display)
+        {
+            Display = display ?? throw new ArgumentNullException(nameof(display));
+        }
     }
 }

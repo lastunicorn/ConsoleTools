@@ -29,10 +29,15 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
             Mock<BlockControl> control = new Mock<BlockControl>();
             control.Object.Margin = 10;
 
+            Mock<IDisplay> display = new Mock<IDisplay>();
+            display
+                .Setup(x => x.AvailableWidth)
+                .Returns(100);
+
             ControlLayout controlLayout = new ControlLayout
             {
                 Control = control.Object,
-                AvailableWidth = 100
+                Display = display.Object
             };
             controlLayout.Calculate();
 
@@ -48,10 +53,15 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
             control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
             control.Object.Margin = 10;
 
+            Mock<IDisplay> display = new Mock<IDisplay>();
+            display
+                .Setup(x => x.AvailableWidth)
+                .Returns(102);
+
             ControlLayout controlLayout = new ControlLayout
             {
                 Control = control.Object,
-                AvailableWidth = 102
+                Display = display.Object
             };
             controlLayout.Calculate();
 

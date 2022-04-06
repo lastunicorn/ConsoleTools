@@ -28,6 +28,7 @@ namespace DustInTheWind.ConsoleTools.Tests
 
             Console.WriteLine("actual:");
             Console.WriteLine(actual);
+
             Console.WriteLine("expected:");
             Console.WriteLine(expected);
 

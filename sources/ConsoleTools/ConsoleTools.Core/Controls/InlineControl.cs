@@ -54,82 +54,73 @@ namespace DustInTheWind.ConsoleTools.Controls
         public int PaddingRight { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
         /// Displays the margins and the content of the control.
         /// </summary>
-        protected override void DoDisplay()
+        /// <param name="display"></param>
+        protected override void DoDisplay(IDisplay display)
         {
             if (MarginLeft > 0)
-                DisplayLeftMargin();
+                DisplayLeftMargin(display);
 
             if (PaddingLeft > 0)
-                DisplayPaddingLeft();
+                DisplayPaddingLeft(display);
 
-            DoDisplayContent();
+            DoDisplayContent(display);
 
             if (PaddingRight > 0)
-                DisplayPaddingRight();
+                DisplayPaddingRight(display);
 
             if (MarginRight > 0)
-                DisplayRightMargin();
+                DisplayRightMargin(display);
         }
 
-        private void DisplayLeftMargin()
+        private void DisplayLeftMargin(IDisplay display)
         {
             string space = new string(' ', MarginLeft);
-            Console.Write(space);
+            display.Write(space);
         }
 
-        private void DisplayRightMargin()
+        private void DisplayRightMargin(IDisplay display)
         {
             string space = new string(' ', MarginRight);
-            Console.Write(space);
+            display.Write(space);
         }
 
-        private void DisplayPaddingLeft()
+        private void DisplayPaddingLeft(IDisplay display)
         {
             string paddingLeft = new string(' ', PaddingLeft);
-            WriteText(paddingLeft);
+            WriteText(paddingLeft, display);
         }
 
-        private void DisplayPaddingRight()
+        private void DisplayPaddingRight(IDisplay display)
         {
             string paddingRight = new string(' ', PaddingRight);
-            WriteText(paddingRight);
+            WriteText(paddingRight, display);
         }
 
         /// <summary>
         /// When implemented in a derived class, it displays the content of the control.
         /// This method is not responsible to display the margins.
         /// </summary>
-        protected abstract void DoDisplayContent();
+        /// <param name="display"></param>
+        protected abstract void DoDisplayContent(IDisplay display);
 
         /// <summary>
         /// Helper method that writes the specified text to the console using the
         /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
         /// </summary>
         /// <param name="text">The text to be written to the console.</param>
-        protected void WriteText(string text)
+        /// <param name="display"></param>
+        protected void WriteText(string text, IDisplay display)
         {
             if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(text);
+                display.Write(text);
             else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
+                display.Write(ForegroundColor.Value, BackgroundColor.Value, text);
             else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, text);
+                display.Write(ForegroundColor.Value, null, text);
             else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
+                display.Write(null, BackgroundColor.Value, text);
         }
     }
 }

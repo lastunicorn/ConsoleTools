@@ -23,13 +23,16 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
+    /// <summary>
+    /// Implements base functionality for a display class that is used by a control to display itself.
+    /// </summary>
     public abstract class DisplayBase : IDisplay
     {
         /// <summary>
         /// Gets the number of rows already displayed.
         /// </summary>
         public int DisplayedRowCount { get; private set; }
-
+        
         /// <summary>
         /// Gets or sets the calculated layout for the current instance.
         /// Some details like margin and padding are displayed based on the values provided by this instance.
@@ -47,6 +50,20 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Default value: <c>null</c>
         /// </summary>
         public ConsoleColor? BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Gets the horizontal location of the cursor, starting from the beginning of the current line.
+        /// </summary>
+        public int CursorPosition { get; private set; }
+
+        /// <summary>
+        /// Gets a value specifying if the cursor is at the start of a line.
+        /// </summary>
+        public bool IsBeginOfLine => CursorPosition == 0;
+
+        public abstract bool IsCursorVisible { get; set; }
+        
+        public abstract int AvailableWidth { get; }
 
         /// <summary>
         /// Writes an entire row using the default <see cref="ForegroundColor"/>
@@ -108,10 +125,6 @@ namespace DustInTheWind.ConsoleTools.Controls
             WriteLeftPadding();
         }
 
-        protected abstract void SetRowForegroundColor(ConsoleColor? foregroundColor);
-
-        protected abstract void SetRowBackgroundColor(ConsoleColor? backgroundColor);
-
         /// <summary>
         /// Writes the ending of a row.
         /// It includes the right margin and padding.
@@ -121,13 +134,13 @@ namespace DustInTheWind.ConsoleTools.Controls
             FillContentEmptySpace();
             WriteRightPadding();
 
-            RestoreForegroundColor();
-            RestoreBackgroundColor();
+            ResetRowForegroundColor();
+            ResetRowBackgroundColor();
 
             WriteRightMargin();
             WriteOuterRightEmptySpace();
 
-            Console.WriteLine();
+            WriteNewLine();
 
             DisplayedRowCount++;
         }
@@ -137,7 +150,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (Layout == null)
                 return;
 
-            int cursorLeft = Console.CursorLeft;
+            int cursorLeft = CursorPosition;
 
             if (cursorLeft >= Layout.ActualFullWidth)
                 return;
@@ -150,104 +163,18 @@ namespace DustInTheWind.ConsoleTools.Controls
                 return;
 
             string rightContentEmptySpace = new string(' ', emptySpaceRight);
-            WriteInternal(rightContentEmptySpace);
+            Write(rightContentEmptySpace);
         }
-
-        protected abstract void RestoreForegroundColor();
-
-        protected abstract void RestoreBackgroundColor();
-
-        public void Write(string text)
-        {
-            if (text == null)
-                return;
-
-            WriteInternal(text);
-
-            //if (text == null)
-            //{
-            //    if (Layout != null)
-            //    {
-            //        string rightContentEmptySpace = new string(' ', Layout.ActualContentWidth);
-            //        CustomConsole.Write(rightContentEmptySpace);
-            //    }
-
-            //    return;
-            //}
-
-            //if (Layout == null)
-            //{
-            //    CustomConsole.Write(text);
-            //    return;
-            //}
-
-            //if (text.Length <= Layout.ActualContentWidth)
-            //{
-            //    CustomConsole.Write(text);
-
-            //    if (text.Length < Layout.ActualContentWidth)
-            //    {
-            //        string rightContentEmptySpace = new string(' ', Layout.ActualContentWidth - text.Length);
-            //        CustomConsole.Write(rightContentEmptySpace);
-            //    }
-            //}
-            //else
-            //{
-            //    CustomConsole.Write(text.Substring(0, Layout.ActualContentWidth));
-            //}
-        }
-
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
-        {
-            if (text == null)
-                return;
-
-            if (foregroundColor.HasValue)
-            {
-                if (backgroundColor.HasValue)
-                    WriteInternal(foregroundColor.Value, backgroundColor.Value, text);
-                else
-                    CustomConsole.Write(foregroundColor.Value, text);
-            }
-            else
-            {
-                if (backgroundColor.HasValue)
-                    CustomConsole.WriteBackgroundColor(backgroundColor.Value, text);
-                else
-                    WriteInternal(text);
-            }
-        }
-
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
-        {
-            if (foregroundColor.HasValue)
-            {
-                if (backgroundColor.HasValue)
-                    WriteInternal(foregroundColor.Value, backgroundColor.Value, c);
-                else
-                    CustomConsole.Write(foregroundColor.Value, c);
-            }
-            else
-            {
-                if (backgroundColor.HasValue)
-                    CustomConsole.WriteBackgroundColor(backgroundColor.Value, c);
-                else
-                    CustomConsole.Write(c);
-            }
-        }
-
-        protected abstract void WriteInternal(string text);
-
-        protected abstract void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text);
-
-        protected abstract void WriteInternal(ConsoleColor foregroundColor, ConsoleColor backgroundColor, char c);
 
         private void WriteOuterLeftEmptySpace()
         {
             int spacesCount = Layout.OuterEmptySpaceLeft;
 
             if (spacesCount > 0)
-                Console.Write(new string(' ', spacesCount));
+            {
+                string text = new string(' ', spacesCount);
+                Write(text);
+            }
         }
 
         private void WriteOuterRightEmptySpace()
@@ -255,7 +182,10 @@ namespace DustInTheWind.ConsoleTools.Controls
             int spacesCount = Layout.OuterEmptySpaceRight;
 
             if (spacesCount > 0)
-                Console.Write(new string(' ', spacesCount));
+            {
+                string text = new string(' ', spacesCount);
+                Write(text);
+            }
         }
 
         private void WriteLeftMargin()
@@ -264,7 +194,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 return;
 
             string text = new string(' ', Layout.MarginLeft);
-            CustomConsole.Write(text);
+            Write(text);
         }
 
         private void WriteRightMargin()
@@ -273,7 +203,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 return;
 
             string text = new string(' ', Layout.MarginRight);
-            CustomConsole.Write(text);
+            Write(text);
         }
 
         private void WriteLeftPadding()
@@ -284,9 +214,9 @@ namespace DustInTheWind.ConsoleTools.Controls
             string text = new string(' ', Layout.PaddingLeft);
 
             if (BackgroundColor.HasValue)
-                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
+                Write(null, BackgroundColor.Value, text);
             else
-                CustomConsole.Write(text);
+                Write(text);
         }
 
         private void WriteRightPadding()
@@ -297,9 +227,75 @@ namespace DustInTheWind.ConsoleTools.Controls
             string text = new string(' ', Layout.PaddingRight);
 
             if (BackgroundColor.HasValue)
-                CustomConsole.WithBackgroundColor(BackgroundColor.Value, () => CustomConsole.Write(text));
+                Write(null, BackgroundColor.Value, text);
             else
-                CustomConsole.Write(text);
+                Write(text);
         }
+
+        protected abstract void SetRowForegroundColor(ConsoleColor? foregroundColor);
+
+        protected abstract void SetRowBackgroundColor(ConsoleColor? backgroundColor);
+
+        protected abstract void ResetRowForegroundColor();
+
+        protected abstract void ResetRowBackgroundColor();
+
+        /// <summary>
+        /// Writes the newline character and moves the cursor at the beginning of the next line.
+        /// </summary>
+        public void WriteNewLine()
+        {
+            WriteNewLineInternal();
+            CursorPosition = 0;
+        }
+
+        /// <summary>
+        /// Writes the specified text using the default foreground and background colors.
+        /// </summary>
+        /// <param name="text">The text to be displayed.</param>
+        public void Write(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            WriteInternal(text);
+            CursorPosition += text.Length;
+        }
+
+        /// <summary>
+        /// Writes the specified text using the specified foreground and background colors.
+        /// </summary>
+        /// <param name="backgroundColor">The background color to be used for the text.</param>
+        /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
+        /// <param name="text">The text to be displayed.</param>
+        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            WriteInternal(foregroundColor, backgroundColor, text);
+            CursorPosition += text.Length;
+        }
+
+        /// <summary>
+        /// Writes the specified character using the specified foreground and background colors.
+        /// </summary>
+        /// <param name="backgroundColor">The background color to be used for the text.</param>
+        /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
+        /// <param name="c">The character to be displayed.</param>
+        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
+        {
+            WriteInternal(foregroundColor, backgroundColor, c);
+            CursorPosition += 1;
+        }
+
+        protected abstract void WriteNewLineInternal();
+
+        protected abstract void WriteInternal(string text);
+
+        protected abstract void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text);
+
+        protected abstract void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c);
+
     }
 }

@@ -28,26 +28,9 @@ namespace DustInTheWind.ConsoleTools.Controls
     /// Collects the rendered parts of a <see cref="Control"/> instance as a plain text that is later
     /// returned by the <see cref="ToString"/> method.
     /// </summary>
-    public class StringDisplay : IDisplay
+    public class StringDisplay : DisplayBase
     {
         private readonly StringBuilder sb;
-
-        /// <summary>
-        /// Gets the number of rows written in the internal buffer.
-        /// </summary>
-        public int DisplayedRowCount { get; private set; }
-
-        public ControlLayout Layout { get; set; }
-
-        /// <summary>
-        /// This value is not used.
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// This value is not used.
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StringDisplay"/> class.
@@ -57,70 +40,42 @@ namespace DustInTheWind.ConsoleTools.Controls
             sb = new StringBuilder();
         }
 
-        public void WriteRow(string text)
-        {
-            sb.AppendLine(text);
-            DisplayedRowCount++;
-        }
+        public override bool IsCursorVisible { get; set; } = false;
 
-        public void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
-        {
-            sb.AppendLine(text);
-            DisplayedRowCount++;
-        }
+        public override int AvailableWidth { get; } = 1024;
 
-        /// <summary>
-        /// Writes the line terminator in the internal buffer.
-        /// </summary>
-        public void WriteRow()
-        {
-            sb.AppendLine();
-            DisplayedRowCount++;
-        }
-
-        public void StartRow()
+        protected override void SetRowForegroundColor(ConsoleColor? foregroundColor)
         {
         }
 
-        public void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+        protected override void SetRowBackgroundColor(ConsoleColor? backgroundColor)
         {
         }
 
-        public void EndRow()
+        protected override void ResetRowForegroundColor()
+        {
+        }
+
+        protected override void ResetRowBackgroundColor()
+        {
+        }
+
+        protected override void WriteNewLineInternal()
         {
             sb.AppendLine();
-            DisplayedRowCount++;
         }
 
-        /// <summary>
-        /// Stores the specified text in the internal buffer.
-        /// </summary>
-        /// <param name="text">The text that is written into the internal buffer.</param>
-        public void Write(string text)
+        protected override void WriteInternal(string text)
         {
             sb.Append(text);
         }
 
-        /// <summary>
-        /// Stores the specified text in the internal buffer.
-        /// The foreground and background values are ignored.
-        /// </summary>
-        /// <param name="foregroundColor">This parameter is ignored</param>
-        /// <param name="backgroundColor">This parameter is ignored</param>
-        /// <param name="text">The text that is written into the internal buffer.</param>
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
         {
             sb.Append(text);
         }
 
-        /// <summary>
-        /// Stores the specified character in the internal buffer.
-        /// The foreground and background values are ignored.
-        /// </summary>
-        /// <param name="foregroundColor">This parameter is ignored</param>
-        /// <param name="backgroundColor">This parameter is ignored</param>
-        /// <param name="c">The character that is written into the internal buffer.</param>
-        public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
+        protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
         {
             sb.Append(c);
         }

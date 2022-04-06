@@ -123,12 +123,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// <summary>
         /// Erases all the information of the previous display.
         /// </summary>
-        protected override void OnBeforeDisplay()
+        protected override void OnBeforeDisplay(DisplayEventArgs e)
         {
             LastCommand = null;
             closeWasRequested = false;
 
-            base.OnBeforeDisplay();
+            base.OnBeforeDisplay(e);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             }
         }
 
-        protected override int DesiredContentWidth => int.MaxValue;
+        protected override int? DesiredContentWidth => int.MaxValue;
 
         private void WriteLeftMargin()
         {
@@ -203,9 +203,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above succeeded,
         /// by raising the <see cref="UnhandledCommand"/> event.
         /// </summary>
-        protected override void OnAfterDisplay()
+        protected override void OnAfterDisplay(DisplayEventArgs e)
         {
-            base.OnAfterDisplay();
+            base.OnAfterDisplay(e);
 
             if (LastCommand != null)
             {

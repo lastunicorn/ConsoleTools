@@ -80,18 +80,19 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// <summary>
         /// Displays the current instance to the Console starting from the current location of the cursor.
         /// </summary>
-        protected override void DoDisplayContent()
+        /// <param name="display"></param>
+        protected override void DoDisplayContent(IDisplay display)
         {
             if (CanBeSelected())
             {
-                CustomConsole.Write($"{Id} - {Text}");
+                display.Write($"{Id} - {Text}");
             }
             else
             {
                 if (DisabledForegroundColor.HasValue)
-                    CustomConsole.Write(DisabledForegroundColor.Value, $"{Id} - {Text}");
+                    display.Write(DisabledForegroundColor.Value, null, $"{Id} - {Text}");
                 else
-                    CustomConsole.Write($"{Id} - {Text}");
+                    display.Write($"{Id} - {Text}");
             }
         }
 

@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Default value: <c>true</c>
         /// </summary>
         public bool ShowSeparator { get; set; } = true;
-        
+
         /// <summary>
         /// Event raised before the title is displayed.
         /// It allows to alter the title before it is displayed. 
@@ -102,13 +102,16 @@ namespace DustInTheWind.ConsoleTools.Controls
 
                 titleRowText.Append(version.ToString(3));
             }
-            
+
             display.StartRow();
             display.Write(titleRowText.ToString());
-            Console.WriteLine();
+            display.EndRow();
 
             if (ShowSeparator)
-                display.WriteRow(new string('=', Console.WindowWidth - 1));
+            {
+                string separatorText = new string('=', display.AvailableWidth - 1);
+                display.WriteRow(separatorText);
+            }
         }
 
         private string BuildTitle()

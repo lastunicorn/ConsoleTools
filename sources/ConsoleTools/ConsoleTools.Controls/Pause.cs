@@ -46,7 +46,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <summary>
         /// Gets the width of the displayed Text.
         /// </summary>
-        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
+        protected override int? DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pause"/> class.
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
             lastLineLength = 0;
 
-            IEnumerable<string> lines = Text.GetLines(Layout.ActualContentWidth);
+            IEnumerable<string> lines = Text.GetLines(display.Layout.ActualContentWidth);
 
             foreach (string line in lines)
             {
@@ -80,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Moves the cursor back to the end of the text and waits for the user to press the unlock key.
         /// After the user presses the unlock key the cursor is moved back to the end of the control (after the bottom margin).
         /// </summary>
-        protected override void OnAfterDisplay()
+        protected override void OnAfterDisplay(DisplayEventArgs e)
         {
             int oldCursorLeft = Console.CursorLeft;
             int oldCursorTop = Console.CursorTop;
@@ -93,7 +93,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
             Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
 
-            base.OnAfterDisplay();
+            base.OnAfterDisplay(e);
          }
 
         private void WaitForUnlockKey()

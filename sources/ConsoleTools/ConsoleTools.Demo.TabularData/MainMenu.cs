@@ -106,11 +106,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             };
         }
 
-        protected override void OnBeforeDisplay()
+        protected override void OnBeforeDisplay(DisplayEventArgs e)
         {
             CustomConsole.WriteLine(new string('-', 79));
 
-            base.OnBeforeDisplay();
+            base.OnBeforeDisplay(e);
         }
     }
 }

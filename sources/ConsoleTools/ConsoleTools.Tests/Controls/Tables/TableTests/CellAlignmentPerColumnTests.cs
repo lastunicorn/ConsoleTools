@@ -26,25 +26,24 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void column_0_is_aligned_to_Right()
         {
-            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
+            DataGrid dataGrid = new("This is a cell alignment test");
             dataGrid.HeaderRow.IsVisible = false;
 
-            Column column0 = new Column("Col 0");
+            Column column0 = new("Col 0");
             column0.CellHorizontalAlignment = HorizontalAlignment.Right;
             dataGrid.Columns.Add(column0);
 
-            Column column1 = new Column("Col 1");
+            Column column1 = new("Col 1");
             dataGrid.Columns.Add(column1);
 
-            Column column2 = new Column("Col 2");
+            Column column2 = new("Col 2");
             dataGrid.Columns.Add(column2);
 
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
             dataGrid.Rows.Add("1,0", "1,1", "1,2");
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
-            string expected =
-                @"+-------------------------------+
+            const string expected = @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 |      0,0 | 0,1      | 0,2     |
@@ -59,25 +58,29 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void column_0_is_aligned_to_Right_and_cell_1_0_is_aligned_to_Left()
         {
-            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
+            DataGrid dataGrid = new("This is a cell alignment test");
             dataGrid.HeaderRow.IsVisible = false;
 
-            Column column0 = new Column("Col 0");
+            Column column0 = new("Col 0");
             column0.CellHorizontalAlignment = HorizontalAlignment.Right;
             dataGrid.Columns.Add(column0);
 
-            Column column1 = new Column("Col 1");
+            Column column1 = new("Col 1");
             dataGrid.Columns.Add(column1);
 
-            Column column2 = new Column("Col 2");
+            Column column2 = new("Col 2");
             dataGrid.Columns.Add(column2);
 
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[]
+            {
+                new("1,0", HorizontalAlignment.Left),
+                "1,1",
+                "1,2"
+            });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
-            string expected =
-                @"+-------------------------------+
+            const string expected = @"+-------------------------------+
 | This is a cell alignment test |
 +----------+----------+---------+
 |      0,0 | 0,1      | 0,2     |

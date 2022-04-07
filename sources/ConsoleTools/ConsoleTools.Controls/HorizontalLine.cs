@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
@@ -52,15 +53,10 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
             Margin = "0 1";
         }
-
-        /// <summary>
-        /// Displays the horizontal line.
-        /// </summary>
-        protected override void DoDisplayContent(IDisplay display)
+        
+        public override IControlRenderer GetRenderer(IDisplay display)
         {
-            int actualContentWidth = display.Layout.ActualContentWidth;
-            string text = new string(Character, actualContentWidth);
-            display.WriteRow(text);
+            return new HorizontalLineRenderer(this, display);
         }
 
         /// <summary>
@@ -107,5 +103,27 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
         /// </summary>
         public static string BufferAsString(char c = '-') => new string(c, Console.BufferWidth);
+
+        private class HorizontalLineRenderer : ControlRenderer<string>
+        {
+            private readonly HorizontalLine horizontalLine;
+
+            public HorizontalLineRenderer(HorizontalLine horizontalLine, IDisplay display)
+                : base(display)
+            {
+                this.horizontalLine = horizontalLine ?? throw new ArgumentNullException(nameof(horizontalLine));
+            }
+
+            protected override IEnumerable<string> EnumerateContentRows()
+            {
+                int width = Display.ControlLayout.ActualContentWidth;
+                yield return new string(horizontalLine.Character, width);
+            }
+
+            protected override void DoRenderNextContentRow(string row)
+            {
+                Display.WriteRow(row);
+            }
+        }
     }
 }

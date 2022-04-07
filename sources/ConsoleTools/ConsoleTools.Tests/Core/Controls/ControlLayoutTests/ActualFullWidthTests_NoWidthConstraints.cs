@@ -26,17 +26,12 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_null__call_ActualFullWidth__returns_AvailableWidth()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-
-            Mock<IDisplay> display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(100);
-
-            ControlLayout controlLayout = new ControlLayout
+            Mock<BlockControl> control = new();
+            
+            ControlLayout controlLayout = new()
             {
                 Control = control.Object,
-                Display = display.Object
+                AvailableWidth = 100
             };
             controlLayout.Calculate();
 
@@ -48,18 +43,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
         [Test]
         public void HorizontalAlignment_is_Stretch__call_ActualFullWidth__returns_AvailableWidth()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
+            Mock<BlockControl> control = new();
             control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
-
-            Mock<IDisplay> display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(102);
-
-            ControlLayout controlLayout = new ControlLayout
+            
+            ControlLayout controlLayout = new()
             {
                 Control = control.Object,
-                Display = display.Object
+                AvailableWidth = 102
             };
             controlLayout.Calculate();
 

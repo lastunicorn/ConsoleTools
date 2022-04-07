@@ -81,14 +81,15 @@ namespace DustInTheWind.ConsoleTools.Controls
                 BackgroundColor = BackgroundColor
             };
 
-            ControlLayout layout = new ControlLayout
+            ControlLayout controlLayout = new ControlLayout
             {
                 Control = this,
-                Display = display,
+                AvailableWidth = display.AvailableWidth,
                 DesiredContentWidth = DesiredContentWidth
             };
 
-            layout.Calculate();
+            controlLayout.Calculate();
+            display.ControlLayout = controlLayout;
 
             Display(display);
         }

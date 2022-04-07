@@ -21,13 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore</AssemblyName>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.NetCore</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.NetCore</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Remove="KeyValueControl.cs" />
-        <Compile Remove="Program2.cs" />
-    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />

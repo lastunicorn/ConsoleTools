@@ -170,7 +170,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
             SelectedItem = null;
             closeWasRequested = false;
-            //InnerSize = Size.Empty;
 
             base.OnBeforeDisplay(e);
         }
@@ -190,11 +189,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
         private void DrawTitle(IDisplay display)
         {
-            display.WriteRow(TitleText);
+            TextBlock textBlock = new TextBlock
+            {
+                Text = TitleText,
+                ForegroundColor = TitleForegroundColor,
+                BackgroundColor = TitleBackgroundColor,
+                HorizontalAlignment = Controls.HorizontalAlignment.Left
+            };
+            textBlock.Display(display);
             display.WriteRow();
-            display.WriteRow();
-            
-            //InnerSize = InnerSize.InflateHeight(2);
         }
 
         private void DrawMenu(IDisplay display)
@@ -206,16 +209,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             {
                 menuItem.Display(display);
                 display.WriteRow();
-
-                //InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
             }
         }
 
         private void ReadUserSelection(IDisplay display)
         {
             display.WriteRow();
-            //Console.WriteLine();
-            //InnerSize = InnerSize.InflateHeight(1);
 
             while (!closeWasRequested)
             {

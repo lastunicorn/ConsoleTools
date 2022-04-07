@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
                     display.Write($"{Id} - {Text}");
             }
         }
-
+        
         /// <summary>
         /// Selects the current instance and executes the associated <see cref="Command"/>.
         /// </summary>

@@ -19,19 +19,25 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using DustInTheWind.ConsoleTools.Controls;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Controls
 {
-    internal class FakeBlockControl : BlockControl
+    public class EmptyControlRenderer : ControlRenderer<object>
     {
-        protected override void DoDisplayContent(IDisplay display)
+        public EmptyControlRenderer(IDisplay display)
+            : base(display)
         {
         }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
+        protected override IEnumerable<object> EnumerateContentRows()
         {
-            return null;
+            return Enumerable.Empty<object>();
+        }
+
+        protected override void DoRenderNextContentRow(object row)
+        {
         }
     }
 }

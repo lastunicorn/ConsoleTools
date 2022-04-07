@@ -70,8 +70,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
             CustomConsole.WriteLineEmphasized("===============================================================================");
             CustomConsole.WriteLine();
             CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
-            CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
-            CustomConsole.WriteLine("Press Enter key to select an item.");
             CustomConsole.WriteLine();
         }
 

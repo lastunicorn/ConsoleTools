@@ -20,39 +20,69 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
     public class MultiColor : BlockControl
     {
-        protected override void DoDisplayContent(IDisplay display)
+        private readonly List<ColorItem?> colorItems = new List<ColorItem?>
         {
-            DisplayLine(display, ConsoleColor.Black, "Black");
-            DisplayLine(display, ConsoleColor.White, "White");
-            DisplayLine(display, ConsoleColor.Gray, "Gray");
-            DisplayLine(display, ConsoleColor.DarkGray, "DarkGray");
-            display.WriteRow();
-            DisplayLine(display, ConsoleColor.Blue, "Blue");
-            DisplayLine(display, ConsoleColor.Green, "Green");
-            DisplayLine(display, ConsoleColor.Cyan, "Cyan");
-            DisplayLine(display, ConsoleColor.Red, "Red");
-            DisplayLine(display, ConsoleColor.Magenta, "Magenta");
-            DisplayLine(display, ConsoleColor.Yellow, "Yellow");
-            display.WriteRow();
-            DisplayLine(display, ConsoleColor.DarkBlue, "DarkBlue");
-            DisplayLine(display, ConsoleColor.DarkGreen, "DarkGreen");
-            DisplayLine(display, ConsoleColor.DarkCyan, "DarkCyan");
-            DisplayLine(display, ConsoleColor.DarkRed, "DarkRed");
-            DisplayLine(display, ConsoleColor.DarkMagenta, "DarkMagenta");
-            DisplayLine(display, ConsoleColor.DarkYellow, "DarkYellow");
+            new ColorItem { Color = ConsoleColor.Black, Name = "Black" },
+            new ColorItem { Color = ConsoleColor.White, Name = "White" },
+            new ColorItem { Color = ConsoleColor.Gray, Name = "Gray" },
+            new ColorItem { Color = ConsoleColor.DarkGray, Name = "Dark Gray" },
+            null,
+            new ColorItem { Color = ConsoleColor.Blue, Name = "Blue" },
+            new ColorItem { Color = ConsoleColor.Green, Name = "Green" },
+            new ColorItem { Color = ConsoleColor.Cyan, Name = "Cyan" },
+            new ColorItem { Color = ConsoleColor.Red, Name = "Red" },
+            new ColorItem { Color = ConsoleColor.Magenta, Name = "Magenta" },
+            new ColorItem { Color = ConsoleColor.Yellow, Name = "Yellow" },
+            null,
+            new ColorItem { Color = ConsoleColor.DarkBlue, Name = "Dark Blue" },
+            new ColorItem { Color = ConsoleColor.DarkGreen, Name = "Dark Green" },
+            new ColorItem { Color = ConsoleColor.DarkCyan, Name = "Dark Cyan" },
+            new ColorItem { Color = ConsoleColor.DarkRed, Name = "Dark Red" },
+            new ColorItem { Color = ConsoleColor.DarkMagenta, Name = "DarkMagenta" },
+            new ColorItem { Color = ConsoleColor.DarkYellow, Name = "DarkYellow" }
+        };
+
+        public override IControlRenderer GetRenderer(IDisplay display)
+        {
+            return new MultiColorRenderer(this, display);
         }
 
-        private static void DisplayLine(IDisplay display, ConsoleColor foregroundColor, string text)
+        private class MultiColorRenderer : ControlRenderer<ColorItem?>
         {
-            display.StartRow();
-            display.Write("» ");
-            display.Write(foregroundColor, null, text);
-            display.EndRow();
+            private readonly MultiColor multiColor;
+
+            public MultiColorRenderer(MultiColor multiColor, IDisplay display)
+                : base(display)
+            {
+                this.multiColor = multiColor ?? throw new ArgumentNullException(nameof(multiColor));
+            }
+
+            protected override IEnumerable<ColorItem?> EnumerateContentRows()
+            {
+                return multiColor.colorItems;
+            }
+
+            protected override void DoRenderNextContentRow(ColorItem? row)
+            {
+                if (row == null)
+                    Display.WriteRow();
+                else
+                    DisplayLine(row.Value);
+            }
+
+            private void DisplayLine(ColorItem colorItem)
+            {
+                Display.StartRow();
+                Display.Write("» ");
+                Display.Write(colorItem.Color, null, colorItem.Name);
+                Display.EndRow();
+            }
         }
     }
 }

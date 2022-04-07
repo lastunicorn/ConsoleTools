@@ -58,17 +58,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         /// Gets or sets a format string for the <see cref="Text"/> value.
         /// </summary>
         public string TextFormat { get; set; } = "{0}> ";
-
-        /// <summary>
-        /// Gets or sets the count of spaces to be displayed before the prompter (text + glyph).
-        /// </summary>
-        public int MarginLeft { get; set; } = 0;
-
-        /// <summary>
-        /// Gets or sets the count of spaces to be displayed after the prompter (text + glyph), before the user can write his command.
-        /// </summary>
-        public int MarginRight { get; set; } = 1;
-
+        
         /// <summary>
         /// Event raised when the user writes a new command at the console.
         /// </summary>
@@ -141,40 +131,18 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
             while (!success && !closeWasRequested)
             {
-                WriteLeftMargin();
-
                 display.StartRow();
                 string text = TextFormat == null
                     ? Text
                     : string.Format(TextFormat, Text);
-                CustomConsole.Write(text);
+                display.Write(text);
                 success = ReadUserInput();
                 display.EndRow();
-
-                WriteRightMargin();
             }
         }
 
         protected override int? DesiredContentWidth => int.MaxValue;
-
-        private void WriteLeftMargin()
-        {
-            if (MarginLeft <= 0)
-                return;
-
-            string leftMargin = new string(' ', MarginLeft);
-            Console.Write(leftMargin);
-        }
-
-        private void WriteRightMargin()
-        {
-            if (MarginRight <= 0)
-                return;
-
-            string rightMargin = new string(' ', MarginRight);
-            Console.Write(rightMargin);
-        }
-
+        
         private bool ReadUserInput()
         {
             string commandText = Console.ReadLine();

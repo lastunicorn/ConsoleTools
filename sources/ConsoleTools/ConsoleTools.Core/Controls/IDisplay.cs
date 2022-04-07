@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// When implemented by an inheritor, gets or sets the calculated layout for the current instance.
         /// Some details like margin and padding are displayed based on the values provided by this instance.
         /// </summary>
-        ControlLayout Layout { get; set; }
+        ControlLayout ControlLayout { get; set; }
 
         /// <summary>
         /// When implemented by an inheritor, gts or sets the foreground color used to write the text.
@@ -134,5 +134,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
         /// <param name="c">The character to be displayed.</param>
         void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c);
+
+        IDisplay CreateChild(int availableWidth);
     }
 }

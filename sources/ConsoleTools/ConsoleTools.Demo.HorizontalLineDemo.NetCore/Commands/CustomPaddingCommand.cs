@@ -14,24 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
-
+using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.NetCore.Commands
 {
-    internal class FakeBlockControl : BlockControl
+    internal class CustomPaddingCommand : CommandBase
     {
-        protected override void DoDisplayContent(IDisplay display)
-        {
-        }
+        public override string Title => "Custom Paddings (3 3 3 3)";
 
-        public override IControlRenderer GetRenderer(IDisplay display)
+        protected override void DoExecute()
         {
-            return null;
+            HorizontalLine horizontalLine = new()
+            {
+                Padding = 3,
+                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+            };
+            horizontalLine.Display();
         }
     }
 }

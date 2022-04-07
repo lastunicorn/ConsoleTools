@@ -28,18 +28,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
         [SetUp]
         public void SetUp()
         {
-            Mock<IDisplay> display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(1024);
-
-            Mock<BlockControl> control = new Mock<BlockControl>();
+            Mock<BlockControl> control = new();
             control.Object.Margin = "1 2 3 4";
 
             controlLayout = new ControlLayout
             {
                 Control = control.Object,
-                Display = display.Object
+                AvailableWidth = 1024
             };
 
             controlLayout.Calculate();

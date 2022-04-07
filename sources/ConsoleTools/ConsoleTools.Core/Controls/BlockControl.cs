@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
@@ -27,8 +29,48 @@ namespace DustInTheWind.ConsoleTools.Controls
     /// It also force the rendering to start from the beginning of the next line if the cursor is
     /// in the middle of a line.
     /// </summary>
-    public abstract partial class BlockControl : Control
+    public abstract class BlockControl : Control
     {
+        /// <summary>
+        /// Gets or sets the width of the control. The margins are not included.
+        /// </summary>
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum width allowed for the control.
+        /// </summary>
+        public int? MinWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum width allowed for the control.
+        /// </summary>
+        public int? MaxWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
+        /// </summary>
+        public HorizontalAlignment? HorizontalAlignment { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of space that should be empty outside the control.
+        /// </summary>
+        public Thickness Margin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the amount of space between the content and the margin of the control.
+        /// </summary>
+        public Thickness Padding { get; set; }
+
+        /// <summary>
+        /// Event raised immediately before writing the top margin.
+        /// </summary>
+        public event EventHandler BeforeTopMargin;
+
+        /// <summary>
+        /// Event raised immediately after writing the bottom margin.
+        /// </summary>
+        public event EventHandler AfterBottomMargin;
+
         /// <summary>
         /// Displays the margins and the content of the control.
         /// It also ensures that the control is displayed starting from a new line.
@@ -36,26 +78,44 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <param name="display"></param>
         protected override void DoDisplay(IDisplay display)
         {
-            MoveToNextLineIfNecessary(display);
-
-            WriteTopMargin(display);
-            WriteTopPadding(display);
-            
+            OnBeforeTopMargin();
             DoDisplayContent(display);
-
-            WriteBottomPadding(display);
-            WriteBottomMargin(display);
-        }
-
-        private void MoveToNextLineIfNecessary(IDisplay display)
-        {
-            if (!display.IsBeginOfLine)
-                display.WriteNewLine();
+            OnAfterBottomMargin();
         }
         
         /// <summary>
         /// When implemented by an inheritor, it displays the content of the control to the specified <see cref="IDisplay"/> instance.
         /// </summary>
-        protected abstract void DoDisplayContent(IDisplay display);
+        protected virtual void DoDisplayContent(IDisplay display)
+        {
+            IControlRenderer controlRenderer = GetRenderer(display);
+
+            while (controlRenderer.HasMoreRows)
+            {
+                controlRenderer.RenderNextRow();
+                display.WriteNewLine();
+            }
+        }
+
+        public virtual IControlRenderer GetRenderer(IDisplay display)
+        {
+            return new EmptyControlRenderer(display);
+        }
+
+        /// <summary>
+        /// Method called immediately before writing the top margin.
+        /// </summary>
+        protected virtual void OnBeforeTopMargin()
+        {
+            BeforeTopMargin?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Method called immediately after writing the bottom margin.
+        /// </summary>
+        protected virtual void OnAfterBottomMargin()
+        {
+            AfterBottomMargin?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

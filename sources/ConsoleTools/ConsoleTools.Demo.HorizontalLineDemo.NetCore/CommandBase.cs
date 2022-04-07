@@ -14,24 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-using DustInTheWind.ConsoleTools.Controls;
-
-namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.NetCore
 {
-    internal class FakeBlockControl : BlockControl
+    internal abstract class CommandBase : ICommand
     {
-        protected override void DoDisplayContent(IDisplay display)
+        public bool IsActive => true;
+
+        public abstract string Title { get; }
+
+        public void Execute()
         {
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine($"- {Title}:");
+            CustomConsole.WriteLine();
+
+            DoExecute();
         }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
-        {
-            return null;
-        }
+        protected abstract void DoExecute();
     }
 }

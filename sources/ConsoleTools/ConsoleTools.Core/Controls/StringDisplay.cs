@@ -31,6 +31,7 @@ namespace DustInTheWind.ConsoleTools.Controls
     public class StringDisplay : DisplayBase
     {
         private readonly StringBuilder sb;
+        private int availableWidth = 1024;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StringDisplay"/> class.
@@ -42,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         public override bool IsCursorVisible { get; set; } = false;
 
-        public override int AvailableWidth { get; } = 1024;
+        public override int AvailableWidth => availableWidth;
 
         protected override void SetRowForegroundColor(ConsoleColor? foregroundColor)
         {
@@ -58,6 +59,14 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         protected override void ResetRowBackgroundColor()
         {
+        }
+
+        public override IDisplay CreateChild(int availableWidth)
+        {
+            return new StringDisplay
+            {
+                availableWidth = availableWidth
+            };
         }
 
         protected override void WriteNewLineInternal()

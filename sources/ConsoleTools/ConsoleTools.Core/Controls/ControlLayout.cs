@@ -29,17 +29,16 @@ namespace DustInTheWind.ConsoleTools.Controls
     public class ControlLayout
     {
         private HorizontalAlignment calculatedHorizontalAlignment;
-        private IDisplay display;
 
         /// <summary>
         /// Gets or sets the control for which the layout is calculated.
         /// </summary>
         public Control Control { get; set; }
 
-        ///// <summary>
-        ///// Gets or sets the available width in which the control can be displayed.
-        ///// </summary>
-        //public int AvailableWidth { get; set; }
+        /// <summary>
+        /// Gets or sets the available width in which the control can be displayed.
+        /// </summary>
+        public int AvailableWidth { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal alignment of the content.
@@ -136,23 +135,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// This may be greater than 0 when the control is centered on the screen or aligned to the left.
         /// </summary>
         public int OuterEmptySpaceRight { get; private set; }
-
-        public IDisplay Display
-        {
-            get => display;
-            set
-            {
-                if (display != null)
-                    display.Layout = null;
-
-                display = value;
-
-                if (display != null)
-                    display.Layout = this;
-
-            }
-        }
-
+        
         /// <summary>
         /// Calculates the position and dimensions of all the parts that must be displayed.
         /// </summary>
@@ -283,7 +266,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             {
                 // Calculate max widths.
 
-                int calculatedMaxFullWidth = display.AvailableWidth;
+                int calculatedMaxFullWidth = AvailableWidth;
                 int calculatedMaxWidth = calculatedMaxFullWidth - blockControl.Margin.Left - blockControl.Margin.Right;
                 int calculatedMaxClientWidth = calculatedMaxWidth - blockControl.Padding.Left - blockControl.Padding.Right;
 
@@ -417,7 +400,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void CalculateOuterEmptySpace()
         {
-            int outerEmptySpaceTotal = display.AvailableWidth - ActualFullWidth;
+            int outerEmptySpaceTotal = AvailableWidth - ActualFullWidth;
 
             switch (calculatedHorizontalAlignment)
             {

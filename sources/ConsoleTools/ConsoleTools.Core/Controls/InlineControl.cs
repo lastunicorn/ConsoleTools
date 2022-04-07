@@ -19,8 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
@@ -107,7 +105,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         /// <summary>
         /// Helper method that writes the specified text to the console using the
-        /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
+        /// <see cref="Control.ForegroundColor"/> and <see cref="Control.BackgroundColor"/> values.
         /// </summary>
         /// <param name="text">The text to be written to the console.</param>
         /// <param name="display"></param>

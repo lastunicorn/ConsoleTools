@@ -32,12 +32,12 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Gets the number of rows already displayed.
         /// </summary>
         public int DisplayedRowCount { get; private set; }
-        
+
         /// <summary>
         /// Gets or sets the calculated layout for the current instance.
         /// Some details like margin and padding are displayed based on the values provided by this instance.
         /// </summary>
-        public ControlLayout Layout { get; set; }
+        public ControlLayout ControlLayout { get; set; }
 
         /// <summary>
         /// Gets or sets the foreground color used to write the text.
@@ -62,7 +62,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         public bool IsBeginOfLine => CursorPosition == 0;
 
         public abstract bool IsCursorVisible { get; set; }
-        
+
         public abstract int AvailableWidth { get; }
 
         /// <summary>
@@ -131,34 +131,35 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public void EndRow()
         {
-            FillContentEmptySpace();
-            WriteRightPadding();
+            if (ControlLayout != null)
+            {
+                FillContentEmptySpace();
+                WriteRightPadding();
 
-            ResetRowForegroundColor();
-            ResetRowBackgroundColor();
+                ResetRowForegroundColor();
+                ResetRowBackgroundColor();
 
-            WriteRightMargin();
-            WriteOuterRightEmptySpace();
-
-            WriteNewLine();
+                WriteRightMargin();
+                WriteOuterRightEmptySpace();
+            }
 
             DisplayedRowCount++;
         }
 
         private void FillContentEmptySpace()
         {
-            if (Layout == null)
+            if (ControlLayout == null)
                 return;
 
-            int cursorLeft = CursorPosition;
-
-            if (cursorLeft >= Layout.ActualFullWidth)
-                return;
-
-            int marginRight = Layout.MarginRight;
-            int paddingRight = Layout.PaddingRight;
-            int emptySpaceRight = Layout.ActualFullWidth - cursorLeft - paddingRight - marginRight;
-
+            int cursorPosition = CursorPosition;
+            int outerEmptySpaceLeft = ControlLayout.OuterEmptySpaceLeft;
+            int marginLeft = ControlLayout.MarginLeft;
+            int marginRight = ControlLayout.MarginRight;
+            int paddingLeft = ControlLayout.PaddingLeft;
+            int paddingRight = ControlLayout.PaddingRight;
+            int contentLength = cursorPosition - outerEmptySpaceLeft - marginLeft - paddingLeft;
+            int emptySpaceRight = ControlLayout.ActualClientWidth - contentLength;
+            
             if (emptySpaceRight <= 0)
                 return;
 
@@ -168,7 +169,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void WriteOuterLeftEmptySpace()
         {
-            int spacesCount = Layout.OuterEmptySpaceLeft;
+            int spacesCount = ControlLayout.OuterEmptySpaceLeft;
 
             if (spacesCount > 0)
             {
@@ -179,7 +180,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void WriteOuterRightEmptySpace()
         {
-            int spacesCount = Layout.OuterEmptySpaceRight;
+            int spacesCount = ControlLayout.OuterEmptySpaceRight;
 
             if (spacesCount > 0)
             {
@@ -190,28 +191,28 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void WriteLeftMargin()
         {
-            if (Layout.MarginLeft <= 0)
+            if (ControlLayout.MarginLeft <= 0)
                 return;
 
-            string text = new string(' ', Layout.MarginLeft);
+            string text = new string(' ', ControlLayout.MarginLeft);
             Write(text);
         }
 
         private void WriteRightMargin()
         {
-            if (Layout.MarginRight <= 0)
+            if (ControlLayout.MarginRight <= 0)
                 return;
 
-            string text = new string(' ', Layout.MarginRight);
+            string text = new string(' ', ControlLayout.MarginRight);
             Write(text);
         }
 
         private void WriteLeftPadding()
         {
-            if (Layout.PaddingLeft <= 0)
+            if (ControlLayout.PaddingLeft <= 0)
                 return;
 
-            string text = new string(' ', Layout.PaddingLeft);
+            string text = new string(' ', ControlLayout.PaddingLeft);
 
             if (BackgroundColor.HasValue)
                 Write(null, BackgroundColor.Value, text);
@@ -221,10 +222,10 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private void WriteRightPadding()
         {
-            if (Layout.PaddingRight <= 0)
+            if (ControlLayout.PaddingRight <= 0)
                 return;
 
-            string text = new string(' ', Layout.PaddingRight);
+            string text = new string(' ', ControlLayout.PaddingRight);
 
             if (BackgroundColor.HasValue)
                 Write(null, BackgroundColor.Value, text);
@@ -288,6 +289,8 @@ namespace DustInTheWind.ConsoleTools.Controls
             WriteInternal(foregroundColor, backgroundColor, c);
             CursorPosition += 1;
         }
+
+        public abstract IDisplay CreateChild(int availableWidth);
 
         protected abstract void WriteNewLineInternal();
 

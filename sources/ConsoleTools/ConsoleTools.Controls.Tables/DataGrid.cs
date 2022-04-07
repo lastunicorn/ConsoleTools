@@ -366,7 +366,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             ControlLayout layout = new()
             {
                 Control = this,
-                Display = stringDisplay,
+                AvailableWidth = stringDisplay.AvailableWidth,
                 DesiredContentWidth = DesiredContentWidth
             };
             

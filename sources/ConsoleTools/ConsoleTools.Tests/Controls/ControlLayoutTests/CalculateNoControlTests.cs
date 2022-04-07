@@ -29,19 +29,13 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
     public class CalculateNoControlTests
     {
         private ControlLayout controlLayout;
-        private Mock<IDisplay> display;
 
         [SetUp]
         public void SetUp()
         {
-            display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(1024);
-
             controlLayout = new ControlLayout
             {
-                Display = display.Object
+                AvailableWidth = 1024
             };
             controlLayout.Calculate();
         }

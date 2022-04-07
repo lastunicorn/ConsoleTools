@@ -28,17 +28,6 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
     [TestFixture]
     public class CalculateBlockControlMarginsTests
     {
-        private Mock<IDisplay> display;
-
-        [SetUp]
-        public void SetUp()
-        {
-            display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(1024);
-        }
-
         [Test]
         [TestCase("10", 10)]
         [TestCase("5 10", 10)]
@@ -53,8 +42,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeBlockControl
                 {
                     Margin = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -75,8 +63,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeBlockControl
                 {
                     Margin = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -97,8 +84,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeBlockControl
                 {
                     Margin = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -119,8 +105,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeBlockControl
                 {
                     Margin = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 

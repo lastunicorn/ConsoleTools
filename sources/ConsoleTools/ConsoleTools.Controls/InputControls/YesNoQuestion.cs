@@ -154,17 +154,17 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
         protected override void DoDisplayContent(IDisplay display)
         {
             if (QuestionText != null)
-                DisplayQuestion();
+                DisplayQuestion(display);
 
-            DisplayPossibleAnswersList();
+            DisplayPossibleAnswersList(display);
 
             if (SpaceAfterQuestion > 0)
-                DisplaySpaceAfterQuestion();
+                DisplaySpaceAfterQuestion(display);
 
-            Answer = ReadAnswerInternal();
+            Answer = ReadAnswerInternal(display);
         }
 
-        private void DisplayQuestion()
+        private void DisplayQuestion(IDisplay display)
         {
             InlineTextBlock labelControl = new InlineTextBlock
             {
@@ -173,10 +173,10 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
                 BackgroundColor = QuestionBackgroundColor ?? BackgroundColor,
                 Text = QuestionText
             };
-            labelControl.Display();
+            labelControl.Display(display);
         }
 
-        private void DisplaySpaceAfterQuestion()
+        private void DisplaySpaceAfterQuestion(IDisplay display)
         {
             string space = new string(' ', SpaceAfterQuestion);
 
@@ -186,13 +186,14 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
                 ForegroundColor = ForegroundColor,
                 BackgroundColor = BackgroundColor
             };
-            inlineTextBlock.Display();
+            inlineTextBlock.Display(display);
         }
 
         /// <summary>
         /// Displays to the console the list of possible answers.
         /// </summary>
-        protected virtual void DisplayPossibleAnswersList()
+        /// <param name="display"></param>
+        protected virtual void DisplayPossibleAnswersList(IDisplay display)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -228,10 +229,10 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
                 ForegroundColor = ForegroundColor,
                 BackgroundColor = BackgroundColor
             };
-            inlineTextBlock.Display();
+            inlineTextBlock.Display(display);
         }
 
-        private YesNoAnswer ReadAnswerInternal()
+        private YesNoAnswer ReadAnswerInternal(IDisplay display)
         {
             while (true)
             {

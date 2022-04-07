@@ -19,19 +19,14 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using DustInTheWind.ConsoleTools.Controls;
+using System;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Controls
 {
-    internal class FakeBlockControl : BlockControl
+    internal struct ColorItem
     {
-        protected override void DoDisplayContent(IDisplay display)
-        {
-        }
+        public ConsoleColor Color { get; set; }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
-        {
-            return null;
-        }
+        public string Name { get; set; }
     }
 }

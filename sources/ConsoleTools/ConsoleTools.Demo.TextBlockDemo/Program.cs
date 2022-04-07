@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
         {
             Console.SetWindowSize(80, 50);
             Console.SetBufferSize(160, 512);
-
+            
             DisplayApplicationHeader();
             RunDemos();
 

@@ -19,19 +19,12 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using DustInTheWind.ConsoleTools.Controls;
-
-namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Controls
 {
-    internal class FakeBlockControl : BlockControl
+    public interface IControlRenderer
     {
-        protected override void DoDisplayContent(IDisplay display)
-        {
-        }
+        bool HasMoreRows { get; }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
-        {
-            return null;
-        }
+        void RenderNextRow();
     }
 }

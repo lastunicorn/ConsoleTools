@@ -19,30 +19,15 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    partial class BlockControl
+    internal enum ControlRenderingState
     {
-        /// <summary>
-        /// Gets or sets the width of the control. The margins are not included.
-        /// </summary>
-        public int? Width { get; set; }
-
-        /// <summary>
-        /// Gets or sets the minimum width allowed for the control.
-        /// </summary>
-        public int? MinWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets the maximum width allowed for the control.
-        /// </summary>
-        public int? MaxWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
-        /// </summary>
-        public HorizontalAlignment? HorizontalAlignment { get; set; }
+        TopMargin,
+        TopPadding,
+        Content,
+        BottomPadding,
+        BottomMargin,
+        Finished
     }
 }

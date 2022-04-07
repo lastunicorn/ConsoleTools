@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Controls.Table
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TabularData", "ConsoleTools.Demo.TabularData\ConsoleTools.Demo.TabularData.csproj", "{9EC116AF-EF51-49F4-BDB1-921DD586C7CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.HorizontalLineDemo.NetCore", "ConsoleTools.Demo.HorizontalLineDemo.NetCore\ConsoleTools.Demo.HorizontalLineDemo.NetCore.csproj", "{02A350A4-438C-4E8D-89D4-908825799EA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,10 @@ Global
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A350A4-438C-4E8D-89D4-908825799EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A350A4-438C-4E8D-89D4-908825799EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A350A4-438C-4E8D-89D4-908825799EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A350A4-438C-4E8D-89D4-908825799EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{8DD165BA-78C3-48A0-BF61-9673458A260C} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{02A350A4-438C-4E8D-89D4-908825799EA5} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

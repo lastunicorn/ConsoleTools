@@ -45,6 +45,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
+        private int? availableWidth;
+
         /// <summary>
         /// Gets the width available for the control to render itself.
         /// </summary>
@@ -55,6 +57,9 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
             get
             {
+                if (availableWidth != null)
+                    return availableWidth.Value;
+
                 switch (DefaultParent)
                 {
                     case DefaultParent.ConsoleBuffer:
@@ -110,6 +115,14 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
             if (initialBackgroundColor.HasValue)
                 Console.BackgroundColor = initialBackgroundColor.Value;
+        }
+
+        public override IDisplay CreateChild(int availableWidth)
+        {
+            return new ControlDisplay
+            {
+                availableWidth = availableWidth
+            };
         }
 
         protected override void WriteNewLineInternal()

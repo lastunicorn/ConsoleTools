@@ -66,13 +66,14 @@ namespace DustInTheWind.ConsoleTools.Controls
 
             lastLineLength = 0;
 
-            IEnumerable<string> lines = Text.GetLines(display.Layout.ActualContentWidth);
+            IEnumerable<string> lines = Text.GetLines(display.ControlLayout.ActualContentWidth);
 
             foreach (string line in lines)
             {
                 lastLineLength = line.Length;
 
                 display.WriteRow(line);
+                display.WriteNewLine();
             }
         }
 
@@ -94,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
 
             base.OnAfterDisplay(e);
-         }
+        }
 
         private void WaitForUnlockKey()
         {

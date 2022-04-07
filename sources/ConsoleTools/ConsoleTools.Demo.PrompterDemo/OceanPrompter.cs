@@ -24,6 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
     {
         public OceanPrompter()
         {
+            Margin = "1";
             IEnumerable<PrompterItem> items = CreatePrompterItems();
             AddItems(items);
         }

@@ -58,7 +58,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
         /// </summary>
         public void WriteLine()
         {
-            Console.WriteLine();
+            CustomConsole.WriteLine();
         }
 
         private static void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)

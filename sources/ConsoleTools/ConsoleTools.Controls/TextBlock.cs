@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
@@ -58,21 +59,10 @@ namespace DustInTheWind.ConsoleTools.Controls
             Text = text;
         }
 
-        /// <summary>
-        /// Displays the lines of text together with the left and right margins.
-        /// </summary>
-        protected override void DoDisplayContent(IDisplay display)
+        public override IControlRenderer GetRenderer(IDisplay display)
         {
-            if (Text == null)
-                return;
-
-            IEnumerable<string> chunks = Text.GetLines(display.Layout.ActualContentWidth);
-
-            foreach (string chunk in chunks)
-                display.WriteRow(chunk);
+            return new TextBlockRenderer(this, display);
         }
-
-        //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
 
         protected override int? DesiredContentWidth => Text?.Size.Width ?? 0;
 
@@ -87,6 +77,27 @@ namespace DustInTheWind.ConsoleTools.Controls
                 Text = text
             };
             textBlock.Display();
+        }
+
+        private class TextBlockRenderer : ControlRenderer<string>
+        {
+            private readonly TextBlock textBlock;
+
+            public TextBlockRenderer(TextBlock textBlock, IDisplay display)
+                : base(display)
+            {
+                this.textBlock = textBlock ?? throw new ArgumentNullException(nameof(textBlock));
+            }
+
+            protected override IEnumerable<string> EnumerateContentRows()
+            {
+                return textBlock.Text.GetLines(Display.ControlLayout.ActualContentWidth);
+            }
+
+            protected override void DoRenderNextContentRow(string row)
+            {
+                Display.WriteRow(row);
+            }
         }
     }
 }

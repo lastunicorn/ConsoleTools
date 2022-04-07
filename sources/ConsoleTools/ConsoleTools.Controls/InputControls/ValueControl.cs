@@ -144,7 +144,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls
                 case ReadWriteMode.Write:
                     {
                         if (Label != null && ShowLabel)
-                            Label.Display();
+                            Label.Display(display);
 
                         if (Value != null)
                             WriteValue(display);

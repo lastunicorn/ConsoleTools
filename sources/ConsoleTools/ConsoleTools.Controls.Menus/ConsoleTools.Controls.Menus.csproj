@@ -32,6 +32,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
         <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
     </ItemGroup>
 

@@ -28,17 +28,6 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
     [TestFixture]
     public class CalculateInlineControlMarginsTests
     {
-        private Mock<IDisplay> display;
-
-        [SetUp]
-        public void SetUp()
-        {
-            display = new Mock<IDisplay>();
-            display
-                .Setup(x => x.AvailableWidth)
-                .Returns(1024);
-        }
-
         [Test]
         [TestCase(10)]
         [TestCase(8)]
@@ -49,8 +38,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeInlineControl
                 {
                     MarginLeft = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -67,8 +55,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeInlineControl
                 {
                     MarginLeft = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -87,8 +74,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeInlineControl
                 {
                     MarginRight = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -105,8 +91,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 Control = new FakeInlineControl
                 {
                     MarginRight = margin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -126,8 +111,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 {
                     MarginLeft = leftMargin,
                     MarginRight = rightMargin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 
@@ -146,8 +130,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.ControlLayoutTests
                 {
                     MarginLeft = leftMargin,
                     MarginRight = rightMargin
-                },
-                Display = display.Object
+                }
             };
             controlLayout.Calculate();
 

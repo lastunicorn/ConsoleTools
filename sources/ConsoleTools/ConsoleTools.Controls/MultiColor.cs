@@ -53,7 +53,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             return new MultiColorRenderer(this, display);
         }
 
-        private class MultiColorRenderer : ControlRenderer<ColorItem?>
+        private class MultiColorRenderer : RowsControlRenderer<ColorItem?>
         {
             private readonly MultiColor multiColor;
 

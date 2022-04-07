@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TabularDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.HorizontalLineDemo.NetCore", "ConsoleTools.Demo.HorizontalLineDemo.NetCore\ConsoleTools.Demo.HorizontalLineDemo.NetCore.csproj", "{02A350A4-438C-4E8D-89D4-908825799EA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextBlockDemo.NetCore", "ConsoleTools.Demo.TextBlockDemo.NetCore\ConsoleTools.Demo.TextBlockDemo.NetCore.csproj", "{B2A64D01-93BD-4140-9744-12546BE61CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.BorderDemo.NetCore", "ConsoleTools.Demo.BorderDemo.NetCore\ConsoleTools.Demo.BorderDemo.NetCore.csproj", "{1A9012BF-73EE-40C2-8DFD-A83F842BC015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +155,14 @@ Global
 		{02A350A4-438C-4E8D-89D4-908825799EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A350A4-438C-4E8D-89D4-908825799EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A350A4-438C-4E8D-89D4-908825799EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A64D01-93BD-4140-9744-12546BE61CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A64D01-93BD-4140-9744-12546BE61CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A64D01-93BD-4140-9744-12546BE61CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A64D01-93BD-4140-9744-12546BE61CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +183,8 @@ Global
 		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{02A350A4-438C-4E8D-89D4-908825799EA5} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{B2A64D01-93BD-4140-9744-12546BE61CE1} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{1A9012BF-73EE-40C2-8DFD-A83F842BC015} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

@@ -117,11 +117,12 @@ namespace DustInTheWind.ConsoleTools.Controls
                 Console.BackgroundColor = initialBackgroundColor.Value;
         }
 
-        public override IDisplay CreateChild(int availableWidth)
+        public override IDisplay CreateChild()
         {
             return new ControlDisplay
             {
-                availableWidth = availableWidth
+                availableWidth = ControlLayout?.ActualClientWidth,
+                Parent = this
             };
         }
 

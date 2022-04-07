@@ -16,10 +16,10 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands;
 using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.TextBlockDemo.NetCore.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.NetCore
 {
     internal class Program
     {
@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader
+            ApplicationHeader applicationHeader = new()
             {
                 Title = "ConsoleTools Demo - TextBlock"
             };

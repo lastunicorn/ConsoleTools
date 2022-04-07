@@ -46,13 +46,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// after it was displayed.
         /// </summary>
         public bool EraseAfterClose { get; set; }
-
-        /// <summary>
-        /// When implemented by an inheritor it displays the content of the control to the console.
-        /// The inheritor must also calculate and set the <see cref="InnerSize"/> property.
-        /// </summary>
-        protected abstract override void DoDisplayContent(IDisplay display);
-
+        
         /// <summary>
         /// Method called at the very end, after all the control was displayed.
         /// It Erases the control if requested.

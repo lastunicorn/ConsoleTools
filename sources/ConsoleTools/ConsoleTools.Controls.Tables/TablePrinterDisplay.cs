@@ -59,7 +59,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             temporaryBackgroundColor = null;
         }
 
-        public override IDisplay CreateChild(int availableWidth)
+        public override IDisplay CreateChild()
         {
             return new TablePrinterDisplay(tablePrinter);
         }

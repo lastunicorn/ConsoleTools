@@ -61,11 +61,11 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
         }
 
-        public override IDisplay CreateChild(int availableWidth)
+        public override IDisplay CreateChild()
         {
             return new StringDisplay
             {
-                availableWidth = availableWidth
+                availableWidth = ControlLayout?.ActualClientWidth ?? 0
             };
         }
 

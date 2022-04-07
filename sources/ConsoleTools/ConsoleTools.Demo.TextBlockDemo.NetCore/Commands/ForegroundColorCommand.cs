@@ -14,24 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using System;
+using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.NetCore.Commands
 {
-    public class EmptyControlRenderer : ControlRenderer
+    internal class ForegroundColorCommand : CommandBase
     {
-        protected override bool HasMoreContentRows => false;
+        public override string Title => "Foreground Color (Magenta)";
 
-        public EmptyControlRenderer(IDisplay display)
-            : base(display)
+        protected override void DoExecute()
         {
-        }
-
-        protected override void RenderNextContentRow()
-        {
+            TextBlock textBlock = new TextBlock
+            {
+                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
+                ForegroundColor = ConsoleColor.Magenta
+            };
+            textBlock.Display();
         }
     }
 }

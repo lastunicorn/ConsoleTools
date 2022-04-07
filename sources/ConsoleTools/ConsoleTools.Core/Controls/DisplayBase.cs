@@ -56,6 +56,12 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public int CursorPosition { get; private set; }
 
+        public void AdvanceCursor(int value)
+        {
+            CursorPosition += value;
+            Parent?.AdvanceCursor(value);
+        }
+
         /// <summary>
         /// Gets a value specifying if the cursor is at the start of a line.
         /// </summary>
@@ -64,6 +70,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         public abstract bool IsCursorVisible { get; set; }
 
         public abstract int AvailableWidth { get; }
+
+        public IDisplay Parent { get; set; }
 
         /// <summary>
         /// Writes an entire row using the default <see cref="ForegroundColor"/>
@@ -116,6 +124,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
         {
+            CursorPosition = 0;
+
             WriteOuterLeftEmptySpace();
             WriteLeftMargin();
 
@@ -154,12 +164,10 @@ namespace DustInTheWind.ConsoleTools.Controls
             int cursorPosition = CursorPosition;
             int outerEmptySpaceLeft = ControlLayout.OuterEmptySpaceLeft;
             int marginLeft = ControlLayout.MarginLeft;
-            int marginRight = ControlLayout.MarginRight;
             int paddingLeft = ControlLayout.PaddingLeft;
-            int paddingRight = ControlLayout.PaddingRight;
             int contentLength = cursorPosition - outerEmptySpaceLeft - marginLeft - paddingLeft;
             int emptySpaceRight = ControlLayout.ActualClientWidth - contentLength;
-            
+
             if (emptySpaceRight <= 0)
                 return;
 
@@ -247,6 +255,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         public void WriteNewLine()
         {
             WriteNewLineInternal();
+
+            DisplayedRowCount++;
             CursorPosition = 0;
         }
 
@@ -260,7 +270,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 return;
 
             WriteInternal(text);
-            CursorPosition += text.Length;
+            AdvanceCursor(text.Length);
         }
 
         /// <summary>
@@ -275,7 +285,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                 return;
 
             WriteInternal(foregroundColor, backgroundColor, text);
-            CursorPosition += text.Length;
+            AdvanceCursor(text.Length);
         }
 
         /// <summary>
@@ -287,10 +297,10 @@ namespace DustInTheWind.ConsoleTools.Controls
         public void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
         {
             WriteInternal(foregroundColor, backgroundColor, c);
-            CursorPosition += 1;
+            AdvanceCursor(1);
         }
 
-        public abstract IDisplay CreateChild(int availableWidth);
+        public abstract IDisplay CreateChild();
 
         protected abstract void WriteNewLineInternal();
 

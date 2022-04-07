@@ -65,6 +65,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         bool IsCursorVisible { get; set; }
 
         int AvailableWidth { get; }
+        
+        IDisplay Parent { get; set; }
 
         /// <summary>
         /// When implemented by an inheritor, writes an entire row using the default <see cref="ForegroundColor"/>
@@ -135,6 +137,8 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// <param name="c">The character to be displayed.</param>
         void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c);
 
-        IDisplay CreateChild(int availableWidth);
+        void AdvanceCursor(int value);
+
+        IDisplay CreateChild();
     }
 }

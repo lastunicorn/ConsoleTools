@@ -14,24 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using System;
+using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace ConsoleTools.Demo.BorderDemo.NetCore
 {
-    public class EmptyControlRenderer : ControlRenderer
+    internal class Program
     {
-        protected override bool HasMoreContentRows => false;
-
-        public EmptyControlRenderer(IDisplay display)
-            : base(display)
+        private static void Main(string[] args)
         {
-        }
+            Border border = new()
+            {
+                Margin = 2,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.Gray,
+                Control = new TextBlock(new MultilineText(new[] { "something", "something", "something" }))
+                {
+                    Margin = 1,
+                    Padding = 1,
+                    BackgroundColor = ConsoleColor.DarkGray
+                }
+            };
+            border.Display();
 
-        protected override void RenderNextContentRow()
-        {
+            Pause.QuickDisplay();
         }
     }
 }

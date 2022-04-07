@@ -14,24 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.NetCore.Commands
 {
-    public class EmptyControlRenderer : ControlRenderer
+    internal class SingleShortLineCommand : CommandBase
     {
-        protected override bool HasMoreContentRows => false;
+        public override string Title => "Single short line";
 
-        public EmptyControlRenderer(IDisplay display)
-            : base(display)
+        protected override void DoExecute()
         {
-        }
-
-        protected override void RenderNextContentRow()
-        {
+            TextBlock textBlock = new TextBlock("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+            textBlock.Display();
         }
     }
 }

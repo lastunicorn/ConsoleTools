@@ -104,7 +104,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public static string BufferAsString(char c = '-') => new string(c, Console.BufferWidth);
 
-        private class HorizontalLineRenderer : ControlRenderer<string>
+        private class HorizontalLineRenderer : RowsControlRenderer<string>
         {
             private readonly HorizontalLine horizontalLine;
 

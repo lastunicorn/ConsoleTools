@@ -24,16 +24,50 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public abstract class ControlRenderer<TItem> : IControlRenderer
+    public abstract class RowsControlRenderer<TRow> : ControlRenderer
     {
-        private IEnumerator<TItem> itemsEnumerator;
+        private IEnumerator<TRow> rowEnumerator;
         private bool hasMoreContentRows;
+
+        protected override bool HasMoreContentRows => hasMoreContentRows;
+
+        protected RowsControlRenderer(IDisplay display)
+            : base(display)
+        {
+        }
+
+        protected override void Initialize()
+        {
+            IEnumerable<TRow> items = EnumerateContentRows();
+            rowEnumerator = items.GetEnumerator();
+            hasMoreContentRows = rowEnumerator.MoveNext();
+
+            base.Initialize();
+        }
+
+        protected abstract IEnumerable<TRow> EnumerateContentRows();
+
+        protected override void RenderNextContentRow()
+        {
+            TRow item = rowEnumerator.Current;
+            DoRenderNextContentRow(item);
+            hasMoreContentRows = rowEnumerator.MoveNext();
+        }
+
+        protected abstract void DoRenderNextContentRow(TRow row);
+    }
+
+    public abstract class ControlRenderer : IControlRenderer
+    {
         private bool isInitialized;
-        private ControlRenderingState state;
         private int topMarginRemaining;
         private int topPaddingRemaining;
         private int bottomPaddingRemaining;
         private int bottomMarginRemaining;
+
+        public ControlRenderingState RenderingState { get; private set; }
+
+        protected abstract bool HasMoreContentRows { get; }
 
         protected IDisplay Display { get; }
 
@@ -46,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
                 return topMarginRemaining > 0 ||
                        topPaddingRemaining > 0 ||
-                       hasMoreContentRows ||
+                       HasMoreContentRows ||
                        bottomPaddingRemaining > 0 ||
                        bottomMarginRemaining > 0;
             }
@@ -58,11 +92,8 @@ namespace DustInTheWind.ConsoleTools.Controls
             Display = display ?? throw new ArgumentNullException(nameof(display));
         }
 
-        private void Initialize()
+        protected virtual void Initialize()
         {
-            IEnumerable<TItem> items = EnumerateContentRows();
-            itemsEnumerator = items.GetEnumerator();
-            hasMoreContentRows = itemsEnumerator.MoveNext();
             topMarginRemaining = Display.ControlLayout.MarginTop;
             topPaddingRemaining = Display.ControlLayout.PaddingTop;
             bottomPaddingRemaining = Display.ControlLayout.PaddingBottom;
@@ -73,35 +104,34 @@ namespace DustInTheWind.ConsoleTools.Controls
             isInitialized = true;
         }
 
-        protected abstract IEnumerable<TItem> EnumerateContentRows();
-
         public void RenderNextRow()
         {
             if (!isInitialized)
                 Initialize();
 
-            switch (state)
+            switch (RenderingState)
             {
                 case ControlRenderingState.TopMargin:
-                    WriteNextTopMarginRow();
+                    RenderNextTopMarginRow();
                     break;
 
                 case ControlRenderingState.TopPadding:
-                    WriteTopPadding();
+                    RenderNextTopPaddingRow();
                     break;
 
                 case ControlRenderingState.Content:
-                    TItem item = itemsEnumerator.Current;
-                    DoRenderNextContentRow(item);
-                    hasMoreContentRows = itemsEnumerator.MoveNext();
+                    RenderNextContentRow();
                     break;
 
                 case ControlRenderingState.BottomPadding:
-                    WriteBottomPadding();
+                    RenderNextBottomPaddingRow();
                     break;
 
                 case ControlRenderingState.BottomMargin:
-                    WriteBottomMargin();
+                    RenderNextBottomMarginRow();
+                    break;
+
+                case ControlRenderingState.Finished:
                     break;
 
                 default:
@@ -111,37 +141,37 @@ namespace DustInTheWind.ConsoleTools.Controls
             UpdateState();
         }
 
+        protected abstract void RenderNextContentRow();
+
         private void UpdateState()
         {
             if (topMarginRemaining > 0)
-                state = ControlRenderingState.TopMargin;
+                RenderingState = ControlRenderingState.TopMargin;
             else if (topPaddingRemaining > 0)
-                state = ControlRenderingState.TopPadding;
-            else if (hasMoreContentRows)
-                state = ControlRenderingState.Content;
+                RenderingState = ControlRenderingState.TopPadding;
+            else if (HasMoreContentRows)
+                RenderingState = ControlRenderingState.Content;
             else if (bottomPaddingRemaining > 0)
-                state = ControlRenderingState.BottomPadding;
+                RenderingState = ControlRenderingState.BottomPadding;
             else if (bottomMarginRemaining > 0)
-                state = ControlRenderingState.BottomMargin;
+                RenderingState = ControlRenderingState.BottomMargin;
             else
-                state = ControlRenderingState.Finished;
+                RenderingState = ControlRenderingState.Finished;
         }
 
-        protected abstract void DoRenderNextContentRow(TItem row);
-
-        private void WriteNextTopMarginRow()
+        private void RenderNextTopMarginRow()
         {
             if (topMarginRemaining > 0)
                 topMarginRemaining--;
         }
 
-        private void WriteBottomMargin()
+        private void RenderNextBottomMarginRow()
         {
             if (bottomMarginRemaining > 0)
                 bottomMarginRemaining--;
         }
 
-        private void WriteTopPadding()
+        private void RenderNextTopPaddingRow()
         {
             if (topPaddingRemaining > 0)
             {
@@ -152,7 +182,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             }
         }
 
-        private void WriteBottomPadding()
+        private void RenderNextBottomPaddingRow()
         {
             if (bottomPaddingRemaining > 0)
             {

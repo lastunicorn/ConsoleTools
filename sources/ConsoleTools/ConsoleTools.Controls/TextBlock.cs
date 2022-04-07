@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             textBlock.Display();
         }
 
-        private class TextBlockRenderer : ControlRenderer<string>
+        private class TextBlockRenderer : RowsControlRenderer<string>
         {
             private readonly TextBlock textBlock;
 

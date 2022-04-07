@@ -79,27 +79,63 @@ namespace DustInTheWind.ConsoleTools.Controls
         protected override void DoDisplay(IDisplay display)
         {
             OnBeforeTopMargin();
-            DoDisplayContent(display);
+
+            IControlRenderer controlRenderer = GetRenderer(display);
+
+            if (controlRenderer != null)
+            {
+                while (controlRenderer.HasMoreRows)
+                {
+                    bool allowNewLine = AllowNewLine(controlRenderer);
+
+                    controlRenderer.RenderNextRow();
+
+                    if (allowNewLine)
+                        display.WriteNewLine();
+                }
+            }
+
             OnAfterBottomMargin();
         }
-        
+
+        private static bool AllowNewLine(IControlRenderer controlRenderer)
+        {
+            if (controlRenderer is LegacyControlRenderer legacyControlRenderer)
+                return legacyControlRenderer.RenderingState != ControlRenderingState.Content;
+
+            return true;
+        }
+
         /// <summary>
         /// When implemented by an inheritor, it displays the content of the control to the specified <see cref="IDisplay"/> instance.
         /// </summary>
         protected virtual void DoDisplayContent(IDisplay display)
         {
-            IControlRenderer controlRenderer = GetRenderer(display);
-
-            while (controlRenderer.HasMoreRows)
-            {
-                controlRenderer.RenderNextRow();
-                display.WriteNewLine();
-            }
         }
 
         public virtual IControlRenderer GetRenderer(IDisplay display)
         {
-            return new EmptyControlRenderer(display);
+            return new LegacyControlRenderer(this, display);
+        }
+
+        private class LegacyControlRenderer : ControlRenderer
+        {
+            private readonly BlockControl blockControl;
+            private bool hasMoreContentRows = true;
+
+            protected override bool HasMoreContentRows => hasMoreContentRows;
+
+            public LegacyControlRenderer(BlockControl blockControl, IDisplay display)
+                : base(display)
+            {
+                this.blockControl = blockControl ?? throw new ArgumentNullException(nameof(blockControl));
+            }
+
+            protected override void RenderNextContentRow()
+            {
+                blockControl.DoDisplayContent(Display);
+                hasMoreContentRows = false;
+            }
         }
 
         /// <summary>

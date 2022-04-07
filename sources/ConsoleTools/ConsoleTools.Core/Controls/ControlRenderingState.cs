@@ -21,7 +21,7 @@
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    internal enum ControlRenderingState
+    public enum ControlRenderingState
     {
         TopMargin,
         TopPadding,

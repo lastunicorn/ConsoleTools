@@ -61,6 +61,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.TextBlock
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.BorderDemo.NetCore", "ConsoleTools.Demo.BorderDemo.NetCore\ConsoleTools.Demo.BorderDemo.NetCore.csproj", "{1A9012BF-73EE-40C2-8DFD-A83F842BC015}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.BorderDemo", "ConsoleTools.Demo.BorderDemo\ConsoleTools.Demo.BorderDemo.csproj", "{9B468BC8-333C-4298-A60E-0809F50936A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ProgressBarDemo.NetCore", "ConsoleTools.Demo.ProgressBarDemo.NetCore\ConsoleTools.Demo.ProgressBarDemo.NetCore.csproj", "{0C08A6FB-30A2-44E0-93C4-623780036109}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo", "ConsoleTools.Demo\ConsoleTools.Demo.csproj", "{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Musical.NetCore", "ConsoleTools.Demo.Musical.NetCore\ConsoleTools.Demo.Musical.NetCore.csproj", "{5F9AE052-36CA-475B-92DC-46392EB5744F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +171,22 @@ Global
 		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A9012BF-73EE-40C2-8DFD-A83F842BC015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B468BC8-333C-4298-A60E-0809F50936A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B468BC8-333C-4298-A60E-0809F50936A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B468BC8-333C-4298-A60E-0809F50936A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B468BC8-333C-4298-A60E-0809F50936A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C08A6FB-30A2-44E0-93C4-623780036109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C08A6FB-30A2-44E0-93C4-623780036109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C08A6FB-30A2-44E0-93C4-623780036109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C08A6FB-30A2-44E0-93C4-623780036109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9AE052-36CA-475B-92DC-46392EB5744F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9AE052-36CA-475B-92DC-46392EB5744F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9AE052-36CA-475B-92DC-46392EB5744F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9AE052-36CA-475B-92DC-46392EB5744F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +209,10 @@ Global
 		{02A350A4-438C-4E8D-89D4-908825799EA5} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{B2A64D01-93BD-4140-9744-12546BE61CE1} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{1A9012BF-73EE-40C2-8DFD-A83F842BC015} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{9B468BC8-333C-4298-A60E-0809F50936A0} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{0C08A6FB-30A2-44E0-93C4-623780036109} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{5F9AE052-36CA-475B-92DC-46392EB5744F} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

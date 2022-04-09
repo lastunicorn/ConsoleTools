@@ -28,10 +28,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
         {
             try
             {
-                DisplayApplicationHeader();
-
                 Console.SetWindowSize(80, 50);
                 Console.SetBufferSize(80, 50);
+
+                DisplayApplicationHeader();
 
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
@@ -66,11 +66,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TextMenu");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "TextMenu Demo",
+                Description = "This demo shows how the TextMenu can be used."
+            };
+            applicationHeader.Display();
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

@@ -15,46 +15,37 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Spinners;
+using DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.PresentationLayer;
 
-namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore
 {
     /// <summary>
-    /// The <see cref="Spinner"/> example is in the Worker.cs file.
+    /// This is an example of a asynchronous job that is running in the background.
+    /// Its progress is displayed in the Console using a progress bar.
     /// </summary>
     internal class Program
     {
-        private static ControlRepeater menuRepeater;
-
         private static void Main()
         {
             DisplayApplicationHeader();
 
-            menuRepeater = new ControlRepeater
-            {
-                Control = new MainMenu()
-            };
+            // The most important class is DataProcessingView.
+            // It will demonstrate the usage of the ProgressBar class.
 
-            menuRepeater.Display();
+            DataProcessingView view = new();
+            view.Show();
+
+            Pause.QuickDisplay();
         }
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader()
+            ApplicationHeader applicationHeader = new()
             {
-                Appendix = "Spinner Demo",
-                Description = new[]
-                {
-                    "Step 1: Select a template for the spinner.",
-                    "Step 2: The application will simulate some work and display the spinner until the work is finish."
-                }
+                Appendix = "ProgressBar Demo",
+                Description = "This demo shows the usage of the ProgressBar control."
             };
             applicationHeader.Display();
-        }
-
-        public static void RequestStop()
-        {
-            menuRepeater.RequestClose();
         }
     }
 }

@@ -28,9 +28,11 @@ namespace DustInTheWind.ConsoleTools.Controls
     /// <summary>
     /// Displays a header containing the application's name and version.
     /// </summary>
-    public class ApplicationHeader : BlockControl
+    public partial class ApplicationHeader : BlockControl
     {
         private readonly ApplicationInformation applicationInformation;
+        
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the title to be displayed in the header.
@@ -38,27 +40,27 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// taken from the entry assembly.
         /// If the attribute is absent, only the version will be displayed.
         /// </summary>
-        public string Title { get; set; }
+        public string ProductName { get; set; }
+
+        public Version ProductVersion { get; set; }
+
+        public string Appendix { get; set; }
+
+        public MultilineText Description { get; set; }
 
         /// <summary>
         /// Gets or sets a value that specifies if the version of the application should be displayed
         /// after the title.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool ShowVersion { get; set; } = true;
+        public bool IsVersionVisible { get; set; } = true;
 
         /// <summary>
         /// Gets or sets a value that specifies if a separator line below the title
         /// should be displayed.
         /// Default value: <c>true</c>
         /// </summary>
-        public bool ShowSeparator { get; set; } = true;
-
-        /// <summary>
-        /// Event raised before the title is displayed.
-        /// It allows to alter the title before it is displayed. 
-        /// </summary>
-        public event EventHandler<TitleDisplayEventArgs> TitleDisplay;
+        public bool IsSeparatorVisible { get; set; } = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationHeader"/> class.
@@ -74,57 +76,82 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// </summary>
         public ApplicationHeader(string title)
         {
+            Title = title;
+
             applicationInformation = new ApplicationInformation();
-            Title = title ?? applicationInformation.GetProductName();
 
             Margin = "0 0 0 1";
         }
 
-        /// <summary>
-        /// This method actually displays the header.
-        /// Can be overwritten in order to fully control what is displayed.
-        /// </summary>
-        /// <param name="display">This instance can be used in order to interact with the console.</param>
-        protected override void DoDisplayContent(IDisplay display)
+        public override IControlRenderer GetRenderer(IDisplay display)
         {
-            Version version = applicationInformation.GetVersion();
-
-            StringBuilder titleRowText = new StringBuilder();
-
-            string title = BuildTitle();
-            if (title != null)
-                titleRowText.Append(title);
-
-            if (ShowVersion)
-            {
-                if (titleRowText.Length > 0)
-                    titleRowText.Append(" ");
-
-                titleRowText.Append(version.ToString(3));
-            }
-
-            display.StartRow();
-            display.Write(titleRowText.ToString());
-            display.EndRow();
-
-            if (ShowSeparator)
-            {
-                string separatorText = new string('=', display.AvailableWidth - 1);
-                display.WriteRow(separatorText);
-            }
+            return new ApplicationHeaderRenderer(this, display);
         }
 
-        private string BuildTitle()
+        private string BuildTitleText()
         {
-            TitleDisplayEventArgs titleDisplayEventArgs = new TitleDisplayEventArgs(Title);
-            OnTitleDisplay(titleDisplayEventArgs);
-
-            return titleDisplayEventArgs.Title;
+            return BuildTitleText(Title);
         }
 
-        protected virtual void OnTitleDisplay(TitleDisplayEventArgs e)
+        protected virtual string BuildTitleText(string proposedTitle)
         {
-            TitleDisplay?.Invoke(this, e);
+            if (proposedTitle != null)
+                return proposedTitle;
+
+            return BuildDefaultTitle();
+        }
+
+        private string BuildDefaultTitle()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string productName = BuildProductName();
+            if (productName != null)
+                sb.Append(productName);
+
+            if (IsVersionVisible)
+            {
+                string productVersion = BuildProductVersion();
+                if (productVersion != null)
+                {
+                    if (sb.Length > 0)
+                        sb.Append(" ");
+
+                    sb.Append(productVersion);
+                }
+            }
+
+            string appendix = BuildAppendixText();
+            if (appendix != null)
+            {
+                if (sb.Length > 0)
+                    sb.Append(" - ");
+
+                sb.Append(appendix);
+            }
+
+            return sb.ToString();
+        }
+
+        protected virtual string BuildProductName()
+        {
+            return ProductName ?? applicationInformation.GetProductName();
+        }
+
+        protected virtual string BuildProductVersion()
+        {
+            Version version = ProductVersion ?? applicationInformation.GetVersion();
+            return version?.ToString(3);
+        }
+
+        private string BuildAppendixText()
+        {
+            return Appendix;
+        }
+
+        protected virtual MultilineText BuildDescription()
+        {
+            return Description;
         }
     }
 }

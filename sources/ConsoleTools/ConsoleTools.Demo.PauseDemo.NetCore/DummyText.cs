@@ -15,9 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Threading;
-using DustInTheWind.ConsoleTools;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
 {
     internal static class DummyText
     {

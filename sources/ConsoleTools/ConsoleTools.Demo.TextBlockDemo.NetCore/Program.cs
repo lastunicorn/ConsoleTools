@@ -38,7 +38,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.NetCore
         {
             ApplicationHeader applicationHeader = new()
             {
-                Title = "ConsoleTools Demo - TextBlock"
+                Appendix = "TextBlock Demo"
             };
             applicationHeader.Display();
         }

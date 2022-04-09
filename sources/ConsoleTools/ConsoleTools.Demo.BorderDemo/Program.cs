@@ -14,47 +14,49 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Spinners;
 
-namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
+namespace ConsoleTools.Demo.BorderDemo
 {
-    /// <summary>
-    /// The <see cref="Spinner"/> example is in the Worker.cs file.
-    /// </summary>
     internal class Program
     {
-        private static ControlRepeater menuRepeater;
-
-        private static void Main()
+        private static void Main(string[] args)
         {
             DisplayApplicationHeader();
+            DisplayTextBlocWithBorder();
 
-            menuRepeater = new ControlRepeater
+            Pause.QuickDisplay();
+        }
+
+        private static void DisplayTextBlocWithBorder()
+        {
+            TextBlock textBlock = new TextBlock
             {
-                Control = new MainMenu()
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.DarkGray,
+                Text = new[] { "something", "something", "something" }
             };
 
-            menuRepeater.Display();
+            Border border = new Border
+            {
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.Gray,
+                Control = textBlock
+            };
+
+            border.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
             ApplicationHeader applicationHeader = new ApplicationHeader()
             {
-                Appendix = "Spinner Demo",
-                Description = new[]
-                {
-                    "Step 1: Select a template for the spinner.",
-                    "Step 2: The application will simulate some work and display the spinner until the work is finish."
-                }
+                Appendix = "Border Demo"
             };
             applicationHeader.Display();
-        }
-
-        public static void RequestStop()
-        {
-            menuRepeater.RequestClose();
         }
     }
 }

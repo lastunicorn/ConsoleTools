@@ -69,7 +69,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
         };
 
         /// <summary>
-        /// Gets or sets the text displayed when the user chooses an inexistent option.
+        /// Gets or sets the text displayed when the user chooses an nonexistent option.
         /// </summary>
         public string InvalidOptionText { get; set; } = TextMenuResources.InvalidOptionMessage;
 
@@ -194,10 +194,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
                 Text = TitleText,
                 ForegroundColor = TitleForegroundColor,
                 BackgroundColor = TitleBackgroundColor,
-                HorizontalAlignment = Controls.HorizontalAlignment.Left
+                HorizontalAlignment = Controls.HorizontalAlignment.Left,
+                Margin = "0 0 0 1"
             };
-            textBlock.Display(display);
-            display.WriteRow();
+
+            IDisplay childDisplay = display.CreateChild();
+            ControlLayout controlLayout = new ControlLayout()
+            {
+                Control = textBlock,
+                AvailableWidth = display.AvailableWidth
+            };
+            controlLayout.Calculate();
+            childDisplay.ControlLayout = controlLayout;
+
+            textBlock.Display(childDisplay);
         }
 
         private void DrawMenu(IDisplay display)
@@ -208,13 +218,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
             foreach (TextMenuItem menuItem in menuItemsToDisplay)
             {
                 menuItem.Display(display);
-                display.WriteRow();
+                display.WriteNewLine();
             }
         }
 
         private void ReadUserSelection(IDisplay display)
         {
             display.WriteRow();
+            display.WriteNewLine();
 
             while (!closeWasRequested)
             {

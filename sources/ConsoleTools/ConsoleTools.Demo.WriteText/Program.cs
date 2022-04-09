@@ -23,10 +23,10 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
     {
         private static void Main()
         {
-            DisplayApplicationHeader();
-
             Console.SetWindowSize(80, 24);
             Console.SetBufferSize(80, 1024);
+
+            DisplayApplicationHeader();
 
             try
             {
@@ -48,7 +48,6 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
                 RunAlignmentExample();
             }
-
             finally
             {
                 Pause.QuickDisplay();
@@ -73,7 +72,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             {
                 CustomConsole.WriteLine("Normal: This is a normal line of text.");
                 CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasized("Emphasies: But I can also write an emphasized text.");
+                CustomConsole.WriteLineEmphasized("Emphasized: But I can also write an emphasized text.");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
                 CustomConsole.WriteLine();
@@ -81,7 +80,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
 
-                throw new Exception("Some demo exception occured.");
+                throw new Exception("Some demo exception occurred.");
             }
             catch (Exception ex)
             {
@@ -92,9 +91,11 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "Write Normal/Emphasized/Warning/Error"
+            };
+            applicationHeader.Display();
         }
     }
 }

@@ -46,6 +46,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             string line = BuildLine(columns);
             display.WriteRow(ForegroundColor, BackgroundColor, line);
+            display.WriteNewLine();
         }
 
         private string BuildLine(IReadOnlyList<ColumnX> columns)

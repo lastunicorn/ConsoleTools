@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore</AssemblyName>
     </PropertyGroup>
 

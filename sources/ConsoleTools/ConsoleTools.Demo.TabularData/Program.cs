@@ -39,11 +39,18 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TabularData");
-            CustomConsole.WriteLineEmphasized(new string('=', 79));
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how to display data in tables.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "DataGrid Demo",
+                Description = "This demo shows how to display data in tables."
+            };
+            applicationHeader.Display();
+
+            //CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TabularData");
+            //CustomConsole.WriteLineEmphasized(new string('=', 79));
+            //CustomConsole.WriteLine();
+            //CustomConsole.WriteLine("This demo shows how to display data in tables.");
+            //CustomConsole.WriteLine();
         }
     }
 }

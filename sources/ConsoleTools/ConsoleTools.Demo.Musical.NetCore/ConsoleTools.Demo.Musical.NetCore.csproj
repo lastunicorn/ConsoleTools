@@ -21,12 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.BorderDemo.NetCore</AssemblyName>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.BorderDemo.NetCore</RootNamespace>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.Musical.NetCore</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.Musical.NetCore</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+      <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+      <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
     </ItemGroup>
 
 </Project>

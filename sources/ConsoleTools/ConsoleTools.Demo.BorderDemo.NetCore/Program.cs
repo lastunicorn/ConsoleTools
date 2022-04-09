@@ -17,27 +17,46 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.BorderDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.NetCore
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            Border border = new()
-            {
-                Margin = 2,
-                Padding = 1,
-                BackgroundColor = ConsoleColor.Gray,
-                Control = new TextBlock(new MultilineText(new[] { "something", "something", "something" }))
-                {
-                    Margin = 1,
-                    Padding = 1,
-                    BackgroundColor = ConsoleColor.DarkGray
-                }
-            };
-            border.Display();
+            DisplayApplicationHeader();
+            DisplayTextBlocWithBorder();
 
             Pause.QuickDisplay();
+        }
+
+        private static void DisplayTextBlocWithBorder()
+        {
+            TextBlock textBlock = new()
+            {
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.DarkGray,
+                Text = new[] { "something", "something", "something" }
+            };
+
+            Border border = new()
+            {
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.Gray,
+                Control = textBlock
+            };
+
+            border.Display();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            ApplicationHeader applicationHeader = new()
+            {
+                Appendix = "Border Demo"
+            };
+            applicationHeader.Display();
         }
     }
 }

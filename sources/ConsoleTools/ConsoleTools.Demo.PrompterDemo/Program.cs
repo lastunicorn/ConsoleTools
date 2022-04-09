@@ -31,13 +31,16 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Prompter");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-
-            CustomConsole.WriteEmphasized("Note: ");
-            CustomConsole.WriteLine("type 'help' for a list of commands.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "Prompter Demo",
+                Description = new[]
+                {
+                    "Note: ",
+                    "type 'help' for a list of commands."
+                }
+            };
+            applicationHeader.Display();
         }
 
         private static void StartDemo()

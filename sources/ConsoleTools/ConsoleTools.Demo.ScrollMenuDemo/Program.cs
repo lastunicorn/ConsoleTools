@@ -28,10 +28,10 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
         {
             try
             {
-                DisplayApplicationHeader();
-
                 Console.SetWindowSize(80, 50);
                 Console.SetBufferSize(80, 50);
+
+                DisplayApplicationHeader();
 
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
@@ -74,13 +74,17 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - ScrollMenu");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the ScrollMenu can be used.");
-            CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
-            CustomConsole.WriteLine("Press Enter key to select an item.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "ScrollMenu Demo",
+                Description = new[]
+                {
+                    "This demo shows how the ScrollMenu can be used.",
+                    "Press the up/down arrow keys to navigate through the menu.",
+                    "Press Enter key to select an item."
+                }
+            };
+            applicationHeader.Display();
         }
 
         private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)

@@ -15,13 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using ConsoleTools.Demo.PauseDemo.NetCore.Commands;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
 {
     internal class Program
     {
@@ -36,9 +34,9 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader
+            ApplicationHeader applicationHeader = new()
             {
-                Title = "ConsoleTools Demo - Pause"
+                Appendix = "Pause Demo"
             };
             applicationHeader.Display();
         }
@@ -47,7 +45,7 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
         {
             bool exitWasRequested = false;
 
-            TextMenu textMenu = new TextMenu();
+            TextMenu textMenu = new();
             textMenu.AddItems(new[]
             {
                 new TextMenuItem

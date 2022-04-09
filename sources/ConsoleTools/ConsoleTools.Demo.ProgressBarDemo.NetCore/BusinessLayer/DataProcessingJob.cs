@@ -14,17 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.BusinessLayer
 {
-    internal class DefaultCommand : CommandBase
+    /// <summary>
+    /// This is a business class that is asynchronously processing some data.
+    /// Well... we just emulate the data processing, but you get the point.
+    /// The class also provides a ProgressChanged event to announce its progress in percentages from 0 to 100
+    /// and a State property to announce when the process starts and finishes.
+    /// </summary>
+    internal class DataProcessingJob : JobBase
     {
-        public override string Title => "Default Pause";
-
-        protected override void DoExecute()
+        protected override void DoRun()
         {
-            Pause.QuickDisplay();
+            AnnounceProgress(0);
+
+            for (int i = 0; i <= 100; i++)
+            {
+                Thread.Sleep(50);
+                AnnounceProgress(i);
+            }
         }
     }
 }

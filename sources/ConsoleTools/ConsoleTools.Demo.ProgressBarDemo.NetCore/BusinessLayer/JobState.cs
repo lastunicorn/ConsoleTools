@@ -14,17 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
-
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.BusinessLayer
 {
-    internal class DefaultCommand : CommandBase
+    /// <summary>
+    /// Represents the state of a asynchronous job.
+    /// </summary>
+    internal enum JobState
     {
-        public override string Title => "Default Pause";
+        /// <summary>
+        /// Job has never been started.
+        /// </summary>
+        New,
 
-        protected override void DoExecute()
-        {
-            Pause.QuickDisplay();
-        }
+        /// <summary>
+        /// Job is running.
+        /// </summary>
+        Running,
+
+        /// <summary>
+        /// Job has finished its work.
+        /// </summary>
+        Stopped
     }
 }

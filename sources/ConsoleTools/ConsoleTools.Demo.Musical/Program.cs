@@ -27,25 +27,54 @@ namespace DustInTheWind.ConsoleTools.Demo.Musical
 
             CustomConsole.WriteLine("The sound is playing.");
             PlayGreetingSound();
-            CustomConsole.WriteLine("The sound was stopped.");
+            CustomConsole.WriteLine("The sound has finished.");
 
             Pause.QuickDisplay();
         }
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Musical");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how to make sounds in Console.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader
+            {
+                Appendix = "Musical Demo",
+                Description = "This demo shows how to make beeps in the Console."
+            };
+            applicationHeader.Display();
         }
 
         private static void PlayGreetingSound()
         {
-            Sound.Play(MusicalNote.C4, 150);
-            Sound.Play(MusicalNote.D4, 150);
-            Sound.Play(MusicalNote.E4, 150);
+            Sound.Play(MusicalNote.G4, 600);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+
+            Sound.Play(MusicalNote.G4, 600);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+
+            Sound.Play(MusicalNote.G4, 600);
+            Sound.Play(MusicalNote.E4, 600);
         }
     }
 }

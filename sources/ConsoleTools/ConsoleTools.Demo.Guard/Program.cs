@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
             try
             {
                 // Ensure that the application is started only once on the current machine.
-                guardian = new MachineLevelGuardian("Alez");
+                guardian = new MachineLevelGuardian("DustInTheWind.ConsoleTools.Demo.GuardDemo");
 
                 CustomConsole.WriteLineSuccess("The application was successfully started.");
                 CustomConsole.WriteLine();
@@ -58,13 +58,12 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Guard");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows the usage of the Guardian class.");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "Guard Demo",
+                Description = "This demo shows the usage of the Guardian class."
+            };
+            applicationHeader.Display();
         }
     }
 }

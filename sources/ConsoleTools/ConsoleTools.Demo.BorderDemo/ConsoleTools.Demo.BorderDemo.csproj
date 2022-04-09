@@ -4,58 +4,48 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6513994E-72C8-4C79-81FE-DB35FC190D10}</ProjectGuid>
+    <ProjectGuid>{9B468BC8-333C-4298-A60E-0809F50936A0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DustInTheWind.ConsoleTools.Demo.TextBlockDemo</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Demo.TextBlockDemo</AssemblyName>
+    <RootNamespace>ConsoleTools.Demo.BorderDemo</RootNamespace>
+    <AssemblyName>ConsoleTools.Demo.BorderDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="CommandBase.cs" />
-    <Compile Include="Commands\HorizontalAlignmentCenterCommand.cs" />
-    <Compile Include="Commands\HorizontalAlignmentRightCommand.cs" />
-    <Compile Include="Commands\BackgroundColorCommand.cs" />
-    <Compile Include="Commands\MarginsCommand.cs" />
-    <Compile Include="Commands\MinWidthCommand.cs" />
-    <Compile Include="Commands\PaddingsCommand.cs" />
-    <Compile Include="Commands\DefaultCommand.cs" />
-    <Compile Include="Commands\ForegroundColorCommand.cs" />
-    <Compile Include="Commands\MaxWidthCommand.cs" />
-    <Compile Include="Commands\MultipleLongLinesCommand.cs" />
-    <Compile Include="Commands\MultipleShortLinesCommand.cs" />
-    <Compile Include="Commands\SingleLongLineCommand.cs" />
-    <Compile Include="Commands\WidthCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,12 +53,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
-      <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
-      <Name>ConsoleTools.Controls.Menus</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
-      <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>
+      <Project>{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}</Project>
       <Name>ConsoleTools.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">

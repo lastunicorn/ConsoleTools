@@ -50,28 +50,12 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 
         private static void DisplayApplicationHeader()
         {
-            TextBlock title = new TextBlock
+            ApplicationHeader applicationHeader = new ApplicationHeader()
             {
-                Text = "ConsoleTools Demo - HorizontalLine",
-                ForegroundColor = CustomConsole.EmphasizedColor
+                Appendix = "HorizontalLine Demo",
+                Description = "This demo shows the usage of the HorizontalLine controls."
             };
-
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Character = '=',
-                ForegroundColor = CustomConsole.EmphasizedColor,
-                Margin = 0
-            };
-
-            TextBlock description = new TextBlock
-            {
-                Text = "This demo shows the usage of the HorizontalLine controls.",
-                Margin = "0 1"
-            };
-
-            title.Display();
-            horizontalLine.Display();
-            description.Display();
+            applicationHeader.Display();
         }
     }
 }

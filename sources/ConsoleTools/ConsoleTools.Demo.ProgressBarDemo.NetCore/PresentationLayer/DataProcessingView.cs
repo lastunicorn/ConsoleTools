@@ -18,9 +18,9 @@ using System;
 using System.ComponentModel;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
-using DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.BusinessLayer;
+using DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.BusinessLayer;
 
-namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.PresentationLayer
 {
     /// <summary>
     /// This view uses a <see cref="DataProcessingJob"/> to simulate some business process and a <see cref="ProgressBar"/> control
@@ -33,12 +33,20 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
 
         public DataProcessingView()
         {
-            progressBar = new ProgressBar();
+            progressBar = new ProgressBar
+            {
+                BarFillChar = '═',
+                BarFillForegroundColor = ConsoleColor.Green,
+                BarEmptyChar = '-',
+                BarEmptyForegroundColor = ConsoleColor.DarkGray,
+                ShowCursor = false,
+                ShowValue = false
+            };
         }
 
         public void Show()
         {
-            TextBlock textBlock = new TextBlock
+            TextBlock textBlock = new()
             {
                 Margin = "0 0 0 1",
                 Text = "We create a DataProcessingJob object that will simulate some data processing."
@@ -54,15 +62,13 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
 
         private void HandleJobStateChanged(object sender, EventArgs e)
         {
-            DataProcessingJob job = sender as DataProcessingJob;
-
-            if (job == null)
+            if (sender is not DataProcessingJob job)
                 return;
 
             switch (job.State)
             {
                 case JobState.Running:
-                    TextBlock textBlockStart = new TextBlock
+                    TextBlock textBlockStart = new()
                     {
                         Margin = "0 0 0 1",
                         Text = "The job was started."
@@ -73,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer
 
                 case JobState.Stopped:
                     progressBar.Close();
-                    TextBlock textBlockFinish = new TextBlock
+                    TextBlock textBlockFinish = new()
                     {
                         Margin = "0 1 0 0",
                         Text = "The job has finished."

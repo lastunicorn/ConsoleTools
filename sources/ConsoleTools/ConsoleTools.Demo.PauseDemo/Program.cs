@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
 
@@ -23,8 +25,8 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
     {
         private static void Main()
         {
-            //Console.SetWindowSize(80, 50);
-            //Console.SetBufferSize(160, 512);
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
 
             DisplayApplicationHeader();
             RunDemos();
@@ -34,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
         {
             ApplicationHeader applicationHeader = new ApplicationHeader
             {
-                Title = "ConsoleTools Demo - Pause"
+                Appendix = "Pause Demo"
             };
             applicationHeader.Display();
         }

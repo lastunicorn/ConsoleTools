@@ -88,6 +88,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 }
 
                 display.EndRow();
+                display.WriteNewLine();
             }
         }
 

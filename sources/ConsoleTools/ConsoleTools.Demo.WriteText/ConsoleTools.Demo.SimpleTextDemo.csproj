@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo</AssemblyName>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.SimpleTextDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.SimpleTextDemo</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

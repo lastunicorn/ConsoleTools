@@ -16,44 +16,44 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.Core;
-using DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 {
     internal class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "HorizontalLine Demo";
-        
+        private static ControlRepeater menuRepeater;
+
+        public string ShortDescription => "InputControls Demo";
+
         public void ExecuteDemo()
         {
+            Console.SetWindowSize(80, 60);
+            Console.SetBufferSize(80, 1024);
+
             DisplayApplicationHeader();
 
-            ICommand[] commands = {
-                new DefaultCommand(),
-                new CustomCharCommand(),
-                new CustomMarginCommand(),
-                new CustomPaddingCommand(),
-                new CustomForegroundColorCommand(),
-                new CustomBackgroundColorCommand(),
-                new CustomWidthCommand(),
-                new AlignedCenterCommand(),
-                new AlignedRightCommand()
+            menuRepeater = new ControlRepeater
+            {
+                Control = new MainMenu()
             };
 
-            foreach (ICommand command in commands)
-                command.Execute();
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
             ApplicationHeader applicationHeader = new ApplicationHeader
             {
-                Appendix = "HorizontalLine Demo",
-                Description = "This demo shows the usage of the HorizontalLine controls."
+                Appendix = "InputControls Demo",
+                Description = "This demo shows the usage of the input controls (text and list)."
             };
             applicationHeader.Display();
+        }
+
+        public static void Stop()
+        {
+            menuRepeater.RequestClose();
         }
     }
 }

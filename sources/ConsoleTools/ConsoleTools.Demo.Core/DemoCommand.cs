@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
             {
                 TextBlock textBlock = new TextBlock
                 {
-                    Text = "Demo was ended.",
+                    Text = "Demo has finished.",
                     Margin = "0 1"
                 };
                 textBlock.Display();

@@ -22,6 +22,13 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
     {
         public MainMenu(DemoPackages demoPackages, DemoApplication demoApplication)
         {
+            CreateItems(demoPackages, demoApplication);
+
+            Margin = "0 0 0 1";
+        }
+
+        private void CreateItems(DemoPackages demoPackages, DemoApplication demoApplication)
+        {
             int i = 0;
 
             foreach (IDemoPackage demoPackage in demoPackages)
@@ -42,8 +49,6 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
                 Text = "Exit",
                 Command = new ExitCommand(demoApplication)
             });
-
-            Margin = "0 0 0 1";
         }
     }
 }

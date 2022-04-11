@@ -35,7 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
 
             if (answer == YesNoAnswer.Yes)
             {
-                Program.RequestClose();
+                DemoPackage.RequestClose();
             }
             else
             {

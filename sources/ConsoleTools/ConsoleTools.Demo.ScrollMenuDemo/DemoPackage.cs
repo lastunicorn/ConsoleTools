@@ -16,15 +16,18 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
 namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 {
-    internal static class Program
+    internal class DemoPackage : IDemoPackage
     {
         private static GameApplication gameApplication;
         private static ControlRepeater menuRepeater;
 
-        private static void Main()
+        public string ShortDescription => "ScrollMenu Demo";
+
+        public void ExecuteDemo()
         {
             try
             {
@@ -54,10 +57,6 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             catch (Exception ex)
             {
                 CustomConsole.WriteError(ex);
-            }
-            finally
-            {
-                Pause.QuickDisplay();
             }
         }
 

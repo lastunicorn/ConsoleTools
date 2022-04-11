@@ -109,20 +109,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
                 },
 
                 new SeparatorMenuItem(),
-
-                new LabelMenuItem
-                {
-                    Text = "Yes/No Question",
-                    Command = new YesNoCommand()
-                },
-                new LabelMenuItem
-                {
-                    Text = "Yes/No/Cancel Question",
-                    Command = new YesNoCancelCommand()
-                },
-
-                new SeparatorMenuItem(),
-
+                
                 new LabelMenuItem
                 {
                     Text = "Exit",

@@ -1,4 +1,5 @@
-﻿using DustInTheWind.ConsoleTools.Controls;
+﻿using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.Core
 {
@@ -19,8 +20,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
                     {
                         new ApplicationHeader(),
                         mainMenu
-                    }
-                }
+                    },
+                    ForegroundColor = ConsoleColor.DarkCyan
+        }
             };
 
             controlRepeater.Display();

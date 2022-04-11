@@ -15,14 +15,17 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
 {
-    internal class Program
+    internal class DemoPackage : IDemoPackage
     {
         private static ControlRepeater prompterRepeater;
 
-        private static void Main()
+        public string ShortDescription => "Prompter Demo";
+
+        public void ExecuteDemo()
         {
             DisplayApplicationHeader();
             StartDemo();

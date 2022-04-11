@@ -14,18 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace ConsoleTools.Demo.YesNoDemo.Commands
 {
-    internal class YesNoCancelCommand : ICommand
+    internal class YesNoWithDefaultCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            CustomConsole.WriteLine("This is a yes/no/cancel control with default value 'Yes'.");
+            CustomConsole.WriteLine("This is a yes/no control with default value 'Yes'.");
             CustomConsole.WriteLine();
 
             YesNoAnswer answer = AskQuestion();
@@ -36,7 +37,6 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
         {
             YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?")
             {
-                AcceptCancel = true,
                 DefaultAnswer = YesNoAnswer.Yes
             };
 

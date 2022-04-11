@@ -1,85 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A76A253F-E01F-4E5B-80F0-DBBC8B257905}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools.Demo.PrompterDemo</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Demo.PrompterDemo</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="Commands\ExitCommand.cs" />
-    <Compile Include="Commands\HelpCommand.cs" />
-    <Compile Include="OceanPrompter.cs" />
-    <Compile Include="Ocean\WhaleProvider.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Commands\PrompterCommand.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ocean\Whale.cs" />
-    <Compile Include="Commands\WhaleCommand.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
-      <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
-      <Name>ConsoleTools.Controls.Menus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj">
-      <Project>{496B9723-31DD-4200-BA8A-437D20C6D004}</Project>
-      <Name>ConsoleTools.Controls.Tables</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
-      <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>
-      <Name>ConsoleTools.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">
-      <Project>{975d695d-1fd2-446f-bd7c-0f7839c1559d}</Project>
-      <Name>ConsoleTools.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<!--
+ConsoleTools
+Copyright (C) 2017-2022 Dust in the Wind
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.PrompterDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.PrompterDemo</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" />
+    </ItemGroup>
+
+    <Import Project="..\DemoPublish.targets" />
+
 </Project>

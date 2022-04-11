@@ -14,17 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands
 {
-    internal class ExitCommand : ICommand
+    internal class YesNoCommand : ICommand
     {
         public bool IsActive => true;
 
         public void Execute()
         {
-            DemoPackage.Stop();
+            CustomConsole.WriteLine("This is a simple yes/no control with no default value.");
+            CustomConsole.WriteLine();
+
+            YesNoAnswer answer = AskQuestion();
+            DisplayAnswer(answer);
+        }
+
+        private static YesNoAnswer AskQuestion()
+        {
+            YesNoQuestion yesNoQuestion = new YesNoQuestion("Do you want to continue?");
+            return yesNoQuestion.ReadAnswer();
+        }
+
+        private static void DisplayAnswer(YesNoAnswer answer)
+        {
+            CustomConsole.WriteLine();
+            CustomConsole.Write("Your answer: ");
+            CustomConsole.WriteLineEmphasized(answer);
+            CustomConsole.WriteLine();
         }
     }
 }

@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Musical;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
@@ -25,44 +26,57 @@ namespace DustInTheWind.ConsoleTools.Demo.MusicalDemo
 
         public void ExecuteDemo()
         {
-            CustomConsole.WriteLine("The sound is playing.");
-            PlayGreetingSound();
-            CustomConsole.WriteLine("The sound has finished.");
+            DisplayApplicationHeader();
+            PlayTheSnail();
         }
 
-        private static void PlayGreetingSound()
+        private static void DisplayApplicationHeader()
         {
-            Sound.Play(MusicalNote.G4, 600);
-            Sound.Play(MusicalNote.E4, 600);
+            ApplicationHeader applicationHeader = new ApplicationHeader
+            {
+                Appendix = "Musical Demo"
+            };
+            applicationHeader.Display();
+        }
 
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.E4, 600);
 
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.E4, 300);
-            Sound.Play(MusicalNote.E4, 300);
-
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.E4, 600);
-
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.G4, 300);
-            Sound.Play(MusicalNote.E4, 300);
-            Sound.Play(MusicalNote.E4, 300);
+        private static void PlayTheSnail()
+        {
+            CustomConsole.WriteLine("The sound is playing.");
 
             Sound.Play(MusicalNote.G4, 600);
             Sound.Play(MusicalNote.E4, 600);
 
             Sound.Play(MusicalNote.G4, 300);
             Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
             Sound.Play(MusicalNote.E4, 300);
             Sound.Play(MusicalNote.E4, 300);
 
             Sound.Play(MusicalNote.G4, 600);
             Sound.Play(MusicalNote.E4, 600);
+
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.G4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+            Sound.Play(MusicalNote.E4, 300);
+
+            Sound.Play(MusicalNote.G4, 600);
+            Sound.Play(MusicalNote.E4, 600);
+
+            CustomConsole.WriteLine("The sound has finished.");
         }
     }
 }

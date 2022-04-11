@@ -20,11 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo</AssemblyName>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.TextMenuDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.TextMenuDemo</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />
         <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
         <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" />
     </ItemGroup>

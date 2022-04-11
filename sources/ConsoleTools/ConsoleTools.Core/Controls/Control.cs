@@ -79,14 +79,14 @@ namespace DustInTheWind.ConsoleTools.Controls
             Display(display);
         }
 
-        public IDisplay CreateDisplay(IDisplay parent = null)
+        public IDisplay CreateDisplay(IDisplay parentDisplay = null)
         {
-            IDisplay childDisplay = parent == null
+            IDisplay childDisplay = parentDisplay == null
                 ? new ControlDisplay()
-                : parent.CreateChild();
+                : parentDisplay.CreateChild();
 
-            childDisplay.ForegroundColor = ForegroundColor;
-            childDisplay.BackgroundColor = BackgroundColor;
+            childDisplay.ForegroundColor = ForegroundColor ?? parentDisplay?.ForegroundColor;
+            childDisplay.BackgroundColor = BackgroundColor ?? parentDisplay?.BackgroundColor;
 
             childDisplay.ControlLayout = CalculateLayout(childDisplay);
 

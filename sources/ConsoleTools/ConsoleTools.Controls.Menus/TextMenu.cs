@@ -217,7 +217,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus
 
             foreach (TextMenuItem menuItem in menuItemsToDisplay)
             {
-                menuItem.Display(display);
+                IDisplay childDisplay = menuItem.CreateDisplay(display);
+                menuItem.Display(childDisplay);
                 display.WriteNewLine();
             }
         }

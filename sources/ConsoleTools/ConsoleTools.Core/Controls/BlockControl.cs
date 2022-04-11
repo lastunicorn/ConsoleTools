@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls
     /// It also force the rendering to start from the beginning of the next line if the cursor is
     /// in the middle of a line.
     /// </summary>
-    public abstract class BlockControl : Control
+    public abstract partial class BlockControl : Control
     {
         /// <summary>
         /// Gets or sets the width of the control. The margins are not included.
@@ -100,7 +100,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         private static bool AllowNewLine(IControlRenderer controlRenderer)
         {
-            if (controlRenderer is LegacyControlRenderer legacyControlRenderer)
+            if (controlRenderer is Renderer legacyControlRenderer)
                 return legacyControlRenderer.RenderingState != ControlRenderingState.Content;
 
             return true;
@@ -115,27 +115,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         public virtual IControlRenderer GetRenderer(IDisplay display)
         {
-            return new LegacyControlRenderer(this, display);
-        }
-
-        private class LegacyControlRenderer : ControlRenderer
-        {
-            private readonly BlockControl blockControl;
-            private bool hasMoreContentRows = true;
-
-            protected override bool HasMoreContentRows => hasMoreContentRows;
-
-            public LegacyControlRenderer(BlockControl blockControl, IDisplay display)
-                : base(display)
-            {
-                this.blockControl = blockControl ?? throw new ArgumentNullException(nameof(blockControl));
-            }
-
-            protected override void RenderNextContentRow()
-            {
-                blockControl.DoDisplayContent(Display);
-                hasMoreContentRows = false;
-            }
+            return new Renderer(this, display);
         }
 
         /// <summary>

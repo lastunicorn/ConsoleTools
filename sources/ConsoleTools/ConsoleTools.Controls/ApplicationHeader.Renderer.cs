@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 {
     public partial class ApplicationHeader
     {
-        private class ApplicationHeaderRenderer : ControlRenderer
+        private class Renderer : ControlRenderer
         {
             private readonly ApplicationHeader applicationHeader;
             private bool isTitleRowRendered;
@@ -41,7 +41,7 @@ namespace DustInTheWind.ConsoleTools.Controls
                                                           (applicationHeader.IsSeparatorVisible && !isSeparatorRendered) ||
                                                           (descriptionText != null && !isDescriptionRendered);
 
-            public ApplicationHeaderRenderer(ApplicationHeader applicationHeader, IDisplay display)
+            public Renderer(ApplicationHeader applicationHeader, IDisplay display)
                 : base(display)
             {
                 this.applicationHeader = applicationHeader ?? throw new ArgumentNullException(nameof(applicationHeader));

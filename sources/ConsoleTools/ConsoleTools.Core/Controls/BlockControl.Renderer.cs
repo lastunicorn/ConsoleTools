@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -20,40 +20,29 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls
 {
-    internal class BottomBorderData
+    public abstract partial class BlockControl
     {
-        private readonly BorderTemplate borderTemplate;
-        private string borderText;
-        private List<int> columnsWidths;
-
-        public List<int> ColumnsWidths
+        private class Renderer : ControlRenderer
         {
-            get => columnsWidths;
-            set
+            private readonly BlockControl blockControl;
+            private bool hasMoreContentRows = true;
+
+            protected override bool HasMoreContentRows => hasMoreContentRows;
+
+            public Renderer(BlockControl blockControl, IDisplay display)
+                : base(display)
             {
-                if (value == columnsWidths)
-                    return;
-
-                columnsWidths = value;
-                borderText = null;
+                this.blockControl = blockControl ?? throw new ArgumentNullException(nameof(blockControl));
             }
-        }
 
-        public BottomBorderData(BorderTemplate borderTemplate)
-        {
-            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
-        }
-
-        public void Render(ITablePrinter tablePrinter)
-        {
-            if (borderText == null)
-                borderText = borderTemplate.GenerateBottomBorder(columnsWidths);
-
-            tablePrinter.WriteLine(borderText, null, null);
+            protected override void RenderNextContentRow()
+            {
+                blockControl.DoDisplayContent(Display);
+                hasMoreContentRows = false;
+            }
         }
     }
 }

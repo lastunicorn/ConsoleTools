@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
         private static GameApplication gameApplication;
         private static ControlRepeater menuRepeater;
 
-        public string ShortDescription => "ScrollMenu Demo";
+        public string Name => "ScrollMenu Demo";
 
         public void ExecuteDemo()
         {

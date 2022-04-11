@@ -15,25 +15,29 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.SimpleTextDemo.Commands
 {
-    internal class CustomPaddingCommand : CommandBase
+    internal class ExceptionCommand : ICommand
     {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+        public bool IsActive => true;
 
-        protected override void DoExecute()
+        public void Execute()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
+            try
             {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
-            };
+                OneNaughtyMethod();
+            }
+            catch (Exception ex)
+            {
+                CustomConsole.WriteLineError(ex);
+            }
+        }
 
-            CustomConsole.WriteLine("-");
-            horizontalLine.Display();
-            CustomConsole.WriteLine("-");
+        private static void OneNaughtyMethod()
+        {
+            throw new Exception("Some demo exception occurred.");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.MusicalDemo
 {
     public class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "Musical Demo";
+        public string Name => "Musical Demo";
 
         public void ExecuteDemo()
         {

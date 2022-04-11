@@ -14,22 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 {
-    internal class AlignedRightCommand : CommandBase
+    internal class ExitCommand : ICommand
     {
-        public override string Title => "Aligned Right";
+        public bool IsActive => true;
 
-        protected override void DoExecute()
+        public void Execute()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 50,
-                HorizontalAlignment = HorizontalAlignment.Right
-            };
-            horizontalLine.Display();
+            DemoPackage.RequestStop();
         }
     }
 }

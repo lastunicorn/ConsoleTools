@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
     {
         private static MachineLevelGuardian guardian;
 
-        public string ShortDescription => "Guard Demo";
+        public string Name => "Guard Demo";
 
         public void ExecuteDemo()
         {

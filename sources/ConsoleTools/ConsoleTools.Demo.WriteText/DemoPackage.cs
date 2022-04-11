@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
@@ -22,76 +21,108 @@ namespace DustInTheWind.ConsoleTools.Demo.SimpleTextDemo
 {
     internal class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "Write Simple Text Demo";
+        private static ControlRepeater menuRepeater;
+
+        public string Name => "Simple Text Demo";
 
         public void ExecuteDemo()
         {
             DisplayApplicationHeader();
 
-            DisplayExamples();
-        }
-
-        private static void DisplayExamples()
-        {
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine("Colors Demo");
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
-
-            RunColorExample();
-
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine("Alignment Demo");
-            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-            CustomConsole.WriteLine();
-
-            RunAlignmentExample();
-        }
-
-        private static void RunAlignmentExample()
-        {
-            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
-            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
-            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
-            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");
-        }
-
-        private static void RunColorExample()
-        {
-            try
+            menuRepeater = new ControlRepeater
             {
-                CustomConsole.WriteLine("Normal: This is a normal line of text.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasized("Emphasized: But I can also write an emphasized text.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
+                Control = new MainMenu()
+            };
 
-                throw new Exception("Some demo exception occurred.");
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineError(ex);
-            }
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
             ApplicationHeader applicationHeader = new ApplicationHeader()
             {
-                Appendix = "Write Normal/Emphasized/Warning/Error"
+                Appendix = "Simple Text Demo"
             };
             applicationHeader.Display();
         }
+
+        public static void RequestStop()
+        {
+            menuRepeater.RequestClose();
+        }
     }
+
+    //internal class DemoPackage : IDemoPackage
+    //{
+    //    public string Name => "Write Simple Text Demo";
+
+    //    public void ExecuteDemo()
+    //    {
+    //        DisplayApplicationHeader();
+    //        DisplayExamples();
+    //    }
+
+    //    private static void DisplayExamples()
+    //    {
+    //        CustomConsole.WriteLine();
+    //        CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+    //        CustomConsole.WriteLine("Colors Demo");
+    //        CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+    //        CustomConsole.WriteLine();
+
+    //        RunColorExample();
+
+    //        CustomConsole.WriteLine();
+    //        CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+    //        CustomConsole.WriteLine("Alignment Demo");
+    //        CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+    //        CustomConsole.WriteLine();
+
+    //        RunAlignmentExample();
+    //    }
+
+    //    private static void RunAlignmentExample()
+    //    {
+    //        CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
+    //        CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
+    //        CustomConsole.WriteLine();
+    //        CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
+    //        CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
+    //        CustomConsole.WriteLine();
+    //        CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
+    //        CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");
+    //    }
+
+    //    private static void RunColorExample()
+    //    {
+    //        try
+    //        {
+    //            CustomConsole.WriteLine("Normal: This is a normal line of text.");
+    //            CustomConsole.WriteLine();
+    //            CustomConsole.WriteLineEmphasized("Emphasized: But I can also write an emphasized text.");
+    //            CustomConsole.WriteLine();
+    //            CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
+    //            CustomConsole.WriteLine();
+    //            CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
+    //            CustomConsole.WriteLine();
+    //            CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
+
+    //            throw new Exception("Some demo exception occurred.");
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            CustomConsole.WriteLine();
+    //            CustomConsole.WriteLineError(ex);
+    //        }
+    //    }
+
+    //    private static void DisplayApplicationHeader()
+    //    {
+    //        ApplicationHeader applicationHeader = new ApplicationHeader()
+    //        {
+    //            Appendix = "Write Normal/Emphasized/Warning/Error"
+    //        };
+    //        applicationHeader.Display();
+    //    }
+    //}
 }

@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
     {
         private static ControlRepeater menuRepeater;
 
-        public string ShortDescription => "Spinner Demo";
+        public string Name => "Spinner Demo";
         
 
         public void ExecuteDemo()

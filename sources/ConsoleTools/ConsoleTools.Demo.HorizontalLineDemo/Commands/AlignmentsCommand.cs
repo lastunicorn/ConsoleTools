@@ -18,16 +18,49 @@ using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
 {
-    internal class AlignedCenterCommand : CommandBase
+    internal class AlignmentsCommand : CommandBase
     {
-        public override string Title => "Aligned Center";
+        public override string Title => "Alignment";
 
         protected override void DoExecute()
         {
+            DisplayLeftAlignedLine();
+            DisplayCenteredAlignedLine();
+            DisplayRightAlignedLine();
+        }
+
+        private void DisplayLeftAlignedLine()
+        {
+            CustomConsole.WriteLine("Aligned Left");
+
+            HorizontalLine horizontalLine = new HorizontalLine
+            {
+                Width = 50,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            horizontalLine.Display();
+        }
+
+        private static void DisplayCenteredAlignedLine()
+        {
+            CustomConsole.WriteLine("Aligned Center");
+
             HorizontalLine horizontalLine = new HorizontalLine
             {
                 Width = 50,
                 HorizontalAlignment = HorizontalAlignment.Center
+            };
+            horizontalLine.Display();
+        }
+
+        private void DisplayRightAlignedLine()
+        {
+            CustomConsole.WriteLine("Aligned Right");
+
+            HorizontalLine horizontalLine = new HorizontalLine
+            {
+                Width = 50,
+                HorizontalAlignment = HorizontalAlignment.Right
             };
             horizontalLine.Display();
         }

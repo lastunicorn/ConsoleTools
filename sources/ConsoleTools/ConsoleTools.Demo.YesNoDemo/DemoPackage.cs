@@ -7,7 +7,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
     {
         private static ControlRepeater menuRepeater;
 
-        public string ShortDescription => "YesNoQuestion Demo";
+        public string Name => "YesNoQuestion Demo";
 
 
         public void ExecuteDemo()

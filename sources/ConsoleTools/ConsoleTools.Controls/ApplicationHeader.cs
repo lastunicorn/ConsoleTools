@@ -85,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         public override IControlRenderer GetRenderer(IDisplay display)
         {
-            return new ApplicationHeaderRenderer(this, display);
+            return new Renderer(this, display);
         }
 
         private string BuildTitleText()

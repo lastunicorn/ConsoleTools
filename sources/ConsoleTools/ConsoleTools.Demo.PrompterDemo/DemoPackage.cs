@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
     {
         private static ControlRepeater prompterRepeater;
 
-        public string ShortDescription => "Prompter Demo";
+        public string Name => "Prompter Demo";
 
         public void ExecuteDemo()
         {

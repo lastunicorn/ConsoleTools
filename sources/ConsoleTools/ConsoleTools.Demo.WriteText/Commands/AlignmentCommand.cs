@@ -14,21 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
+namespace DustInTheWind.ConsoleTools.Demo.SimpleTextDemo.Commands
 {
-    internal abstract class CommandBase : ICommand
+    internal class AlignmentCommand : ICommand
     {
         public bool IsActive => true;
 
-        public abstract string Title { get; }
-
         public void Execute()
         {
-            DoExecute();
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
+            CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
+            CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
+            CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");
         }
-
-        protected abstract void DoExecute();
     }
 }

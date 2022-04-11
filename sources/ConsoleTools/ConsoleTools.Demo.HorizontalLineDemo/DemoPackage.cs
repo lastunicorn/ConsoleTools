@@ -14,46 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.Core;
-using DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {
-    internal class DemoPackage : IDemoPackage
+    public class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "HorizontalLine Demo";
+        private static ControlRepeater menuRepeater;
+
+        public string Name => "HorizontalLine Demo";
         
         public void ExecuteDemo()
         {
             DisplayApplicationHeader();
 
-            ICommand[] commands = {
-                new DefaultCommand(),
-                new CustomCharCommand(),
-                new CustomMarginCommand(),
-                new CustomPaddingCommand(),
-                new CustomForegroundColorCommand(),
-                new CustomBackgroundColorCommand(),
-                new CustomWidthCommand(),
-                new AlignedCenterCommand(),
-                new AlignedRightCommand()
+            menuRepeater = new ControlRepeater
+            {
+                Control = new MainMenu()
             };
 
-            foreach (ICommand command in commands)
-                command.Execute();
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader
+            ApplicationHeader applicationHeader = new ApplicationHeader()
             {
-                Appendix = "HorizontalLine Demo",
-                Description = "This demo shows the usage of the HorizontalLine controls."
+                Appendix = "YesNoQuestion Demo"
             };
             applicationHeader.Display();
+        }
+
+        public static void RequestStop()
+        {
+            menuRepeater.RequestClose();
         }
     }
 }

@@ -15,96 +15,40 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.Core;
-using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
 
 namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "Pause Demo";
+        private static ControlRepeater menuRepeater;
 
+        public string Name => "Pause Demo";
 
         public void ExecuteDemo()
         {
             DisplayApplicationHeader();
-            RunDemos();
+
+            menuRepeater = new ControlRepeater
+            {
+                Control = new DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.MainMenu()
+            };
+
+            menuRepeater.Display();
         }
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader
+            ApplicationHeader applicationHeader = new ApplicationHeader()
             {
                 Appendix = "Pause Demo"
             };
             applicationHeader.Display();
         }
 
-        private static void RunDemos()
+        public static void RequestStop()
         {
-            bool exitWasRequested = false;
-
-            TextMenu textMenu = new TextMenu();
-            textMenu.AddItems(new[]
-            {
-                new TextMenuItem
-                {
-                    Id = "1",
-                    Text = "Default",
-                    Command = new DefaultCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "2",
-                    Text = "Custom Unlock Key",
-                    Command = new CustomUnlockKeyCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "3",
-                    Text = "Erasable Pause",
-                    Command = new ErasablePauseCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "4",
-                    Text = "Custom Margins",
-                    Command = new CustomMarginsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "5",
-                    Text = "Custom Paddings",
-                    Command = new CustomPaddingsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "6",
-                    Text = "Foreground Color",
-                    Command = new ForegroundColorCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "7",
-                    Text = "Background Color",
-                    Command = new BackgroundColorCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "0",
-                    Text = "Exit",
-                    Command = new ActionCommand(() =>
-                    {
-                        exitWasRequested = true;
-                    })
-                }
-            });
-
-            while (!exitWasRequested)
-            {
-                textMenu.Display();
-            }
+            menuRepeater.RequestClose();
         }
     }
 }

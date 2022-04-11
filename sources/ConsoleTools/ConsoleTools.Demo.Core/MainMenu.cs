@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
                 AddItem(new TextMenuItem
                 {
                     Id = (i + 1).ToString(),
-                    Text = demoPackage.ShortDescription,
+                    Text = demoPackage.Name,
                     Command = new DemoCommand(demoPackage)
                 });
 

@@ -18,7 +18,7 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
 {
     public interface IDemoPackage
     {
-        string ShortDescription { get; }
+        string Name { get; }
 
         void ExecuteDemo();
     }

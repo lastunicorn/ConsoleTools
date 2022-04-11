@@ -30,7 +30,10 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
                 Margin = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
             };
+
+            CustomConsole.WriteLine("-");
             horizontalLine.Display();
+            CustomConsole.WriteLine("-");
         }
     }
 }

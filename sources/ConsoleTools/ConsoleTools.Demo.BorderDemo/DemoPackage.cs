@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
 {
     internal class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "Border Demo";
+        public string Name => "Border Demo";
 
         public void ExecuteDemo()
         {
@@ -45,6 +45,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
             {
                 Margin = 1,
                 Padding = 1,
+                ForegroundColor = ConsoleColor.Red,
                 BackgroundColor = ConsoleColor.DarkGray,
                 Text = new[] { "something", "something", "something" }
             };
@@ -53,6 +54,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
             {
                 Margin = 1,
                 Padding = 1,
+                BorderForegroundColor = ConsoleColor.DarkGray,
                 BackgroundColor = ConsoleColor.Gray,
                 Control = textBlock
             };

@@ -32,15 +32,10 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             string applicationRootDirectoryPath = Path.GetDirectoryName(entryAssembly.Location);
 
-            IEnumerable<Assembly> assemblies = Directory.GetFiles(applicationRootDirectoryPath, "*.dll")
+            demoPackages = Directory.GetFiles(applicationRootDirectoryPath, "*.dll")
                 .Select(Assembly.LoadFrom)
-                .ToList();
-
-            IEnumerable<Type> selectMany = assemblies
+                .ToList()
                 .SelectMany(x => x.GetTypes())
-                .ToList();
-
-            demoPackages = selectMany
                 .Where(x => x.IsClass && !x.IsAbstract)
                 .Where(x => typeof(IDemoPackage).IsAssignableFrom(x))
                 .Select(Activator.CreateInstance)

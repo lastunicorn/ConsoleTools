@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
     {
         private static ControlRepeater menuRepeater;
 
-        public string ShortDescription => "InputControls Demo";
+        public string Name => "InputControls Demo";
 
         public void ExecuteDemo()
         {

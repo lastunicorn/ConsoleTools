@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo
     /// </summary>
     internal class Program : IDemoPackage
     {
-        public string ShortDescription => "ProgressBar Demo";
+        public string Name => "ProgressBar Demo";
 
 
         public void ExecuteDemo()

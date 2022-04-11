@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.DataGridDemo
 {
     internal class DemoPackage : IDemoPackage
     {
-        public string ShortDescription => "DataGrid Demo";
+        public string Name => "DataGrid Demo";
         
         public void ExecuteDemo()
         {

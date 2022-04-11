@@ -20,7 +20,7 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
 {
     internal class CustomWidthCommand : CommandBase
     {
-        public override string Title => "Custom Width (50)";
+        public override string Title => "Custom Width";
 
         protected override void DoExecute()
         {

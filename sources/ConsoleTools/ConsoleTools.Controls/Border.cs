@@ -20,45 +20,23 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public class Border : BlockControl
+    public partial class Border : BlockControl
     {
         public BlockControl Control { get; set; }
 
+        public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
+        
+        public ConsoleColor? BorderForegroundColor { get; set; }
+        
+        public ConsoleColor? BorderBackgroundColor { get; set; }
+        
         public override IControlRenderer GetRenderer(IDisplay display)
         {
-            return new BorderRenderer(this, display);
-        }
-
-        private class BorderRenderer : ControlRenderer
-        {
-            private readonly Border border;
-            private IControlRenderer controlRenderer;
-
-            protected override bool HasMoreContentRows => controlRenderer.HasMoreRows;
-
-            public BorderRenderer(Border border, IDisplay display)
-                : base(display)
-            {
-                this.border = border ?? throw new ArgumentNullException(nameof(border));
-            }
-
-            protected override void Initialize()
-            {
-                IDisplay childDisplay = border.Control.CreateDisplay(Display);
-                controlRenderer = border.Control.GetRenderer(childDisplay);
-
-                base.Initialize();
-            }
-
-            protected override void RenderNextContentRow()
-            {
-                Display.StartRow();
-                controlRenderer.RenderNextRow();
-                Display.EndRow();
-            }
+            return new Renderer(this, display);
         }
     }
 }

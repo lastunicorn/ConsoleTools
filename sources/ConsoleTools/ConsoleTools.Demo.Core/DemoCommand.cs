@@ -42,8 +42,9 @@ namespace DustInTheWind.ConsoleTools.Demo.Core
             {
                 TextBlock textBlock = new TextBlock
                 {
-                    Text = "Demo has finished.",
-                    Margin = "0 1"
+                    Text = $"Demo {demoPackage.Name} has finished.",
+                    Margin = "0 1",
+                    ForegroundColor = ConsoleColor.Cyan
                 };
                 textBlock.Display();
             }

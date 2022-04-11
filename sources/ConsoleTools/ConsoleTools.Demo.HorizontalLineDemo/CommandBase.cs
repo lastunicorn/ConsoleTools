@@ -20,7 +20,7 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {
     internal abstract class CommandBase : ICommand
     {
-        public bool IsActive { get; } = true;
+        public bool IsActive => true;
 
         public abstract string Title { get; }
 

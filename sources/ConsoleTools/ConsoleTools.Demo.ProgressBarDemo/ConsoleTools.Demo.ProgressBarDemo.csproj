@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.NetCore</AssemblyName>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.ProgressBarDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

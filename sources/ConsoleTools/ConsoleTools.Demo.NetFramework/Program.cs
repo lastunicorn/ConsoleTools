@@ -14,46 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using System;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
 namespace DustInTheWind.ConsoleTools.Demo.NetFramework
 {
     internal class Program
     {
-        private static ControlRepeater controlRepeater;
-
         private static void Main(string[] args)
         {
-            DisplayApplicationHeader();
-
-            DemoPackages demoPackages = LoadDemoPackages();
-            MainMenu mainMenu = new MainMenu(demoPackages);
-
-            controlRepeater = new ControlRepeater
+            try
             {
-                Control = mainMenu
-            };
-
-            controlRepeater.Display();
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            ApplicationHeader applicationHeader = new ApplicationHeader();
-            applicationHeader.Display();
-        }
-
-        private static DemoPackages LoadDemoPackages()
-        {
-            DemoPackages demoPackages = new DemoPackages();
-            demoPackages.Load();
-
-            return demoPackages;
-        }
-
-        public static void RequestExit()
-        {
-            controlRepeater.RequestClose();
+                DemoApplication demoApplication = new DemoApplication();
+                demoApplication.Run();
+            }
+            catch (Exception ex)
+            {
+                CustomConsole.WriteLineError(ex);
+            }
         }
     }
 }

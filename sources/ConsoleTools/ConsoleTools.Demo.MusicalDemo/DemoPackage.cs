@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls.Musical;
-using DustInTheWind.ConsoleTools.Demo.NetCore;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
 namespace DustInTheWind.ConsoleTools.Demo.MusicalDemo
 {

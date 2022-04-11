@@ -14,11 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
-using DustInTheWind.ConsoleTools.Demo.NetCore;
-using DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands;
+using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal class DemoPackage : IDemoPackage
     {
@@ -27,7 +28,17 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
 
         public void ExecuteDemo()
         {
+            DisplayApplicationHeader();
             RunDemos();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            ApplicationHeader applicationHeader = new ApplicationHeader
+            {
+                Appendix = "Pause Demo"
+            };
+            applicationHeader.Display();
         }
 
         private static void RunDemos()

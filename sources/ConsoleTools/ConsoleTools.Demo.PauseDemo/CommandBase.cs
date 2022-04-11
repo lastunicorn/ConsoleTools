@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal abstract class CommandBase : ICommand
     {

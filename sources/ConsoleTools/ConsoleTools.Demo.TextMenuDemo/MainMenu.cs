@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
     /// </summary>
     /// <remarks>
     /// <para>
-    /// The <see cref="TextMenu"/> can be instantiated configured directly in the <see cref="Program"/> class.
+    /// The <see cref="TextMenu"/> can be instantiated configured directly in the <see cref="DemoPackage"/> class.
     /// There is no need to inherit from it.
     /// </para>
     /// <para>

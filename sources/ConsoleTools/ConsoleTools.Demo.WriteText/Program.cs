@@ -23,6 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
     {
         private static void Main()
         {
+            Console.Clear();
             Console.SetWindowSize(80, 24);
             Console.SetBufferSize(80, 1024);
 

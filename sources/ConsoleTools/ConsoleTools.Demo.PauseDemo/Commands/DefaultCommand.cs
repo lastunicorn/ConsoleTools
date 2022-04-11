@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 {
     internal class DefaultCommand : CommandBase
     {

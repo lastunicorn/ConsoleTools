@@ -43,10 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoCommand.cs" />
-    <Compile Include="DemoPackages.cs" />
-    <Compile Include="ExitCommand.cs" />
-    <Compile Include="MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +69,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /y "$(SolutionDir)DemoPackages" "$(TargetDir)\DemoPackages\"</PreBuildEvent>
+    <PreBuildEvent>xcopy /y "$(SolutionDir)DemoPackages" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
 </Project>

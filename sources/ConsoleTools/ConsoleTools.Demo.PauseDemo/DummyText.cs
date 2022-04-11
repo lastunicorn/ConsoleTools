@@ -16,7 +16,7 @@
 
 using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal static class DummyText
     {

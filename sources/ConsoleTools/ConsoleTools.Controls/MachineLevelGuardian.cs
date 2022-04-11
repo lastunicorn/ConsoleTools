@@ -24,13 +24,13 @@ using System.Threading;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public class MachineLevelGuardian
+    public sealed class MachineLevelGuardian : IDisposable
     {
         /// <summary>
         /// The <see cref="Mutex"/> object used to ensure that only one instance
         /// of the class is created on the current machine. (Machine level)
         /// </summary>
-        private Mutex mutex;
+        private readonly Mutex mutex;
 
         /// <summary>
         /// Gets the name of the current instance.
@@ -38,73 +38,41 @@ namespace DustInTheWind.ConsoleTools.Controls
         public string Name { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MachineLevelGuardian"/> class with
-        /// the name that identifies it and 
-        /// the level at which will have effect.
+        /// Initializes a new instance of the <see cref="MachineLevelGuardian"/> class.
         /// </summary>
-        /// <param name="name">The name that identifies the instance that will be created.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ApplicationException"></exception>
-        public MachineLevelGuardian(string name)
+        /// <exception cref="GuardianCreateException"></exception>
+        public MachineLevelGuardian()
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            try
+            {
+                ApplicationInformation applicationInformation = new ApplicationInformation();
+                Name = applicationInformation.GetProductName();
 
-            // Create the mutex.
-            mutex = new Mutex(false, name);
+                // Create the mutex.
+                mutex = new Mutex(false, Name);
 
-            // Gain exclusive access to the mutex.
-            bool access = mutex.WaitOne(0, true);
+                // Gain exclusive access to the mutex.
+                bool access = mutex.WaitOne(0, true);
 
-            if (!access)
-                throw new ApplicationException($"Another instance with the name '{name}' already exists.");
+                if (!access)
+                    throw new GuardianException();
+            }
+            catch (GuardianException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new GuardianCreateException(ex);
+            }
         }
-
-        private bool isDisposed;
 
         /// <summary>
         /// Releases all resources used by the current instance.
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Releases all resources used by the current instance.
-        /// </summary>
-        /// <remarks>
-        /// <para>Dispose(bool disposing) executes in two distinct scenarios.</para>
-        /// <para>If the method has been called directly or indirectly by a user's code managed and unmanaged resources can be disposed.</para>
-        /// <para>If the method has been called by the runtime from inside the finalizer you should not reference other objects. Only unmanaged resources can be disposed.</para>
-        /// </remarks>
-        /// <param name="disposing">Specifies if the method has been called by a user's code (true) or by the runtime from inside the finalizer (false).</param>
-        private void Dispose(bool disposing)
-        {
-            if (!isDisposed)
-            {
-                if (disposing)
-                {
-                    // Dispose managed resources.
-                    // ...
-
-                    mutex?.Close();
-                    mutex = null;
-                }
-
-                // Call the appropriate methods to clean up unmanaged resources here.
-                // ...
-
-                isDisposed = true;
-            }
-        }
-
-        /// <summary>
-        /// Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
-        /// </summary>
-        ~MachineLevelGuardian()
-        {
-            Dispose(false);
+            mutex?.Dispose();
         }
     }
 }

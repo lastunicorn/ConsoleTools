@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore</RootNamespace>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.PauseDemo</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.PauseDemo</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

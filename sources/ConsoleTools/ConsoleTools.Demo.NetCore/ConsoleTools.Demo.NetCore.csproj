@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </ItemGroup>
 
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="xcopy /y &quot;$(SolutionDir)DemoPackages&quot; &quot;$(TargetDir)\DemoPackages\&quot;" />
+      <Exec Command="xcopy /y &quot;$(SolutionDir)DemoPackages&quot; &quot;$(TargetDir)&quot;" />
     </Target>
 
 </Project>

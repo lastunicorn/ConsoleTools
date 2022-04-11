@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands
 
         public void Execute()
         {
-            Program.RequestStop();
+            DemoPackage.RequestStop();
         }
     }
 }

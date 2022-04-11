@@ -15,10 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.NetCore;
-using DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.PresentationLayer;
+using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.PresentationLayer;
 
-namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo
 {
     /// <summary>
     /// This is an example of a asynchronous job that is running in the background.

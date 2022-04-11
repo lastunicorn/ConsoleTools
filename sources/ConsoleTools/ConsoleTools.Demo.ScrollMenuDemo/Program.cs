@@ -28,6 +28,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
         {
             try
             {
+                Console.Clear();
                 Console.SetWindowSize(80, 50);
                 Console.SetBufferSize(80, 50);
 

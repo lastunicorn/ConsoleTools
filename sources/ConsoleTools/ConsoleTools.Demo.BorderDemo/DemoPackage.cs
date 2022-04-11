@@ -16,7 +16,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.NetCore;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
 namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
 {
@@ -26,7 +26,17 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
 
         public void ExecuteDemo()
         {
+            DisplayApplicationHeader();
             DisplayTextBlocWithBorder();
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Appendix = "Border Demo"
+            };
+            applicationHeader.Display();
         }
 
         private static void DisplayTextBlocWithBorder()

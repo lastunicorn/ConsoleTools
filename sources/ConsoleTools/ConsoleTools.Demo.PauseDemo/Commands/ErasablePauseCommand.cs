@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
 {
     internal class ErasablePauseCommand : CommandBase
     {
@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 
         protected override void DoExecute()
         {
-            Pause pause = new Pause
+            Pause pause = new Pause()
             {
                 EraseAfterClose = true
             };

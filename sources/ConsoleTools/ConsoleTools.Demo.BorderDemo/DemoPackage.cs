@@ -16,20 +16,38 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.NetCore;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
 {
-    internal class BackgroundColorCommand : CommandBase
+    internal class DemoPackage : IDemoPackage
     {
-        public override string Title => "Background Color (Blue)";
+        public string ShortDescription => "Border Demo";
 
-        protected override void DoExecute()
+        public void ExecuteDemo()
         {
-            Pause pause = new Pause()
+            DisplayTextBlocWithBorder();
+        }
+
+        private static void DisplayTextBlocWithBorder()
+        {
+            TextBlock textBlock = new TextBlock
             {
-                BackgroundColor = ConsoleColor.Blue
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.DarkGray,
+                Text = new[] { "something", "something", "something" }
             };
-            pause.Display();
+
+            Border border = new Border
+            {
+                Margin = 1,
+                Padding = 1,
+                BackgroundColor = ConsoleColor.Gray,
+                Control = textBlock
+            };
+
+            border.Display();
         }
     }
 }

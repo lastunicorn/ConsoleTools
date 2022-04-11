@@ -17,7 +17,7 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
 {
     internal class CustomMarginsCommand : CommandBase
     {
@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 
         protected override void DoExecute()
         {
-            Pause pause = new Pause
+            Pause pause = new Pause()
             {
                 Margin = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.

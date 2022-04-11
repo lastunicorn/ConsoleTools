@@ -14,22 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore
 {
-    internal class BackgroundColorCommand : CommandBase
+    internal class MainMenu : TextMenu
     {
-        public override string Title => "Background Color (Blue)";
-
-        protected override void DoExecute()
+        public MainMenu(DemoPackages demoPackages)
         {
-            Pause pause = new Pause()
+            int i = 0;
+
+            foreach (IDemoPackage demoPackage in demoPackages)
             {
-                BackgroundColor = ConsoleColor.Blue
-            };
-            pause.Display();
+                AddItem(new TextMenuItem
+                {
+                    Id = (i + 1).ToString(),
+                    Text = demoPackage.ShortDescription,
+                    Command = new DemoCommand(demoPackage)
+                });
+
+                i++;
+            }
+
+            AddItem(new TextMenuItem
+            {
+                Id = 0.ToString(),
+                Text = "Exit",
+                Command = new ExitCommand()
+            });
+
+            Margin = "0 1";
         }
     }
 }

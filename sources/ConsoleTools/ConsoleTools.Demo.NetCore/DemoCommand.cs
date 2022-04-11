@@ -14,17 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using System;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore
 {
-    internal class DefaultCommand : CommandBase
+    internal class DemoCommand : ICommand
     {
-        public override string Title => "Default Pause";
+        private readonly IDemoPackage demoPackage;
 
-        protected override void DoExecute()
+        public bool IsActive => true;
+
+        public DemoCommand(IDemoPackage demoPackage)
         {
-            Pause.QuickDisplay();
+            this.demoPackage = demoPackage ?? throw new ArgumentNullException(nameof(demoPackage));
+        }
+
+        public void Execute()
+        {
+            demoPackage.ExecuteDemo();
         }
     }
 }

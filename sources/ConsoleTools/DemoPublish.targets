@@ -1,0 +1,24 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <CustomPublishPath>..\DemoPackages</CustomPublishPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <CoreFile Include="bin\Release\netstandard2.0\**\*.dll" />
+        <CoreFile Include="bin\Release\netstandard2.0\**\*.xml" />
+        <CoreFile Include="bin\Release\netstandard2.0\**\*.json" />
+    </ItemGroup>
+
+    <Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
+
+        <MakeDir
+            Directories="$(CustomPublishPath)"
+            Condition="!Exists('$(CustomPublishPath)')" />
+
+        <Copy
+            SourceFiles="@(CoreFile)"
+            DestinationFiles="$(CustomPublishPath)\%(RecursiveDir)%(Filename)%(Extension)" />
+
+    </Target>
+</Project>

@@ -15,17 +15,21 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.PresentationLayer;
+using DustInTheWind.ConsoleTools.Demo.NetCore;
+using DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore.PresentationLayer;
 
-namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo
+namespace DustInTheWind.ConsoleTools.Demo.ProgressBarkDemo.NetCore
 {
     /// <summary>
     /// This is an example of a asynchronous job that is running in the background.
     /// Its progress is displayed in the Console using a progress bar.
     /// </summary>
-    internal class Program
+    internal class Program : IDemoPackage
     {
-        private static void Main()
+        public string ShortDescription => "ProgressBar Demo";
+
+
+        public void ExecuteDemo()
         {
             DisplayApplicationHeader();
 

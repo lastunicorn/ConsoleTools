@@ -19,16 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DustInTheWind.ConsoleTools.Demo.BorderDemo</AssemblyName>
-        <RootNamespace>DustInTheWind.ConsoleTools.Demo.BorderDemo</RootNamespace>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.NetCore</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.NetCore</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+      <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />
       <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" />
     </ItemGroup>
 
-    <Import Project="..\DemoPublish.targets" />
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Exec Command="xcopy /y &quot;$(SolutionDir)DemoPackages&quot; &quot;$(TargetDir)\DemoPackages\&quot;" />
+    </Target>
 
 </Project>

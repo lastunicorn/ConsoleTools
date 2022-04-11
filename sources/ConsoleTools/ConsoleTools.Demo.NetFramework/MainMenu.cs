@@ -15,21 +15,36 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.NetCore;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.NetFramework
 {
-    internal abstract class CommandBase : ICommand
+    internal class MainMenu : TextMenu
     {
-        public bool IsActive { get; } = true;
-
-        public abstract string Title { get; }
-
-        public void Execute()
+        public MainMenu(DemoPackages demoPackages)
         {
-            DummyText.Display($"- {Title}:", 3);
-            DoExecute();
-        }
+            int i = 0;
 
-        protected abstract void DoExecute();
+            foreach (IDemoPackage demoPackage in demoPackages)
+            {
+                AddItem(new TextMenuItem
+                {
+                    Id = (i + 1).ToString(),
+                    Text = demoPackage.ShortDescription,
+                    Command = new DemoCommand(demoPackage)
+                });
+
+                i++;
+            }
+
+            AddItem(new TextMenuItem
+            {
+                Id = 0.ToString(),
+                Text = "Exit",
+                Command = new ExitCommand()
+            });
+
+            Margin = "0 1";
+        }
     }
 }

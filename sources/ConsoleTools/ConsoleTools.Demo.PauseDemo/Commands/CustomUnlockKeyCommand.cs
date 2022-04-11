@@ -17,7 +17,7 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.NetCore.Commands
 {
     internal class CustomUnlockKeyCommand : CommandBase
     {
@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
 
         protected override void DoExecute()
         {
-            Pause pause = new Pause
+            Pause pause = new Pause()
             {
                 Text = "Press P key to continue...",
                 UnlockKey = ConsoleKey.P

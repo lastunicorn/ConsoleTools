@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.MusicalDemo</RootNamespace>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.MusicalDemo</AssemblyName>
+        <!--<DeployOnBuild>True</DeployOnBuild>
+        <PublishProfile>FolderProfile</PublishProfile>
+        <BuildingInsideVisualStudio>False</BuildingInsideVisualStudio>-->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" />
+    </ItemGroup>
+
+    <Import Project="..\DemoPublish.targets" />
+
+</Project>

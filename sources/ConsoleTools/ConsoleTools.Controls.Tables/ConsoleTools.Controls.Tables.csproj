@@ -5,6 +5,8 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Controls.Tables</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls.Tables</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

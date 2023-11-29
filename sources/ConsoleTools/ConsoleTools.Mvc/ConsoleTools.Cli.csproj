@@ -6,6 +6,8 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Mvc</RootNamespace>
         <GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">false</GenerateAssemblyInfo>
         <Description>This is a framework to help you structure the presentation layer of a Console Application. Similar to ASP.NET MVC.</Description>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

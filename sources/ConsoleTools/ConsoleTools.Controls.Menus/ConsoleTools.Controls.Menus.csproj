@@ -5,6 +5,8 @@
         <RootNamespace>DustInTheWind.ConsoleTools.Controls.Menus</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Controls.Menus</AssemblyName>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

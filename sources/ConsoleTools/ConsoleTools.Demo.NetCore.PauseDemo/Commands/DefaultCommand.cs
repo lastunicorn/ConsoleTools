@@ -14,22 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
-    internal class ForegroundColorCommand : CommandBase
+    internal class DefaultCommand : CommandBase
     {
-        public override string Title => "Foreground Color (Magenta)";
+        public override string Title => "Default Pause";
 
         protected override void DoExecute()
         {
-            Pause pause = new Pause
-            {
-                ForegroundColor = ConsoleColor.Magenta
-            };
-            pause.Display();
+            Pause.QuickDisplay();
         }
     }
 }

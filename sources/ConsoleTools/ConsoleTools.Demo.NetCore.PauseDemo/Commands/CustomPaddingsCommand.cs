@@ -14,26 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ConsoleTools.Demo.ProgressBarDemo.NetCore.BusinessLayer
+using System;
+using DustInTheWind.ConsoleTools.Controls;
+
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
-    /// <summary>
-    /// Represents the state of a asynchronous job.
-    /// </summary>
-    internal enum JobState
+    internal class CustomPaddingsCommand : CommandBase
     {
-        /// <summary>
-        /// Job has never been started.
-        /// </summary>
-        New,
+        public override string Title => "Custom paddings (3 3 3 3)";
 
-        /// <summary>
-        /// Job is running.
-        /// </summary>
-        Running,
-
-        /// <summary>
-        /// Job has finished its work.
-        /// </summary>
-        Stopped
+        protected override void DoExecute()
+        {
+            Pause pause = new Pause
+            {
+                Padding = 3,
+                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+            };
+            pause.Display();
+        }
     }
 }

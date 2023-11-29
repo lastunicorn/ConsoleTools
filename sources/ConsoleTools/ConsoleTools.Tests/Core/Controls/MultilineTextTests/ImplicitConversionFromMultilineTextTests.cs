@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -37,7 +38,8 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests
             MultilineText multilineText = new MultilineText(new[] { "first line", "second line" });
             string text = multilineText;
 
-            Assert.That(text, Is.EqualTo("first line\r\nsecond line"));
+            string expected = "first line" + Environment.NewLine + "second line";
+            Assert.That(text, Is.EqualTo(expected));
         }
 
         [Test]

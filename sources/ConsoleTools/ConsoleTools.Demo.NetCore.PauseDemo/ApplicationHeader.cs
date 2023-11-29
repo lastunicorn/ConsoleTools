@@ -16,10 +16,9 @@
 
 using System;
 using System.Reflection;
-using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
 {
     internal class ApplicationHeader
     {

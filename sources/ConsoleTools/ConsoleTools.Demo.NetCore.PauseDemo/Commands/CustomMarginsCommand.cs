@@ -14,17 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
-    internal class DefaultCommand : CommandBase
+    internal class CustomMarginsCommand : CommandBase
     {
-        public override string Title => "Default Pause";
+        public override string Title => "Custom margins (3 3 3 3)";
 
         protected override void DoExecute()
         {
-            Pause.QuickDisplay();
+            Pause pause = new Pause
+            {
+                Margin = 3,
+                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
+            };
+            pause.Display();
         }
     }
 }

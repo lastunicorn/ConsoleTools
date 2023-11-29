@@ -14,21 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
-
-namespace ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
 {
-    internal class ErasablePauseCommand : CommandBase
+    /// <summary>
+    /// Represents the state of a asynchronous job.
+    /// </summary>
+    internal enum JobState
     {
-        public override string Title => "This pause will erase itself at the end";
+        /// <summary>
+        /// Job has never been started.
+        /// </summary>
+        New,
 
-        protected override void DoExecute()
-        {
-            Pause pause = new Pause
-            {
-                EraseAfterClose = true
-            };
-            pause.Display();
-        }
+        /// <summary>
+        /// Job is running.
+        /// </summary>
+        Running,
+
+        /// <summary>
+        /// Job has finished its work.
+        /// </summary>
+        Stopped
     }
 }

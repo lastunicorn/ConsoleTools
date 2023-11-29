@@ -16,11 +16,11 @@
 
 using System;
 using System.ComponentModel;
-using ConsoleTools.Demo.ProgressBarDemo.NetCore.BusinessLayer;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
+using DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer;
 
-namespace ConsoleTools.Demo.ProgressBarDemo.NetCore.PresentationLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.PresentationLayer
 {
     /// <summary>
     /// This view uses a <see cref="DataProcessingJob"/> to simulate some business process and a <see cref="ProgressBar"/> control

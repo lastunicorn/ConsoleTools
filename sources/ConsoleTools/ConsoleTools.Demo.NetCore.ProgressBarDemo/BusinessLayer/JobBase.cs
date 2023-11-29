@@ -19,7 +19,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ConsoleTools.Demo.ProgressBarDemo.NetCore.BusinessLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
 {
     /// <summary>
     /// Base class that asynchrounously runs some code and provides support to announce its progress.

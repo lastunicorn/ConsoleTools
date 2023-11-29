@@ -17,7 +17,7 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
     internal class CustomUnlockKeyCommand : CommandBase
     {

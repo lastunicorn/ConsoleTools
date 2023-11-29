@@ -36,6 +36,7 @@ namespace DustInTheWind.ConsoleTools
     /// </summary>
     public abstract class LongRunningControl
     {
+        private readonly bool allowHidingCursor;
         private bool initialCursorVisible;
 
         /// <summary>
@@ -70,6 +71,11 @@ namespace DustInTheWind.ConsoleTools
         /// </summary>
         public bool EnsureBeginOfLine { get; set; }
 
+        protected LongRunningControl()
+        {
+            allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+        }
+
         /// <summary>
         /// Displays the control and changes its status to "running".
         /// </summary>
@@ -80,9 +86,13 @@ namespace DustInTheWind.ConsoleTools
             if (IsActive)
                 return;
 
-            initialCursorVisible = Console.CursorVisible;
-            if (!ShowCursor)
-                Console.CursorVisible = false;
+            if (allowHidingCursor)
+            {
+                initialCursorVisible = Console.CursorVisible;
+
+                if (!ShowCursor)
+                    Console.CursorVisible = false;
+            }
 
             MoveToNextLineIfNecessary();
 
@@ -172,7 +182,7 @@ namespace DustInTheWind.ConsoleTools
 
             WriteBottomMargin();
 
-            if (!ShowCursor)
+            if (allowHidingCursor && !ShowCursor)
                 Console.CursorVisible = initialCursorVisible;
 
             IsActive = false;

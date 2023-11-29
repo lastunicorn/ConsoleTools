@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="KeyValueControl.cs" />
+        <Compile Remove="Program2.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+    </ItemGroup>
+
+</Project>

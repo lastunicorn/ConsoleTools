@@ -14,11 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using ConsoleTools.Demo.ProgressBarDemo.NetCore.PresentationLayer;
-using DustInTheWind.ConsoleTools;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.PresentationLayer;
 
-namespace ConsoleTools.Demo.ProgressBarDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo
 {
     /// <summary>
     /// This is an example of a asynchronous job that is running in the background.

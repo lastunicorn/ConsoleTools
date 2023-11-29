@@ -15,47 +15,35 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using ConsoleTools.Demo.PauseDemo.NetCore.Commands;
 using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main()
         {
-            Console.WriteLine($"Window: {Console.WindowWidth} : {Console.WindowHeight}");
-            Console.WriteLine($"Buffer: {Console.BufferWidth} : {Console.BufferHeight}");
+            ResizeConsoleWindow();
 
-            ConsoleColor oldColor = Console.BackgroundColor;
-            Console.BackgroundColor = ConsoleColor.Blue;
+            DisplayApplicationHeader();
+            RunDemos();
+        }
 
-            string lessThanLine = new string('*', 100);
-            string fullLine = new string('*', 120);
-            string moreThanLine = new string('*', 140);
-            
-            Console.WriteLine();
-            Console.WriteLine(lessThanLine);
+        private static void ResizeConsoleWindow()
+        {
+            bool allowConsoleResize = Environment.OSVersion.Platform == PlatformID.Win32Windows;
 
-            Console.WriteLine();
-            Console.WriteLine(fullLine);
-            Console.WriteLine("something");
-
-            Console.WriteLine();
-            Console.WriteLine(moreThanLine);
-
-            Console.BackgroundColor = oldColor;
-
-            //Console.SetWindowSize(80, 50);
-            //Console.SetBufferSize(160, 512);
-
-            //DisplayApplicationHeader();
-            //RunDemos();
+            if (allowConsoleResize)
+            {
+                Console.SetWindowSize(80, 50);
+                Console.SetBufferSize(160, 512);
+            }
         }
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader
+            ApplicationHeader applicationHeader = new()
             {
                 Title = "ConsoleTools Demo - Pause"
             };
@@ -66,7 +54,7 @@ namespace ConsoleTools.Demo.PauseDemo.NetCore
         {
             bool exitWasRequested = false;
 
-            TextMenu textMenu = new TextMenu();
+            TextMenu textMenu = new();
             textMenu.AddItems(new[]
             {
                 new TextMenuItem

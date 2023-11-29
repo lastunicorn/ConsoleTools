@@ -17,18 +17,17 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore.Commands
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
-    internal class CustomPaddingsCommand : CommandBase
+    internal class ForegroundColorCommand : CommandBase
     {
-        public override string Title => "Custom paddings (3 3 3 3)";
+        public override string Title => "Foreground Color (Magenta)";
 
         protected override void DoExecute()
         {
             Pause pause = new Pause
             {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+                ForegroundColor = ConsoleColor.Magenta
             };
             pause.Display();
         }

@@ -16,7 +16,7 @@
 
 using System.Threading;
 
-namespace ConsoleTools.Demo.ProgressBarDemo.NetCore.BusinessLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
 {
     /// <summary>
     /// This is a business class that is asynchronously processing some data.

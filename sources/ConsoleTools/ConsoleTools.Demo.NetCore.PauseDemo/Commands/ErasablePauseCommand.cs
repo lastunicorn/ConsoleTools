@@ -14,22 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls;
 
-namespace ConsoleTools.Demo.PauseDemo.NetCore
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
 {
-    internal abstract class CommandBase : ICommand
+    internal class ErasablePauseCommand : CommandBase
     {
-        public bool IsActive { get; } = true;
+        public override string Title => "This pause will erase itself at the end";
 
-        public abstract string Title { get; }
-
-        public void Execute()
+        protected override void DoExecute()
         {
-            DummyText.Display($"- {Title}:", 3);
-            DoExecute();
+            Pause pause = new Pause
+            {
+                EraseAfterClose = true
+            };
+            pause.Display();
         }
-
-        protected abstract void DoExecute();
     }
 }

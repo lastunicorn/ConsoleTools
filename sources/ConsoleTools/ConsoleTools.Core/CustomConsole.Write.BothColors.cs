@@ -211,16 +211,14 @@ public partial class CustomConsole
 
         if (foregroundColor.HasValue)
         {
-            return backgroundColor.HasValue 
+            return backgroundColor.HasValue
                 ? WithColors(foregroundColor.Value, backgroundColor.Value, func)
                 : WithForegroundColor(foregroundColor.Value, func);
         }
-        else
-        {
-            return backgroundColor.HasValue
-                ? WithBackgroundColor(backgroundColor.Value, func) 
-                : func();
-        }
+
+        return backgroundColor.HasValue
+            ? WithBackgroundColor(backgroundColor.Value, func)
+            : func();
     }
 
     /// <summary>

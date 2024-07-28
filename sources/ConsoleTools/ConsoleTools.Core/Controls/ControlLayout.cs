@@ -143,7 +143,7 @@ public class ControlLayout
     {
         CalculateMargins();
         CalculatePaddings();
-        calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+        calculatedHorizontalAlignment = ComputeHorizontalAlignment();
         CalculateActualWidths();
         CalculateInnerEmptySpace();
         CalculateOuterEmptySpace();
@@ -165,53 +165,58 @@ public class ControlLayout
         PaddingBottom = Control.Padding.Bottom;
     }
 
-    private HorizontalAlignment CalculateHorizontalAlignment()
+    private HorizontalAlignment ComputeHorizontalAlignment()
     {
         bool widthIsProvided = Control.Width != null || Control.MinWidth != null || Control.MaxWidth != null;
 
-        if (!widthIsProvided)
+        return widthIsProvided
+            ? ComputeHorizontalAlignment_WhenWidthIsProvided()
+            : ComputeHorizontalAlignment_WhenNoWidthProvided();
+    }
+
+    private HorizontalAlignment ComputeHorizontalAlignment_WhenWidthIsProvided()
+    {
+        switch (Control.HorizontalAlignment)
         {
-            switch (Control.HorizontalAlignment)
-            {
-                case HorizontalAlignment.Default:
-                    return HorizontalAlignment.Left;
+            case HorizontalAlignment.Default:
+            case HorizontalAlignment.Left:
+                return HorizontalAlignment.Left;
 
-                case HorizontalAlignment.Left:
-                case HorizontalAlignment.Center:
-                case HorizontalAlignment.Right:
-                case HorizontalAlignment.Stretch:
-                    return Control.HorizontalAlignment.Value;
+            case HorizontalAlignment.Center:
+                return HorizontalAlignment.Center;
 
-                case null:
-                    return HorizontalAlignment.Stretch;
+            case HorizontalAlignment.Right:
+                return HorizontalAlignment.Right;
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            case HorizontalAlignment.Stretch:
+                return HorizontalAlignment.Left;
+
+            case null:
+                return HorizontalAlignment.Left;
+
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-        else
+    }
+
+    private HorizontalAlignment ComputeHorizontalAlignment_WhenNoWidthProvided()
+    {
+        switch (Control.HorizontalAlignment)
         {
-            switch (Control.HorizontalAlignment)
-            {
-                case HorizontalAlignment.Default:
-                case HorizontalAlignment.Left:
-                    return HorizontalAlignment.Left;
+            case HorizontalAlignment.Default:
+                return HorizontalAlignment.Left;
 
-                case HorizontalAlignment.Center:
-                    return HorizontalAlignment.Center;
+            case HorizontalAlignment.Left:
+            case HorizontalAlignment.Center:
+            case HorizontalAlignment.Right:
+            case HorizontalAlignment.Stretch:
+                return Control.HorizontalAlignment.Value;
 
-                case HorizontalAlignment.Right:
-                    return HorizontalAlignment.Right;
+            case null:
+                return HorizontalAlignment.Stretch;
 
-                case HorizontalAlignment.Stretch:
-                    return HorizontalAlignment.Left;
-
-                case null:
-                    return HorizontalAlignment.Left;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 

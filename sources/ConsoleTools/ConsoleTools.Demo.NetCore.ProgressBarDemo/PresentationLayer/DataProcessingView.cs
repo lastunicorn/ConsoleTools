@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,72 +20,71 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 using DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.PresentationLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.PresentationLayer;
+
+/// <summary>
+/// This view uses a <see cref="DataProcessingJob"/> to simulate some business process and a <see cref="ProgressBar"/> control
+/// to display its percentage progress.
+/// </summary>
+internal class DataProcessingView
 {
-    /// <summary>
-    /// This view uses a <see cref="DataProcessingJob"/> to simulate some business process and a <see cref="ProgressBar"/> control
-    /// to display its percentage progress.
-    /// </summary>
-    internal class DataProcessingView
+    private static ProgressBar progressBar;
+    private static DataProcessingJob job;
+
+    public DataProcessingView()
     {
-        private static ProgressBar progressBar;
-        private static DataProcessingJob job;
+        progressBar = new ProgressBar();
+    }
 
-        public DataProcessingView()
+    public void Show()
+    {
+        TextBlock textBlock = new()
         {
-            progressBar = new ProgressBar();
-        }
+            Margin = "0 0 0 1",
+            Text = "We create a DataProcessingJob object that will simulate some data processing."
+        };
+        textBlock.Display();
 
-        public void Show()
+        job = new DataProcessingJob();
+        job.StateChanged += HandleJobStateChanged;
+        job.ProgressChanged += HandleJobProgressChanged;
+
+        job.Run();
+    }
+
+    private static void HandleJobStateChanged(object sender, EventArgs e)
+    {
+        DataProcessingJob job = sender as DataProcessingJob;
+
+        if (job == null)
+            return;
+
+        switch (job.State)
         {
-            TextBlock textBlock = new TextBlock
-            {
-                Margin = "0 0 0 1",
-                Text = "We create a DataProcessingJob object that will simulate some data processing."
-            };
-            textBlock.Display();
+            case JobState.Running:
+                TextBlock textBlockStart = new()
+                {
+                    Margin = "0 0 0 1",
+                    Text = "The job was started."
+                };
+                textBlockStart.Display();
+                progressBar.Display();
+                break;
 
-            job = new DataProcessingJob();
-            job.StateChanged += HandleJobStateChanged;
-            job.ProgressChanged += HandleJobProgressChanged;
-
-            job.Run();
+            case JobState.Stopped:
+                progressBar.Close();
+                TextBlock textBlockFinish = new()
+                {
+                    Margin = "0 1 0 0",
+                    Text = "The job was finished."
+                };
+                textBlockFinish.Display();
+                break;
         }
+    }
 
-        private static void HandleJobStateChanged(object sender, EventArgs e)
-        {
-            DataProcessingJob job = sender as DataProcessingJob;
-
-            if (job == null)
-                return;
-
-            switch (job.State)
-            {
-                case JobState.Running:
-                    TextBlock textBlockStart = new TextBlock
-                    {
-                        Margin = "0 0 0 1",
-                        Text = "The job was started."
-                    };
-                    textBlockStart.Display();
-                    progressBar.Display();
-                    break;
-
-                case JobState.Stopped:
-                    progressBar.Close();
-                    TextBlock textBlockFinish = new TextBlock
-                    {
-                        Margin = "0 1 0 0",
-                        Text = "The job was finished."
-                    };
-                    textBlockFinish.Display();
-                    break;
-            }
-        }
-
-        private static void HandleJobProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            progressBar.Value = e.ProgressPercentage;
-        }
+    private static void HandleJobProgressChanged(object sender, ProgressChangedEventArgs e)
+    {
+        progressBar.Value = e.ProgressPercentage;
     }
 }

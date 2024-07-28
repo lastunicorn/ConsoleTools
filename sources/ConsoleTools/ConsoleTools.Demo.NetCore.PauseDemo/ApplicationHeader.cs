@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,66 +18,65 @@ using System;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo;
+
+internal class ApplicationHeader
 {
-    internal class ApplicationHeader
+    private TextBlock titleBlock;
+    private HorizontalLine horizontalLine;
+
+    public string Title { get; set; }
+
+    public ApplicationHeader()
     {
-        private TextBlock titleBlock;
-        private HorizontalLine horizontalLine;
+        InitializeControls();
+    }
 
-        public string Title { get; set; }
-
-        public ApplicationHeader()
+    private void InitializeControls()
+    {
+        titleBlock = new TextBlock
         {
-            InitializeControls();
-        }
+            ForegroundColor = CustomConsole.EmphasizedColor
+        };
 
-        private void InitializeControls()
+        horizontalLine = new HorizontalLine
         {
-            titleBlock = new TextBlock
-            {
-                ForegroundColor = CustomConsole.EmphasizedColor
-            };
+            Character = '=',
+            ForegroundColor = CustomConsole.EmphasizedColor,
+            Margin = "0 0 0 1"
+        };
+    }
 
-            horizontalLine = new HorizontalLine
-            {
-                Character = '=',
-                ForegroundColor = CustomConsole.EmphasizedColor,
-                Margin = "0 0 0 1"
-            };
-        }
+    private static Version GetAssemblyVersion()
+    {
+        Assembly assembly = Assembly.GetEntryAssembly();
+        AssemblyName assemblyName = assembly.GetName();
+        return assemblyName.Version;
+    }
 
-        private static Version GetAssemblyVersion()
-        {
-            Assembly assembly = Assembly.GetEntryAssembly();
-            AssemblyName assemblyName = assembly.GetName();
-            return assemblyName.Version;
-        }
+    private static string GetAssemblyTitle()
+    {
+        Assembly assembly = Assembly.GetEntryAssembly();
+        AssemblyTitleAttribute assemblyTitleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
 
-        private static string GetAssemblyTitle()
-        {
-            Assembly assembly = Assembly.GetEntryAssembly();
-            AssemblyTitleAttribute assemblyTitleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
+        return assemblyTitleAttribute?.Title;
+    }
 
-            return assemblyTitleAttribute?.Title;
-        }
+    public void Display()
+    {
+        OnBeforeDisplay();
 
-        public void Display()
-        {
-            OnBeforeDisplay();
+        titleBlock.Display();
+        horizontalLine.Display();
+    }
 
-            titleBlock.Display();
-            horizontalLine.Display();
-        }
+    private void OnBeforeDisplay()
+    {
+        string title = Title ?? GetAssemblyTitle();
 
-        private void OnBeforeDisplay()
-        {
-            string title = Title ?? GetAssemblyTitle();
+        Version version = GetAssemblyVersion();
+        string versionAsString = version.ToString(3);
 
-            Version version = GetAssemblyVersion();
-            string versionAsString = version.ToString(3);
-
-            titleBlock.Text = $"{title} - ver {versionAsString}";
-        }
+        titleBlock.Text = $"{title} - ver {versionAsString}";
     }
 }

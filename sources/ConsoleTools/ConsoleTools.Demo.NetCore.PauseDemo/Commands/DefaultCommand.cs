@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,15 +16,14 @@
 
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
-{
-    internal class DefaultCommand : CommandBase
-    {
-        public override string Title => "Default Pause";
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands;
 
-        protected override void DoExecute()
-        {
-            Pause.QuickDisplay();
-        }
+internal class DefaultCommand : CommandBase
+{
+    public override string Title => "Default Pause";
+
+    protected override void DoExecute()
+    {
+        Pause.QuickDisplay();
     }
 }

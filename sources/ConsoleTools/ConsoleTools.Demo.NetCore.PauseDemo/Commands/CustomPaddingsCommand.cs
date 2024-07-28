@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,20 +17,19 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
-{
-    internal class CustomPaddingsCommand : CommandBase
-    {
-        public override string Title => "Custom paddings (3 3 3 3)";
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands;
 
-        protected override void DoExecute()
+internal class CustomPaddingsCommand : CommandBase
+{
+    public override string Title => "Custom paddings (3 3 3 3)";
+
+    protected override void DoExecute()
+    {
+        Pause pause = new()
         {
-            Pause pause = new Pause
-            {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
-            };
-            pause.Display();
-        }
+            Padding = 3,
+            BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+        };
+        pause.Display();
     }
 }

@@ -67,7 +67,7 @@ public class RowTests
     {
         List<CustomClass> data = new()
         {
-            new CustomClass() { Number = 4, Text = "bla" }
+            new CustomClass { Number = 4, Text = "bla" }
         };
 
         DataGrid actual = DataGrid.BuildFrom(data);
@@ -80,7 +80,7 @@ public class RowTests
     {
         List<CustomClass> data = new()
         {
-            new CustomClass() { Number = 4, Text = "bla" }
+            new CustomClass { Number = 4, Text = "bla" }
         };
 
         DataGrid actual = DataGrid.BuildFrom(data);

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,17 +16,16 @@
 
 using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo;
+
+internal static class DummyText
 {
-    internal static class DummyText
+    public static void Display(string text, int count)
     {
-        public static void Display(string text, int count)
+        for (int i = 0; i < count; i++)
         {
-            for (int i = 0; i < count; i++)
-            {
-                CustomConsole.WriteLine(text);
-                Thread.Sleep(200);
-            }
+            CustomConsole.WriteLine(text);
+            Thread.Sleep(200);
         }
     }
 }

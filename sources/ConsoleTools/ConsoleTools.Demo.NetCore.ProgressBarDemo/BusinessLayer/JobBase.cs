@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,106 +19,105 @@ using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer;
+
+/// <summary>
+/// Base class that asynchrounously runs some code and provides support to announce its progress.
+/// </summary>
+internal abstract class JobBase
 {
-    /// <summary>
-    /// Base class that asynchrounously runs some code and provides support to announce its progress.
-    /// </summary>
-    internal abstract class JobBase
+    private JobState state = JobState.New;
+    private readonly ManualResetEventSlim finishEvent;
+
+    protected JobBase()
     {
-        private JobState state = JobState.New;
-        private readonly ManualResetEventSlim finishEvent;
+        finishEvent = new ManualResetEventSlim(false);
+    }
 
-        protected JobBase()
+    /// <summary>
+    /// Gets a galue that specifies if the job is running.
+    /// </summary>
+    public JobState State
+    {
+        get => state;
+        private set
         {
-            finishEvent = new ManualResetEventSlim(false);
+            state = value;
+            OnStateChanged();
         }
+    }
 
-        /// <summary>
-        /// Gets a galue that specifies if the job is running.
-        /// </summary>
-        public JobState State
+    /// <summary>
+    /// Event raised when the state of the jog is changed.
+    /// </summary>
+    public event EventHandler StateChanged;
+
+    /// <summary>
+    /// Event raised when the progress of the job changed.
+    /// </summary>
+    public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
+
+    /// <summary>
+    /// Runs the <see cref="DoRun"/> method asynchronously.
+    /// The <see cref="Start"/> method immediatelly return and the job remains to be run on a background thread.
+    /// </summary>
+    public void Start()
+    {
+        finishEvent.Reset();
+        State = JobState.Running;
+
+        Task.Run(() =>
         {
-            get => state;
-            private set
-            {
-                state = value;
-                OnStateChanged();
-            }
-        }
-
-        /// <summary>
-        /// Event raised when the state of the jog is changed.
-        /// </summary>
-        public event EventHandler StateChanged;
-
-        /// <summary>
-        /// Event raised when the progress of the job changed.
-        /// </summary>
-        public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
-
-        /// <summary>
-        /// Runs the <see cref="DoRun"/> method asynchronously.
-        /// The <see cref="Start"/> method immediatelly return and the job remains to be run on a background thread.
-        /// </summary>
-        public void Start()
-        {
-            finishEvent.Reset();
-            State = JobState.Running;
-
-            Task.Run(() =>
-            {
-                try
-                {
-                    DoRun();
-                }
-                finally
-                {
-                    finishEvent.Set();
-                    State = JobState.Stopped;
-                }
-            });
-        }
-
-        /// <summary>
-        /// Runs the <see cref="DoRun"/> method synchronously.
-        /// The <see cref="Run"/> methods is blocked until the job is finished.
-        /// </summary>
-        public void Run()
-        {
-            State = JobState.Running;
-
             try
             {
                 DoRun();
             }
             finally
             {
+                finishEvent.Set();
                 State = JobState.Stopped;
             }
-        }
+        });
+    }
 
-        protected abstract void DoRun();
+    /// <summary>
+    /// Runs the <see cref="DoRun"/> method synchronously.
+    /// The <see cref="Run"/> methods is blocked until the job is finished.
+    /// </summary>
+    public void Run()
+    {
+        State = JobState.Running;
 
-        protected void AnnounceProgress(int progressPercentage)
+        try
         {
-            ProgressChangedEventArgs eventArgs = new ProgressChangedEventArgs(progressPercentage, null);
-            OnProgressChanged(eventArgs);
+            DoRun();
         }
-
-        public void WaitToFinish()
+        finally
         {
-            finishEvent.Wait();
+            State = JobState.Stopped;
         }
+    }
 
-        protected virtual void OnStateChanged()
-        {
-            StateChanged?.Invoke(this, EventArgs.Empty);
-        }
+    protected abstract void DoRun();
 
-        protected virtual void OnProgressChanged(ProgressChangedEventArgs e)
-        {
-            ProgressChanged?.Invoke(this, e);
-        }
+    protected void AnnounceProgress(int progressPercentage)
+    {
+        ProgressChangedEventArgs eventArgs = new(progressPercentage, null);
+        OnProgressChanged(eventArgs);
+    }
+
+    public void WaitToFinish()
+    {
+        finishEvent.Wait();
+    }
+
+    protected virtual void OnStateChanged()
+    {
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnProgressChanged(ProgressChangedEventArgs e)
+    {
+        ProgressChanged?.Invoke(this, e);
     }
 }

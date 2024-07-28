@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,115 +21,114 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Base class for a control displayed inline.
+/// It provides default functionality for margins (only left and right), colors, etc.
+/// </summary>
+public abstract class InlineControl : Control
 {
     /// <summary>
-    /// Base class for a control displayed inline.
-    /// It provides default functionality for margins (only left and right), colors, etc.
+    /// Gets or sets the number of spaces to be written before the content (to the left).
+    /// Default value: 0
     /// </summary>
-    public abstract class InlineControl : Control
+    public int MarginLeft { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of spaces to be written after the content (to the right).
+    /// Default value: 0
+    /// </summary>
+    public int MarginRight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of spaces to be written before the content (to the left).
+    /// Default value: 0
+    /// </summary>
+    public int PaddingLeft { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of spaces to be written after the content (to the right).
+    /// Default value: 0
+    /// </summary>
+    public int PaddingRight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the foreground color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Displays the margins and the content of the control.
+    /// </summary>
+    protected override void DoDisplay()
     {
-        /// <summary>
-        /// Gets or sets the number of spaces to be written before the content (to the left).
-        /// Default value: 0
-        /// </summary>
-        public int MarginLeft { get; set; }
+        if (MarginLeft > 0)
+            DisplayLeftMargin();
 
-        /// <summary>
-        /// Gets or sets the number of spaces to be written after the content (to the right).
-        /// Default value: 0
-        /// </summary>
-        public int MarginRight { get; set; }
+        if (PaddingLeft > 0)
+            DisplayPaddingLeft();
 
-        /// <summary>
-        /// Gets or sets the number of spaces to be written before the content (to the left).
-        /// Default value: 0
-        /// </summary>
-        public int PaddingLeft { get; set; }
+        DoDisplayContent();
 
-        /// <summary>
-        /// Gets or sets the number of spaces to be written after the content (to the right).
-        /// Default value: 0
-        /// </summary>
-        public int PaddingRight { get; set; }
+        if (PaddingRight > 0)
+            DisplayPaddingRight();
 
-        /// <summary>
-        /// Gets or sets the foreground color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
+        if (MarginRight > 0)
+            DisplayRightMargin();
+    }
 
-        /// <summary>
-        /// Gets or sets the background color used to write the text.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
+    private void DisplayLeftMargin()
+    {
+        string space = new(' ', MarginLeft);
+        Console.Write(space);
+    }
 
-        /// <summary>
-        /// Displays the margins and the content of the control.
-        /// </summary>
-        protected override void DoDisplay()
-        {
-            if (MarginLeft > 0)
-                DisplayLeftMargin();
+    private void DisplayRightMargin()
+    {
+        string space = new(' ', MarginRight);
+        Console.Write(space);
+    }
 
-            if (PaddingLeft > 0)
-                DisplayPaddingLeft();
+    private void DisplayPaddingLeft()
+    {
+        string paddingLeft = new(' ', PaddingLeft);
+        WriteText(paddingLeft);
+    }
 
-            DoDisplayContent();
+    private void DisplayPaddingRight()
+    {
+        string paddingRight = new(' ', PaddingRight);
+        WriteText(paddingRight);
+    }
 
-            if (PaddingRight > 0)
-                DisplayPaddingRight();
+    /// <summary>
+    /// When implemented in a derived class, it displays the content of the control.
+    /// This method is not responsible to display the margins.
+    /// </summary>
+    protected abstract void DoDisplayContent();
 
-            if (MarginRight > 0)
-                DisplayRightMargin();
-        }
-
-        private void DisplayLeftMargin()
-        {
-            string space = new string(' ', MarginLeft);
-            Console.Write(space);
-        }
-
-        private void DisplayRightMargin()
-        {
-            string space = new string(' ', MarginRight);
-            Console.Write(space);
-        }
-
-        private void DisplayPaddingLeft()
-        {
-            string paddingLeft = new string(' ', PaddingLeft);
-            WriteText(paddingLeft);
-        }
-
-        private void DisplayPaddingRight()
-        {
-            string paddingRight = new string(' ', PaddingRight);
-            WriteText(paddingRight);
-        }
-
-        /// <summary>
-        /// When implemented in a derived class, it displays the content of the control.
-        /// This method is not responsible to display the margins.
-        /// </summary>
-        protected abstract void DoDisplayContent();
-
-        /// <summary>
-        /// Helper method that writes the specified text to the console using the
-        /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
-        /// </summary>
-        /// <param name="text">The text to be written to the console.</param>
-        protected void WriteText(string text)
-        {
-            if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
-                CustomConsole.Write(text);
-            else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
-            else if (ForegroundColor.HasValue)
-                CustomConsole.Write(ForegroundColor.Value, text);
-            else
-                CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
-        }
+    /// <summary>
+    /// Helper method that writes the specified text to the console using the
+    /// <see cref="ForegroundColor"/> and <see cref="BackgroundColor"/> values.
+    /// </summary>
+    /// <param name="text">The text to be written to the console.</param>
+    protected void WriteText(string text)
+    {
+        if (!ForegroundColor.HasValue && !BackgroundColor.HasValue)
+            CustomConsole.Write(text);
+        else if (ForegroundColor.HasValue && BackgroundColor.HasValue)
+            CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
+        else if (ForegroundColor.HasValue)
+            CustomConsole.Write(ForegroundColor.Value, text);
+        else
+            CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
     }
 }

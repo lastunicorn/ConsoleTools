@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,192 +21,191 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.
+/// <para>
+/// The provided functionality is:
+/// <list type="bullet">
+///     <item><description>top/bottom margin,</description></item>
+///     <item><description>optionally hides cursor while displaying,</description></item>
+///     <item><description>optionally ensures the display of the control on a new line.</description></item>
+/// </list>
+/// </para>
+/// </summary>
+public abstract class LongRunningControl
 {
+    private readonly bool allowHidingCursor;
+    private bool initialCursorVisible;
+
     /// <summary>
-    /// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.
-    /// <para>
-    /// The provided functionality is:
-    /// <list type="bullet">
-    ///     <item><description>top/bottom margin,</description></item>
-    ///     <item><description>optionally hides cursor while displaying,</description></item>
-    ///     <item><description>optionally ensures the display of the control on a new line.</description></item>
-    /// </list>
-    /// </para>
+    /// Gets a value that specifies if the control is still active.
+    /// Active means that it will automatically refresh itself when its state is changed.
+    /// It become active when the <see cref="Display"/> method is called.
+    /// It is inactivated when the <see cref="Close"/> method is called.
     /// </summary>
-    public abstract class LongRunningControl
+    protected bool IsActive { get; private set; }
+
+    /// <summary>
+    /// Gets or sets the number of empty lines displayed before the pause text.
+    /// Default value: 0
+    /// </summary>
+    public int MarginTop { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
+    /// Default value: 0
+    /// </summary>
+    public int MarginBottom { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
+    /// Default value: <c>true</c>
+    /// </summary>
+    public bool ShowCursor { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the control should always be displayed at the beginning of the line.
+    /// If this value is <c>true</c> and the cursor is not at the beginning of the line, a new line is written before displaying the control.
+    /// </summary>
+    public bool EnsureBeginOfLine { get; set; }
+
+    protected LongRunningControl()
     {
-        private readonly bool allowHidingCursor;
-        private bool initialCursorVisible;
+        allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+    }
 
-        /// <summary>
-        /// Gets a value that specifies if the control is still active.
-        /// Active means that it will automatically refresh itself when its state is changed.
-        /// It become active when the <see cref="Display"/> method is called.
-        /// It is inactivated when the <see cref="Close"/> method is called.
-        /// </summary>
-        protected bool IsActive { get; private set; }
+    /// <summary>
+    /// Displays the control and changes its status to "running".
+    /// </summary>
+    public virtual void Display()
+    {
+        OnBeforeDisplay();
 
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed before the pause text.
-        /// Default value: 0
-        /// </summary>
-        public int MarginTop { get; set; }
+        if (IsActive)
+            return;
 
-        /// <summary>
-        /// Gets or sets the number of empty lines displayed after the pause text, after the pause was ended.
-        /// Default value: 0
-        /// </summary>
-        public int MarginBottom { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool ShowCursor { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the control should always be displayed at the beginning of the line.
-        /// If this value is <c>true</c> and the cursor is not at the beginning of the line, a new line is written before displaying the control.
-        /// </summary>
-        public bool EnsureBeginOfLine { get; set; }
-
-        protected LongRunningControl()
+        if (allowHidingCursor)
         {
-            allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+            initialCursorVisible = Console.CursorVisible;
+
+            if (!ShowCursor)
+                Console.CursorVisible = false;
         }
 
-        /// <summary>
-        /// Displays the control and changes its status to "running".
-        /// </summary>
-        public virtual void Display()
-        {
-            OnBeforeDisplay();
+        MoveToNextLineIfNecessary();
 
-            if (IsActive)
-                return;
+        WriteTopMargin();
 
-            if (allowHidingCursor)
-            {
-                initialCursorVisible = Console.CursorVisible;
+        DoDisplayContent();
 
-                if (!ShowCursor)
-                    Console.CursorVisible = false;
-            }
+        IsActive = true;
 
-            MoveToNextLineIfNecessary();
+        Refresh();
+    }
 
-            WriteTopMargin();
+    /// <summary>
+    /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else.
+    /// </summary>
+    protected virtual void OnBeforeDisplay()
+    {
+    }
 
-            DoDisplayContent();
+    /// <summary>
+    /// Method called immediately before writing the top margin.
+    /// </summary>
+    protected virtual void OnBeforeTopMargin()
+    {
+    }
 
-            IsActive = true;
+    /// <summary>
+    /// Method called immediately after writing the bottom margin.
+    /// </summary>
+    protected virtual void OnAfterBottomMargin()
+    {
+    }
 
-            Refresh();
-        }
+    private void MoveToNextLineIfNecessary()
+    {
+        if (Console.CursorLeft != 0 && (EnsureBeginOfLine || MarginTop > 0))
+            Console.WriteLine();
+    }
 
-        /// <summary>
-        /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else.
-        /// </summary>
-        protected virtual void OnBeforeDisplay()
-        {
-        }
+    /// <summary>
+    /// When implemented by an inheritor, it displays the content of the control to the console.
+    /// </summary>
+    protected abstract void DoDisplayContent();
 
-        /// <summary>
-        /// Method called immediately before writing the top margin.
-        /// </summary>
-        protected virtual void OnBeforeTopMargin()
-        {
-        }
+    private void WriteTopMargin()
+    {
+        OnBeforeTopMargin();
 
-        /// <summary>
-        /// Method called immediately after writing the bottom margin.
-        /// </summary>
-        protected virtual void OnAfterBottomMargin()
-        {
-        }
+        for (int i = 0; i < MarginTop; i++)
+            Console.WriteLine();
+    }
 
-        private void MoveToNextLineIfNecessary()
-        {
-            if (Console.CursorLeft != 0 && (EnsureBeginOfLine || MarginTop > 0))
-                Console.WriteLine();
-        }
+    private void WriteBottomMargin()
+    {
+        for (int i = 0; i < MarginBottom; i++)
+            Console.WriteLine();
 
-        /// <summary>
-        /// When implemented by an inheritor, it displays the content of the control to the console.
-        /// </summary>
-        protected abstract void DoDisplayContent();
+        OnAfterBottomMargin();
+    }
 
-        private void WriteTopMargin()
-        {
-            OnBeforeTopMargin();
+    /// <summary>
+    /// Displays again the control in the console.
+    /// This is done only if the control is active. 
+    /// </summary>
+    protected void Refresh()
+    {
+        if (IsActive)
+            DoRefresh();
+    }
 
-            for (int i = 0; i < MarginTop; i++)
-                Console.WriteLine();
-        }
+    /// <summary>
+    /// When implemented by an inheritor, it performs the necessary actions to show the control in the console.
+    /// </summary>
+    protected abstract void DoRefresh();
 
-        private void WriteBottomMargin()
-        {
-            for (int i = 0; i < MarginBottom; i++)
-                Console.WriteLine();
+    /// <summary>
+    /// Changes the status of the control to "not running" and ends its display.
+    /// </summary>
+    public void Close()
+    {
+        OnClosing();
 
-            OnAfterBottomMargin();
-        }
+        if (!IsActive)
+            return;
 
-        /// <summary>
-        /// Displays again the control in the console.
-        /// This is done only if the control is active. 
-        /// </summary>
-        protected void Refresh()
-        {
-            if (IsActive)
-                DoRefresh();
-        }
+        DoClose();
 
-        /// <summary>
-        /// When implemented by an inheritor, it performs the necessary actions to show the control in the console.
-        /// </summary>
-        protected abstract void DoRefresh();
+        WriteBottomMargin();
 
-        /// <summary>
-        /// Changes the status of the control to "not running" and ends its display.
-        /// </summary>
-        public void Close()
-        {
-            OnClosing();
+        if (allowHidingCursor && !ShowCursor)
+            Console.CursorVisible = initialCursorVisible;
 
-            if (!IsActive)
-                return;
+        IsActive = false;
 
-            DoClose();
+        OnClosed();
+    }
 
-            WriteBottomMargin();
+    /// <summary>
+    /// Method called at the very beginning of the <see cref="Close"/> method.
+    /// </summary>
+    protected virtual void OnClosing()
+    {
+    }
 
-            if (allowHidingCursor && !ShowCursor)
-                Console.CursorVisible = initialCursorVisible;
+    /// <summary>
+    /// When implemented by an inheritor, it performs the necessary actions to close the control.
+    /// </summary>
+    protected abstract void DoClose();
 
-            IsActive = false;
-
-            OnClosed();
-        }
-
-        /// <summary>
-        /// Method called at the very beginning of the <see cref="Close"/> method.
-        /// </summary>
-        protected virtual void OnClosing()
-        {
-        }
-
-        /// <summary>
-        /// When implemented by an inheritor, it performs the necessary actions to close the control.
-        /// </summary>
-        protected abstract void DoClose();
-
-        /// <summary>
-        /// Method called at the very end of the <see cref="Close"/> method, before returning.
-        /// </summary>
-        protected virtual void OnClosed()
-        {
-        }
+    /// <summary>
+    /// Method called at the very end of the <see cref="Close"/> method, before returning.
+    /// </summary>
+    protected virtual void OnClosed()
+    {
     }
 }

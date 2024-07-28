@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,55 +21,54 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+/// <summary>
+/// Contains a set of methods that help to write text to the Console.
+/// </summary>
+public static partial class CustomConsole
 {
     /// <summary>
-    /// Contains a set of methods that help to write text to the Console.
+    /// Gets or sets the color used to write Success messages.
     /// </summary>
-    public static partial class CustomConsole
-    {
-        /// <summary>
-        /// Gets or sets the color used to write Success messages.
-        /// </summary>
-        public static ConsoleColor SuccessColor { get; set; } = ConsoleColor.Green;
+    public static ConsoleColor SuccessColor { get; set; } = ConsoleColor.Green;
 
-        /// <summary>
-        /// Gets or sets the background color used to write Success messages.
-        /// If the color is null, default background color is used.
-        /// </summary>
-        public static ConsoleColor? SuccessBackgroundColor { get; set; }
+    /// <summary>
+    /// Gets or sets the background color used to write Success messages.
+    /// If the color is null, default background color is used.
+    /// </summary>
+    public static ConsoleColor? SuccessBackgroundColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color used to write Warning messages.
-        /// </summary>
-        public static ConsoleColor WarningColor { get; set; } = ConsoleColor.Yellow;
+    /// <summary>
+    /// Gets or sets the color used to write Warning messages.
+    /// </summary>
+    public static ConsoleColor WarningColor { get; set; } = ConsoleColor.Yellow;
 
-        /// <summary>
-        /// Gets or sets the background color used to write Warning messages.
-        /// If the color is null, default background color is used.
-        /// </summary>
-        public static ConsoleColor? WarningBackgroundColor { get; set; }
+    /// <summary>
+    /// Gets or sets the background color used to write Warning messages.
+    /// If the color is null, default background color is used.
+    /// </summary>
+    public static ConsoleColor? WarningBackgroundColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color used to write Error messages.
-        /// </summary>
-        public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.Red;
+    /// <summary>
+    /// Gets or sets the color used to write Error messages.
+    /// </summary>
+    public static ConsoleColor ErrorColor { get; set; } = ConsoleColor.Red;
 
-        /// <summary>
-        /// Gets or sets the background color used to write Error messages.
-        /// If the color is null, default background color is used.
-        /// </summary>
-        public static ConsoleColor? ErrorBackgroundColor { get; set; }
+    /// <summary>
+    /// Gets or sets the background color used to write Error messages.
+    /// If the color is null, default background color is used.
+    /// </summary>
+    public static ConsoleColor? ErrorBackgroundColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color used to write Emphasized messages.
-        /// </summary>
-        public static ConsoleColor EmphasizedColor { get; set; } = ConsoleColor.White;
+    /// <summary>
+    /// Gets or sets the color used to write Emphasized messages.
+    /// </summary>
+    public static ConsoleColor EmphasizedColor { get; set; } = ConsoleColor.White;
 
-        /// <summary>
-        /// Gets or sets the background color used to write Emphasis messages.
-        /// If the color is null, default background color is used.
-        /// </summary>
-        public static ConsoleColor? EmphasizedBackgroundColor { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the background color used to write Emphasis messages.
+    /// If the color is null, default background color is used.
+    /// </summary>
+    public static ConsoleColor? EmphasizedBackgroundColor { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,53 +22,52 @@
 using System;
 using System.IO;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+internal abstract class ThreeStageFile : IDisposable
 {
-    internal abstract class ThreeStageFile : IDisposable
+    private readonly string targetFileName;
+    private readonly string tempFileName;
+    private readonly string backupFileName;
+
+    public FileStream FileStream { get; private set; }
+
+    protected ThreeStageFile(string fileName)
     {
-        private readonly string targetFileName;
-        private readonly string tempFileName;
-        private readonly string backupFileName;
+        targetFileName = fileName ?? throw new ArgumentNullException(nameof(fileName));
 
-        public FileStream FileStream { get; private set; }
+        tempFileName = $"{fileName}.tmp";
+        backupFileName = $"{fileName}.bak";
+    }
 
-        protected ThreeStageFile(string fileName)
-        {
-            targetFileName = fileName ?? throw new ArgumentNullException(nameof(fileName));
-            
-            tempFileName = $"{fileName}.tmp";
-            backupFileName = $"{fileName}.bak";
-        }
+    public void Open()
+    {
+        if (FileStream != null)
+            return;
 
-        public void Open()
-        {
-            if (FileStream != null)
-                return;
+        if (File.Exists(tempFileName))
+            throw new ApplicationException($"The previous process was not completed. Delete the temporary {tempFileName} file and then try again.");
 
-            if (File.Exists(tempFileName))
-                throw new ApplicationException($"The previous process was not completed. Delete the temporary {tempFileName} file and then try again.");
+        FileStream = File.OpenWrite(tempFileName);
+    }
 
-            FileStream = File.OpenWrite(tempFileName);
-        }
+    public void Close()
+    {
+        if (FileStream == null)
+            return;
 
-        public void Close()
-        {
-            if (FileStream == null)
-                return;
+        FileStream.Close();
+        FileStream.Dispose();
+        FileStream = null;
 
-            FileStream.Close();
-            FileStream.Dispose();
-            FileStream = null;
+        if (File.Exists(targetFileName))
+            File.Replace(tempFileName, targetFileName, backupFileName);
+        else
+            File.Move(tempFileName, targetFileName);
+    }
 
-            if (File.Exists(targetFileName))
-                File.Replace(tempFileName, targetFileName, backupFileName);
-            else
-                File.Move(tempFileName, targetFileName);
-        }
-
-        public void Dispose()
-        {
-            FileStream?.Dispose();
-        }
+    public void Dispose()
+    {
+        FileStream?.Dispose();
     }
 }

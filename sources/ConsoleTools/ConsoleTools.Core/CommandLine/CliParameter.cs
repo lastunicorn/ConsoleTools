@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,29 +19,28 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.CommandLine
+namespace DustInTheWind.ConsoleTools.CommandLine;
+
+/// <summary>
+/// Represents a parameter for the <see cref="CliCommand"/> class.
+/// </summary>
+public class CliParameter
 {
     /// <summary>
-    /// Represents a parameter for the <see cref="CliCommand"/> class.
+    /// Gets or sets the name of the parameter.
     /// </summary>
-    public class CliParameter
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value of the parameter.
+    /// </summary>
+    public string Value { get; set; }
+
+    /// <summary>
+    /// Returns the string representation of the current <see cref="CliParameter"/> instance.
+    /// </summary>
+    public override string ToString()
     {
-        /// <summary>
-        /// Gets or sets the name of the parameter.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the parameter.
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
-        /// Returns the string representation of the current <see cref="CliParameter"/> instance.
-        /// </summary>
-        public override string ToString()
-        {
-            return Name + "=" + Value;
-        }
+        return Name + "=" + Value;
     }
 }

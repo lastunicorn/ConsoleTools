@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,314 +25,313 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Represents a text on multiple lines.
+/// </summary>
+public class MultilineText : IEnumerable<string>
 {
     /// <summary>
-    /// Represents a text on multiple lines.
+    /// Gets the text as a single line.
     /// </summary>
-    public class MultilineText : IEnumerable<string>
+    public string RawText { get; }
+
+    /// <summary>
+    /// Gets the text split in lines.
+    /// </summary>
+    public ReadOnlyCollection<string> Lines { get; }
+
+    /// <summary>
+    /// Gets the size of the smallest rectangle in which the text will fit.
+    /// </summary>
+    public Size Size { get; }
+
+    /// <summary>
+    /// Gets an instance of the <see cref="MultilineText"/> containing no text.
+    /// </summary>
+    public static MultilineText Empty { get; } = new(string.Empty);
+
+    /// <summary>
+    /// Gets a value that specifies if the current instance contains no text.
+    /// </summary>
+    public bool IsEmpty => Size.IsEmpty;
+
+    /// <summary>
+    /// Used only internally when splitting the string in multiple lines.
+    /// </summary>
+    private enum LineEndChar
     {
-        /// <summary>
-        /// Gets the text as a single line.
-        /// </summary>
-        public string RawText { get; }
+        None,
+        Cr,
+        Lf
+    }
 
-        /// <summary>
-        /// Gets the text split in lines.
-        /// </summary>
-        public ReadOnlyCollection<string> Lines { get; }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MultilineText"/> class with
+    /// the an object to be displayed as text.
+    /// </summary>
+    /// <exception cref="ApplicationException"></exception>
+    public MultilineText(object o)
+        : this(o.ToString())
+    {
+    }
 
-        /// <summary>
-        /// Gets the size of the smallest rectangle in which the text will fit.
-        /// </summary>
-        public Size Size { get; }
-
-        /// <summary>
-        /// Gets an instance of the <see cref="MultilineText"/> containing no text.
-        /// </summary>
-        public static MultilineText Empty { get; } = new MultilineText(string.Empty);
-
-        /// <summary>
-        /// Gets a value that specifies if the current instance contains no text.
-        /// </summary>
-        public bool IsEmpty => Size.IsEmpty;
-
-        /// <summary>
-        /// Used only internally when splitting the string in multiple lines.
-        /// </summary>
-        private enum LineEndChar
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MultilineText"/> class with
+    /// the raw text.
+    /// </summary>
+    /// <param name="text">The text may contain line terminators: CR, LF or CRLF.</param>
+    /// <exception cref="ApplicationException"></exception>
+    public MultilineText(string text)
+    {
+        if (string.IsNullOrEmpty(text))
         {
-            None,
-            Cr,
-            Lf
+            RawText = string.Empty;
+            Lines = new ReadOnlyCollection<string>(Array.Empty<string>());
+            Size = new Size(0, 0);
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MultilineText"/> class with
-        /// the an object to be displayed as text.
-        /// </summary>
-        /// <exception cref="ApplicationException"></exception>
-        public MultilineText(object o)
-            : this(o.ToString())
+        else
         {
-        }
+            try
+            {
+                int width = 0;
+                int startLineIndex = 0;
+                LineEndChar lastLineEndChar = LineEndChar.None;
+                List<string> lines = new();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MultilineText"/> class with
-        /// the raw text.
-        /// </summary>
-        /// <param name="text">The text may contain line terminators: CR, LF or CRLF.</param>
-        /// <exception cref="ApplicationException"></exception>
-        public MultilineText(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                RawText = string.Empty;
-                Lines = new ReadOnlyCollection<string>(Array.Empty<string>());
-                Size = new Size(0, 0);
-            }
-            else
-            {
-                try
+                int i;
+                for (i = 0; i < text.Length; i++)
                 {
-                    int width = 0;
-                    int startLineIndex = 0;
-                    LineEndChar lastLineEndChar = LineEndChar.None;
-                    List<string> lines = new List<string>();
-
-                    int i;
-                    for (i = 0; i < text.Length; i++)
+                    if (text[i] == '\r')
                     {
-                        if (text[i] == '\r')
+                        // A line is ended.
+                        int lineWidth = i - startLineIndex;
+                        lines.Add(text.Substring(startLineIndex, lineWidth));
+                        if (lineWidth > width) width = lineWidth;
+
+                        startLineIndex = i + 1;
+                        lastLineEndChar = LineEndChar.Cr;
+                    }
+                    else if (text[i] == '\n')
+                    {
+                        if (i > startLineIndex || lastLineEndChar != LineEndChar.Cr)
                         {
                             // A line is ended.
                             int lineWidth = i - startLineIndex;
                             lines.Add(text.Substring(startLineIndex, lineWidth));
                             if (lineWidth > width) width = lineWidth;
-
-                            startLineIndex = i + 1;
-                            lastLineEndChar = LineEndChar.Cr;
                         }
-                        else if (text[i] == '\n')
-                        {
-                            if (i > startLineIndex || lastLineEndChar != LineEndChar.Cr)
-                            {
-                                // A line is ended.
-                                int lineWidth = i - startLineIndex;
-                                lines.Add(text.Substring(startLineIndex, lineWidth));
-                                if (lineWidth > width) width = lineWidth;
-                            }
 
-                            startLineIndex = i + 1;
-                            lastLineEndChar = LineEndChar.Lf;
-                        }
+                        startLineIndex = i + 1;
+                        lastLineEndChar = LineEndChar.Lf;
                     }
-
-                    // Process the remaining text.
-
-                    {
-                        int lineWidth = i - startLineIndex;
-                        lines.Add(text.Substring(startLineIndex, lineWidth));
-                        if (lineWidth > width) width = lineWidth;
-                    }
-
-                    RawText = text;
-                    Lines = lines.AsReadOnly();
-                    Size = new Size(width, lines.Count);
                 }
-                catch (Exception ex)
+
+                // Process the remaining text.
+
                 {
-                    throw new ApplicationException("Error splitting the text in multiple lines.", ex);
+                    int lineWidth = i - startLineIndex;
+                    lines.Add(text.Substring(startLineIndex, lineWidth));
+                    if (lineWidth > width) width = lineWidth;
                 }
+
+                RawText = text;
+                Lines = lines.AsReadOnly();
+                Size = new Size(width, lines.Count);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error splitting the text in multiple lines.", ex);
             }
         }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MultilineText"/> class with
-        /// the list of lines.
-        /// </summary>
-        public MultilineText(IEnumerable<string> lines)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MultilineText"/> class with
+    /// the list of lines.
+    /// </summary>
+    public MultilineText(IEnumerable<string> lines)
+    {
+        if (lines == null) throw new ArgumentNullException(nameof(lines));
+
+        List<string> linesAsList = lines.ToList();
+
+        RawText = string.Join(Environment.NewLine, linesAsList);
+        Lines = linesAsList.AsReadOnly();
+
+        int width = linesAsList.Count == 0
+            ? 0
+            : linesAsList.Max(x => x.Length);
+        int height = linesAsList.Count;
+        Size = new Size(width, height);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MultilineText"/> class with
+    /// the list of lines.
+    /// </summary>
+    public MultilineText(params string[] lines)
+        : this(lines.AsEnumerable())
+    {
+    }
+
+    /// <summary>
+    /// Calculates the size of the text.
+    /// </summary>
+    /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+    /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
+    public Size CalculateSize(int maxWidth = -1)
+    {
+        if (maxWidth < 0)
+            return Size;
+
+        if (maxWidth == 0)
+            return Size.Empty;
+
+        int totalWidth = 0;
+        int totalHeight = 0;
+
+        foreach (string line in Lines)
         {
-            if (lines == null) throw new ArgumentNullException(nameof(lines));
+            int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
+            totalHeight += lineHeight;
 
-            List<string> linesAsList = lines.ToList();
-
-            RawText = string.Join(Environment.NewLine, linesAsList);
-            Lines = linesAsList.AsReadOnly();
-
-            int width = linesAsList.Count == 0
-                ? 0
-                : linesAsList.Max(x => x.Length);
-            int height = linesAsList.Count;
-            Size = new Size(width, height);
+            int lineWidth = Math.Min(line.Length, maxWidth);
+            totalWidth = Math.Max(totalWidth, lineWidth);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MultilineText"/> class with
-        /// the list of lines.
-        /// </summary>
-        public MultilineText(params string[] lines)
-            : this(lines.AsEnumerable())
+        return new Size(totalWidth, totalHeight);
+    }
+
+    /// <summary>
+    /// Enumerates the lines. If a line is greater than <see cref="P:maxWidth"/>,
+    /// the line is cut in chunks with the length of <see cref="P:maxWidth"/>.
+    /// </summary>
+    /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+    /// <returns></returns>
+    public IEnumerable<string> GetLines(int maxWidth = -1)
+    {
+        if (maxWidth < 0)
         {
-        }
-
-        /// <summary>
-        /// Calculates the size of the text.
-        /// </summary>
-        /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
-        /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
-        public Size CalculateSize(int maxWidth = -1)
-        {
-            if (maxWidth < 0)
-                return Size;
-
-            if (maxWidth == 0)
-                return Size.Empty;
-
-            int totalWidth = 0;
-            int totalHeight = 0;
-
             foreach (string line in Lines)
-            {
-                int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
-                totalHeight += lineHeight;
+                yield return line;
 
-                int lineWidth = Math.Min(line.Length, maxWidth);
-                totalWidth = Math.Max(totalWidth, lineWidth);
-            }
-
-            return new Size(totalWidth, totalHeight);
+            yield break;
         }
 
-        /// <summary>
-        /// Enumerates the lines. If a line is greater than <see cref="P:maxWidth"/>,
-        /// the line is cut in chunks with the length of <see cref="P:maxWidth"/>.
-        /// </summary>
-        /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
-        /// <returns></returns>
-        public IEnumerable<string> GetLines(int maxWidth = -1)
+        if (maxWidth == 0)
+            yield break;
+
+        foreach (string line in Lines)
         {
-            if (maxWidth < 0)
+            int index = 0;
+
+            while (index < line.Length)
             {
-                foreach (string line in Lines)
-                    yield return line;
+                int chunkLength = Math.Min(maxWidth, line.Length - index);
+                string chunk = line.Substring(index, chunkLength);
+                yield return chunk;
 
-                yield break;
-            }
-
-            if (maxWidth == 0)
-                yield break;
-
-            foreach (string line in Lines)
-            {
-                int index = 0;
-
-                while (index < line.Length)
-                {
-                    int chunkLength = Math.Min(maxWidth, line.Length - index);
-                    string chunk = line.Substring(index, chunkLength);
-                    yield return chunk;
-
-                    index += chunkLength;
-                }
+                index += chunkLength;
             }
         }
+    }
 
-        /// <summary>
-        /// Indicates whether this instance and a specified object are equal.
-        /// </summary>
-        /// <param name="obj">Another object to compare to.</param>
-        /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is MultilineText multilineText)
-                return RawText == multilineText.RawText;
+    /// <summary>
+    /// Indicates whether this instance and a specified object are equal.
+    /// </summary>
+    /// <param name="obj">Another object to compare to.</param>
+    /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is MultilineText multilineText)
+            return RawText == multilineText.RawText;
 
-            return false;
-        }
+        return false;
+    }
 
-        /// <summary>
-        /// Returns the hash code for this instance.
-        /// </summary>
-        /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
-        public override int GetHashCode()
-        {
-            return RawText.GetHashCode();
-        }
+    /// <summary>
+    /// Returns the hash code for this instance.
+    /// </summary>
+    /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+    public override int GetHashCode()
+    {
+        return RawText.GetHashCode();
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 
-        /// <summary>
-        /// Returns an enumerator that enumerates through the lines.
-        /// </summary>
-        public IEnumerator<string> GetEnumerator()
-        {
-            return Lines.GetEnumerator();
-        }
+    /// <summary>
+    /// Returns an enumerator that enumerates through the lines.
+    /// </summary>
+    public IEnumerator<string> GetEnumerator()
+    {
+        return Lines.GetEnumerator();
+    }
 
-        /// <summary>
-        /// Returns a string representation of the current instance.
-        /// </summary>
-        public override string ToString()
-        {
-            return string.Join(Environment.NewLine, Lines);
-        }
+    /// <summary>
+    /// Returns a string representation of the current instance.
+    /// </summary>
+    public override string ToString()
+    {
+        return string.Join(Environment.NewLine, Lines);
+    }
 
-        /// <summary>
-        /// Converts a simple text into a <see cref="MultilineText"/> instance.
-        /// </summary>
-        /// <param name="text">The text to be converted.</param>
-        public static implicit operator MultilineText(string text)
-        {
-            return new MultilineText(text);
-        }
+    /// <summary>
+    /// Converts a simple text into a <see cref="MultilineText"/> instance.
+    /// </summary>
+    /// <param name="text">The text to be converted.</param>
+    public static implicit operator MultilineText(string text)
+    {
+        return new MultilineText(text);
+    }
 
-        /// <summary>
-        /// Converts a <see cref="MultilineText"/> instance into a simple <see cref="string"/>.
-        /// </summary>
-        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
-        public static implicit operator string(MultilineText multilineText)
-        {
-            return multilineText.ToString();
-        }
+    /// <summary>
+    /// Converts a <see cref="MultilineText"/> instance into a simple <see cref="string"/>.
+    /// </summary>
+    /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
+    public static implicit operator string(MultilineText multilineText)
+    {
+        return multilineText.ToString();
+    }
 
-        /// <summary>
-        /// Converts a <see cref="List{T}"/> of <see cref="string"/> into a <see cref="MultilineText"/> instance.
-        /// </summary>
-        /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
-        public static implicit operator MultilineText(List<string> lines)
-        {
-            return new MultilineText(lines);
-        }
+    /// <summary>
+    /// Converts a <see cref="List{T}"/> of <see cref="string"/> into a <see cref="MultilineText"/> instance.
+    /// </summary>
+    /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
+    public static implicit operator MultilineText(List<string> lines)
+    {
+        return new MultilineText(lines);
+    }
 
-        /// <summary>
-        /// Converts a <see cref="MultilineText"/> instance into a <see cref="List{T}"/> of <see cref="string"/>.
-        /// </summary>
-        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
-        public static implicit operator List<string>(MultilineText multilineText)
-        {
-            return multilineText.Lines.ToList();
-        }
+    /// <summary>
+    /// Converts a <see cref="MultilineText"/> instance into a <see cref="List{T}"/> of <see cref="string"/>.
+    /// </summary>
+    /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
+    public static implicit operator List<string>(MultilineText multilineText)
+    {
+        return multilineText.Lines.ToList();
+    }
 
-        /// <summary>
-        /// Converts a <see cref="string"/> array into a <see cref="MultilineText"/> instance.
-        /// </summary>
-        /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
-        public static implicit operator MultilineText(string[] lines)
-        {
-            return new MultilineText(lines);
-        }
+    /// <summary>
+    /// Converts a <see cref="string"/> array into a <see cref="MultilineText"/> instance.
+    /// </summary>
+    /// <param name="lines">The list of lines to be contained by the new <see cref="MultilineText"/> instance.</param>
+    public static implicit operator MultilineText(string[] lines)
+    {
+        return new MultilineText(lines);
+    }
 
-        /// <summary>
-        /// Converts a <see cref="MultilineText"/> instance into an array of <see cref="string"/>.
-        /// </summary>
-        /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
-        public static implicit operator string[](MultilineText multilineText)
-        {
-            return multilineText.Lines.ToArray();
-        }
+    /// <summary>
+    /// Converts a <see cref="MultilineText"/> instance into an array of <see cref="string"/>.
+    /// </summary>
+    /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
+    public static implicit operator string[](MultilineText multilineText)
+    {
+        return multilineText.Lines.ToArray();
     }
 }

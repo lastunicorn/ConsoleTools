@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,78 +22,77 @@
 using System;
 using System.Threading.Tasks;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+/// <summary>
+/// Contains a set of methods that help to write text to the Console.
+/// </summary>
+public static class Cursor
 {
     /// <summary>
-    /// Contains a set of methods that help to write text to the Console.
+    /// Executes the specified action while hiding the cursor.
     /// </summary>
-    public static class Cursor
+    /// <param name="action">The action to be executed.</param>
+    public static void RunWithoutCursor(Action action)
     {
-        /// <summary>
-        /// Executes the specified action while hiding the cursor.
-        /// </summary>
-        /// <param name="action">The action to be executed.</param>
-        public static void RunWithoutCursor(Action action)
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        bool initialCursorVisible = Console.CursorVisible;
+        Console.CursorVisible = false;
+
+        try
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
-            {
-                action();
-            }
-            finally
-            {
-                Console.CursorVisible = initialCursorVisible;
-            }
+            action();
         }
-
-        /// <summary>
-        /// Executes the specified function while hiding the cursor.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to be returned.</typeparam>
-        /// <param name="action">The function to be executed.</param>
-        /// <returns>The value returned by the executed function.</returns>
-        public static T RunWithoutCursor<T>(Func<T> action)
+        finally
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
-
-            try
-            {
-                return action();
-            }
-            finally
-            {
-                Console.CursorVisible = initialCursorVisible;
-            }
+            Console.CursorVisible = initialCursorVisible;
         }
+    }
 
-        /// <summary>
-        /// Executes asynchronously the specified function while hiding the cursor.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to be returned.</typeparam>
-        /// <param name="action">The function to be executed.</param>
-        /// <returns>A <see cref="Task{T}"/> instance representing the asynchronous execution.</returns>
-        public static async Task<T> RunWithoutCursorAsync<T>(Func<Task<T>> action)
+    /// <summary>
+    /// Executes the specified function while hiding the cursor.
+    /// </summary>
+    /// <typeparam name="T">The type of the value to be returned.</typeparam>
+    /// <param name="action">The function to be executed.</param>
+    /// <returns>The value returned by the executed function.</returns>
+    public static T RunWithoutCursor<T>(Func<T> action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        bool initialCursorVisible = Console.CursorVisible;
+        Console.CursorVisible = false;
+
+        try
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            return action();
+        }
+        finally
+        {
+            Console.CursorVisible = initialCursorVisible;
+        }
+    }
 
-            bool initialCursorVisible = Console.CursorVisible;
-            Console.CursorVisible = false;
+    /// <summary>
+    /// Executes asynchronously the specified function while hiding the cursor.
+    /// </summary>
+    /// <typeparam name="T">The type of the value to be returned.</typeparam>
+    /// <param name="action">The function to be executed.</param>
+    /// <returns>A <see cref="Task{T}"/> instance representing the asynchronous execution.</returns>
+    public static async Task<T> RunWithoutCursorAsync<T>(Func<Task<T>> action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
 
-            try
-            {
-                return await action();
-            }
-            finally
-            {
-                Console.CursorVisible = initialCursorVisible;
-            }
+        bool initialCursorVisible = Console.CursorVisible;
+        Console.CursorVisible = false;
+
+        try
+        {
+            return await action();
+        }
+        finally
+        {
+            Console.CursorVisible = initialCursorVisible;
         }
     }
 }

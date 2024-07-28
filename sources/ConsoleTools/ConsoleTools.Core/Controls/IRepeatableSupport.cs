@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,22 +21,21 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Must be implemented by a control in order to offer additional support when used in the <see cref="ControlRepeater"/>.
+/// </summary>
+public interface IRepeatableSupport
 {
     /// <summary>
-    /// Must be implemented by a control in order to offer additional support when used in the <see cref="ControlRepeater"/>.
+    /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
+    /// The <see cref="ControlRepeater"/> must also end its display loop.
     /// </summary>
-    public interface IRepeatableSupport
-    {
-        /// <summary>
-        /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-        /// The <see cref="ControlRepeater"/> must also end its display loop.
-        /// </summary>
-        event EventHandler Closed;
+    event EventHandler Closed;
 
-        /// <summary>
-        /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
-        /// </summary>
-        void RequestClose();
-    }
+    /// <summary>
+    /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+    /// </summary>
+    void RequestClose();
 }

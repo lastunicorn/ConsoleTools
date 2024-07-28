@@ -1,0 +1,3 @@
+﻿ one    ichi  eins 
+ two    ni    zwei 
+ three  san   drei 

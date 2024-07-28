@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,38 +22,37 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal class BottomBorderData
 {
-    internal class BottomBorderData
+    private readonly BorderTemplate borderTemplate;
+    private string borderText;
+    private List<int> columnsWidths;
+
+    public List<int> ColumnsWidths
     {
-        private readonly BorderTemplate borderTemplate;
-        private string borderText;
-        private List<int> columnsWidths;
-
-        public List<int> ColumnsWidths
+        get => columnsWidths;
+        set
         {
-            get => columnsWidths;
-            set
-            {
-                if (value == columnsWidths)
-                    return;
+            if (value == columnsWidths)
+                return;
 
-                columnsWidths = value;
-                borderText = null;
-            }
+            columnsWidths = value;
+            borderText = null;
         }
+    }
 
-        public BottomBorderData(BorderTemplate borderTemplate)
-        {
-            this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
-        }
+    public BottomBorderData(BorderTemplate borderTemplate)
+    {
+        this.borderTemplate = borderTemplate ?? throw new ArgumentNullException(nameof(borderTemplate));
+    }
 
-        public void Render(ITablePrinter tablePrinter)
-        {
-            if (borderText == null)
-                borderText = borderTemplate.GenerateBottomBorder(columnsWidths);
+    public void Render(ITablePrinter tablePrinter)
+    {
+        if (borderText == null)
+            borderText = borderTemplate.GenerateBottomBorder(columnsWidths);
 
-            tablePrinter.WriteLine(borderText, null, null);
-        }
+        tablePrinter.WriteLine(borderText, null, null);
     }
 }

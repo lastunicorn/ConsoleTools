@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,46 +22,45 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal class DataGridBorderX
 {
-    internal class DataGridBorderX
+    public BorderTemplate Template { get; set; }
+
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    public int TotalWidth { get; set; }
+
+    public List<ColumnX> ColumnWidths { get; set; }
+
+    public void RenderRowLeftBorder(ITablePrinter tablePrinter)
     {
-        public BorderTemplate Template { get; set; }
+        tablePrinter.Write(Template.Left, ForegroundColor, BackgroundColor);
+    }
 
-        public ConsoleColor? ForegroundColor { get; set; }
+    public void RenderRowRightBorder(ITablePrinter tablePrinter)
+    {
+        tablePrinter.Write(Template.Right, ForegroundColor, BackgroundColor);
+    }
 
-        public ConsoleColor? BackgroundColor { get; set; }
+    public void RenderRowInsideBorder(ITablePrinter tablePrinter)
+    {
+        tablePrinter.Write(Template.Vertical, ForegroundColor, BackgroundColor);
+    }
 
-        public int TotalWidth { get; set; }
+    public static DataGridBorderX CreateFrom(DataGridBorder dataGridBorder)
+    {
+        if (dataGridBorder == null)
+            return new DataGridBorderX();
 
-        public List<ColumnX> ColumnWidths { get; set; }
-
-        public void RenderRowLeftBorder(ITablePrinter tablePrinter)
+        return new DataGridBorderX
         {
-            tablePrinter.Write(Template.Left, ForegroundColor, BackgroundColor);
-        }
-
-        public void RenderRowRightBorder(ITablePrinter tablePrinter)
-        {
-            tablePrinter.Write(Template.Right, ForegroundColor, BackgroundColor);
-        }
-
-        public void RenderRowInsideBorder(ITablePrinter tablePrinter)
-        {
-            tablePrinter.Write(Template.Vertical, ForegroundColor, BackgroundColor);
-        }
-
-        public static DataGridBorderX CreateFrom(DataGridBorder dataGridBorder)
-        {
-            if (dataGridBorder == null)
-                return new DataGridBorderX();
-
-            return new DataGridBorderX
-            {
-                Template = dataGridBorder.Template,
-                ForegroundColor = dataGridBorder.CalculateForegroundColor(),
-                BackgroundColor = dataGridBorder.CalculateBackgroundColor()
-            };
-        }
+            Template = dataGridBorder.Template,
+            ForegroundColor = dataGridBorder.CalculateForegroundColor(),
+            BackgroundColor = dataGridBorder.CalculateBackgroundColor()
+        };
     }
 }

@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,267 +21,266 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// Represents a cell that contains data.
+/// </summary>
+public class ContentCell : CellBase
 {
     /// <summary>
-    /// Represents a cell that contains data.
+    /// Gets or sets the row that contains the current cell.
     /// </summary>
-    public class ContentCell : CellBase
+    public ContentRow ParentRow { get; internal set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// empty content.
+    /// </summary>
+    public ContentCell()
     {
-        /// <summary>
-        /// Gets or sets the row that contains the current cell.
-        /// </summary>
-        public ContentRow ParentRow { get; internal set; }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// empty content.
-        /// </summary>
-        public ContentCell()
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// the text contained by it.
+    /// </summary>
+    /// <param name="text">The text displayed in the cell.</param>
+    public ContentCell(string text)
+        : base(text)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text">The text displayed in the cell.</param>
-        public ContentCell(string text)
-            : base(text)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// the text contained by it and its horizontal alignment.
+    /// </summary>
+    /// <param name="text">The text displayed in the cell.</param>
+    /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+    public ContentCell(string text, HorizontalAlignment horizontalAlignment)
+        : base(text, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// the text contained by it and its horizontal alignment.
-        /// </summary>
-        /// <param name="text">The text displayed in the cell.</param>
-        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public ContentCell(string text, HorizontalAlignment horizontalAlignment)
-            : base(text, horizontalAlignment)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// the text contained by it.
+    /// </summary>
+    /// <param name="text"></param>
+    public ContentCell(MultilineText text)
+        : base(text)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text"></param>
-        public ContentCell(MultilineText text)
-            : base(text)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// the text contained by it and its horizontal alignment.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+    public ContentCell(MultilineText text, HorizontalAlignment horizontalAlignment)
+        : base(text, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// the text contained by it and its horizontal alignment.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public ContentCell(MultilineText text, HorizontalAlignment horizontalAlignment)
-            : base(text, horizontalAlignment)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// an object representing the content.
+    /// </summary>
+    public ContentCell(object content)
+        : base(content)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// an object representing the content.
-        /// </summary>
-        public ContentCell(object content)
-            : base(content)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentCell" /> class with
+    /// an object representing the content and its horizontal alignment.
+    /// </summary>
+    public ContentCell(object content, HorizontalAlignment horizontalAlignment)
+        : base(content, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentCell" /> class with
-        /// an object representing the content and its horizontal alignment.
-        /// </summary>
-        public ContentCell(object content, HorizontalAlignment horizontalAlignment)
-            : base(content, horizontalAlignment)
-        {
-        }
+    /// <summary>
+    /// Calculates and returns the left padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    public override int CalculatePaddingLeft()
+    {
+        int? paddingLeft = PaddingLeft;
 
-        /// <summary>
-        /// Calculates and returns the left padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row, parent column and parent table.
-        /// </summary>
-        public override int CalculatePaddingLeft()
-        {
-            int? paddingLeft = PaddingLeft;
-
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            paddingLeft = ParentRow?.CellPaddingLeft;
-
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            Column column = GetColumn();
-            paddingLeft = column?.CellPaddingLeft;
-
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            paddingLeft = ParentRow?.ParentDataGrid?.CellPaddingLeft;
-
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            paddingLeft = DefaultPaddingLeft;
-
+        if (paddingLeft != null)
             return paddingLeft.Value;
-        }
 
-        /// <summary>
-        /// Calculates and returns the right padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row, parent column and parent table.
-        /// </summary>
-        public override int CalculatePaddingRight()
-        {
-            int? paddingRight = PaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        paddingLeft = ParentRow?.CellPaddingLeft;
 
-            paddingRight = ParentRow?.CellPaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
 
-            Column column = GetColumn();
-            paddingRight = column?.CellPaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        Column column = GetColumn();
+        paddingLeft = column?.CellPaddingLeft;
 
-            paddingRight = ParentRow?.ParentDataGrid?.CellPaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
 
-            paddingRight = DefaultPaddingRight;
+        paddingLeft = ParentRow?.ParentDataGrid?.CellPaddingLeft;
 
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
+        paddingLeft = DefaultPaddingLeft;
+
+        return paddingLeft.Value;
+    }
+
+    /// <summary>
+    /// Calculates and returns the right padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    public override int CalculatePaddingRight()
+    {
+        int? paddingRight = PaddingRight;
+        if (paddingRight != null)
             return paddingRight.Value;
-        }
 
-        /// <summary>
-        /// Calculates and returns the foreground color for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row, parent column and parent table.
-        /// </summary>
-        public override ConsoleColor? CalculateForegroundColor()
-        {
-            ConsoleColor? color = ForegroundColor;
-            if (color != null)
-                return color;
+        paddingRight = ParentRow?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
 
-            color = ParentRow?.ForegroundColor;
-            if (color != null)
-                return color;
+        Column column = GetColumn();
+        paddingRight = column?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
 
-            Column column = GetColumn();
-            color = column?.ForegroundColor;
-            if (color != null)
-                return color;
+        paddingRight = ParentRow?.ParentDataGrid?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
 
-            color = ParentRow?.ParentDataGrid?.ForegroundColor;
+        paddingRight = DefaultPaddingRight;
 
+        return paddingRight.Value;
+    }
+
+    /// <summary>
+    /// Calculates and returns the foreground color for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    public override ConsoleColor? CalculateForegroundColor()
+    {
+        ConsoleColor? color = ForegroundColor;
+        if (color != null)
             return color;
-        }
 
-        /// <summary>
-        /// Calculates and returns the background color for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row, parent column and parent table.
-        /// </summary>
-        public override ConsoleColor? CalculateBackgroundColor()
-        {
-            ConsoleColor? color = BackgroundColor;
-            if (color != null)
-                return color;
-
-            color = ParentRow?.BackgroundColor;
-            if (color != null)
-                return color;
-
-            Column column = GetColumn();
-            color = column?.BackgroundColor;
-            if (color != null)
-                return color;
-
-            color = ParentRow?.ParentDataGrid?.BackgroundColor;
-
+        color = ParentRow?.ForegroundColor;
+        if (color != null)
             return color;
-        }
 
-        /// <summary>
-        /// Returns the calculated horizontal alignment for the content of the current data cell.
-        /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current data cell,
-        /// and the values specified by the parent row, parent column and parent table.
-        /// It never returns <see cref="HorizontalAlignment.Default"/>.
-        /// </summary>
-        public override HorizontalAlignment CalculateHorizontalAlignment()
-        {
-            HorizontalAlignment alignment = HorizontalAlignment;
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+        Column column = GetColumn();
+        color = column?.ForegroundColor;
+        if (color != null)
+            return color;
 
-            alignment = CalculateHorizontalAlignmentAtRowLevel();
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+        color = ParentRow?.ParentDataGrid?.ForegroundColor;
 
-            alignment = CalculateHorizontalAlignmentAtColumnLevel();
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+        return color;
+    }
 
-            alignment = CalculateHorizontalAlignmentAtTableLevel();
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+    /// <summary>
+    /// Calculates and returns the background color for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    public override ConsoleColor? CalculateBackgroundColor()
+    {
+        ConsoleColor? color = BackgroundColor;
+        if (color != null)
+            return color;
 
-            alignment = DefaultHorizontalAlignment;
+        color = ParentRow?.BackgroundColor;
+        if (color != null)
+            return color;
 
+        Column column = GetColumn();
+        color = column?.BackgroundColor;
+        if (color != null)
+            return color;
+
+        color = ParentRow?.ParentDataGrid?.BackgroundColor;
+
+        return color;
+    }
+
+    /// <summary>
+    /// Returns the calculated horizontal alignment for the content of the current data cell.
+    /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current data cell,
+    /// and the values specified by the parent row, parent column and parent table.
+    /// It never returns <see cref="HorizontalAlignment.Default"/>.
+    /// </summary>
+    public override HorizontalAlignment CalculateHorizontalAlignment()
+    {
+        HorizontalAlignment alignment = HorizontalAlignment;
+        if (alignment != HorizontalAlignment.Default)
             return alignment;
-        }
 
-        private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
-        {
-            return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
+        alignment = CalculateHorizontalAlignmentAtRowLevel();
+        if (alignment != HorizontalAlignment.Default)
+            return alignment;
 
-        private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-        {
-            Column column = GetColumn();
-            return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
+        alignment = CalculateHorizontalAlignmentAtColumnLevel();
+        if (alignment != HorizontalAlignment.Default)
+            return alignment;
 
-        private Column GetColumn()
-        {
-            ColumnList columns = ParentRow?.ParentDataGrid?.Columns;
-            int? columnIndex = ParentRow?.IndexOfCell(this);
+        alignment = CalculateHorizontalAlignmentAtTableLevel();
+        if (alignment != HorizontalAlignment.Default)
+            return alignment;
 
-            return columns != null && columnIndex.HasValue
-                ? ParentRow?.ParentDataGrid?.Columns[columnIndex.Value]
-                : null;
-        }
+        alignment = DefaultHorizontalAlignment;
 
-        private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
-        {
-            DataGrid dataGrid = ParentRow?.ParentDataGrid;
-            return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
+        return alignment;
+    }
 
-        /// <summary>
-        /// Converts a <see cref="string"/> into a <see cref="ContentCell"/> instance.
-        /// </summary>
-        /// <param name="text">The text to be converted.</param>
-        public static implicit operator ContentCell(string text)
-        {
-            MultilineText multilineText = new MultilineText(text);
-            return new ContentCell(multilineText);
-        }
+    private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
+    {
+        return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+    }
 
-        /// <summary>
-        /// Converts a <see cref="ContentCell"/> into its <see cref="string"/> representation.
-        /// </summary>
-        /// <param name="cell">The <see cref="ContentCell"/> to be converted.</param>
-        public static implicit operator string(ContentCell cell)
-        {
-            return cell.Content?.ToString() ?? string.Empty;
-        }
+    private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
+    {
+        Column column = GetColumn();
+        return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+    }
+
+    private Column GetColumn()
+    {
+        ColumnList columns = ParentRow?.ParentDataGrid?.Columns;
+        int? columnIndex = ParentRow?.IndexOfCell(this);
+
+        return columns != null && columnIndex.HasValue
+            ? ParentRow?.ParentDataGrid?.Columns[columnIndex.Value]
+            : null;
+    }
+
+    private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
+    {
+        DataGrid dataGrid = ParentRow?.ParentDataGrid;
+        return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+    }
+
+    /// <summary>
+    /// Converts a <see cref="string"/> into a <see cref="ContentCell"/> instance.
+    /// </summary>
+    /// <param name="text">The text to be converted.</param>
+    public static implicit operator ContentCell(string text)
+    {
+        MultilineText multilineText = new(text);
+        return new ContentCell(multilineText);
+    }
+
+    /// <summary>
+    /// Converts a <see cref="ContentCell"/> into its <see cref="string"/> representation.
+    /// </summary>
+    /// <param name="cell">The <see cref="ContentCell"/> to be converted.</param>
+    public static implicit operator string(ContentCell cell)
+    {
+        return cell.Content?.ToString() ?? string.Empty;
     }
 }

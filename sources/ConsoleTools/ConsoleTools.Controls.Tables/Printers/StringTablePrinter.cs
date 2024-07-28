@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,62 +22,61 @@
 using System;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
+namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+
+/// <summary>
+/// Collects the rendered parts of a <see cref="DataGrid"/> instance as a plain text that is later
+/// returned by the <see cref="ToString"/> method.
+/// </summary>
+public class StringTablePrinter : ITablePrinter
 {
+    private readonly StringBuilder sb;
+
     /// <summary>
-    /// Collects the rendered parts of a <see cref="DataGrid"/> instance as a plain text that is later
-    /// returned by the <see cref="ToString"/> method.
+    /// Initializes a new instance of the <see cref="StringTablePrinter"/> class.
     /// </summary>
-    public class StringTablePrinter : ITablePrinter
+    public StringTablePrinter()
     {
-        private readonly StringBuilder sb;
+        sb = new StringBuilder();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringTablePrinter"/> class.
-        /// </summary>
-        public StringTablePrinter()
-        {
-            sb = new StringBuilder();
-        }
+    /// <summary>
+    /// Stores the specified character in the internal <see cref="StringBuilder"/>.
+    /// </summary>
+    public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        sb.Append(c);
+    }
 
-        /// <summary>
-        /// Stores the specified character in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            sb.Append(c);
-        }
+    /// <summary>
+    /// Stores the specified text in the internal <see cref="StringBuilder"/>.
+    /// </summary>
+    public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        sb.Append(text);
+    }
 
-        /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            sb.Append(text);
-        }
+    /// <summary>
+    /// Stores the specified text in the internal <see cref="StringBuilder"/>, followed by a line terminator.
+    /// </summary>
+    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        sb.AppendLine(text);
+    }
 
-        /// <summary>
-        /// Stores the specified text in the internal <see cref="StringBuilder"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            sb.AppendLine(text);
-        }
+    /// <summary>
+    /// Stores the line terminator in the internal <see cref="StringBuilder"/>.
+    /// </summary>
+    public void WriteLine()
+    {
+        sb.AppendLine();
+    }
 
-        /// <summary>
-        /// Stores the line terminator in the internal <see cref="StringBuilder"/>.
-        /// </summary>
-        public void WriteLine()
-        {
-            sb.AppendLine();
-        }
-
-        /// <summary>
-        /// Returns the <see cref="string"/> built until now. 
-        /// </summary>
-        public override string ToString()
-        {
-            return sb.ToString();
-        }
+    /// <summary>
+    /// Returns the <see cref="string"/> built until now. 
+    /// </summary>
+    public override string ToString()
+    {
+        return sb.ToString();
     }
 }

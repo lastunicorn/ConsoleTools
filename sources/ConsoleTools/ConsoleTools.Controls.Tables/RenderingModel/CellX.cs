@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,112 +22,111 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal class CellX
 {
-    internal class CellX
+    private IEnumerator<string> lineEnumerator;
+
+    public MultilineText Content { get; set; }
+
+    public Size Size { get; set; }
+
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    public int PaddingLeft { get; set; }
+
+    public int PaddingRight { get; set; }
+
+    public HorizontalAlignment HorizontalAlignment { get; set; }
+
+    public int HorizontalMerge { get; set; }
+
+    public void CalculateLayout()
     {
-        private IEnumerator<string> lineEnumerator;
+        Size = CalculatePreferredSize();
+    }
 
-        public MultilineText Content { get; set; }
+    private Size CalculatePreferredSize()
+    {
+        int cellWidth;
+        int cellHeight;
 
-        public Size Size { get; set; }
+        bool isEmpty = Content == null || Content.IsEmpty;
 
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        public int PaddingLeft { get; set; }
-
-        public int PaddingRight { get; set; }
-
-        public HorizontalAlignment HorizontalAlignment { get; set; }
-
-        public int HorizontalMerge { get; set; }
-
-        public void CalculateLayout()
+        if (isEmpty)
         {
-            Size = CalculatePreferredSize();
+            cellWidth = PaddingLeft + PaddingRight;
+            cellHeight = 0;
+        }
+        else
+        {
+            cellWidth = PaddingLeft + Content.Size.Width + PaddingRight;
+            cellHeight = Content.Size.Height;
         }
 
-        private Size CalculatePreferredSize()
+        return new Size(cellWidth, cellHeight);
+    }
+
+    public void RenderNextLine(ITablePrinter tablePrinter, Size actualSize)
+    {
+        if (lineEnumerator == null)
+            lineEnumerator = RenderContent(actualSize).GetEnumerator();
+
+        string content = lineEnumerator.MoveNext()
+            ? lineEnumerator.Current
+            : null;
+
+        tablePrinter.Write(content, ForegroundColor, BackgroundColor);
+    }
+
+    private IEnumerable<string> RenderContent(Size size)
+    {
+        for (int i = 0; i < size.Height; i++)
+            yield return RenderLine(i, size.Width);
+    }
+
+    private string RenderLine(int lineIndex, int width)
+    {
+        int cellContentWidth = width - PaddingLeft - PaddingRight;
+
+        bool existsContentLine = lineIndex < Content.Size.Height;
+        if (!existsContentLine)
+            return new string(' ', width);
+
+        // Build inner content.
+
+        string innerContent = Content.Lines[lineIndex];
+
+        innerContent = AlignedText.QuickAlign(innerContent, HorizontalAlignment, cellContentWidth);
+
+        // Build paddings.
+
+        string paddingLeft = new(' ', PaddingLeft);
+        string paddingRight = new(' ', PaddingRight);
+
+        // Concatenate everything.
+
+        return paddingLeft + innerContent + paddingRight;
+    }
+
+    public static CellX CreateFrom(CellBase cellBase)
+    {
+        CellX cellX = new()
         {
-            int cellWidth;
-            int cellHeight;
+            ForegroundColor = cellBase.CalculateForegroundColor(),
+            BackgroundColor = cellBase.CalculateBackgroundColor(),
+            PaddingLeft = cellBase.CalculatePaddingLeft(),
+            PaddingRight = cellBase.CalculatePaddingRight(),
+            HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
+            Size = cellBase.CalculatePreferredSize(),
+            Content = cellBase.Content
+        };
 
-            bool isEmpty = Content == null || Content.IsEmpty;
+        cellX.CalculateLayout();
 
-            if (isEmpty)
-            {
-                cellWidth = PaddingLeft + PaddingRight;
-                cellHeight = 0;
-            }
-            else
-            {
-                cellWidth = PaddingLeft + Content.Size.Width + PaddingRight;
-                cellHeight = Content.Size.Height;
-            }
-
-            return new Size(cellWidth, cellHeight);
-        }
-
-        public void RenderNextLine(ITablePrinter tablePrinter, Size actualSize)
-        {
-            if (lineEnumerator == null)
-                lineEnumerator = RenderContent(actualSize).GetEnumerator();
-
-            string content = lineEnumerator.MoveNext()
-                ? lineEnumerator.Current
-                : null;
-
-            tablePrinter.Write(content, ForegroundColor, BackgroundColor);
-        }
-
-        private IEnumerable<string> RenderContent(Size size)
-        {
-            for (int i = 0; i < size.Height; i++)
-                yield return RenderLine(i, size.Width);
-        }
-
-        private string RenderLine(int lineIndex, int width)
-        {
-            int cellContentWidth = width - PaddingLeft - PaddingRight;
-
-            bool existsContentLine = lineIndex < Content.Size.Height;
-            if (!existsContentLine)
-                return new string(' ', width);
-
-            // Build inner content.
-
-            string innerContent = Content.Lines[lineIndex];
-
-            innerContent = AlignedText.QuickAlign(innerContent, HorizontalAlignment, cellContentWidth);
-
-            // Build paddings.
-
-            string paddingLeft = new(' ', PaddingLeft);
-            string paddingRight = new(' ', PaddingRight);
-
-            // Concatenate everything.
-
-            return paddingLeft + innerContent + paddingRight;
-        }
-
-        public static CellX CreateFrom(CellBase cellBase)
-        {
-            CellX cellX = new()
-            {
-                ForegroundColor = cellBase.CalculateForegroundColor(),
-                BackgroundColor = cellBase.CalculateBackgroundColor(),
-                PaddingLeft = cellBase.CalculatePaddingLeft(),
-                PaddingRight = cellBase.CalculatePaddingRight(),
-                HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
-                Size = cellBase.CalculatePreferredSize(),
-                Content = cellBase.Content
-            };
-
-            cellX.CalculateLayout();
-
-            return cellX;
-        }
+        return cellX;
     }
 }

@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,65 +23,64 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// The base class for a data grid row.
+/// </summary>
+public abstract class RowBase : IEnumerable<CellBase>
 {
     /// <summary>
-    /// The base class for a data grid row.
+    /// Gets or sets the <see cref="DataGrid"/> instance that contains the current instance.
     /// </summary>
-    public abstract class RowBase : IEnumerable<CellBase>
+    public DataGrid ParentDataGrid { get; internal set; }
+
+    /// <summary>
+    /// Gets or sets the foreground color applied to all the cells in the row.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color applied to all the cells in the row.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance.
+    /// </summary>
+    public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+
+    /// <summary>
+    /// Gets or sets the padding applied to the left side of every cell.
+    /// </summary>
+    public int? CellPaddingLeft { get; set; }
+
+    /// <summary>
+    /// Gets or sets the padding applied to the right side of every cell.
+    /// </summary>
+    public int? CellPaddingRight { get; set; }
+
+    /// <summary>
+    /// Gets the number of cells contained by the row.
+    /// </summary>
+    public abstract int CellCount { get; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the row is displayed.
+    /// Default value: <c>true</c>
+    /// </summary>
+    public bool IsVisible { get; set; } = true;
+
+    /// <summary>
+    /// When implemented by an inheritor, enumerates all the cells contained by the current instance.
+    /// </summary>
+    /// <returns>An enumeration of all the cell contained by the current instance.</returns>
+    public abstract IEnumerator<CellBase> GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
     {
-        /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> instance that contains the current instance.
-        /// </summary>
-        public DataGrid ParentDataGrid { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the foreground color applied to all the cells in the row.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color applied to all the cells in the row.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance.
-        /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
-
-        /// <summary>
-        /// Gets or sets the padding applied to the left side of every cell.
-        /// </summary>
-        public int? CellPaddingLeft { get; set; }
-
-        /// <summary>
-        /// Gets or sets the padding applied to the right side of every cell.
-        /// </summary>
-        public int? CellPaddingRight { get; set; }
-
-        /// <summary>
-        /// Gets the number of cells contained by the row.
-        /// </summary>
-        public abstract int CellCount { get; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the row is displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool IsVisible { get; set; } = true;
-
-        /// <summary>
-        /// When implemented by an inheritor, enumerates all the cells contained by the current instance.
-        /// </summary>
-        /// <returns>An enumeration of all the cell contained by the current instance.</returns>
-        public abstract IEnumerator<CellBase> GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        return GetEnumerator();
     }
 }

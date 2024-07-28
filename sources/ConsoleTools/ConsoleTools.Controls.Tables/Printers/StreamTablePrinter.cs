@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,73 +22,72 @@
 using System;
 using System.IO;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers
+namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+
+/// <summary>
+/// Stores the rendered parts of a <see cref="DataGrid"/> instance in a <see cref="Stream"/>.
+/// </summary>
+public class StreamTablePrinter : ITablePrinter, IDisposable
 {
+    private bool isDisposed;
+
+    private readonly Stream stream;
+    private readonly StreamWriter streamWriter;
+
     /// <summary>
-    /// Stores the rendered parts of a <see cref="DataGrid"/> instance in a <see cref="Stream"/>.
+    /// Initializes a new instance of the <see cref="StreamTablePrinter"/> class with
+    /// the <see cref="Stream"/> into which the table will be written.
     /// </summary>
-    public class StreamTablePrinter : ITablePrinter, IDisposable
+    public StreamTablePrinter(Stream stream)
     {
-        private bool isDisposed;
+        this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
 
-        private readonly Stream stream;
-        private readonly StreamWriter streamWriter;
+        streamWriter = new StreamWriter(stream);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StreamTablePrinter"/> class with
-        /// the <see cref="Stream"/> into which the table will be written.
-        /// </summary>
-        public StreamTablePrinter(Stream stream)
-        {
-            this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
+    /// <summary>
+    /// Writes the specified character in the underlying <see cref="Stream"/>.
+    /// </summary>
+    public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        streamWriter.Write(c);
+    }
 
-            streamWriter = new StreamWriter(stream);
-        }
+    /// <summary>
+    /// Writes the specified text in the underlying <see cref="Stream"/>.
+    /// </summary>
+    public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        streamWriter.Write(text);
+    }
 
-        /// <summary>
-        /// Writes the specified character in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            streamWriter.Write(c);
-        }
+    /// <summary>
+    /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
+    /// </summary>
+    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        streamWriter.WriteLine(text);
+    }
 
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            streamWriter.Write(text);
-        }
+    /// <summary>
+    /// Writes the line terminator in the underlying <see cref="Stream"/>.
+    /// </summary>
+    public void WriteLine()
+    {
+        streamWriter.WriteLine();
+    }
 
-        /// <summary>
-        /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
-        /// </summary>
-        public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-        {
-            streamWriter.WriteLine(text);
-        }
+    /// <summary>
+    /// Disposes the underlying <see cref="Stream"/>.
+    /// </summary>
+    public void Dispose()
+    {
+        if (isDisposed)
+            return;
 
-        /// <summary>
-        /// Writes the line terminator in the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void WriteLine()
-        {
-            streamWriter.WriteLine();
-        }
+        stream?.Dispose();
+        streamWriter?.Dispose();
 
-        /// <summary>
-        /// Disposes the underlying <see cref="Stream"/>.
-        /// </summary>
-        public void Dispose()
-        {
-            if (isDisposed)
-                return;
-
-            stream?.Dispose();
-            streamWriter?.Dispose();
-
-            isDisposed = true;
-        }
+        isDisposed = true;
     }
 }

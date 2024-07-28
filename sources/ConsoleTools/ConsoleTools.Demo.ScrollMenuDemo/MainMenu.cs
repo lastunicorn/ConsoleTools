@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);
             AddItems(menuItems);
-
 
             // You can play with the following values.
 

@@ -66,6 +66,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         public int? CellPaddingRight { get; set; }
 
         /// <summary>
+        /// Gets or sets the visibility of the column.
+        /// If it is set to <c>false</c>, the column is ignored when <see cref="DataGrid"/> is rendered.
+        /// </summary>
+        public bool IsVisible { get; set; } = true;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Column"/> class.
         /// </summary>
         public Column()

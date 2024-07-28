@@ -258,6 +258,23 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
+        /// Enumerates the visible cells contained by the current instance.
+        /// The cells from the hidden columns are excluded.
+        /// </summary>
+        /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
+        public IEnumerable<CellBase> EnumerateVisibleCells()
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                bool isColumnVisible = ParentDataGrid?.Columns[i]?.IsVisible ?? true;
+                if (!isColumnVisible)
+                    continue;
+
+                yield return cells[i];
+            }
+        }
+
+        /// <summary>
         /// Enumerates all the cells contained by the current instance.
         /// </summary>
         /// <returns>An enumeration of all the cell contained by the current instance.</returns>

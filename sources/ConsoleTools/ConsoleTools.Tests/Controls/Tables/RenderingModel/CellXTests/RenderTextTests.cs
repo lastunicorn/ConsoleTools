@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,121 +22,120 @@ using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXTests;
+
+[TestFixture]
+public class RenderTextTests
 {
-    [TestFixture]
-    public class RenderTextTests
+    private List<string> renderingOutput;
+    private Mock<ITablePrinter> tablePrinter;
+
+    [SetUp]
+    public void SetUp()
     {
-        private List<string> renderingOutput;
-        private Mock<ITablePrinter> tablePrinter;
+        renderingOutput = new List<string>();
 
-        [SetUp]
-        public void SetUp()
-        {
-            renderingOutput = new List<string>();
-
-            tablePrinter = new Mock<ITablePrinter>();
-            tablePrinter
-                .Setup(x => x.Write(It.IsAny<string>(), It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>()))
-                .Callback<string, ConsoleColor?, ConsoleColor?>((line, fg, bg) =>
-                {
-                    renderingOutput.Add(line);
-                });
-        }
-
-        [Test]
-        public void HavingContentShorterThanCellWidth_WhenRendered_LineIsFilledWithSpaces()
-        {
-            CellX cell = new CellX
+        tablePrinter = new Mock<ITablePrinter>();
+        tablePrinter
+            .Setup(x => x.Write(It.IsAny<string>(), It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>()))
+            .Callback<string, ConsoleColor?, ConsoleColor?>((line, fg, bg) =>
             {
-                Content = "text"
-            };
+                renderingOutput.Add(line);
+            });
+    }
 
-            RenderAllLines(cell, new Size(10, 1));
-
-            Assert.That(renderingOutput, Is.EqualTo(new[] { "text      " }));
-        }
-
-        [Test]
-        public void HavingContentLongerThanCellWidth_WhenRendered_ThenLineIsNotTrimmed()
+    [Test]
+    public void HavingContentShorterThanCellWidth_WhenRendered_LineIsFilledWithSpaces()
+    {
+        CellX cell = new()
         {
-            CellX cell = new CellX
-            {
-                Content = "some long text"
-            };
+            Content = "text"
+        };
 
-            RenderAllLines(cell, new Size(10, 1));
+        RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long text" }));
-        }
+        Assert.That(renderingOutput, Is.EqualTo(new[] { "text      " }));
+    }
 
-        [Test]
-        public void HavingContentWithLessLinesThanCellHeight_WhenRendered_ThenEmptyLinesAreAdded()
+    [Test]
+    public void HavingContentLongerThanCellWidth_WhenRendered_ThenLineIsNotTrimmed()
+    {
+        CellX cell = new()
         {
-            CellX cell = new CellX
-            {
-                Content = "text"
-            };
+            Content = "some long text"
+        };
 
-            RenderAllLines(cell, new Size(10, 2));
+        RenderAllLines(cell, new Size(10, 1));
 
-            Assert.That(renderingOutput, Is.EqualTo(new List<string>
-            {
-                "text      ",
-                "          "
-            }));
-        }
+        Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long text" }));
+    }
 
-        [Test]
-        public void HavingContentWithMoreLinesThanCellHeight_WhenRendered_ThenOnlyTheRequiredLinesAreRendered()
+    [Test]
+    public void HavingContentWithLessLinesThanCellHeight_WhenRendered_ThenEmptyLinesAreAdded()
+    {
+        CellX cell = new()
         {
-            CellX cell = new CellX
-            {
-                Content = new MultilineText(new[] { "line1", "line2", "line3" }),
-            };
+            Content = "text"
+        };
 
-            RenderAllLines(cell, new Size(10, 2));
+        RenderAllLines(cell, new Size(10, 2));
 
-            Assert.That(renderingOutput, Is.EqualTo(new List<string>
-            {
-                "line1     ",
-                "line2     "
-            }));
-        }
-
-        [Test]
-        public void HavingPaddingLeftAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingLeft()
+        Assert.That(renderingOutput, Is.EqualTo(new List<string>
         {
-            CellX cell = new CellX
-            {
-                Content = "text",
-                PaddingLeft = 2
-            };
+            "text      ",
+            "          "
+        }));
+    }
 
-            RenderAllLines(cell, new Size(10, 1));
-
-            Assert.That(renderingOutput, Is.EqualTo(new[] { "  text    " }));
-        }
-
-        [Test]
-        public void HavingPaddingRightAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingRight()
+    [Test]
+    public void HavingContentWithMoreLinesThanCellHeight_WhenRendered_ThenOnlyTheRequiredLinesAreRendered()
+    {
+        CellX cell = new()
         {
-            CellX cell = new CellX
-            {
-                Content = "text",
-                PaddingRight = 2,
-                HorizontalAlignment = HorizontalAlignment.Right
-            };
+            Content = new MultilineText("line1", "line2", "line3")
+        };
 
-            RenderAllLines(cell, new Size(10, 1));
+        RenderAllLines(cell, new Size(10, 2));
 
-            Assert.That(renderingOutput, Is.EqualTo(new[] { "    text  " }));
-        }
-
-        private void RenderAllLines(CellX cellX, Size size)
+        Assert.That(renderingOutput, Is.EqualTo(new List<string>
         {
-            for (int i = 0; i < size.Height; i++)
-                cellX.RenderNextLine(tablePrinter.Object, size);
-        }
+            "line1     ",
+            "line2     "
+        }));
+    }
+
+    [Test]
+    public void HavingPaddingLeftAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingLeft()
+    {
+        CellX cell = new()
+        {
+            Content = "text",
+            PaddingLeft = 2
+        };
+
+        RenderAllLines(cell, new Size(10, 1));
+
+        Assert.That(renderingOutput, Is.EqualTo(new[] { "  text    " }));
+    }
+
+    [Test]
+    public void HavingPaddingRightAndContentShorterThanCellWidth_WhenRendered_LineContainsPaddingRight()
+    {
+        CellX cell = new()
+        {
+            Content = "text",
+            PaddingRight = 2,
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+
+        RenderAllLines(cell, new Size(10, 1));
+
+        Assert.That(renderingOutput, Is.EqualTo(new[] { "    text  " }));
+    }
+
+    private void RenderAllLines(CellX cellX, Size size)
+    {
+        for (int i = 0; i < size.Height; i++)
+            cellX.RenderNextLine(tablePrinter.Object, size);
     }
 }

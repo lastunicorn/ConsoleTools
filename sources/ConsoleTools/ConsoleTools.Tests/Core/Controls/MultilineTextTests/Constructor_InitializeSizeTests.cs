@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,53 +17,52 @@
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
+
+[TestFixture]
+public class Constructor_InitializeSizeTests
 {
-    [TestFixture]
-    public class Constructor_InitializeSizeTests
+    [Test]
+    public void one_line_text_is_not_splited()
     {
-        [Test]
-        public void one_line_text_is_not_splited()
-        {
-            MultilineText multilineText = new MultilineText("Some text");
-            Assert.That(multilineText.Size, Is.EqualTo(new Size(9, 1)));
-        }
+        MultilineText multilineText = new("Some text");
+        Assert.That(multilineText.Size, Is.EqualTo(new Size(9, 1)));
+    }
 
-        [Test]
-        public void LF_is_recognized_as_new_line()
-        {
-            MultilineText multilineText = new MultilineText("Some text\n123\nabcd\nSome other text");
-            Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
-        }
+    [Test]
+    public void LF_is_recognized_as_new_line()
+    {
+        MultilineText multilineText = new("Some text\n123\nabcd\nSome other text");
+        Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
+    }
 
-        [Test]
-        public void CR_is_recognized_as_new_line()
-        {
-            MultilineText multilineText = new MultilineText("Some text\r123\rabcd\rSome other text");
-            Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
-        }
+    [Test]
+    public void CR_is_recognized_as_new_line()
+    {
+        MultilineText multilineText = new("Some text\r123\rabcd\rSome other text");
+        Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
+    }
 
-        [Test]
-        public void CRLF_is_recognized_as_new_line()
-        {
-            MultilineText multilineText = new MultilineText("Some text\r\n123\r\nabcd\r\nSome other text");
-            Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
-        }
+    [Test]
+    public void CRLF_is_recognized_as_new_line()
+    {
+        MultilineText multilineText = new("Some text\r\n123\r\nabcd\r\nSome other text");
+        Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
+    }
 
-        [Test]
-        public void combination_of_CR_LF_and_CRLF_are_accepted()
-        {
-            MultilineText multilineText = new MultilineText("Some text\r123\nabcd\r\nSome other text");
-            Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
-        }
+    [Test]
+    public void combination_of_CR_LF_and_CRLF_are_accepted()
+    {
+        MultilineText multilineText = new("Some text\r123\nabcd\r\nSome other text");
+        Assert.That(multilineText.Size, Is.EqualTo(new Size(15, 4)));
+    }
 
-        [Test]
-        public void RawText_is_same_as_the_original_text()
-        {
-            const string text = "Some text\r123\nabcd\r\nSome other text";
-            MultilineText multilineText = new MultilineText(text);
+    [Test]
+    public void RawText_is_same_as_the_original_text()
+    {
+        const string text = "Some text\r123\nabcd\r\nSome other text";
+        MultilineText multilineText = new(text);
 
-            Assert.That(multilineText.RawText, Is.EqualTo(text));
-        }
+        Assert.That(multilineText.RawText, Is.EqualTo(text));
     }
 }

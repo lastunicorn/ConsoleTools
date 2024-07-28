@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,141 +24,140 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests;
+
+[TestFixture]
+public class ColumnTests
 {
-    [TestFixture]
-    public class ColumnTests
+    private class GetSetProperty
     {
-        private class GetSetProperty
+        public int Number { get; set; }
+    }
+
+    [Test]
+    public void public_get_set_property_generates_one_column()
+    {
+        List<GetSetProperty> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(1));
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Number")));
+    }
+
+    private class GetOnlyProperty
+    {
+        public int Number { get; }
+    }
+
+    [Test]
+    public void public_get_only_property_generates_one_column()
+    {
+        List<GetOnlyProperty> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(1));
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Number")));
+    }
+
+    private class SetOnlyProperty
+    {
+        private int number;
+
+        public int Number
         {
-            public int Number { get; set; }
+            set => number = value;
         }
+    }
 
-        [Test]
-        public void public_get_set_property_generates_one_column()
+    [Test]
+    public void public_set_only_property_generates_no_column()
+    {
+        List<SetOnlyProperty> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(0));
+    }
+
+    private class PrivateGetSetProperty
+    {
+        private int Number { get; set; }
+    }
+
+    [Test]
+    public void private_get_set_property_generates_no_column()
+    {
+        List<PrivateGetSetProperty> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(0));
+    }
+
+    private class ReadWriteField
+    {
+        public int number;
+    }
+
+    [Test]
+    public void public_read_write_field_generates_one_column()
+    {
+        List<ReadWriteField> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(1));
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("number")));
+    }
+
+    private class ReadOnlyField
+    {
+        public readonly int number;
+    }
+
+    [Test]
+    public void public_read_only_field_generates_one_column()
+    {
+        List<ReadOnlyField> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(1));
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("number")));
+    }
+
+    private class PrivateField
+    {
+        private int number;
+    }
+
+    [Test]
+    public void private_field_generates_no_column()
+    {
+        List<PrivateField> data = new();
+
+        DataGrid actual = DataGrid.BuildFrom(data);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(0));
+    }
+
+    private class PublicMethod
+    {
+        public int GetNumber()
         {
-            List<GetSetProperty> data = new List<GetSetProperty>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(1));
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Number")));
+            return 5;
         }
+    }
 
-        private class GetOnlyProperty
-        {
-            public int Number { get; }
-        }
+    [Test]
+    public void public_method_generates_no_column()
+    {
+        List<PublicMethod> data = new();
 
-        [Test]
-        public void public_get_only_property_generates_one_column()
-        {
-            List<GetOnlyProperty> data = new List<GetOnlyProperty>();
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(1));
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Number")));
-        }
-
-        private class SetOnlyProperty
-        {
-            private int number;
-
-            public int Number
-            {
-                set => number = value;
-            }
-        }
-
-        [Test]
-        public void public_set_only_property_generates_no_column()
-        {
-            List<SetOnlyProperty> data = new List<SetOnlyProperty>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(0));
-        }
-
-        private class PrivateGetSetProperty
-        {
-            private int Number { get; set; }
-        }
-
-        [Test]
-        public void private_get_set_property_generates_no_column()
-        {
-            List<PrivateGetSetProperty> data = new List<PrivateGetSetProperty>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(0));
-        }
-
-        private class ReadWriteField
-        {
-            public int number;
-        }
-
-        [Test]
-        public void public_read_write_field_generates_one_column()
-        {
-            List<ReadWriteField> data = new List<ReadWriteField>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(1));
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("number")));
-        }
-
-        private class ReadOnlyField
-        {
-            public readonly int number;
-        }
-
-        [Test]
-        public void public_read_only_field_generates_one_column()
-        {
-            List<ReadOnlyField> data = new List<ReadOnlyField>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(1));
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("number")));
-        }
-
-        private class PrivateField
-        {
-            private int number;
-        }
-
-        [Test]
-        public void private_field_generates_no_column()
-        {
-            List<PrivateField> data = new List<PrivateField>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(0));
-        }
-
-        private class PublicMethod
-        {
-            public int GetNumber()
-            {
-                return 5;
-            }
-        }
-
-        [Test]
-        public void public_method_generates_no_column()
-        {
-            List<PublicMethod> data = new List<PublicMethod>();
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Columns.Count, Is.EqualTo(0));
-        }
+        Assert.That(actual.Columns.Count, Is.EqualTo(0));
     }
 }

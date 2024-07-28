@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,26 +18,25 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class ConstructorTests
 {
-    [TestFixture]
-    public class ConstructorTests
+    [Test]
+    public void HavingNullDataGrid_WhenNormalRowListIsInstantiated_ThenThrows()
     {
-        [Test]
-        public void HavingNullDataGrid_WhenNormalRowListIsInstantiated_ThenThrows()
+        Assert.Throws<ArgumentNullException>(() =>
         {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                ContentRowList contentRowList = new ContentRowList(null);
-            });
-        }
+            ContentRowList contentRowList = new(null);
+        });
+    }
 
-        [Test]
-        public void HavingValidDataGrid_WhenNormalRowListIsInstantiated_ThenSuccess()
-        {
-            DataGrid dataGrid = new DataGrid();
+    [Test]
+    public void HavingValidDataGrid_WhenNormalRowListIsInstantiated_ThenSuccess()
+    {
+        DataGrid dataGrid = new();
 
-            ContentRowList contentRowList = new ContentRowList(dataGrid);
-        }
+        ContentRowList contentRowList = new(dataGrid);
     }
 }

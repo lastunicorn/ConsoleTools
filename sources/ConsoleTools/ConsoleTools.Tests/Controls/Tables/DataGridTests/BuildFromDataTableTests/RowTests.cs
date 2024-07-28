@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,58 +25,57 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests;
+
+[TestFixture]
+public class RowTests
 {
-    [TestFixture]
-    public class RowTests
+    [Test]
+    public void one_row_exists_if_DataTable_has_one_row()
     {
-        [Test]
-        public void one_row_exists_if_DataTable_has_one_row()
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+        dataTable.Rows.Add("value 1");
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows.Count, Is.EqualTo(1));
-        }
+        Assert.That(actual.Rows.Count, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__string()
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add("value 1");
+    [Test]
+    public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__string()
+    {
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+        dataTable.Rows.Add("value 1");
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("value 1")));
-        }
+        Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("value 1")));
+    }
 
-        [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__int()
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(15);
+    [Test]
+    public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__int()
+    {
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+        dataTable.Rows.Add(15);
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("15")));
-        }
+        Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("15")));
+    }
 
-        [Test]
-        public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__DateTime()
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
-            dataTable.Rows.Add(new DateTime(2018, 06, 13));
+    [Test]
+    public void first_cell_content_is_equal_to_the_first_cell_value_of_the_DataTable_row__DateTime()
+    {
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+        dataTable.Rows.Add(new DateTime(2018, 06, 13));
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            MultilineText expected = new MultilineText(new DateTime(2018, 06, 13));
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(expected));
-        }
+        MultilineText expected = new(new DateTime(2018, 06, 13));
+        Assert.That(actual.Rows[0][0].Content, Is.EqualTo(expected));
     }
 }

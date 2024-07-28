@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,109 +18,88 @@ using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
+
+[TestFixture]
+public class GetLinesTest
 {
-    [TestFixture]
-    public class GetLinesTest
+    [Test]
+    public void single_line_infinite_width()
     {
-        [Test]
-        public void single_line_infinite_width()
-        {
-            MultilineText multilineText = new MultilineText("1234567890");
+        MultilineText multilineText = new("1234567890");
 
-            string[] lines = multilineText.GetLines().ToArray();
+        string[] lines = multilineText.GetLines().ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
+    }
 
-        [Test]
-        public void single_line_width_equal_to_line()
-        {
-            MultilineText multilineText = new MultilineText("1234567890");
+    [Test]
+    public void single_line_width_equal_to_line()
+    {
+        MultilineText multilineText = new("1234567890");
 
-            string[] lines = multilineText.GetLines(10).ToArray();
+        string[] lines = multilineText.GetLines(10).ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
+    }
 
-        [Test]
-        public void single_line_width_smaller_than_line()
-        {
-            MultilineText multilineText = new MultilineText("1234567890");
+    [Test]
+    public void single_line_width_smaller_than_line()
+    {
+        MultilineText multilineText = new("1234567890");
 
-            string[] lines = multilineText.GetLines(7).ToArray();
+        string[] lines = multilineText.GetLines(7).ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "1234567", "890" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "1234567", "890" }));
+    }
 
-        [Test]
-        public void two_lines_infinite_width()
-        {
-            MultilineText multilineText = new MultilineText(new[]
-            {
-                "1234567890",
-                "abcdefg"
-            });
+    [Test]
+    public void two_lines_infinite_width()
+    {
+        MultilineText multilineText = new("1234567890", "abcdefg");
 
-            string[] lines = multilineText.GetLines().ToArray();
+        string[] lines = multilineText.GetLines().ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "1234567890", "abcdefg" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "1234567890", "abcdefg" }));
+    }
 
-        [Test]
-        public void two_lines_width_equal_to_biggest_line()
-        {
-            MultilineText multilineText = new MultilineText(new[]
-            {
-                "1234567890",
-                "abcdefg"
-            });
+    [Test]
+    public void two_lines_width_equal_to_biggest_line()
+    {
+        MultilineText multilineText = new("1234567890", "abcdefg");
 
-            string[] lines = multilineText.GetLines(10).ToArray();
+        string[] lines = multilineText.GetLines(10).ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "1234567890", "abcdefg" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "1234567890", "abcdefg" }));
+    }
 
-        [Test]
-        public void two_lines_width_equal_smaller_than_biggest_line()
-        {
-            MultilineText multilineText = new MultilineText(new[]
-            {
-                "1234567890",
-                "abcdefg"
-            });
+    [Test]
+    public void two_lines_width_smaller_than_biggest_line()
+    {
+        MultilineText multilineText = new("1234567890", "abcdefg");
 
-            string[] lines = multilineText.GetLines(8).ToArray();
+        string[] lines = multilineText.GetLines(8).ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "12345678", "90", "abcdefg" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "12345678", "90", "abcdefg" }));
+    }
 
-        [Test]
-        public void two_lines_width_equal_smaller_than_smallest_line()
-        {
-            MultilineText multilineText = new MultilineText(new[]
-            {
-                "1234567890",
-                "abcdefg"
-            });
+    [Test]
+    public void two_lines_width_smaller_than_smallest_line()
+    {
+        MultilineText multilineText = new("1234567890", "abcdefg");
 
-            string[] lines = multilineText.GetLines(5).ToArray();
+        string[] lines = multilineText.GetLines(5).ToArray();
 
-            Assert.That(lines, Is.EqualTo(new[] { "12345", "67890", "abcde", "fg" }));
-        }
+        Assert.That(lines, Is.EqualTo(new[] { "12345", "67890", "abcde", "fg" }));
+    }
 
-        [Test]
-        public void if_maxWidth_is_0_no_lines_are_returned()
-        {
-            MultilineText multilineText = new MultilineText(new[]
-            {
-                "1234567890",
-                "abcdefg"
-            });
+    [Test]
+    public void if_maxWidth_is_0_no_lines_are_returned()
+    {
+        MultilineText multilineText = new("1234567890", "abcdefg");
 
-            string[] lines = multilineText.GetLines(0).ToArray();
+        string[] lines = multilineText.GetLines(0).ToArray();
 
-            Assert.That(lines, Is.Empty);
-        }
+        Assert.That(lines, Is.Empty);
     }
 }

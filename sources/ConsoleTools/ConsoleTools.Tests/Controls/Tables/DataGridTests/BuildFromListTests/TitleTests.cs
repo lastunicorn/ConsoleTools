@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,23 +24,22 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests;
+
+[TestFixture]
+public class TitleTests
 {
-    [TestFixture]
-    public class TitleTests
+    private class CustomClass
     {
-        private class CustomClass
-        {
-        }
+    }
 
-        [Test]
-        public void Title_is_Object_name()
-        {
-            List<CustomClass> data = new List<CustomClass>();
+    [Test]
+    public void Title_is_Object_name()
+    {
+        List<CustomClass> data = new();
 
-            DataGrid actual = DataGrid.BuildFrom(data);
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-            Assert.That(actual.Title, Is.EqualTo(new MultilineText("CustomClass")));
-        }
+        Assert.That(actual.Title, Is.EqualTo(new MultilineText("CustomClass")));
     }
 }

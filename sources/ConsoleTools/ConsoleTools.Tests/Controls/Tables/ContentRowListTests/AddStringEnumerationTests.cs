@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,56 +20,55 @@ using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class AddStringEnumerationTests
 {
-    [TestFixture]
-    public class AddStringEnumerationTests
+    private DataGrid dataGrid;
+    private ContentRowList contentRowList;
+
+    [SetUp]
+    public void SetUp()
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        dataGrid = new DataGrid();
+        contentRowList = new ContentRowList(dataGrid);
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
+    {
+        IEnumerable<string> values = new List<string>
         {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
-        }
+            "value 1", "value 2", "value 3"
+        };
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
+        contentRowList.Add(values);
+
+        Assert.That(contentRowList.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
+    {
+        IEnumerable<string> values = new List<string>
         {
-            IEnumerable<string> values = new List<string>
-            {
-                "value 1", "value 2", "value 3"
-            };
+            "value 1", "value 2", "value 3"
+        };
 
-            contentRowList.Add(values);
+        contentRowList.Add(values);
 
-            Assert.That(contentRowList.Count, Is.EqualTo(1));
-        }
+        IEnumerable<string> actual = contentRowList[0]
+            .Select(x => x.Content.ToString());
+        Assert.That(actual, Is.EqualTo(values));
+    }
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenNullStringEnumerationIsAdded_ThenThrows()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
         {
-            IEnumerable<string> values = new List<string>
-            {
-                "value 1", "value 2", "value 3"
-            };
-
-            contentRowList.Add(values);
-
-            IEnumerable<string> actual = contentRowList[0]
-                .Select(x => x.Content.ToString());
-            Assert.That(actual, Is.EqualTo(values));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenNullStringEnumerationIsAdded_ThenThrows()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                contentRowList.Add((IEnumerable<string>)null);
-            });
-        }
+            contentRowList.Add((IEnumerable<string>)null);
+        });
     }
 }

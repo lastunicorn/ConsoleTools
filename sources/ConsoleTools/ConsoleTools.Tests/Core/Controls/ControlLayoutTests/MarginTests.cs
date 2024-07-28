@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,49 +18,48 @@ using DustInTheWind.ConsoleTools.Controls;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests;
+
+[TestFixture]
+public class MarginTests
 {
-    [TestFixture]
-    public class MarginTests
+    private ControlLayout controlLayout;
+
+    [SetUp]
+    public void SetUp()
     {
-        private ControlLayout controlLayout;
+        Mock<BlockControl> control = new();
+        control.Object.Margin = "1 2 3 4";
 
-        [SetUp]
-        public void SetUp()
+        controlLayout = new ControlLayout
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.Margin = "1 2 3 4";
+            Control = control.Object
+        };
 
-            controlLayout = new ControlLayout
-            {
-                Control = control.Object
-            };
+        controlLayout.Calculate();
+    }
 
-            controlLayout.Calculate();
-        }
+    [Test]
+    public void MarginLeft_is_set_to_left_margin_value()
+    {
+        Assert.That(controlLayout.MarginLeft, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void MarginLeft_is_set_to_left_margin_value()
-        {
-            Assert.That(controlLayout.MarginLeft, Is.EqualTo(1));
-        }
+    [Test]
+    public void MarginRight_is_set_to_right_margin_value()
+    {
+        Assert.That(controlLayout.MarginRight, Is.EqualTo(3));
+    }
 
-        [Test]
-        public void MarginRight_is_set_to_right_margin_value()
-        {
-            Assert.That(controlLayout.MarginRight, Is.EqualTo(3));
-        }
+    [Test]
+    public void MarginTop_is_set_to_top_margin_value()
+    {
+        Assert.That(controlLayout.MarginTop, Is.EqualTo(2));
+    }
 
-        [Test]
-        public void MarginTop_is_set_to_top_margin_value()
-        {
-            Assert.That(controlLayout.MarginTop, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void MarginBottom_is_set_to_bottom_margin_value()
-        {
-            Assert.That(controlLayout.MarginBottom, Is.EqualTo(4));
-        }
+    [Test]
+    public void MarginBottom_is_set_to_bottom_margin_value()
+    {
+        Assert.That(controlLayout.MarginBottom, Is.EqualTo(4));
     }
 }

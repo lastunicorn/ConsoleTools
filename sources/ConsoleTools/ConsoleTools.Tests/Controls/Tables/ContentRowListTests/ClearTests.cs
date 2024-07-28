@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,48 +17,47 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class ClearTests
 {
-    [TestFixture]
-    public class ClearTests
+    private DataGrid dataGrid;
+    private ContentRowList contentRowList;
+
+    [SetUp]
+    public void SetUp()
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        dataGrid = new DataGrid();
+        contentRowList = new ContentRowList(dataGrid);
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
-        }
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
+    {
+        contentRowList.Clear();
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenClear_ThenCountIs0()
-        {
-            contentRowList.Clear();
+        Assert.That(contentRowList.Count, Is.EqualTo(0));
+    }
 
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
-        }
+    [Test]
+    public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
+    {
+        contentRowList.Add(new ContentRow());
 
-        [Test]
-        public void HavingANormalRowListWithOneRow_WhenClear_ThenCountIs0()
-        {
-            contentRowList.Add(new ContentRow());
+        contentRowList.Clear();
 
-            contentRowList.Clear();
+        Assert.That(contentRowList.Count, Is.EqualTo(0));
+    }
 
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
-        }
+    [Test]
+    public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
+    {
+        contentRowList.Add(new ContentRow());
+        contentRowList.Add(new ContentRow());
 
-        [Test]
-        public void HavingANormalRowListWithTwoRows_WhenClear_ThenCountIs0()
-        {
-            contentRowList.Add(new ContentRow());
-            contentRowList.Add(new ContentRow());
+        contentRowList.Clear();
 
-            contentRowList.Clear();
-
-            Assert.That(contentRowList.Count, Is.EqualTo(0));
-        }
+        Assert.That(contentRowList.Count, Is.EqualTo(0));
     }
 }

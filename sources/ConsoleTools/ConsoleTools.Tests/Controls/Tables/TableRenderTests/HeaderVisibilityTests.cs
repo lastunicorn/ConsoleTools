@@ -47,7 +47,7 @@ public class HeaderVisibilityTests : TestsBase
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
         string expected = GetResourceFileContent("02-hrow-notvisible.txt");
-        CustomAssert.IsEqualTo(dataGrid, expected);
+        dataGrid.IsEqualTo(expected);
     }
 
     [Test]

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,37 +18,36 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Spinners.ProgressBarTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Spinners.ProgressBarTests;
+
+[TestFixture]
+public class MinValueTests
 {
-    [TestFixture]
-    public class MinValueTests
+    [Test]
+    public void MaxValue_is_10_set_MinValue_to_8_succeeds()
     {
-        [Test]
-        public void MaxValue_is_10_set_MinValue_to_8_succeeds()
-        {
-            ProgressBar progressBar = new ProgressBar { MaxValue = 10 };
+        ProgressBar progressBar = new() { MaxValue = 10 };
 
-            progressBar.MinValue = 8;
+        progressBar.MinValue = 8;
 
-            Assert.That(progressBar.MinValue, Is.EqualTo(8));
-        }
+        Assert.That(progressBar.MinValue, Is.EqualTo(8));
+    }
 
-        [Test]
-        public void MaxValue_is_10_set_MinValue_to_10_succeeds()
-        {
-            ProgressBar progressBar = new ProgressBar { MaxValue = 10 };
+    [Test]
+    public void MaxValue_is_10_set_MinValue_to_10_succeeds()
+    {
+        ProgressBar progressBar = new() { MaxValue = 10 };
 
-            progressBar.MinValue = 10;
+        progressBar.MinValue = 10;
 
-            Assert.That(progressBar.MinValue, Is.EqualTo(10));
-        }
+        Assert.That(progressBar.MinValue, Is.EqualTo(10));
+    }
 
-        [Test]
-        public void MaxValue_is_10_set_MinValue_to_12_throws()
-        {
-            ProgressBar progressBar = new ProgressBar { MaxValue = 10 };
+    [Test]
+    public void MaxValue_is_10_set_MinValue_to_12_throws()
+    {
+        ProgressBar progressBar = new() { MaxValue = 10 };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => { progressBar.MinValue = 12; });
-        }
+        Assert.Throws<ArgumentOutOfRangeException>(() => { progressBar.MinValue = 12; });
     }
 }

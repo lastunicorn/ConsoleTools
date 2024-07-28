@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,50 +19,49 @@ using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class AddStringsTests
 {
-    [TestFixture]
-    public class AddStringsTests
+    private DataGrid dataGrid;
+    private ContentRowList contentRowList;
+
+    [SetUp]
+    public void SetUp()
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        dataGrid = new DataGrid();
+        contentRowList = new ContentRowList(dataGrid);
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
+    {
+        contentRowList.Add("value 1", "value 2", "value 3");
+
+        Assert.That(contentRowList.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
+    {
+        contentRowList.Add("value 1", "value 2", "value 3");
+
+        IEnumerable<string> actual = contentRowList[0]
+            .Select(x => x.Content.ToString());
+        IEnumerable<string> expected = new List<string>
         {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
-        }
+            "value 1", "value 2", "value 3"
+        };
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowCountIs1()
-        {
-            contentRowList.Add("value 1", "value 2", "value 3");
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 
-            Assert.That(contentRowList.Count, Is.EqualTo(1));
-        }
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenNullStringIsAdded_ThenRowContainsEmptyCell()
+    {
+        contentRowList.Add((string)null);
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeStringsAreAdded_ThenRowContainsThreeCellsWithCorrectValues()
-        {
-            contentRowList.Add("value 1", "value 2", "value 3");
-
-            IEnumerable<string> actual = contentRowList[0]
-                .Select(x => x.Content.ToString());
-            IEnumerable<string> expected = new List<string>
-            {
-                "value 1", "value 2", "value 3"
-            };
-
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenNullStringIsAdded_ThenRowContainsEmptyCell()
-        {
-            contentRowList.Add((string)null);
-
-            Assert.That(contentRowList[0][0].IsEmpty, Is.True);
-        }
+        Assert.That(contentRowList[0][0].IsEmpty, Is.True);
     }
 }

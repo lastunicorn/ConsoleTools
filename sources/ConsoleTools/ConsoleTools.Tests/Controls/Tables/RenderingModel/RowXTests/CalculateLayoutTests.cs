@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,95 +25,94 @@ using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.RowXTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.RowXTests;
+
+[TestFixture]
+public class CalculateLayoutTests
 {
-    [TestFixture]
-    public class CalculateLayoutTests
+    [Test]
+    public void HavingARowContainingACellAndNoBorder_WhenCalculatingLayout_ThenRowSizeIsEqualToTheCellSize()
     {
-        [Test]
-        public void HavingARowContainingACellAndNoBorder_WhenCalculatingLayout_ThenRowSizeIsEqualToTheCellSize()
+        CellX cellX1 = new()
         {
-            CellX cellX1 = new CellX
-            {
-                Content = "value 1"
-            };
-            cellX1.CalculateLayout();
-            RowX rowX = new RowX
-            {
-                Cells = new List<CellX>
-                {
-                    cellX1
-                }
-            };
-
-            rowX.CalculateLayout();
-
-            Size expected = new Size(7, 1);
-            Assert.AreEqual(expected, rowX.Size);
-        }
-
-        [Test]
-        public void HavingARowContainingACellAndBorder_WhenCalculatingLayout_ThenRowSizeIsEqualToTheCellSizePlusBorder()
+            Content = "value 1"
+        };
+        cellX1.CalculateLayout();
+        RowX rowX = new()
         {
-            CellX cellX1 = new CellX
+            Cells = new List<CellX>
             {
-                Content = "value 1"
-            };
-            cellX1.CalculateLayout();
-            DataGridBorderX dataGridBorderX = new DataGridBorderX
-            {
-                Template = BorderTemplate.PlusMinusBorderTemplate
-            };
-            RowX rowX = new RowX
-            {
-                Cells = new List<CellX>
-                {
-                    cellX1
-                },
-                Border = dataGridBorderX
-            };
+                cellX1
+            }
+        };
 
-            rowX.CalculateLayout();
+        rowX.CalculateLayout();
 
-            Size expected = new Size(9, 1);
-            Assert.AreEqual(expected, rowX.Size);
-        }
+        Size expected = new(7, 1);
+        Assert.AreEqual(expected, rowX.Size);
+    }
 
-        [Test]
-        public void HavingARowContainingBorderAndNoCell_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
+    [Test]
+    public void HavingARowContainingACellAndBorder_WhenCalculatingLayout_ThenRowSizeIsEqualToTheCellSizePlusBorder()
+    {
+        CellX cellX1 = new()
         {
-            DataGridBorderX dataGridBorderX = new DataGridBorderX
-            {
-                Template = BorderTemplate.PlusMinusBorderTemplate
-            };
-            RowX rowX = new RowX
-            {
-                Cells = new List<CellX>(),
-                Border = dataGridBorderX
-            };
-
-            rowX.CalculateLayout();
-
-            Size expected = new Size(2, 0);
-            Assert.AreEqual(expected, rowX.Size);
-        }
-
-        [Test]
-        public void HavingARowContainingBorderAndNoCellList_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
+            Content = "value 1"
+        };
+        cellX1.CalculateLayout();
+        DataGridBorderX dataGridBorderX = new()
         {
-            DataGridBorderX dataGridBorderX = new DataGridBorderX
+            Template = BorderTemplate.PlusMinusBorderTemplate
+        };
+        RowX rowX = new()
+        {
+            Cells = new List<CellX>
             {
-                Template = BorderTemplate.PlusMinusBorderTemplate
-            };
-            RowX rowX = new RowX
-            {
-                Border = dataGridBorderX
-            };
+                cellX1
+            },
+            Border = dataGridBorderX
+        };
 
-            rowX.CalculateLayout();
+        rowX.CalculateLayout();
 
-            Size expected = new Size(2, 0);
-            Assert.AreEqual(expected, rowX.Size);
-        }
+        Size expected = new(9, 1);
+        Assert.AreEqual(expected, rowX.Size);
+    }
+
+    [Test]
+    public void HavingARowContainingBorderAndNoCell_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
+    {
+        DataGridBorderX dataGridBorderX = new()
+        {
+            Template = BorderTemplate.PlusMinusBorderTemplate
+        };
+        RowX rowX = new()
+        {
+            Cells = new List<CellX>(),
+            Border = dataGridBorderX
+        };
+
+        rowX.CalculateLayout();
+
+        Size expected = new(2, 0);
+        Assert.AreEqual(expected, rowX.Size);
+    }
+
+    [Test]
+    public void HavingARowContainingBorderAndNoCellList_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
+    {
+        DataGridBorderX dataGridBorderX = new()
+        {
+            Template = BorderTemplate.PlusMinusBorderTemplate
+        };
+        RowX rowX = new()
+        {
+            Border = dataGridBorderX
+        };
+
+        rowX.CalculateLayout();
+
+        Size expected = new(2, 0);
+        Assert.AreEqual(expected, rowX.Size);
     }
 }

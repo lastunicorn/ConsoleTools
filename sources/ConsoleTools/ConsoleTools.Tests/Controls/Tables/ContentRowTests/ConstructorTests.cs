@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,49 +17,48 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowTests;
+
+[TestFixture]
+public class ConstructorTests
 {
-    [TestFixture]
-    public class ConstructorTests
+    [Test]
+    public void Constructor_sets_ParentRow_for_each_cell()
     {
-        [Test]
-        public void Constructor_sets_ParentRow_for_each_cell()
-        {
-            ContentCell cell0 = new("cell content");
-            ContentCell cell1 = new("cell content");
-            ContentCell cell2 = new("cell content");
+        ContentCell cell0 = new("cell content");
+        ContentCell cell1 = new("cell content");
+        ContentCell cell2 = new("cell content");
 
-            ContentRow row = new(cell0, cell1, cell2);
+        ContentRow row = new(cell0, cell1, cell2);
 
-            Assert.That(cell0.ParentRow, Is.SameAs(row));
-            Assert.That(cell1.ParentRow, Is.SameAs(row));
-            Assert.That(cell2.ParentRow, Is.SameAs(row));
-        }
+        Assert.That(cell0.ParentRow, Is.SameAs(row));
+        Assert.That(cell1.ParentRow, Is.SameAs(row));
+        Assert.That(cell2.ParentRow, Is.SameAs(row));
+    }
 
-        [Test]
-        public void Constructor_keeps_the_received_Cell_instances()
-        {
-            ContentCell cell0 = new("cell content");
-            ContentCell cell1 = new("cell content");
-            ContentCell cell2 = new("cell content");
+    [Test]
+    public void Constructor_keeps_the_received_Cell_instances()
+    {
+        ContentCell cell0 = new("cell content");
+        ContentCell cell1 = new("cell content");
+        ContentCell cell2 = new("cell content");
 
-            ContentRow row = new(cell0, cell1, cell2);
+        ContentRow row = new(cell0, cell1, cell2);
 
-            Assert.That(row[0], Is.SameAs(cell0));
-            Assert.That(row[1], Is.SameAs(cell1));
-            Assert.That(row[2], Is.SameAs(cell2));
-        }
+        Assert.That(row[0], Is.SameAs(cell0));
+        Assert.That(row[1], Is.SameAs(cell1));
+        Assert.That(row[2], Is.SameAs(cell2));
+    }
 
-        [Test]
-        public void Constructor_created_empty_Cell_if_one_item_is_null()
-        {
-            ContentCell cell0 = new("cell content");
-            ContentCell cell2 = new("cell content");
+    [Test]
+    public void Constructor_created_empty_Cell_if_one_item_is_null()
+    {
+        ContentCell cell0 = new("cell content");
+        ContentCell cell2 = new("cell content");
 
-            ContentRow row = new(cell0, null, cell2);
+        ContentRow row = new(cell0, null, cell2);
 
-            Assert.That(row[1], Is.InstanceOf<ContentCell>());
-            Assert.That(row[1].IsEmpty, Is.True);
-        }
+        Assert.That(row[1], Is.InstanceOf<ContentCell>());
+        Assert.That(row[1].IsEmpty, Is.True);
     }
 }

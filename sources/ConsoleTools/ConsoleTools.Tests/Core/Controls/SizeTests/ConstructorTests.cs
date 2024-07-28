@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,31 +17,30 @@
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.SizeTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.SizeTests;
+
+[TestFixture]
+public class ConstructorTests
 {
-    [TestFixture]
-    public class ConstructorTests
+    [TestCase(0)]
+    [TestCase(1)]
+    [TestCase(154)]
+    [TestCase(-1250)]
+    public void Width_is_initialized_with_the_value_provided_on_the_constructor(int width)
     {
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(154)]
-        [TestCase(-1250)]
-        public void Width_is_initialized_with_the_value_provided_on_the_constructor(int width)
-        {
-            Size size = new Size(width, 0);
+        Size size = new(width, 0);
 
-            Assert.That(size.Width, Is.EqualTo(width));
-        }
+        Assert.That(size.Width, Is.EqualTo(width));
+    }
 
-        [TestCase(0)]
-        [TestCase(7)]
-        [TestCase(20)]
-        [TestCase(-101)]
-        public void Height_is_initialized_with_the_value_provided_on_the_constructor(int height)
-        {
-            Size size = new Size(0, height);
+    [TestCase(0)]
+    [TestCase(7)]
+    [TestCase(20)]
+    [TestCase(-101)]
+    public void Height_is_initialized_with_the_value_provided_on_the_constructor(int height)
+    {
+        Size size = new(0, height);
 
-            Assert.That(size.Height, Is.EqualTo(height));
-        }
+        Assert.That(size.Height, Is.EqualTo(height));
     }
 }

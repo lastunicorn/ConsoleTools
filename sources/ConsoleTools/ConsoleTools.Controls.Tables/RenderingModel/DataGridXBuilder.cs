@@ -37,20 +37,21 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 MinWidth = DataGrid.MinWidth ?? 0
             };
 
-            bool isTitleVisible = DataGrid.TitleRow is { IsVisible: true, HasContent: true };
-            if (isTitleVisible)
+            bool isTitleRowVisible = DataGrid.TitleRow is { IsVisible: true, HasContent: true };
+            if (isTitleRowVisible)
                 AddTitle();
 
-            bool isColumnHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 };
-            if (isColumnHeaderRowVisible)
+            bool isHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
+                                      DataGrid.Columns.Any(x => !x.HeaderCell.Content?.IsEmpty ?? false);
+            if (isHeaderRowVisible)
                 AddHeader();
 
             bool areNormalRowsVisible = DataGrid.Rows.Count > 0;
             if (areNormalRowsVisible)
                 AddRows();
 
-            bool isFooterVisible = DataGrid.FooterRow is { IsVisible: true, HasContent: true };
-            if (isFooterVisible)
+            bool isFooterRowVisible = DataGrid.FooterRow is { IsVisible: true, HasContent: true };
+            if (isFooterRowVisible)
                 AddFooter();
 
             if (dataGridX.ItemCount > 0)

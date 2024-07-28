@@ -88,7 +88,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             if (string.IsNullOrEmpty(text))
             {
                 RawText = string.Empty;
-                Lines = new ReadOnlyCollection<string>(new string[0]);
+                Lines = new ReadOnlyCollection<string>(Array.Empty<string>());
                 Size = new Size(0, 0);
             }
             else
@@ -165,6 +165,15 @@ namespace DustInTheWind.ConsoleTools.Controls
                 : linesAsList.Max(x => x.Length);
             int height = linesAsList.Count;
             Size = new Size(width, height);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultilineText"/> class with
+        /// the list of lines.
+        /// </summary>
+        public MultilineText(params string[] lines)
+            : this(lines.AsEnumerable())
+        {
         }
 
         /// <summary>
@@ -321,7 +330,7 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Converts a <see cref="MultilineText"/> instance into an array of <see cref="string"/>.
         /// </summary>
         /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
-        public static implicit operator string[] (MultilineText multilineText)
+        public static implicit operator string[](MultilineText multilineText)
         {
             return multilineText.Lines.ToArray();
         }

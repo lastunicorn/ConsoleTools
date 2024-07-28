@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,22 +16,22 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls.Tables;
-using NUnit.Framework;
+using FluentAssertions;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests;
+
+internal static class CustomAssert
 {
-    internal static class CustomAssert
+    public static void IsEqualTo(this DataGrid dataGrid, string expected)
     {
-        public static void TableRender(DataGrid dataGrid, string expected)
-        {
-            string actual = dataGrid.ToString();
+        string actual = dataGrid.ToString();
 
-            Console.WriteLine("actual:");
-            Console.WriteLine(actual);
-            Console.WriteLine("expected:");
-            Console.WriteLine(expected);
+        Console.WriteLine("actual:");
+        Console.WriteLine(actual);
 
-            Assert.That(actual, Is.EqualTo(expected));
-        }
+        Console.WriteLine("expected:");
+        Console.WriteLine(expected);
+
+        actual.Should().Be(expected);
     }
 }

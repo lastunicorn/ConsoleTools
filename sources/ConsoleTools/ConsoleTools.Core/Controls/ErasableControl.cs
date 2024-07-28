@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Provides functionality of erasing the control after it is displayed.

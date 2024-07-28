@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 {
-    internal class RowX
+    internal class RowX : IItemX
     {
         public Size Size { get; private set; }
 
@@ -65,7 +65,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             return new Size(width, height);
         }
 
-        public void Render(ITablePrinter tablePrinter, List<ColumnX> cellWidths)
+        public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
         {
             for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
             {
@@ -74,7 +74,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
                 {
                     CellX cellX = Cells[columnIndex];
-                    Size cellSize = new Size(cellWidths[columnIndex].Width, Size.Height);
+                    Size cellSize = CalculateCellSize(columns, columnIndex, cellX.HorizontalMerge);
+
                     cellX.RenderNextLine(tablePrinter, cellSize);
 
                     bool isLastCell = columnIndex >= Cells.Count - 1;
@@ -89,16 +90,62 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             }
         }
 
-        public static RowX CreateFrom(DataRow dataRow)
+        private Size CalculateCellSize(IReadOnlyList<ColumnX> columns, int columnIndex, int columnSpan)
         {
-            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
+            int cellWidth;
 
-            RowX rowX = new RowX
+            if (columnSpan >= 2)
             {
-                Border = dataRow.ParentDataGrid?.Border?.IsVisible == true
-                    ? DataGridBorderX.CreateFrom(dataRow.ParentDataGrid.Border)
+                ColumnX[] spannedColumns = columns
+                    .Skip(columnIndex)
+                    .Take(columnSpan)
+                    .ToArray();
+
+                cellWidth = spannedColumns
+                    .Select(x => x.Width)
+                    .Sum();
+
+                if (Border != null && spannedColumns.Length > 0)
+                    cellWidth += spannedColumns.Length - 1;
+            }
+            else
+            {
+                cellWidth = columns[columnIndex].Width;
+            }
+
+            int cellHeight = Size.Height;
+
+            return new Size(cellWidth, cellHeight);
+        }
+
+        public List<bool> CalculateVerticalBorderVisibility(int columnCount)
+        {
+            List<bool> visibilities = new() { true };
+
+            foreach (CellX cell in Cells)
+            {
+                for (int i = 0; i < cell.HorizontalMerge - 1 && visibilities.Count < columnCount; i++)
+                    visibilities.Add(false);
+
+                visibilities.Add(true);
+            }
+
+            while (visibilities.Count <= columnCount)
+                visibilities.Add(false);
+
+            return visibilities;
+        }
+
+        public static RowX CreateFrom(ContentRow contentRow)
+        {
+            if (contentRow == null) throw new ArgumentNullException(nameof(contentRow));
+
+            RowX rowX = new()
+            {
+                Border = contentRow.ParentDataGrid?.Border?.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(contentRow.ParentDataGrid.Border)
                     : null,
-                Cells = dataRow
+                Cells = contentRow
                     .Select(CellX.CreateFrom)
                     .ToList()
             };
@@ -112,7 +159,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
         {
             if (headerRow == null) throw new ArgumentNullException(nameof(headerRow));
 
-            RowX headerRowX = new RowX
+            RowX headerRowX = new()
             {
                 Border = headerRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
@@ -125,6 +172,46 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
             headerRowX.CalculateLayout();
 
             return headerRowX;
+        }
+
+        public static RowX CreateFrom(TitleRow titleRow)
+        {
+            if (titleRow == null) throw new ArgumentNullException(nameof(titleRow));
+
+            CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
+            cellX.HorizontalMerge = int.MaxValue;
+
+            RowX rowX = new()
+            {
+                Border = titleRow.ParentDataGrid?.Border.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
+                    : null,
+                Cells = new List<CellX> { cellX }
+            };
+
+            rowX.CalculateLayout();
+
+            return rowX;
+        }
+
+        public static RowX CreateFrom(FooterRow footerRow)
+        {
+            if (footerRow == null) throw new ArgumentNullException(nameof(footerRow));
+
+            CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
+            cellX.HorizontalMerge = int.MaxValue;
+
+            RowX rowX = new()
+            {
+                Border = footerRow.ParentDataGrid?.Border.IsVisible == true
+                    ? DataGridBorderX.CreateFrom(footerRow.ParentDataGrid.Border)
+                    : null,
+                Cells = new List<CellX> { cellX }
+            };
+
+            rowX.CalculateLayout();
+
+            return rowX;
         }
     }
 }

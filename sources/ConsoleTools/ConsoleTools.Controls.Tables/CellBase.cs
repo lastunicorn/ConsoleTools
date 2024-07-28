@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,17 +31,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the default horizontal alignment for a cell.
         /// </summary>
-        public static HorizontalAlignment DefaultHorizontalAlignment { get; } = HorizontalAlignment.Left;
+        public static HorizontalAlignment DefaultHorizontalAlignment => HorizontalAlignment.Left;
 
         /// <summary>
         /// Gets the default left padding applied for a cell.
         /// </summary>
-        public static int DefaultPaddingLeft { get; } = 1;
+        public static int DefaultPaddingLeft => 1;
 
         /// <summary>
         /// Gets the default left padding applied for a cell.
         /// </summary>
-        public static int DefaultPaddingRight { get; } = 1;
+        public static int DefaultPaddingRight => 1;
 
         /// <summary>
         /// Gets or sets the content of the cell.

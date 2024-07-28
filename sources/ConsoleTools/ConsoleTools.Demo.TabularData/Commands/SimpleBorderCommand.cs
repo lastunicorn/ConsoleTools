@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,10 +37,12 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
             dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
 
+            dataGrid.FooterRow.FooterCell.Content = "Something";
+
             dataGrid.DisplayBorderBetweenRows = true;
             dataGrid.HeaderRow.IsVisible = true;
 
-            dataGrid.BorderTemplate = BorderTemplate.PlusMinusBorderTemplate;
+            dataGrid.Border.Template = BorderTemplate.PlusMinusBorderTemplate;
 
             dataGrid.Display();
         }

@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,100 +27,94 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
     internal class DataGridXBuilder
     {
         private DataGridX dataGridX;
-        private bool isTitleVisible;
-        private bool isColumnHeaderRowVisible;
-        private bool areNormalRowsVisible;
 
-        public TitleRow TitleRow { get; set; }
-
-        public HeaderRow HeaderRow { get; set; }
-
-        public DataRowList Rows { get; set; }
-
-        public DataGridBorder DataGridBorder { get; set; }
-
-        public int MinWidth { get; set; }
+        public DataGrid DataGrid { get; set; }
 
         public DataGridX Build()
         {
-            dataGridX = new DataGridX(DataGridBorder?.IsVisible == true);
+            dataGridX = new DataGridX(DataGrid.Border?.IsVisible == true)
+            {
+                MinWidth = DataGrid.MinWidth ?? 0
+            };
 
-            isTitleVisible = TitleRow != null && TitleRow.IsVisible && TitleRow.HasContent;
-            isColumnHeaderRowVisible = HeaderRow != null && HeaderRow.IsVisible && HeaderRow.CellCount > 0;
-            areNormalRowsVisible = Rows.Count > 0;
-
+            bool isTitleVisible = DataGrid.TitleRow is { IsVisible: true, HasContent: true };
             if (isTitleVisible)
                 AddTitle();
 
+            bool isColumnHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 };
             if (isColumnHeaderRowVisible)
                 AddHeader();
 
+            bool areNormalRowsVisible = DataGrid.Rows.Count > 0;
             if (areNormalRowsVisible)
                 AddRows();
 
-            if (DataGridBorder?.IsVisible == true)
-                AddHorizontalBorders();
+            bool isFooterVisible = DataGrid.FooterRow is { IsVisible: true, HasContent: true };
+            if (isFooterVisible)
+                AddFooter();
 
-            dataGridX.CalculateLayout(MinWidth);
+            if (dataGridX.ItemCount > 0)
+                AddRowSeparatorIfBorderIsVisible();
+
+            dataGridX.Finish();
 
             return dataGridX;
         }
 
         private void AddTitle()
         {
-            TitleRowX titleRowX = TitleRowX.CreateFrom(TitleRow);
-            dataGridX.AddTitleRow(titleRowX);
+            AddRowSeparatorIfBorderIsVisible();
+
+            RowX rowX = RowX.CreateFrom(DataGrid.TitleRow);
+            dataGridX.Add(rowX);
         }
 
         private void AddHeader()
         {
-            RowX headerRowX = RowX.CreateFrom(HeaderRow);
-            dataGridX.AddHeaderRow(headerRowX);
+            AddRowSeparatorIfBorderIsVisible();
+
+            RowX headerRowX = RowX.CreateFrom(DataGrid.HeaderRow);
+            dataGridX.Add(headerRowX);
         }
 
         private void AddRows()
         {
-            IEnumerable<RowX> rows = Rows
+            IEnumerable<RowX> rows = DataGrid.Rows
                 .Where(x => x.IsVisible)
                 .Select(RowX.CreateFrom);
 
+            bool isFirstRow = true;
+
             foreach (RowX row in rows)
-                dataGridX.AddNormalRow(row);
+            {
+                if (isFirstRow)
+                {
+                    AddRowSeparatorIfBorderIsVisible();
+                    isFirstRow = false;
+                }
+                else if (DataGrid.Border?.DisplayBorderBetweenRows == true)
+                {
+                    AddRowSeparatorIfBorderIsVisible();
+                }
+
+                dataGridX.Add(row);
+            }
         }
 
-        private void AddHorizontalBorders()
+        private void AddFooter()
         {
-            if (isTitleVisible)
-                dataGridX.TitleTopBorder = TitleTopBorder.CreateFrom(DataGridBorder);
-            else if (isColumnHeaderRowVisible)
-                dataGridX.HeaderTopBorder = HeaderTopBorder.CreateFrom(DataGridBorder);
-            else if (areNormalRowsVisible)
-                dataGridX.DataTopBorder = DataTopBorder.CreateFrom(DataGridBorder);
+            AddRowSeparatorIfBorderIsVisible();
 
-            if (isTitleVisible)
+            RowX rowX = RowX.CreateFrom(DataGrid.FooterRow);
+            dataGridX.Add(rowX);
+        }
+
+        private void AddRowSeparatorIfBorderIsVisible()
+        {
+            if (DataGrid.Border?.IsVisible == true)
             {
-                if (isColumnHeaderRowVisible)
-                    dataGridX.TitleHeaderSeparator = TitleHeaderSeparator.CreateFrom(DataGridBorder);
-                else if (areNormalRowsVisible)
-                    dataGridX.TitleDataSeparator = TitleDataSeparator.CreateFrom(DataGridBorder);
-                else
-                    dataGridX.TitleBottomBorder = TitleBottomBorder.CreateFrom(DataGridBorder);
-            }
-
-            if (isColumnHeaderRowVisible)
-            {
-                if (areNormalRowsVisible)
-                    dataGridX.HeaderDataSeparator = HeaderDataSeparator.CreateFrom(DataGridBorder);
-                else
-                    dataGridX.HeaderBottomBorder = HeaderBottomBorder.CreateFrom(DataGridBorder);
-            }
-
-            if (areNormalRowsVisible)
-            {
-                if (DataGridBorder?.DisplayBorderBetweenRows == true)
-                    dataGridX.DataDataSeparator = DataDataSeparator.CreateFrom(DataGridBorder);
-
-                dataGridX.DataBottomBorder = DataBottomBorder.CreateFrom(DataGridBorder);
+                SeparatorX separatorX = SeparatorX.CreateFor(DataGrid);
+                dataGridX.Add(separatorX);
             }
         }
     }

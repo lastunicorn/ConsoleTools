@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,14 +16,17 @@
 
 using System;
 using System.Threading;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
 {
     internal class Worker
     {
-        public TimeSpan WorkPeriod { get; set; }
+        public TimeSpan WorkTimeSpan { get; set; }
+        
         public ISpinnerTemplate SpinnerTemplate { get; set; }
+        
         public int SpinnerStepMilliseconds { get; set; }
 
         public void Run()
@@ -44,7 +47,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
                 try
                 {
                     // Simulate work
-                    Thread.Sleep(WorkPeriod);
+                    Thread.Sleep(WorkTimeSpan);
 
                     spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
                     spinner.Close();

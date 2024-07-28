@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 using System;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents a text that can be horizontally aligned into a space.
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools
 
         /// <summary>
         /// Gets or sets the horizontal alignment to be applied if the <see cref="HorizontalAlignment"/> property
-        /// is set on <see cref="DustInTheWind.ConsoleTools.HorizontalAlignment.Default"/>.
+        /// is set on <see cref="Controls.HorizontalAlignment.Default"/>.
         /// </summary>
         public HorizontalAlignment DefaultHorizontalAlignment { get; set; } = HorizontalAlignment.Left;
 

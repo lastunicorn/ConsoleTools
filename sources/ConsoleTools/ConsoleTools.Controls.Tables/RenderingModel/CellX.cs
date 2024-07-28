@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -104,8 +104,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
             // Build paddings.
 
-            string paddingLeft = new string(' ', PaddingLeft);
-            string paddingRight = new string(' ', PaddingRight);
+            string paddingLeft = new(' ', PaddingLeft);
+            string paddingRight = new(' ', PaddingRight);
 
             // Concatenate everything.
 
@@ -114,7 +114,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
 
         public static CellX CreateFrom(CellBase cellBase)
         {
-            CellX cellX = new CellX
+            CellX cellX = new()
             {
                 ForegroundColor = cellBase.CalculateForegroundColor(),
                 BackgroundColor = cellBase.CalculateBackgroundColor(),

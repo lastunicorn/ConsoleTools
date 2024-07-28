@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
@@ -72,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
             dataGrid.Columns.Add(column2);
 
             dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add(new DataCell[] { new DataCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
+            dataGrid.Rows.Add(new ContentCell[] { new ContentCell("1,0", HorizontalAlignment.Left), "1,1", "1,2" });
             dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
             string expected =

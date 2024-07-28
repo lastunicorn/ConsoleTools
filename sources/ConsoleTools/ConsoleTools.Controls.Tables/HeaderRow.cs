@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -56,6 +56,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             this.columns = columns ?? throw new ArgumentNullException(nameof(columns));
         }
 
+        /// <summary>
+        /// Enumerates all the cells contained by the current instance.
+        /// </summary>
+        /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()
         {
             return new HeaderCellEnumerator(this);

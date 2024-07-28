@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,10 +23,13 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables
 {
+    /// <summary>
+    /// Describes how the border of a <see cref="DataGrid"/> should be displayed.
+    /// </summary>
     public class DataGridBorder
     {
         /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> that contains the current instance.
+        /// Gets or sets the <see cref="DataGrid"/> for which the current instance should apply.
         /// </summary>
         public DataGrid ParentDataGrid { get; internal set; }
 

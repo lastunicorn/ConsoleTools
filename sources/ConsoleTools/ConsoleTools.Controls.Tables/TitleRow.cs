@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// Gets the number of cells contained by the title row.
         /// It is always 1.
         /// </summary>
-        public override int CellCount { get; } = 1;
+        public override int CellCount => 1;
 
         /// <summary>
         /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
@@ -101,6 +101,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             };
         }
 
+        /// <summary>
+        /// Enumerates all the cells contained by the current instance.
+        /// </summary>
+        /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()
         {
             return new TitleCellEnumerator(this);

@@ -1,114 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{61AA97AF-A87A-4EB2-AF78-CB4067C80704}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.ConsoleTools.Demo.InputControlsDemo</RootNamespace>
-    <AssemblyName>DustInTheWind.ConsoleTools.Demo.InputControlsDemo</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net452|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug-Net452\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net461|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
-    <OutputPath>bin\Release-Net452\</OutputPath>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU'">
-    <OutputPath>bin\Release-Net461\</OutputPath>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Net6|AnyCPU' ">
-    <OutputPath>bin\Debug-Net6\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="Commands\ExitCommand.cs" />
-    <Compile Include="Commands\ListReadStringsCommand.cs" />
-    <Compile Include="Commands\ListReadNumbersCommand.cs" />
-    <Compile Include="Commands\ListReadQuickCommand.cs" />
-    <Compile Include="Commands\ListWriteCommand.cs" />
-    <Compile Include="Commands\ListWriteQuickCommand.cs" />
-    <Compile Include="Commands\ValueReadCommand.cs" />
-    <Compile Include="Commands\ValueReadNumberCommand.cs" />
-    <Compile Include="Commands\ValueReadQuickCommand.cs" />
-    <Compile Include="Commands\ListReadWithCustomParserCommand.cs" />
-    <Compile Include="Commands\ValueReadWithDefaultValueCommand.cs" />
-    <Compile Include="Commands\ValueWriteCommand.cs" />
-    <Compile Include="Commands\ValueWriteQuickCommand.cs" />
-    <Compile Include="Commands\YesNoCancelCommand.cs" />
-    <Compile Include="Commands\YesNoCommand.cs" />
-    <Compile Include="MainMenu.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
-      <Project>{439c9c20-be41-4ae1-83d0-13af94114ede}</Project>
-      <Name>ConsoleTools.Controls.Menus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
-      <Project>{94a81b0e-6565-4ba1-a6cd-d55e7847d5fb}</Project>
-      <Name>ConsoleTools.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">
-      <Project>{975d695d-1fd2-446f-bd7c-0f7839c1559d}</Project>
-      <Name>ConsoleTools.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net48</TargetFramework>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <AssemblyName>DustInTheWind.ConsoleTools.Demo.InputControlsDemo</AssemblyName>
+        <RootNamespace>DustInTheWind.ConsoleTools.Demo.InputControlsDemo</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+    </ItemGroup>
+
 </Project>

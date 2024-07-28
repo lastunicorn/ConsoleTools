@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 namespace DustInTheWind.ConsoleTools.Controls.Spinners
 {
     /// <summary>
-    /// In the<see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
+    /// In the <see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
     /// </summary>
     public enum ValuePosition
     {

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// Represents a text to be displayed in the console.
@@ -90,6 +90,10 @@ namespace DustInTheWind.ConsoleTools
             WriteText(formattedText);
         }
 
+        /// <summary>
+        /// Calculates and returns the length of the control, including the margins.
+        /// </summary>
+        /// <returns>The number of characters representing the length of the control including the margins.</returns>
         public int CalculateOuterLength()
         {
             int length = MarginLeft;

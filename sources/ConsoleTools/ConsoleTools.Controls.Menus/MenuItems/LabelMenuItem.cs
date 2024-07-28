@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -77,7 +77,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
 
         /// <summary>
         /// Gets or sets the horizontal alignment of the current instance inside the menu.
-        /// Default value: <see cref="DustInTheWind.ConsoleTools.HorizontalAlignment.Default"/>.
+        /// Default value: <see cref="Controls.HorizontalAlignment.Default"/>.
         /// </summary>
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 

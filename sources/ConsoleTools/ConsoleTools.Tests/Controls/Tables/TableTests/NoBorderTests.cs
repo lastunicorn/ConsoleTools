@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_simple_table_without_border()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.IsVisible = false;
             dataGrid.Rows.Add("one", "ichi", "eins");
             dataGrid.Rows.Add("two", "ni", "zwei");
@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_title_and_no_border()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.IsVisible = false;
             dataGrid.Title = "My Title";
             dataGrid.Rows.Add("one", "ichi", "eins");
@@ -63,7 +63,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableTests
         [Test]
         public void render_table_with_title_and_headers_and_no_border()
         {
-            DataGrid dataGrid = new DataGrid();
+            DataGrid dataGrid = new();
             dataGrid.Border.IsVisible = false;
             dataGrid.Title = "My Title";
             dataGrid.Columns.Add("1");

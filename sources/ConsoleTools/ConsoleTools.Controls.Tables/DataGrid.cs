@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         private TitleRow titleRow;
         private HeaderRow headerRow;
         private DataGridBorder border;
+        private FooterRow footerRow;
 
         /// <summary>
         /// Gets the <see cref="TitleRow"/> instance that represents the title row of the data grid.
@@ -63,7 +64,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets or sets the horizontal alignment for the content of the cells contained by the current data grid.
         /// </summary>
-        public HorizontalAlignment CellHorizontalAlignment { get; set; } = ConsoleTools.HorizontalAlignment.Default;
+        public HorizontalAlignment CellHorizontalAlignment { get; set; } = Controls.HorizontalAlignment.Default;
 
         /// <summary>
         /// Gets or sets the padding applied to the left side of every cell.
@@ -96,14 +97,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <summary>
         /// Gets the list of rows contained by the current data grid.
         /// </summary>
-        public DataRowList Rows { get; }
+        public ContentRowList Rows { get; }
 
         /// <summary>
         /// Gets the row at the specified index.
         /// </summary>
         /// <param name="rowIndex">The zero-based index of the row to get.</param>
         /// <returns>The row at the specified index.</returns>
-        public DataRow this[int rowIndex] => Rows[rowIndex];
+        public ContentRow this[int rowIndex] => Rows[rowIndex];
 
         /// <summary>
         /// Gets the cell at the specified location.
@@ -111,7 +112,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <param name="rowIndex">The zero-based row index of the cell to get.</param>
         /// <param name="columnIndex">The zero-based column index of the cell to get.</param>
         /// <returns>The cell at the specified location.</returns>
-        public DataCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
+        public ContentCell this[int rowIndex, int columnIndex] => Rows[rowIndex][columnIndex];
 
         /// <summary>
         /// Gets an object representing the border of the data grid.
@@ -123,6 +124,29 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             {
                 border = value;
                 border.ParentDataGrid = this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value that specifies if border lines should be drawn between rows.
+        /// Default value: false
+        /// </summary>
+        public bool DisplayBorderBetweenRows
+        {
+            get => border.DisplayBorderBetweenRows;
+            set => border.DisplayBorderBetweenRows = value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="FooterRow"/> instance that represents the footer row of the data grid.
+        /// </summary>
+        public FooterRow FooterRow
+        {
+            get => footerRow;
+            private set
+            {
+                footerRow = value;
+                footerRow.ParentDataGrid = this;
             }
         }
 
@@ -236,17 +260,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             set => Border.BackgroundColor = value;
         }
 
-        /// <summary>
-        /// Gets a value that specifies if border lines should be drawn between rows.
-        /// Default value: false
-        /// </summary>
-        [Obsolete("Use Border.DisplayBorderBetweenRows property instead.")]
-        public bool DisplayBorderBetweenRows
-        {
-            get => border.DisplayBorderBetweenRows;
-            set => border.DisplayBorderBetweenRows = value;
-        }
-
         #endregion
 
         /// <summary>
@@ -254,10 +267,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid()
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow();
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -267,10 +281,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(string title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -280,10 +295,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(MultilineText title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -293,10 +309,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         public DataGrid(object title)
         {
-            Rows = new DataRowList(this);
+            Rows = new ContentRowList(this);
             Columns = new ColumnList(this);
             HeaderRow = new HeaderRow(Columns);
             TitleRow = new TitleRow(title);
+            FooterRow = new FooterRow();
             Border = new DataGridBorder();
         }
 
@@ -305,7 +322,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// </summary>
         protected override void DoDisplayContent(ControlDisplay display)
         {
-            ConsoleTablePrinter consoleTablePrinter = new ConsoleTablePrinter();
+            ConsoleTablePrinter consoleTablePrinter = new();
             RenderInternal(consoleTablePrinter);
         }
 
@@ -320,17 +337,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
 
         private void RenderInternal(ITablePrinter tablePrinter)
         {
-            DataGridXBuilder dataGridXBuilder = new DataGridXBuilder
+            DataGridXBuilder dataGridXBuilder = new()
             {
-                MinWidth = MinWidth ?? 0,
-                TitleRow = TitleRow,
-                HeaderRow = HeaderRow,
-                Rows = Rows,
-                DataGridBorder = Border
+                DataGrid = this
             };
 
             DataGridX dataGridX = dataGridXBuilder.Build();
-
             dataGridX.Render(tablePrinter);
         }
 
@@ -340,7 +352,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         /// <returns>The string representation of the current instance.</returns>
         public override string ToString()
         {
-            StringTablePrinter tablePrinter = new StringTablePrinter();
+            StringTablePrinter tablePrinter = new();
             RenderInternal(tablePrinter);
 
             return tablePrinter.ToString();
@@ -355,13 +367,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
 
-            DataGridBuilderFromDataTable builder = new DataGridBuilderFromDataTable(dataTable);
+            DataGridBuilderFromDataTable builder = new(dataTable);
             return builder.DataGrid;
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
-        /// fields and properties from the specified collection of objects.
+        /// fields and properties of the objects from the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the objects used to populate the <see cref="DataGrid"/>.</typeparam>
         /// <param name="data">The collection of objects to be added to the <see cref="DataGrid"/>.</param>
@@ -370,12 +382,34 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            DataGridBuilderFromObject builder = new DataGridBuilderFromObject(typeof(T));
+            DataGridBuilderFromObject builder = new(typeof(T));
             builder.Add(data);
 
             return builder.DataGrid;
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
+        /// fields and properties of the objects from the specified collection.
+        /// </summary>
+        /// <param name="data">The collection of objects to be added to the <see cref="DataGrid"/>.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
+        public static DataGrid BuildFrom(IEnumerable data)
+        {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
+            DataGridBuilderFromObject builder = new(data.GetType());
+            builder.Add(data);
+
+            return builder.DataGrid;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DataGrid"/> and populates it with the
+        /// fields and properties of the specified object.
+        /// </summary>
+        /// <param name="data">The object to be added to the <see cref="DataGrid"/>.</param>
+        /// <returns>The newly created <see cref="DataGrid"/> instance.</returns>
         public static DataGrid BuildFrom<T>(T data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2022 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Commands
             {
                 SpinnerTemplate = new FillSpinnerTemplate(),
                 SpinnerStepMilliseconds = 400,
-                WorkPeriod = TimeSpan.FromSeconds(5)
+                WorkTimeSpan = TimeSpan.FromSeconds(5)
             };
 
             worker.Run();

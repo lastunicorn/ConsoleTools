@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 AddTitle();
 
             bool isHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
-                                      DataGrid.Columns.Any(x => !x.HeaderCell.Content?.IsEmpty ?? false);
+                                      DataGrid.Columns.Any(x => x.IsVisible && !x.HeaderCell.IsEmpty);
             if (isHeaderRowVisible)
                 AddHeader();
 

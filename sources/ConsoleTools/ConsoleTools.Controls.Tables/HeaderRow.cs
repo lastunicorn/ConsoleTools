@@ -57,7 +57,20 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
         }
 
         /// <summary>
+        /// Enumerates the visible cells contained by the current instance.
+        /// The cells from the hidden columns are excluded.
+        /// </summary>
+        /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
+        public IEnumerable<HeaderCell> EnumerateVisibleCells()
+        {
+            return columns
+                .Where(x => x.IsVisible)
+                .Select(x => x.HeaderCell);
+        }
+
+        /// <summary>
         /// Enumerates all the cells contained by the current instance.
+        /// Includes also the cells from the hidden columns.
         /// </summary>
         /// <returns>An enumeration of all the cell contained by the current instance.</returns>
         public override IEnumerator<CellBase> GetEnumerator()

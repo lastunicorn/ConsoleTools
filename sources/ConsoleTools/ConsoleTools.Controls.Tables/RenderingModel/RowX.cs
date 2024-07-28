@@ -145,7 +145,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 Border = contentRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(contentRow.ParentDataGrid.Border)
                     : null,
-                Cells = contentRow
+                Cells = contentRow.EnumerateVisibleCells()
                     .Select(CellX.CreateFrom)
                     .ToList()
             };
@@ -164,7 +164,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
                 Border = headerRow.ParentDataGrid?.Border?.IsVisible == true
                     ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
                     : null,
-                Cells = headerRow
+                Cells = headerRow.EnumerateVisibleCells()
                     .Select(CellX.CreateFrom)
                     .ToList()
             };

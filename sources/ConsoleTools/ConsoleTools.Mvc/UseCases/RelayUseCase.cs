@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,13 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Mvc.UseCases
-{
-    public class RelayUseCase : IUseCase
-    {
-        public string Description { get; }
+namespace DustInTheWind.ConsoleTools.Mvc.UseCases;
 
-        public void Execute(Arguments arguments)
-        {
-        }
+public class RelayUseCase : IUseCase
+{
+    public string Description { get; }
+
+    public void Execute(Arguments arguments)
+    {
     }
 }

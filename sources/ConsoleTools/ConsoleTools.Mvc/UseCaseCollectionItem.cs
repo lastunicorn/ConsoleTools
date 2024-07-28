@@ -1,5 +1,5 @@
-﻿// // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+﻿// ConsoleTools
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,17 +21,17 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Mvc
-{
-    public class UseCaseCollectionItem
-    {
-        public string Key { get; }
-        public IUseCase UseCase { get; }
+namespace DustInTheWind.ConsoleTools.Mvc;
 
-        public UseCaseCollectionItem(string key, IUseCase useCase)
-        {
-            Key = key ?? throw new ArgumentNullException(nameof(key));
-            UseCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
-        }
+public class UseCaseCollectionItem
+{
+    public string Key { get; }
+
+    public IUseCase UseCase { get; }
+
+    public UseCaseCollectionItem(string key, IUseCase useCase)
+    {
+        Key = key ?? throw new ArgumentNullException(nameof(key));
+        UseCase = useCase ?? throw new ArgumentNullException(nameof(useCase));
     }
 }

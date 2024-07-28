@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,70 +24,69 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Mvc.UseCases;
 
-namespace DustInTheWind.ConsoleTools.Mvc
+namespace DustInTheWind.ConsoleTools.Mvc;
+
+public class UseCaseCollection : Collection<UseCaseCollectionItem>
 {
-    public class UseCaseCollection : Collection<UseCaseCollectionItem>
+    public void Add(string key, IUseCase useCase)
     {
-        public void Add(string key, IUseCase useCase)
+        Add(new UseCaseCollectionItem(key, useCase));
+    }
+
+    protected override void InsertItem(int index, UseCaseCollectionItem item)
+    {
+        if (this.Any(x => x.Key == item.Key))
+            throw new ArgumentException("There is another use case with the same key.", nameof(item.Key));
+
+        base.InsertItem(index, item);
+    }
+
+    public bool Contains(string commandKey)
+    {
+        return commandKey != null && this.Any(x => x.Key == commandKey);
+    }
+
+    public bool Contains(IUseCase useCase)
+    {
+        return useCase != null && this.Any(x => x.UseCase == useCase);
+    }
+
+    public IUseCase SelectCommand(string commandName)
+    {
+        IUseCase useCase;
+
+        if (string.IsNullOrEmpty(commandName))
         {
-            Add(new UseCaseCollectionItem(key, useCase));
+            useCase = Items
+                .Select(x => x.UseCase)
+                .OfType<HelpUseCase>()
+                .FirstOrDefault();
+
+            if (useCase == null)
+                throw new ConsoleFrameworkException("Please provide a use case name to execute.");
+        }
+        else
+        {
+            if (!Contains(commandName))
+                throw new ConsoleFrameworkException("Invalid use case.");
+
+            useCase = this[commandName];
         }
 
-        protected override void InsertItem(int index, UseCaseCollectionItem item)
+        return useCase;
+    }
+
+    public IUseCase this[string commandKey]
+    {
+        get
         {
-            if (this.Any(x => x.Key == item.Key))
-                throw new ArgumentException("There is another use case with the same key.", nameof(item.Key));
+            if (commandKey == null)
+                return null;
 
-            base.InsertItem(index, item);
-        }
-
-        public bool Contains(string commandKey)
-        {
-            return commandKey != null && this.Any(x => x.Key == commandKey);
-        }
-
-        public bool Contains(IUseCase useCase)
-        {
-            return useCase != null && this.Any(x => x.UseCase == useCase);
-        }
-
-        public IUseCase SelectCommand(string commandName)
-        {
-            IUseCase useCase;
-
-            if (string.IsNullOrEmpty(commandName))
-            {
-                useCase = Items
-                    .Select(x => x.UseCase)
-                    .OfType<HelpUseCase>()
-                    .FirstOrDefault();
-
-                if (useCase == null)
-                    throw new ConsoleFrameworkException("Please provide a use case name to execute.");
-            }
-            else
-            {
-                if (!Contains(commandName))
-                    throw new ConsoleFrameworkException("Invalid use case.");
-
-                useCase = this[commandName];
-            }
-
-            return useCase;
-        }
-
-        public IUseCase this[string commandKey]
-        {
-            get
-            {
-                if (commandKey == null)
-                    return null;
-
-                return Items
-                    .Where(x => x.Key == commandKey)
-                    .Select(x => x.UseCase)
-                    .FirstOrDefault();
-            }
+            return Items
+                .Where(x => x.Key == commandKey)
+                .Select(x => x.UseCase)
+                .FirstOrDefault();
         }
     }
 }

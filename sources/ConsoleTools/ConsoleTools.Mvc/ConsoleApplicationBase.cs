@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,143 +28,142 @@ using DustInTheWind.ConsoleTools.Controls.Spinners;
 using DustInTheWind.ConsoleTools.Mvc.UseCases;
 using DustInTheWind.ConsoleTools.Mvc.UserControls;
 
-namespace DustInTheWind.ConsoleTools.Mvc
+namespace DustInTheWind.ConsoleTools.Mvc;
+
+public abstract class ConsoleApplicationBase
 {
-    public abstract class ConsoleApplicationBase
+    private readonly IServiceProvider serviceProvider;
+
+    private readonly ApplicationHeader applicationHeader;
+    private readonly UseCaseCollection useCases;
+    private readonly ApplicationFooter applicationFooter;
+
+    public bool ShowHeader { get; set; } = true;
+
+    public bool ShowFooter { get; set; }
+
+    public bool UseSpinner { get; set; }
+
+    public bool PauseOnExit { get; set; }
+
+    protected ConsoleApplicationBase()
     {
-        private readonly IServiceProvider serviceProvider;
+        serviceProvider = CreateServiceProvider();
 
-        private readonly ApplicationHeader applicationHeader;
-        private readonly UseCaseCollection useCases;
-        private readonly ApplicationFooter applicationFooter;
+        applicationHeader = CreateApplicationHeader();
+        ConfigureApplicationHeader(applicationHeader);
 
-        public bool ShowHeader { get; set; } = true;
+        applicationFooter = CreateApplicationFooter();
+        ConfigureApplicationFooter(applicationFooter);
 
-        public bool ShowFooter { get; set; }
+        useCases = CreateUseCaseCollection() ?? new UseCaseCollection();
+        CreateUseCases(useCases);
+    }
 
-        public bool UseSpinner { get; set; }
+    protected abstract IServiceProvider CreateServiceProvider();
 
-        public bool PauseOnExit { get; set; }
+    protected virtual ApplicationHeader CreateApplicationHeader()
+    {
+        return new ApplicationHeader();
+    }
 
-        protected ConsoleApplicationBase()
+    protected virtual void ConfigureApplicationHeader(ApplicationHeader header)
+    {
+    }
+
+    protected virtual ApplicationFooter CreateApplicationFooter()
+    {
+        return new ApplicationFooter();
+    }
+
+    protected virtual void ConfigureApplicationFooter(ApplicationFooter footer)
+    {
+    }
+
+    protected virtual UseCaseCollection CreateUseCaseCollection()
+    {
+        return new UseCaseCollection();
+    }
+
+    protected virtual void CreateUseCases(UseCaseCollection useCaseCollection)
+    {
+        UseCaseCollectionItem helpUseCaseItem = CreateHelpCommand();
+
+        if (helpUseCaseItem != null)
+            useCases.Add(helpUseCaseItem);
+
+        Assembly currentAssembly = Assembly.GetExecutingAssembly();
+
+        IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies()
+            .Where(x => x != currentAssembly);
+
+        foreach (Assembly assembly in assemblies)
         {
-            serviceProvider = CreateServiceProvider();
+            IEnumerable<Type> useCasesTypes = assembly.GetTypes()
+                .Where(x => typeof(IUseCase).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
 
-            applicationHeader = CreateApplicationHeader();
-            ConfigureApplicationHeader(applicationHeader);
-
-            applicationFooter = CreateApplicationFooter();
-            ConfigureApplicationFooter(applicationFooter);
-
-            useCases = CreateUseCaseCollection() ?? new UseCaseCollection();
-            CreateUseCases(useCases);
-        }
-
-        protected abstract IServiceProvider CreateServiceProvider();
-
-        protected virtual ApplicationHeader CreateApplicationHeader()
-        {
-            return new ApplicationHeader();
-        }
-
-        protected virtual void ConfigureApplicationHeader(ApplicationHeader header)
-        {
-        }
-
-        protected virtual ApplicationFooter CreateApplicationFooter()
-        {
-            return new ApplicationFooter();
-        }
-
-        protected virtual void ConfigureApplicationFooter(ApplicationFooter footer)
-        {
-        }
-
-        protected virtual UseCaseCollection CreateUseCaseCollection()
-        {
-            return new UseCaseCollection();
-        }
-
-        protected virtual void CreateUseCases(UseCaseCollection useCaseCollection)
-        {
-            UseCaseCollectionItem helpUseCaseItem = CreateHelpCommand();
-
-            if (helpUseCaseItem != null)
-                useCases.Add(helpUseCaseItem);
-
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-
-            IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(x => x != currentAssembly);
-
-            foreach (Assembly assembly in assemblies)
+            foreach (Type useCasesType in useCasesTypes)
             {
-                IEnumerable<Type> useCasesTypes = assembly.GetTypes()
-                    .Where(x => typeof(IUseCase).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract);
+                string name = useCasesType.Name.EndsWith("UseCase", StringComparison.InvariantCultureIgnoreCase)
+                    ? useCasesType.Name.Substring(0, useCasesType.Name.Length - "UseCase".Length).ToLower()
+                    : useCasesType.Name;
 
-                foreach (Type useCasesType in useCasesTypes)
-                {
-                    string name = useCasesType.Name.EndsWith("UseCase", StringComparison.InvariantCultureIgnoreCase)
-                        ? useCasesType.Name.Substring(0, useCasesType.Name.Length - "UseCase".Length).ToLower()
-                        : useCasesType.Name;
+                IUseCase useCase = serviceProvider.GetService(useCasesType) as IUseCase;
 
-                    IUseCase useCase = serviceProvider.GetService(useCasesType) as IUseCase;
-
-                    useCaseCollection.Add(name, useCase);
-                }
+                useCaseCollection.Add(name, useCase);
             }
         }
+    }
 
-        protected virtual UseCaseCollectionItem CreateHelpCommand()
+    protected virtual UseCaseCollectionItem CreateHelpCommand()
+    {
+        HelpUseCase helpUseCase = new(useCases);
+        return new UseCaseCollectionItem("help", helpUseCase);
+    }
+
+    public void Run(string[] args)
+    {
+        try
         {
-            HelpUseCase helpUseCase = new HelpUseCase(useCases);
-            return new UseCaseCollectionItem("help", helpUseCase);
-        }
+            OnStart();
 
-        public void Run(string[] args)
+            if (ShowHeader)
+                applicationHeader?.Display();
+
+            Arguments arguments = new(args);
+            IUseCase useCase = useCases.SelectCommand(arguments.Command);
+
+            if (UseSpinner)
+                Spinner.Run(() => useCase.Execute(arguments));
+            else
+                useCase.Execute(arguments);
+        }
+        catch (Exception ex)
         {
-            try
-            {
-                OnStart();
-
-                if (ShowHeader)
-                    applicationHeader?.Display();
-
-                Arguments arguments = new Arguments(args);
-                IUseCase useCase = useCases.SelectCommand(arguments.Command);
-
-                if (UseSpinner)
-                    Spinner.Run(() => useCase.Execute(arguments));
-                else
-                    useCase.Execute(arguments);
-            }
-            catch (Exception ex)
-            {
-                OnError(ex);
-            }
-            finally
-            {
-                OnExit();
-
-                if (ShowFooter)
-                    applicationFooter?.Display();
-
-                if (PauseOnExit)
-                    Pause.QuickDisplay();
-            }
+            OnError(ex);
         }
-
-        protected virtual void OnStart()
+        finally
         {
-        }
+            OnExit();
 
-        protected virtual void OnExit()
-        {
-        }
+            if (ShowFooter)
+                applicationFooter?.Display();
 
-        protected virtual void OnError(Exception ex)
-        {
-            CustomConsole.WriteLineError(ex);
+            if (PauseOnExit)
+                Pause.QuickDisplay();
         }
+    }
+
+    protected virtual void OnStart()
+    {
+    }
+
+    protected virtual void OnExit()
+    {
+    }
+
+    protected virtual void OnError(Exception ex)
+    {
+        CustomConsole.WriteLineError(ex);
     }
 }

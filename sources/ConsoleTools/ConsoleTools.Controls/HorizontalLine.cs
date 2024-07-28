@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,91 +21,96 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Displays a horizontal line by repeating a specific character.
+/// Multiple aspects can be configured like width, horizontal alignment, etc.
+/// </summary>
+/// <remarks>
+/// The content of the control is filled with the <see cref="Character"/> character.
+/// The control will always be one line height and, by default, it will stretch to fill the parent's client width.
+/// The <see cref="BlockControl.Width"/> property can be used to specify a smaller width if necessary.
+/// </remarks>
+public class HorizontalLine : BlockControl
 {
     /// <summary>
-    /// Displays a horizontal line by repeating a specific character.
-    /// Multiple aspects can be configured like width, horizontal alignment, etc.
+    /// Gets or sets the character to be used to fill the content of the control.
     /// </summary>
-    /// <remarks>
-    /// The content of the control is filled with the <see cref="Character"/> character.
-    /// The control will always be one line height and, by default, it will stretch to fill the parent's client width.
-    /// The <see cref="BlockControl.Width"/> property can be used to specify a smaller width if necessary.
-    /// </remarks>
-    public class HorizontalLine : BlockControl
+    public char Character { get; set; } = '-';
+
+    /// <summary>
+    /// Gets the <see cref="int.MaxValue"/> value.
+    /// The horizontal line is willing to be as wide as necessary.
+    /// </summary>
+    protected override int DesiredContentWidth => int.MaxValue;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
+    /// </summary>
+    public HorizontalLine()
     {
-        /// <summary>
-        /// Gets or sets the character to be used to fill the content of the control.
-        /// </summary>
-        public char Character { get; set; } = '-';
+        Margin = "0 1";
+    }
 
-        /// <summary>
-        /// Gets the <see cref="int.MaxValue"/> value.
-        /// The horizontal line is willing to be as wide as necessary.
-        /// </summary>
-        protected override int DesiredContentWidth => int.MaxValue;
+    /// <summary>
+    /// Displays the horizontal line.
+    /// </summary>
+    protected override void DoDisplayContent(ControlDisplay display)
+    {
+        int actualContentWidth = Layout.ActualContentWidth;
+        string text = new(Character, actualContentWidth);
+        display.WriteRow(text);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
-        /// </summary>
-        public HorizontalLine()
+    /// <summary>
+    /// Displays a horizontal line with default settings.
+    /// </summary>
+    public static void QuickDisplay()
+    {
+        HorizontalLine horizontalLine = new();
+        horizontalLine.Display();
+    }
+
+    /// <summary>
+    /// Displays a horizontal line constructed using the specified character.
+    /// </summary>
+    public static void QuickDisplay(char character)
+    {
+        HorizontalLine horizontalLine = new()
         {
-            Margin = "0 1";
-        }
+            Character = character
+        };
+        horizontalLine.Display();
+    }
 
-        /// <summary>
-        /// Displays the horizontal line.
-        /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+    /// <summary>
+    /// Displays a horizontal line constructed using the specified <see cref="P:character"/> and
+    /// the specified <see cref="P:foregroundColor"/>.
+    /// </summary>
+    public static void QuickDisplay(char character, ConsoleColor foregroundColor)
+    {
+        HorizontalLine horizontalLine = new()
         {
-            int actualContentWidth = Layout.ActualContentWidth;
-            string text = new string(Character, actualContentWidth);
-            display.WriteRow(text);
-        }
+            Character = character,
+            ForegroundColor = foregroundColor
+        };
+        horizontalLine.Display();
+    }
 
-        /// <summary>
-        /// Displays a horizontal line with default settings.
-        /// </summary>
-        public static void QuickDisplay()
-        {
-            HorizontalLine horizontalLine = new HorizontalLine();
-            horizontalLine.Display();
-        }
+    /// <summary>
+    /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
+    /// </summary>
+    public static string WindowAsString(char c = '-')
+    {
+        return new string(c, Console.WindowWidth);
+    }
 
-        /// <summary>
-        /// Displays a horizontal line constructed using the specified character.
-        /// </summary>
-        public static void QuickDisplay(char character)
-        {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Character = character
-            };
-            horizontalLine.Display();
-        }
-
-        /// <summary>
-        /// Displays a horizontal line constructed using the specified <see cref="P:character"/> and
-        /// the specified <see cref="P:foregroundColor"/>.
-        /// </summary>
-        public static void QuickDisplay(char character, ConsoleColor foregroundColor)
-        {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Character = character,
-                ForegroundColor = foregroundColor
-            };
-            horizontalLine.Display();
-        }
-
-        /// <summary>
-        /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
-        /// </summary>
-        public static string WindowAsString(char c = '-') => new string(c, Console.WindowWidth);
-
-        /// <summary>
-        /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
-        /// </summary>
-        public static string BufferAsString(char c = '-') => new string(c, Console.BufferWidth);
+    /// <summary>
+    /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
+    /// </summary>
+    public static string BufferAsString(char c = '-')
+    {
+        return new string(c, Console.BufferWidth);
     }
 }

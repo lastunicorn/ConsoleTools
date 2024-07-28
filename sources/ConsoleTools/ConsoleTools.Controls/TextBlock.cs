@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,72 +21,71 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// This control displays a multiline text to the console.
+/// </summary>
+public class TextBlock : BlockControl
 {
     /// <summary>
-    /// This control displays a multiline text to the console.
+    /// Gets or sets the text.
     /// </summary>
-    public class TextBlock : BlockControl
+    public MultilineText Text { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextBlock"/> class.
+    /// </summary>
+    public TextBlock()
     {
-        /// <summary>
-        /// Gets or sets the text.
-        /// </summary>
-        public MultilineText Text { get; set; }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextBlock"/> class.
-        /// </summary>
-        public TextBlock()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextBlock"/> class
+    /// with the text to be displayed.
+    /// </summary>
+    public TextBlock(MultilineText text)
+    {
+        Text = text;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextBlock"/> class
+    /// with the text to be displayed.
+    /// </summary>
+    public TextBlock(string text)
+    {
+        Text = text;
+    }
+
+    /// <summary>
+    /// Displays the lines of text together with the left and right margins.
+    /// </summary>
+    protected override void DoDisplayContent(ControlDisplay display)
+    {
+        if (Text == null)
+            return;
+
+        IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth);
+
+        foreach (string chunk in chunks)
+            display.WriteRow(chunk);
+    }
+
+    //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
+
+    protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
+
+    /// <summary>
+    /// Displays the specified text into the console.
+    /// </summary>
+    /// <param name="text">The text to be displayed to the console.</param>
+    private static void QuickDisplay(string text)
+    {
+        TextBlock textBlock = new()
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextBlock"/> class
-        /// with the text to be displayed.
-        /// </summary>
-        public TextBlock(MultilineText text)
-        {
-            Text = text;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TextBlock"/> class
-        /// with the text to be displayed.
-        /// </summary>
-        public TextBlock(string text)
-        {
-            Text = text;
-        }
-
-        /// <summary>
-        /// Displays the lines of text together with the left and right margins.
-        /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
-        {
-            if (Text == null)
-                return;
-
-            IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth);
-
-            foreach (string chunk in chunks)
-                display.WriteRow(chunk);
-        }
-
-        //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
-
-        protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
-
-        /// <summary>
-        /// Displays the specified text into the console.
-        /// </summary>
-        /// <param name="text">The text to be displayed to the console.</param>
-        private static void QuickDisplay(string text)
-        {
-            TextBlock textBlock = new TextBlock
-            {
-                Text = text
-            };
-            textBlock.Display();
-        }
+            Text = text
+        };
+        textBlock.Display();
     }
 }

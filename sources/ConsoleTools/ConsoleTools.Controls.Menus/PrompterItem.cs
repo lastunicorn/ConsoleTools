@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,30 +21,29 @@
 
 using DustInTheWind.ConsoleTools.CommandLine;
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
+
+/// <summary>
+/// Contains information about a cli command that the prompter can handle.
+/// </summary>
+public class PrompterItem
 {
     /// <summary>
-    /// Contains information about a cli command that the prompter can handle.
+    /// Gets or sets the name of the cli command.
     /// </summary>
-    public class PrompterItem
+    public string Name { get; set; }
+
+    /// <summary>
+    /// The command that will be executed when this item is selected.
+    /// </summary>
+    public IPrompterCommand Command { get; set; }
+
+    /// <summary>
+    /// Executes the associated command.
+    /// </summary>
+    /// <param name="cliCommand"></param>
+    public void Execute(CliCommand cliCommand)
     {
-        /// <summary>
-        /// Gets or sets the name of the cli command.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The command that will be executed when this item is selected.
-        /// </summary>
-        public IPrompterCommand Command { get; set; }
-
-        /// <summary>
-        /// Executes the associated command.
-        /// </summary>
-        /// <param name="cliCommand"></param>
-        public void Execute(CliCommand cliCommand)
-        {
-            Command?.Execute(cliCommand);
-        }
+        Command?.Execute(cliCommand);
     }
 }

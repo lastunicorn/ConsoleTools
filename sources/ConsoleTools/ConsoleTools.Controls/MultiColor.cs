@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,30 +21,29 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
-{
-    public class MultiColor : Control
-    {
-        protected override void DoDisplay()
-        {
-            CustomConsole.WriteLine("Player", ConsoleColor.Black);
-            CustomConsole.WriteLine("Player", ConsoleColor.White);
-            CustomConsole.WriteLine("Player", ConsoleColor.Gray);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkGray);
+namespace DustInTheWind.ConsoleTools.Controls;
 
-            CustomConsole.WriteLine("Player", ConsoleColor.Blue);
-            CustomConsole.WriteLine("Player", ConsoleColor.Green);
-            CustomConsole.WriteLine("Player", ConsoleColor.Cyan);
-            CustomConsole.WriteLine("Player", ConsoleColor.Red);
-            CustomConsole.WriteLine("Player", ConsoleColor.Magenta);
-            CustomConsole.WriteLine("Player", ConsoleColor.Yellow);
-            
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkBlue);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkGreen);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkCyan);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkRed);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkMagenta);
-            CustomConsole.WriteLine("Player", ConsoleColor.DarkYellow);
-        }
+public class MultiColor : Control
+{
+    protected override void DoDisplay()
+    {
+        CustomConsole.WriteLine("Player", ConsoleColor.Black);
+        CustomConsole.WriteLine("Player", ConsoleColor.White);
+        CustomConsole.WriteLine("Player", ConsoleColor.Gray);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkGray);
+
+        CustomConsole.WriteLine("Player", ConsoleColor.Blue);
+        CustomConsole.WriteLine("Player", ConsoleColor.Green);
+        CustomConsole.WriteLine("Player", ConsoleColor.Cyan);
+        CustomConsole.WriteLine("Player", ConsoleColor.Red);
+        CustomConsole.WriteLine("Player", ConsoleColor.Magenta);
+        CustomConsole.WriteLine("Player", ConsoleColor.Yellow);
+
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkBlue);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkGreen);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkCyan);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkRed);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkMagenta);
+        CustomConsole.WriteLine("Player", ConsoleColor.DarkYellow);
     }
 }

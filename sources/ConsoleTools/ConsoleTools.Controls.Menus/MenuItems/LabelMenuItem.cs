@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,187 +22,186 @@
 using System;
 using System.ComponentModel;
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems
+namespace DustInTheWind.ConsoleTools.Controls.Menus.MenuItems;
+
+/// <summary>
+/// Represents a menu item that displays a text.
+/// </summary>
+public class LabelMenuItem : IMenuItem
 {
+    private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
+
+    private bool isVisible = true;
+    private bool isEnabled = true;
+
     /// <summary>
-    /// Represents a menu item that displays a text.
+    /// Gets the location in the console where the current instance was last rendered.
+    /// If the current instance was never rendered, this value is <c>null</c>.
     /// </summary>
-    public class LabelMenuItem : IMenuItem
+    public Location? Location { get; private set; }
+
+    /// <summary>
+    /// Gets the size in characters necessary for the current instance to be rendered.
+    /// </summary>
+    public Size Size
     {
-        private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
-
-        private bool isVisible = true;
-        private bool isEnabled = true;
-
-        /// <summary>
-        /// Gets the location in the console where the current instance was last rendered.
-        /// If the current instance was never rendered, this value is <c>null</c>.
-        /// </summary>
-        public Location? Location { get; private set; }
-
-        /// <summary>
-        /// Gets the size in characters necessary for the current instance to be rendered.
-        /// </summary>
-        public Size Size
+        get
         {
-            get
-            {
-                int width = PaddingLeft + (Text?.Length ?? 0) + PaddingRight;
-                int height = 1;
+            int width = PaddingLeft + (Text?.Length ?? 0) + PaddingRight;
+            int height = 1;
 
-                return new Size(width, height);
-            }
+            return new Size(width, height);
         }
+    }
 
-        /// <summary>
-        /// Gets or sets the text displayed by the current instance.
-        /// </summary>
-        public string Text { get; set; }
+    /// <summary>
+    /// Gets or sets the text displayed by the current instance.
+    /// </summary>
+    public string Text { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value that specifies if the current instance is displayed.
-        /// If the <see cref="VisibilityProvider"/> is set, the value provided on the setter,
-        /// is ignored.
-        /// </summary>
-        public bool IsVisible
+    /// <summary>
+    /// Gets or sets a value that specifies if the current instance is displayed.
+    /// If the <see cref="VisibilityProvider"/> is set, the value provided on the setter,
+    /// is ignored.
+    /// </summary>
+    public bool IsVisible
+    {
+        get => VisibilityProvider?.Invoke() ?? isVisible;
+        set => isVisible = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a function that specifies if the current instance should be visible.
+    /// </summary>
+    public Func<bool> VisibilityProvider { get; set; }
+
+    /// <summary>
+    /// Gets or sets the horizontal alignment of the current instance inside the menu.
+    /// Default value: <see cref="Controls.HorizontalAlignment.Default"/>.
+    /// </summary>
+    public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+
+    /// <summary>
+    /// Gets a value that specifies if the current instance can be selected.
+    /// Default value: <c>true</c>
+    /// </summary>
+    public bool IsEnabled
+    {
+        get => Command?.IsActive ?? isEnabled;
+        set => isEnabled = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the shortcut key that will select the current instance of <see cref="IMenuItem"/>.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleKey? ShortcutKey { get; set; }
+
+    /// <summary>
+    /// Gets or sets the command to be executed when the current instance is selected.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ICommand Command { get; set; }
+
+    /// <summary>
+    /// Gets or sets the menu that contains the current instance.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ScrollMenu ParentMenu { get; set; }
+
+    /// <summary>
+    /// Gets or sets the padding applied to the left of the text.
+    /// The padding is part of the menu item's width.
+    /// Default value: 1
+    /// </summary>
+    public int PaddingLeft { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the padding applied to the right of the text.
+    /// The padding is part of the menu item's width.
+    /// Default value: 1
+    /// </summary>
+    public int PaddingRight { get; set; } = 1;
+
+    /// <summary>
+    /// Event raised before the current instance is selected.
+    /// It gives the opportunity for a subscriber to cancel the selection of the menu item.
+    /// </summary>
+    public event EventHandler<CancelEventArgs> BeforeSelect;
+
+    /// <summary>
+    /// Displays the current instance to the Console starting from the current location of the cursor.
+    /// </summary>
+    /// <param name="size">The size in which the current instance must be displayed.</param>
+    /// <param name="highlighted">A value that specifies if the menu item must be displayed highlighted.</param>
+    public void Display(Size size, bool highlighted)
+    {
+        HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+
+        Location = new Location(Console.CursorLeft, Console.CursorTop);
+
+        AlignedText alignedText = new()
         {
-            get => VisibilityProvider?.Invoke() ?? isVisible;
-            set => isVisible = value;
-        }
+            Text = new string(' ', Size.Width),
+            HorizontalAlignment = calculatedHorizontalAlignment,
+            Width = size.Width
+        };
 
-        /// <summary>
-        /// Gets or sets a function that specifies if the current instance should be visible.
-        /// </summary>
-        public Func<bool> VisibilityProvider { get; set; }
+        // Write left empty space
+        CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
 
-        /// <summary>
-        /// Gets or sets the horizontal alignment of the current instance inside the menu.
-        /// Default value: <see cref="Controls.HorizontalAlignment.Default"/>.
-        /// </summary>
-        public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
+        // Write content
+        if (highlighted)
+            CustomConsole.WithInvertedColors(DisplayContent);
+        else
+            DisplayContent();
 
-        /// <summary>
-        /// Gets a value that specifies if the current instance can be selected.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool IsEnabled
-        {
-            get => Command?.IsActive ?? isEnabled;
-            set => isEnabled = value;
-        }
+        // Write right empty space
+        CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
+    }
 
-        /// <summary>
-        /// Gets or sets the shortcut key that will select the current instance of <see cref="IMenuItem"/>.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleKey? ShortcutKey { get; set; }
+    private void DisplayContent()
+    {
+        // Write left padding
+        if (PaddingLeft > 0)
+            CustomConsole.Write(new string(' ', PaddingLeft));
 
-        /// <summary>
-        /// Gets or sets the command to be executed when the current instance is selected.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ICommand Command { get; set; }
+        // Write the text
+        CustomConsole.Write(Text);
 
-        /// <summary>
-        /// Gets or sets the menu that contains the current instance.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ScrollMenu ParentMenu { get; set; }
+        // Write right padding
+        if (PaddingRight > 0)
+            CustomConsole.Write(new string(' ', PaddingRight));
+    }
 
-        /// <summary>
-        /// Gets or sets the padding applied to the left of the text.
-        /// The padding is part of the menu item's width.
-        /// Default value: 1
-        /// </summary>
-        public int PaddingLeft { get; set; } = 1;
+    private HorizontalAlignment CalculateHorizontalAlignment()
+    {
+        if (HorizontalAlignment != HorizontalAlignment.Default)
+            return HorizontalAlignment;
 
-        /// <summary>
-        /// Gets or sets the padding applied to the right of the text.
-        /// The padding is part of the menu item's width.
-        /// Default value: 1
-        /// </summary>
-        public int PaddingRight { get; set; } = 1;
+        if (ParentMenu != null && ParentMenu.ItemsHorizontalAlignment != HorizontalAlignment.Default)
+            return ParentMenu.ItemsHorizontalAlignment;
 
-        /// <summary>
-        /// Event raised before the current instance is selected.
-        /// It gives the opportunity for a subscriber to cancel the selection of the menu item.
-        /// </summary>
-        public event EventHandler<CancelEventArgs> BeforeSelect;
+        return DefaultHorizontalAlignment;
+    }
 
-        /// <summary>
-        /// Displays the current instance to the Console starting from the current location of the cursor.
-        /// </summary>
-        /// <param name="size">The size in which the current instance must be displayed.</param>
-        /// <param name="highlighted">A value that specifies if the menu item must be displayed highlighted.</param>
-        public void Display(Size size, bool highlighted)
-        {
-            HorizontalAlignment calculatedHorizontalAlignment = CalculateHorizontalAlignment();
+    /// <summary>
+    /// Selects the current instance and executes the associated <see cref="Command"/>.
+    /// </summary>
+    /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
+    public bool Select()
+    {
+        CancelEventArgs eventArgs = new();
+        OnBeforeSelect(eventArgs);
 
-            Location = new Location(Console.CursorLeft, Console.CursorTop);
+        return !eventArgs.Cancel;
+    }
 
-            AlignedText alignedText = new AlignedText
-            {
-                Text = new string(' ', Size.Width),
-                HorizontalAlignment = calculatedHorizontalAlignment,
-                Width = size.Width
-            };
-
-            // Write left empty space
-            CustomConsole.Write(new string(' ', alignedText.SpaceLeftCount));
-
-            // Write content
-            if (highlighted)
-                CustomConsole.WithInvertedColors(DisplayContent);
-            else
-                DisplayContent();
-
-            // Write right empty space
-            CustomConsole.Write(new string(' ', alignedText.SpaceRightCount));
-        }
-
-        private void DisplayContent()
-        {
-            // Write left padding
-            if (PaddingLeft > 0)
-                CustomConsole.Write(new string(' ', PaddingLeft));
-
-            // Write the text
-            CustomConsole.Write(Text);
-
-            // Write right padding
-            if (PaddingRight > 0)
-                CustomConsole.Write(new string(' ', PaddingRight));
-        }
-
-        private HorizontalAlignment CalculateHorizontalAlignment()
-        {
-            if (HorizontalAlignment != HorizontalAlignment.Default)
-                return HorizontalAlignment;
-
-            if (ParentMenu != null && ParentMenu.ItemsHorizontalAlignment != HorizontalAlignment.Default)
-                return ParentMenu.ItemsHorizontalAlignment;
-
-            return DefaultHorizontalAlignment;
-        }
-
-        /// <summary>
-        /// Selects the current instance and executes the associated <see cref="Command"/>.
-        /// </summary>
-        /// <returns><c>true</c> if the menu item was successfully selected; <c>false</c> otherwise.</returns>
-        public bool Select()
-        {
-            CancelEventArgs eventArgs = new CancelEventArgs();
-            OnBeforeSelect(eventArgs);
-
-            return !eventArgs.Cancel;
-        }
-
-        /// <summary>
-        /// Raises the <see cref="BeforeSelect"/> event.
-        /// </summary>
-        protected virtual void OnBeforeSelect(CancelEventArgs e)
-        {
-            BeforeSelect?.Invoke(this, e);
-        }
+    /// <summary>
+    /// Raises the <see cref="BeforeSelect"/> event.
+    /// </summary>
+    protected virtual void OnBeforeSelect(CancelEventArgs e)
+    {
+        BeforeSelect?.Invoke(this, e);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,15 +22,14 @@
 using System;
 using DustInTheWind.ConsoleTools.CommandLine;
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus
-{
-    internal class UnknownPrompterCommand : IPrompterCommand
-    {
-        public bool IsActive { get; } = true;
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
-        public void Execute(CliCommand cliCommand)
-        {
-            CustomConsole.WriteLineError("Unknown command: " + cliCommand, ConsoleColor.DarkYellow);
-        }
+internal class UnknownPrompterCommand : IPrompterCommand
+{
+    public bool IsActive { get; } = true;
+
+    public void Execute(CliCommand cliCommand)
+    {
+        CustomConsole.WriteLineError("Unknown command: " + cliCommand, ConsoleColor.DarkYellow);
     }
 }

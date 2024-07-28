@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners
+namespace DustInTheWind.ConsoleTools.Controls.Spinners;
+
+/// <summary>
+/// In the <see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
+/// </summary>
+public enum ValuePosition
 {
     /// <summary>
-    /// In the <see cref="ProgressBar"/>, it specifies the position of the value in regards to the progress bar.
+    /// The value is displayed at the left, before the progress.
     /// </summary>
-    public enum ValuePosition
-    {
-        /// <summary>
-        /// The value is displayed at the left, before the progress.
-        /// </summary>
-        Left,
+    Left,
 
-        /// <summary>
-        /// The value is displayed at the right, after the progress.
-        /// </summary>
-        Right
-    }
+    /// <summary>
+    /// The value is displayed at the right, after the progress.
+    /// </summary>
+    Right
 }

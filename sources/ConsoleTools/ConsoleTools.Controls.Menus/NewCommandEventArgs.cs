@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,29 +22,28 @@
 using System;
 using DustInTheWind.ConsoleTools.CommandLine;
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
+
+/// <summary>
+/// Provides data for NewCommand event.
+/// </summary>
+public class NewCommandEventArgs : EventArgs
 {
     /// <summary>
-    /// Provides data for NewCommand event.
+    /// Gets the new <see cref="CliCommand"/> instance.
     /// </summary>
-    public class NewCommandEventArgs : EventArgs
+    public CliCommand Command { get; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the command was already handled.
+    /// </summary>
+    public bool IsHandled { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NewCommandEventArgs"/> class.
+    /// </summary>
+    public NewCommandEventArgs(CliCommand command)
     {
-        /// <summary>
-        /// Gets the new <see cref="CliCommand"/> instance.
-        /// </summary>
-        public CliCommand Command { get; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the command was already handled.
-        /// </summary>
-        public bool IsHandled { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewCommandEventArgs"/> class.
-        /// </summary>
-        public NewCommandEventArgs(CliCommand command)
-        {
-            Command = command;
-        }
+        Command = command;
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,21 +19,22 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Musical
+namespace DustInTheWind.ConsoleTools.Controls.Musical;
+
+public struct MusicalNoteInfo
 {
-    public struct MusicalNoteInfo
+    public MusicalNote MusicalNote { get; }
+
+    public double Frequency { get; }
+
+    public double Wavelength { get; }
+
+    public static readonly MusicalNoteInfo Empty = new(MusicalNote.None, 0, 0);
+
+    public MusicalNoteInfo(MusicalNote musicalNote, double frequency, double wavelength)
     {
-        public MusicalNote MusicalNote { get; }
-        public double Frequency { get; }
-        public double Wavelength { get; }
-
-        public static readonly MusicalNoteInfo Empty = new MusicalNoteInfo(MusicalNote.None, 0, 0);
-
-        public MusicalNoteInfo(MusicalNote musicalNote, double frequency, double wavelength)
-        {
-            MusicalNote = musicalNote;
-            Frequency = frequency;
-            Wavelength = wavelength;
-        }
+        MusicalNote = musicalNote;
+        Frequency = frequency;
+        Wavelength = wavelength;
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,89 +18,88 @@ using DustInTheWind.ConsoleTools.Controls;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests;
+
+[TestFixture]
+public class ActualContentWidthTests_NoWidthConstraints
 {
-    [TestFixture]
-    public class ActualContentWidthTests_NoWidthConstraints
+    [Test]
+    public void HorizontalAlignment_is_null_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
     {
-        [Test]
-        public void HorizontalAlignment_is_null_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
+        Mock<BlockControl> control = new();
+        control.Object.Margin = 10;
+        control.Object.Padding = 7;
+
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.Margin = 10;
-            control.Object.Padding = 7;
+            Control = control.Object,
+            AvailableWidth = 100
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 100
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualContentWidth;
 
-            int actual = controlLayout.ActualContentWidth;
+        Assert.That(actual, Is.EqualTo(66));
+    }
 
-            Assert.That(actual, Is.EqualTo(66));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
+    {
+        Mock<BlockControl> control = new();
+        control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+        control.Object.Margin = 10;
+        control.Object.Padding = 7;
 
-        [Test]
-        public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
-            control.Object.Margin = 10;
-            control.Object.Padding = 7;
+            Control = control.Object,
+            AvailableWidth = 102
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 102
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualContentWidth;
 
-            int actual = controlLayout.ActualContentWidth;
+        Assert.That(actual, Is.EqualTo(68));
+    }
 
-            Assert.That(actual, Is.EqualTo(68));
-        }
+    [Test]
+    public void HorizontalAlignment_is_null_DesiredContentWidth_is_less_than_available_space__returns_ContentDesiredWidth()
+    {
+        Mock<BlockControl> control = new();
+        control.Object.Margin = 10;
+        control.Object.Padding = 7;
 
-        [Test]
-        public void HorizontalAlignment_is_null_DesiredContentWidth_is_less_than_available_space__returns_ContentDesiredWidth()
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.Margin = 10;
-            control.Object.Padding = 7;
+            Control = control.Object,
+            AvailableWidth = 100,
+            DesiredContentWidth = 20
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 100,
-                DesiredContentWidth = 20
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualContentWidth;
 
-            int actual = controlLayout.ActualContentWidth;
+        Assert.That(actual, Is.EqualTo(20));
+    }
 
-            Assert.That(actual, Is.EqualTo(20));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_more_than_available_space__returns_AvailableWidth_without_Margins_and_Paddings()
+    {
+        Mock<BlockControl> control = new();
+        control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+        control.Object.Margin = 10;
+        control.Object.Padding = 7;
 
-        [Test]
-        public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_more_than_available_space__returns_AvailableWidth_without_Margins_and_Paddings()
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
-            control.Object.Margin = 10;
-            control.Object.Padding = 7;
+            Control = control.Object,
+            AvailableWidth = 102,
+            DesiredContentWidth = 200
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 102,
-                DesiredContentWidth = 200
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualContentWidth;
 
-            int actual = controlLayout.ActualContentWidth;
-
-            Assert.That(actual, Is.EqualTo(68));
-        }
+        Assert.That(actual, Is.EqualTo(68));
     }
 }

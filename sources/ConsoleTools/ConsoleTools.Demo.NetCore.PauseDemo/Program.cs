@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,102 +18,101 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo;
+
+internal static class Program
 {
-    internal static class Program
+    private static void Main()
     {
-        private static void Main()
-        {
-            ResizeConsoleWindow();
+        ResizeConsoleWindow();
 
-            DisplayApplicationHeader();
-            RunDemos();
+        DisplayApplicationHeader();
+        RunDemos();
+    }
+
+    private static void ResizeConsoleWindow()
+    {
+        bool allowConsoleResize = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+
+        if (allowConsoleResize)
+        {
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(160, 512);
         }
+    }
 
-        private static void ResizeConsoleWindow()
+    private static void DisplayApplicationHeader()
+    {
+        ApplicationHeader applicationHeader = new()
         {
-            bool allowConsoleResize = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+            Title = "ConsoleTools Demo - Pause"
+        };
+        applicationHeader.Display();
+    }
 
-            if (allowConsoleResize)
+    private static void RunDemos()
+    {
+        bool exitWasRequested = false;
+
+        TextMenu textMenu = new();
+        textMenu.AddItems(new[]
+        {
+            new TextMenuItem
             {
-                Console.SetWindowSize(80, 50);
-                Console.SetBufferSize(160, 512);
+                Id = "1",
+                Text = "Default",
+                Command = new DefaultCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "2",
+                Text = "Custom Unlock Key",
+                Command = new CustomUnlockKeyCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "3",
+                Text = "Erasable Pause",
+                Command = new ErasablePauseCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "4",
+                Text = "Custom Margins",
+                Command = new CustomMarginsCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "5",
+                Text = "Custom Paddings",
+                Command = new CustomPaddingsCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "6",
+                Text = "Foreground Color",
+                Command = new ForegroundColorCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "7",
+                Text = "Background Color",
+                Command = new BackgroundColorCommand()
+            },
+            new TextMenuItem
+            {
+                Id = "0",
+                Text = "Exit",
+                Command = new ActionCommand(() =>
+                {
+                    exitWasRequested = true;
+                })
             }
-        }
+        });
 
-        private static void DisplayApplicationHeader()
+        while (!exitWasRequested)
         {
-            ApplicationHeader applicationHeader = new()
-            {
-                Title = "ConsoleTools Demo - Pause"
-            };
-            applicationHeader.Display();
-        }
-
-        private static void RunDemos()
-        {
-            bool exitWasRequested = false;
-
-            TextMenu textMenu = new();
-            textMenu.AddItems(new[]
-            {
-                new TextMenuItem
-                {
-                    Id = "1",
-                    Text = "Default",
-                    Command = new DefaultCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "2",
-                    Text = "Custom Unlock Key",
-                    Command = new CustomUnlockKeyCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "3",
-                    Text = "Erasable Pause",
-                    Command = new ErasablePauseCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "4",
-                    Text = "Custom Margins",
-                    Command = new CustomMarginsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "5",
-                    Text = "Custom Paddings",
-                    Command = new CustomPaddingsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "6",
-                    Text = "Foreground Color",
-                    Command = new ForegroundColorCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "7",
-                    Text = "Background Color",
-                    Command = new BackgroundColorCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "0",
-                    Text = "Exit",
-                    Command = new ActionCommand(() =>
-                    {
-                        exitWasRequested = true;
-                    })
-                }
-            });
-
-            while (!exitWasRequested)
-            {
-                textMenu.Display();
-            }
+            textMenu.Display();
         }
     }
 }

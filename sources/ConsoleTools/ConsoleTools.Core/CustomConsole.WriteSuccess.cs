@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,151 +21,150 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+public partial class CustomConsole
 {
-    public partial class CustomConsole
+    public static void WriteSuccess(string text)
     {
-        public static void WriteSuccess(string text)
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.Write(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    public static void WriteSuccess(string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.Write(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    public static void WriteSuccess(object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.Write(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    public static void WriteLineSuccess(string text)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.WriteLine(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    public static void WriteLineSuccess(string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.WriteLine(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    public static void WriteLineSuccess(object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        Console.WriteLine(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Executes the specified action while the foreground and background colors
+    /// are changed to "Success" colors.
+    /// </summary>
+    public static void WithSuccessColors(Action action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        try
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.Write(text);
-
+            action();
+        }
+        finally
+        {
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
         }
+    }
 
-        public static void WriteSuccess(string format, params object[] arg)
+    /// <summary>
+    /// Executes the specified function while the foreground and background colors
+    /// are changed to "Success" colors.
+    /// </summary>
+    public static T WithSuccessColors<T>(Func<T> func)
+    {
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = SuccessColor;
+
+        if (SuccessBackgroundColor.HasValue)
+            Console.BackgroundColor = SuccessBackgroundColor.Value;
+
+        try
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.Write(format, arg);
-
+            return func();
+        }
+        finally
+        {
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        public static void WriteSuccess(object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.Write(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        public static void WriteLineSuccess(string text)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.WriteLine(text);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        public static void WriteLineSuccess(string format, params object[] arg)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.WriteLine(format, arg);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        public static void WriteLineSuccess(object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            Console.WriteLine(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Executes the specified action while the foreground and background colors
-        /// are changed to "Success" colors.
-        /// </summary>
-        public static void WithSuccessColors(Action action)
-        {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            try
-            {
-                action();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
-        }
-
-        /// <summary>
-        /// Executes the specified function while the foreground and background colors
-        /// are changed to "Success" colors.
-        /// </summary>
-        public static T WithSuccessColors<T>(Func<T> func)
-        {
-            if (func == null) throw new ArgumentNullException(nameof(func));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = SuccessColor;
-
-            if (SuccessBackgroundColor.HasValue)
-                Console.BackgroundColor = SuccessBackgroundColor.Value;
-
-            try
-            {
-                return func();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
         }
     }
 }

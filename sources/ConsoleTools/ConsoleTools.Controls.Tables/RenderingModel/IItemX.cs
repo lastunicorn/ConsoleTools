@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,10 +21,9 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal interface IItemX
 {
-    internal interface IItemX
-    {
-        void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns);
-    }
+    void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns);
 }

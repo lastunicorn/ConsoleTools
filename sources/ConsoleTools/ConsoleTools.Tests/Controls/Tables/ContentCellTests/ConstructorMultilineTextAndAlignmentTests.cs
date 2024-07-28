@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,36 +18,35 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests;
+
+[TestFixture]
+public class ConstructorMultilineTextAndAlignmentTests
 {
-    [TestFixture]
-    public class ConstructorMultilineTextAndAlignmentTests
+    private ContentCell contentCell;
+
+    [SetUp]
+    public void SetUp()
     {
-        private ContentCell contentCell;
+        MultilineText multilineText = new("some content");
+        contentCell = new ContentCell(multilineText, HorizontalAlignment.Center);
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            MultilineText multilineText = new MultilineText("some content");
-            contentCell = new ContentCell(multilineText, HorizontalAlignment.Center);
-        }
+    [Test]
+    public void Content_is_the_one_provided_on_constructor()
+    {
+        Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
+    }
 
-        [Test]
-        public void Content_is_the_one_provided_on_constructor()
-        {
-            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("some content")));
-        }
+    [Test]
+    public void IsEmpty_is_false()
+    {
+        Assert.That(contentCell.IsEmpty, Is.False);
+    }
 
-        [Test]
-        public void IsEmpty_is_false()
-        {
-            Assert.That(contentCell.IsEmpty, Is.False);
-        }
-
-        [Test]
-        public void HorizontalAlignment_is_Center()
-        {
-            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Center()
+    {
+        Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));
     }
 }

@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,33 +21,32 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// The implementors of this interface represent the target where a <see cref="DataGrid"/> is rendered.
+/// They provide methods to sequentially render the parts of the <see cref="DataGrid"/> instance.
+/// </summary>
+public interface ITablePrinter
 {
     /// <summary>
-    /// The implementors of this interface represent the target where a <see cref="DataGrid"/> is rendered.
-    /// They provide methods to sequentially render the parts of the <see cref="DataGrid"/> instance.
+    /// Writes the specified character, using the specified colors.
     /// </summary>
-    public interface ITablePrinter
-    {
-        /// <summary>
-        /// Writes the specified character, using the specified colors.
-        /// </summary>
-        void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
-        /// <summary>
-        /// Writes the specified text, using the specified colors.
-        /// </summary>
-        void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    /// <summary>
+    /// Writes the specified text, using the specified colors.
+    /// </summary>
+    void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
-        /// <summary>
-        /// Writes the specified text, using the specified colors,
-        /// followed by the current line terminator.
-        /// </summary>
-        void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    /// <summary>
+    /// Writes the specified text, using the specified colors,
+    /// followed by the current line terminator.
+    /// </summary>
+    void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
-        /// <summary>
-        /// Writes the current line terminator.
-        /// </summary>
-        void WriteLine();
-    }
+    /// <summary>
+    /// Writes the current line terminator.
+    /// </summary>
+    void WriteLine();
 }

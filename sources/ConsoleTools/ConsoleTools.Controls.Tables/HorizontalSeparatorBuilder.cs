@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,209 +23,209 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// Builds the border that separates two rows.
+/// </summary>
+internal class HorizontalSeparatorBuilder
 {
+    private StringBuilder sb;
+
+    private int topIndex;
+    private int bottomIndex;
+
+    private int topWidth;
+    private int bottomWidth;
+
+    private bool topWidthEnded;
+    private bool bottomWidthEnded;
+
     /// <summary>
-    /// Builds the border that separates two rows.
+    /// Gets the character used to render an internal horizontal border.
     /// </summary>
-    internal class HorizontalSeparatorBuilder
+    public char Horizontal { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the intersection between the top outer border and an internal vertical border.
+    /// </summary>
+    public char TopIntersection { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the intersection between the right outer border and an internal horizontal border.
+    /// </summary>
+    public char RightIntersection { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the intersection between the bottom outer border and an internal vertical border.
+    /// </summary>
+    public char BottomIntersection { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the intersection between the left outer border and an internal horizontal border.
+    /// </summary>
+    public char LeftIntersection { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the intersection between two internal borders: a vertical and a horizontal one.
+    /// </summary>
+    public char MiddleIntersection { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the top right corner.
+    /// </summary>
+    public char TopRight { get; set; }
+
+    /// <summary>
+    /// Gets the character used to render the bottom right corner.
+    /// </summary>
+    public char BottomRight { get; set; }
+
+    public IList<int> TopCellWidths { get; set; }
+
+    public IList<int> BottomCellWidths { get; set; }
+
+    public string Build()
     {
-        private StringBuilder sb;
+        if (TopCellWidths == null)
+            throw new ApplicationException("TopCellWidths must be provided.");
 
-        private int topIndex;
-        private int bottomIndex;
+        if (BottomCellWidths == null)
+            throw new ApplicationException("BottomCellWidths must be provided.");
 
-        private int topWidth;
-        private int bottomWidth;
+        if (TopCellWidths.Count == 0 && BottomCellWidths.Count == 0)
+            return string.Empty;
 
-        private bool topWidthEnded;
-        private bool bottomWidthEnded;
+        Start();
 
-        /// <summary>
-        /// Gets the character used to render an internal horizontal border.
-        /// </summary>
-        public char Horizontal { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the intersection between the top outer border and an internal vertical border.
-        /// </summary>
-        public char TopIntersection { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the intersection between the right outer border and an internal horizontal border.
-        /// </summary>
-        public char RightIntersection { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the intersection between the bottom outer border and an internal vertical border.
-        /// </summary>
-        public char BottomIntersection { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the intersection between the left outer border and an internal horizontal border.
-        /// </summary>
-        public char LeftIntersection { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the intersection between two internal borders: a vertical and a horizontal one.
-        /// </summary>
-        public char MiddleIntersection { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the top right corner.
-        /// </summary>
-        public char TopRight { get; set; }
-
-        /// <summary>
-        /// Gets the character used to render the bottom right corner.
-        /// </summary>
-        public char BottomRight { get; set; }
-
-        public IList<int> TopCellWidths { get; set; }
-        public IList<int> BottomCellWidths { get; set; }
-
-        public string Build()
+        while (true)
         {
-            if (TopCellWidths == null)
-                throw new ApplicationException("TopCellWidths must be provided.");
-
-            if (BottomCellWidths == null)
-                throw new ApplicationException("BottomCellWidths must be provided.");
-
-            if (TopCellWidths.Count == 0 && BottomCellWidths.Count == 0)
-                return string.Empty;
-
-            Start();
-
-            while (true)
-            {
-                if (topWidthEnded)
-                    AddBottomCell();
-                else if (bottomWidthEnded)
-                    AddTopCell();
-                else if (topWidth < bottomWidth)
-                    AddTopCell();
-                else if (bottomWidth < topWidth)
-                    AddBottomCell();
-                else
-                    AddBothCells();
-
-                if (topWidth == 0 && bottomWidth == 0)
-                    break;
-            }
-
-            return sb.ToString();
-        }
-
-        private void Start()
-        {
-            sb = new StringBuilder();
-
-            topIndex = -1;
-            bottomIndex = -1;
-
-            topWidthEnded = false;
-            bottomWidthEnded = false;
-
-            sb.Append(LeftIntersection);
-
-            NextTopWidth();
-            NextBottomWidth();
-        }
-
-        private void AddTopCell()
-        {
-            sb.Append(new string(Horizontal, topWidth));
-
-            if (bottomWidthEnded)
-            {
-                sb.Append(BottomRight);
-            }
-            else
-            {
-                sb.Append(BottomIntersection);
-                DecreaseBottom(topWidth + 1);
-            }
-
-            NextTopWidth();
-        }
-
-        private void DecreaseBottom(int value)
-        {
-            bottomWidth = Math.Max(bottomWidth - value, 0);
-        }
-
-        private void AddBottomCell()
-        {
-            sb.Append(new string(Horizontal, bottomWidth));
-
             if (topWidthEnded)
-            {
-                sb.Append(TopRight);
-            }
+                AddBottomCell();
+            else if (bottomWidthEnded)
+                AddTopCell();
+            else if (topWidth < bottomWidth)
+                AddTopCell();
+            else if (bottomWidth < topWidth)
+                AddBottomCell();
             else
-            {
-                sb.Append(TopIntersection);
-                DecreaseTop(bottomWidth + 1);
-            }
+                AddBothCells();
 
-            NextBottomWidth();
+            if (topWidth == 0 && bottomWidth == 0)
+                break;
         }
 
-        private void DecreaseTop(int value)
+        return sb.ToString();
+    }
+
+    private void Start()
+    {
+        sb = new StringBuilder();
+
+        topIndex = -1;
+        bottomIndex = -1;
+
+        topWidthEnded = false;
+        bottomWidthEnded = false;
+
+        sb.Append(LeftIntersection);
+
+        NextTopWidth();
+        NextBottomWidth();
+    }
+
+    private void AddTopCell()
+    {
+        sb.Append(new string(Horizontal, topWidth));
+
+        if (bottomWidthEnded)
         {
-            topWidth = Math.Max(topWidth - value, 0);
+            sb.Append(BottomRight);
+        }
+        else
+        {
+            sb.Append(BottomIntersection);
+            DecreaseBottom(topWidth + 1);
         }
 
-        private void AddBothCells()
+        NextTopWidth();
+    }
+
+    private void DecreaseBottom(int value)
+    {
+        bottomWidth = Math.Max(bottomWidth - value, 0);
+    }
+
+    private void AddBottomCell()
+    {
+        sb.Append(new string(Horizontal, bottomWidth));
+
+        if (topWidthEnded)
         {
-            sb.Append(new string(Horizontal, topWidth));
-
-            if (IsLastTop() && IsLastBottom())
-                sb.Append(RightIntersection);
-            else
-                sb.Append(MiddleIntersection);
-
-            NextTopWidth();
-            NextBottomWidth();
+            sb.Append(TopRight);
+        }
+        else
+        {
+            sb.Append(TopIntersection);
+            DecreaseTop(bottomWidth + 1);
         }
 
-        private bool IsLastTop()
-        {
-            return topIndex + 1 == TopCellWidths.Count;
-        }
+        NextBottomWidth();
+    }
 
-        private bool IsLastBottom()
-        {
-            return bottomIndex + 1 == BottomCellWidths.Count;
-        }
+    private void DecreaseTop(int value)
+    {
+        topWidth = Math.Max(topWidth - value, 0);
+    }
 
-        private void NextTopWidth()
-        {
-            if (topIndex + 1 < TopCellWidths.Count)
-            {
-                topIndex++;
-                topWidth = TopCellWidths[topIndex];
-            }
-            else
-            {
-                topWidth = 0;
-                topWidthEnded = true;
-            }
-        }
+    private void AddBothCells()
+    {
+        sb.Append(new string(Horizontal, topWidth));
 
-        private void NextBottomWidth()
+        if (IsLastTop() && IsLastBottom())
+            sb.Append(RightIntersection);
+        else
+            sb.Append(MiddleIntersection);
+
+        NextTopWidth();
+        NextBottomWidth();
+    }
+
+    private bool IsLastTop()
+    {
+        return topIndex + 1 == TopCellWidths.Count;
+    }
+
+    private bool IsLastBottom()
+    {
+        return bottomIndex + 1 == BottomCellWidths.Count;
+    }
+
+    private void NextTopWidth()
+    {
+        if (topIndex + 1 < TopCellWidths.Count)
         {
-            if (bottomIndex + 1 < BottomCellWidths.Count)
-            {
-                bottomIndex++;
-                bottomWidth = BottomCellWidths[bottomIndex];
-            }
-            else
-            {
-                bottomWidth = 0;
-                bottomWidthEnded = true;
-            }
+            topIndex++;
+            topWidth = TopCellWidths[topIndex];
+        }
+        else
+        {
+            topWidth = 0;
+            topWidthEnded = true;
+        }
+    }
+
+    private void NextBottomWidth()
+    {
+        if (bottomIndex + 1 < BottomCellWidths.Count)
+        {
+            bottomIndex++;
+            bottomWidth = BottomCellWidths[bottomIndex];
+        }
+        else
+        {
+            bottomWidth = 0;
+            bottomWidthEnded = true;
         }
     }
 }

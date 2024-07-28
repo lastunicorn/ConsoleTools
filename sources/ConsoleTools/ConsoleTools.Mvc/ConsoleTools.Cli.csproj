@@ -31,6 +31,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
         <Description>This is a framework to help you structure the presentation layer of a Console Application. Similar to ASP.NET MVC.</Description>
         <Configurations>Debug;Release;Debug-Net6</Configurations>
         <Platforms>AnyCPU</Platforms>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

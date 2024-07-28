@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -25,71 +25,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+internal class DataGridBuilderFromObject
 {
-    internal class DataGridBuilderFromObject
+    private readonly IEnumerable<MemberInfo> members;
+
+    public DataGrid DataGrid { get; }
+
+    public DataGridBuilderFromObject(Type type)
     {
-        private readonly IEnumerable<MemberInfo> members;
+        DataGrid = new DataGrid(type.Name);
 
-        public DataGrid DataGrid { get; }
+        members = EnumerateMembers(type);
 
-        public DataGridBuilderFromObject(Type type)
+        foreach (MemberInfo memberInfo in members)
+            DataGrid.Columns.Add(memberInfo.Name);
+    }
+
+    private static IEnumerable<MemberInfo> EnumerateMembers(IReflect type)
+    {
+        FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
+
+        foreach (FieldInfo fieldInfo in fields)
+            yield return fieldInfo;
+
+        IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .Where(x => x.CanRead);
+
+        foreach (PropertyInfo propertyInfo in properties)
+            yield return propertyInfo;
+    }
+
+    public void Add(IEnumerable items)
+    {
+        foreach (object item in items)
+            Add(item);
+    }
+
+    public void Add(object item)
+    {
+        if (item == null)
+            return;
+
+        ContentRow contentRow = new();
+
+        foreach (MemberInfo memberInfo in members)
         {
-            DataGrid = new DataGrid(type.Name);
-
-            members = EnumerateMembers(type);
-
-            foreach (MemberInfo memberInfo in members)
-                DataGrid.Columns.Add(memberInfo.Name);
-        }
-
-        private static IEnumerable<MemberInfo> EnumerateMembers(IReflect type)
-        {
-            FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
-
-            foreach (FieldInfo fieldInfo in fields)
-                yield return fieldInfo;
-
-            IEnumerable<PropertyInfo> properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(x => x.CanRead);
-
-            foreach (PropertyInfo propertyInfo in properties)
-                yield return propertyInfo;
-        }
-
-        public void Add(IEnumerable items)
-        {
-            foreach (object item in items)
-                Add(item);
-        }
-
-        public void Add(object item)
-        {
-            if (item == null)
-                return;
-
-            ContentRow contentRow = new ContentRow();
-
-            foreach (MemberInfo memberInfo in members)
+            switch (memberInfo)
             {
-                switch (memberInfo)
+                case FieldInfo fieldInfo:
                 {
-                    case FieldInfo fieldInfo:
-                        {
-                            object value = fieldInfo.GetValue(item);
-                            contentRow.AddCell(value);
-                            break;
-                        }
-                    case PropertyInfo propertyInfo:
-                        {
-                            object value = propertyInfo.GetValue(item);
-                            contentRow.AddCell(value);
-                            break;
-                        }
+                    object value = fieldInfo.GetValue(item);
+                    contentRow.AddCell(value);
+                    break;
+                }
+
+                case PropertyInfo propertyInfo:
+                {
+                    object value = propertyInfo.GetValue(item);
+                    contentRow.AddCell(value);
+                    break;
                 }
             }
-
-            DataGrid.Rows.Add(contentRow);
         }
+
+        DataGrid.Rows.Add(contentRow);
     }
 }

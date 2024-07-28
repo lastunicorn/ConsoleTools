@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,79 +23,78 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.BorderTemplateTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.BorderTemplateTests;
+
+[TestFixture]
+public class GenerateHorizontalSeparator1Tests
 {
-    [TestFixture]
-    public class GenerateHorizontalSeparator1Tests
+    [Test]
+    public void one_column_with_length_0()
     {
-        [Test]
-        public void one_column_with_length_0()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(0);
+        string actual = borderTemplate.GenerateHorizontalSeparator(0);
 
-            Assert.That(actual, Is.EqualTo("├┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├┤"));
+    }
 
-        [Test]
-        public void one_column_with_length_5()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void one_column_with_length_5()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(5);
+        string actual = borderTemplate.GenerateHorizontalSeparator(5);
 
-            Assert.That(actual, Is.EqualTo("├─────┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├─────┤"));
+    }
 
-        [Test]
-        public void two_columns_with_length_0()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void two_columns_with_length_0()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(0, 0);
+        string actual = borderTemplate.GenerateHorizontalSeparator(0, 0);
 
-            Assert.That(actual, Is.EqualTo("├┼┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├┼┤"));
+    }
 
-        [Test]
-        public void two_columns_with_length_0_and_5()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void two_columns_with_length_0_and_5()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(0, 5);
+        string actual = borderTemplate.GenerateHorizontalSeparator(0, 5);
 
-            Assert.That(actual, Is.EqualTo("├┼─────┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├┼─────┤"));
+    }
 
-        [Test]
-        public void two_columns_with_length_5_and_0()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void two_columns_with_length_5_and_0()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(5, 0);
+        string actual = borderTemplate.GenerateHorizontalSeparator(5, 0);
 
-            Assert.That(actual, Is.EqualTo("├─────┼┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├─────┼┤"));
+    }
 
-        [Test]
-        public void two_columns_with_length_5_and_5()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void two_columns_with_length_5_and_5()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(5, 5);
+        string actual = borderTemplate.GenerateHorizontalSeparator(5, 5);
 
-            Assert.That(actual, Is.EqualTo("├─────┼─────┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├─────┼─────┤"));
+    }
 
-        [Test]
-        public void two_columns_with_length_5_and_5_List()
-        {
-            BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
+    [Test]
+    public void two_columns_with_length_5_and_5_List()
+    {
+        BorderTemplate borderTemplate = BorderTemplate.SingleLineBorderTemplate;
 
-            string actual = borderTemplate.GenerateHorizontalSeparator(new List<int> { 5, 5 });
+        string actual = borderTemplate.GenerateHorizontalSeparator(new List<int> { 5, 5 });
 
-            Assert.That(actual, Is.EqualTo("├─────┼─────┤"));
-        }
+        Assert.That(actual, Is.EqualTo("├─────┼─────┤"));
     }
 }

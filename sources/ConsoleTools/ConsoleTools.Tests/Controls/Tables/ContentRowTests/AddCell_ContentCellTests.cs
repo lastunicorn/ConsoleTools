@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,93 +17,92 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowTests;
+
+[TestFixture]
+public class AddCell_ContentCellTests
 {
-    [TestFixture]
-    public class AddCell_ContentCellTests
+    [Test]
+    public void HavingEmptyRow_WhenAContentCellIsAdded_ThenRowContainsOneCell()
     {
-        [Test]
-        public void HavingEmptyRow_WhenAContentCellIsAdded_ThenRowContainsOneCell()
-        {
-            ContentRow row = new();
-            ContentCell cell = new("cell 1");
+        ContentRow row = new();
+        ContentCell cell = new("cell 1");
 
-            row.AddCell(cell);
+        row.AddCell(cell);
 
-            Assert.That(row.CellCount, Is.EqualTo(1));
-        }
+        Assert.That(row.CellCount, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenAContentCellIsAdded_ThenRowContainsTheAddedCell()
-        {
-            ContentRow row = new();
-            ContentCell cell = new("cell 1");
+    [Test]
+    public void HavingEmptyRow_WhenAContentCellIsAdded_ThenRowContainsTheAddedCell()
+    {
+        ContentRow row = new();
+        ContentCell cell = new("cell 1");
 
-            row.AddCell(cell);
+        row.AddCell(cell);
 
-            Assert.That(row[0], Is.SameAs(cell));
-        }
+        Assert.That(row[0], Is.SameAs(cell));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenAContentCellIsAdded_ThenParentRowIsSet()
-        {
-            ContentRow row = new();
-            ContentCell cell = new("cell 1");
+    [Test]
+    public void HavingEmptyRow_WhenAContentCellIsAdded_ThenParentRowIsSet()
+    {
+        ContentRow row = new();
+        ContentCell cell = new("cell 1");
 
-            row.AddCell(cell);
+        row.AddCell(cell);
 
-            Assert.That(cell.ParentRow, Is.SameAs(row));
-        }
+        Assert.That(cell.ParentRow, Is.SameAs(row));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenAContentCellIsAdded_ThenAddedCellIsReturned()
-        {
-            ContentRow row = new();
-            ContentCell cell = new("cell 1");
+    [Test]
+    public void HavingEmptyRow_WhenAContentCellIsAdded_ThenAddedCellIsReturned()
+    {
+        ContentRow row = new();
+        ContentCell cell = new("cell 1");
 
-            ContentCell returnedCell = row.AddCell(cell);
+        ContentCell returnedCell = row.AddCell(cell);
 
-            Assert.That(returnedCell, Is.SameAs(cell));
-        }
+        Assert.That(returnedCell, Is.SameAs(cell));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenRowContainsOneCell()
-        {
-            ContentRow row = new();
+    [Test]
+    public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenRowContainsOneCell()
+    {
+        ContentRow row = new();
 
-            row.AddCell(null as ContentCell);
+        row.AddCell(null as ContentCell);
 
-            Assert.That(row.CellCount, Is.EqualTo(1));
-        }
+        Assert.That(row.CellCount, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenRowContainsANotNullCell()
-        {
-            ContentRow row = new();
+    [Test]
+    public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenRowContainsANotNullCell()
+    {
+        ContentRow row = new();
 
-            row.AddCell(null as ContentCell);
+        row.AddCell(null as ContentCell);
 
-            Assert.That(row[0], Is.Not.Null);
-        }
+        Assert.That(row[0], Is.Not.Null);
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenParentRowIsSetToTheNewContentCell()
-        {
-            ContentRow row = new();
+    [Test]
+    public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenParentRowIsSetToTheNewContentCell()
+    {
+        ContentRow row = new();
 
-            row.AddCell(null as ContentCell);
+        row.AddCell(null as ContentCell);
 
-            Assert.That(row[0].ParentRow, Is.SameAs(row));
-        }
+        Assert.That(row[0].ParentRow, Is.SameAs(row));
+    }
 
-        [Test]
-        public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenAddedCellIsSameAsTheAddedOne()
-        {
-            ContentRow row = new();
+    [Test]
+    public void HavingEmptyRow_WhenANullContentCellIsAdded_ThenAddedCellIsSameAsTheAddedOne()
+    {
+        ContentRow row = new();
 
-            ContentCell returnedCell = row.AddCell(null as ContentCell);
+        ContentCell returnedCell = row.AddCell(null as ContentCell);
 
-            Assert.That(returnedCell, Is.SameAs(row[0]));
-        }
+        Assert.That(returnedCell, Is.SameAs(row[0]));
     }
 }

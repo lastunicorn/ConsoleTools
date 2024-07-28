@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,162 +21,161 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// Represents the single cell displayed in the footer row.
+/// </summary>
+public class FooterCell : CellBase
 {
     /// <summary>
-    /// Represents the single cell displayed in the footer row.
+    /// Gets or sets the <see cref="FooterRow"/> instance that owns the current <see cref="FooterCell"/> instance.
     /// </summary>
-    public class FooterCell : CellBase
+    public FooterRow ParentRow { get; internal set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// empty content.
+    /// </summary>
+    public FooterCell()
     {
-        /// <summary>
-        /// Gets or sets the <see cref="FooterRow"/> instance that owns the current <see cref="FooterCell"/> instance.
-        /// </summary>
-        public FooterRow ParentRow { get; internal set; }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// empty content.
-        /// </summary>
-        public FooterCell()
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// the text contained by it.
+    /// </summary>
+    /// <param name="text">The text displayed in the cell.</param>
+    public FooterCell(string text)
+        : base(text)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text">The text displayed in the cell.</param>
-        public FooterCell(string text)
-            : base(text)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// the text contained by it and its horizontal alignment.
+    /// </summary>
+    /// <param name="text">The text displayed in the cell.</param>
+    /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+    public FooterCell(string text, HorizontalAlignment horizontalAlignment)
+        : base(text, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// the text contained by it and its horizontal alignment.
-        /// </summary>
-        /// <param name="text">The text displayed in the cell.</param>
-        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public FooterCell(string text, HorizontalAlignment horizontalAlignment)
-            : base(text, horizontalAlignment)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// the text contained by it.
+    /// </summary>
+    /// <param name="text"></param>
+    public FooterCell(MultilineText text)
+        : base(text)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// the text contained by it.
-        /// </summary>
-        /// <param name="text"></param>
-        public FooterCell(MultilineText text)
-            : base(text)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// the text contained by it and its horizontal alignment.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
+    public FooterCell(MultilineText text, HorizontalAlignment horizontalAlignment)
+        : base(text, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// the text contained by it and its horizontal alignment.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="horizontalAlignment">The horizontal alignment of the content of the new cell.</param>
-        public FooterCell(MultilineText text, HorizontalAlignment horizontalAlignment)
-            : base(text, horizontalAlignment)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// an object representing the content.
+    /// </summary>
+    public FooterCell(object content)
+        : base(content)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// an object representing the content.
-        /// </summary>
-        public FooterCell(object content)
-            : base(content)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FooterCell" /> class with
+    /// an object representing the content and its horizontal alignment.
+    /// </summary>
+    public FooterCell(object content, HorizontalAlignment horizontalAlignment)
+        : base(content, horizontalAlignment)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FooterCell" /> class with
-        /// an object representing the content and its horizontal alignment.
-        /// </summary>
-        public FooterCell(object content, HorizontalAlignment horizontalAlignment)
-            : base(content, horizontalAlignment)
-        {
-        }
-
-        /// <summary>
-        /// Calculates and returns the left padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row and parent table.
-        /// </summary>
-        public override int CalculatePaddingLeft()
-        {
-            int? paddingLeft = PaddingLeft;
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            paddingLeft = ParentRow?.CellPaddingLeft;
-            if (paddingLeft != null)
-                return paddingLeft.Value;
-
-            paddingLeft = DefaultPaddingLeft;
-
+    /// <summary>
+    /// Calculates and returns the left padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row and parent table.
+    /// </summary>
+    public override int CalculatePaddingLeft()
+    {
+        int? paddingLeft = PaddingLeft;
+        if (paddingLeft != null)
             return paddingLeft.Value;
-        }
 
-        /// <summary>
-        /// Calculates and returns the right padding for the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row and parent table.
-        /// </summary>
-        public override int CalculatePaddingRight()
-        {
-            int? paddingRight = PaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        paddingLeft = ParentRow?.CellPaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
 
-            paddingRight = ParentRow?.CellPaddingRight;
-            if (paddingRight != null)
-                return paddingRight.Value;
+        paddingLeft = DefaultPaddingLeft;
 
-            paddingRight = DefaultPaddingRight;
+        return paddingLeft.Value;
+    }
 
+    /// <summary>
+    /// Calculates and returns the right padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row and parent table.
+    /// </summary>
+    public override int CalculatePaddingRight()
+    {
+        int? paddingRight = PaddingRight;
+        if (paddingRight != null)
             return paddingRight.Value;
-        }
 
-        /// <inheritdoc />
-        public override ConsoleColor? CalculateForegroundColor()
-        {
-            return ForegroundColor
-                   ?? ParentRow?.ForegroundColor
-                   ?? ParentRow?.ParentDataGrid?.ForegroundColor;
-        }
+        paddingRight = ParentRow?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
 
-        /// <inheritdoc />
-        public override ConsoleColor? CalculateBackgroundColor()
-        {
-            return BackgroundColor
-                   ?? ParentRow?.BackgroundColor
-                   ?? ParentRow?.ParentDataGrid?.BackgroundColor;
-        }
+        paddingRight = DefaultPaddingRight;
 
-        /// <summary>
-        /// Calculates and returns the horizontal alignment of the content displayed in the cell.
-        /// The value is calculated taking into account also the parent row and parent table.
-        /// </summary>
-        public override HorizontalAlignment CalculateHorizontalAlignment()
-        {
-            HorizontalAlignment alignment = HorizontalAlignment;
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+        return paddingRight.Value;
+    }
 
-            alignment = CalculateHorizontalAlignmentAtRowLevel();
-            if (alignment != HorizontalAlignment.Default)
-                return alignment;
+    /// <inheritdoc />
+    public override ConsoleColor? CalculateForegroundColor()
+    {
+        return ForegroundColor
+               ?? ParentRow?.ForegroundColor
+               ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+    }
 
-            alignment = DefaultHorizontalAlignment;
+    /// <inheritdoc />
+    public override ConsoleColor? CalculateBackgroundColor()
+    {
+        return BackgroundColor
+               ?? ParentRow?.BackgroundColor
+               ?? ParentRow?.ParentDataGrid?.BackgroundColor;
+    }
 
+    /// <summary>
+    /// Calculates and returns the horizontal alignment of the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row and parent table.
+    /// </summary>
+    public override HorizontalAlignment CalculateHorizontalAlignment()
+    {
+        HorizontalAlignment alignment = HorizontalAlignment;
+        if (alignment != HorizontalAlignment.Default)
             return alignment;
-        }
 
-        private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
-        {
-            return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-        }
+        alignment = CalculateHorizontalAlignmentAtRowLevel();
+        if (alignment != HorizontalAlignment.Default)
+            return alignment;
+
+        alignment = DefaultHorizontalAlignment;
+
+        return alignment;
+    }
+
+    private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
+    {
+        return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
     }
 }

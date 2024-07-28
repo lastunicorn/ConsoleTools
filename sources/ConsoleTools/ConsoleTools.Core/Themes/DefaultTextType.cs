@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,15 +19,14 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Themes
+namespace DustInTheWind.ConsoleTools.Themes;
+
+public static class DefaultTextType
 {
-    public static class DefaultTextType
-    {
-        public const string Normal = "normal";
-        public const string Inverted = "inverted";
-        public const string Emphasized = "emphasized";
-        public const string Success = "success";
-        public const string Warning = "warning";
-        public const string Error = "error";
-    }
+    public const string Normal = "normal";
+    public const string Inverted = "inverted";
+    public const string Emphasized = "emphasized";
+    public const string Success = "success";
+    public const string Warning = "warning";
+    public const string Error = "error";
 }

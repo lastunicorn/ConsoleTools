@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,109 +23,107 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal class DataGridLayout
 {
-    internal class DataGridLayout
+    private readonly List<ColumnX> columns = new();
+    private readonly List<ColumnSpanX> columnSpans = new();
+
+    public bool BorderVisibility { get; set; }
+
+    public int MinWidth { get; set; }
+
+    public int MaxWidth { get; set; }
+
+    public int ActualWidth { get; private set; }
+
+    public ReadOnlyCollection<ColumnX> Columns => columns.AsReadOnly();
+
+    public void AddRow(RowX rowX)
     {
-        private readonly List<ColumnX> columns = new();
-        private readonly List<ColumnSpanX> columnSpans = new();
+        UpdateColumnsWidths(rowX);
+    }
 
-        public bool BorderVisibility { get; set; }
-
-        public int MinWidth { get; set; }
-
-        public int MaxWidth { get; set; }
-
-        public int ActualWidth { get; private set; }
-
-        public ReadOnlyCollection<ColumnX> Columns => columns.AsReadOnly();
-        
-        public void AddRow(RowX rowX)
+    private void UpdateColumnsWidths(RowX rowX)
+    {
+        for (int i = 0; i < rowX.Cells.Count; i++)
         {
-            UpdateColumnsWidths(rowX);
-        }
+            while (columns.Count <= i)
+                columns.Add(new ColumnX());
 
-        private void UpdateColumnsWidths(RowX rowX)
-        {
-            for (int i = 0; i < rowX.Cells.Count; i++)
+            CellX cellX = rowX.Cells[i];
+            Size cellSize = cellX.Size;
+
+            if (cellX.HorizontalMerge > 1)
             {
-                while (columns.Count <= i)
-                    columns.Add(new ColumnX());
-
-                CellX cellX = rowX.Cells[i];
-                Size cellSize = cellX.Size;
-
-                if (cellX.HorizontalMerge > 1)
+                ColumnSpanX columnSpanX = new()
                 {
-                    ColumnSpanX columnSpanX = new()
-                    {
-                        StartColumnIndex = i,
-                        EndColumnIndex = i + cellX.HorizontalMerge - 1,
-                        MinContentWidth = cellSize.Width
-                    };
-                    columnSpans.Add(columnSpanX);
-                }
-                else
-                {
-                    if (cellSize.Width > columns[i].Width)
-                        columns[i].Width = cellSize.Width;
-                }
+                    StartColumnIndex = i,
+                    EndColumnIndex = i + cellX.HorizontalMerge - 1,
+                    MinContentWidth = cellSize.Width
+                };
+                columnSpans.Add(columnSpanX);
+            }
+            else
+            {
+                if (cellSize.Width > columns[i].Width)
+                    columns[i].Width = cellSize.Width;
             }
         }
+    }
 
-        public void FinalizeLayout()
+    public void FinalizeLayout()
+    {
+        ActualWidth = CalculateTotalWidth();
+    }
+
+    private int CalculateTotalWidth()
+    {
+        if (columns.Count <= 0)
+            return MinWidth;
+
+        // Distribute column span spaces
+
+        foreach (ColumnSpanX columnSpan in columnSpans)
+            InflateColumns(columnSpan.StartColumnIndex, columnSpan.SpanValue ?? int.MaxValue, columnSpan.MinContentWidth);
+
+        // Distribute space to reach min width.
+
+        InflateColumns(0, int.MaxValue, MinWidth);
+
+        int totalWidth = columns
+            .Select(x => x.Width)
+            .Sum();
+
+        if (BorderVisibility)
+            totalWidth += columns.Count + 1;
+
+        return totalWidth;
+    }
+
+    internal void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)
+    {
+        ColumnX[] spanColumns = columns
+            .Skip(startColumnIndex)
+            .Take(columnCount)
+            .ToArray();
+
+        int actualWidth = spanColumns
+            .Select(x => x.Width)
+            .Sum();
+
+        if (BorderVisibility)
+            actualWidth += spanColumns.Length - 1;
+
+        if (actualWidth < desiredWidth)
         {
-            ActualWidth = CalculateTotalWidth();
-        }
+            int diff = desiredWidth - actualWidth;
 
-        private int CalculateTotalWidth()
-        {
-            if (columns.Count <= 0)
-                return MinWidth;
-
-            // Distribute column span spaces
-
-            foreach (ColumnSpanX columnSpan in columnSpans)
-                InflateColumns(columnSpan.StartColumnIndex, columnSpan.SpanValue ?? int.MaxValue, columnSpan.MinContentWidth);
-
-            // Distribute space to reach min width.
-
-            InflateColumns(0, int.MaxValue, MinWidth);
-
-
-            int totalWidth = columns
-                .Select(x => x.Width)
-                .Sum();
-
-            if (BorderVisibility)
-                totalWidth += columns.Count + 1;
-
-            return totalWidth;
-        }
-
-        internal void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)
-        {
-            ColumnX[] spanColumns = columns
-                .Skip(startColumnIndex)
-                .Take(columnCount)
-                .ToArray();
-
-            int actualWidth = spanColumns
-                .Select(x => x.Width)
-                .Sum();
-
-            if (BorderVisibility)
-                actualWidth += spanColumns.Length - 1;
-
-            if (actualWidth < desiredWidth)
+            for (int i = 0; i < diff; i++)
             {
-                int diff = desiredWidth - actualWidth;
-
-                for (int i = 0; i < diff; i++)
-                {
-                    ColumnX columnX = columns[i % spanColumns.Length];
-                    columnX.Width++;
-                }
+                ColumnX columnX = columns[i % spanColumns.Length];
+                columnX.Width++;
             }
         }
     }

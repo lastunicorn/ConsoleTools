@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,28 +19,27 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
+namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
+
+/// <summary>
+/// Specifies what the <see cref="FillSpinnerTemplate"/> should do when it is full.
+/// </summary>
+public enum FilledBehavior
 {
     /// <summary>
-    /// Specifies what the <see cref="FillSpinnerTemplate"/> should do when it is full.
+    /// Specifies that the <see cref="FillSpinnerTemplate"/> should empty itself when full.
     /// </summary>
-    public enum FilledBehavior
-    {
-        /// <summary>
-        /// Specifies that the <see cref="FillSpinnerTemplate"/> should empty itself when full.
-        /// </summary>
-        SuddenEmpty,
+    SuddenEmpty,
 
-        /// <summary>
-        /// Specifies that the <see cref="FillSpinnerTemplate"/> should decreasing its load
-        /// starting with the last character displayed.
-        /// </summary>
-        EmptyFromEnd,
+    /// <summary>
+    /// Specifies that the <see cref="FillSpinnerTemplate"/> should decreasing its load
+    /// starting with the last character displayed.
+    /// </summary>
+    EmptyFromEnd,
 
-        /// <summary>
-        /// Specifies that the <see cref="FillSpinnerTemplate"/> should decreasing its load
-        /// starting with the first character displayed.
-        /// </summary>
-        EmptyFromStart
-    }
+    /// <summary>
+    /// Specifies that the <see cref="FillSpinnerTemplate"/> should decreasing its load
+    /// starting with the first character displayed.
+    /// </summary>
+    EmptyFromStart
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Border.ForegroundColor = ConsoleColor.DarkBlue;
             dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
             dataGrid.Border.DisplayBorderBetweenRows = true;
-            
+
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
             dataGrid.HeaderRow.IsVisible = true;
 
@@ -105,11 +105,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Border.ForegroundColor = ConsoleColor.DarkBlue;
             dataGrid.Border.BackgroundColor = ConsoleColor.White;
             dataGrid.Border.DisplayBorderBetweenRows = true;
-            
+
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
             dataGrid.HeaderRow.BackgroundColor = ConsoleColor.Yellow;
             dataGrid.HeaderRow.IsVisible = true;
-            
+
             dataGrid.Display();
         }
 

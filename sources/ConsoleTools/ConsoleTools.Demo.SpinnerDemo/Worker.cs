@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,9 +24,9 @@ namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
     internal class Worker
     {
         public TimeSpan WorkTimeSpan { get; set; }
-        
+
         public ISpinnerTemplate SpinnerTemplate { get; set; }
-        
+
         public int SpinnerStepMilliseconds { get; set; }
 
         public void Run()

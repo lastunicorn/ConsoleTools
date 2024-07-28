@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,46 +19,45 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
+
+[TestFixture]
+public class ImplicitConversionFromMultilineTextTests
 {
-    [TestFixture]
-    public class ImplicitConversionFromMultilineTextTests
+    [Test]
+    public void single_line_MultilineText_to_String_conversion()
     {
-        [Test]
-        public void single_line_MultilineText_to_String_conversion()
-        {
-            MultilineText multilineText = new MultilineText("this is a text");
-            string text = multilineText;
+        MultilineText multilineText = new("this is a text");
+        string text = multilineText;
 
-            Assert.That(text, Is.EqualTo("this is a text"));
-        }
+        Assert.That(text, Is.EqualTo("this is a text"));
+    }
 
-        [Test]
-        public void double_line_MultilineText_to_String_conversion()
-        {
-            MultilineText multilineText = new MultilineText(new[] { "first line", "second line" });
-            string text = multilineText;
+    [Test]
+    public void double_line_MultilineText_to_String_conversion()
+    {
+        MultilineText multilineText = new("first line", "second line");
+        string text = multilineText;
 
-            string expected = "first line" + Environment.NewLine + "second line";
-            Assert.That(text, Is.EqualTo(expected));
-        }
+        string expected = "first line" + Environment.NewLine + "second line";
+        Assert.That(text, Is.EqualTo(expected));
+    }
 
-        [Test]
-        public void single_line_MultilineText_to_list_of_String_conversion()
-        {
-            MultilineText multilineText = new MultilineText("this is a text");
-            List<string> text = multilineText;
+    [Test]
+    public void single_line_MultilineText_to_list_of_String_conversion()
+    {
+        MultilineText multilineText = new("this is a text");
+        List<string> text = multilineText;
 
-            Assert.That(text, Is.EqualTo(new List<string> { "this is a text" }));
-        }
+        Assert.That(text, Is.EqualTo(new List<string> { "this is a text" }));
+    }
 
-        [Test]
-        public void double_line_MultilineText_to_list_of_String_conversion()
-        {
-            MultilineText multilineText = new MultilineText(new[] { "first line", "second line" });
-            List<string> text = multilineText;
+    [Test]
+    public void double_line_MultilineText_to_list_of_String_conversion()
+    {
+        MultilineText multilineText = new("first line", "second line");
+        List<string> text = multilineText;
 
-            Assert.That(text, Is.EqualTo(new List<string> { "first line", "second line" }));
-        }
+        Assert.That(text, Is.EqualTo(new List<string> { "first line", "second line" }));
     }
 }

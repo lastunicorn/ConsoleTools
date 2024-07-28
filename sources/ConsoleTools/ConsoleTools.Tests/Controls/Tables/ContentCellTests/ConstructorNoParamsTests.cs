@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,35 +18,34 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests;
+
+[TestFixture]
+public class ConstructorNoParamsTests
 {
-    [TestFixture]
-    public class ConstructorNoParamsTests
+    private ContentCell contentCell;
+
+    [SetUp]
+    public void SetUp()
     {
-        private ContentCell contentCell;
+        contentCell = new ContentCell();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            contentCell = new ContentCell();
-        }
+    [Test]
+    public void Content_is_empty()
+    {
+        Assert.That(contentCell.Content, Is.SameAs(MultilineText.Empty));
+    }
 
-        [Test]
-        public void Content_is_empty()
-        {
-            Assert.That(contentCell.Content, Is.SameAs(MultilineText.Empty));
-        }
+    [Test]
+    public void IsEmpty_is_true()
+    {
+        Assert.That(contentCell.IsEmpty, Is.True);
+    }
 
-        [Test]
-        public void IsEmpty_is_true()
-        {
-            Assert.That(contentCell.IsEmpty, Is.True);
-        }
-
-        [Test]
-        public void HorizontalAlignment_is_Default()
-        {
-            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Default()
+    {
+        Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
     }
 }

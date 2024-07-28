@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,39 +17,38 @@
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.SizeTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.SizeTests;
+
+[TestFixture]
+public class InflateWithNumberTests
 {
-    [TestFixture]
-    public class InflateWithNumberTests
+    [Test]
+    public void positive_size_inflated_with_0_remains_the_same()
     {
-        [Test]
-        public void positive_size_inflated_with_0_remains_the_same()
-        {
-            Size original = new Size(7, 5);
+        Size original = new(7, 5);
 
-            Size actual = original.Inflate(0);
+        Size actual = original.Inflate(0);
 
-            Assert.That(actual, Is.EqualTo(original));
-        }
+        Assert.That(actual, Is.EqualTo(original));
+    }
 
-        [Test]
-        public void positive_size_inflated_with_positive_number()
-        {
-            Size original = new Size(7, 5);
+    [Test]
+    public void positive_size_inflated_with_positive_number()
+    {
+        Size original = new(7, 5);
 
-            Size actual = original.Inflate(2);
+        Size actual = original.Inflate(2);
 
-            Assert.That(actual, Is.EqualTo(new Size(9, 7)));
-        }
+        Assert.That(actual, Is.EqualTo(new Size(9, 7)));
+    }
 
-        [Test]
-        public void positive_size_inflated_with_negative_number()
-        {
-            Size original = new Size(7, 5);
+    [Test]
+    public void positive_size_inflated_with_negative_number()
+    {
+        Size original = new(7, 5);
 
-            Size actual = original.Inflate(-2);
+        Size actual = original.Inflate(-2);
 
-            Assert.That(actual, Is.EqualTo(new Size(5, 3)));
-        }
+        Assert.That(actual, Is.EqualTo(new Size(5, 3)));
     }
 }

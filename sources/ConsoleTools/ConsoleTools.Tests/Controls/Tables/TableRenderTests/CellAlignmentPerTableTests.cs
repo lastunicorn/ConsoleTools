@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,48 +18,47 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
+
+[TestFixture]
+public class CellAlignmentPerTableTests : TestsBase
 {
-    [TestFixture]
-    public class CellAlignmentPerTableTests : TestsBase
+    [Test]
+    public void HavingAlignmentRightOnTableAndNoColumnsDeclared_WhenRendered_ThenAllCellContentIsAlignedToRight()
     {
-        [Test]
-        public void HavingAlignmentRightOnTableAndNoColumnsDeclared_WhenRendered_ThenAllCellContentIsAlignedToRight()
-        {
-            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.HeaderRow.IsVisible = false;
-            dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
+        DataGrid dataGrid = new("This is a cell alignment test");
+        dataGrid.HeaderRow.IsVisible = false;
+        dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
 
-            dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add("1,0", "1,1", "1,2");
-            dataGrid.Rows.Add("2,0", "2,1", "2,2");
+        dataGrid.Rows.Add("0,0", "0,1", "0,2");
+        dataGrid.Rows.Add("1,0", "1,1", "1,2");
+        dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
-            string expected = GetResourceFileContent("01-no-columns.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("01-no-columns.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        [Test]
-        public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
-        {
-            DataGrid dataGrid = new DataGrid("This is a cell alignment test");
-            dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
-            dataGrid.HeaderRow.IsVisible = false;
+    [Test]
+    public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
+    {
+        DataGrid dataGrid = new("This is a cell alignment test");
+        dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
+        dataGrid.HeaderRow.IsVisible = false;
 
-            Column column0 = new Column("Col 0");
-            dataGrid.Columns.Add(column0);
+        Column column0 = new("Col 0");
+        dataGrid.Columns.Add(column0);
 
-            Column column1 = new Column("Col 1");
-            dataGrid.Columns.Add(column1);
+        Column column1 = new("Col 1");
+        dataGrid.Columns.Add(column1);
 
-            Column column2 = new Column("Col 2");
-            dataGrid.Columns.Add(column2);
+        Column column2 = new("Col 2");
+        dataGrid.Columns.Add(column2);
 
-            dataGrid.Rows.Add("0,0", "0,1", "0,2");
-            dataGrid.Rows.Add("1,0", "1,1", "1,2");
-            dataGrid.Rows.Add("2,0", "2,1", "2,2");
+        dataGrid.Rows.Add("0,0", "0,1", "0,2");
+        dataGrid.Rows.Add("1,0", "1,1", "1,2");
+        dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
-            string expected = GetResourceFileContent("02-with-columns.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("02-with-columns.txt");
+        dataGrid.IsEqualTo(expected);
     }
 }

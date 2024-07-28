@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,233 +21,228 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+public partial class CustomConsole
 {
-    public partial class CustomConsole
+    /// <summary>
+    /// Writes the specified text to the Console using the specified foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="text">The text to be written to the Console.</param>
+    public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
     {
-        /// <summary>
-        /// Writes the specified text to the Console using the specified foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the Console.</param>
-        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.Write(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified array of objects to the Console
+    /// using the specified format information and foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="arg">An array of objects to write using format.</param>
+    public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.Write(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified object to the Console
+    /// using the specified foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="o">The value to write.</param>
+    public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.Write(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the specified string value, followed by the current line terminator, to the Console
+    /// using the specified foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="text">The text to write.</param>
+    public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.WriteLine(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified array of objects,
+    /// followed by the current line terminator, to the Console
+    /// using the specified format information, foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="arg">An array of objects to write using format.</param>
+    public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.WriteLine(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified object, followed by the current line terminator, to the Console
+    /// using the specified foreground and background colors.
+    /// </summary>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="o">The value to write.</param>
+    public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        Console.WriteLine(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Executes the specified action while the foreground and background colors are set to the specified values.
+    /// </summary>
+    public static void WithColors(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Action action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        if (foregroundColor.HasValue)
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.Write(text);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified array of objects to the Console
-        /// using the specified format information and foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="arg">An array of objects to write using format.</param>
-        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.Write(format, arg);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified object to the Console
-        /// using the specified foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="o">The value to write.</param>
-        public static void Write(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.Write(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the specified string value, followed by the current line terminator, to the Console
-        /// using the specified foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to write.</param>
-        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.WriteLine(text);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified array of objects,
-        /// followed by the current line terminator, to the Console
-        /// using the specified format information, foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.WriteLine(format, arg);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified object, followed by the current line terminator, to the Console
-        /// using the specified foreground and background colors.
-        /// </summary>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="o">The value to write.</param>
-        public static void WriteLine(ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.WriteLine(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Executes the specified action while the foreground and background colors are set to the specified values.
-        /// </summary>
-        public static void WithColors(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Action action)
-        {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            if (foregroundColor.HasValue)
-            {
-                if (backgroundColor.HasValue)
-                    WithColors(foregroundColor.Value, backgroundColor.Value, action);
-                else
-                    WithForegroundColor(foregroundColor.Value, action);
-            }
+            if (backgroundColor.HasValue)
+                WithColors(foregroundColor.Value, backgroundColor.Value, action);
             else
-            {
-                if (backgroundColor.HasValue)
-                    WithBackgroundColor(backgroundColor.Value, action);
-                else
-                    action();
-            }
+                WithForegroundColor(foregroundColor.Value, action);
         }
-
-        /// <summary>
-        /// Executes the specified action while the foreground and background colors
-        /// are set to the specified values.
-        /// </summary>
-        public static void WithColors(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Action action)
+        else
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            try
-            {
+            if (backgroundColor.HasValue)
+                WithBackgroundColor(backgroundColor.Value, action);
+            else
                 action();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified action while the foreground and background colors
+    /// are set to the specified values.
+    /// </summary>
+    public static void WithColors(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Action action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        try
+        {
+            action();
+        }
+        finally
+        {
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function while the foreground and background colors
+    /// are set to the specified values.
+    /// </summary>
+    public static T WithColors<T>(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Func<T> func)
+    {
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        if (foregroundColor.HasValue)
+        {
+            return backgroundColor.HasValue
+                ? WithColors(foregroundColor.Value, backgroundColor.Value, func)
+                : WithForegroundColor(foregroundColor.Value, func);
         }
 
-        /// <summary>
-        /// Executes the specified function while the foreground and background colors
-        /// are set to the specified values.
-        /// </summary>
-        public static T WithColors<T>(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, Func<T> func)
-        {
-            if (func == null) throw new ArgumentNullException(nameof(func));
+        return backgroundColor.HasValue
+            ? WithBackgroundColor(backgroundColor.Value, func)
+            : func();
+    }
 
-            if (foregroundColor.HasValue)
-            {
-                if (backgroundColor.HasValue)
-                    return WithColors(foregroundColor.Value, backgroundColor.Value, func);
-                else
-                    return WithForegroundColor(foregroundColor.Value, func);
-            }
-            else
-            {
-                if (backgroundColor.HasValue)
-                    return WithBackgroundColor(backgroundColor.Value, func);
-                else
-                    return func();
-            }
+    /// <summary>
+    /// Executes the specified function while the foreground and background colors
+    /// are set to the specified values.
+    /// </summary>
+    public static T WithColors<T>(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Func<T> func)
+    {
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = foregroundColor;
+        Console.BackgroundColor = backgroundColor;
+
+        try
+        {
+            return func();
         }
-
-        /// <summary>
-        /// Executes the specified function while the foreground and background colors
-        /// are set to the specified values.
-        /// </summary>
-        public static T WithColors<T>(ConsoleColor foregroundColor, ConsoleColor backgroundColor, Func<T> func)
+        finally
         {
-            if (func == null) throw new ArgumentNullException(nameof(func));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = foregroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            try
-            {
-                return func();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
+            Console.ForegroundColor = initialForegroundColor;
+            Console.BackgroundColor = initialBackgroundColor;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,82 +21,81 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Displays a control repeatedly until the <see cref="RequestClose"/> method is called.
+/// </summary>
+public class ControlRepeater : BlockControl
 {
+    private volatile bool closeWasRequested;
+    private BlockControl control;
+
+    private bool isRunning;
+
     /// <summary>
-    /// Displays a control repeatedly until the <see cref="RequestClose"/> method is called.
+    /// Gets or sets the control that is to be displayed repeatedly.
     /// </summary>
-    public class ControlRepeater : BlockControl
+    public BlockControl Control
     {
-        private volatile bool closeWasRequested;
-        private BlockControl control;
-
-        private bool isRunning;
-
-        /// <summary>
-        /// Gets or sets the control that is to be displayed repeatedly.
-        /// </summary>
-        public BlockControl Control
+        get => control;
+        set
         {
-            get => control;
-            set
-            {
-                if (control is IRepeatableSupport repeatableControl1)
-                    repeatableControl1.Closed -= HandleControlClosed;
+            if (control is IRepeatableSupport repeatableControl1)
+                repeatableControl1.Closed -= HandleControlClosed;
 
-                if (isRunning)
-                    throw new Exception("The control cannot be changed while the Display method is running.");
+            if (isRunning)
+                throw new Exception("The control cannot be changed while the Display method is running.");
 
-                control = value;
+            control = value;
 
-                if (control is IRepeatableSupport repeatableControl2)
-                    repeatableControl2.Closed += HandleControlClosed;
-            }
+            if (control is IRepeatableSupport repeatableControl2)
+                repeatableControl2.Closed += HandleControlClosed;
         }
+    }
 
-        private void HandleControlClosed(object sender, EventArgs e)
+    private void HandleControlClosed(object sender, EventArgs e)
+    {
+        closeWasRequested = true;
+    }
+
+    /// <summary>
+    /// Gets a value that specifies if the control was requested to close.
+    /// </summary>
+    protected bool CloseWasRequested => closeWasRequested;
+
+    /// <summary>
+    /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
+    /// until the <see cref="RequestClose"/> method is called.
+    /// </summary>
+    protected override void DoDisplayContent(ControlDisplay display)
+    {
+        isRunning = true;
+        try
         {
-            closeWasRequested = true;
+            if (Control == null)
+                return;
+
+            closeWasRequested = false;
+
+            while (!closeWasRequested)
+                Control.Display();
         }
-
-        /// <summary>
-        /// Gets a value that specifies if the control was requested to close.
-        /// </summary>
-        protected bool CloseWasRequested => closeWasRequested;
-
-        /// <summary>
-        /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
-        /// until the <see cref="RequestClose"/> method is called.
-        /// </summary>
-        protected override void DoDisplayContent(ControlDisplay display)
+        finally
         {
-            isRunning = true;
-            try
-            {
-                if (Control == null)
-                    return;
-
-                closeWasRequested = false;
-
-                while (!closeWasRequested)
-                    Control.Display();
-            }
-            finally
-            {
-                isRunning = false;
-            }
+            isRunning = false;
         }
+    }
 
-        /// <summary>
-        /// Sets the <see cref="CloseWasRequested"/> flag.
-        /// The control will exit next time when it checks the flag.
-        /// </summary>
-        public void RequestClose()
-        {
-            closeWasRequested = true;
+    /// <summary>
+    /// Sets the <see cref="CloseWasRequested"/> flag.
+    /// The control will exit next time when it checks the flag.
+    /// </summary>
+    public void RequestClose()
+    {
+        closeWasRequested = true;
 
-            if (Control is IRepeatableSupport repeatableControl)
-                repeatableControl.RequestClose();
-        }
+        if (Control is IRepeatableSupport repeatableControl)
+            repeatableControl.RequestClose();
     }
 }

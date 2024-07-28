@@ -1,5 +1,5 @@
-﻿// // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+﻿// ConsoleTools
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,24 +22,23 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Mvc.UserControls
+namespace DustInTheWind.ConsoleTools.Mvc.UserControls;
+
+internal class UsageControl
 {
-    internal class UsageControl
+    public IList<string> CommandNames { get; set; }
+
+
+    public void Display()
     {
-        public IList<string> CommandNames { get; set; }
+        if (CommandNames == null)
+            return;
 
+        Console.WriteLine("Usage:");
 
-        public void Display()
+        foreach (string commandName in CommandNames)
         {
-            if (CommandNames == null)
-                return;
-
-            Console.WriteLine("Usage:");
-
-            foreach (string commandName in CommandNames)
-            {
-                Console.WriteLine(commandName);
-            }
+            Console.WriteLine(commandName);
         }
     }
 }

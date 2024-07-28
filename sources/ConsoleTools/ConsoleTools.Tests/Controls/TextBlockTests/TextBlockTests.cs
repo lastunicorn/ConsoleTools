@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,51 +17,50 @@
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlockTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlockTests;
+
+[TestFixture]
+[Explicit("Some Console calls crash in the Resharper's test runner.")]
+public class TextBlockTests
 {
-    [TestFixture]
-    [Explicit("Some Console calls crash in the Resharper's test runner.")]
-    public class TextBlockTests
+    private readonly ExpectedOutput expectedOutput = new(typeof(TextBlockTests), "TextBlockTests");
+
+    [Test]
+    public void Test1()
     {
-        private readonly ExpectedOutput expectedOutput = new ExpectedOutput(typeof(TextBlockTests), "TextBlockTests");
-
-        [Test]
-        public void Test1()
+        using (ConsoleOutput consoleOutput = new())
         {
-            using (ConsoleOutput consoleOutput = new ConsoleOutput())
+            TextBlock textBlock = new()
             {
-                TextBlock textBlock = new TextBlock
-                {
-                    Text = "alez"
-                };
+                Text = "alez"
+            };
 
-                textBlock.Display();
+            textBlock.Display();
 
-                string actual = consoleOutput.GetOutput();
+            string actual = consoleOutput.GetOutput();
 
-                string expected = expectedOutput.GeExpectedOut();
-                Assert.AreEqual(expected, actual);
-            }
+            string expected = expectedOutput.GeExpectedOut();
+            Assert.AreEqual(expected, actual);
         }
+    }
 
-        [Test]
-        public void Test2()
+    [Test]
+    public void Test2()
+    {
+        using (ConsoleOutput consoleOutput = new())
         {
-            using (ConsoleOutput consoleOutput = new ConsoleOutput())
+            TextBlock textBlock = new()
             {
-                TextBlock textBlock = new TextBlock
-                {
-                    Text = "alez",
-                    Margin = 1
-                };
+                Text = "alez",
+                Margin = 1
+            };
 
-                textBlock.Display();
+            textBlock.Display();
 
-                string actual = consoleOutput.GetOutput();
+            string actual = consoleOutput.GetOutput();
 
-                string expected = expectedOutput.GeExpectedOut();
-                Assert.AreEqual(expected, actual);
-            }
+            string expected = expectedOutput.GeExpectedOut();
+            Assert.AreEqual(expected, actual);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,20 +16,19 @@
 
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo;
+
+internal abstract class CommandBase : ICommand
 {
-    internal abstract class CommandBase : ICommand
+    public bool IsActive { get; } = true;
+
+    public abstract string Title { get; }
+
+    public void Execute()
     {
-        public bool IsActive { get; } = true;
-
-        public abstract string Title { get; }
-
-        public void Execute()
-        {
-            DummyText.Display($"- {Title}:", 3);
-            DoExecute();
-        }
-
-        protected abstract void DoExecute();
+        DummyText.Display($"- {Title}:", 3);
+        DoExecute();
     }
+
+    protected abstract void DoExecute();
 }

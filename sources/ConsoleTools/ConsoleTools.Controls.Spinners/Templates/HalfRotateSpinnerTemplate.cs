@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
+namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
+
+/// <summary>
+/// A template for the <see cref="Spinner"/> that displays in turn one half of the one character space:
+/// first the bottom half, then the left half, top half and right half.
+/// It has 4 frames.
+/// </summary>
+public class HalfRotateSpinnerTemplate : SequenceSpinnerTemplate
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that displays in turn one half of the one character space:
-    /// first the bottom half, then the left half, top half and right half.
-    /// It has 4 frames.
+    /// Initializes a new instance of the <see cref="HalfRotateSpinnerTemplate"/> class.
     /// </summary>
-    public class HalfRotateSpinnerTemplate : SequenceSpinnerTemplate
+    public HalfRotateSpinnerTemplate()
+        : base(new[] { "▄", "▌", "▀", "▐" })
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HalfRotateSpinnerTemplate"/> class.
-        /// </summary>
-        public HalfRotateSpinnerTemplate()
-            : base(new[] { "▄", "▌", "▀", "▐" })
-        {
-        }
     }
 }

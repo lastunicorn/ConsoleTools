@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,147 +21,146 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
+namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
+
+/// <summary>
+/// A template for the <see cref="Spinner"/> that fills a bar with a specified character.
+/// </summary>
+public class FillSpinnerTemplate : ISpinnerTemplate
 {
+    private readonly char fillChar;
+    private readonly int length;
+    private int currentStep;
+    private FilledBehavior filledBehavior = FilledBehavior.EmptyFromStart;
+
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that fills a bar with a specified character.
+    /// Gets or sets the border character to be displayed at the left of the bar.
     /// </summary>
-    public class FillSpinnerTemplate : ISpinnerTemplate
+    public string BorderStart { get; set; } = "[";
+
+    /// <summary>
+    /// Gets or sets the border character to be displayed at the right of the bar.
+    /// </summary>
+    public string BorderEnd { get; set; } = "]";
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the borders are displayed.
+    /// </summary>
+    public bool ShowBorders { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies what to do when the bar is filled.
+    /// </summary>
+    public FilledBehavior FilledBehavior
     {
-        private readonly char fillChar;
-        private readonly int length;
-        private int currentStep;
-        private FilledBehavior filledBehavior = FilledBehavior.EmptyFromStart;
-
-        /// <summary>
-        /// Gets or sets the border character to be displayed at the left of the bar.
-        /// </summary>
-        public string BorderStart { get; set; } = "[";
-
-        /// <summary>
-        /// Gets or sets the border character to be displayed at the right of the bar.
-        /// </summary>
-        public string BorderEnd { get; set; } = "]";
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the borders are displayed.
-        /// </summary>
-        public bool ShowBorders { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies what to do when the bar is filled.
-        /// </summary>
-        public FilledBehavior FilledBehavior
+        get => filledBehavior;
+        set
         {
-            get => filledBehavior;
-            set
-            {
-                bool valueIsDefined = Enum.IsDefined(typeof(FilledBehavior), value);
+            bool valueIsDefined = Enum.IsDefined(typeof(FilledBehavior), value);
 
-                if (!valueIsDefined)
-                    throw new ArgumentOutOfRangeException(nameof(value));
+            if (!valueIsDefined)
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-                filledBehavior = value;
-            }
+            filledBehavior = value;
         }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class.
-        /// </summary>
-        public FillSpinnerTemplate()
-        {
-            fillChar = '.';
-            length = 4;
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class.
+    /// </summary>
+    public FillSpinnerTemplate()
+    {
+        fillChar = '.';
+        length = 4;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class with
-        /// the character used to fill the bar and
-        /// the length of the bar.
-        /// </summary>
-        /// <param name="fillChar">The character used to fill the bar.</param>
-        /// <param name="length">The length of the bar.</param>
-        public FillSpinnerTemplate(char fillChar, int length)
-        {
-            if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FillSpinnerTemplate"/> class with
+    /// the character used to fill the bar and
+    /// the length of the bar.
+    /// </summary>
+    /// <param name="fillChar">The character used to fill the bar.</param>
+    /// <param name="length">The length of the bar.</param>
+    public FillSpinnerTemplate(char fillChar, int length)
+    {
+        if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
 
-            this.fillChar = fillChar;
-            this.length = length;
-        }
+        this.fillChar = fillChar;
+        this.length = length;
+    }
 
-        /// <summary>
-        /// Resets the template. It will start from the first frame.
-        /// </summary>
-        public void Reset()
-        {
+    /// <summary>
+    /// Resets the template. It will start from the first frame.
+    /// </summary>
+    public void Reset()
+    {
+        currentStep = 0;
+    }
+
+    /// <summary>
+    /// Moves to the next frame and returns it.
+    /// </summary>
+    public string GetNext()
+    {
+        currentStep++;
+
+        int totalStepCount = CalculateTotalStepCount();
+
+        if (currentStep > totalStepCount - 1)
             currentStep = 0;
-        }
 
-        /// <summary>
-        /// Moves to the next frame and returns it.
-        /// </summary>
-        public string GetNext()
+        return GetCurrent();
+    }
+
+    private int CalculateTotalStepCount()
+    {
+        switch (FilledBehavior)
         {
-            currentStep++;
+            case FilledBehavior.SuddenEmpty:
+                return length + 1;
 
-            int totalStepCount = CalculateTotalStepCount();
+            case FilledBehavior.EmptyFromEnd:
+                return 2 * length;
 
-            if (currentStep > totalStepCount - 1)
-                currentStep = 0;
+            case FilledBehavior.EmptyFromStart:
+                return 2 * length;
 
-            return GetCurrent();
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+    }
 
-        private int CalculateTotalStepCount()
+    /// <summary>
+    /// Returns the current frame.
+    /// </summary>
+    public string GetCurrent()
+    {
+        string content = BuildContent();
+
+        return ShowBorders
+            ? string.Concat(BorderStart, content, BorderEnd)
+            : content;
+    }
+
+    private string BuildContent()
+    {
+        switch (FilledBehavior)
         {
-            switch (FilledBehavior)
-            {
-                case FilledBehavior.SuddenEmpty:
-                    return length + 1;
+            case FilledBehavior.SuddenEmpty:
+                return new string(fillChar, currentStep).PadRight(length);
 
-                case FilledBehavior.EmptyFromEnd:
-                    return 2 * length;
+            case FilledBehavior.EmptyFromEnd:
+                return currentStep < length
+                    ? new string(fillChar, currentStep).PadRight(length)
+                    : new string(fillChar, 2 * length - currentStep).PadRight(length);
 
-                case FilledBehavior.EmptyFromStart:
-                    return 2 * length;
+            case FilledBehavior.EmptyFromStart:
+                return currentStep < length
+                    ? new string(fillChar, currentStep).PadRight(length)
+                    : new string(fillChar, 2 * length - currentStep).PadLeft(length);
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        /// <summary>
-        /// Returns the current frame.
-        /// </summary>
-        public string GetCurrent()
-        {
-            string content = BuildContent();
-
-            return ShowBorders
-                ? string.Concat(BorderStart, content, BorderEnd)
-                : content;
-        }
-
-        private string BuildContent()
-        {
-            switch (FilledBehavior)
-            {
-                case FilledBehavior.SuddenEmpty:
-                    return new string(fillChar, currentStep).PadRight(length);
-
-                case FilledBehavior.EmptyFromEnd:
-                    return currentStep < length
-                        ? new string(fillChar, currentStep).PadRight(length)
-                        : new string(fillChar, 2 * length - currentStep).PadRight(length);
-
-                case FilledBehavior.EmptyFromStart:
-                    return currentStep < length
-                        ? new string(fillChar, currentStep).PadRight(length)
-                        : new string(fillChar, 2 * length - currentStep).PadLeft(length);
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }

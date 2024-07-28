@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,30 +21,29 @@
 
 using System.Data;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+internal class DataGridBuilderFromDataTable
 {
-    internal class DataGridBuilderFromDataTable
+    public DataGrid DataGrid { get; }
+
+    public DataGridBuilderFromDataTable(DataTable dataTable)
     {
-        public DataGrid DataGrid { get; }
+        DataGrid = new DataGrid(dataTable.TableName);
 
-        public DataGridBuilderFromDataTable(DataTable dataTable)
+        foreach (DataColumn dataColumn in dataTable.Columns)
         {
-            DataGrid = new DataGrid(dataTable.TableName);
+            string columnHeader = string.IsNullOrEmpty(dataColumn.Caption)
+                ? dataColumn.ColumnName
+                : dataColumn.Caption;
 
-            foreach (DataColumn dataColumn in dataTable.Columns)
-            {
-                string columnHeader = string.IsNullOrEmpty(dataColumn.Caption)
-                    ? dataColumn.ColumnName
-                    : dataColumn.Caption;
+            DataGrid.Columns.Add(columnHeader);
+        }
 
-                DataGrid.Columns.Add(columnHeader);
-            }
-
-            foreach (System.Data.DataRow dataRow in dataTable.Rows)
-            {
-                ContentRow row = new ContentRow(dataRow.ItemArray);
-                DataGrid.Rows.Add(row);
-            }
+        foreach (DataRow dataRow in dataTable.Rows)
+        {
+            ContentRow row = new(dataRow.ItemArray);
+            DataGrid.Rows.Add(row);
         }
     }
 }

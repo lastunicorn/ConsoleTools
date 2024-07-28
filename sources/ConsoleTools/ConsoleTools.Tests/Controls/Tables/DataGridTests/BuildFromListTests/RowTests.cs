@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,68 +24,67 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromListTests;
+
+[TestFixture]
+public class RowTests
 {
-    [TestFixture]
-    public class RowTests
+    private class CustomClass
     {
-        private class CustomClass
+        public int Number { get; set; }
+
+        public string Text { get; set; }
+    }
+
+    [Test]
+    public void one_row_is_generated_if_one_item_in_list()
+    {
+        List<CustomClass> data = new()
         {
-            public int Number { get; set; }
+            new CustomClass()
+        };
 
-            public string Text { get; set; }
-        }
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-        [Test]
-        public void one_row_is_generated_if_one_item_in_list()
+        Assert.That(actual.Rows.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void row_contains_two_cells()
+    {
+        List<CustomClass> data = new()
         {
-            List<CustomClass> data = new List<CustomClass>
-            {
-                new CustomClass()
-            };
+            new CustomClass()
+        };
 
-            DataGrid actual = DataGrid.BuildFrom(data);
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-            Assert.That(actual.Rows.Count, Is.EqualTo(1));
-        }
+        Assert.That(actual.Rows[0].CellCount, Is.EqualTo(2));
+    }
 
-        [Test]
-        public void row_contains_two_cells()
+    [Test]
+    public void first_cell_contains_the_value_of_first_property()
+    {
+        List<CustomClass> data = new()
         {
-            List<CustomClass> data = new List<CustomClass>
-            {
-                new CustomClass()
-            };
+            new CustomClass { Number = 4, Text = "bla" }
+        };
 
-            DataGrid actual = DataGrid.BuildFrom(data);
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-            Assert.That(actual.Rows[0].CellCount, Is.EqualTo(2));
-        }
+        Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("4")));
+    }
 
-        [Test]
-        public void first_cell_contains_the_value_of_first_property()
+    [Test]
+    public void second_cell_contains_the_value_of_second_property()
+    {
+        List<CustomClass> data = new()
         {
-            List<CustomClass> data = new List<CustomClass>
-            {
-                new CustomClass { Number = 4, Text = "bla" }
-            };
+            new CustomClass { Number = 4, Text = "bla" }
+        };
 
-            DataGrid actual = DataGrid.BuildFrom(data);
+        DataGrid actual = DataGrid.BuildFrom(data);
 
-            Assert.That(actual.Rows[0][0].Content, Is.EqualTo(new MultilineText("4")));
-        }
-
-        [Test]
-        public void second_cell_contains_the_value_of_second_property()
-        {
-            List<CustomClass> data = new List<CustomClass>
-            {
-                new CustomClass { Number = 4, Text = "bla" }
-            };
-
-            DataGrid actual = DataGrid.BuildFrom(data);
-
-            Assert.That(actual.Rows[0][1].Content, Is.EqualTo(new MultilineText("bla")));
-        }
+        Assert.That(actual.Rows[0][1].Content, Is.EqualTo(new MultilineText("bla")));
     }
 }

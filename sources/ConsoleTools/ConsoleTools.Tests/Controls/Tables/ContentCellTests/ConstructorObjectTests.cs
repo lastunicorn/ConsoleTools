@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,44 +18,43 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests;
+
+[TestFixture]
+public class ConstructorObjectTests
 {
-    [TestFixture]
-    public class ConstructorObjectTests
+    private ContentCell contentCell;
+
+    private class Content
     {
-        private ContentCell contentCell;
-
-        private class Content
+        public override string ToString()
         {
-            public override string ToString()
-            {
-                return "content";
-            }
+            return "content";
         }
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            Content content = new Content();
-            contentCell = new ContentCell(content);
-        }
+    [SetUp]
+    public void SetUp()
+    {
+        Content content = new();
+        contentCell = new ContentCell(content);
+    }
 
-        [Test]
-        public void Content_is_the_one_provided_on_constructor()
-        {
-            Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("content")));
-        }
+    [Test]
+    public void Content_is_the_one_provided_on_constructor()
+    {
+        Assert.That(contentCell.Content, Is.EqualTo(new MultilineText("content")));
+    }
 
-        [Test]
-        public void IsEmpty_is_false()
-        {
-            Assert.That(contentCell.IsEmpty, Is.False);
-        }
+    [Test]
+    public void IsEmpty_is_false()
+    {
+        Assert.That(contentCell.IsEmpty, Is.False);
+    }
 
-        [Test]
-        public void HorizontalAlignment_is_Default()
-        {
-            Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Default()
+    {
+        Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
     }
 }

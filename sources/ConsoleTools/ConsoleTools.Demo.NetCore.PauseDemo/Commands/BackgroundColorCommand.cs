@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,19 +17,18 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands
-{
-    internal class BackgroundColorCommand : CommandBase
-    {
-        public override string Title => "Background Color (Blue)";
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.PauseDemo.Commands;
 
-        protected override void DoExecute()
+internal class BackgroundColorCommand : CommandBase
+{
+    public override string Title => "Background Color (Blue)";
+
+    protected override void DoExecute()
+    {
+        Pause pause = new()
         {
-            Pause pause = new Pause
-            {
-                BackgroundColor = ConsoleColor.Blue
-            };
-            pause.Display();
-        }
+            BackgroundColor = ConsoleColor.Blue
+        };
+        pause.Display();
     }
 }

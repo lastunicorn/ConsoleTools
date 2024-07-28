@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,88 +22,87 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentCellTests;
+
+[TestFixture]
+public class CalculatePaddingLeftTests
 {
-    [TestFixture]
-    public class CalculatePaddingLeftTests
+    [Test]
+    public void HavingCellWithNoPadding_WhenCalculatingPaddingLeft_ThenPaddingLeftIs1()
     {
-        [Test]
-        public void HavingCellWithNoPadding_WhenCalculatingPaddingLeft_ThenPaddingLeftIs1()
+        ContentCell contentCell = new();
+
+        int actual = contentCell.CalculatePaddingLeft();
+
+        Assert.That(actual, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void HavingCellWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    {
+        ContentCell contentCell = new()
         {
-            ContentCell contentCell = new ContentCell();
+            PaddingLeft = 5
+        };
 
-            int actual = contentCell.CalculatePaddingLeft();
+        int actual = contentCell.CalculatePaddingLeft();
 
-            Assert.That(actual, Is.EqualTo(1));
-        }
+        Assert.That(actual, Is.EqualTo(5));
+    }
 
-        [Test]
-        public void HavingCellWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    [Test]
+    public void HavingRowWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    {
+        ContentCell contentCell = new();
+        ContentRow contentRow = new()
         {
-            ContentCell contentCell = new ContentCell
-            {
-                PaddingLeft = 5
-            };
+            CellPaddingLeft = 5
+        };
+        contentRow.AddCell(contentCell);
 
-            int actual = contentCell.CalculatePaddingLeft();
+        int actual = contentCell.CalculatePaddingLeft();
 
-            Assert.That(actual, Is.EqualTo(5));
-        }
+        Assert.That(actual, Is.EqualTo(5));
+    }
 
-        [Test]
-        public void HavingRowWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    [Test]
+    public void HavingDataGridWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    {
+        ContentCell contentCell = new();
+
+        ContentRow contentRow = new();
+        contentRow.AddCell(contentCell);
+
+        DataGrid dataGrid = new()
         {
-            ContentCell contentCell = new ContentCell();
-            ContentRow contentRow = new ContentRow
-            {
-                CellPaddingLeft = 5
-            };
-            contentRow.AddCell(contentCell);
+            CellPaddingLeft = 5
+        };
+        dataGrid.Rows.Add(contentRow);
 
-            int actual = contentCell.CalculatePaddingLeft();
+        int actual = contentCell.CalculatePaddingLeft();
 
-            Assert.That(actual, Is.EqualTo(5));
-        }
+        Assert.That(actual, Is.EqualTo(5));
+    }
 
-        [Test]
-        public void HavingDataGridWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    [Test]
+    public void HavingColumnWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
+    {
+        ContentCell contentCell = new();
+
+        ContentRow contentRow = new();
+        contentRow.AddCell(contentCell);
+
+        DataGrid dataGrid = new();
+        dataGrid.Rows.Add(contentRow);
+
+        Column column = new()
         {
-            ContentCell contentCell = new ContentCell();
+            CellPaddingLeft = 5
+        };
+        dataGrid.Columns.Add(column);
 
-            ContentRow contentRow = new ContentRow();
-            contentRow.AddCell(contentCell);
+        int actual = contentCell.CalculatePaddingLeft();
 
-            DataGrid dataGrid = new DataGrid
-            {
-                CellPaddingLeft = 5
-            };
-            dataGrid.Rows.Add(contentRow);
-
-            int actual = contentCell.CalculatePaddingLeft();
-
-            Assert.That(actual, Is.EqualTo(5));
-        }
-
-        [Test]
-        public void HavingColumnWithPaddingLeft5_WhenCalculatingPaddingLeft_ThenPaddingLeftIs5()
-        {
-            ContentCell contentCell = new ContentCell();
-
-            ContentRow contentRow = new ContentRow();
-            contentRow.AddCell(contentCell);
-
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.Rows.Add(contentRow);
-
-            Column column = new Column
-            {
-                CellPaddingLeft = 5
-            };
-            dataGrid.Columns.Add(column);
-
-            int actual = contentCell.CalculatePaddingLeft();
-
-            Assert.That(actual, Is.EqualTo(5));
-        }
+        Assert.That(actual, Is.EqualTo(5));
     }
 }

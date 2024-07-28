@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,26 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer;
+
+/// <summary>
+/// Represents the state of a asynchronous job.
+/// </summary>
+internal enum JobState
 {
     /// <summary>
-    /// Represents the state of a asynchronous job.
+    /// Job has never been started.
     /// </summary>
-    internal enum JobState
-    {
-        /// <summary>
-        /// Job has never been started.
-        /// </summary>
-        New,
+    New,
 
-        /// <summary>
-        /// Job is running.
-        /// </summary>
-        Running,
+    /// <summary>
+    /// Job is running.
+    /// </summary>
+    Running,
 
-        /// <summary>
-        /// Job has finished its work.
-        /// </summary>
-        Stopped
-    }
+    /// <summary>
+    /// Job has finished its work.
+    /// </summary>
+    Stopped
 }

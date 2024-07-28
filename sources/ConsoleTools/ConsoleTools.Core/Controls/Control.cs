@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,90 +21,89 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Provides base functionality for a control.
+/// </summary>
+public abstract class Control
 {
+    private bool originalCursorVisibility;
+
     /// <summary>
-    /// Provides base functionality for a control.
+    /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
+    /// Default value: <c>true</c>
     /// </summary>
-    public abstract class Control
+    public bool? CursorVisibility { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the visibility of the cursor should be set back
+    /// to the value it was before displaying the control.
+    /// </summary>
+    protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
+
+    /// <summary>
+    /// Event raised at the beginning of the <see cref="Display"/> method, before doing anything else.
+    /// </summary>
+    public virtual event EventHandler BeforeDisplay;
+
+    /// <summary>
+    /// Event raised at the very end of the <see cref="Display"/> method, before returning.
+    /// </summary>
+    public virtual event EventHandler AfterDisplay;
+
+    /// <summary>
+    /// Displays the control in the console.
+    /// </summary>
+    public void Display()
     {
-        private bool originalCursorVisibility;
+        OnBeforeDisplay();
 
-        /// <summary>
-        /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool? CursorVisibility { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value that specifies if the visibility of the cursor should be set back
-        /// to the value it was before displaying the control.
-        /// </summary>
-        protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
-
-        /// <summary>
-        /// Event raised at the beginning of the <see cref="Display"/> method, before doing anything else.
-        /// </summary>
-        public virtual event EventHandler BeforeDisplay;
-
-        /// <summary>
-        /// Event raised at the very end of the <see cref="Display"/> method, before returning.
-        /// </summary>
-        public virtual event EventHandler AfterDisplay;
-
-        /// <summary>
-        /// Displays the control in the console.
-        /// </summary>
-        public void Display()
+        if (CursorVisibility.HasValue)
         {
-            OnBeforeDisplay();
+            originalCursorVisibility = Console.CursorVisible;
+            Console.CursorVisible = CursorVisibility.Value;
 
-            if (CursorVisibility.HasValue)
-            {
-                originalCursorVisibility = Console.CursorVisible;
-                Console.CursorVisible = CursorVisibility.Value;
-
-                try
-                {
-                    DoDisplay();
-                }
-                finally
-                {
-                    if (RestoreCursorVisibilityAfterDisplay)
-                        Console.CursorVisible = originalCursorVisibility;
-                }
-            }
-            else
+            try
             {
                 DoDisplay();
             }
-
-            OnAfterDisplay();
+            finally
+            {
+                if (RestoreCursorVisibilityAfterDisplay)
+                    Console.CursorVisible = originalCursorVisibility;
+            }
         }
-
-        /// <summary>
-        /// When implemented by an inheritor, displays the margins and the content of the control.
-        /// </summary>
-        protected abstract void DoDisplay();
-
-        /// <summary>
-        /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
-        /// to raise the <see cref="BeforeDisplay"/> event.
-        /// When overwritten, the base method must be called in order to allow the event to be raised.
-        /// </summary>
-        protected virtual void OnBeforeDisplay()
+        else
         {
-            BeforeDisplay?.Invoke(this, EventArgs.Empty);
+            DoDisplay();
         }
 
-        /// <summary>
-        /// Method called at the very end of the <see cref="Display"/> method, before returning
-        /// to raise the <see cref="AfterDisplay"/> event.
-        /// When overwritten, the base method must be called in order to allow the event to be raised.
-        /// </summary>
-        protected virtual void OnAfterDisplay()
-        {
-            AfterDisplay?.Invoke(this, EventArgs.Empty);
-        }
+        OnAfterDisplay();
+    }
+
+    /// <summary>
+    /// When implemented by an inheritor, displays the margins and the content of the control.
+    /// </summary>
+    protected abstract void DoDisplay();
+
+    /// <summary>
+    /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
+    /// to raise the <see cref="BeforeDisplay"/> event.
+    /// When overwritten, the base method must be called in order to allow the event to be raised.
+    /// </summary>
+    protected virtual void OnBeforeDisplay()
+    {
+        BeforeDisplay?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Method called at the very end of the <see cref="Display"/> method, before returning
+    /// to raise the <see cref="AfterDisplay"/> event.
+    /// When overwritten, the base method must be called in order to allow the event to be raised.
+    /// </summary>
+    protected virtual void OnAfterDisplay()
+    {
+        AfterDisplay?.Invoke(this, EventArgs.Empty);
     }
 }

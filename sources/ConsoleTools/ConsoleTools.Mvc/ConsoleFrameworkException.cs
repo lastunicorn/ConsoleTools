@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,23 +22,22 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DustInTheWind.ConsoleTools.Mvc
+namespace DustInTheWind.ConsoleTools.Mvc;
+
+public class ConsoleFrameworkException : Exception
 {
-    public class ConsoleFrameworkException : Exception
+    public ConsoleFrameworkException(string message)
+        : base(message)
     {
-        public ConsoleFrameworkException(string message)
-            : base(message)
-        {
-        }
+    }
 
-        public ConsoleFrameworkException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+    public ConsoleFrameworkException(string message, Exception innerException)
+        : base(message, innerException)
+    {
+    }
 
-        protected ConsoleFrameworkException(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-        }
+    protected ConsoleFrameworkException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        : base(serializationInfo, streamingContext)
+    {
     }
 }

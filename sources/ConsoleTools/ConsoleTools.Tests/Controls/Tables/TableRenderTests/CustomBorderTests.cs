@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,93 +17,92 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
+
+[TestFixture]
+public class CustomBorderTests : TestsBase
 {
-    [TestFixture]
-    public class CustomBorderTests : TestsBase
+    [Test]
+    public void render_simple_table_with_custom_border()
     {
-        [Test]
-        public void render_simple_table_with_custom_border()
-        {
-            DataGrid dataGrid = new();
-            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.Rows.Add("one", "ichi", "eins");
-            dataGrid.Rows.Add("two", "ni", "zwei");
-            dataGrid.Rows.Add("three", "san", "drei");
+        DataGrid dataGrid = new();
+        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.Rows.Add("one", "ichi", "eins");
+        dataGrid.Rows.Add("two", "ni", "zwei");
+        dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected = GetResourceFileContent("01-doublelineborder.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("01-doublelineborder.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        [Test]
-        public void render_table_with_custom_border_and_title()
-        {
-            DataGrid dataGrid = new();
-            dataGrid.Title = "My Title";
-            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.Rows.Add("one", "ichi", "eins");
-            dataGrid.Rows.Add("two", "ni", "zwei");
-            dataGrid.Rows.Add("three", "san", "drei");
+    [Test]
+    public void render_table_with_custom_border_and_title()
+    {
+        DataGrid dataGrid = new();
+        dataGrid.Title = "My Title";
+        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.Rows.Add("one", "ichi", "eins");
+        dataGrid.Rows.Add("two", "ni", "zwei");
+        dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected = GetResourceFileContent("02-doublelineborder-title.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("02-doublelineborder-title.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        [Test]
-        public void render_table_with_custom_border_and_headers()
-        {
-            DataGrid dataGrid = new();
-            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.HeaderRow.IsVisible = true;
-            dataGrid.Columns.Add(new Column("One"));
-            dataGrid.Columns.Add(new Column("Two"));
-            dataGrid.Columns.Add(new Column("Three"));
-            dataGrid.Rows.Add("one", "ichi", "eins");
-            dataGrid.Rows.Add("two", "ni", "zwei");
-            dataGrid.Rows.Add("three", "san", "drei");
+    [Test]
+    public void render_table_with_custom_border_and_headers()
+    {
+        DataGrid dataGrid = new();
+        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.HeaderRow.IsVisible = true;
+        dataGrid.Columns.Add(new Column("One"));
+        dataGrid.Columns.Add(new Column("Two"));
+        dataGrid.Columns.Add(new Column("Three"));
+        dataGrid.Rows.Add("one", "ichi", "eins");
+        dataGrid.Rows.Add("two", "ni", "zwei");
+        dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected = GetResourceFileContent("03-doublelineborder-headers.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("03-doublelineborder-headers.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        [Test]
-        public void render_table_with_custom_border_title_and_headers()
-        {
-            DataGrid dataGrid = new();
-            dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
-            dataGrid.Title = "My Title";
-            dataGrid.HeaderRow.IsVisible = true;
-            dataGrid.Columns.Add(new Column("One"));
-            dataGrid.Columns.Add(new Column("Two"));
-            dataGrid.Columns.Add(new Column("Three"));
-            dataGrid.Rows.Add("one", "ichi", "eins");
-            dataGrid.Rows.Add("two", "ni", "zwei");
-            dataGrid.Rows.Add("three", "san", "drei");
+    [Test]
+    public void render_table_with_custom_border_title_and_headers()
+    {
+        DataGrid dataGrid = new();
+        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.Title = "My Title";
+        dataGrid.HeaderRow.IsVisible = true;
+        dataGrid.Columns.Add(new Column("One"));
+        dataGrid.Columns.Add(new Column("Two"));
+        dataGrid.Columns.Add(new Column("Three"));
+        dataGrid.Rows.Add("one", "ichi", "eins");
+        dataGrid.Rows.Add("two", "ni", "zwei");
+        dataGrid.Rows.Add("three", "san", "drei");
 
-            string expected = GetResourceFileContent("04-doublelineborder-title-headers.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        string expected = GetResourceFileContent("04-doublelineborder-title-headers.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        [Test]
-        public void render_table_with_digit_and_letter_border()
-        {
-            DataGrid dataGrid = new();
-            
-            dataGrid.Border.Template = new BorderTemplate("1234567890abcde");
-            dataGrid.Title = "My Title";
-            dataGrid.HeaderRow.IsVisible = true;
-            dataGrid.CellPaddingLeft = 3;
-            dataGrid.CellPaddingRight = 3;
+    [Test]
+    public void render_table_with_digit_and_letter_border()
+    {
+        DataGrid dataGrid = new();
 
-            dataGrid.Columns.Add(new Column("One"));
-            dataGrid.Columns.Add(new Column("Two"));
-            dataGrid.Columns.Add(new Column("Three"));
-            dataGrid.Rows.Add("one", "ichi", "eins");
-            dataGrid.Rows.Add("two", "ni", "zwei");
-            dataGrid.Rows.Add("three", "san", "drei");
+        dataGrid.Border.Template = new BorderTemplate("1234567890abcde");
+        dataGrid.Title = "My Title";
+        dataGrid.HeaderRow.IsVisible = true;
+        dataGrid.CellPaddingLeft = 3;
+        dataGrid.CellPaddingRight = 3;
 
-            string expected = GetResourceFileContent("05-customborder-customchars.txt");
-            dataGrid.IsEqualTo(expected);
-        }
+        dataGrid.Columns.Add(new Column("One"));
+        dataGrid.Columns.Add(new Column("Two"));
+        dataGrid.Columns.Add(new Column("Three"));
+        dataGrid.Rows.Add("one", "ichi", "eins");
+        dataGrid.Rows.Add("two", "ni", "zwei");
+        dataGrid.Rows.Add("three", "san", "drei");
+
+        string expected = GetResourceFileContent("05-customborder-customchars.txt");
+        dataGrid.IsEqualTo(expected);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,49 +24,48 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests;
+
+[TestFixture]
+public class TitleTests
 {
-    [TestFixture]
-    public class TitleTests
+    [Test]
+    public void Title_is_DataTable_name()
     {
-        [Test]
-        public void Title_is_DataTable_name()
-        {
-            DataTable dataTable = new DataTable("this is data");
+        DataTable dataTable = new("this is data");
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Title, Is.EqualTo(new MultilineText("this is data")));
-        }
+        Assert.That(actual.Title, Is.EqualTo(new MultilineText("this is data")));
+    }
 
-        [Test]
-        public void Title_is_empty_if_DataTable_has_no_name_set()
-        {
-            DataTable dataTable = new DataTable();
+    [Test]
+    public void Title_is_empty_if_DataTable_has_no_name_set()
+    {
+        DataTable dataTable = new();
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
-        }
+        Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
+    }
 
-        [Test]
-        public void Title_is_empty_if_DataTable_has_empty_string_name()
-        {
-            DataTable dataTable = new DataTable(string.Empty);
+    [Test]
+    public void Title_is_empty_if_DataTable_has_empty_string_name()
+    {
+        DataTable dataTable = new(string.Empty);
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
-        }
+        Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
+    }
 
-        [Test]
-        public void Title_is_empty_if_DataTable_has_name_set_to_null()
-        {
-            DataTable dataTable = new DataTable(null);
+    [Test]
+    public void Title_is_empty_if_DataTable_has_name_set_to_null()
+    {
+        DataTable dataTable = new(null);
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
-        }
+        Assert.That(actual.Title, Is.EqualTo(MultilineText.Empty));
     }
 }

@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,26 +19,25 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls;
+
+/// <summary>
+/// Contains the answers that can be returned by the <see cref="YesNoQuestion"/>.
+/// </summary>
+public enum YesNoAnswer
 {
     /// <summary>
-    /// Contains the answers that can be returned by the <see cref="YesNoQuestion"/>.
+    /// The user canceled the action.
     /// </summary>
-    public enum YesNoAnswer
-    {
-        /// <summary>
-        /// The user canceled the action.
-        /// </summary>
-        Cancel,
+    Cancel,
 
-        /// <summary>
-        /// The user accepted.
-        /// </summary>
-        Yes,
+    /// <summary>
+    /// The user accepted.
+    /// </summary>
+    Yes,
 
-        /// <summary>
-        /// The user refused.
-        /// </summary>
-        No
-    }
+    /// <summary>
+    /// The user refused.
+    /// </summary>
+    No
 }

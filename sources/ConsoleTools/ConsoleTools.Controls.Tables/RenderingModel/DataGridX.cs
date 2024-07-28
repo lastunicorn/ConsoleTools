@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,53 +21,52 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel
+namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+
+internal class DataGridX
 {
-    internal class DataGridX
+    private readonly bool displayBorder;
+    private readonly DataGridLayout dataGridLayout = new();
+    private readonly List<IItemX> items = new();
+    private IItemX lastItem;
+
+    public int MinWidth { get; set; }
+
+    public int ItemCount => items.Count;
+
+    public DataGridX(bool displayBorder)
     {
-        private readonly bool displayBorder;
-        private readonly DataGridLayout dataGridLayout = new();
-        private readonly List<IItemX> items = new();
-        private IItemX lastItem;
+        this.displayBorder = displayBorder;
+    }
 
-        public int MinWidth { get; set; }
+    public void Add(SeparatorX separator)
+    {
+        separator.Row1 = lastItem as RowX;
+        items.Add(separator);
+        lastItem = separator;
+    }
 
-        public int ItemCount => items.Count;
+    public void Add(RowX rowX)
+    {
+        if (lastItem is SeparatorX lastSeparator)
+            lastSeparator.Row2 = rowX;
 
-        public DataGridX(bool displayBorder)
-        {
-            this.displayBorder = displayBorder;
-        }
-        
-        public void Add(SeparatorX separator)
-        {
-            separator.Row1 = lastItem as RowX;
-            items.Add(separator);
-            lastItem = separator;
-        }
+        items.Add(rowX);
+        dataGridLayout.AddRow(rowX);
+        lastItem = rowX;
+    }
 
-        public void Add(RowX rowX)
-        {
-            if (lastItem is SeparatorX lastSeparator) 
-                lastSeparator.Row2 = rowX;
+    public void Finish()
+    {
+        dataGridLayout.BorderVisibility = displayBorder;
+        dataGridLayout.MinWidth = MinWidth;
+        dataGridLayout.MaxWidth = int.MaxValue;
+        dataGridLayout.FinalizeLayout();
+    }
 
-            items.Add(rowX);
-            dataGridLayout.AddRow(rowX);
-            lastItem = rowX;
-        }
-
-        public void Finish()
-        {
-            dataGridLayout.BorderVisibility = displayBorder;
-            dataGridLayout.MinWidth = MinWidth;
-            dataGridLayout.MaxWidth = int.MaxValue;
-            dataGridLayout.FinalizeLayout();
-        }
-
-        public void Render(ITablePrinter tablePrinter)
-        {
-            foreach (IItemX item in items)
-                item.Render(tablePrinter, dataGridLayout.Columns);
-        }
+    public void Render(ITablePrinter tablePrinter)
+    {
+        foreach (IItemX item in items)
+            item.Render(tablePrinter, dataGridLayout.Columns);
     }
 }

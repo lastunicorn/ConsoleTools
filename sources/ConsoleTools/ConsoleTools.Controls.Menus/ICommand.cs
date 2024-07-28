@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
+
+/// <summary>
+/// Represents a command that can be executed.
+/// </summary>
+public interface ICommand
 {
     /// <summary>
-    /// Represents a command that can be executed.
+    /// Gets a value that specifies if the current instance can be executed.
     /// </summary>
-    public interface ICommand
-    {
-        /// <summary>
-        /// Gets a value that specifies if the current instance can be executed.
-        /// </summary>
-        bool IsActive { get; }
+    bool IsActive { get; }
 
-        /// <summary>
-        /// Executes the current instance.
-        /// </summary>
-        void Execute();
-    }
+    /// <summary>
+    /// Executes the current instance.
+    /// </summary>
+    void Execute();
 }

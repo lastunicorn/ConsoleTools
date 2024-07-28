@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
+namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
+
+/// <summary>
+/// A template for the <see cref="Spinner"/> that "splits" the space of one character
+/// into two vertical halves that blink alternatively.
+/// It has 2 frames.
+/// </summary>
+public class HalfBlinkSpinnerTemplate : SequenceSpinnerTemplate
 {
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that "splits" the space of one character
-    /// into two vertical halves that blink alternatively.
-    /// It has 2 frames.
+    /// Initializes a new instance of the <see cref="HalfBlinkSpinnerTemplate"/> class.
     /// </summary>
-    public class HalfBlinkSpinnerTemplate : SequenceSpinnerTemplate
+    public HalfBlinkSpinnerTemplate()
+        : base(new[] { "▄", "▀" })
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HalfBlinkSpinnerTemplate"/> class.
-        /// </summary>
-        public HalfBlinkSpinnerTemplate()
-            : base(new[] { "▄", "▀" })
-        {
-        }
     }
 }

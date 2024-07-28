@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,29 +17,28 @@
 using System;
 using System.IO;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests;
+
+internal class ConsoleOutput : IDisposable
 {
-    internal class ConsoleOutput : IDisposable
+    private readonly StringWriter stringWriter;
+    private readonly TextWriter originalOutput;
+
+    public ConsoleOutput()
     {
-        private readonly StringWriter stringWriter;
-        private readonly TextWriter originalOutput;
+        stringWriter = new StringWriter();
+        originalOutput = Console.Out;
+        Console.SetOut(stringWriter);
+    }
 
-        public ConsoleOutput()
-        {
-            stringWriter = new StringWriter();
-            originalOutput = Console.Out;
-            Console.SetOut(stringWriter);
-        }
+    public string GetOutput()
+    {
+        return stringWriter.ToString();
+    }
 
-        public string GetOutput()
-        {
-            return stringWriter.ToString();
-        }
-
-        public void Dispose()
-        {
-            Console.SetOut(originalOutput);
-            stringWriter.Dispose();
-        }
+    public void Dispose()
+    {
+        Console.SetOut(originalOutput);
+        stringWriter.Dispose();
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2020 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,25 +16,24 @@
 
 using System.Threading;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer
-{
-    /// <summary>
-    /// This is a business class that is asynchronously processing some data.
-    /// Well... we just emulate the data processing, but you get the point.
-    /// The class also provides a ProgressChanged event to announce its progress in percentages from 0 to 100
-    /// and a State property to announce when the process starts and finishes.
-    /// </summary>
-    internal class DataProcessingJob : JobBase
-    {
-        protected override void DoRun()
-        {
-            AnnounceProgress(0);
+namespace DustInTheWind.ConsoleTools.Demo.NetCore.ProgressBarDemo.BusinessLayer;
 
-            for (int i = 0; i <= 100; i++)
-            {
-                Thread.Sleep(50);
-                AnnounceProgress(i);
-            }
+/// <summary>
+/// This is a business class that is asynchronously processing some data.
+/// Well... we just emulate the data processing, but you get the point.
+/// The class also provides a ProgressChanged event to announce its progress in percentages from 0 to 100
+/// and a State property to announce when the process starts and finishes.
+/// </summary>
+internal class DataProcessingJob : JobBase
+{
+    protected override void DoRun()
+    {
+        AnnounceProgress(0);
+
+        for (int i = 0; i <= 100; i++)
+        {
+            Thread.Sleep(50);
+            AnnounceProgress(i);
         }
     }
 }

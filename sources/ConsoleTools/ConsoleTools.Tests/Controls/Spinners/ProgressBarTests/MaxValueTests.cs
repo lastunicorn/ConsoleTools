@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,37 +18,36 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Spinners.ProgressBarTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Spinners.ProgressBarTests;
+
+[TestFixture]
+public class MaxValueTests
 {
-    [TestFixture]
-    public class MaxValueTests
+    [Test]
+    public void MinValue_is_10_set_MaxValue_to_12_succeeds()
     {
-        [Test]
-        public void MinValue_is_10_set_MaxValue_to_12_succeeds()
-        {
-            ProgressBar progressBar = new ProgressBar { MinValue = 10 };
+        ProgressBar progressBar = new() { MinValue = 10 };
 
-            progressBar.MaxValue = 12;
+        progressBar.MaxValue = 12;
 
-            Assert.That(progressBar.MaxValue, Is.EqualTo(12));
-        }
+        Assert.That(progressBar.MaxValue, Is.EqualTo(12));
+    }
 
-        [Test]
-        public void MinValue_is_10_set_MaxValue_to_10_succeeds()
-        {
-            ProgressBar progressBar = new ProgressBar { MinValue = 10 };
+    [Test]
+    public void MinValue_is_10_set_MaxValue_to_10_succeeds()
+    {
+        ProgressBar progressBar = new() { MinValue = 10 };
 
-            progressBar.MaxValue = 10;
+        progressBar.MaxValue = 10;
 
-            Assert.That(progressBar.MaxValue, Is.EqualTo(10));
-        }
+        Assert.That(progressBar.MaxValue, Is.EqualTo(10));
+    }
 
-        [Test]
-        public void MinValue_is_10_set_MaxValue_to_8_throws()
-        {
-            ProgressBar progressBar = new ProgressBar { MinValue = 10 };
+    [Test]
+    public void MinValue_is_10_set_MaxValue_to_8_throws()
+    {
+        ProgressBar progressBar = new() { MinValue = 10 };
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => { progressBar.MaxValue = 8; });
-        }
+        Assert.Throws<ArgumentOutOfRangeException>(() => { progressBar.MaxValue = 8; });
     }
 }

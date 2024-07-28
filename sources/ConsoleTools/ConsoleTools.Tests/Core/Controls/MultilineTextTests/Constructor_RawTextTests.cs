@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,18 +17,17 @@
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests
-{
-    [TestFixture]
-    public class Constructor_RawTextTests
-    {
-        [Test]
-        public void RawText_is_same_as_the_original_text()
-        {
-            const string text = "Some text\r123\nabcd\r\nSome other text";
-            MultilineText multilineText = new MultilineText(text);
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
-            Assert.That(multilineText.RawText, Is.EqualTo(text));
-        }
+[TestFixture]
+public class Constructor_RawTextTests
+{
+    [Test]
+    public void RawText_is_same_as_the_original_text()
+    {
+        const string text = "Some text\r123\nabcd\r\nSome other text";
+        MultilineText multilineText = new(text);
+
+        Assert.That(multilineText.RawText, Is.EqualTo(text));
     }
 }

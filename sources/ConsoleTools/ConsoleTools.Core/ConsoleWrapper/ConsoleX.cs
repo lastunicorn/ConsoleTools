@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,16 +22,15 @@
 using System;
 using DustInTheWind.ConsoleTools.Themes;
 
-namespace DustInTheWind.ConsoleTools.ConsoleWrapper
-{
-    internal class ConsoleX
-    {
-        private IColorTheme colorTheme = new DefaultColorTheme();
+namespace DustInTheWind.ConsoleTools.ConsoleWrapper;
 
-        public IColorTheme ColorTheme
-        {
-            get => colorTheme;
-            set => colorTheme = value ?? throw new ArgumentNullException(nameof(ColorTheme));
-        }
+internal class ConsoleX
+{
+    private IColorTheme colorTheme = new DefaultColorTheme();
+
+    public IColorTheme ColorTheme
+    {
+        get => colorTheme;
+        set => colorTheme = value ?? throw new ArgumentNullException(nameof(ColorTheme));
     }
 }

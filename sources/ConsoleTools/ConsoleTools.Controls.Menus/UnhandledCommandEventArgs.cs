@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,24 +22,23 @@
 using System;
 using DustInTheWind.ConsoleTools.CommandLine;
 
-namespace DustInTheWind.ConsoleTools.Controls.Menus
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
+
+/// <summary>
+/// Provides data for UnhandledCommand event.
+/// </summary>
+public class UnhandledCommandEventArgs : EventArgs
 {
     /// <summary>
-    /// Provides data for UnhandledCommand event.
+    /// Gets the unhandled <see cref="CliCommand"/> instance.
     /// </summary>
-    public class UnhandledCommandEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Gets the unhandled <see cref="CliCommand"/> instance.
-        /// </summary>
-        public CliCommand Command { get; }
+    public CliCommand Command { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnhandledCommandEventArgs"/> class.
-        /// </summary>
-        public UnhandledCommandEventArgs(CliCommand command)
-        {
-            Command = command;
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UnhandledCommandEventArgs"/> class.
+    /// </summary>
+    public UnhandledCommandEventArgs(CliCommand command)
+    {
+        Command = command;
     }
 }

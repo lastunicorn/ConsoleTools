@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,55 +21,54 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Mvc
+namespace DustInTheWind.ConsoleTools.Mvc;
+
+public class Arguments
 {
-    public class Arguments
+    public string Command { get; }
+
+    public List<Argument> Values { get; } = new();
+
+    public int Count => Values.Count;
+
+    public string this[int index] => Values[index]?.Value ?? Values[index]?.Name;
+
+    public Arguments(IReadOnlyList<string> args)
     {
-        public string Command { get; }
+        if (args == null || args.Count == 0)
+            return;
 
-        public List<Argument> Values { get; } = new List<Argument>();
+        Command = args[0];
 
-        public int Count => Values.Count;
+        string previousName = null;
 
-        public string this[int index] => Values[index]?.Value ?? Values[index]?.Name;
-
-        public Arguments(IReadOnlyList<string> args)
+        for (int i = 1; i < args.Count; i++)
         {
-            if (args == null || args.Count == 0)
-                return;
+            string arg = args[i];
 
-            Command = args[0];
+            if (arg == null)
+                continue;
 
-            string previousName = null;
+            bool isNewArgument = arg.StartsWith("-");
 
-            for (int i = 1; i < args.Count; i++)
+            if (isNewArgument)
             {
-                string arg = args[i];
+                if (previousName != null)
+                    Values.Add(new Argument(previousName, null));
 
-                if (arg == null)
-                    continue;
-
-                bool isNewArgument = arg.StartsWith("-");
-
-                if (isNewArgument)
+                previousName = arg.TrimStart('-');
+            }
+            else
+            {
+                if (previousName != null)
                 {
-                    if (previousName != null)
-                        Values.Add(new Argument(previousName, null));
+                    Values.Add(new Argument(previousName, arg));
 
-                    previousName = arg.TrimStart('-');
+                    previousName = null;
                 }
                 else
                 {
-                    if (previousName != null)
-                    {
-                        Values.Add(new Argument(previousName, arg));
-
-                        previousName = null;
-                    }
-                    else
-                    {
-                        Values.Add(new Argument(arg, null));
-                    }
+                    Values.Add(new Argument(arg, null));
                 }
             }
         }

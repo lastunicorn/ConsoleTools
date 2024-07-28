@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,58 +18,57 @@ using System;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class AddNormalRowTests
 {
-    [TestFixture]
-    public class AddNormalRowTests
+    private DataGrid dataGrid;
+    private ContentRowList contentRowList;
+
+    [SetUp]
+    public void SetUp()
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        dataGrid = new DataGrid();
+        contentRowList = new ContentRowList(dataGrid);
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenRowCountIs1()
+    {
+        ContentRow contentRow = new();
+
+        contentRowList.Add(contentRow);
+
+        Assert.That(contentRowList.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenListContainsTheNormalRow()
+    {
+        ContentRow contentRow = new();
+
+        contentRowList.Add(contentRow);
+
+        Assert.That(contentRowList[0], Is.SameAs(contentRow));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenDataGridIsSetToNormalRow()
+    {
+        ContentRow contentRow = new();
+
+        contentRowList.Add(contentRow);
+
+        Assert.That(contentRow.ParentDataGrid, Is.SameAs(dataGrid));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenNullNormalRowIsAdded_ThenThrows()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
         {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenRowCountIs1()
-        {
-            ContentRow contentRow = new ContentRow();
-
-            contentRowList.Add(contentRow);
-
-            Assert.That(contentRowList.Count, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenListContainsTheNormalRow()
-        {
-            ContentRow contentRow = new ContentRow();
-
-            contentRowList.Add(contentRow);
-
-            Assert.That(contentRowList[0], Is.SameAs(contentRow));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenOneNormalRowIsAdded_ThenDataGridIsSetToNormalRow()
-        {
-            ContentRow contentRow = new ContentRow();
-
-            contentRowList.Add(contentRow);
-
-            Assert.That(contentRow.ParentDataGrid, Is.SameAs(dataGrid));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenNullNormalRowIsAdded_ThenThrows()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                contentRowList.Add((ContentRow)null);
-            });
-        }
+            contentRowList.Add((ContentRow)null);
+        });
     }
 }

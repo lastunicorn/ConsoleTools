@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,75 +24,74 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests.BuildFromDataTableTests;
+
+[TestFixture]
+public class ColumnTests
 {
-    [TestFixture]
-    public class ColumnTests
+    [Test]
+    public void one_column_exists_if_DataTable_has_one_column()
     {
-        [Test]
-        public void one_column_exists_if_DataTable_has_one_column()
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
+
+        Assert.That(actual.Columns.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_not_set()
+    {
+        DataTable dataTable = new();
+        dataTable.Columns.Add("col1");
+
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
+
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
+    }
+
+    [Test]
+    public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_null()
+    {
+        DataTable dataTable = new();
+        DataColumn dataColumn = new("col1")
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
+            Caption = null
+        };
+        dataTable.Columns.Add(dataColumn);
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Columns.Count, Is.EqualTo(1));
-        }
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
+    }
 
-        [Test]
-        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_not_set()
+    [Test]
+    public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_string_empty()
+    {
+        DataTable dataTable = new();
+        DataColumn dataColumn = new("col1")
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("col1");
+            Caption = string.Empty
+        };
+        dataTable.Columns.Add(dataColumn);
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
-        }
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
+    }
 
-        [Test]
-        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_null()
+    [Test]
+    public void column_header_content_is_equal_to_DataTable_column_caption_if_it_is_set()
+    {
+        DataTable dataTable = new();
+        dataTable.Columns.Add(new DataColumn
         {
-            DataTable dataTable = new DataTable();
-            DataColumn dataColumn = new DataColumn("col1")
-            {
-                Caption = null
-            };
-            dataTable.Columns.Add(dataColumn);
+            Caption = "Column 1"
+        });
 
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
+        DataGrid actual = DataGrid.BuildFrom(dataTable);
 
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
-        }
-
-        [Test]
-        public void column_header_content_is_equal_to_DataTable_column_name_if_caption_is_set_to_string_empty()
-        {
-            DataTable dataTable = new DataTable();
-            DataColumn dataColumn = new DataColumn("col1")
-            {
-                Caption = string.Empty
-            };
-            dataTable.Columns.Add(dataColumn);
-
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
-
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("col1")));
-        }
-
-        [Test]
-        public void column_header_content_is_equal_to_DataTable_column_caption_if_it_is_set()
-        {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add(new DataColumn
-            {
-                Caption = "Column 1"
-            });
-
-            DataGrid actual = DataGrid.BuildFrom(dataTable);
-
-            Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Column 1")));
-        }
+        Assert.That(actual.Columns[0].HeaderCell.Content, Is.EqualTo(new MultilineText("Column 1")));
     }
 }

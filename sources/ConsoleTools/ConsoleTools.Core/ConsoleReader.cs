@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,61 +22,60 @@
 using System;
 using System.Threading;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+/// <summary>
+/// Thanks to JSQuareD
+/// https://stackoverflow.com/questions/57615/how-to-add-a-timeout-to-console-readline/57655#57655
+/// </summary>
+public class ConsoleReader
 {
-    /// <summary>
-    /// Thanks to JSQuareD
-    /// https://stackoverflow.com/questions/57615/how-to-add-a-timeout-to-console-readline/57655#57655
-    /// </summary>
-    public class ConsoleReader
+    private static readonly Thread inputThread;
+    private static readonly AutoResetEvent getInput;
+    private static readonly AutoResetEvent gotInput;
+    private static string input;
+
+    static ConsoleReader()
     {
-        private static readonly Thread inputThread;
-        private static readonly AutoResetEvent getInput;
-        private static readonly AutoResetEvent gotInput;
-        private static string input;
+        getInput = new AutoResetEvent(false);
+        gotInput = new AutoResetEvent(false);
 
-        static ConsoleReader()
+        inputThread = new Thread(reader)
         {
-            getInput = new AutoResetEvent(false);
-            gotInput = new AutoResetEvent(false);
+            IsBackground = true
+        };
+        inputThread.Start();
+    }
 
-            inputThread = new Thread(reader)
-            {
-                IsBackground = true
-            };
-            inputThread.Start();
-        }
-
-        private static void reader()
+    private static void reader()
+    {
+        while (true)
         {
-            while (true)
-            {
-                getInput.WaitOne();
-                input = Console.ReadLine();
-                gotInput.Set();
-            }
+            getInput.WaitOne();
+            input = Console.ReadLine();
+            gotInput.Set();
         }
+    }
 
-        public static string ReadLine(int timeOutMilliseconds = Timeout.Infinite)
-        {
-            getInput.Set();
+    public static string ReadLine(int timeOutMilliseconds = Timeout.Infinite)
+    {
+        getInput.Set();
 
-            bool success = gotInput.WaitOne(timeOutMilliseconds);
+        bool success = gotInput.WaitOne(timeOutMilliseconds);
 
-            if (!success)
-                throw new TimeoutException("User did not provide input within the time limit.");
+        if (!success)
+            throw new TimeoutException("User did not provide input within the time limit.");
 
-            return input;
-        }
+        return input;
+    }
 
-        public static bool TryReadLine(out string line, int timeOutMilliseconds = Timeout.Infinite)
-        {
-            getInput.Set();
-            bool success = gotInput.WaitOne(timeOutMilliseconds);
+    public static bool TryReadLine(out string line, int timeOutMilliseconds = Timeout.Infinite)
+    {
+        getInput.Set();
+        bool success = gotInput.WaitOne(timeOutMilliseconds);
 
-            line = success ? input : null;
+        line = success ? input : null;
 
-            return success;
-        }
+        return success;
     }
 }

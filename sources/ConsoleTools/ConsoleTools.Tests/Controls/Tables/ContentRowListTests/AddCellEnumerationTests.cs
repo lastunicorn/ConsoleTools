@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,58 +19,57 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.ContentRowListTests;
+
+[TestFixture]
+public class AddCellEnumerationTests
 {
-    [TestFixture]
-    public class AddCellEnumerationTests
+    private DataGrid dataGrid;
+    private ContentRowList contentRowList;
+
+    [SetUp]
+    public void SetUp()
     {
-        private DataGrid dataGrid;
-        private ContentRowList contentRowList;
+        dataGrid = new DataGrid();
+        contentRowList = new ContentRowList(dataGrid);
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
+    {
+        IEnumerable<ContentCell> cells = new List<ContentCell>
         {
-            dataGrid = new DataGrid();
-            contentRowList = new ContentRowList(dataGrid);
-        }
+            new(),
+            new(),
+            new()
+        };
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowCountIs1()
+        contentRowList.Add(cells);
+
+        Assert.That(contentRowList.Count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
+    {
+        IEnumerable<ContentCell> cells = new List<ContentCell>
         {
-            IEnumerable<ContentCell> cells = new List<ContentCell>
-            {
-                new ContentCell(),
-                new ContentCell(),
-                new ContentCell()
-            };
+            new(),
+            new(),
+            new()
+        };
 
-            contentRowList.Add(cells);
+        contentRowList.Add(cells);
 
-            Assert.That(contentRowList.Count, Is.EqualTo(1));
-        }
+        Assert.That(contentRowList[0], Is.EqualTo(cells));
+    }
 
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenThreeCellsAreAdded_ThenRowContainsTheThreeCells()
+    [Test]
+    public void HavingAnEmptyNormalRowList_WhenNullDataCellEnumerationIsAdded_ThenThrows()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
         {
-            IEnumerable<ContentCell> cells = new List<ContentCell>
-            {
-                new ContentCell(),
-                new ContentCell(),
-                new ContentCell()
-            };
-
-            contentRowList.Add(cells);
-
-            Assert.That(contentRowList[0], Is.EqualTo(cells));
-        }
-
-        [Test]
-        public void HavingAnEmptyNormalRowList_WhenNullDataCellEnumerationIsAdded_ThenThrows()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                contentRowList.Add((List<ContentCell>)null);
-            });
-        }
+            contentRowList.Add((List<ContentCell>)null);
+        });
     }
 }

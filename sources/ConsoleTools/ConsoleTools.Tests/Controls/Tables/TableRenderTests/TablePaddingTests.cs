@@ -42,7 +42,7 @@ public class TablePaddingTests : TestsBase
 
         dataGrid.CellPaddingLeft.Should().Be(2);
         dataGrid.CellPaddingRight.Should().BeNull();
-        
+
         string expected = GetResourceFileContent("01-padding-left.txt");
         dataGrid.IsEqualTo(expected);
     }

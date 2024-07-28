@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,68 +22,67 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+public static partial class CustomConsole
 {
-    public static partial class CustomConsole
+    /// <summary>
+    /// Writes the specified text to the Console.
+    /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
+    /// </summary>
+    /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="text">The text to be written to the Console.</param>
+    public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
     {
-        /// <summary>
-        /// Writes the specified text to the Console.
-        /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
-        /// </summary>
-        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the Console.</param>
-        public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
-        {
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            Write(foregroundColor, backgroundColor, text);
-        }
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        Write(foregroundColor, backgroundColor, text);
+    }
 
-        public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
-        {
-            string text = string.Format(format, arg);
+    public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+    {
+        string text = string.Format(format, arg);
 
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            Write(foregroundColor, backgroundColor, text);
-        }
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        Write(foregroundColor, backgroundColor, text);
+    }
 
-        public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
-        {
-            string text = o?.ToString() ?? string.Empty;
+    public static void Write(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+    {
+        string text = o?.ToString() ?? string.Empty;
 
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            Write(foregroundColor, backgroundColor, text);
-        }
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        Write(foregroundColor, backgroundColor, text);
+    }
 
-        /// <summary>
-        /// Writes the specified text to the Console, followed by the current line terminator.
-        /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
-        /// </summary>
-        /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
-        /// <param name="foregroundColor">The foreground color used to write the text.</param>
-        /// <param name="backgroundColor">The background color used to write the text.</param>
-        /// <param name="text">The text to be written to the Console.</param>
-        public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
-        {
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLine(foregroundColor, backgroundColor, text);
-        }
+    /// <summary>
+    /// Writes the specified text to the Console, followed by the current line terminator.
+    /// Additional parameters can be specified for the foreground color, background color and the horizontal alignment in the Console's buffer.
+    /// </summary>
+    /// <param name="horizontalAlignment">The horizontal alignment in the Console's buffer.</param>
+    /// <param name="foregroundColor">The foreground color used to write the text.</param>
+    /// <param name="backgroundColor">The background color used to write the text.</param>
+    /// <param name="text">The text to be written to the Console.</param>
+    public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string text)
+    {
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        WriteLine(foregroundColor, backgroundColor, text);
+    }
 
-        public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
-        {
-            string text = string.Format(format, arg);
+    public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, string format, params object[] arg)
+    {
+        string text = string.Format(format, arg);
 
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLine(foregroundColor, backgroundColor, text);
-        }
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        WriteLine(foregroundColor, backgroundColor, text);
+    }
 
-        public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
-        {
-            string text = o?.ToString() ?? string.Empty;
+    public static void WriteLine(HorizontalAlignment horizontalAlignment, ConsoleColor foregroundColor, ConsoleColor backgroundColor, object o)
+    {
+        string text = o?.ToString() ?? string.Empty;
 
-            Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
-            WriteLine(foregroundColor, backgroundColor, text);
-        }
+        Console.CursorLeft = CalculateStartPosition(text, horizontalAlignment);
+        WriteLine(foregroundColor, backgroundColor, text);
     }
 }

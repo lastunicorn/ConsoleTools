@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,23 +21,22 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Mvc
+namespace DustInTheWind.ConsoleTools.Mvc;
+
+public class Argument
 {
-    public class Argument
+    public string Name { get; }
+
+    public string Value { get; }
+
+    public Argument(string name)
+        : this(name, null)
     {
-        public string Name { get; }
+    }
 
-        public string Value { get; }
-
-        public Argument(string name)
-            : this(name, null)
-        {
-        }
-
-        public Argument(string name, string value)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Value = value;
-        }
+    public Argument(string name, string value)
+    {
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Value = value;
     }
 }

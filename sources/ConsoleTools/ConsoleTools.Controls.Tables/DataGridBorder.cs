@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,65 +21,64 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// Describes how the border of a <see cref="DataGrid"/> should be displayed.
+/// </summary>
+public class DataGridBorder
 {
     /// <summary>
-    /// Describes how the border of a <see cref="DataGrid"/> should be displayed.
+    /// Gets or sets the <see cref="DataGrid"/> for which the current instance should apply.
     /// </summary>
-    public class DataGridBorder
+    public DataGrid ParentDataGrid { get; internal set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if the border is displayed or not.
+    /// Default value: <c>true</c>
+    /// </summary>
+    public bool IsVisible { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the template to be used.
+    /// </summary>
+    public BorderTemplate Template { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
+
+    /// <summary>
+    /// Gets or sets the foreground color for the border.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color for the border.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets a value that specifies if border lines should be drawn between rows.
+    /// Default value: false
+    /// </summary>
+    public bool DisplayBorderBetweenRows { get; set; }
+
+    /// <summary>
+    /// Decides what is the foreground color.
+    /// If the foreground color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
+    /// </summary>
+    public ConsoleColor? CalculateForegroundColor()
     {
-        /// <summary>
-        /// Gets or sets the <see cref="DataGrid"/> for which the current instance should apply.
-        /// </summary>
-        public DataGrid ParentDataGrid { get; internal set; }
+        return ForegroundColor ??
+               ParentDataGrid?.ForegroundColor;
+    }
 
-        /// <summary>
-        /// Gets or sets a value that specifies if the border is displayed or not.
-        /// Default value: <c>true</c>
-        /// </summary>
-        public bool IsVisible { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the template to be used.
-        /// </summary>
-        public BorderTemplate Template { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
-
-        /// <summary>
-        /// Gets or sets the foreground color for the border.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? ForegroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color for the border.
-        /// Default value: <c>null</c>
-        /// </summary>
-        public ConsoleColor? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets a value that specifies if border lines should be drawn between rows.
-        /// Default value: false
-        /// </summary>
-        public bool DisplayBorderBetweenRows { get; set; }
-
-        /// <summary>
-        /// Decides what is the foreground color.
-        /// If the foreground color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
-        /// </summary>
-        public ConsoleColor? CalculateForegroundColor()
-        {
-            return ForegroundColor ??
-                   ParentDataGrid?.ForegroundColor;
-        }
-
-        /// <summary>
-        /// Decides what is the background color.
-        /// If the background color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
-        /// </summary>
-        public ConsoleColor? CalculateBackgroundColor()
-        {
-            return BackgroundColor ??
-                   ParentDataGrid?.BackgroundColor;
-        }
+    /// <summary>
+    /// Decides what is the background color.
+    /// If the background color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
+    /// </summary>
+    public ConsoleColor? CalculateBackgroundColor()
+    {
+        return BackgroundColor ??
+               ParentDataGrid?.BackgroundColor;
     }
 }

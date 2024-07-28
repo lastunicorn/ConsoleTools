@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,46 +23,45 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+/// <summary>
+/// Provides information about the current application like product name, version, etc.
+/// </summary>
+public class ApplicationInformation
 {
+    private readonly Assembly assembly;
+
     /// <summary>
-    /// Provides information about the current application like product name, version, etc.
+    /// Initializes a new instance of the <see cref="ApplicationInformation"/> class.
     /// </summary>
-    public class ApplicationInformation
+    public ApplicationInformation()
     {
-        private readonly Assembly assembly;
+        assembly = Assembly.GetEntryAssembly();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationInformation"/> class.
-        /// </summary>
-        public ApplicationInformation()
-        {
-            assembly = Assembly.GetEntryAssembly();
-        }
+    /// <summary>
+    /// Returns the version of the current application.
+    /// It is retrieved from the entry assembly.
+    /// </summary>
+    /// <returns>A <see cref="Version"/> instance containing version information for the current application.</returns>
+    public Version GetVersion()
+    {
+        AssemblyName assemblyName = assembly.GetName();
+        return assemblyName.Version;
+    }
 
-        /// <summary>
-        /// Returns the version of the current application.
-        /// It is retrieved from the entry assembly.
-        /// </summary>
-        /// <returns>A <see cref="Version"/> instance containing version information for the current application.</returns>
-        public Version GetVersion()
-        {
-            AssemblyName assemblyName = assembly.GetName();
-            return assemblyName.Version;
-        }
+    /// <summary>
+    /// Returns the name of the application.
+    /// It is retrieved from the entry assembly.
+    /// </summary>
+    /// <returns>The name of the current application.</returns>
+    public string GetProductName()
+    {
+        AssemblyProductAttribute assemblyProductAttribute = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute))
+            .Cast<AssemblyProductAttribute>()
+            .FirstOrDefault();
 
-        /// <summary>
-        /// Returns the name of the application.
-        /// It is retrieved from the entry assembly.
-        /// </summary>
-        /// <returns>The name of the current application.</returns>
-        public string GetProductName()
-        {
-            AssemblyProductAttribute assemblyProductAttribute = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute))
-                .Cast<AssemblyProductAttribute>()
-                .FirstOrDefault();
-
-            return assemblyProductAttribute?.Product;
-        }
+        return assemblyProductAttribute?.Product;
     }
 }

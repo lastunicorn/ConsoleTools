@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,37 +24,36 @@ using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Mvc.UserControls;
 
-namespace DustInTheWind.ConsoleTools.Mvc.UseCases
+namespace DustInTheWind.ConsoleTools.Mvc.UseCases;
+
+public class HelpUseCase : IUseCase
 {
-    public class HelpUseCase : IUseCase
+    private readonly UseCaseCollection useCaseCollection;
+
+    public string Description => "Displays information about the available commands.";
+
+    public HelpUseCase(UseCaseCollection useCaseCollection)
     {
-        private readonly UseCaseCollection useCaseCollection;
+        this.useCaseCollection = useCaseCollection ?? throw new ArgumentNullException(nameof(useCaseCollection));
+    }
 
-        public string Description => "Displays information about the available commands.";
+    public void Execute(Arguments arguments)
+    {
+        IEnumerable<IGrouping<IUseCase, UseCaseCollectionItem>> commandsGrouped = useCaseCollection.GroupBy(x => x.UseCase);
 
-        public HelpUseCase(UseCaseCollection useCaseCollection)
+        UsageControl usageControl = new()
         {
-            this.useCaseCollection = useCaseCollection ?? throw new ArgumentNullException(nameof(useCaseCollection));
-        }
+            CommandNames = commandsGrouped
+                .Select(GetCommandNames)
+                .ToList()
+        };
 
-        public void Execute(Arguments arguments)
-        {
-            IEnumerable<IGrouping<IUseCase, UseCaseCollectionItem>> commandsGrouped = useCaseCollection.GroupBy(x => x.UseCase);
+        usageControl.Display();
+    }
 
-            UsageControl usageControl = new UsageControl
-            {
-                CommandNames = commandsGrouped
-                    .Select(GetCommandNames)
-                    .ToList()
-            };
-
-            usageControl.Display();
-        }
-
-        private static string GetCommandNames(IEnumerable<UseCaseCollectionItem> group)
-        {
-            IEnumerable<string> commandNames = group.Select(x => x.Key);
-            return string.Join(", ", commandNames);
-        }
+    private static string GetCommandNames(IEnumerable<UseCaseCollectionItem> group)
+    {
+        IEnumerable<string> commandNames = group.Select(x => x.Key);
+        return string.Join(", ", commandNames);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,28 +18,27 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace DustInTheWind.ConsoleTools.Tests
+namespace DustInTheWind.ConsoleTools.Tests;
+
+internal class ExpectedOutput
 {
-    internal class ExpectedOutput
+    private readonly string basePath;
+    private readonly Type testClassType;
+
+    public ExpectedOutput(Type testClassType, string basePath)
     {
-        private readonly string basePath;
-        private readonly Type testClassType;
+        this.testClassType = testClassType ?? throw new ArgumentNullException(nameof(testClassType));
+        this.basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
+    }
 
-        public ExpectedOutput(Type testClassType, string basePath)
-        {
-            this.testClassType = testClassType ?? throw new ArgumentNullException(nameof(testClassType));
-            this.basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
-        }
+    public string GeExpectedOut([CallerMemberName] string testName = "")
+    {
+        string directoryName = testClassType.Name + ".out";
+        string outFileName = testName + ".out";
+        string expectedFilePath = Path.Combine(basePath, directoryName, outFileName);
 
-        public string GeExpectedOut([CallerMemberName] string testName = "")
-        {
-            string directoryName = testClassType.Name + ".out";
-            string outFileName = testName + ".out";
-            string expectedFilePath = Path.Combine(basePath, directoryName, outFileName);
-
-            return File.Exists(expectedFilePath)
-                ? File.ReadAllText(expectedFilePath)
-                : null;
-        }
+        return File.Exists(expectedFilePath)
+            ? File.ReadAllText(expectedFilePath)
+            : null;
     }
 }

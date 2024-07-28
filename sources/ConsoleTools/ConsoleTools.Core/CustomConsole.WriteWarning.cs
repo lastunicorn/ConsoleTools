@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,184 +21,183 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools
+namespace DustInTheWind.ConsoleTools;
+
+public partial class CustomConsole
 {
-    public partial class CustomConsole
+    /// <summary>
+    /// Writes the specified string value to the Console
+    /// using the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="text">The value to write.</param>
+    public static void WriteWarning(string text)
     {
-        /// <summary>
-        /// Writes the specified string value to the Console
-        /// using the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="text">The value to write.</param>
-        public static void WriteWarning(string text)
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.Write(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified array of objects to the Console,
+    /// using the specified format information and the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="arg">An array of objects to write using format.</param>
+    public static void WriteWarning(string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.Write(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified object to the Console
+    /// using the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="o">The value to write.</param>
+    public static void WriteWarning(object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.Write(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the specified string value to the Console, followed by the current line terminator
+    /// using the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="text">The value to write.</param>
+    public static void WriteLineWarning(string text)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.WriteLine(text);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified array of objects to the Console,
+    /// using the specified format information, followed by the current line terminator,
+    /// using the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="arg">An array of objects to write using format.</param>
+    public static void WriteLineWarning(string format, params object[] arg)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.WriteLine(format, arg);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Writes the text representation of the specified object to the Console, followed by the current line terminator
+    /// using the "Warning" foreground and background colors.
+    /// </summary>
+    /// <param name="o">The value to write.</param>
+    public static void WriteLineWarning(object o)
+    {
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        Console.WriteLine(o);
+
+        Console.ForegroundColor = initialForegroundColor;
+        Console.BackgroundColor = initialBackgroundColor;
+    }
+
+    /// <summary>
+    /// Executes the specified action while the foreground and background colors
+    /// are changed to "Warning" colors.
+    /// </summary>
+    public static void WithWarningColors(Action action)
+    {
+        if (action == null) throw new ArgumentNullException(nameof(action));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        try
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.Write(text);
-
+            action();
+        }
+        finally
+        {
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
         }
+    }
 
-        /// <summary>
-        /// Writes the text representation of the specified array of objects to the Console,
-        /// using the specified format information and the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteWarning(string format, params object[] arg)
+    /// <summary>
+    /// Executes the specified function while the foreground and background colors
+    /// are changed to "Warning" colors.
+    /// </summary>
+    public static T WithWarningColors<T>(Func<T> func)
+    {
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        ConsoleColor initialForegroundColor = Console.ForegroundColor;
+        ConsoleColor initialBackgroundColor = Console.BackgroundColor;
+
+        Console.ForegroundColor = WarningColor;
+
+        if (WarningBackgroundColor.HasValue)
+            Console.BackgroundColor = WarningBackgroundColor.Value;
+
+        try
         {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.Write(format, arg);
-
+            return func();
+        }
+        finally
+        {
             Console.ForegroundColor = initialForegroundColor;
             Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified object to the Console
-        /// using the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="o">The value to write.</param>
-        public static void WriteWarning(object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.Write(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the specified string value to the Console, followed by the current line terminator
-        /// using the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="text">The value to write.</param>
-        public static void WriteLineWarning(string text)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.WriteLine(text);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified array of objects to the Console,
-        /// using the specified format information, followed by the current line terminator,
-        /// using the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="arg">An array of objects to write using format.</param>
-        public static void WriteLineWarning(string format, params object[] arg)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.WriteLine(format, arg);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Writes the text representation of the specified object to the Console, followed by the current line terminator
-        /// using the "Warning" foreground and background colors.
-        /// </summary>
-        /// <param name="o">The value to write.</param>
-        public static void WriteLineWarning(object o)
-        {
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            Console.WriteLine(o);
-
-            Console.ForegroundColor = initialForegroundColor;
-            Console.BackgroundColor = initialBackgroundColor;
-        }
-
-        /// <summary>
-        /// Executes the specified action while the foreground and background colors
-        /// are changed to "Warning" colors.
-        /// </summary>
-        public static void WithWarningColors(Action action)
-        {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            try
-            {
-                action();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
-        }
-
-        /// <summary>
-        /// Executes the specified function while the foreground and background colors
-        /// are changed to "Warning" colors.
-        /// </summary>
-        public static T WithWarningColors<T>(Func<T> func)
-        {
-            if (func == null) throw new ArgumentNullException(nameof(func));
-
-            ConsoleColor initialForegroundColor = Console.ForegroundColor;
-            ConsoleColor initialBackgroundColor = Console.BackgroundColor;
-
-            Console.ForegroundColor = WarningColor;
-
-            if (WarningBackgroundColor.HasValue)
-                Console.BackgroundColor = WarningBackgroundColor.Value;
-
-            try
-            {
-                return func();
-            }
-            finally
-            {
-                Console.ForegroundColor = initialForegroundColor;
-                Console.BackgroundColor = initialBackgroundColor;
-            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,46 +18,45 @@ using DustInTheWind.ConsoleTools.Controls;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests
+namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests;
+
+[TestFixture]
+public class ActualWidthTests_NoWidthConstraints
 {
-    [TestFixture]
-    public class ActualWidthTests_NoWidthConstraints
+    [Test]
+    public void HorizontalAlignment_is_null__call_ActualWidth__returns_AvailableWidth_without_Margins()
     {
-        [Test]
-        public void HorizontalAlignment_is_null__call_ActualWidth__returns_AvailableWidth_without_Margins()
+        Mock<BlockControl> control = new();
+        control.Object.Margin = 10;
+
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.Margin = 10;
+            Control = control.Object,
+            AvailableWidth = 100
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 100
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualWidth;
 
-            int actual = controlLayout.ActualWidth;
+        Assert.That(actual, Is.EqualTo(80));
+    }
 
-            Assert.That(actual, Is.EqualTo(80));
-        }
+    [Test]
+    public void HorizontalAlignment_is_Stretch__call_ActualWidth__returns_AvailableWidth_without_Margins()
+    {
+        Mock<BlockControl> control = new();
+        control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
+        control.Object.Margin = 10;
 
-        [Test]
-        public void HorizontalAlignment_is_Stretch__call_ActualWidth__returns_AvailableWidth_without_Margins()
+        ControlLayout controlLayout = new()
         {
-            Mock<BlockControl> control = new Mock<BlockControl>();
-            control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
-            control.Object.Margin = 10;
+            Control = control.Object,
+            AvailableWidth = 102
+        };
+        controlLayout.Calculate();
 
-            ControlLayout controlLayout = new ControlLayout
-            {
-                Control = control.Object,
-                AvailableWidth = 102
-            };
-            controlLayout.Calculate();
+        int actual = controlLayout.ActualWidth;
 
-            int actual = controlLayout.ActualWidth;
-
-            Assert.That(actual, Is.EqualTo(82));
-        }
+        Assert.That(actual, Is.EqualTo(82));
     }
 }

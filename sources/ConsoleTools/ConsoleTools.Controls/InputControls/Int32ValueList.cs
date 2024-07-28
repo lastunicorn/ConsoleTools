@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,28 +19,27 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-namespace DustInTheWind.ConsoleTools.Controls.InputControls
+namespace DustInTheWind.ConsoleTools.Controls.InputControls;
+
+/// <summary>
+/// Reads or writes a list of <see cref="int"/> values from the console.
+/// </summary>
+public class Int32ValueList : ValueList<int>
 {
     /// <summary>
-    /// Reads or writes a list of <see cref="int"/> values from the console.
+    /// Initializes a new instance of the <see cref="Int32ValueList"/> class.
     /// </summary>
-    public class Int32ValueList : ValueList<int>
+    public Int32ValueList()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Int32ValueList"/> class.
-        /// </summary>
-        public Int32ValueList()
-        {
-        }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Int32ValueList"/> class with
-        /// the label to be displayed when the user is requested to provide the values.
-        /// </summary>
-        /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
-        public Int32ValueList(string label)
-            : base(label)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Int32ValueList"/> class with
+    /// the label to be displayed when the user is requested to provide the values.
+    /// </summary>
+    /// <param name="label">The label to be displayed when the user is requested to provide the values.</param>
+    public Int32ValueList(string label)
+        : base(label)
+    {
     }
 }

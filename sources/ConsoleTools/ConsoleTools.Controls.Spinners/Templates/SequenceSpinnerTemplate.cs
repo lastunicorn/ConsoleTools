@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,58 +21,57 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates
+namespace DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
+
+/// <summary>
+/// A template for the <see cref="Spinner"/> that is configured with a list of strings,
+/// representing the frames of the <see cref="Spinner"/>.
+/// Can be used as base class for other templates.
+/// </summary>
+public class SequenceSpinnerTemplate : ISpinnerTemplate
 {
+    private int counter;
+    private readonly string[] sequence;
+
     /// <summary>
-    /// A template for the <see cref="Spinner"/> that is configured with a list of strings,
-    /// representing the frames of the <see cref="Spinner"/>.
-    /// Can be used as base class for other templates.
+    /// Initializes a new instance of the <see cref="SequenceSpinnerTemplate"/> class with
+    /// the list of frames.
     /// </summary>
-    public class SequenceSpinnerTemplate : ISpinnerTemplate
+    /// <param name="sequence">The list of frames.</param>
+    public SequenceSpinnerTemplate(string[] sequence)
     {
-        private int counter;
-        private readonly string[] sequence;
+        this.sequence = sequence ?? throw new ArgumentNullException(nameof(sequence));
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceSpinnerTemplate"/> class with
-        /// the list of frames.
-        /// </summary>
-        /// <param name="sequence">The list of frames.</param>
-        public SequenceSpinnerTemplate(string[] sequence)
-        {
-            this.sequence = sequence ?? throw new ArgumentNullException(nameof(sequence));
-        }
+    /// <summary>
+    /// Resets the template. It will start from the first frame.
+    /// </summary>
+    public void Reset()
+    {
+        counter = -1;
+    }
 
-        /// <summary>
-        /// Resets the template. It will start from the first frame.
-        /// </summary>
-        public void Reset()
-        {
-            counter = -1;
-        }
+    /// <summary>
+    /// Moves to the next frame and returns it.
+    /// </summary>
+    public string GetNext()
+    {
+        counter++;
 
-        /// <summary>
-        /// Moves to the next frame and returns it.
-        /// </summary>
-        public string GetNext()
-        {
-            counter++;
+        if (counter >= sequence.Length)
+            counter = 0;
 
-            if (counter >= sequence.Length)
-                counter = 0;
+        return sequence[counter];
+    }
 
-            return sequence[counter];
-        }
+    /// <summary>
+    /// Returns the current frame.
+    /// </summary>
+    public string GetCurrent()
+    {
+        if (counter == -1)
+            counter = 0;
 
-        /// <summary>
-        /// Returns the current frame.
-        /// </summary>
-        public string GetCurrent()
-        {
-            if (counter == -1)
-                counter = 0;
-
-            return sequence[counter];
-        }
+        return sequence[counter];
     }
 }

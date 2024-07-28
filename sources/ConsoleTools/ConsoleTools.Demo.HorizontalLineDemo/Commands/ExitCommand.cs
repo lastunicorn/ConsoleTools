@@ -14,17 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
 {
     internal class ExitCommand : ICommand
     {
+        private readonly DemoPackage demoPackage;
+
+        public ExitCommand(DemoPackage demoPackage)
+        {
+            this.demoPackage = demoPackage ?? throw new ArgumentNullException(nameof(demoPackage));
+        }
+
         public bool IsActive => true;
 
         public void Execute()
         {
-            DemoPackage.RequestStop();
+            demoPackage.RequestStop();
         }
     }
 }

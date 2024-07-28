@@ -21,17 +21,17 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {
     public class DemoPackage : IDemoPackage
     {
-        private static ControlRepeater menuRepeater;
+        private ControlRepeater menuRepeater;
 
         public string Name => "HorizontalLine Demo";
-        
+
         public void ExecuteDemo()
         {
             DisplayApplicationHeader();
 
             menuRepeater = new ControlRepeater
             {
-                Control = new MainMenu()
+                Control = new MainMenu(this)
             };
 
             menuRepeater.Display();
@@ -39,14 +39,14 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader()
+            ApplicationHeader applicationHeader = new ApplicationHeader
             {
                 Appendix = "YesNoQuestion Demo"
             };
             applicationHeader.Display();
         }
 
-        public static void RequestStop()
+        public void RequestStop()
         {
             menuRepeater.RequestClose();
         }

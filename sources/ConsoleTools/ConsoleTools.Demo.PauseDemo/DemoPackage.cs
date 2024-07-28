@@ -31,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 
             menuRepeater = new ControlRepeater
             {
-                Control = new DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.MainMenu()
+                Control = new MainMenu()
             };
 
             menuRepeater.Display();

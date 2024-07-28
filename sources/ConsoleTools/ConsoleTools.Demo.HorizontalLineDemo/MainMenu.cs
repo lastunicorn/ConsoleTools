@@ -22,15 +22,15 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
 {
     internal class MainMenu : TextMenu
     {
-        public MainMenu()
+        public MainMenu(DemoPackage demoPackage)
         {
-            IEnumerable<TextMenuItem> menuItems = CreateMenuItems();
+            IEnumerable<TextMenuItem> menuItems = CreateMenuItems(demoPackage);
             AddItems(menuItems);
 
             Margin = "0 1";
         }
 
-        private IEnumerable<TextMenuItem> CreateMenuItems()
+        private static IEnumerable<TextMenuItem> CreateMenuItems(DemoPackage demoPackage)
         {
             yield return new TextMenuItem
             {
@@ -77,13 +77,6 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
             yield return new TextMenuItem
             {
                 Id = "7",
-                Text = "Custom Width",
-                Command = new CustomWidthCommand()
-            };
-
-            yield return new TextMenuItem
-            {
-                Id = "8",
                 Text = "Alignments",
                 Command = new AlignmentsCommand()
             };
@@ -92,7 +85,7 @@ namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
             {
                 Id = "0",
                 Text = "Exit",
-                Command = new ExitCommand()
+                Command = new ExitCommand(demoPackage)
             };
         }
     }

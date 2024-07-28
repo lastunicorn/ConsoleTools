@@ -35,12 +35,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -50,14 +44,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj">
-      <Project>{439C9C20-BE41-4AE1-83D0-13AF94114EDE}</Project>
-      <Name>ConsoleTools.Controls.Menus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj">
-      <Project>{94A81B0E-6565-4BA1-A6CD-D55E7847D5FB}</Project>
-      <Name>ConsoleTools.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj">
       <Project>{975D695D-1FD2-446F-BD7C-0F7839C1559D}</Project>
       <Name>ConsoleTools.Core</Name>

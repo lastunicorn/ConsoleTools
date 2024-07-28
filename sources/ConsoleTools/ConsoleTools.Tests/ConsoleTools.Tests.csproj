@@ -24,7 +24,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
         <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
     </PropertyGroup>

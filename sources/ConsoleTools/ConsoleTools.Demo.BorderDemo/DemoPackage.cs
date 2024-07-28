@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader()
+            ApplicationHeader applicationHeader = new ApplicationHeader
             {
                 Appendix = "Border Demo"
             };

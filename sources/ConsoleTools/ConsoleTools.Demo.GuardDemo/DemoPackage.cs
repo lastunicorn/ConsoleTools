@@ -36,7 +36,7 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
                 guardian = new MachineLevelGuardian();
 
                 CustomConsole.WriteLineSuccess($"A mutex with the name '{guardian.Name}' was created at machine level.");
-                CustomConsole.WriteLineSuccess($"The application was successfully started.");
+                CustomConsole.WriteLineSuccess("The application was successfully started.");
                 CustomConsole.WriteLine();
                 CustomConsole.WriteLine("But this application cannot be started twice.");
                 CustomConsole.WriteLine("Leave this instance running and try starting another one.");
@@ -54,7 +54,7 @@ namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
 
         private static void DisplayApplicationHeader()
         {
-            ApplicationHeader applicationHeader = new ApplicationHeader()
+            ApplicationHeader applicationHeader = new ApplicationHeader
             {
                 Appendix = "Guard Demo",
                 Description = "This demo shows the usage of the Guardian class."

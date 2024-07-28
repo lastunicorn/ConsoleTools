@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests", "Conso
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{2C2BFA30-8815-4269-AC92-DDE5589BD958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.InputControlsDemo", "ConsoleTools.Demo.InputControlsDemo\ConsoleTools.Demo.InputControlsDemo.csproj", "{61AA97AF-A87A-4EB2-AF78-CB4067C80704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.InputControlsDemo", "ConsoleTools.Demo.InputControlsDemo\ConsoleTools.Demo.InputControlsDemo.csproj", "{61AA97AF-A87A-4EB2-AF78-CB4067C80704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.ScrollMenuDemo", "ConsoleTools.Demo.ScrollMenuDemo\ConsoleTools.Demo.ScrollMenuDemo.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.ScrollMenuDemo", "ConsoleTools.Demo.ScrollMenuDemo\ConsoleTools.Demo.ScrollMenuDemo.csproj", "{25D924E6-D62A-4F33-9CE4-2E09BA2A4FC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.SimpleTextDemo", "ConsoleTools.Demo.WriteText\ConsoleTools.Demo.SimpleTextDemo.csproj", "{8DD165BA-78C3-48A0-BF61-9673458A260C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.SimpleTextDemo", "ConsoleTools.Demo.WriteText\ConsoleTools.Demo.SimpleTextDemo.csproj", "{8DD165BA-78C3-48A0-BF61-9673458A260C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Cli", "ConsoleTools.Mvc\ConsoleTools.Cli.csproj", "{34D944CA-0276-4412-8387-58414E2F5631}"
 EndProject
@@ -42,7 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.TextBlock
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetCore", "ConsoleTools.Demo.NetCore\ConsoleTools.Demo.NetCore.csproj", "{8710AB78-0F6B-40D4-9494-EE38CB6C5B0A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B2A64D01-93BD-4140-9744-12546BE61CE1} = {B2A64D01-93BD-4140-9744-12546BE61CE1}
 		{DCD5E402-9198-4AD5-8590-6F7F62794697} = {DCD5E402-9198-4AD5-8590-6F7F62794697}
+		{19F4732D-C007-4050-A754-8164A31C6F73} = {19F4732D-C007-4050-A754-8164A31C6F73}
 		{C1FF753C-41E2-4D68-A08C-687DC2365387} = {C1FF753C-41E2-4D68-A08C-687DC2365387}
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905} = {A76A253F-E01F-4E5B-80F0-DBBC8B257905}
 		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {1A139874-D3ED-48F0-8AAF-B6390BAF0A23}
@@ -65,12 +67,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.BorderDem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.NetFramework", "ConsoleTools.Demo.NetFramework\ConsoleTools.Demo.NetFramework.csproj", "{DF9B572F-6325-474B-8E54-010B65FEE22C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B2A64D01-93BD-4140-9744-12546BE61CE1} = {B2A64D01-93BD-4140-9744-12546BE61CE1}
 		{DCD5E402-9198-4AD5-8590-6F7F62794697} = {DCD5E402-9198-4AD5-8590-6F7F62794697}
+		{C1FF753C-41E2-4D68-A08C-687DC2365387} = {C1FF753C-41E2-4D68-A08C-687DC2365387}
 		{A76A253F-E01F-4E5B-80F0-DBBC8B257905} = {A76A253F-E01F-4E5B-80F0-DBBC8B257905}
 		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {1A139874-D3ED-48F0-8AAF-B6390BAF0A23}
 		{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC} = {64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}
 		{02A350A4-438C-4E8D-89D4-908825799EA5} = {02A350A4-438C-4E8D-89D4-908825799EA5}
 		{61AA97AF-A87A-4EB2-AF78-CB4067C80704} = {61AA97AF-A87A-4EB2-AF78-CB4067C80704}
+		{9A999DB7-1B31-4315-A597-3C75479BCD27} = {9A999DB7-1B31-4315-A597-3C75479BCD27}
 		{18E651B9-716A-42CB-AB83-58085F1B4B33} = {18E651B9-716A-42CB-AB83-58085F1B4B33}
 		{8DD165BA-78C3-48A0-BF61-9673458A260C} = {8DD165BA-78C3-48A0-BF61-9673458A260C}
 		{E3D293D2-FEF0-44CB-9CAF-D7981FFA9FE9} = {E3D293D2-FEF0-44CB-9CAF-D7981FFA9FE9}
@@ -86,13 +91,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.DataGridD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.TextMenuDemo", "ConsoleTools.Demo.TextMenuDemo\ConsoleTools.Demo.TextMenuDemo.csproj", "{DCD5E402-9198-4AD5-8590-6F7F62794697}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.GuardDemo", "ConsoleTools.Demo.GuardDemo\ConsoleTools.Demo.GuardDemo.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.GuardDemo", "ConsoleTools.Demo.GuardDemo\ConsoleTools.Demo.GuardDemo.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.ProgressBarDemo", "ConsoleTools.Demo.ProgressBarDemo\ConsoleTools.Demo.ProgressBarDemo.csproj", "{19F4732D-C007-4050-A754-8164A31C6F73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.PrompterDemo", "ConsoleTools.Demo.PrompterDemo\ConsoleTools.Demo.PrompterDemo.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.PrompterDemo", "ConsoleTools.Demo.PrompterDemo\ConsoleTools.Demo.PrompterDemo.csproj", "{A76A253F-E01F-4E5B-80F0-DBBC8B257905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.YesNoDemo", "ConsoleTools.Demo.YesNoDemo\ConsoleTools.Demo.YesNoDemo.csproj", "{E3D293D2-FEF0-44CB-9CAF-D7981FFA9FE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.YesNoDemo", "ConsoleTools.Demo.YesNoDemo\ConsoleTools.Demo.YesNoDemo.csproj", "{E3D293D2-FEF0-44CB-9CAF-D7981FFA9FE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

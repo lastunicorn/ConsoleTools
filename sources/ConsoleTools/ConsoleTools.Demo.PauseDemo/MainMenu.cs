@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
 {
     internal class MainMenu : TextMenu
     {

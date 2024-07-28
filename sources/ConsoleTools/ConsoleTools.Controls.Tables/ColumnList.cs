@@ -1,5 +1,5 @@
 // ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,84 +23,88 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
+
+/// <summary>
+/// Keeps the information about the columns from a table.
+/// </summary>
+public class ColumnList : IEnumerable<Column>
 {
+    private readonly DataGrid parentDataGrid;
+    private readonly List<Column> columns = new();
+
     /// <summary>
-    /// Keeps the information about the columns from a table.
-    /// It is also responsible to render the column headers.
+    /// Gets the number of columns contained in the current instance.
     /// </summary>
-    public class ColumnList : IEnumerable<Column>
+    public int Count => columns.Count;
+
+    /// <summary>
+    /// Gets the <see cref="Column"/> at the specified index.
+    /// If the index is outside of the bounds of the list, <c>null</c> is returned.
+    /// </summary>
+    /// <param name="index">The index of the <see cref="Column"/> to return.</param>
+    /// <returns>The <see cref="Column"/> at the specified index.</returns>
+    public Column this[int index] => index >= 0 && index < columns.Count
+        ? columns[index]
+        : null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ColumnList"/> class with
+    /// the <see cref="DataGrid"/> that owns it.
+    /// </summary>
+    /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
+    public ColumnList(DataGrid parentDataGrid)
     {
-        private readonly DataGrid parentDataGrid;
-        private readonly List<Column> columns = new List<Column>();
+        this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
+    }
 
-        /// <summary>
-        /// Gets the number of columns contained in the current instance.
-        /// </summary>
-        public int Count => columns.Count;
-
-        /// <summary>
-        /// Gets the <see cref="Column"/> at the specified index.
-        /// If the index is outside of the bounds of the list, <c>null</c> is returned.
-        /// </summary>
-        /// <param name="index">The index of the <see cref="Column"/> to return.</param>
-        /// <returns>The <see cref="Column"/> at the specified index.</returns>
-        public Column this[int index] => index >= 0 && index < columns.Count
-            ? columns[index]
-            : null;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ColumnList"/> class with
-        /// the <see cref="DataGrid"/> that owns it.
-        /// </summary>
-        /// <param name="parentDataGrid">The <see cref="DataGrid"/> that owns the new instance.</param>
-        public ColumnList(DataGrid parentDataGrid)
+    /// <summary>
+    /// Adds a new <see cref="Column"/> to the end of the list.
+    /// </summary>
+    /// <param name="columnHeader">The text to be displayed in the header of the column.</param>
+    /// <param name="cellHorizontalAlignment">Optional horizontal alignment to be applied on the content of each cell, Including the header.
+    /// If value is not provided, the default alignment will be used.</param>
+    /// <returns>The newly created column.</returns>
+    public Column Add(string columnHeader, HorizontalAlignment? cellHorizontalAlignment = null)
+    {
+        Column column = new(columnHeader)
         {
-            this.parentDataGrid = parentDataGrid ?? throw new ArgumentNullException(nameof(parentDataGrid));
-        }
+            ParentDataGrid = parentDataGrid
+        };
 
-        /// <summary>
-        /// Adds a new <see cref="Column"/> to the end of the list.
-        /// </summary>
-        /// <param name="columnHeader">The text to be displayed in the header of the column.</param>
-        /// <returns>The newly created column.</returns>
-        public Column Add(string columnHeader)
-        {
-            Column column = new Column(columnHeader)
-            {
-                ParentDataGrid = parentDataGrid
-            };
-            columns.Add(column);
+        if (cellHorizontalAlignment != null)
+            column.CellHorizontalAlignment = cellHorizontalAlignment.Value;
 
-            return column;
-        }
+        columns.Add(column);
 
-        /// <summary>
-        /// Adds a new <see cref="Column"/> to the end of the list.
-        /// </summary>
-        /// <param name="column">The <see cref="Column"/> instance to be added.</param>
-        /// <returns>The newly added column.</returns>
-        public Column Add(Column column)
-        {
-            if (column == null) throw new ArgumentNullException(nameof(column));
+        return column;
+    }
 
-            column.ParentDataGrid = parentDataGrid;
-            columns.Add(column);
+    /// <summary>
+    /// Adds a new <see cref="Column"/> to the end of the list.
+    /// </summary>
+    /// <param name="column">The <see cref="Column"/> instance to be added.</param>
+    /// <returns>The newly added column.</returns>
+    public Column Add(Column column)
+    {
+        if (column == null) throw new ArgumentNullException(nameof(column));
 
-            return column;
-        }
+        column.ParentDataGrid = parentDataGrid;
+        columns.Add(column);
 
-        /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="Column"/>s contained by the current instance.
-        /// </summary>
-        public IEnumerator<Column> GetEnumerator()
-        {
-            return columns.GetEnumerator();
-        }
+        return column;
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    /// <summary>
+    /// Returns an enumerator that iterates through the <see cref="Column"/>s contained by the current instance.
+    /// </summary>
+    public IEnumerator<Column> GetEnumerator()
+    {
+        return columns.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

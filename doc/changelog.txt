@@ -5,6 +5,8 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 1.2.0
 ---------
+- [bugfix ] DataGrid: Hide empty header row if it has no header content.
+- [feature] DataGrid. Added horizontal alignment parameter on the Add method for columns.
 
 
 ver 1.1.0

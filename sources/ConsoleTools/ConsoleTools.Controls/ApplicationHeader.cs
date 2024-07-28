@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
@@ -83,9 +84,9 @@ namespace DustInTheWind.ConsoleTools.Controls
             Margin = "0 0 0 1";
         }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
+        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            return new Renderer(this, display);
+            return new Enumerator(this, display);
         }
 
         private string BuildTitleText()

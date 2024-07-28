@@ -1,0 +1,70 @@
+Margin (top and bottom)
+	- empty lines
+	- background color remains unchanged
+
+
+Windows 10 Console "bugs"
+------------------------------------------------------------------------------
+
+Prerequisite:
+	- Create a .NET Framework console application.
+Steps:
+	- Change the background color
+	- Write one line with spaces (doesn't have to be a full line)
+	- Change the background color back to its original value.
+	- Resize the Console Window.
+Expected:
+	- The empty line should keep its background colors.
+Actual:
+	- The empty line looses its background color and it is repainted with the console's background color.
+
+Note: This behaviour is not reproducible in Ubuntu.
+Actual:
+	- the length of the empty line is kept and wrapped around when windows is resized.
+
+
+
+
+
+
+
+BlockControl Rendering:
+	- MoveToNextLineIfNecessary(); 
+	- CalculateLayout();
+	- CreateControlDisplay();
+
+	- WriteTopMargin();
+	- WriteTopPadding();
+
+	- DoDisplayContent(ControlDisplay);
+		- WriteOuterLeftEmptySpace();
+		- WriteLeftMargin();
+
+		- SetCustomForegroundColor(foregroundColor);
+		- SetCustomBackgroundColor(backgroundColor);
+
+		- WriteLeftPadding();
+		
+		- Write Content
+		
+		- bool isConsoleRowFull = FillEmptySpace();
+		- WriteRightPadding();
+		- 
+		- RestoreForegroundColor();
+		- RestoreBackgroundColor();
+		- 
+		- WriteRightMargin();
+		- WriteOuterRightEmptySpace();
+		- 
+		- if (!isConsoleRowFull)
+		- Console.WriteLine();
+
+
+	- WriteBottomPadding();
+	- WriteBottomMargin();
+
+
+
+---------------------------------------------------------------------
+
+Control.Display()

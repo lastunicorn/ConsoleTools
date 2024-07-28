@@ -19,29 +19,23 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
     public abstract partial class BlockControl
     {
-        private class Renderer : ControlRenderer
+        private class Enumerator : LineEnumerator
         {
-            private readonly BlockControl blockControl;
-            private bool hasMoreContentRows = true;
-
-            protected override bool HasMoreContentRows => hasMoreContentRows;
-
-            public Renderer(BlockControl blockControl, IDisplay display)
+            public Enumerator(IDisplay display)
                 : base(display)
             {
-                this.blockControl = blockControl ?? throw new ArgumentNullException(nameof(blockControl));
             }
 
-            protected override void RenderNextContentRow()
+            protected override IEnumerable<Line> GetContentLines(IDisplay display)
             {
-                blockControl.DoDisplayContent(Display);
-                hasMoreContentRows = false;
+                return Enumerable.Empty<Line>();
             }
         }
     }

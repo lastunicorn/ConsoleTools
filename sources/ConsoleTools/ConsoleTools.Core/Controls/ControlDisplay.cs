@@ -133,20 +133,21 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         protected override void WriteInternal(string text)
         {
-            if (ForegroundColor.HasValue)
-            {
-                if (BackgroundColor.HasValue)
-                    CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
-                else
-                    CustomConsole.Write(ForegroundColor.Value, text);
-            }
-            else
-            {
-                if (BackgroundColor.HasValue)
-                    CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
-                else
-                    CustomConsole.Write(text);
-            }
+            CustomConsole.Write(text);
+            //if (ForegroundColor.HasValue)
+            //{
+            //    if (BackgroundColor.HasValue)
+            //        CustomConsole.Write(ForegroundColor.Value, BackgroundColor.Value, text);
+            //    else
+            //        CustomConsole.Write(ForegroundColor.Value, text);
+            //}
+            //else
+            //{
+            //    if (BackgroundColor.HasValue)
+            //        CustomConsole.WriteBackgroundColor(BackgroundColor.Value, text);
+            //    else
+            //        CustomConsole.Write(text);
+            //}
         }
 
         protected override void WriteInternal(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)

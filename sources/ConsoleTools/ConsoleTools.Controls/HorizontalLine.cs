@@ -33,7 +33,7 @@ namespace DustInTheWind.ConsoleTools.Controls
     /// The control will always be one line height and, by default, it will stretch to fill the parent's client width.
     /// The <see cref="BlockControl.Width"/> property can be used to specify a smaller width if necessary.
     /// </remarks>
-    public class HorizontalLine : BlockControl
+    public partial class HorizontalLine : BlockControl
     {
         /// <summary>
         /// Gets or sets the character to be used to fill the content of the control.
@@ -53,10 +53,10 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
             Margin = "0 1";
         }
-        
-        public override IControlRenderer GetRenderer(IDisplay display)
+
+        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            return new HorizontalLineRenderer(this, display);
+            return new Enumerator(this, display);
         }
 
         /// <summary>
@@ -103,27 +103,5 @@ namespace DustInTheWind.ConsoleTools.Controls
         /// Builds a string repeating the specified character and having the length equal to the width of the console's buffer.
         /// </summary>
         public static string BufferAsString(char c = '-') => new string(c, Console.BufferWidth);
-
-        private class HorizontalLineRenderer : RowsControlRenderer<string>
-        {
-            private readonly HorizontalLine horizontalLine;
-
-            public HorizontalLineRenderer(HorizontalLine horizontalLine, IDisplay display)
-                : base(display)
-            {
-                this.horizontalLine = horizontalLine ?? throw new ArgumentNullException(nameof(horizontalLine));
-            }
-
-            protected override IEnumerable<string> EnumerateContentRows()
-            {
-                int width = Display.ControlLayout.ActualContentWidth;
-                yield return new string(horizontalLine.Character, width);
-            }
-
-            protected override void DoRenderNextContentRow(string row)
-            {
-                Display.WriteRow(row);
-            }
-        }
     }
 }

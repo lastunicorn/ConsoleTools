@@ -302,6 +302,79 @@ namespace DustInTheWind.ConsoleTools.Controls
 
         public abstract IDisplay CreateChild();
 
+        public Line CreateNewLine()
+        {
+            Line line = new Line();
+
+            if (ControlLayout.MarginLeft > 0)
+            {
+                string text = new string(' ', ControlLayout.MarginLeft);
+                LineSection lineSection = new LineSection { Text = text };
+                line.PrefixSections.Add(lineSection);
+            }
+
+            if (ControlLayout.PaddingLeft > 0)
+            {
+                string text = new string(' ', ControlLayout.PaddingLeft);
+
+                LineSection lineSection = new LineSection
+                {
+                    ForegroundColor = ForegroundColor,
+                    BackgroundColor = BackgroundColor,
+                    Text = text
+                };
+                line.PrefixSections.Add(lineSection);
+            }
+
+            if (ControlLayout.PaddingRight > 0)
+            {
+                string text = new string(' ', ControlLayout.PaddingRight);
+
+                LineSection lineSection = new LineSection
+                {
+                    ForegroundColor = ForegroundColor,
+                    BackgroundColor = BackgroundColor,
+                    Text = text
+                };
+                line.PostfixSection.Add(lineSection);
+            }
+
+            if (ControlLayout.MarginRight > 0)
+            {
+                string text = new string(' ', ControlLayout.MarginRight);
+                LineSection lineSection = new LineSection { Text = text };
+                line.PostfixSection.Add(lineSection);
+            }
+
+            return line;
+        }
+
+        public Line CreateNewLine(string text)
+        {
+            Line line = CreateNewLine();
+
+            line.ContentSections.Add(new LineSection
+            {
+                Text = text
+            });
+
+            return line;
+        }
+
+        public Line CreateNewLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+        {
+            Line line = CreateNewLine();
+
+            line.ContentSections.Add(new LineSection
+            {
+                ForegroundColor = foregroundColor,
+                BackgroundColor = backgroundColor,
+                Text = text
+            });
+
+            return line;
+        }
+
         protected abstract void WriteNewLineInternal();
 
         protected abstract void WriteInternal(string text);

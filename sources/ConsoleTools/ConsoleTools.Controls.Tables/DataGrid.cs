@@ -316,13 +316,18 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables
             Border = new DataGridBorder();
         }
 
-        /// <summary>
-        /// Renders the current instance into the console.
-        /// </summary>
-        protected override void DoDisplayContent(IDisplay display)
+        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            RenderInternal(display);
+            return base.GetLineEnumerator(display);
         }
+
+        ///// <summary>
+        ///// Renders the current instance into the console.
+        ///// </summary>
+        //protected override void DoDisplayContent(IDisplay display)
+        //{
+        //    RenderInternal(display);
+        //}
 
         /// <summary>
         /// Renders the current instance into the specified <see cref="ITablePrinter"/>.

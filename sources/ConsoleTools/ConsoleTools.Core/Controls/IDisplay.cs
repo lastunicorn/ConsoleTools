@@ -140,5 +140,10 @@ namespace DustInTheWind.ConsoleTools.Controls
         void AdvanceCursor(int value);
 
         IDisplay CreateChild();
+
+        Line CreateNewLine();
+        
+        Line CreateNewLine(string text);
+        Line CreateNewLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text);
     }
 }

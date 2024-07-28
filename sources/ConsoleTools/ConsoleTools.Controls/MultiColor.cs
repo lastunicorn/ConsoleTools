@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public class MultiColor : BlockControl
+    public partial class MultiColor : BlockControl
     {
         private readonly List<ColorItem?> colorItems = new List<ColorItem?>
         {
@@ -48,41 +48,9 @@ namespace DustInTheWind.ConsoleTools.Controls
             new ColorItem { Color = ConsoleColor.DarkYellow, Name = "DarkYellow" }
         };
 
-        public override IControlRenderer GetRenderer(IDisplay display)
+        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            return new MultiColorRenderer(this, display);
-        }
-
-        private class MultiColorRenderer : RowsControlRenderer<ColorItem?>
-        {
-            private readonly MultiColor multiColor;
-
-            public MultiColorRenderer(MultiColor multiColor, IDisplay display)
-                : base(display)
-            {
-                this.multiColor = multiColor ?? throw new ArgumentNullException(nameof(multiColor));
-            }
-
-            protected override IEnumerable<ColorItem?> EnumerateContentRows()
-            {
-                return multiColor.colorItems;
-            }
-
-            protected override void DoRenderNextContentRow(ColorItem? row)
-            {
-                if (row == null)
-                    Display.WriteRow();
-                else
-                    DisplayLine(row.Value);
-            }
-
-            private void DisplayLine(ColorItem colorItem)
-            {
-                Display.StartRow();
-                Display.Write("» ");
-                Display.Write(colorItem.Color, null, colorItem.Name);
-                Display.EndRow();
-            }
+            return new Enumerator(this, display);
         }
     }
 }

@@ -1,0 +1,42 @@
+--------------------------------------------------------------------------------
+.NET Framework
+--------------------------------------------------------------------------------
+- When Write exactly a full line
+	-> automatically write a linebreak
+	-> cursor position = 0
+	
+- When WriteLine exactly a full line
+
+- When Write more than a full line
+
+- When WriteLine more than a full line
+
+
+--------------------------------------------------------------------------------
+.NET Core
+--------------------------------------------------------------------------------
+- When Write exactly a full line
+	-> no linebreak
+	-> cursor position = Console.WindowWidth - 1
+	
+- When WriteLine exactly a full line
+
+- When Write more than a full line
+	-> no linebreak
+	-> wrap -> cursor position on the next line
+
+- When WriteLine more than a full line
+
+- WriteLine
+	- smaller than line
+		-> text is written
+		-> "new line" character is added
+		-> cursor moves to the beginning of next line (index = 0)
+	- full line
+		-> full line is written
+		-> "new line" character is NOT added -> when window resize, the "newline" is lost
+		-> cursor moves to the beginning of next line (index = 0)
+	- bigger than line
+		-> text is wrapped
+		-> cursor moves to the beginning of next line (index = 0)
+	

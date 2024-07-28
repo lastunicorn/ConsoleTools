@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
@@ -80,42 +81,27 @@ namespace DustInTheWind.ConsoleTools.Controls
         {
             OnBeforeTopMargin();
 
-            IControlRenderer controlRenderer = GetRenderer(display);
+            IEnumerator<Line> lineEnumerator = GetLineEnumerator(display);
 
-            if (controlRenderer != null)
+            while (lineEnumerator?.MoveNext() == true)
             {
-                while (controlRenderer.HasMoreRows)
+                display.StartRow();
+
+                if (lineEnumerator.Current != null)
                 {
-                    bool allowNewLine = AllowNewLine(controlRenderer);
-
-                    controlRenderer.RenderNextRow();
-
-                    if (allowNewLine)
-                        display.WriteNewLine();
+                    foreach (LineSection lineSection in lineEnumerator.Current)
+                        display.Write(lineSection.ForegroundColor, lineSection.BackgroundColor, lineSection.Text);
                 }
+
+                display.EndRow();
             }
 
             OnAfterBottomMargin();
         }
 
-        private static bool AllowNewLine(IControlRenderer controlRenderer)
+        public virtual IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            if (controlRenderer is Renderer legacyControlRenderer)
-                return legacyControlRenderer.RenderingState != ControlRenderingState.Content;
-
-            return true;
-        }
-
-        /// <summary>
-        /// When implemented by an inheritor, it displays the content of the control to the specified <see cref="IDisplay"/> instance.
-        /// </summary>
-        protected virtual void DoDisplayContent(IDisplay display)
-        {
-        }
-
-        public virtual IControlRenderer GetRenderer(IDisplay display)
-        {
-            return new Renderer(this, display);
+            return new Enumerator(display);
         }
 
         /// <summary>

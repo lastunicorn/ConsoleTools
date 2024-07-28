@@ -19,19 +19,29 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public class EmptyControlRenderer : ControlRenderer
+    public partial class HorizontalLine
     {
-        protected override bool HasMoreContentRows => false;
-
-        public EmptyControlRenderer(IDisplay display)
-            : base(display)
+        private class Enumerator : LineEnumerator
         {
-        }
+            private readonly HorizontalLine horizontalLine;
 
-        protected override void RenderNextContentRow()
-        {
+            public Enumerator(HorizontalLine horizontalLine, IDisplay display)
+                : base(display)
+            {
+                this.horizontalLine = horizontalLine ?? throw new ArgumentNullException(nameof(horizontalLine));
+            }
+
+            protected override IEnumerable<Line> GetContentLines(IDisplay display)
+            {
+                int width = display.ControlLayout.ActualContentWidth;
+                string text = new string(horizontalLine.Character, width);
+                yield return new Line(text);
+            }
         }
     }
 }

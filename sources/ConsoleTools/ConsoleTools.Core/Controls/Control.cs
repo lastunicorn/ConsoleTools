@@ -79,7 +79,7 @@ namespace DustInTheWind.ConsoleTools.Controls
             Display(display);
         }
 
-        public IDisplay CreateDisplay(IDisplay parentDisplay = null)
+        public IDisplay CreateDisplay(IDisplay parentDisplay = null, int? availableWidth = null)
         {
             IDisplay childDisplay = parentDisplay == null
                 ? new ControlDisplay()
@@ -88,17 +88,17 @@ namespace DustInTheWind.ConsoleTools.Controls
             childDisplay.ForegroundColor = ForegroundColor ?? parentDisplay?.ForegroundColor;
             childDisplay.BackgroundColor = BackgroundColor ?? parentDisplay?.BackgroundColor;
 
-            childDisplay.ControlLayout = CalculateLayout(childDisplay);
+            childDisplay.ControlLayout = CalculateLayout(childDisplay, availableWidth);
 
             return childDisplay;
         }
 
-        private ControlLayout CalculateLayout(IDisplay display)
+        private ControlLayout CalculateLayout(IDisplay display, int? availableWidth)
         {
             ControlLayout controlLayout = new ControlLayout
             {
                 Control = this,
-                AvailableWidth = display.AvailableWidth,
+                AvailableWidth = availableWidth ?? display.AvailableWidth,
                 DesiredContentWidth = DesiredContentWidth
             };
 

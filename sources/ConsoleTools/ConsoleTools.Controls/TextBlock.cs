@@ -19,20 +19,22 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
     /// <summary>
     /// This control displays a multiline text to the console.
     /// </summary>
-    public class TextBlock : BlockControl
+    public partial class TextBlock : BlockControl
     {
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
         public MultilineText Text { get; set; }
+
+        protected override int? DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextBlock"/> class.
@@ -59,12 +61,10 @@ namespace DustInTheWind.ConsoleTools.Controls
             Text = text;
         }
 
-        public override IControlRenderer GetRenderer(IDisplay display)
+        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
         {
-            return new TextBlockRenderer(this, display);
+            return new Enumerator(this, display);
         }
-
-        protected override int? DesiredContentWidth => Text?.Size.Width ?? 0;
 
         /// <summary>
         /// Displays the specified text into the console.
@@ -77,27 +77,6 @@ namespace DustInTheWind.ConsoleTools.Controls
                 Text = text
             };
             textBlock.Display();
-        }
-
-        private class TextBlockRenderer : RowsControlRenderer<string>
-        {
-            private readonly TextBlock textBlock;
-
-            public TextBlockRenderer(TextBlock textBlock, IDisplay display)
-                : base(display)
-            {
-                this.textBlock = textBlock ?? throw new ArgumentNullException(nameof(textBlock));
-            }
-
-            protected override IEnumerable<string> EnumerateContentRows()
-            {
-                return textBlock.Text.GetLines(Display.ControlLayout.ActualContentWidth);
-            }
-
-            protected override void DoRenderNextContentRow(string row)
-            {
-                Display.WriteRow(row);
-            }
         }
     }
 }

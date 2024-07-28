@@ -21,22 +21,45 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public partial class Border : BlockControl
+    public partial class MultiColor
     {
-        public BlockControl Control { get; set; }
-
-        public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
-        
-        public ConsoleColor? BorderForegroundColor { get; set; }
-        
-        public ConsoleColor? BorderBackgroundColor { get; set; }
-
-        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
+        private class Enumerator : LineEnumerator
         {
-            return new Enumerator(this, display);
+            private readonly MultiColor multiColor;
+
+            public Enumerator(MultiColor multiColor, IDisplay display)
+                : base(display)
+            {
+                this.multiColor = multiColor ?? throw new ArgumentNullException(nameof(multiColor));
+            }
+
+            protected override IEnumerable<Line> GetContentLines(IDisplay display)
+            {
+                return multiColor.colorItems
+                    .Where(x => x != null)
+                    .Select(x => CreateLine(x.Value));
+            }
+
+            private static Line CreateLine(ColorItem colorItem)
+            {
+                Line line = new Line();
+
+                line.ContentSections.AddRange(new[]
+                {
+                    new LineSection { Text = "» " },
+                    new LineSection
+                    {
+                        ForegroundColor = colorItem.Color,
+                        Text = colorItem.Name
+                    }
+                });
+
+                return line;
+            }
         }
     }
 }

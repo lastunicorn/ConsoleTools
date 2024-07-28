@@ -20,23 +20,15 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls
 {
-    public partial class Border : BlockControl
+    public struct LineSection
     {
-        public BlockControl Control { get; set; }
+        public ConsoleColor? ForegroundColor { get; set; }
 
-        public BorderTemplate BorderTemplate { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
-        
-        public ConsoleColor? BorderForegroundColor { get; set; }
-        
-        public ConsoleColor? BorderBackgroundColor { get; set; }
+        public ConsoleColor? BackgroundColor { get; set; }
 
-        public override IEnumerator<Line> GetLineEnumerator(IDisplay display)
-        {
-            return new Enumerator(this, display);
-        }
+        public string Text { get; set; }
     }
 }

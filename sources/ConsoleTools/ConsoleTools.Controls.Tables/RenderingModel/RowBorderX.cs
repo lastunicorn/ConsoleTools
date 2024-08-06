@@ -71,7 +71,10 @@ internal class RowBorderX
     {
         if (rowBase.BorderVisibility == null)
             return rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.IsBorderVisible;
-        
-        return rowBase.BorderVisibility.Value.Left || rowBase.BorderVisibility.Value.Right;
+
+        if (rowBase.BorderVisibility.Value.Left == null && rowBase.BorderVisibility.Value.Inside == null && rowBase.BorderVisibility.Value.Right == null)
+            return rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.IsBorderVisible;
+
+        return rowBase.BorderVisibility.Value.Left == true || rowBase.BorderVisibility.Value.Inside == true || rowBase.BorderVisibility.Value.Right == true;
     }
 }

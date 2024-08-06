@@ -27,22 +27,27 @@ public readonly record struct BorderVisibility
     /// <summary>
     /// Specifies if the left border is visible.
     /// </summary>
-    public bool Left { get; }
+    public bool? Left { get; }
 
     /// <summary>
     /// Specifies if the top border is visible.
     /// </summary>
-    public bool Top { get; }
+    public bool? Top { get; }
 
     /// <summary>
     /// Specifies if the right border is visible.
     /// </summary>
-    public bool Right { get; }
+    public bool? Right { get; }
 
     /// <summary>
     /// Specifies if the bottom border is visible.
     /// </summary>
-    public bool Bottom { get; }
+    public bool? Bottom { get; }
+
+    /// <summary>
+    /// Specifies if the inside borders are visible.
+    /// </summary>
+    public bool? Inside { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BorderVisibility"/> with
@@ -52,12 +57,14 @@ public readonly record struct BorderVisibility
     /// <param name="top">Specifies if the top border is visible.</param>
     /// <param name="right">Specifies if the right border is visible.</param>
     /// <param name="bottom">Specifies if the bottom border is visible.</param>
-    public BorderVisibility(bool left, bool top, bool right, bool bottom)
+    /// <param name="inside">Specifies if the inside borders are visible.</param>
+    public BorderVisibility(bool? left, bool? top, bool? right, bool? bottom, bool? inside)
     {
         Left = left;
         Top = top;
         Right = right;
         Bottom = bottom;
+        Inside = inside;
     }
 
     /// <summary>
@@ -67,25 +74,43 @@ public readonly record struct BorderVisibility
     /// </summary>
     /// <param name="leftRight">Specifies if the left and right borders are visible.</param>
     /// <param name="topBottom">Specifies if the top and bottom borders are visible.</param>
-    public BorderVisibility(bool leftRight, bool topBottom)
+    /// <param name="inside">Specifies if the inside borders are visible.</param>
+    public BorderVisibility(bool? leftRight, bool? topBottom, bool? inside)
     {
         Left = leftRight;
         Top = topBottom;
         Right = leftRight;
         Bottom = topBottom;
+        Inside = inside;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BorderVisibility"/> with a single value
     /// that represents the visibility of all four components of the border.
     /// </summary>
-    /// <param name="value">Specifies if all four components of the border (left, top, right, bottom) should be visible.</param>
-    public BorderVisibility(bool value)
+    /// <param name="outside">Specifies if all four components of the outside border (left, top, right, bottom) should be visible.</param>
+    /// <param name="inside">Specifies if the inside borders are visible.</param>
+    public BorderVisibility(bool? outside, bool? inside)
+    {
+        Left = outside;
+        Top = outside;
+        Right = outside;
+        Bottom = outside;
+        Inside = inside;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BorderVisibility"/> with a single value
+    /// that represents the visibility of all four components of the border.
+    /// </summary>
+    /// <param name="value">Specifies if all components of the border (left, top, right, bottom, inside) should be visible.</param>
+    public BorderVisibility(bool? value)
     {
         Left = value;
         Top = value;
         Right = value;
         Bottom = value;
+        Inside = value;
     }
 
     /// <summary>
@@ -99,50 +124,74 @@ public readonly record struct BorderVisibility
         if (string.IsNullOrEmpty(text))
             return new BorderVisibility(false);
 
-        string[] parts = text.Split(' ', ',');
+        string[] parts = text.Split(' ');
 
         return parts.Length switch
         {
             0 => new BorderVisibility(false),
             1 => ParseOnePart(parts),
             2 => ParseTwoParts(parts),
-            4 => ParseFourParts(parts),
+            3 => ParseThreeParts(parts),
+            5 => ParseFiveParts(parts),
             _ => throw new Exception("Invalid border visibility value.")
         };
     }
 
     private static BorderVisibility ParseOnePart(string[] parts)
     {
-        bool value = ParsePart(parts[0]);
+        bool? value = ParsePart(parts[0]);
         return new BorderVisibility(value);
     }
 
     private static BorderVisibility ParseTwoParts(string[] parts)
     {
-        bool leftRight = ParsePart(parts[0]);
-        bool topBottom = ParsePart(parts[1]);
+        bool? outside = ParsePart(parts[0]);
+        bool? inside = ParsePart(parts[1]);
 
-        return new BorderVisibility(leftRight, topBottom);
+        return new BorderVisibility(outside, inside);
     }
 
-    private static BorderVisibility ParseFourParts(string[] parts)
+    private static BorderVisibility ParseThreeParts(string[] parts)
     {
-        bool left = ParsePart(parts[0]);
-        bool top = ParsePart(parts[1]);
-        bool right = ParsePart(parts[2]);
-        bool bottom = ParsePart(parts[3]);
+        bool? leftRight = ParsePart(parts[0]);
+        bool? topBottom = ParsePart(parts[1]);
+        bool? inside = ParsePart(parts[2]);
 
-        return new BorderVisibility(left, top, right, bottom);
+        return new BorderVisibility(leftRight, topBottom, inside);
     }
 
-    private static bool ParsePart(string part)
+    private static BorderVisibility ParseFiveParts(string[] parts)
     {
-        bool success = bool.TryParse(part, out bool value);
+        bool? left = ParsePart(parts[0]);
+        bool? top = ParsePart(parts[1]);
+        bool? right = ParsePart(parts[2]);
+        bool? bottom = ParsePart(parts[3]);
+        bool? inside = ParsePart(parts[4]);
 
-        if (!success)
-            throw new Exception("Invalid border visibility value.");
+        return new BorderVisibility(left, top, right, bottom, inside);
+    }
 
-        return value;
+    private static bool? ParsePart(string part)
+    {
+        switch (part)
+        {
+            case "+":
+                return true;
+
+            case "-":
+                return false;
+
+            case ".":
+                return null;
+
+            default:
+                bool success = bool.TryParse(part, out bool value);
+
+                if (!success)
+                    throw new Exception("Invalid border visibility value.");
+
+                return value;
+        }
     }
 
     /// <summary>
@@ -151,13 +200,45 @@ public readonly record struct BorderVisibility
     /// <returns>A string representation of the current instance.</returns>
     public override string ToString()
     {
+        if (Left == Top == Right == Bottom == Inside)
+            return ToString(Left);
+
         if (Left == Top == Right == Bottom)
-            return Left.ToString();
+        {
+            string outside = ToString(Left);
+            string inside = ToString(Inside);
+
+            return $"{outside} {inside}";
+        }
 
         if (Left == Right && Top == Bottom)
-            return $"{Left} {Top}";
+        {
+            string leftRight = ToString(Left);
+            string topBottom = ToString(Top);
+            string inside = ToString(Inside);
 
-        return $"{Left} {Top} {Right} {Bottom}";
+            return $"{leftRight} {topBottom} {inside}";
+        }
+
+        {
+            string left = ToString(Left);
+            string top = ToString(Top);
+            string right = ToString(Right);
+            string bottom = ToString(Bottom);
+            string inside = ToString(Inside);
+
+            return $"{left} {top} {right} {bottom} {inside}";
+        }
+    }
+
+    private static string ToString(bool? value)
+    {
+        return value switch
+        {
+            true => "+",
+            false => "-",
+            null => "."
+        };
     }
 
     /// <summary>

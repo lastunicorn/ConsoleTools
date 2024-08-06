@@ -40,7 +40,7 @@ public class ContentRow_BorderVisibility_GridBorderDisabled_Tests : TestsBase
     [Test]
     public void HavingTopRowBorderExplicitlySetVisible_WhenRendered_ThenNoBorderIsDisplayed()
     {
-        dataGrid.Rows[0].BorderVisibility = new BorderVisibility(true, true, true, false);
+        dataGrid.Rows[2].BorderVisibility = ". + . . .";
 
         string expected = GetResourceFileContent("01-top-border.txt");
         dataGrid.IsEqualTo(expected);
@@ -49,7 +49,7 @@ public class ContentRow_BorderVisibility_GridBorderDisabled_Tests : TestsBase
     [Test]
     public void HavingBottomRowBorderExplicitlySetVisible_WhenRendered_ThenNoBorderIsDisplayed()
     {
-        dataGrid.Rows[0].BorderVisibility = new BorderVisibility(true, false, true, true);
+        dataGrid.Rows[2].BorderVisibility = ". . . + .";
 
         string expected = GetResourceFileContent("02-bottom-border.txt");
         dataGrid.IsEqualTo(expected);
@@ -58,9 +58,27 @@ public class ContentRow_BorderVisibility_GridBorderDisabled_Tests : TestsBase
     [Test]
     public void HavingTopAndBottomRowBordersExplicitlySetVisible_WhenRendered_ThenNoBorderIsDisplayed()
     {
-        dataGrid.Rows[0].BorderVisibility = new BorderVisibility(true, true, true, true);
+        dataGrid.Rows[2].BorderVisibility = ". + . + .";
 
         string expected = GetResourceFileContent("03-top-and-bottom-border.txt");
+        dataGrid.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingTopBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
+    {
+        dataGrid.Rows[2].BorderVisibility = ". - . . .";
+
+        string expected = GetResourceFileContent("04-top-border-hidden.txt");
+        dataGrid.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingBottomBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
+    {
+        dataGrid.Rows[2].BorderVisibility = ". . . - .";
+
+        string expected = GetResourceFileContent("05-bottom-border-hidden.txt");
         dataGrid.IsEqualTo(expected);
     }
 

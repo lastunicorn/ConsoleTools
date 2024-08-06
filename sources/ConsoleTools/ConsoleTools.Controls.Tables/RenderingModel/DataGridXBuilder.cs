@@ -29,6 +29,8 @@ internal class DataGridXBuilder
     private readonly DataGrid dataGrid;
     private DataGridX dataGridX;
 
+    private RowBase previousRow;
+
     public DataGridXBuilder(DataGrid dataGrid)
     {
         this.dataGrid = dataGrid;
@@ -46,6 +48,8 @@ internal class DataGridXBuilder
 
     private void PopulateDataGridX()
     {
+        previousRow = null;
+
         dataGridX.IsBorderVisible = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
         dataGridX.MinWidth = dataGrid.MinWidth ?? 0;
 
@@ -78,6 +82,8 @@ internal class DataGridXBuilder
 
         RowX rowX = RowX.CreateFrom(dataGrid.TitleRow);
         dataGridX.Add(rowX);
+
+        previousRow = dataGrid.TitleRow;
     }
 
     private void AddHeader()
@@ -86,6 +92,8 @@ internal class DataGridXBuilder
 
         RowX headerRowX = RowX.CreateFrom(dataGrid.HeaderRow);
         dataGridX.Add(headerRowX);
+
+        previousRow = dataGrid.HeaderRow;
     }
 
     private void AddContentRows()
@@ -93,38 +101,47 @@ internal class DataGridXBuilder
         IEnumerable<ContentRow> visibleRows = dataGrid.Rows
             .Where(x => x.IsVisible);
 
-        ContentRow previousRow = null;
-
         foreach (ContentRow currentRow in visibleRows)
-        {
-            if (currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.AreBordersAllowed)
-            {
-                SeparatorX separatorX = CreateSeparatorForContentRow(currentRow, previousRow);
-
-                if (separatorX != null)
-                    dataGridX.Add(separatorX);
-            }
-
             AddContentRow(currentRow);
-
-            previousRow = currentRow;
-        }
     }
 
-    private SeparatorX CreateSeparatorForContentRow(ContentRow currentRow, ContentRow previousRow)
+    private void AddContentRow(ContentRow contentRow)
+    {
+        if (dataGrid.AreBordersAllowed)
+        {
+            SeparatorX separatorX = CreateSeparatorForContentRow(contentRow);
+
+            if (separatorX != null)
+                dataGridX.Add(separatorX);
+        }
+
+        RowX rowX = RowX.CreateFrom(contentRow);
+        dataGridX.Add(rowX);
+
+        previousRow = contentRow;
+    }
+
+    private SeparatorX CreateSeparatorForContentRow(ContentRow currentRow)
     {
         if (currentRow.BorderVisibility != null)
         {
             // Current row has border specified.
 
-            if (currentRow.BorderVisibility.Value.Top)
+            switch (currentRow.BorderVisibility.Value.Top)
             {
-                return new SeparatorX
-                {
-                    BorderTemplate = currentRow.ComputeBorderTemplate(),
-                    ForegroundColor = currentRow.ComputeBorderForegroundColor(),
-                    BackgroundColor = currentRow.ComputeBorderBackgroundColor()
-                };
+                case true:
+                    return new SeparatorX
+                    {
+                        BorderTemplate = currentRow.ComputeBorderTemplate(),
+                        ForegroundColor = currentRow.ComputeBorderForegroundColor(),
+                        BackgroundColor = currentRow.ComputeBorderBackgroundColor()
+                    };
+
+                case false:
+                    return null;
+
+                case null:
+                    break;
             }
         }
 
@@ -132,22 +149,29 @@ internal class DataGridXBuilder
         {
             // Previous row has border specified.
 
-            if (previousRow.BorderVisibility.Value.Bottom)
+            switch (previousRow.BorderVisibility.Value.Bottom)
             {
-                return new SeparatorX
-                {
-                    BorderTemplate = previousRow.ComputeBorderTemplate(),
-                    ForegroundColor = previousRow.ComputeBorderForegroundColor(),
-                    BackgroundColor = previousRow.ComputeBorderBackgroundColor()
-                };
+                case true:
+                    return new SeparatorX
+                    {
+                        BorderTemplate = previousRow.ComputeBorderTemplate(),
+                        ForegroundColor = previousRow.ComputeBorderForegroundColor(),
+                        BackgroundColor = previousRow.ComputeBorderBackgroundColor()
+                    };
+
+                case false:
+                    return null;
+
+                case null:
+                    break;
             }
         }
 
         if (dataGrid.IsBorderVisible)
         {
-            if (previousRow == null || dataGrid.DisplayBorderBetweenRows)
+            if (previousRow is not ContentRow || dataGrid.DisplayBorderBetweenRows)
             {
-                // This is the first row.
+                // This is the first content row.
 
                 return new SeparatorX
                 {
@@ -161,33 +185,61 @@ internal class DataGridXBuilder
         return null;
     }
 
-    private void AddContentRow(ContentRow currentRow)
-    {
-        RowX rowX = RowX.CreateFrom(currentRow);
-
-        dataGridX.Add(rowX);
-    }
-
     private void AddFooter()
     {
         AddRowSeparatorIfBorderIsVisible();
 
         RowX rowX = RowX.CreateFrom(dataGrid.FooterRow);
         dataGridX.Add(rowX);
+
+        previousRow = dataGrid.FooterRow;
     }
 
     private void AddRowSeparatorIfBorderIsVisible()
     {
-        if (dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible)
+        if (!dataGrid.AreBordersAllowed)
+            return;
+
+        SeparatorX separatorX = CreateSeparator();
+
+        if (separatorX != null)
+            dataGridX.Add(separatorX);
+    }
+
+    private SeparatorX CreateSeparator()
+    {
+        if (previousRow?.BorderVisibility != null)
         {
-            SeparatorX separatorX = new()
+            // Previous row has border specified.
+
+            switch (previousRow.BorderVisibility.Value.Bottom)
+            {
+                case true:
+                    return new SeparatorX
+                    {
+                        BorderTemplate = previousRow.ComputeBorderTemplate(),
+                        ForegroundColor = previousRow.ComputeBorderForegroundColor(),
+                        BackgroundColor = previousRow.ComputeBorderBackgroundColor()
+                    };
+
+                case false:
+                    return null;
+
+                case null:
+                    break;
+            }
+        }
+
+        if (dataGrid.IsBorderVisible)
+        {
+            return new SeparatorX
             {
                 BorderTemplate = dataGrid.ComputeBorderTemplate(),
                 ForegroundColor = dataGrid.ComputeBorderForegroundColor(),
                 BackgroundColor = dataGrid.ComputeBorderBackgroundColor()
             };
-
-            dataGridX.Add(separatorX);
         }
+
+        return null;
     }
 }

@@ -8,6 +8,7 @@ ver 1.2.0
 - [bugfix ] DataGrid: Hide empty header row if it has no header content.
 - [feature] DataGrid: Added horizontal alignment parameter on the Add method for columns.
 - [feature] DataGrid: Added IsVisible property for columns.
+- [bugfix ] DataGrid: Fixed incomplete rendering problem when using StreamTablePrinter.
 
 
 ver 1.1.0

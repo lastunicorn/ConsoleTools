@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class SpecialCaseBorderTests_ShortTitle
+public class SpecialCaseBorder_ShortTitle_Tests : TestsBase
 {
     [Test]
     public void all()
@@ -35,18 +35,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
 
-        string expected =
-            @"╔════════════════════════════════╗
-║ Short Title                    ║
-╠══════════╦══════════╦══════════╣
-║ Header 1 ║ Header 2 ║ Header 3 ║
-╠══════════╬══════════╬══════════╣
-║ one      ║ ichi     ║ eins     ║
-║ two      ║ ni       ║ zwei     ║
-║ three    ║ san      ║ drei     ║
-╚══════════╩══════════╩══════════╝
-";
-
+        string expected = GetResourceFileContent("01-long-title.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -62,16 +51,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
 
-        string expected =
-            @"╔══════════╦══════════╦══════════╗
-║ Header 1 ║ Header 2 ║ Header 3 ║
-╠══════════╬══════════╬══════════╣
-║ one      ║ ichi     ║ eins     ║
-║ two      ║ ni       ║ zwei     ║
-║ three    ║ san      ║ drei     ║
-╚══════════╩══════════╩══════════╝
-";
-
+        string expected = GetResourceFileContent("02-no-title.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -85,16 +65,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
 
-        string expected =
-            @"╔═════════════════════╗
-║ Short Title         ║
-╠═══════╦══════╦══════╣
-║ one   ║ ichi ║ eins ║
-║ two   ║ ni   ║ zwei ║
-║ three ║ san  ║ drei ║
-╚═══════╩══════╩══════╝
-";
-
+        string expected = GetResourceFileContent("03-no-header.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -108,14 +79,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
 
-        string expected =
-            @"╔════════════════════════════════╗
-║ Short Title                    ║
-╠══════════╦══════════╦══════════╣
-║ Header 1 ║ Header 2 ║ Header 3 ║
-╚══════════╩══════════╩══════════╝
-";
-
+        string expected = GetResourceFileContent("04-no-data.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -128,14 +92,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
 
-        string expected =
-            @"╔═══════╦══════╦══════╗
-║ one   ║ ichi ║ eins ║
-║ two   ║ ni   ║ zwei ║
-║ three ║ san  ║ drei ║
-╚═══════╩══════╩══════╝
-";
-
+        string expected = GetResourceFileContent("05-only-data.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -148,12 +105,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
 
-        string expected =
-            @"╔══════════╦══════════╦══════════╗
-║ Header 1 ║ Header 2 ║ Header 3 ║
-╚══════════╩══════════╩══════════╝
-";
-
+        string expected = GetResourceFileContent("06-only-header.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -164,12 +116,7 @@ public class SpecialCaseBorderTests_ShortTitle
         dataGrid.Title = "Short Title";
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
-        string expected =
-            @"╔═════════════╗
-║ Short Title ║
-╚═════════════╝
-";
-
+        string expected = GetResourceFileContent("07-only-title.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -179,8 +126,7 @@ public class SpecialCaseBorderTests_ShortTitle
         DataGrid dataGrid = new();
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
-        string expected = string.Empty;
-
+        string expected = GetResourceFileContent("08-empty.txt");
         dataGrid.IsEqualTo(expected);
     }
 }

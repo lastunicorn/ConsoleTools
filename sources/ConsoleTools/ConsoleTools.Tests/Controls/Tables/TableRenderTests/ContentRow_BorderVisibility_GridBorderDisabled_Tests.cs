@@ -65,7 +65,7 @@ public class ContentRow_BorderVisibility_GridBorderDisabled_Tests : TestsBase
     }
 
     [Test]
-    public void HavingTopBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
+    public void HavingTopBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsHiddenAboveRow()
     {
         dataGrid.Rows[2].BorderVisibility = ". - . . .";
 
@@ -74,7 +74,7 @@ public class ContentRow_BorderVisibility_GridBorderDisabled_Tests : TestsBase
     }
 
     [Test]
-    public void HavingBottomBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
+    public void HavingBottomBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsHiddenBelowRow()
     {
         dataGrid.Rows[2].BorderVisibility = ". . . - .";
 

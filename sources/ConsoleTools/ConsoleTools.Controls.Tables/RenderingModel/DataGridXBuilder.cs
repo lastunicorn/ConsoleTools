@@ -78,7 +78,13 @@ internal class DataGridXBuilder
 
     private void AddTitle()
     {
-        AddRowSeparatorIfBorderIsVisible();
+        if (dataGrid.AreBordersAllowed)
+        {
+            SeparatorX separatorX = CreateTopSeparatorForRow(dataGrid.TitleRow);
+
+            if (separatorX != null)
+                dataGridX.Add(separatorX);
+        }
 
         RowX rowX = RowX.CreateFrom(dataGrid.TitleRow);
         dataGridX.Add(rowX);
@@ -109,7 +115,7 @@ internal class DataGridXBuilder
     {
         if (dataGrid.AreBordersAllowed)
         {
-            SeparatorX separatorX = CreateSeparatorForContentRow(contentRow);
+            SeparatorX separatorX = CreateTopSeparatorForRow(contentRow);
 
             if (separatorX != null)
                 dataGridX.Add(separatorX);
@@ -121,7 +127,7 @@ internal class DataGridXBuilder
         previousRow = contentRow;
     }
 
-    private SeparatorX CreateSeparatorForContentRow(ContentRow currentRow)
+    private SeparatorX CreateTopSeparatorForRow(RowBase currentRow)
     {
         if (currentRow.BorderVisibility != null)
         {
@@ -169,7 +175,11 @@ internal class DataGridXBuilder
 
         if (dataGrid.IsBorderVisible)
         {
-            if (previousRow is not ContentRow || dataGrid.DisplayBorderBetweenRows)
+            bool shouldDisplaySeparator = currentRow is not ContentRow ||
+                                          previousRow is not ContentRow ||
+                                          dataGrid.DisplayBorderBetweenRows;
+
+            if (shouldDisplaySeparator)
             {
                 // This is the first content row.
 

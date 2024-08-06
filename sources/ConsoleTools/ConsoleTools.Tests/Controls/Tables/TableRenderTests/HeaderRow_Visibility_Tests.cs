@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class HeaderVisibilityTests : TestsBase
+public class HeaderRow_Visibility_Tests : TestsBase
 {
     [Test]
     public void HavingNoColumnsDeclared_WhenRendered_ThenHeaderRowIsNotDisplayed()

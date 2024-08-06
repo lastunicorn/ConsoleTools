@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests : TestsBase
+public class TitleRow_BorderVisibility_WithFooterRow_Tests : TestsBase
 {
     private DataGrid dataGrid;
 
@@ -31,34 +31,34 @@ public class ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests : Te
     }
 
     [Test]
-    public void HavingNoBorderExplicitlySetVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
+    public void HavingNoBorderExplicitlyVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
     {
         string expected = GetResourceFileContent("00-border-unspecified.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingTopBorderExplicitlySetVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
+    public void HavingTopBorderExplicitlyVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveRow()
     {
-        dataGrid.Rows[0].BorderVisibility = ". + . . .";
+        dataGrid.TitleRow.BorderVisibility = ". + . . .";
 
         string expected = GetResourceFileContent("01-top-border.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingBottomBorderExplicitlySetVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
+    public void HavingBottomBorderExplicitlyVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
     {
-        dataGrid.Rows[0].BorderVisibility = ". . . + .";
+        dataGrid.TitleRow.BorderVisibility = ". . . + .";
 
         string expected = GetResourceFileContent("02-bottom-border.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingTopAndBottomBordersExplicitlySetVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
+    public void HavingTopAndBottomBordersExplicitlyVisible_WhenRendered_ThenHorizontalBorderIsDisplayedAboveAndBelowRow()
     {
-        dataGrid.Rows[0].BorderVisibility = ". + . + .";
+        dataGrid.TitleRow.BorderVisibility = ". + . + .";
 
         string expected = GetResourceFileContent("03-top-and-bottom-border.txt");
         dataGrid.IsEqualTo(expected);
@@ -67,7 +67,7 @@ public class ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests : Te
     [Test]
     public void HavingTopBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsHiddenAboveRow()
     {
-        dataGrid.Rows[0].BorderVisibility = ". - . . .";
+        dataGrid.TitleRow.BorderVisibility = ". - . . .";
 
         string expected = GetResourceFileContent("04-top-border-hidden.txt");
         dataGrid.IsEqualTo(expected);
@@ -76,7 +76,7 @@ public class ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests : Te
     [Test]
     public void HavingBottomBorderExplicitlyHidden_WhenRendered_ThenHorizontalBorderIsHiddenBelowRow()
     {
-        dataGrid.Rows[0].BorderVisibility = ". . . - .";
+        dataGrid.TitleRow.BorderVisibility = ". . . - .";
 
         string expected = GetResourceFileContent("05-bottom-border-hidden.txt");
         dataGrid.IsEqualTo(expected);
@@ -86,14 +86,9 @@ public class ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests : Te
     {
         DataGrid dataGrid = new();
 
-        for (int i = 0; i < 5; i++)
-        {
-            string cell0 = $"cell {i:00}:0";
-            string cell1 = $"cell {i:00}:1";
-            string cell2 = $"cell {i:00}:2";
+        dataGrid.Title = "Border Visibility Tests";
 
-            dataGrid.Rows.Add(cell0, cell1, cell2);
-        }
+        dataGrid.FooterRow.FooterCell.Content = "Footer text";
 
         return dataGrid;
     }

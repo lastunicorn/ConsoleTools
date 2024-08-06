@@ -33,6 +33,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
       <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\01-no-alignment.txt" />
       <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\02-alignment-default-after.txt" />
       <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\03-alignment-left-after.txt" />
@@ -87,6 +88,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\09-alignment-right-atcreation.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\08-alignment-center-atcreation.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\07-alignment-left-atcreation.txt" />

@@ -49,4 +49,9 @@ public interface ITablePrinter
     /// Writes the current line terminator.
     /// </summary>
     void WriteLine();
+
+    /// <summary>
+    /// Writes all the buffered data into the output.
+    /// </summary>
+    void Flush();
 }

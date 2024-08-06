@@ -344,6 +344,7 @@ public class DataGrid : BlockControl
 
         DataGridX dataGridX = dataGridXBuilder.Build();
         dataGridX.Render(tablePrinter);
+        tablePrinter.Flush();
     }
 
     /// <summary>

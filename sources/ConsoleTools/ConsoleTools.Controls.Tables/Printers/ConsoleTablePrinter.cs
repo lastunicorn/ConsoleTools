@@ -61,6 +61,14 @@ public class ConsoleTablePrinter : ITablePrinter
         Console.WriteLine();
     }
 
+    /// <summary>
+    /// Writes all the buffered data into the underlying stream of the console.
+    /// </summary>
+    public void Flush()
+    {
+        Console.Out.Flush();
+    }
+
     private static void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
     {
         if (foregroundColor.HasValue)

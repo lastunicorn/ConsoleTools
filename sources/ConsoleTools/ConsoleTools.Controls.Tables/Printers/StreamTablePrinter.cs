@@ -78,6 +78,14 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
     }
 
     /// <summary>
+    /// Writes all the buffered data into the underlying stream.
+    /// </summary>
+    public void Flush()
+    {
+        streamWriter.Flush();
+    }
+
+    /// <summary>
     /// Disposes the underlying <see cref="Stream"/>.
     /// </summary>
     public void Dispose()
@@ -85,8 +93,13 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
         if (isDisposed)
             return;
 
+        if (streamWriter != null)
+        {
+            streamWriter?.Flush();
+            streamWriter?.Dispose();
+        }
+
         stream?.Dispose();
-        streamWriter?.Dispose();
 
         isDisposed = true;
     }

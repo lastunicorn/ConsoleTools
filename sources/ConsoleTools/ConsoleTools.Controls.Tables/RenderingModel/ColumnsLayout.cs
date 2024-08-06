@@ -25,12 +25,12 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
-internal class DataGridLayout
+internal class ColumnsLayout
 {
-    private readonly List<ColumnX> columns = new();
-    private readonly List<ColumnSpanX> columnSpans = new();
+    private readonly List<int> columnsWidth = new();
+    private readonly List<ColumnSpanX> columnsSpan = new();
 
-    public bool BorderVisibility { get; set; }
+    public bool IsBorderVisible { get; set; }
 
     public int MinWidth { get; set; }
 
@@ -38,7 +38,7 @@ internal class DataGridLayout
 
     public int ActualWidth { get; private set; }
 
-    public ReadOnlyCollection<ColumnX> Columns => columns.AsReadOnly();
+    public ReadOnlyCollection<int> Columns => columnsWidth.AsReadOnly();
 
     public void AddRow(RowX rowX)
     {
@@ -49,8 +49,8 @@ internal class DataGridLayout
     {
         for (int i = 0; i < rowX.Cells.Count; i++)
         {
-            while (columns.Count <= i)
-                columns.Add(new ColumnX());
+            while (columnsWidth.Count <= i)
+                columnsWidth.Add(0);
 
             CellX cellX = rowX.Cells[i];
             Size cellSize = cellX.Size;
@@ -63,12 +63,12 @@ internal class DataGridLayout
                     EndColumnIndex = i + cellX.HorizontalMerge - 1,
                     MinContentWidth = cellSize.Width
                 };
-                columnSpans.Add(columnSpanX);
+                columnsSpan.Add(columnSpanX);
             }
             else
             {
-                if (cellSize.Width > columns[i].Width)
-                    columns[i].Width = cellSize.Width;
+                if (cellSize.Width > columnsWidth[i])
+                    columnsWidth[i] = cellSize.Width;
             }
         }
     }
@@ -80,40 +80,38 @@ internal class DataGridLayout
 
     private int CalculateTotalWidth()
     {
-        if (columns.Count <= 0)
+        if (columnsWidth.Count <= 0)
             return MinWidth;
 
         // Distribute column span spaces
 
-        foreach (ColumnSpanX columnSpan in columnSpans)
+        foreach (ColumnSpanX columnSpan in columnsSpan)
             InflateColumns(columnSpan.StartColumnIndex, columnSpan.SpanValue ?? int.MaxValue, columnSpan.MinContentWidth);
 
         // Distribute space to reach min width.
 
         InflateColumns(0, int.MaxValue, MinWidth);
 
-        int totalWidth = columns
-            .Select(x => x.Width)
+        int totalWidth = columnsWidth
             .Sum();
 
-        if (BorderVisibility)
-            totalWidth += columns.Count + 1;
+        if (IsBorderVisible)
+            totalWidth += columnsWidth.Count + 1;
 
         return totalWidth;
     }
 
-    internal void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)
+    private void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)
     {
-        ColumnX[] spanColumns = columns
+        int[] spanColumns = columnsWidth
             .Skip(startColumnIndex)
             .Take(columnCount)
             .ToArray();
 
         int actualWidth = spanColumns
-            .Select(x => x.Width)
             .Sum();
 
-        if (BorderVisibility)
+        if (IsBorderVisible)
             actualWidth += spanColumns.Length - 1;
 
         if (actualWidth < desiredWidth)
@@ -122,8 +120,8 @@ internal class DataGridLayout
 
             for (int i = 0; i < diff; i++)
             {
-                ColumnX columnX = columns[i % spanColumns.Length];
-                columnX.Width++;
+                int columnIndex = i % spanColumns.Length;
+                columnsWidth[columnIndex]++;
             }
         }
     }

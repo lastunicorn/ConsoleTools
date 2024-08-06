@@ -26,31 +26,43 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class DataGridXBuilder
 {
+    private readonly DataGrid dataGrid;
     private DataGridX dataGridX;
 
-    public DataGrid DataGrid { get; set; }
+    public DataGridXBuilder(DataGrid dataGrid)
+    {
+        this.dataGrid = dataGrid;
+    }
 
     public DataGridX Build()
     {
-        dataGridX = new DataGridX(DataGrid.Border?.IsVisible == true)
-        {
-            MinWidth = DataGrid.MinWidth ?? 0
-        };
+        dataGridX = new DataGridX();
 
-        bool isTitleRowVisible = DataGrid.TitleRow is { IsVisible: true, HasContent: true };
+        if (dataGrid != null)
+            PopulateDataGridX();
+
+        return dataGridX;
+    }
+
+    private void PopulateDataGridX()
+    {
+        dataGridX.IsBorderVisible = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
+        dataGridX.MinWidth = dataGrid.MinWidth ?? 0;
+
+        bool isTitleRowVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };
         if (isTitleRowVisible)
             AddTitle();
 
-        bool isHeaderRowVisible = DataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
-                                  DataGrid.Columns.Any(x => x.IsVisible && !x.HeaderCell.IsEmpty);
+        bool isHeaderRowVisible = dataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
+                                  dataGrid.Columns.Any(x => x.IsVisible && !x.HeaderCell.IsEmpty);
         if (isHeaderRowVisible)
             AddHeader();
 
-        bool areNormalRowsVisible = DataGrid.Rows.Count > 0;
+        bool areNormalRowsVisible = dataGrid.Rows.Count > 0;
         if (areNormalRowsVisible)
-            AddRows();
+            AddContentRows();
 
-        bool isFooterRowVisible = DataGrid.FooterRow is { IsVisible: true, HasContent: true };
+        bool isFooterRowVisible = dataGrid.FooterRow is { IsVisible: true, HasContent: true };
         if (isFooterRowVisible)
             AddFooter();
 
@@ -58,15 +70,13 @@ internal class DataGridXBuilder
             AddRowSeparatorIfBorderIsVisible();
 
         dataGridX.Finish();
-
-        return dataGridX;
     }
 
     private void AddTitle()
     {
         AddRowSeparatorIfBorderIsVisible();
 
-        RowX rowX = RowX.CreateFrom(DataGrid.TitleRow);
+        RowX rowX = RowX.CreateFrom(dataGrid.TitleRow);
         dataGridX.Add(rowX);
     }
 
@@ -74,47 +84,109 @@ internal class DataGridXBuilder
     {
         AddRowSeparatorIfBorderIsVisible();
 
-        RowX headerRowX = RowX.CreateFrom(DataGrid.HeaderRow);
+        RowX headerRowX = RowX.CreateFrom(dataGrid.HeaderRow);
         dataGridX.Add(headerRowX);
     }
 
-    private void AddRows()
+    private void AddContentRows()
     {
-        IEnumerable<RowX> rows = DataGrid.Rows
-            .Where(x => x.IsVisible)
-            .Select(RowX.CreateFrom);
+        IEnumerable<ContentRow> visibleRows = dataGrid.Rows
+            .Where(x => x.IsVisible);
 
-        bool isFirstRow = true;
+        ContentRow previousRow = null;
 
-        foreach (RowX row in rows)
+        foreach (ContentRow currentRow in visibleRows)
         {
-            if (isFirstRow)
+            if (currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.AreBordersAllowed)
             {
-                AddRowSeparatorIfBorderIsVisible();
-                isFirstRow = false;
-            }
-            else if (DataGrid.Border?.DisplayBorderBetweenRows == true)
-            {
-                AddRowSeparatorIfBorderIsVisible();
+                SeparatorX separatorX = CreateSeparatorForContentRow(currentRow, previousRow);
+
+                if (separatorX != null)
+                    dataGridX.Add(separatorX);
             }
 
-            dataGridX.Add(row);
+            AddContentRow(currentRow);
+
+            previousRow = currentRow;
         }
+    }
+
+    private SeparatorX CreateSeparatorForContentRow(ContentRow currentRow, ContentRow previousRow)
+    {
+        if (currentRow.BorderVisibility != null)
+        {
+            // Current row has border specified.
+
+            if (currentRow.BorderVisibility.Value.Top)
+            {
+                return new SeparatorX
+                {
+                    BorderTemplate = currentRow.ComputeBorderTemplate(),
+                    ForegroundColor = currentRow.ComputeBorderForegroundColor(),
+                    BackgroundColor = currentRow.ComputeBorderBackgroundColor()
+                };
+            }
+        }
+
+        if (previousRow?.BorderVisibility != null)
+        {
+            // Previous row has border specified.
+
+            if (previousRow.BorderVisibility.Value.Bottom)
+            {
+                return new SeparatorX
+                {
+                    BorderTemplate = previousRow.ComputeBorderTemplate(),
+                    ForegroundColor = previousRow.ComputeBorderForegroundColor(),
+                    BackgroundColor = previousRow.ComputeBorderBackgroundColor()
+                };
+            }
+        }
+
+        if (dataGrid.IsBorderVisible)
+        {
+            if (previousRow == null || dataGrid.DisplayBorderBetweenRows)
+            {
+                // This is the first row.
+
+                return new SeparatorX
+                {
+                    BorderTemplate = dataGrid.ComputeBorderTemplate(),
+                    ForegroundColor = dataGrid.ComputeBorderForegroundColor(),
+                    BackgroundColor = dataGrid.ComputeBorderBackgroundColor()
+                };
+            }
+        }
+
+        return null;
+    }
+
+    private void AddContentRow(ContentRow currentRow)
+    {
+        RowX rowX = RowX.CreateFrom(currentRow);
+
+        dataGridX.Add(rowX);
     }
 
     private void AddFooter()
     {
         AddRowSeparatorIfBorderIsVisible();
 
-        RowX rowX = RowX.CreateFrom(DataGrid.FooterRow);
+        RowX rowX = RowX.CreateFrom(dataGrid.FooterRow);
         dataGridX.Add(rowX);
     }
 
     private void AddRowSeparatorIfBorderIsVisible()
     {
-        if (DataGrid.Border?.IsVisible == true)
+        if (dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible)
         {
-            SeparatorX separatorX = SeparatorX.CreateFor(DataGrid);
+            SeparatorX separatorX = new()
+            {
+                BorderTemplate = dataGrid.ComputeBorderTemplate(),
+                ForegroundColor = dataGrid.ComputeBorderForegroundColor(),
+                BackgroundColor = dataGrid.ComputeBorderBackgroundColor()
+            };
+
             dataGridX.Add(separatorX);
         }
     }

@@ -26,7 +26,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     public void all()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Title = "This is a title longer than the rows";
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
@@ -43,7 +43,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     public void no_title()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
@@ -60,7 +60,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "This is a title longer than the rows";
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
@@ -74,7 +74,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "This is a title longer than the rows";
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
@@ -87,7 +87,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     public void only_data()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
@@ -100,7 +100,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     public void only_header()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
@@ -114,7 +114,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "This is a title longer than the rows";
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
         string expected = GetResourceFileContent("07-only-title.txt");
         dataGrid.IsEqualTo(expected);
@@ -124,7 +124,7 @@ public class SpecialCaseBorder_LongTitle_Tests : TestsBase
     public void no_title_no_header_no_data()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
         string expected = GetResourceFileContent("08-empty.txt");
         dataGrid.IsEqualTo(expected);

@@ -30,6 +30,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 /// </summary>
 public class BorderTemplate
 {
+    public static BorderTemplate EmptyTemplate { get; } = new();
+
+    /// <summary>
+    /// Gets an instance of the <see cref="BorderTemplate"/> that uses spaces to render the border.
+    /// </summary>
+    public static BorderTemplate WhiteTemplate { get; } = new("               ");
+
     /// <summary>
     /// Gets an instance of the <see cref="BorderTemplate"/> that uses '+' and '-' characters to render the border.
     /// </summary>
@@ -44,6 +51,8 @@ public class BorderTemplate
     /// Gets an instance of the <see cref="BorderTemplate"/> that uses double line ASCII characters to render the border.
     /// </summary>
     public static BorderTemplate DoubleLineBorderTemplate { get; } = new("╔═╗║╝═╚║╦╣╩╠╬║═");
+
+    private readonly bool isEmpty;
 
     /// <summary>
     /// Gets the character used to render the top left corner.
@@ -120,6 +129,11 @@ public class BorderTemplate
     /// </summary>
     public char Horizontal { get; }
 
+    private BorderTemplate()
+    {
+        isEmpty = true;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BorderTemplate"/> class with
     /// a string of length 15 that containing all the characters needed to render the border.
@@ -194,6 +208,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateTopBorder(params int[] columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         return GenerateTopBorder((IList<int>)columnWidths);
     }
 
@@ -203,6 +220,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateTopBorder(IList<int> columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         if (columnWidths == null || columnWidths.Count == 0)
             return string.Empty;
 
@@ -231,6 +251,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateHorizontalSeparator(params int[] columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         return GenerateHorizontalSeparator((IList<int>)columnWidths);
     }
 
@@ -240,6 +263,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateHorizontalSeparator(IList<int> columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         if (columnWidths == null || columnWidths.Count == 0)
             return string.Empty;
 
@@ -268,6 +294,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateHorizontalSeparator(IList<int> topCellWidths, IList<int> bottomCellWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         if (topCellWidths == null && bottomCellWidths == null)
             return string.Empty;
 
@@ -299,6 +328,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateBottomBorder(params int[] columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         return GenerateBottomBorder((IList<int>)columnWidths);
     }
 
@@ -307,6 +339,9 @@ public class BorderTemplate
     /// </summary>
     public string GenerateBottomBorder(IList<int> columnWidths)
     {
+        if (isEmpty)
+            return string.Empty;
+
         if (columnWidths == null || columnWidths.Count == 0)
             return string.Empty;
 

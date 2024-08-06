@@ -26,7 +26,7 @@ public class CustomBorderTests : TestsBase
     public void render_simple_table_with_custom_border()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
@@ -40,7 +40,7 @@ public class CustomBorderTests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "My Title";
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
@@ -53,7 +53,7 @@ public class CustomBorderTests : TestsBase
     public void render_table_with_custom_border_and_headers()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.HeaderRow.IsVisible = true;
         dataGrid.Columns.Add(new Column("One"));
         dataGrid.Columns.Add(new Column("Two"));
@@ -70,7 +70,7 @@ public class CustomBorderTests : TestsBase
     public void render_table_with_custom_border_title_and_headers()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.Template = BorderTemplate.DoubleLineBorderTemplate;
+        dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Title = "My Title";
         dataGrid.HeaderRow.IsVisible = true;
         dataGrid.Columns.Add(new Column("One"));
@@ -89,7 +89,7 @@ public class CustomBorderTests : TestsBase
     {
         DataGrid dataGrid = new();
 
-        dataGrid.Border.Template = new BorderTemplate("1234567890abcde");
+        dataGrid.BorderTemplate = new BorderTemplate("1234567890abcde");
         dataGrid.Title = "My Title";
         dataGrid.HeaderRow.IsVisible = true;
         dataGrid.CellPaddingLeft = 3;

@@ -29,7 +29,7 @@ internal class RowX : IItemX
 {
     public Size Size { get; private set; }
 
-    public DataGridBorderX Border { get; set; }
+    public RowBorderX Border { get; set; }
 
     public List<CellX> Cells { get; set; }
 
@@ -65,7 +65,7 @@ internal class RowX : IItemX
         return new Size(width, height);
     }
 
-    public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
+    public void Render(ITablePrinter tablePrinter, IReadOnlyList<int> columnsWidth)
     {
         for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
         {
@@ -74,7 +74,7 @@ internal class RowX : IItemX
             for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
             {
                 CellX cellX = Cells[columnIndex];
-                Size cellSize = CalculateCellSize(columns, columnIndex, cellX.HorizontalMerge);
+                Size cellSize = CalculateCellSize(columnsWidth, columnIndex, cellX.HorizontalMerge);
 
                 cellX.RenderNextLine(tablePrinter, cellSize);
 
@@ -90,19 +90,18 @@ internal class RowX : IItemX
         }
     }
 
-    private Size CalculateCellSize(IReadOnlyList<ColumnX> columns, int columnIndex, int columnSpan)
+    private Size CalculateCellSize(IReadOnlyList<int> columnsWidth, int columnIndex, int columnSpan)
     {
         int cellWidth;
 
         if (columnSpan >= 2)
         {
-            ColumnX[] spannedColumns = columns
+            int[] spannedColumns = columnsWidth
                 .Skip(columnIndex)
                 .Take(columnSpan)
                 .ToArray();
 
             cellWidth = spannedColumns
-                .Select(x => x.Width)
                 .Sum();
 
             if (Border != null && spannedColumns.Length > 0)
@@ -110,7 +109,7 @@ internal class RowX : IItemX
         }
         else
         {
-            cellWidth = columns[columnIndex].Width;
+            cellWidth = columnsWidth[columnIndex];
         }
 
         int cellHeight = Size.Height;
@@ -142,8 +141,8 @@ internal class RowX : IItemX
 
         RowX rowX = new()
         {
-            Border = contentRow.ParentDataGrid?.Border?.IsVisible == true
-                ? DataGridBorderX.CreateFrom(contentRow.ParentDataGrid.Border)
+            Border = contentRow.ParentDataGrid == null || contentRow.ParentDataGrid.AreBordersAllowed
+                ? RowBorderX.CreateFrom(contentRow)
                 : null,
             Cells = contentRow.EnumerateVisibleCells()
                 .Select(CellX.CreateFrom)
@@ -161,8 +160,8 @@ internal class RowX : IItemX
 
         RowX headerRowX = new()
         {
-            Border = headerRow.ParentDataGrid?.Border?.IsVisible == true
-                ? DataGridBorderX.CreateFrom(headerRow.ParentDataGrid.Border)
+            Border = headerRow.ParentDataGrid == null || headerRow.ParentDataGrid.AreBordersAllowed
+                ? RowBorderX.CreateFrom(headerRow)
                 : null,
             Cells = headerRow.EnumerateVisibleCells()
                 .Select(CellX.CreateFrom)
@@ -183,8 +182,8 @@ internal class RowX : IItemX
 
         RowX rowX = new()
         {
-            Border = titleRow.ParentDataGrid?.Border.IsVisible == true
-                ? DataGridBorderX.CreateFrom(titleRow.ParentDataGrid.Border)
+            Border = titleRow.ParentDataGrid == null || titleRow.ParentDataGrid.AreBordersAllowed
+                ? RowBorderX.CreateFrom(titleRow)
                 : null,
             Cells = new List<CellX> { cellX }
         };
@@ -203,8 +202,8 @@ internal class RowX : IItemX
 
         RowX rowX = new()
         {
-            Border = footerRow.ParentDataGrid?.Border.IsVisible == true
-                ? DataGridBorderX.CreateFrom(footerRow.ParentDataGrid.Border)
+            Border = footerRow.ParentDataGrid == null || footerRow.ParentDataGrid.AreBordersAllowed
+                ? RowBorderX.CreateFrom(footerRow)
                 : null,
             Cells = new List<CellX> { cellX }
         };

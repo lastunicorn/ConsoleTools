@@ -66,6 +66,7 @@ public class DataGridBorder
     /// Decides what is the foreground color.
     /// If the foreground color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public ConsoleColor? CalculateForegroundColor()
     {
         return ForegroundColor ??
@@ -76,6 +77,7 @@ public class DataGridBorder
     /// Decides what is the background color.
     /// If the background color is not set explicitly it tries to calculated based on the parent <see cref="DataGrid"/>.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public ConsoleColor? CalculateBackgroundColor()
     {
         return BackgroundColor ??

@@ -26,7 +26,7 @@ public class NoBorderTests : TestsBase
     public void render_simple_table_without_border()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.IsVisible = false;
+        dataGrid.IsBorderVisible = false;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
@@ -39,7 +39,7 @@ public class NoBorderTests : TestsBase
     public void render_table_with_title_and_no_border()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.IsVisible = false;
+        dataGrid.IsBorderVisible = false;
         dataGrid.Title = "My Title";
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
@@ -53,7 +53,7 @@ public class NoBorderTests : TestsBase
     public void render_table_with_title_and_headers_and_no_border()
     {
         DataGrid dataGrid = new();
-        dataGrid.Border.IsVisible = false;
+        dataGrid.IsBorderVisible = false;
         dataGrid.Title = "My Title";
         dataGrid.Columns.Add("1");
         dataGrid.Columns.Add("2");

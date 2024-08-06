@@ -73,6 +73,13 @@ public class StringTablePrinter : ITablePrinter
     }
 
     /// <summary>
+    /// Does nothing. The underlying <see cref="StringBuilder"/> does not have a buffer to be flushed.
+    /// </summary>
+    public void Flush()
+    {
+    }
+
+    /// <summary>
     /// Returns the <see cref="string"/> built until now. 
     /// </summary>
     public override string ToString()

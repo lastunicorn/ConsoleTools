@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class TitleTests : TestsBase
+public class Grid_Title_Tests : TestsBase
 {
     [Test]
     public void HavingTitleTextShorterThanTableContent_WhenRendered_ThenTitleRowIsExtendedToTableWidth()

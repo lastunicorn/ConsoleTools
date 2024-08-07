@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class TablePaddingTests : TestsBase
+public class Grid_CellPadding_Tests : TestsBase
 {
     private DataGrid dataGrid;
 

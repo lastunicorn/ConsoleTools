@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class CellMultilineTests : TestsBase
+public class ContentCell_MultilineContent_Tests : TestsBase
 {
     [Test]
     public void HavingMultipleLinesSeparatedByLF_WhenRendered_ThenCellContainsMultipleTextLines()

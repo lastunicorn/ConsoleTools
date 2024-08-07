@@ -117,6 +117,7 @@ public class DataGrid : BlockControl
     /// <summary>
     /// Gets an object representing the border of the data grid.
     /// </summary>
+    [Obsolete("Use the other properties related to border.")]
     public DataGridBorder Border
     {
         get => border;
@@ -221,7 +222,7 @@ public class DataGrid : BlockControl
     /// Gets or sets a value that specifies if the borders are visible.
     /// Default value: <c>true</c>
     /// </summary>
-    [Obsolete("Use Border.IsVisible property instead.")]
+    [Obsolete("Use IsBorderVisible property instead.")]
     public bool DisplayBorder
     {
         get => Border.IsVisible;
@@ -231,7 +232,6 @@ public class DataGrid : BlockControl
     /// <summary>
     /// Gets or sets the data grid borders.
     /// </summary>
-    [Obsolete("Use Border.Template property instead.")]
     public BorderTemplate BorderTemplate
     {
         get => Border.Template;
@@ -242,8 +242,18 @@ public class DataGrid : BlockControl
     /// Gets or sets the foreground color for the borders.
     /// Default value: <c>null</c>
     /// </summary>
-    [Obsolete("Use Border.ForegroundColor property instead.")]
+    [Obsolete("Use BorderForegroundColor property instead.")]
     public ConsoleColor? BorderColor
+    {
+        get => Border.ForegroundColor;
+        set => Border.ForegroundColor = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the foreground color for the borders.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BorderForegroundColor
     {
         get => Border.ForegroundColor;
         set => Border.ForegroundColor = value;
@@ -253,7 +263,6 @@ public class DataGrid : BlockControl
     /// Gets or sets the background color for the borders.
     /// Default value: <c>null</c>
     /// </summary>
-    [Obsolete("Use Border.BackgroundColor property instead.")]
     public ConsoleColor? BorderBackgroundColor
     {
         get => Border.BackgroundColor;
@@ -261,6 +270,22 @@ public class DataGrid : BlockControl
     }
 
     #endregion
+
+    /// <summary>
+    /// Gets or sets a value specifying if any border at all is allowed to be displayed.
+    /// If this value is <c>false</c>, borders from row, column or cell level are ignored, too.
+    /// </summary>
+    public bool AreBordersAllowed { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value specifying if the grid level border is displayed or not.
+    /// If a row, column or cell is specifying custom borders they will be displayed regardless of this value. 
+    /// </summary>
+    public bool IsBorderVisible
+    {
+        get => Border.IsVisible;
+        set => Border.IsVisible = value;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DataGrid"/> class.
@@ -337,12 +362,9 @@ public class DataGrid : BlockControl
 
     private void RenderInternal(ITablePrinter tablePrinter)
     {
-        DataGridXBuilder dataGridXBuilder = new()
-        {
-            DataGrid = this
-        };
+        DataGridX dataGridX = new DataGridXBuilder(this)
+            .Build();
 
-        DataGridX dataGridX = dataGridXBuilder.Build();
         dataGridX.Render(tablePrinter);
         tablePrinter.Flush();
     }

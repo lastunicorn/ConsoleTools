@@ -74,6 +74,29 @@ public abstract class RowBase : IEnumerable<CellBase>
     public bool IsVisible { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value that specifies the visibility of the border.
+    /// By default the border is visible.
+    /// </summary>
+    public BorderVisibility? BorderVisibility { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template to be used when rendering the border.
+    /// </summary>
+    public BorderTemplate BorderTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the foreground color for the border.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BorderForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color for the border.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BorderBackgroundColor { get; set; }
+
+    /// <summary>
     /// When implemented by an inheritor, enumerates all the cells contained by the current instance.
     /// </summary>
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>

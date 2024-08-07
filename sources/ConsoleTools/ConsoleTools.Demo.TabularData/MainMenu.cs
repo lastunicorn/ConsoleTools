@@ -95,7 +95,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
                 new TextMenuItem
                 {
                     Id = "33",
-                    Text = "Simple Border",
+                    Text = "Simple Border (+-)",
                     Command = new SimpleBorderCommand()
                 },
                 new TextMenuItem

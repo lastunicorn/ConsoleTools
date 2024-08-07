@@ -127,6 +127,7 @@ public abstract class CellBase
     /// <summary>
     /// Returns the size of the cell, including the padding.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public Size CalculatePreferredSize()
     {
         int cellWidth;
@@ -152,21 +153,25 @@ public abstract class CellBase
     /// <summary>
     /// Returns the foreground color calculated based on the hierarchy from which the current cell is part of.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public abstract ConsoleColor? CalculateForegroundColor();
 
     /// <summary>
     /// Returns the background color calculated based on the hierarchy from which the current cell is part of.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public abstract ConsoleColor? CalculateBackgroundColor();
 
     /// <summary>
     /// Returns the number of spaces representing the left padding.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public abstract int CalculatePaddingLeft();
 
     /// <summary>
     /// Returns the number of spaces representing the right padding.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public abstract int CalculatePaddingRight();
 
     /// <summary>
@@ -175,6 +180,7 @@ public abstract class CellBase
     /// and the values specified by the parents.
     /// It should never return <see cref="HorizontalAlignment.Default"/>.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public abstract HorizontalAlignment CalculateHorizontalAlignment();
 
     /// <summary>

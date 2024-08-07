@@ -32,7 +32,7 @@ public class ConstructorTests
         Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         Assert.That(dataGrid.CellPaddingLeft, Is.Null);
         Assert.That(dataGrid.CellPaddingRight, Is.Null);
-        Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
+        Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
         Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
         Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
     }
@@ -46,7 +46,7 @@ public class ConstructorTests
         Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         Assert.That(dataGrid.CellPaddingLeft, Is.Null);
         Assert.That(dataGrid.CellPaddingRight, Is.Null);
-        Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
+        Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
         Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
         Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
     }
@@ -60,7 +60,7 @@ public class ConstructorTests
         Assert.That(dataGrid.CellHorizontalAlignment, Is.EqualTo(HorizontalAlignment.Default));
         Assert.That(dataGrid.CellPaddingLeft, Is.Null);
         Assert.That(dataGrid.CellPaddingRight, Is.Null);
-        Assert.That(dataGrid.Border.DisplayBorderBetweenRows, Is.False);
+        Assert.That(dataGrid.DisplayBorderBetweenRows, Is.False);
         Assert.That(dataGrid.Columns.Count, Is.EqualTo(0));
         Assert.That(dataGrid.Rows.Count, Is.EqualTo(0));
     }

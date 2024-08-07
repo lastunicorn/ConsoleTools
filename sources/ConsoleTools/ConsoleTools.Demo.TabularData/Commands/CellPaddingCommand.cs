@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -26,13 +27,17 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         public void Execute()
         {
             DisplayDefaultPaddingExample();
+            
+            Console.WriteLine();
             DisplayPaddingLeftExample();
+            
+            Console.WriteLine();
             DisplayPaddingRightExample();
         }
 
         private static void DisplayDefaultPaddingExample()
         {
-            DataGrid dataGrid = new DataGrid("Default Padding is 1");
+            DataGrid dataGrid = new DataGrid("Default Padding (is 1)");
 
             dataGrid.Rows.Add("First item", 1.ToString());
             dataGrid.Rows.Add("Second item", 2.ToString());
@@ -45,7 +50,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         private static void DisplayPaddingLeftExample()
         {
-            DataGrid dataGrid = new DataGrid("Padding left = 3");
+            DataGrid dataGrid = new DataGrid("Padding left = 10");
 
             dataGrid.Rows.Add("First item", 1.ToString());
             dataGrid.Rows.Add("Second item", 2.ToString());
@@ -53,14 +58,14 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("Forth item", 4.ToString());
             dataGrid.Rows.Add("Fifth item", 5.ToString());
 
-            dataGrid.CellPaddingLeft = 3;
+            dataGrid.CellPaddingLeft = 10;
 
             dataGrid.Display();
         }
 
         private static void DisplayPaddingRightExample()
         {
-            DataGrid dataGrid = new DataGrid("Padding right = 3");
+            DataGrid dataGrid = new DataGrid("Padding right = 10");
 
             dataGrid.Rows.Add("First item", 1.ToString());
             dataGrid.Rows.Add("Second item", 2.ToString());
@@ -68,7 +73,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("Forth item", 4.ToString());
             dataGrid.Rows.Add("Fifth item", 5.ToString());
 
-            dataGrid.CellPaddingRight = 3;
+            dataGrid.CellPaddingRight = 10;
 
             dataGrid.Display();
         }

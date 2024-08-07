@@ -20,53 +20,59 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
+/// <summary>
+/// This class contains the analysis of the <see cref="DataGrid"/> needed for rendering.
+/// </summary>
 internal class DataGridX
 {
-    private readonly bool displayBorder;
-    private readonly DataGridLayout dataGridLayout = new();
     private readonly List<IItemX> items = new();
-    private IItemX lastItem;
+    private readonly ColumnsLayout columnsLayout = new();
 
-    public int MinWidth { get; set; }
+    public bool HasBorders
+    {
+        get => columnsLayout.HasBorders;
+        set => columnsLayout.HasBorders = value;
+    }
+
+    public int MinWidth
+    {
+        get => columnsLayout.MinWidth;
+        set => columnsLayout.MinWidth = value;
+    }
 
     public int ItemCount => items.Count;
 
-    public DataGridX(bool displayBorder)
-    {
-        this.displayBorder = displayBorder;
-    }
-
     public void Add(SeparatorX separator)
     {
+        IItemX lastItem = items.LastOrDefault();
         separator.Row1 = lastItem as RowX;
         items.Add(separator);
-        lastItem = separator;
     }
 
     public void Add(RowX rowX)
     {
+        IItemX lastItem = items.LastOrDefault();
+
         if (lastItem is SeparatorX lastSeparator)
             lastSeparator.Row2 = rowX;
 
         items.Add(rowX);
-        dataGridLayout.AddRow(rowX);
-        lastItem = rowX;
+        columnsLayout.AddRow(rowX);
     }
 
     public void Finish()
     {
-        dataGridLayout.BorderVisibility = displayBorder;
-        dataGridLayout.MinWidth = MinWidth;
-        dataGridLayout.MaxWidth = int.MaxValue;
-        dataGridLayout.FinalizeLayout();
+        columnsLayout.MaxWidth = int.MaxValue;
+        columnsLayout.FinalizeLayout();
     }
 
     public void Render(ITablePrinter tablePrinter)
     {
         foreach (IItemX item in items)
-            item.Render(tablePrinter, dataGridLayout.Columns);
+            item.Render(tablePrinter, columnsLayout);
     }
 }

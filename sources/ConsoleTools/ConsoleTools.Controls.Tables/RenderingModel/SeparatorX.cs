@@ -42,31 +42,35 @@ internal class SeparatorX : IItemX
 
     public ConsoleColor? BackgroundColor { get; set; }
 
-    public void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns)
+    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
     {
-        string line = BuildLine(columns);
-        tablePrinter.WriteLine(line, ForegroundColor, BackgroundColor);
+        if (BorderTemplate == null)
+            return;
+
+        string line = BuildLine(columnsLayout);
+        tablePrinter.Write(line, ForegroundColor, BackgroundColor);
+        tablePrinter.WriteLine();
     }
 
-    private string BuildLine(IReadOnlyList<ColumnX> columns)
+    private string BuildLine(ColumnsLayout columnsLayout)
     {
-        verticalBorderCount = columns.Count + 1;
-        row1VerticalBorders = Row1?.CalculateVerticalBorderVisibility(columns.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
-        row2VerticalBorders = Row2?.CalculateVerticalBorderVisibility(columns.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        verticalBorderCount = columnsLayout.Count + 1;
+        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
 
         StringBuilder sb = new();
 
-        for (int i = 0; i < columns.Count; i++)
+        for (int i = 0; i < columnsLayout.Count; i++)
         {
             char cornerChar = CalculateCornerChar(i);
             sb.Append(cornerChar);
 
             char bodyChar = CalculateBodyChar();
-            string bodyLine = new(bodyChar, columns[i].Width);
+            string bodyLine = new(bodyChar, columnsLayout[i]);
             sb.Append(bodyLine);
         }
 
-        char endingCorner = CalculateCornerChar(columns.Count);
+        char endingCorner = CalculateCornerChar(columnsLayout.Count);
         sb.Append(endingCorner);
 
         return sb.ToString();
@@ -154,20 +158,5 @@ internal class SeparatorX : IItemX
             return BorderTemplate.Bottom;
 
         return BorderTemplate.Horizontal;
-    }
-
-    public static SeparatorX CreateFor(DataGrid dataGrid)
-    {
-        if (dataGrid == null) throw new ArgumentNullException(nameof(dataGrid));
-
-        if (dataGrid.Border?.IsVisible != true)
-            return null;
-
-        return new SeparatorX
-        {
-            BorderTemplate = dataGrid.Border.Template,
-            ForegroundColor = dataGrid.Border.CalculateForegroundColor(),
-            BackgroundColor = dataGrid.Border.CalculateBackgroundColor()
-        };
     }
 }

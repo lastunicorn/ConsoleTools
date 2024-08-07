@@ -60,7 +60,7 @@ public class CalculateLayoutTests
             Content = "value 1"
         };
         cellX1.CalculateLayout();
-        DataGridBorderX dataGridBorderX = new()
+        RowBorderX rowBorderX = new()
         {
             Template = BorderTemplate.PlusMinusBorderTemplate
         };
@@ -70,7 +70,7 @@ public class CalculateLayoutTests
             {
                 cellX1
             },
-            Border = dataGridBorderX
+            Border = rowBorderX
         };
 
         rowX.CalculateLayout();
@@ -82,14 +82,14 @@ public class CalculateLayoutTests
     [Test]
     public void HavingARowContainingBorderAndNoCell_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
     {
-        DataGridBorderX dataGridBorderX = new()
+        RowBorderX rowBorderX = new()
         {
             Template = BorderTemplate.PlusMinusBorderTemplate
         };
         RowX rowX = new()
         {
             Cells = new List<CellX>(),
-            Border = dataGridBorderX
+            Border = rowBorderX
         };
 
         rowX.CalculateLayout();
@@ -101,13 +101,13 @@ public class CalculateLayoutTests
     [Test]
     public void HavingARowContainingBorderAndNoCellList_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
     {
-        DataGridBorderX dataGridBorderX = new()
+        RowBorderX rowBorderX = new()
         {
             Template = BorderTemplate.PlusMinusBorderTemplate
         };
         RowX rowX = new()
         {
-            Border = dataGridBorderX
+            Border = rowBorderX
         };
 
         rowX.CalculateLayout();

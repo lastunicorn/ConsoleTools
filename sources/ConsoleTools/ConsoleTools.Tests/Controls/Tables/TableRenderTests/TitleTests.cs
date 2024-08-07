@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 public class TitleTests : TestsBase
 {
     [Test]
-    public void title_is_shorter_than_row()
+    public void HavingTitleTextShorterThanTableContent_WhenRendered_ThenTitleRowIsExtendedToTableWidth()
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "My Title";
@@ -35,7 +35,7 @@ public class TitleTests : TestsBase
     }
 
     [Test]
-    public void title_is_longer_than_row()
+    public void HavingTitleTextLongerThanTableContent_WhenRendered_ThenTitleColumnsAreExtendedToTitleRowWidth()
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "My Title My Title My Title My Title";
@@ -46,7 +46,7 @@ public class TitleTests : TestsBase
     }
 
     [Test]
-    public void multiline_title()
+    public void HavingTitleTextOnMultipleLines_WhenRendered_ThenTitleRowContainsMultipleLines()
     {
         DataGrid dataGrid = new();
         dataGrid.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };

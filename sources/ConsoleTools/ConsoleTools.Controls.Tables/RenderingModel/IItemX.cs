@@ -19,11 +19,9 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System.Collections.Generic;
-
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal interface IItemX
 {
-    void Render(ITablePrinter tablePrinter, IReadOnlyList<ColumnX> columns);
+    void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout);
 }

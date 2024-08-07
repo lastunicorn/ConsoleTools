@@ -5,14 +5,16 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
 ver 1.2.0
 ---------
-- [bugfix ] DataGrid: Hide empty header row if it has no header content.
+- [bugfix ] DataGrid: Automatically hide empty header row if it has no header content.
 - [feature] DataGrid: Added horizontal alignment parameter on the Add method for columns.
 - [feature] DataGrid: Added IsVisible property for columns.
+- [bugfix ] DataGrid: Fixed incomplete rendering problem when using StreamTablePrinter.
+- [feature] DataGrid: Added support for displaying horizontal border lines between any two content rows.
 
 
 ver 1.1.0
 ---------
-- [feature] Splitted the single nuget package into multiple packages.
+- [feature] Split the single nuget package into multiple packages.
 - [feature] DataGrid: Add multiple rows at once.
 - [feature] DataGrid: Added a footer row.
 - [feature] DataGrid: "AddCell" method returns the newly created cell.

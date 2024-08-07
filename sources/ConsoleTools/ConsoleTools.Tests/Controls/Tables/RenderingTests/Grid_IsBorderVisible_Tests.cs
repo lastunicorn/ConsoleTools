@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class Grid_Border_NoBorder_Tests : TestsBase
+public class Grid_IsBorderVisible_Tests : TestsBase
 {
     [Test]
     public void render_simple_table_without_border()

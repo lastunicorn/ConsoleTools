@@ -45,12 +45,10 @@ public class Column_Visibility_Test : TestsBase
         DataGrid dataGrid = new("This is a Column Visibility test");
 
         dataGrid.Columns.Add(new Column("Col 0"));
-
         dataGrid.Columns.Add(new Column("Col 1")
         {
             IsVisible = true
         });
-
         dataGrid.Columns.Add(new Column("Col 2"));
 
         dataGrid.Rows.Add("0,0", "0,1", "0,2");
@@ -67,12 +65,10 @@ public class Column_Visibility_Test : TestsBase
         DataGrid dataGrid = new("This is a Column Visibility test");
 
         dataGrid.Columns.Add(new Column("Col 0"));
-
         dataGrid.Columns.Add(new Column("Col 1")
         {
             IsVisible = false
         });
-
         dataGrid.Columns.Add(new Column("Col 2"));
 
         dataGrid.Rows.Add("0,0", "0,1", "0,2");

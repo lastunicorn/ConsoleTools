@@ -72,6 +72,14 @@ public class Column
     public bool IsVisible { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the minimum number of characters for the current column instance
+    /// The value includes the padding but does not include borders.
+    /// If the content is wider than this value, the column will grow to accomodate it.
+    /// Default value = 0
+    /// </summary>
+    public int MinWidth { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Column"/> class.
     /// </summary>
     public Column()

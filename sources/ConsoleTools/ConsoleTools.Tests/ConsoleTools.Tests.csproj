@@ -51,6 +51,10 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\02-cr.txt" />
       <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\03-crlf.txt" />
       <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\04-multiline-objects.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\01-minwidth-notspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\02-minwidth-less.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\03-minwidth-greater.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\04-minwidth-greater-right.txt" />
       <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />
       <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
       <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
@@ -222,6 +226,10 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\03-alignment-left-after.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\02-alignment-default-after.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\01-no-alignment.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\01-minwidth-notspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\02-minwidth-less.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\04-minwidth-greater-right.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_MinWidth_Test.Resources\03-minwidth-greater.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
       <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />

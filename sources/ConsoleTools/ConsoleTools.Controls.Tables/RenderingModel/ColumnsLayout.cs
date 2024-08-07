@@ -42,28 +42,15 @@ internal class ColumnsLayout : IEnumerable<int>
 
     public int Count => columnsWidth.Count;
 
+    public void AddColumn(int initialWidth)
+    {
+        columnsWidth.Add(initialWidth);
+    }
+
     /// <summary>
-    /// For each row that is added, the columns widths are adjusted.
+    /// Increase the column width if necessary.
     /// </summary>
-    public void AddRow(RowX rowX)
-    {
-        UpdateColumnsWidths(rowX);
-    }
-
-    private void UpdateColumnsWidths(RowX rowX)
-    {
-        for (int i = 0; i < rowX.Cells.Count; i++)
-        {
-            CellX cellX = rowX.Cells[i];
-
-            int width = cellX.Size.Width;
-            int span = cellX.HorizontalMerge;
-
-            UpdateColumnWidth(i, width, span);
-        }
-    }
-
-    private void UpdateColumnWidth(int index, int width, int span)
+    public void UpdateColumnWidth(int index, int minWidth, int span)
     {
         while (columnsWidth.Count <= index)
             columnsWidth.Add(0);
@@ -74,14 +61,14 @@ internal class ColumnsLayout : IEnumerable<int>
             {
                 StartIndex = index,
                 Span = span,
-                MinWidth = width
+                MinWidth = minWidth
             };
             columnsSpan.Add(columnSpanX);
         }
         else
         {
-            if (width > columnsWidth[index])
-                columnsWidth[index] = width;
+            if (minWidth > columnsWidth[index])
+                columnsWidth[index] = minWidth;
         }
     }
 

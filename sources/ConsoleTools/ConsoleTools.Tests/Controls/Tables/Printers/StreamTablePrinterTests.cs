@@ -32,7 +32,9 @@ public class StreamTablePrinterTests : TestsBase
         DataGrid dataGrid = CreateDummyDataGrid();
 
         using MemoryStream memoryStream = new();
-        WriteGridIntoStream(dataGrid, memoryStream);
+
+        StreamTablePrinter streamTablePrinter = new(memoryStream);
+        dataGrid.Render(streamTablePrinter);
 
         memoryStream.Position = 0;
 
@@ -65,11 +67,5 @@ public class StreamTablePrinterTests : TestsBase
         }
 
         return dataGrid;
-    }
-
-    private static void WriteGridIntoStream(DataGrid dataGrid, MemoryStream memoryStream)
-    {
-        StreamTablePrinter streamTablePrinter = new(memoryStream);
-        dataGrid.Render(streamTablePrinter);
     }
 }

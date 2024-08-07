@@ -23,5 +23,5 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class ColumnX
 {
-    public int Width { get; set; }
+    public int MinWidth { get; set; }
 }

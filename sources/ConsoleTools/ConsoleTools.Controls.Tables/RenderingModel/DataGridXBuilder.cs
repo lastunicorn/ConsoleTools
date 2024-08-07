@@ -54,6 +54,8 @@ internal class DataGridXBuilder
         dataGridX.HasBorders = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
         dataGridX.MinWidth = dataGrid.MinWidth ?? 0;
 
+        AddColumns();
+
         bool isTitleRowVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };
         if (isTitleRowVisible)
             AddTitle();
@@ -75,6 +77,22 @@ internal class DataGridXBuilder
             AddTopSeparatorForRow(null);
 
         dataGridX.Finish();
+    }
+
+    private void AddColumns()
+    {
+        IEnumerable<Column> visibleColumns = dataGrid.Columns
+            .Where(x => x.IsVisible);
+
+        foreach (Column column in visibleColumns)
+        {
+            ColumnX columnX = new()
+            {
+                MinWidth = column.MinWidth
+            };
+
+            dataGridX.AddColumn(columnX);
+        }
     }
 
     private void AddTitle()

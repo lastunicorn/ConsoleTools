@@ -30,7 +30,7 @@ internal class ColumnsLayout
     private readonly List<int> columnsWidth = new();
     private readonly List<ColumnSpanX> columnsSpan = new();
 
-    public bool IsBorderVisible { get; set; }
+    public bool HasBorders { get; set; }
 
     public int MinWidth { get; set; }
 
@@ -49,27 +49,32 @@ internal class ColumnsLayout
     {
         for (int i = 0; i < rowX.Cells.Count; i++)
         {
-            while (columnsWidth.Count <= i)
-                columnsWidth.Add(0);
-
             CellX cellX = rowX.Cells[i];
-            Size cellSize = cellX.Size;
+            UpdateColumnWidth(cellX, i);
+        }
+    }
 
-            if (cellX.HorizontalMerge > 1)
+    private void UpdateColumnWidth(CellX cellX, int i)
+    {
+        while (columnsWidth.Count <= i)
+            columnsWidth.Add(0);
+
+        Size cellSize = cellX.Size;
+
+        if (cellX.HorizontalMerge > 1)
+        {
+            ColumnSpanX columnSpanX = new()
             {
-                ColumnSpanX columnSpanX = new()
-                {
-                    StartColumnIndex = i,
-                    EndColumnIndex = i + cellX.HorizontalMerge - 1,
-                    MinContentWidth = cellSize.Width
-                };
-                columnsSpan.Add(columnSpanX);
-            }
-            else
-            {
-                if (cellSize.Width > columnsWidth[i])
-                    columnsWidth[i] = cellSize.Width;
-            }
+                StartColumnIndex = i,
+                EndColumnIndex = i + cellX.HorizontalMerge - 1,
+                MinContentWidth = cellSize.Width
+            };
+            columnsSpan.Add(columnSpanX);
+        }
+        else
+        {
+            if (cellSize.Width > columnsWidth[i])
+                columnsWidth[i] = cellSize.Width;
         }
     }
 
@@ -95,7 +100,7 @@ internal class ColumnsLayout
         int totalWidth = columnsWidth
             .Sum();
 
-        if (IsBorderVisible)
+        if (HasBorders)
             totalWidth += columnsWidth.Count + 1;
 
         return totalWidth;
@@ -111,7 +116,7 @@ internal class ColumnsLayout
         int actualWidth = spanColumns
             .Sum();
 
-        if (IsBorderVisible)
+        if (HasBorders)
             actualWidth += spanColumns.Length - 1;
 
         if (actualWidth < desiredWidth)

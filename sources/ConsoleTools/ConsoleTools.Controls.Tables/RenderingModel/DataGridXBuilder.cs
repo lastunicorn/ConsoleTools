@@ -51,7 +51,7 @@ internal class DataGridXBuilder
     {
         previousRow = null;
 
-        dataGridX.IsBorderVisible = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
+        dataGridX.HasBorders = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
         dataGridX.MinWidth = dataGrid.MinWidth ?? 0;
 
         bool isTitleRowVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };

@@ -25,17 +25,17 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 /// <summary>
-/// This class contains te analysis of the <see cref="DataGrid"/> while it is rendered.
+/// This class contains the analysis of the <see cref="DataGrid"/> needed for rendering.
 /// </summary>
 internal class DataGridX
 {
     private readonly List<IItemX> items = new();
     private readonly ColumnsLayout columnsLayout = new();
 
-    public bool IsBorderVisible
+    public bool HasBorders
     {
-        get => columnsLayout.IsBorderVisible;
-        set => columnsLayout.IsBorderVisible = value;
+        get => columnsLayout.HasBorders;
+        set => columnsLayout.HasBorders = value;
     }
 
     public int MinWidth

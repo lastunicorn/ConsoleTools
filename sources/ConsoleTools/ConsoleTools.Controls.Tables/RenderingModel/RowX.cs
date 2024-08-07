@@ -65,38 +65,41 @@ internal class RowX : IItemX
         return new Size(width, height);
     }
 
-    public void Render(ITablePrinter tablePrinter, IReadOnlyList<int> columnsWidth)
+    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
     {
-        for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++)
-        {
-            Border?.RenderRowLeftBorder(tablePrinter);
-
-            for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
-            {
-                CellX cellX = Cells[columnIndex];
-                Size cellSize = CalculateCellSize(columnsWidth, columnIndex, cellX.HorizontalMerge);
-
-                cellX.RenderNextLine(tablePrinter, cellSize);
-
-                bool isLastCell = columnIndex >= Cells.Count - 1;
-
-                if (isLastCell)
-                    Border?.RenderRowRightBorder(tablePrinter);
-                else
-                    Border?.RenderRowInsideBorder(tablePrinter);
-            }
-
-            tablePrinter.WriteLine();
-        }
+        for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++) 
+            RenderNextLine(tablePrinter, columnsLayout);
     }
 
-    private Size CalculateCellSize(IReadOnlyList<int> columnsWidth, int columnIndex, int columnSpan)
+    private void RenderNextLine(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
+    {
+        Border?.RenderRowLeftBorder(tablePrinter);
+
+        for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
+        {
+            CellX cellX = Cells[columnIndex];
+            Size cellSize = CalculateCellSize(columnsLayout, columnIndex, cellX.HorizontalMerge);
+
+            cellX.RenderNextLine(tablePrinter, cellSize);
+
+            bool isLastCell = columnIndex >= Cells.Count - 1;
+
+            if (isLastCell)
+                Border?.RenderRowRightBorder(tablePrinter);
+            else
+                Border?.RenderRowInsideBorder(tablePrinter);
+        }
+
+        tablePrinter.WriteLine();
+    }
+
+    private Size CalculateCellSize(ColumnsLayout columnsLayout, int columnIndex, int columnSpan)
     {
         int cellWidth;
 
         if (columnSpan >= 2)
         {
-            int[] spannedColumns = columnsWidth
+            int[] spannedColumns = columnsLayout
                 .Skip(columnIndex)
                 .Take(columnSpan)
                 .ToArray();
@@ -109,7 +112,7 @@ internal class RowX : IItemX
         }
         else
         {
-            cellWidth = columnsWidth[columnIndex];
+            cellWidth = columnsLayout[columnIndex];
         }
 
         int cellHeight = Size.Height;

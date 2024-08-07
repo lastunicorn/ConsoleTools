@@ -269,6 +269,8 @@ public class DataGrid : BlockControl
         set => Border.BackgroundColor = value;
     }
 
+    #endregion
+
     /// <summary>
     /// Gets or sets a value specifying if any border at all is allowed to be displayed.
     /// If this value is <c>false</c>, borders from row, column or cell level are ignored, too.
@@ -284,8 +286,6 @@ public class DataGrid : BlockControl
         get => Border.IsVisible;
         set => Border.IsVisible = value;
     }
-
-    #endregion
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DataGrid"/> class.

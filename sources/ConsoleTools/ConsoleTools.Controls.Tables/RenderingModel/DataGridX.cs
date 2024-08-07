@@ -73,6 +73,6 @@ internal class DataGridX
     public void Render(ITablePrinter tablePrinter)
     {
         foreach (IItemX item in items)
-            item.Render(tablePrinter, columnsLayout.Columns);
+            item.Render(tablePrinter, columnsLayout);
     }
 }

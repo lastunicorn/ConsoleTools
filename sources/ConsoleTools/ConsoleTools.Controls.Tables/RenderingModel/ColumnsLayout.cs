@@ -19,13 +19,13 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
-internal class ColumnsLayout
+internal class ColumnsLayout : IEnumerable<int>
 {
     private readonly List<int> columnsWidth = new();
     private readonly List<ColumnSpanX> columnsSpan = new();
@@ -38,8 +38,13 @@ internal class ColumnsLayout
 
     public int ActualWidth { get; private set; }
 
-    public ReadOnlyCollection<int> Columns => columnsWidth.AsReadOnly();
+    public int this[int index] => columnsWidth[index];
 
+    public int Count => columnsWidth.Count;
+
+    /// <summary>
+    /// For each row that is added, the columns widths are adjusted.
+    /// </summary>
     public void AddRow(RowX rowX)
     {
         UpdateColumnsWidths(rowX);
@@ -50,34 +55,40 @@ internal class ColumnsLayout
         for (int i = 0; i < rowX.Cells.Count; i++)
         {
             CellX cellX = rowX.Cells[i];
-            UpdateColumnWidth(cellX, i);
+
+            int width = cellX.Size.Width;
+            int span = cellX.HorizontalMerge;
+
+            UpdateColumnWidth(i, width, span);
         }
     }
 
-    private void UpdateColumnWidth(CellX cellX, int i)
+    private void UpdateColumnWidth(int index, int width, int span)
     {
-        while (columnsWidth.Count <= i)
+        while (columnsWidth.Count <= index)
             columnsWidth.Add(0);
 
-        Size cellSize = cellX.Size;
-
-        if (cellX.HorizontalMerge > 1)
+        if (span > 1)
         {
             ColumnSpanX columnSpanX = new()
             {
-                StartColumnIndex = i,
-                EndColumnIndex = i + cellX.HorizontalMerge - 1,
-                MinContentWidth = cellSize.Width
+                StartIndex = index,
+                Span = span,
+                MinWidth = width
             };
             columnsSpan.Add(columnSpanX);
         }
         else
         {
-            if (cellSize.Width > columnsWidth[i])
-                columnsWidth[i] = cellSize.Width;
+            if (width > columnsWidth[index])
+                columnsWidth[index] = width;
         }
     }
 
+    /// <summary>
+    /// At the end, the columns need to be adjusted to accomodate
+    /// cell's column spans and the grid min width constraints.
+    /// </summary>
     public void FinalizeLayout()
     {
         ActualWidth = CalculateTotalWidth();
@@ -91,7 +102,13 @@ internal class ColumnsLayout
         // Distribute column span spaces
 
         foreach (ColumnSpanX columnSpan in columnsSpan)
-            InflateColumns(columnSpan.StartColumnIndex, columnSpan.SpanValue ?? int.MaxValue, columnSpan.MinContentWidth);
+        {
+            int startIndex = columnSpan.StartIndex;
+            int span = columnSpan.Span ?? int.MaxValue;
+            int minWidth = columnSpan.MinWidth;
+
+            InflateColumns(startIndex, span, minWidth);
+        }
 
         // Distribute space to reach min width.
 
@@ -121,13 +138,28 @@ internal class ColumnsLayout
 
         if (actualWidth < desiredWidth)
         {
-            int diff = desiredWidth - actualWidth;
+            int diffWidth = desiredWidth - actualWidth;
 
-            for (int i = 0; i < diff; i++)
-            {
-                int columnIndex = i % spanColumns.Length;
-                columnsWidth[columnIndex]++;
-            }
+            int smallIncreaseWidth = diffWidth / spanColumns.Length;
+            int bigIncreaseWidth = smallIncreaseWidth + 1;
+
+            int bigColumnCount = diffWidth % spanColumns.Length;
+
+            for (int i = 0; i < bigColumnCount; i++)
+                columnsWidth[i] += bigIncreaseWidth;
+
+            for (int i = bigColumnCount; i < spanColumns.Length; i++)
+                columnsWidth[i] += smallIncreaseWidth;
         }
+    }
+
+    public IEnumerator<int> GetEnumerator()
+    {
+        return columnsWidth.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

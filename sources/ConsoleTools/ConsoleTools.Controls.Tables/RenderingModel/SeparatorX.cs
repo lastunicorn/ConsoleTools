@@ -42,35 +42,35 @@ internal class SeparatorX : IItemX
 
     public ConsoleColor? BackgroundColor { get; set; }
 
-    public void Render(ITablePrinter tablePrinter, IReadOnlyList<int> columnsWidth)
+    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
     {
         if (BorderTemplate == null)
             return;
 
-        string line = BuildLine(columnsWidth);
+        string line = BuildLine(columnsLayout);
         tablePrinter.Write(line, ForegroundColor, BackgroundColor);
         tablePrinter.WriteLine();
     }
 
-    private string BuildLine(IReadOnlyList<int> columnsWidth)
+    private string BuildLine(ColumnsLayout columnsLayout)
     {
-        verticalBorderCount = columnsWidth.Count + 1;
-        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
-        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        verticalBorderCount = columnsLayout.Count + 1;
+        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
 
         StringBuilder sb = new();
 
-        for (int i = 0; i < columnsWidth.Count; i++)
+        for (int i = 0; i < columnsLayout.Count; i++)
         {
             char cornerChar = CalculateCornerChar(i);
             sb.Append(cornerChar);
 
             char bodyChar = CalculateBodyChar();
-            string bodyLine = new(bodyChar, columnsWidth[i]);
+            string bodyLine = new(bodyChar, columnsLayout[i]);
             sb.Append(bodyLine);
         }
 
-        char endingCorner = CalculateCornerChar(columnsWidth.Count);
+        char endingCorner = CalculateCornerChar(columnsLayout.Count);
         sb.Append(endingCorner);
 
         return sb.ToString();

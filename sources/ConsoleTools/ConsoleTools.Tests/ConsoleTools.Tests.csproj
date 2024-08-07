@@ -25,8 +25,8 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
-        <AssemblyName>DustInTheWind.ConsoleTools.Tests</AssemblyName>
+        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
         <Configurations>Debug;Release;Debug-Net6</Configurations>
         <Platforms>AnyCPU</Platforms>
         <IsPackable>false</IsPackable>

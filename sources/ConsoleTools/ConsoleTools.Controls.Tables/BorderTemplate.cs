@@ -30,8 +30,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 /// </summary>
 public class BorderTemplate
 {
-    public static BorderTemplate EmptyTemplate { get; } = new();
-
     /// <summary>
     /// Gets an instance of the <see cref="BorderTemplate"/> that uses spaces to render the border.
     /// </summary>

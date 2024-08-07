@@ -1,0 +1,412 @@
+﻿<!--
+ConsoleTools
+Copyright (C) 2017-2022 Dust in the Wind
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+================================================================================
+Bugs or feature requests
+================================================================================
+Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>DustInTheWind.ConsoleTools.Tests</RootNamespace>
+        <AssemblyName></AssemblyName>
+        <Configurations>Debug;Release;Debug-Net6</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\01-no-alignment.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\02-alignment-default-after.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\03-alignment-left-after.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\04-alignment-center-after.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\05-alignment-right-after.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\06-alignment-default-atcreation.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\07-alignment-left-atcreation.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\08-alignment-center-atcreation.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\09-alignment-right-atcreation.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerColumnTests.Resources\01-column-0-right.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerColumnTests.Resources\02-column-0-right-cell-1-0-left.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerTableTests.Resources\01-no-columns.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellAlignmentPerTableTests.Resources\02-with-columns.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\01-lf.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\02-cr.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\03-crlf.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\04-multiline-objects.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\01-doublelineborder.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\02-doublelineborder-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\03-doublelineborder-headers.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\04-doublelineborder-title-headers.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\05-customborder-customchars.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\01-no-columns.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\01-no-setting.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\02-column-1-default.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\03-column-1-left.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\04-column-1-center.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\05-column-1-right.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\02-hrow-notvisible.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\03-column-1-header-empty.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\04-column-1-header-null.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\05-columns-header-empty.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\06-columns-header-null.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_LinesBetweenRows_Tests.Resources\01-no-line-separators.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_LinesBetweenRows_Tests.Resources\02-with-line-separators.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\01-title-headers.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\02-title^-headers.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\03-title^-headers^.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\02-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\01-long-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\02-no-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\03-no-header.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\04-no-data.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\05-only-data.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\06-only-header.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\07-only-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\08-empty.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\01-long-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\02-no-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\03-no-header.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\04-no-data.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\05-only-data.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\06-only-header.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\07-only-title.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\08-empty.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TablePaddingTests.Resources\01-padding-left.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TablePaddingTests.Resources\02-padding-right.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\01-no-alignment.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\02-alignment-default.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\03-alignment-left.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\04-alignment-center.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\05-alignment-right.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\01-top-border.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleTests.Resources\01-title-shorter.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleTests.Resources\02-title-longer.txt" />
+      <None Remove="Controls\Tables\TableRenderTests\TitleTests.Resources\03-title-multiline.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\09-alignment-right-atcreation.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\08-alignment-center-atcreation.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\07-alignment-left-atcreation.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\06-alignment-default-atcreation.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\05-alignment-right-after.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\04-alignment-center-after.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\03-alignment-left-after.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\02-alignment-default-after.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerCellTests.Resources\01-no-alignment.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithTitleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithHeadertRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_NoTitleNoContentNoFooter_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\FooterRow_BorderVisibility_WithContentRows_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_BorderVisibility_WithTitleRowAndContentRows_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithContentRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithNoOtherRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_BorderVisibility_WithHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_NoFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_GridBorderDisabled_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_NoTitleRowNoHeaderRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithHeaderRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\00-border-unspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\03-top-and-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\02-bottom-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\04-top-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_TopRow_WithTitleRow_Tests.Resources\05-bottom-border-hidden.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\01-long-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\02-no-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\03-no-header.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\04-no-data.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\05-only-data.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\06-only-header.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\07-only-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_ShortTitle_Tests.Resources\08-empty.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\02-no-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\03-no-header.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\04-no-data.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\05-only-data.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\06-only-header.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\07-only-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\08-empty.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_SpecialCaseBorder_LongTitle_Tests.Resources\01-long-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TablePaddingTests.Resources\02-padding-right.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TablePaddingTests.Resources\01-padding-left.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\02-alignment-default.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\03-alignment-left.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\04-alignment-center.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\05-alignment-right.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleRow_HorizontalAlignment_Tests.Resources\01-no-alignment.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_BorderVisibility_MiddleRow_Tests.Resources\01-top-border.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleTests.Resources\02-title-longer.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleTests.Resources\03-title-multiline.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\TitleTests.Resources\01-title-shorter.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_LinesBetweenRows_Tests.Resources\02-with-line-separators.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\ContentRow_LinesBetweenRows_Tests.Resources\01-no-line-separators.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerColumnTests.Resources\02-column-0-right-cell-1-0-left.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerColumnTests.Resources\01-column-0-right.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerTableTests.Resources\02-with-columns.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellAlignmentPerTableTests.Resources\01-no-columns.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\03-crlf.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\04-multiline-objects.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\02-cr.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\CellMultilineTests.Resources\01-lf.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\05-customborder-customchars.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\04-doublelineborder-title-headers.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\03-doublelineborder-headers.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\02-doublelineborder-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_CustomBorder_Tests.Resources\01-doublelineborder.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\06-columns-header-null.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\05-columns-header-empty.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\04-column-1-header-null.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\03-column-1-header-empty.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\02-hrow-notvisible.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_AutoVisibility_Tests.Resources\01-no-columns.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\05-column-1-right.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\04-column-1-center.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\03-column-1-left.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\02-column-1-default.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\HeaderRow_CellHorizontalAlignment_Tests.Resources\01-no-setting.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\03-title^-headers^.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\02-title^-headers.txt" />
+      <EmbeddedResource Include="Controls\Tables\TableRenderTests\GridBorder_NoBorder_Tests.Resources\01-title-headers.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.msbuild" Version="3.1.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Controls.Spinners\ConsoleTools.Controls.Spinners.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Tests.Utils\ConsoleTools.Tests.Utils.csproj" />
+    </ItemGroup>
+
+</Project>

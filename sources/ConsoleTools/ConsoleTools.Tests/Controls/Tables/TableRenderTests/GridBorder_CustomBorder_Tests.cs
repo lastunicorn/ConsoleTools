@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class CustomBorderTests : TestsBase
+public class GridBorder_CustomBorder_Tests : TestsBase
 {
     [Test]
     public void render_simple_table_with_custom_border()

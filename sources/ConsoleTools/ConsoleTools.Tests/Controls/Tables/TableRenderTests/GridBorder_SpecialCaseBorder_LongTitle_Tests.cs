@@ -20,14 +20,14 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class SpecialCaseBorder_ShortTitle_Tests : TestsBase
+public class GridBorder_SpecialCaseBorder_LongTitle_Tests : TestsBase
 {
     [Test]
     public void all()
     {
         DataGrid dataGrid = new();
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
-        dataGrid.Title = "Short Title";
+        dataGrid.Title = "This is a title longer than the rows";
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
         dataGrid.Columns.Add(new Column("Header 3"));
@@ -59,7 +59,7 @@ public class SpecialCaseBorder_ShortTitle_Tests : TestsBase
     public void no_header()
     {
         DataGrid dataGrid = new();
-        dataGrid.Title = "Short Title";
+        dataGrid.Title = "This is a title longer than the rows";
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
@@ -73,7 +73,7 @@ public class SpecialCaseBorder_ShortTitle_Tests : TestsBase
     public void no_data()
     {
         DataGrid dataGrid = new();
-        dataGrid.Title = "Short Title";
+        dataGrid.Title = "This is a title longer than the rows";
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column("Header 2"));
@@ -113,7 +113,7 @@ public class SpecialCaseBorder_ShortTitle_Tests : TestsBase
     public void only_title()
     {
         DataGrid dataGrid = new();
-        dataGrid.Title = "Short Title";
+        dataGrid.Title = "This is a title longer than the rows";
         dataGrid.BorderTemplate = BorderTemplate.DoubleLineBorderTemplate;
 
         string expected = GetResourceFileContent("07-only-title.txt");

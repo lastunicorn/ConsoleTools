@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class LinesBetweenRowsTests : TestsBase
+public class ContentRow_LinesBetweenRows_Tests : TestsBase
 {
     [Test]
     public void three_rows_without_lines_between_them()

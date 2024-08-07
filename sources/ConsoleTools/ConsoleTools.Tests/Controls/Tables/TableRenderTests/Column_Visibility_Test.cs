@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class ColumnVisibilityTest : TestsBase
+public class Column_Visibility_Test : TestsBase
 {
     [Test]
     public void HavingColumnVisibilityNotSpecified_WhenRendered_ThenAllColumnsAreDisplayed()

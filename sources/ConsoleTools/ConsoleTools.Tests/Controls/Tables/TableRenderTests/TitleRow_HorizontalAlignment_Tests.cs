@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class TitleAlignmentTests : TestsBase
+public class TitleRow_HorizontalAlignment_Tests : TestsBase
 {
     [Test]
     public void by_default_title_content_is_aligned_to_left()

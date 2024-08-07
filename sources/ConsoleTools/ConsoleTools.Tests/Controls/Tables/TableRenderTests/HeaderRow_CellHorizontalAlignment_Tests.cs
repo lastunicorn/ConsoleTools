@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class HeaderAlignmentTests : TestsBase
+public class HeaderRow_CellHorizontalAlignment_Tests : TestsBase
 {
     [Test]
     public void by_default_header_cell_content_is_aligned_to_left()

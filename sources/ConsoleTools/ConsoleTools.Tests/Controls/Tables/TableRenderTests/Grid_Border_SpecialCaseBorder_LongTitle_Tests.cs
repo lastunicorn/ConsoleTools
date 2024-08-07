@@ -20,7 +20,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class GridBorder_SpecialCaseBorder_LongTitle_Tests : TestsBase
+public class Grid_Border_SpecialCaseBorder_LongTitle_Tests : TestsBase
 {
     [Test]
     public void all()

@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.TableRenderTests;
 
 [TestFixture]
-public class Column_MinWidth_Test : TestsBase
+public class Grid_MinWidth_Tests : TestsBase
 {
     [Test]
     public void HavingColumnMinWidthNotSpecified()
@@ -37,7 +36,7 @@ public class Column_MinWidth_Test : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Columns[1].MinWidth = 5;
+        dataGrid.MinWidth = 10;
 
         string expected = GetResourceFileContent("02-minwidth-less.txt");
         dataGrid.IsEqualTo(expected);
@@ -48,21 +47,9 @@ public class Column_MinWidth_Test : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Columns[1].MinWidth = 15;
+        dataGrid.MinWidth = 50;
 
         string expected = GetResourceFileContent("03-minwidth-greater.txt");
-        dataGrid.IsEqualTo(expected);
-    }
-
-    [Test]
-    public void HavingColumnMinWidthGreaterThanContentAndAlignmentRight()
-    {
-        DataGrid dataGrid = CreateDummyDataGrid();
-
-        dataGrid.Columns[1].MinWidth = 15;
-        dataGrid.Columns[1].CellHorizontalAlignment = HorizontalAlignment.Right;
-
-        string expected = GetResourceFileContent("04-minwidth-greater-alignright.txt");
         dataGrid.IsEqualTo(expected);
     }
 

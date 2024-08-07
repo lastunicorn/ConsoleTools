@@ -99,7 +99,7 @@ internal class ColumnsLayout : IEnumerable<int>
 
         // Distribute space to reach min width.
 
-        InflateColumns(0, int.MaxValue, MinWidth);
+        InflateEntireGrid(MinWidth);
 
         int totalWidth = columnsWidth
             .Sum();
@@ -110,7 +110,7 @@ internal class ColumnsLayout : IEnumerable<int>
         return totalWidth;
     }
 
-    private void InflateColumns(int startColumnIndex, int columnCount, int desiredWidth)
+    private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth)
     {
         int[] spanColumns = columnsWidth
             .Skip(startColumnIndex)
@@ -123,19 +123,44 @@ internal class ColumnsLayout : IEnumerable<int>
         if (HasBorders)
             actualWidth += spanColumns.Length - 1;
 
-        if (actualWidth < desiredWidth)
+        if (actualWidth < desiredInnerWidth)
         {
-            int diffWidth = desiredWidth - actualWidth;
+            int diffWidth = desiredInnerWidth - actualWidth;
 
             int smallIncreaseWidth = diffWidth / spanColumns.Length;
             int bigIncreaseWidth = smallIncreaseWidth + 1;
 
             int bigColumnCount = diffWidth % spanColumns.Length;
 
+            for (int i = startColumnIndex; i < startColumnIndex + bigColumnCount; i++)
+                columnsWidth[i] += bigIncreaseWidth;
+
+            for (int i = startColumnIndex + bigColumnCount; i < startColumnIndex + spanColumns.Length; i++)
+                columnsWidth[i] += smallIncreaseWidth;
+        }
+    }
+
+    private void InflateEntireGrid(int desiredOuterWidth)
+    {
+        int actualWidth = columnsWidth
+            .Sum();
+
+        if (HasBorders)
+            actualWidth += columnsWidth.Count + 1;
+
+        if (actualWidth < desiredOuterWidth)
+        {
+            int diffWidth = desiredOuterWidth - actualWidth;
+
+            int smallIncreaseWidth = diffWidth / columnsWidth.Count;
+            int bigIncreaseWidth = smallIncreaseWidth + 1;
+
+            int bigColumnCount = diffWidth % columnsWidth.Count;
+
             for (int i = 0; i < bigColumnCount; i++)
                 columnsWidth[i] += bigIncreaseWidth;
 
-            for (int i = bigColumnCount; i < spanColumns.Length; i++)
+            for (int i = bigColumnCount; i < columnsWidth.Count; i++)
                 columnsWidth[i] += smallIncreaseWidth;
         }
     }

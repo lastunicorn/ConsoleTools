@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
@@ -109,7 +108,7 @@ internal class DataGridXBuilder
 
     private void AddContentRow(ContentRow contentRow)
     {
-        AddTopSeparatorForRow(dataGrid.FooterRow);
+        AddTopSeparatorForRow(contentRow);
 
         RowX rowX = RowX.CreateFrom(contentRow);
         dataGridX.Add(rowX);
@@ -140,58 +139,50 @@ internal class DataGridXBuilder
 
     private SeparatorX CreateTopSeparatorForRow(RowBase currentRow)
     {
-        bool? isTopSeparatorVisible = ComputeTopBorderVisibilityForRow(currentRow);
+        bool isTopSeparatorVisible = ComputeTopBorderVisibilityForRow(currentRow);
 
-        if (isTopSeparatorVisible.HasValue)
+        if (!isTopSeparatorVisible)
+            return null;
+
+        return new SeparatorX
         {
-            return new SeparatorX
-            {
-                BorderTemplate = ComputeBorderTemplate(currentRow),
-                ForegroundColor = ComputeBorderForegroundColor(currentRow),
-                BackgroundColor = ComputeBorderBackgroundColor(currentRow)
-            };
-        }
-
-        return null;
+            BorderTemplate = ComputeBorderTemplate(currentRow),
+            ForegroundColor = ComputeBorderForegroundColor(currentRow),
+            BackgroundColor = ComputeBorderBackgroundColor(currentRow)
+        };
     }
 
-    private bool? ComputeTopBorderVisibilityForRow(RowBase currentRow)
+    private bool ComputeTopBorderVisibilityForRow(RowBase currentRow)
     {
-        if (currentRow?.BorderVisibility != null)
+        bool? isCurrentRowTopBorderVisible = currentRow?.BorderVisibility?.Top;
+        if (isCurrentRowTopBorderVisible != null)
         {
             // Current row has border specified.
 
-            switch (currentRow.BorderVisibility.Value.Top)
-            {
-                case true: return true;
-                case false: return null;
-                case null: break;
-            }
+            return isCurrentRowTopBorderVisible.Value;
         }
 
-        if (previousRow?.BorderVisibility != null)
+        bool? isPreviousRowBottomBorderVisible = previousRow?.BorderVisibility?.Bottom;
+        if (isPreviousRowBottomBorderVisible != null)
         {
             // Previous row has border specified.
 
-            switch (previousRow.BorderVisibility.Value.Bottom)
-            {
-                case true: return true;
-                case false: return null;
-                case null: break;
-            }
+            return isPreviousRowBottomBorderVisible.Value;
         }
 
         if (dataGrid.IsBorderVisible)
         {
-            bool shouldDisplaySeparator = currentRow is not ContentRow ||
+            // Grid provides its default border.
+
+            bool shouldDisplayTopBorder = currentRow is not ContentRow ||
                                           previousRow is not ContentRow ||
                                           dataGrid.DisplayBorderBetweenRows;
 
-            if (shouldDisplaySeparator)
+            if (shouldDisplayTopBorder)
                 return true;
         }
 
-        return null;
+        return false;
     }
 
     private BorderTemplate ComputeBorderTemplate(RowBase currentRow)

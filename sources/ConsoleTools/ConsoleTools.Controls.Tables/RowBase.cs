@@ -96,42 +96,6 @@ public abstract class RowBase : IEnumerable<CellBase>
     /// </summary>
     public ConsoleColor? BorderBackgroundColor { get; set; }
 
-    internal BorderTemplate ComputeBorderTemplate()
-    {
-        BorderTemplate template = BorderTemplate;
-
-        if (template != null)
-            return template;
-
-        template = ParentDataGrid?.ComputeBorderTemplate();
-
-        return template;
-    }
-
-    internal ConsoleColor? ComputeBorderForegroundColor()
-    {
-        ConsoleColor? color = BorderForegroundColor;
-
-        if (color != null)
-            return color;
-
-        color = ParentDataGrid?.ComputeBorderForegroundColor();
-
-        return color;
-    }
-
-    internal ConsoleColor? ComputeBorderBackgroundColor()
-    {
-        ConsoleColor? color = BorderBackgroundColor;
-
-        if (color != null)
-            return color;
-
-        color = ParentDataGrid?.ComputeBorderBackgroundColor();
-
-        return color;
-    }
-
     /// <summary>
     /// When implemented by an inheritor, enumerates all the cells contained by the current instance.
     /// </summary>

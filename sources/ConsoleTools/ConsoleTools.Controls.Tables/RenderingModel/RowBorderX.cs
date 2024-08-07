@@ -61,20 +61,56 @@ internal class RowBorderX
 
         return new RowBorderX
         {
-            Template = rowBase.ComputeBorderTemplate(),
-            ForegroundColor = rowBase.ComputeBorderForegroundColor(),
-            BackgroundColor = rowBase.ComputeBorderBackgroundColor()
+            Template = ComputeBorderTemplate(rowBase),
+            ForegroundColor = ComputeBorderForegroundColor(rowBase),
+            BackgroundColor = ComputeBorderBackgroundColor(rowBase)
         };
     }
 
-    private static bool ComputeVerticalBorderVisibility(RowBase rowBase)
+    private static bool ComputeVerticalBorderVisibility(RowBase currentRow)
     {
-        if (rowBase.BorderVisibility == null)
-            return rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.IsBorderVisible;
+        if (currentRow.BorderVisibility == null)
+            return currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.IsBorderVisible;
 
-        if (rowBase.BorderVisibility.Value.Left == null && rowBase.BorderVisibility.Value.Inside == null && rowBase.BorderVisibility.Value.Right == null)
-            return rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.IsBorderVisible;
+        if (currentRow.BorderVisibility.Value.Left == null && currentRow.BorderVisibility.Value.Inside == null && currentRow.BorderVisibility.Value.Right == null)
+            return currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.IsBorderVisible;
 
-        return rowBase.BorderVisibility.Value.Left == true || rowBase.BorderVisibility.Value.Inside == true || rowBase.BorderVisibility.Value.Right == true;
+        return currentRow.BorderVisibility.Value.Left == true || currentRow.BorderVisibility.Value.Inside == true || currentRow.BorderVisibility.Value.Right == true;
+    }
+
+    private static BorderTemplate ComputeBorderTemplate(RowBase rowBase)
+    {
+        BorderTemplate template = rowBase.BorderTemplate;
+
+        if (template != null)
+            return template;
+
+        template = rowBase.ParentDataGrid?.BorderTemplate;
+
+        return template;
+    }
+
+    private static ConsoleColor? ComputeBorderForegroundColor(RowBase rowBase)
+    {
+        ConsoleColor? color = rowBase.BorderForegroundColor;
+
+        if (color != null)
+            return color;
+
+        color = rowBase.ParentDataGrid?.BorderForegroundColor;
+
+        return color;
+    }
+
+    private static ConsoleColor? ComputeBorderBackgroundColor(RowBase rowBase)
+    {
+        ConsoleColor? color = rowBase.BorderBackgroundColor;
+
+        if (color != null)
+            return color;
+
+        color = rowBase.ParentDataGrid?.BorderBackgroundColor;
+
+        return color;
     }
 }

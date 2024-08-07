@@ -370,32 +370,6 @@ public class DataGrid : BlockControl
     }
 
     /// <summary>
-    /// Decides what is the background color of the border.
-    /// If the border does not explicitly specify it, the foreground color of the grid itself is used.
-    /// </summary>
-    internal ConsoleColor? ComputeBorderForegroundColor()
-    {
-        return BorderForegroundColor ?? ForegroundColor;
-    }
-
-    /// <summary>
-    /// Decides what is the background color of the border.
-    /// /// If the border does not explicitly specify it, the background color of the grid itself is used.
-    /// </summary>
-    internal ConsoleColor? ComputeBorderBackgroundColor()
-    {
-        return BorderBackgroundColor ?? BackgroundColor;
-    }
-
-    /// <summary>
-    /// Decides the border template to be used when the grid is rendered.
-    /// </summary>
-    public BorderTemplate ComputeBorderTemplate()
-    {
-        return BorderTemplate;
-    }
-
-    /// <summary>
     /// Returns the string representation of the current instance.
     /// </summary>
     /// <returns>The string representation of the current instance.</returns>

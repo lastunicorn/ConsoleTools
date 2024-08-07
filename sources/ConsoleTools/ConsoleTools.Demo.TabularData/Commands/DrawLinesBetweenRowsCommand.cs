@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -25,12 +26,52 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
         public void Execute()
         {
-            DataGrid dataGrid = new DataGrid("DisplayBorderBetweenRows = true");
-            dataGrid.Rows.Add("This is a multiline row:\nline one\nline two\nline three", "1");
-            dataGrid.Rows.Add("And this is another\nmultiline row", "2");
+            DisplayTableWithoutBorders();
+            Console.WriteLine();
+
+            DisplayTableWithBorders();
+        }
+
+        private static void DisplayTableWithoutBorders()
+        {
+            DataGrid dataGrid = CreateDataGrid();
+            dataGrid.Title = "DisplayBorderBetweenRows = false";
+
+            dataGrid.DisplayBorderBetweenRows = false;
+
+            dataGrid.Display();
+        }
+
+        private static void DisplayTableWithBorders()
+        {
+            DataGrid dataGrid = CreateDataGrid();
+            dataGrid.Title = "DisplayBorderBetweenRows = true";
+
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.Display();
+        }
+
+        private static DataGrid CreateDataGrid()
+        {
+            DataGrid dataGrid = new DataGrid();
+
+            dataGrid.Columns.Add("Column 0");
+            dataGrid.Columns.Add("Column 1");
+            dataGrid.Columns.Add("Column 2");
+            dataGrid.Columns.Add("Column 3");
+
+            for (int i = 0; i < 5; i++)
+            {
+                string cell0 = $"cell {i:0}:0";
+                string cell1 = $"cell {i:0}:1";
+                string cell2 = $"cell {i:0}:2";
+                string cell3 = $"cell {i:0}:3";
+
+                dataGrid.Rows.Add(cell0, cell1, cell2, cell3);
+            }
+
+            return dataGrid;
         }
     }
 }

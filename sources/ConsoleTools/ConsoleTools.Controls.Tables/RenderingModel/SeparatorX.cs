@@ -48,14 +48,15 @@ internal class SeparatorX : IItemX
             return;
 
         string line = BuildLine(columnsWidth);
-        tablePrinter.WriteLine(line, ForegroundColor, BackgroundColor);
+        tablePrinter.Write(line, ForegroundColor, BackgroundColor);
+        tablePrinter.WriteLine();
     }
 
     private string BuildLine(IReadOnlyList<int> columnsWidth)
     {
         verticalBorderCount = columnsWidth.Count + 1;
-        row1VerticalBorders = Row1?.CalculateVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
-        row2VerticalBorders = Row2?.CalculateVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnsWidth.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
 
         StringBuilder sb = new();
 

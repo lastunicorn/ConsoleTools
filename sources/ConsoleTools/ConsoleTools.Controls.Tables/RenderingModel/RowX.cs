@@ -117,7 +117,7 @@ internal class RowX : IItemX
         return new Size(cellWidth, cellHeight);
     }
 
-    public List<bool> CalculateVerticalBorderVisibility(int columnCount)
+    public List<bool> ComputeVerticalBorderVisibility(int columnCount)
     {
         List<bool> visibilities = new() { true };
 

@@ -76,7 +76,7 @@ internal class DataGridX
             CellX cellX = rowX.Cells[i];
 
             int width = cellX.Size.Width;
-            int span = cellX.HorizontalMerge;
+            int span = cellX.ColumnSpan;
 
             columnsLayout.UpdateColumnWidth(i, width, span);
         }

@@ -78,7 +78,7 @@ internal class RowX : IItemX
         for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
         {
             CellX cellX = Cells[columnIndex];
-            Size cellSize = CalculateCellSize(columnsLayout, columnIndex, cellX.HorizontalMerge);
+            Size cellSize = CalculateCellSize(columnsLayout, columnIndex, cellX.ColumnSpan);
 
             cellX.RenderNextLine(tablePrinter, cellSize);
 
@@ -126,7 +126,7 @@ internal class RowX : IItemX
 
         foreach (CellX cell in Cells)
         {
-            for (int i = 0; i < cell.HorizontalMerge - 1 && visibilities.Count < columnCount; i++)
+            for (int i = 0; i < cell.ColumnSpan - 1 && visibilities.Count < columnCount; i++)
                 visibilities.Add(false);
 
             visibilities.Add(true);
@@ -181,7 +181,7 @@ internal class RowX : IItemX
         if (titleRow == null) throw new ArgumentNullException(nameof(titleRow));
 
         CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
-        cellX.HorizontalMerge = int.MaxValue;
+        cellX.ColumnSpan = int.MaxValue;
 
         RowX rowX = new()
         {
@@ -201,7 +201,7 @@ internal class RowX : IItemX
         if (footerRow == null) throw new ArgumentNullException(nameof(footerRow));
 
         CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
-        cellX.HorizontalMerge = int.MaxValue;
+        cellX.ColumnSpan = int.MaxValue;
 
         RowX rowX = new()
         {

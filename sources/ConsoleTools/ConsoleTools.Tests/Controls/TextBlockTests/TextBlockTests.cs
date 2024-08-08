@@ -28,39 +28,37 @@ public class TextBlockTests
     [Test]
     public void Test1()
     {
-        using (ConsoleOutput consoleOutput = new())
+        using ConsoleOutput consoleOutput = new();
+
+        TextBlock textBlock = new()
         {
-            TextBlock textBlock = new()
-            {
-                Text = "alez"
-            };
+            Text = "alez"
+        };
 
-            textBlock.Display();
+        textBlock.Display();
 
-            string actual = consoleOutput.GetOutput();
+        string actual = consoleOutput.GetOutput();
 
-            string expected = expectedOutput.GeExpectedOut();
-            Assert.AreEqual(expected, actual);
-        }
+        string expected = expectedOutput.GeExpectedOut();
+        Assert.AreEqual(expected, actual);
     }
 
     [Test]
     public void Test2()
     {
-        using (ConsoleOutput consoleOutput = new())
+        using ConsoleOutput consoleOutput = new();
+
+        TextBlock textBlock = new()
         {
-            TextBlock textBlock = new()
-            {
-                Text = "alez",
-                Margin = 1
-            };
+            Text = "alez",
+            Margin = 1
+        };
 
-            textBlock.Display();
+        textBlock.Display();
 
-            string actual = consoleOutput.GetOutput();
+        string actual = consoleOutput.GetOutput();
 
-            string expected = expectedOutput.GeExpectedOut();
-            Assert.AreEqual(expected, actual);
-        }
+        string expected = expectedOutput.GeExpectedOut();
+        Assert.AreEqual(expected, actual);
     }
 }

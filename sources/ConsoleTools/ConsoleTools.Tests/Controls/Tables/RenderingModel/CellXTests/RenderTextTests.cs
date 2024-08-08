@@ -119,9 +119,11 @@ public class RenderTextTests
     {
         StringLinesTablePrinter stringTablePrinter = new();
 
+        cellX.InitializeRendering(size.Width);
+
         for (int i = 0; i < size.Height; i++)
         {
-            cellX.RenderNextLine(stringTablePrinter, size);
+            cellX.RenderNextLine(stringTablePrinter);
             stringTablePrinter.WriteLine();
         }
 

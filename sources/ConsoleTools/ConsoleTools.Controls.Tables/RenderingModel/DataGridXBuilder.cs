@@ -59,12 +59,12 @@ internal class DataGridXBuilder
 
         bool isTitleRowVisible = dataGrid.TitleRow is { IsVisible: true, HasContent: true };
         if (isTitleRowVisible)
-            AddTitle();
+            AddRow(dataGrid.TitleRow);
 
         bool isHeaderRowVisible = dataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
                                   dataGrid.Columns.Any(x => x.IsVisible && !x.HeaderCell.IsEmpty);
         if (isHeaderRowVisible)
-            AddHeader();
+            AddRow(dataGrid.HeaderRow);
 
         bool areNormalRowsVisible = dataGrid.Rows.Count > 0;
         if (areNormalRowsVisible)
@@ -72,7 +72,7 @@ internal class DataGridXBuilder
 
         bool isFooterRowVisible = dataGrid.FooterRow is { IsVisible: true, HasContent: true };
         if (isFooterRowVisible)
-            AddFooter();
+            AddRow(dataGrid.FooterRow);
 
         if (dataGridX.ItemCount > 0)
             AddTopSeparatorForRow(null);
@@ -96,53 +96,25 @@ internal class DataGridXBuilder
         }
     }
 
-    private void AddTitle()
-    {
-        AddTopSeparatorForRow(dataGrid.TitleRow);
-
-        RowX rowX = RowX.CreateFrom(dataGrid.TitleRow);
-        dataGridX.Add(rowX);
-
-        previousRow = dataGrid.TitleRow;
-    }
-
-    private void AddHeader()
-    {
-        AddTopSeparatorForRow(dataGrid.HeaderRow);
-
-        RowX headerRowX = RowX.CreateFrom(dataGrid.HeaderRow);
-        dataGridX.Add(headerRowX);
-
-        previousRow = dataGrid.HeaderRow;
-    }
-
     private void AddContentRows()
     {
         IEnumerable<ContentRow> visibleRows = dataGrid.Rows
             .Where(x => x.IsVisible);
 
         foreach (ContentRow currentRow in visibleRows)
-            AddContentRow(currentRow);
+            AddRow(currentRow);
     }
 
-    private void AddContentRow(ContentRow contentRow)
+    private void AddRow(RowBase rowBase)
     {
-        AddTopSeparatorForRow(contentRow);
+        AddTopSeparatorForRow(rowBase);
 
-        RowX rowX = RowX.CreateFrom(contentRow);
+        RowX rowX = RowXBuilder.CreateFor(rowBase)
+            .Build();
+
         dataGridX.Add(rowX);
 
-        previousRow = contentRow;
-    }
-
-    private void AddFooter()
-    {
-        AddTopSeparatorForRow(dataGrid.FooterRow);
-
-        RowX rowX = RowX.CreateFrom(dataGrid.FooterRow);
-        dataGridX.Add(rowX);
-
-        previousRow = dataGrid.FooterRow;
+        previousRow = rowBase;
     }
 
     private void AddTopSeparatorForRow(RowBase currentRow)

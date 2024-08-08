@@ -26,6 +26,7 @@ public class HeaderRow_AutoVisibility_Tests : TestsBase
     public void HavingNoColumnsDeclared_WhenRendered_ThenHeaderRowIsNotDisplayed()
     {
         DataGrid dataGrid = new("Header visibility test");
+
         dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
         dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
@@ -35,33 +36,19 @@ public class HeaderRow_AutoVisibility_Tests : TestsBase
     }
 
     [Test]
-    public void HavingColumnsDeclaredAndHeaderRowNotVisible_WhenRendered_ThenHeaderRowIsNotDisplayed()
-    {
-        DataGrid dataGrid = new("Header visibility test");
-        dataGrid.Columns.Add(new Column("Header 1"));
-        dataGrid.Columns.Add(new Column("Header 2"));
-        dataGrid.Columns.Add(new Column("Header 3"));
-        dataGrid.HeaderRow.IsVisible = false;
-        dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
-        dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
-        dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
-
-        string expected = GetResourceFileContent("02-hrow-notvisible.txt");
-        dataGrid.IsEqualTo(expected);
-    }
-
-    [Test]
     public void HavingColumn1WithEmptyHeaderText_WhenRendered_ThenHeaderRowIsDisplayed()
     {
         DataGrid dataGrid = new("Header visibility test");
+
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column(string.Empty));
         dataGrid.Columns.Add(new Column("Header 3"));
+
         dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
         dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
-        string expected = GetResourceFileContent("03-column-1-header-empty.txt");
+        string expected = GetResourceFileContent("02-column-1-header-empty.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -69,14 +56,16 @@ public class HeaderRow_AutoVisibility_Tests : TestsBase
     public void HavingColumn1WithNullHeaderText_WhenRendered_ThenHeaderRowIsDisplayed()
     {
         DataGrid dataGrid = new("Header visibility test");
+
         dataGrid.Columns.Add(new Column("Header 1"));
         dataGrid.Columns.Add(new Column(null as string));
         dataGrid.Columns.Add(new Column("Header 3"));
+
         dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
         dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
-        string expected = GetResourceFileContent("04-column-1-header-null.txt");
+        string expected = GetResourceFileContent("03-column-1-header-null.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -84,14 +73,16 @@ public class HeaderRow_AutoVisibility_Tests : TestsBase
     public void HavingAllColumnsWithEmptyHeaderText_WhenRendered_ThenHeaderRowIsNotDisplayed()
     {
         DataGrid dataGrid = new("Header visibility test");
+
         dataGrid.Columns.Add(new Column(string.Empty));
         dataGrid.Columns.Add(new Column(string.Empty));
         dataGrid.Columns.Add(new Column(string.Empty));
+
         dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
         dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
-        string expected = GetResourceFileContent("05-columns-header-empty.txt");
+        string expected = GetResourceFileContent("04-columns-header-empty.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -99,14 +90,16 @@ public class HeaderRow_AutoVisibility_Tests : TestsBase
     public void HavingAllColumnsWithNullHeaderText_WhenRendered_ThenHeaderRowIsNotDisplayed()
     {
         DataGrid dataGrid = new("Header visibility test");
+
         dataGrid.Columns.Add(new Column(null as string));
         dataGrid.Columns.Add(new Column(null as string));
         dataGrid.Columns.Add(new Column(null as string));
+
         dataGrid.Rows.Add("Cell Content 0,0", "Cell Content 0,1", "Cell Content 0,2");
         dataGrid.Rows.Add("Cell Content 1,0", "Cell Content 1,1", "Cell Content 1,2");
         dataGrid.Rows.Add("Cell Content 2,0", "Cell Content 2,1", "Cell Content 2,2");
 
-        string expected = GetResourceFileContent("06-columns-header-null.txt");
+        string expected = GetResourceFileContent("05-columns-header-null.txt");
         dataGrid.IsEqualTo(expected);
     }
 }

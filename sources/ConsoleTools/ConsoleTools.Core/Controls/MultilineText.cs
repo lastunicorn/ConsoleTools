@@ -187,34 +187,7 @@ public class MultilineText : IEnumerable<string>
     /// Calculates the size of the text.
     /// </summary>
     /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
-    /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
-    public Size CalculateSize(int maxWidth = -1)
-    {
-        if (maxWidth < 0)
-            return Size;
-
-        if (maxWidth == 0)
-            return Size.Empty;
-
-        int totalWidth = 0;
-        int totalHeight = 0;
-
-        foreach (string line in Lines)
-        {
-            int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
-            totalHeight += lineHeight;
-
-            int lineWidth = Math.Min(line.Length, maxWidth);
-            totalWidth = Math.Max(totalWidth, lineWidth);
-        }
-
-        return new Size(totalWidth, totalHeight);
-    }
-
-    /// <summary>
-    /// Calculates the size of the text.
-    /// </summary>
-    /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.CharWrap"/>.</param>
     /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
     public Size CalculateSize(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.CharWrap)
     {
@@ -232,88 +205,6 @@ public class MultilineText : IEnumerable<string>
 
                 return new Size(newWidth, newHeight);
             });
-
-
-        //switch (overflowBehavior)
-        //{
-        //    case OverflowBehavior.Overflow:
-        //        return Size;
-
-        //    case OverflowBehavior.CharCut:
-        //    case OverflowBehavior.CharCutWithEllipsis:
-        //        return Lines
-        //            .Select(x => x.MeasureCutAtChar(maxWidth))
-        //            .Aggregate(Size.Empty, (size1, size2) =>
-        //            {
-        //                int newWidth = Math.Max(size1.Width, size2.Width);
-        //                int newHeight = size1.Height + size2.Height;
-
-        //                return new Size(newWidth, newHeight);
-        //            });
-
-        //    case OverflowBehavior.WordCut:
-        //        return Lines
-        //            .Select(x => x.MeasureCutAtWord(maxWidth))
-        //            .Aggregate(Size.Empty, (size1, size2) =>
-        //            {
-        //                int newWidth = Math.Max(size1.Width, size2.Width);
-        //                int newHeight = size1.Height + size2.Height;
-
-        //                return new Size(newWidth, newHeight);
-        //            });
-
-        //    case OverflowBehavior.WordCutWithEllipsis:
-        //        return Lines
-        //            .Select(x => x.MeasureCutAtWord(maxWidth, true))
-        //            .Aggregate(Size.Empty, (size1, size2) =>
-        //            {
-        //                int newWidth = Math.Max(size1.Width, size2.Width);
-        //                int newHeight = size1.Height + size2.Height;
-
-        //                return new Size(newWidth, newHeight);
-        //            });
-
-        //    case OverflowBehavior.CharWrap:
-        //        {
-        //            return Lines
-        //                .Select(x => x.MeasureWrapAtChar(maxWidth))
-        //                .Aggregate(Size.Empty, (size1, size2) =>
-        //                {
-        //                    int newWidth = Math.Max(size1.Width, size2.Width);
-        //                    int newHeight = size1.Height + size2.Height;
-
-        //                    return new Size(newWidth, newHeight);
-        //                });
-
-        //            //int totalWidth = 0;
-        //            //int totalHeight = 0;
-
-        //            //foreach (string line in Lines)
-        //            //{
-        //            //    int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
-        //            //    totalHeight += lineHeight;
-
-        //            //    int lineWidth = Math.Min(line.Length, maxWidth);
-        //            //    totalWidth = Math.Max(totalWidth, lineWidth);
-        //            //}
-
-        //            //return new Size(totalWidth, totalHeight);
-        //        }
-
-        //    case OverflowBehavior.WordWrap:
-        //        return Lines
-        //            .Select(x => x.MeasureWrapAtWord(maxWidth))
-        //            .Aggregate(Size.Empty, (size1, size2) =>
-        //            {
-        //                int newWidth = Math.Max(size1.Width, size2.Width);
-        //                int newHeight = size1.Height + size2.Height;
-
-        //                return new Size(newWidth, newHeight);
-        //            });
-
-        //    default:
-        //        throw new ArgumentOutOfRangeException(nameof(overflowBehavior), overflowBehavior, null);
-        //}
     }
 
     private IEnumerable<Size> MeasureLineSizes(int maxWidth, OverflowBehavior overflowBehavior)

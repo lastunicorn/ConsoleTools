@@ -25,11 +25,7 @@ public class ContentRow_LinesBetweenRows_Tests : TestsBase
     [Test]
     public void three_rows_without_lines_between_them()
     {
-        DataGrid dataGrid = new();
-        dataGrid.Title = "My Title";
-        dataGrid.Rows.Add("one", "ichi", "eins");
-        dataGrid.Rows.Add("two", "ni", "zwei");
-        dataGrid.Rows.Add("three", "san", "drei");
+        DataGrid dataGrid = CreateDummyDataGrid();
 
         string expected = GetResourceFileContent("01-no-line-separators.txt");
         dataGrid.IsEqualTo(expected);
@@ -38,15 +34,23 @@ public class ContentRow_LinesBetweenRows_Tests : TestsBase
     [Test]
     public void three_rows_with_lines_between_them()
     {
+        DataGrid dataGrid = CreateDummyDataGrid();
+
+        dataGrid.DisplayBorderBetweenRows = true;
+
+        string expected = GetResourceFileContent("02-with-line-separators.txt");
+        dataGrid.IsEqualTo(expected);
+    }
+
+    private static DataGrid CreateDummyDataGrid()
+    {
         DataGrid dataGrid = new();
         dataGrid.Title = "My Title";
-        dataGrid.DisplayBorderBetweenRows = true;
 
         dataGrid.Rows.Add("one", "ichi", "eins");
         dataGrid.Rows.Add("two", "ni", "zwei");
         dataGrid.Rows.Add("three", "san", "drei");
 
-        string expected = GetResourceFileContent("02-with-line-separators.txt");
-        dataGrid.IsEqualTo(expected);
+        return dataGrid;
     }
 }

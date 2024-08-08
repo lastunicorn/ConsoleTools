@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class RowX : IItemX
 {
-    public Size Size { get; private set; }
+    public Size PreferredSize { get; private set; }
+
+    public Size ActualSize { get; private set; }
 
     public RowBorderX Border { get; set; }
 
@@ -35,7 +36,7 @@ internal class RowX : IItemX
 
     public void CalculateLayout()
     {
-        Size = CalculatePreferredSize();
+        PreferredSize = CalculatePreferredSize();
     }
 
     private Size CalculatePreferredSize()
@@ -47,8 +48,8 @@ internal class RowX : IItemX
         {
             foreach (CellX cell in Cells)
             {
-                width += cell.Size.Width;
-                height = Math.Max(height, cell.Size.Height);
+                width += cell.PreferredSize.Width;
+                height = Math.Max(height, cell.PreferredSize.Height);
             }
         }
 
@@ -67,57 +68,62 @@ internal class RowX : IItemX
 
     public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
     {
-        for (int lineIndex = 0; lineIndex < Size.Height; lineIndex++) 
-            RenderNextLine(tablePrinter, columnsLayout);
+        InitializeCellRendering(columnsLayout);
+
+        for (int lineIndex = 0; lineIndex < ActualSize.Height; lineIndex++)
+        {
+            RenderNextLine(tablePrinter);
+            tablePrinter.WriteLine();
+        }
     }
 
-    private void RenderNextLine(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
+    private void InitializeCellRendering(ColumnsLayout columnsLayout)
     {
-        Border?.RenderRowLeftBorder(tablePrinter);
+        int width = 0;
+        int height = 0;
 
         for (int columnIndex = 0; columnIndex < Cells.Count; columnIndex++)
         {
             CellX cellX = Cells[columnIndex];
-            Size cellSize = CalculateCellSize(columnsLayout, columnIndex, cellX.ColumnSpan);
 
-            cellX.RenderNextLine(tablePrinter, cellSize);
+            int cellWidth = columnsLayout.GetCellWidth(columnIndex, cellX.ColumnSpan);
+            cellX.InitializeRendering(cellWidth);
 
-            bool isLastCell = columnIndex >= Cells.Count - 1;
+            width += cellX.ActualContentSize.Width;
+            height = Math.Max(height, cellX.ActualContentSize.Height);
+        }
+
+        bool hasBorder = Border != null;
+        if (hasBorder)
+        {
+            int cellsCount = Cells?.Count ?? 0;
+
+            if (cellsCount == 0)
+                cellsCount = 1;
+
+            width += cellsCount + 1;
+        }
+
+        ActualSize = new Size(width, height);
+    }
+
+    private void RenderNextLine(ITablePrinter tablePrinter)
+    {
+        Border?.RenderRowLeftBorder(tablePrinter);
+
+        for (int cellIndex = 0; cellIndex < Cells.Count; cellIndex++)
+        {
+            CellX cellX = Cells[cellIndex];
+
+            cellX.RenderNextLine(tablePrinter);
+
+            bool isLastCell = cellIndex >= Cells.Count - 1;
 
             if (isLastCell)
                 Border?.RenderRowRightBorder(tablePrinter);
             else
                 Border?.RenderRowInsideBorder(tablePrinter);
         }
-
-        tablePrinter.WriteLine();
-    }
-
-    private Size CalculateCellSize(ColumnsLayout columnsLayout, int columnIndex, int columnSpan)
-    {
-        int cellWidth;
-
-        if (columnSpan >= 2)
-        {
-            int[] spannedColumns = columnsLayout
-                .Skip(columnIndex)
-                .Take(columnSpan)
-                .ToArray();
-
-            cellWidth = spannedColumns
-                .Sum();
-
-            if (Border != null && spannedColumns.Length > 0)
-                cellWidth += spannedColumns.Length - 1;
-        }
-        else
-        {
-            cellWidth = columnsLayout[columnIndex];
-        }
-
-        int cellHeight = Size.Height;
-
-        return new Size(cellWidth, cellHeight);
     }
 
     public List<bool> ComputeVerticalBorderVisibility(int columnCount)
@@ -136,83 +142,5 @@ internal class RowX : IItemX
             visibilities.Add(false);
 
         return visibilities;
-    }
-
-    public static RowX CreateFrom(ContentRow contentRow)
-    {
-        if (contentRow == null) throw new ArgumentNullException(nameof(contentRow));
-
-        RowX rowX = new()
-        {
-            Border = contentRow.ParentDataGrid == null || contentRow.ParentDataGrid.AreBordersAllowed
-                ? RowBorderX.CreateFrom(contentRow)
-                : null,
-            Cells = contentRow.EnumerateVisibleCells()
-                .Select(CellX.CreateFrom)
-                .ToList()
-        };
-
-        rowX.CalculateLayout();
-
-        return rowX;
-    }
-
-    public static RowX CreateFrom(HeaderRow headerRow)
-    {
-        if (headerRow == null) throw new ArgumentNullException(nameof(headerRow));
-
-        RowX headerRowX = new()
-        {
-            Border = headerRow.ParentDataGrid == null || headerRow.ParentDataGrid.AreBordersAllowed
-                ? RowBorderX.CreateFrom(headerRow)
-                : null,
-            Cells = headerRow.EnumerateVisibleCells()
-                .Select(CellX.CreateFrom)
-                .ToList()
-        };
-
-        headerRowX.CalculateLayout();
-
-        return headerRowX;
-    }
-
-    public static RowX CreateFrom(TitleRow titleRow)
-    {
-        if (titleRow == null) throw new ArgumentNullException(nameof(titleRow));
-
-        CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
-        cellX.ColumnSpan = int.MaxValue;
-
-        RowX rowX = new()
-        {
-            Border = titleRow.ParentDataGrid == null || titleRow.ParentDataGrid.AreBordersAllowed
-                ? RowBorderX.CreateFrom(titleRow)
-                : null,
-            Cells = new List<CellX> { cellX }
-        };
-
-        rowX.CalculateLayout();
-
-        return rowX;
-    }
-
-    public static RowX CreateFrom(FooterRow footerRow)
-    {
-        if (footerRow == null) throw new ArgumentNullException(nameof(footerRow));
-
-        CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
-        cellX.ColumnSpan = int.MaxValue;
-
-        RowX rowX = new()
-        {
-            Border = footerRow.ParentDataGrid == null || footerRow.ParentDataGrid.AreBordersAllowed
-                ? RowBorderX.CreateFrom(footerRow)
-                : null,
-            Cells = new List<CellX> { cellX }
-        };
-
-        rowX.CalculateLayout();
-
-        return rowX;
     }
 }

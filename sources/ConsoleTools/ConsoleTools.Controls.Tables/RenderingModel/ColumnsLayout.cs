@@ -155,6 +155,26 @@ internal class ColumnsLayout : IEnumerable<int>
         }
     }
 
+    public int GetCellWidth(int cellIndex, int columnSpan = 1)
+    {
+        if (columnSpan == 1)
+            return columnsWidth[cellIndex];
+
+        int[] spannedColumns = columnsWidth
+            .Skip(cellIndex)
+            .Take(columnSpan)
+            .ToArray();
+
+        int contentWidth = spannedColumns
+            .Sum();
+
+        bool shouldAddBorders = HasBorders && spannedColumns.Length > 0;
+
+        return shouldAddBorders
+            ? contentWidth + spannedColumns.Length - 1
+            : contentWidth;
+    }
+
     private void InflateEntireGrid(int deltaWidth)
     {
         int smallIncreaseWidth = deltaWidth / columnsWidth.Count;

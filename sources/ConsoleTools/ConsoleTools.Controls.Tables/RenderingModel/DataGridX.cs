@@ -81,7 +81,7 @@ internal class DataGridX
         {
             CellX cellX = rowX.Cells[i];
 
-            int width = cellX.Size.Width;
+            int width = cellX.PreferredSize.Width;
             int span = cellX.ColumnSpan;
 
             columnsLayout.UpdateColumnWidth(i, width, span);

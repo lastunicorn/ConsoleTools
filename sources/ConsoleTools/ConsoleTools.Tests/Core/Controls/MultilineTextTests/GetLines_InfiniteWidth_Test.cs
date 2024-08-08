@@ -72,5 +72,4 @@ public class GetLines_InfiniteWidth_Test
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick    brown fox jumps over the lazy dog." }));
     }
-
 }

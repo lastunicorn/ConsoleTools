@@ -105,6 +105,7 @@ public class ContentCell : CellBase
     /// Calculates and returns the left padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row, parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override int CalculatePaddingLeft()
     {
         int? paddingLeft = PaddingLeft;
@@ -137,6 +138,7 @@ public class ContentCell : CellBase
     /// Calculates and returns the right padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row, parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override int CalculatePaddingRight()
     {
         int? paddingRight = PaddingRight;
@@ -165,6 +167,7 @@ public class ContentCell : CellBase
     /// Calculates and returns the foreground color for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row, parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateForegroundColor()
     {
         ConsoleColor? color = ForegroundColor;
@@ -189,6 +192,7 @@ public class ContentCell : CellBase
     /// Calculates and returns the background color for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row, parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateBackgroundColor()
     {
         ConsoleColor? color = BackgroundColor;
@@ -215,6 +219,7 @@ public class ContentCell : CellBase
     /// and the values specified by the parent row, parent column and parent table.
     /// It never returns <see cref="HorizontalAlignment.Default"/>.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override HorizontalAlignment CalculateHorizontalAlignment()
     {
         HorizontalAlignment alignment = HorizontalAlignment;

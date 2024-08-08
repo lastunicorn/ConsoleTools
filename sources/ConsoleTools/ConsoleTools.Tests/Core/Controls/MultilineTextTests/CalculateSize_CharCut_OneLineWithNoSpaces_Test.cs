@@ -56,7 +56,7 @@ public class CalculateSize_CharCut_OneLineWithNoSpaces_Test
     public void HavingWidthZero_WhenLinesAreMeasured_ThenSizeIsEmpty()
     {
         MultilineText multilineText = new("1234567890");
-        
+
         Size size = multilineText.CalculateSize(0, OverflowBehavior.CharCut);
 
         Assert.That(size, Is.EqualTo(Size.Empty));

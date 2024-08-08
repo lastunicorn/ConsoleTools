@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.AlignedTextTests;
 public class ToStringTests
 {
     [Test]
-    public void if_alignment_is_not_specified_then_text_is_aligend_to_left()
+    public void if_alignment_is_not_specified_then_text_is_aligned_to_left()
     {
         AlignedText alignedText = new()
         {
@@ -37,7 +37,7 @@ public class ToStringTests
     }
 
     [Test]
-    public void text_aligend_to_left()
+    public void text_aligned_to_left()
     {
         AlignedText alignedText = new()
         {
@@ -52,7 +52,7 @@ public class ToStringTests
     }
 
     [Test]
-    public void text_aligend_to_center_even_empty_space()
+    public void text_aligned_to_center_even_empty_space()
     {
         AlignedText alignedText = new()
         {
@@ -67,7 +67,7 @@ public class ToStringTests
     }
 
     [Test]
-    public void text_aligend_to_center_odd_empty_space()
+    public void text_aligned_to_center_odd_empty_space()
     {
         AlignedText alignedText = new()
         {
@@ -82,7 +82,7 @@ public class ToStringTests
     }
 
     [Test]
-    public void text_aligend_to_right()
+    public void text_aligned_to_right()
     {
         AlignedText alignedText = new()
         {
@@ -97,7 +97,7 @@ public class ToStringTests
     }
 
     [Test]
-    public void text_aligend_to_default()
+    public void text_aligned_to_default()
     {
         AlignedText alignedText = new()
         {

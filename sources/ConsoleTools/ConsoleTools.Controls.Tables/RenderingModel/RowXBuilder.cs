@@ -48,34 +48,33 @@ internal class RowXBuilder
     {
         switch (rowBase)
         {
-
             case TitleRow titleRow:
-                {
-                    CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
-                    cellX.ColumnSpan = int.MaxValue;
-                    return new List<CellX> { cellX };
-                }
+            {
+                CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
+                cellX.ColumnSpan = int.MaxValue;
+                return new List<CellX> { cellX };
+            }
 
             case ContentRow contentRow:
-                {
-                    return contentRow.EnumerateVisibleCells()
-                        .Select(CellX.CreateFrom)
-                        .ToList();
-                }
+            {
+                return contentRow.EnumerateVisibleCells()
+                    .Select(CellX.CreateFrom)
+                    .ToList();
+            }
 
             case HeaderRow headerRow:
-                {
-                    return headerRow.EnumerateVisibleCells()
-                        .Select(CellX.CreateFrom)
-                        .ToList();
-                }
+            {
+                return headerRow.EnumerateVisibleCells()
+                    .Select(CellX.CreateFrom)
+                    .ToList();
+            }
 
             case FooterRow footerRow:
-                {
-                    CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
-                    cellX.ColumnSpan = int.MaxValue;
-                    return new List<CellX> { cellX };
-                }
+            {
+                CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
+                cellX.ColumnSpan = int.MaxValue;
+                return new List<CellX> { cellX };
+            }
 
             default:
                 return new List<CellX>();

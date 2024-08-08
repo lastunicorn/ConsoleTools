@@ -84,8 +84,40 @@ internal class CellX
 
     private IEnumerable<string> RenderContent(Size size)
     {
+        int cellContentWidth = size.Width - PaddingLeft - PaddingRight;
+        IEnumerable<string> contentLines = Content.GetLines(cellContentWidth, OverflowBehavior.WordWrap);
+        using IEnumerator<string> contentLineEnumerator = contentLines.GetEnumerator();
+
         for (int i = 0; i < size.Height; i++)
-            yield return RenderLine(i, size.Width);
+        {
+            bool success = contentLineEnumerator.MoveNext();
+
+            if (success)
+            {
+                // Build inner content.
+
+                string innerContent = contentLineEnumerator.Current;
+
+                innerContent = AlignedText.QuickAlign(innerContent, HorizontalAlignment, cellContentWidth);
+
+                // Build paddings.
+
+                string paddingLeft = new(' ', PaddingLeft);
+                string paddingRight = new(' ', PaddingRight);
+
+                // Concatenate everything.
+
+                yield return paddingLeft + innerContent + paddingRight;
+            }
+            else
+            {
+                // return empty line.
+
+                yield return new string(' ', size.Width);
+            }
+
+            //yield return RenderLine(i, size.Width);
+        }
     }
 
     private string RenderLine(int lineIndex, int width)

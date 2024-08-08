@@ -40,7 +40,7 @@ public class RenderTextTests
     }
 
     [Test]
-    public void HavingContentLongerThanCellWidth_WhenRendered_ThenLineIsNotTrimmed()
+    public void HavingContentLongerThanCellWidth_WhenRendered_ThenLineIsTrimmed()
     {
         CellX cell = new()
         {
@@ -49,7 +49,7 @@ public class RenderTextTests
 
         List<string> renderingOutput = RenderAllLines(cell, new Size(10, 1));
 
-        Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long text" }));
+        Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long " }));
     }
 
     [Test]

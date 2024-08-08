@@ -14,42 +14,42 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
 [TestFixture]
-public class Constructor_EmptyTests
+public class GetLines_WordWrap_EmptyLine_Test
 {
     [Test]
-    public void Constructor_with_null_string()
+    public void HavingNoLine_WhenLinesAreGenerated_ThenNoLineIsReturned()
     {
-        MultilineText multilineText = new(null as string);
+        MultilineText multilineText = new();
 
-        Assert.That(multilineText.RawText, Is.Null);
-        Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-        Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+
+        Assert.That(lines, Is.Empty);
     }
 
     [Test]
-    public void Constructor_with_empty_string()
+    public void HavingOneEmptyLine_WhenLinesAreGenerated_ThenOneEmptyLineIsReturned()
     {
         MultilineText multilineText = new(string.Empty);
 
-        Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-        Assert.That(multilineText.Lines, Is.EqualTo(new[] { string.Empty }));
-        Assert.That(multilineText.Size, Is.EqualTo(new Size(0, 1)));
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+
+        Assert.That(lines, Is.EqualTo(new[] { string.Empty }));
     }
 
     [Test]
-    public void Constructor_with_empty_list()
+    public void HavingTwoEmptyLines_WhenLinesAreGenerated_ThenNoEmptyLinesAreReturned()
     {
-        MultilineText multilineText = new(new List<string>());
+        MultilineText multilineText = new(string.Empty, string.Empty);
 
-        Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-        Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-        Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+
+        Assert.That(lines, Is.EqualTo(new[] { string.Empty, string.Empty }));
     }
 }

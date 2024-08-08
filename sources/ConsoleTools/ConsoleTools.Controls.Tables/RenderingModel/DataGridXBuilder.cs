@@ -53,6 +53,7 @@ internal class DataGridXBuilder
 
         dataGridX.HasBorders = dataGrid.AreBordersAllowed && dataGrid.IsBorderVisible;
         dataGridX.MinWidth = dataGrid.MinWidth ?? 0;
+        dataGridX.MaxWidth = dataGrid.MaxWidth ?? int.MaxValue;
 
         AddColumns();
 

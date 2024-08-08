@@ -52,6 +52,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\ContentCell_MultilineContent_Tests.Resources\03-crlf.txt" />
       <None Remove="Controls\Tables\RenderingTests\ContentCell_MultilineContent_Tests.Resources\04-multiline-objects.txt" />
       <None Remove="Controls\Tables\RenderingTests\Column_MinWidth_Test.Resources\04-minwidth-greater-alignright.txt" />
+      <None Remove="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\01-maxwidth-notspecified.txt" />
+      <None Remove="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\02-maxwidth-less.txt" />
+      <None Remove="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\03-maxwidth-greater.txt" />
       <None Remove="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\01-minwidth-notspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\02-minwidth-less.txt" />
       <None Remove="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\03-minwidth-greater.txt" />
@@ -229,6 +232,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ContentCell_HorizontalAlignment_Tests.Resources\03-alignment-left-after.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ContentCell_HorizontalAlignment_Tests.Resources\02-alignment-default-after.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ContentCell_HorizontalAlignment_Tests.Resources\01-no-alignment.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\01-maxwidth-notspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\02-maxwidth-less.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MaxWidth_Tests.Resources\03-maxwidth-greater.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\01-minwidth-notspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\02-minwidth-less.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\Grid_MinWidth_Tests.Resources\03-minwidth-greater.txt" />

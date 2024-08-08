@@ -44,6 +44,12 @@ internal class DataGridX
         set => columnsLayout.MinWidth = value;
     }
 
+    public int MaxWidth
+    {
+        get => columnsLayout.MaxWidth;
+        set => columnsLayout.MaxWidth = value;
+    }
+
     public int ItemCount => items.Count;
 
     public void AddColumn(ColumnX column)
@@ -84,7 +90,6 @@ internal class DataGridX
 
     public void Finish()
     {
-        columnsLayout.MaxWidth = int.MaxValue;
         columnsLayout.FinalizeLayout();
     }
 

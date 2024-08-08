@@ -14,42 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
 [TestFixture]
-public class Constructor_EmptyTests
+public class CalculateSize_WordWrap_EmptyLine_Test
 {
     [Test]
-    public void Constructor_with_null_string()
+    public void HavingNoLine_WhenLinesAreMeasured_ThenSizeIsEmpty()
     {
-        MultilineText multilineText = new(null as string);
+        MultilineText multilineText = new();
 
-        Assert.That(multilineText.RawText, Is.Null);
-        Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-        Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+
+        Assert.That(size, Is.EqualTo(Size.Empty));
     }
 
     [Test]
-    public void Constructor_with_empty_string()
+    public void HavingOneEmptyLine_WhenLinesAreGenerated_ThenSizeHasHeight1()
     {
         MultilineText multilineText = new(string.Empty);
 
-        Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-        Assert.That(multilineText.Lines, Is.EqualTo(new[] { string.Empty }));
-        Assert.That(multilineText.Size, Is.EqualTo(new Size(0, 1)));
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+
+        Assert.That(size, Is.EqualTo(new Size(0, 1)));
     }
 
     [Test]
-    public void Constructor_with_empty_list()
+    public void HavingTwoEmptyLines_WhenLinesAreGenerated_ThenSizeHasHeight2()
     {
-        MultilineText multilineText = new(new List<string>());
+        MultilineText multilineText = new(string.Empty, string.Empty);
 
-        Assert.That(multilineText.RawText, Is.EqualTo(string.Empty));
-        Assert.That(multilineText.Lines.Count, Is.EqualTo(0));
-        Assert.That(multilineText.Size, Is.EqualTo(Size.Empty));
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+
+        Assert.That(size, Is.EqualTo(new Size(0, 2)));
     }
 }

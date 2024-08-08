@@ -49,7 +49,7 @@ public class CalculateLayoutTests
         rowX.CalculateLayout();
 
         Size expected = new(7, 1);
-        Assert.AreEqual(expected, rowX.Size);
+        Assert.AreEqual(expected, rowX.PreferredSize);
     }
 
     [Test]
@@ -76,7 +76,7 @@ public class CalculateLayoutTests
         rowX.CalculateLayout();
 
         Size expected = new(9, 1);
-        Assert.AreEqual(expected, rowX.Size);
+        Assert.AreEqual(expected, rowX.PreferredSize);
     }
 
     [Test]
@@ -95,7 +95,7 @@ public class CalculateLayoutTests
         rowX.CalculateLayout();
 
         Size expected = new(2, 0);
-        Assert.AreEqual(expected, rowX.Size);
+        Assert.AreEqual(expected, rowX.PreferredSize);
     }
 
     [Test]
@@ -113,6 +113,6 @@ public class CalculateLayoutTests
         rowX.CalculateLayout();
 
         Size expected = new(2, 0);
-        Assert.AreEqual(expected, rowX.Size);
+        Assert.AreEqual(expected, rowX.PreferredSize);
     }
 }

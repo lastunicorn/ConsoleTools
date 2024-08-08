@@ -21,38 +21,8 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
 [TestFixture]
-public class GetLinesTest
+public class GetLines_CharWrap_TwoLinesWithNoSpaces_Test
 {
-    [Test]
-    public void single_line_infinite_width()
-    {
-        MultilineText multilineText = new("1234567890");
-
-        string[] lines = multilineText.GetLines().ToArray();
-
-        Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
-    }
-
-    [Test]
-    public void single_line_width_equal_to_line()
-    {
-        MultilineText multilineText = new("1234567890");
-
-        string[] lines = multilineText.GetLines(10).ToArray();
-
-        Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
-    }
-
-    [Test]
-    public void single_line_width_smaller_than_line()
-    {
-        MultilineText multilineText = new("1234567890");
-
-        string[] lines = multilineText.GetLines(7).ToArray();
-
-        Assert.That(lines, Is.EqualTo(new[] { "1234567", "890" }));
-    }
-
     [Test]
     public void two_lines_infinite_width()
     {

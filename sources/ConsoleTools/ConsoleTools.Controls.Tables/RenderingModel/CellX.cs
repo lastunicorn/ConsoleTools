@@ -30,7 +30,9 @@ internal class CellX
 
     public MultilineText Content { get; set; }
 
-    public Size Size { get; set; }
+    public Size PreferredSize { get; set; }
+
+    public Size ActualContentSize { get; set; }
 
     public ConsoleColor? ForegroundColor { get; set; }
 
@@ -46,10 +48,25 @@ internal class CellX
 
     public void CalculateLayout()
     {
-        Size = CalculatePreferredSize();
+        PreferredSize = CalculateSize(-1);
     }
 
-    private Size CalculatePreferredSize()
+    public void InitializeRendering(int desiredWidth)
+    {
+        ActualContentSize = CalculateSize(desiredWidth);
+
+        lineEnumerator = new LineEnumerator
+        {
+            Content = Content,
+            PaddingLeft = PaddingLeft,
+            PaddingRight = PaddingRight,
+            HorizontalAlignment = HorizontalAlignment,
+            Size = ActualContentSize
+        };
+        lineEnumerator.Reset();
+    }
+
+    private Size CalculateSize(int desiredWidth)
     {
         int cellWidth;
         int cellHeight;
@@ -63,53 +80,28 @@ internal class CellX
         }
         else
         {
-            cellWidth = PaddingLeft + Content.Size.Width + PaddingRight;
-            cellHeight = Content.Size.Height;
+            Size contentSize = Content.CalculateSize(desiredWidth);
+
+            cellWidth = PaddingLeft + contentSize.Width + PaddingRight;
+            cellHeight = contentSize.Height;
         }
+
+        if (desiredWidth >= 0 && cellWidth != desiredWidth)
+            cellWidth = desiredWidth;
 
         return new Size(cellWidth, cellHeight);
     }
 
-    public void RenderNextLine(ITablePrinter tablePrinter, Size actualSize)
+    public void RenderNextLine(ITablePrinter tablePrinter)
     {
         if (lineEnumerator == null)
-            lineEnumerator = RenderContent(actualSize).GetEnumerator();
+            throw new Exception("The cell rendering was not initialized yet.");
 
         string content = lineEnumerator.MoveNext()
             ? lineEnumerator.Current
-            : null;
+            : new string(' ', ActualContentSize.Width);
 
         tablePrinter.Write(content, ForegroundColor, BackgroundColor);
-    }
-
-    private IEnumerable<string> RenderContent(Size size)
-    {
-        for (int i = 0; i < size.Height; i++)
-            yield return RenderLine(i, size.Width);
-    }
-
-    private string RenderLine(int lineIndex, int width)
-    {
-        int cellContentWidth = width - PaddingLeft - PaddingRight;
-
-        bool existsContentLine = lineIndex < Content.Size.Height;
-        if (!existsContentLine)
-            return new string(' ', width);
-
-        // Build inner content.
-
-        string innerContent = Content.Lines[lineIndex];
-
-        innerContent = AlignedText.QuickAlign(innerContent, HorizontalAlignment, cellContentWidth);
-
-        // Build paddings.
-
-        string paddingLeft = new(' ', PaddingLeft);
-        string paddingRight = new(' ', PaddingRight);
-
-        // Concatenate everything.
-
-        return paddingLeft + innerContent + paddingRight;
     }
 
     public static CellX CreateFrom(CellBase cellBase)
@@ -121,8 +113,9 @@ internal class CellX
             PaddingLeft = cellBase.CalculatePaddingLeft(),
             PaddingRight = cellBase.CalculatePaddingRight(),
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
-            Size = cellBase.CalculatePreferredSize(),
-            Content = cellBase.Content
+            PreferredSize = cellBase.CalculatePreferredSize(),
+            Content = cellBase.Content,
+            ColumnSpan = 1
         };
 
         cellX.CalculateLayout();

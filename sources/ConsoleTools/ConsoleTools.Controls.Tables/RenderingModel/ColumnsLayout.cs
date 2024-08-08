@@ -34,7 +34,7 @@ internal class ColumnsLayout : IEnumerable<int>
 
     public int MinWidth { get; set; }
 
-    public int MaxWidth { get; set; }
+    public int MaxWidth { get; set; } = int.MaxValue;
 
     public int ActualWidth { get; private set; }
 
@@ -78,13 +78,8 @@ internal class ColumnsLayout : IEnumerable<int>
     /// </summary>
     public void FinalizeLayout()
     {
-        ActualWidth = CalculateTotalWidth();
-    }
-
-    private int CalculateTotalWidth()
-    {
         if (columnsWidth.Count <= 0)
-            return MinWidth;
+            return;
 
         // Distribute column span spaces
 
@@ -99,8 +94,28 @@ internal class ColumnsLayout : IEnumerable<int>
 
         // Distribute space to reach min width.
 
-        InflateEntireGrid(MinWidth);
+        int totalWidth = CalculateTotalWidth();
 
+        if (totalWidth < MinWidth)
+        {
+            int delta = MinWidth - totalWidth;
+            InflateEntireGrid(delta);
+
+            totalWidth = CalculateTotalWidth();
+        }
+        else if (totalWidth > MaxWidth)
+        {
+            int delta = totalWidth - MaxWidth;
+            DeflateEntireGrid(delta);
+
+            totalWidth = CalculateTotalWidth();
+        }
+
+        ActualWidth = totalWidth;
+    }
+
+    private int CalculateTotalWidth()
+    {
         int totalWidth = columnsWidth
             .Sum();
 
@@ -140,29 +155,52 @@ internal class ColumnsLayout : IEnumerable<int>
         }
     }
 
-    private void InflateEntireGrid(int desiredOuterWidth)
+    public int GetCellWidth(int cellIndex, int columnSpan = 1)
     {
-        int actualWidth = columnsWidth
+        if (columnSpan == 1)
+            return columnsWidth[cellIndex];
+
+        int[] spannedColumns = columnsWidth
+            .Skip(cellIndex)
+            .Take(columnSpan)
+            .ToArray();
+
+        int contentWidth = spannedColumns
             .Sum();
 
-        if (HasBorders)
-            actualWidth += columnsWidth.Count + 1;
+        bool shouldAddBorders = HasBorders && spannedColumns.Length > 0;
 
-        if (actualWidth < desiredOuterWidth)
-        {
-            int diffWidth = desiredOuterWidth - actualWidth;
+        return shouldAddBorders
+            ? contentWidth + spannedColumns.Length - 1
+            : contentWidth;
+    }
 
-            int smallIncreaseWidth = diffWidth / columnsWidth.Count;
-            int bigIncreaseWidth = smallIncreaseWidth + 1;
+    private void InflateEntireGrid(int deltaWidth)
+    {
+        int smallIncreaseWidth = deltaWidth / columnsWidth.Count;
+        int bigIncreaseWidth = smallIncreaseWidth + 1;
 
-            int bigColumnCount = diffWidth % columnsWidth.Count;
+        int bigColumnCount = deltaWidth % columnsWidth.Count;
 
-            for (int i = 0; i < bigColumnCount; i++)
-                columnsWidth[i] += bigIncreaseWidth;
+        for (int i = 0; i < bigColumnCount; i++)
+            columnsWidth[i] += bigIncreaseWidth;
 
-            for (int i = bigColumnCount; i < columnsWidth.Count; i++)
-                columnsWidth[i] += smallIncreaseWidth;
-        }
+        for (int i = bigColumnCount; i < columnsWidth.Count; i++)
+            columnsWidth[i] += smallIncreaseWidth;
+    }
+
+    private void DeflateEntireGrid(int deltaWidth)
+    {
+        int smallDecreaseWidth = deltaWidth / columnsWidth.Count;
+        int bigDecreaseWidth = smallDecreaseWidth + 1;
+
+        int bigColumnCount = deltaWidth % columnsWidth.Count;
+
+        for (int i = 0; i < bigColumnCount; i++)
+            columnsWidth[i] -= bigDecreaseWidth;
+
+        for (int i = bigColumnCount; i < columnsWidth.Count; i++)
+            columnsWidth[i] -= smallDecreaseWidth;
     }
 
     public IEnumerator<int> GetEnumerator()

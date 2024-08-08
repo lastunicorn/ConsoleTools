@@ -20,36 +20,55 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class ContentRow_LinesBetweenRows_Tests : TestsBase
+public class Grid_MaxWidth_Tests : TestsBase
 {
     [Test]
-    public void three_rows_without_lines_between_them()
+    public void HavingColumnMinWidthNotSpecified()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        string expected = GetResourceFileContent("01-no-line-separators.txt");
+        string expected = GetResourceFileContent("01-maxwidth-notspecified.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void three_rows_with_lines_between_them()
+    public void HavingColumnMinWidthLessThanContent()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.DisplayBorderBetweenRows = true;
+        dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("02-with-line-separators.txt");
+        string expected = GetResourceFileContent("02-maxwidth-less.txt");
+        dataGrid.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingColumnMinWidthGreaterThanContent()
+    {
+        DataGrid dataGrid = CreateDummyDataGrid();
+
+        dataGrid.MaxWidth = 150;
+
+        string expected = GetResourceFileContent("03-maxwidth-greater.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     private static DataGrid CreateDummyDataGrid()
     {
         DataGrid dataGrid = new();
-        dataGrid.Title = "My Title";
 
-        dataGrid.Rows.Add("one", "ichi", "eins");
-        dataGrid.Rows.Add("two", "ni", "zwei");
-        dataGrid.Rows.Add("three", "san", "drei");
+        dataGrid.Columns.Add("Column 0");
+        dataGrid.Columns.Add("Column 1");
+        dataGrid.Columns.Add("Column 2");
+
+        for (int i = 0; i < 5; i++)
+        {
+            string cell0 = $"cell content that can be wrapped {i:00}:0";
+            string cell1 = $"cell content that can be wrapped {i:00}:1";
+            string cell2 = $"cell content that can be wrapped {i:00}:2";
+
+            dataGrid.Rows.Add(cell0, cell1, cell2);
+        }
 
         return dataGrid;
     }

@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -264,14 +265,9 @@ public class ContentRow : RowBase
     /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
     public IEnumerable<CellBase> EnumerateVisibleCells()
     {
-        for (int i = 0; i < cells.Count; i++)
-        {
-            bool isColumnVisible = ParentDataGrid?.Columns[i]?.IsVisible ?? true;
-            if (!isColumnVisible)
-                continue;
-
-            yield return cells[i];
-        }
+        return cells
+            .Where((x, i) => ParentDataGrid?.Columns[i]?.IsVisible ?? true)
+            .ToList();
     }
 
     /// <summary>

@@ -35,6 +35,7 @@ public class MultilineText : IEnumerable<string>
     /// <summary>
     /// Gets the text as a single line.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public string RawText { get; }
 
     /// <summary>
@@ -55,7 +56,7 @@ public class MultilineText : IEnumerable<string>
     /// <summary>
     /// Gets a value that specifies if the current instance contains no text.
     /// </summary>
-    public bool IsEmpty => Size.IsEmpty;
+    public bool IsEmpty => Lines.Count == 0 || (Lines.Count == 1 && Lines[0] == string.Empty);
 
     /// <summary>
     /// Used only internally when splitting the string in multiple lines.
@@ -85,11 +86,17 @@ public class MultilineText : IEnumerable<string>
     /// <exception cref="ApplicationException"></exception>
     public MultilineText(string text)
     {
-        if (string.IsNullOrEmpty(text))
+        if (text == null)
         {
-            RawText = string.Empty;
+            RawText = null;
             Lines = new ReadOnlyCollection<string>(Array.Empty<string>());
             Size = new Size(0, 0);
+        }
+        else if (text.Length == 0)
+        {
+            RawText = string.Empty;
+            Lines = new ReadOnlyCollection<string>(new[] { string.Empty });
+            Size = new Size(0, 1);
         }
         else
         {
@@ -180,8 +187,9 @@ public class MultilineText : IEnumerable<string>
     /// Calculates the size of the text.
     /// </summary>
     /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.CharWrap"/>.</param>
     /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
-    public Size CalculateSize(int maxWidth = -1)
+    public Size CalculateSize(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.CharWrap)
     {
         if (maxWidth < 0)
             return Size;
@@ -189,53 +197,70 @@ public class MultilineText : IEnumerable<string>
         if (maxWidth == 0)
             return Size.Empty;
 
-        int totalWidth = 0;
-        int totalHeight = 0;
+        return MeasureLineSizes(maxWidth, overflowBehavior)
+            .Aggregate(Size.Empty, (size1, size2) =>
+            {
+                int newWidth = Math.Max(size1.Width, size2.Width);
+                int newHeight = size1.Height + size2.Height;
 
-        foreach (string line in Lines)
+                return new Size(newWidth, newHeight);
+            });
+    }
+
+    private IEnumerable<Size> MeasureLineSizes(int maxWidth, OverflowBehavior overflowBehavior)
+    {
+        switch (overflowBehavior)
         {
-            int lineHeight = (int)Math.Ceiling((double)line.Length / maxWidth);
-            totalHeight += lineHeight;
+            case OverflowBehavior.Overflow:
+                return new[] { Size };
 
-            int lineWidth = Math.Min(line.Length, maxWidth);
-            totalWidth = Math.Max(totalWidth, lineWidth);
+            case OverflowBehavior.CharCut:
+            case OverflowBehavior.CharCutWithEllipsis:
+                return Lines.Select(x => x.MeasureCutAtChar(maxWidth));
+
+            case OverflowBehavior.WordCut:
+                return Lines.Select(x => x.MeasureCutAtWord(maxWidth));
+
+            case OverflowBehavior.WordCutWithEllipsis:
+                return Lines.Select(x => x.MeasureCutAtWord(maxWidth, true));
+
+            case OverflowBehavior.CharWrap:
+                return Lines.Select(x => x.MeasureWrapAtChar(maxWidth));
+
+            case OverflowBehavior.WordWrap:
+                return Lines.Select(x => x.MeasureWrapAtWord(maxWidth));
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(overflowBehavior), overflowBehavior, null);
         }
-
-        return new Size(totalWidth, totalHeight);
     }
 
     /// <summary>
-    /// Enumerates the lines. If a line is greater than <see cref="P:maxWidth"/>,
-    /// the line is cut in chunks with the length of <see cref="P:maxWidth"/>.
+    /// Enumerates the lines contained by the current instance. If a line is greater than <see cref="P:maxWidth"/>,
+    /// it may be cut in chunks with the length of <see cref="P:maxWidth"/> or wrapped based on the <see cref="P:overflowBehavior"/> value.
     /// </summary>
     /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
+    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.CharWrap"/>.</param>
     /// <returns></returns>
-    public IEnumerable<string> GetLines(int maxWidth = -1)
+    public IEnumerable<string> GetLines(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.CharWrap)
     {
         if (maxWidth < 0)
-        {
-            foreach (string line in Lines)
-                yield return line;
-
-            yield break;
-        }
+            return Lines;
 
         if (maxWidth == 0)
-            yield break;
+            return Array.Empty<string>();
 
-        foreach (string line in Lines)
+        return overflowBehavior switch
         {
-            int index = 0;
-
-            while (index < line.Length)
-            {
-                int chunkLength = Math.Min(maxWidth, line.Length - index);
-                string chunk = line.Substring(index, chunkLength);
-                yield return chunk;
-
-                index += chunkLength;
-            }
-        }
+            OverflowBehavior.Overflow => Lines,
+            OverflowBehavior.CharCut => Lines.SelectMany(x => x.CutAtChar(maxWidth)),
+            OverflowBehavior.WordCut => Lines.SelectMany(x => x.CutAtWord(maxWidth)),
+            OverflowBehavior.CharCutWithEllipsis => Lines.SelectMany(x => x.CutAtChar(maxWidth, true)),
+            OverflowBehavior.WordCutWithEllipsis => Lines.SelectMany(x => x.CutAtWord(maxWidth, true)),
+            OverflowBehavior.CharWrap => Lines.SelectMany(x => x.WrapAtChar(maxWidth)),
+            OverflowBehavior.WordWrap => Lines.SelectMany(x => x.WrapAtWord(maxWidth)),
+            _ => throw new ArgumentOutOfRangeException(nameof(overflowBehavior), overflowBehavior, null)
+        };
     }
 
     /// <summary>
@@ -257,7 +282,7 @@ public class MultilineText : IEnumerable<string>
     /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
     public override int GetHashCode()
     {
-        return RawText.GetHashCode();
+        return RawText?.GetHashCode() ?? 0;
     }
 
     IEnumerator IEnumerable.GetEnumerator()

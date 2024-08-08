@@ -50,7 +50,7 @@ internal class RowXBuilder
         {
             case TitleRow titleRow:
             {
-                CellX cellX = CellX.CreateFrom(titleRow.TitleCell);
+                CellX cellX = CellX.CreateFor(titleRow.TitleCell);
                 cellX.ColumnSpan = int.MaxValue;
                 return new List<CellX> { cellX };
             }
@@ -58,20 +58,20 @@ internal class RowXBuilder
             case ContentRow contentRow:
             {
                 return contentRow.EnumerateVisibleCells()
-                    .Select(CellX.CreateFrom)
+                    .Select(CellX.CreateFor)
                     .ToList();
             }
 
             case HeaderRow headerRow:
             {
                 return headerRow.EnumerateVisibleCells()
-                    .Select(CellX.CreateFrom)
+                    .Select(CellX.CreateFor)
                     .ToList();
             }
 
             case FooterRow footerRow:
             {
-                CellX cellX = CellX.CreateFrom(footerRow.FooterCell);
+                CellX cellX = CellX.CreateFor(footerRow.FooterCell);
                 cellX.ColumnSpan = int.MaxValue;
                 return new List<CellX> { cellX };
             }

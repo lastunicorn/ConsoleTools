@@ -105,6 +105,7 @@ public class HeaderCell : CellBase
     /// Calculates and returns the left padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override int CalculatePaddingLeft()
     {
         int? paddingLeft = PaddingLeft;
@@ -132,6 +133,7 @@ public class HeaderCell : CellBase
     /// Calculates and returns the right padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent column and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override int CalculatePaddingRight()
     {
         int? paddingRight = PaddingRight;
@@ -156,6 +158,7 @@ public class HeaderCell : CellBase
     }
 
     /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateForegroundColor()
     {
         ConsoleColor? color = ForegroundColor;
@@ -176,6 +179,7 @@ public class HeaderCell : CellBase
     }
 
     /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateBackgroundColor()
     {
         ConsoleColor? color = BackgroundColor;
@@ -199,6 +203,7 @@ public class HeaderCell : CellBase
     /// Calculates and returns the horizontal alignment of the content displayed in the cell.
     /// The value is calculated taking into account also the parent row and parent table.
     /// </summary>
+    [Obsolete("Intended for internal usage only.")]
     public override HorizontalAlignment CalculateHorizontalAlignment()
     {
         HorizontalAlignment alignment = HorizontalAlignment;

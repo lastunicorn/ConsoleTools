@@ -35,7 +35,7 @@ public class SpaceLeftTests
     }
 
     [Test]
-    public void text_aligend_to_left_returns_0()
+    public void text_aligned_to_left_returns_0()
     {
         AlignedText alignedText = new()
         {
@@ -48,7 +48,7 @@ public class SpaceLeftTests
     }
 
     [Test]
-    public void text_with_length_9_aligend_to_center_in_width_15_returns_3()
+    public void text_with_length_9_aligned_to_center_in_width_15_returns_3()
     {
         AlignedText alignedText = new()
         {
@@ -61,7 +61,7 @@ public class SpaceLeftTests
     }
 
     [Test]
-    public void text_with_length_9_aligend_to_center_in_width_16_returns_3()
+    public void text_with_length_9_aligned_to_center_in_width_16_returns_3()
     {
         AlignedText alignedText = new()
         {
@@ -74,7 +74,7 @@ public class SpaceLeftTests
     }
 
     [Test]
-    public void text_with_length_9_aligend_to_right_in_width_15_returns_6()
+    public void text_with_length_9_aligned_to_right_in_width_15_returns_6()
     {
         AlignedText alignedText = new()
         {
@@ -87,7 +87,7 @@ public class SpaceLeftTests
     }
 
     [Test]
-    public void text_with_length_9_aligend_to_default_in_width_15_returns_0()
+    public void text_with_length_9_aligned_to_default_in_width_15_returns_0()
     {
         AlignedText alignedText = new()
         {

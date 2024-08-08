@@ -119,6 +119,9 @@ public class ApplicationHeader : BlockControl
         return titleDisplayEventArgs.Title;
     }
 
+    /// <summary>
+    /// Method called just before the title is displayed.
+    /// </summary>
     protected virtual void OnTitleDisplay(TitleDisplayEventArgs e)
     {
         TitleDisplay?.Invoke(this, e);

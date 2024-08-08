@@ -14,37 +14,43 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.IO;
 using DustInTheWind.ConsoleTools.Controls.Tables;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
-using FluentAssertions;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.Printers;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
 
 [TestFixture]
-public class StreamTablePrinterTests : TestsBase
+public class Grid_MinWidth_Tests : TestsBase
 {
     [Test]
-    public void HavingDataGrid_WhenRenderedIntoStreamTablePrinter_ThenAllTableIsRendered()
+    public void HavingColumnMinWidthNotSpecified()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        using MemoryStream memoryStream = new();
+        string expected = GetResourceFileContent("01-minwidth-notspecified.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        StreamTablePrinter streamTablePrinter = new(memoryStream);
-        dataGrid.Render(streamTablePrinter);
+    [Test]
+    public void HavingColumnMinWidthLessThanContent()
+    {
+        DataGrid dataGrid = CreateDummyDataGrid();
 
-        memoryStream.Position = 0;
+        dataGrid.MinWidth = 10;
 
-        StreamReader streamReader = new(memoryStream);
-        string renderedContent = streamReader.ReadToEnd();
+        string expected = GetResourceFileContent("02-minwidth-less.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        Console.WriteLine(renderedContent);
+    [Test]
+    public void HavingColumnMinWidthGreaterThanContent()
+    {
+        DataGrid dataGrid = CreateDummyDataGrid();
 
-        string expectedContent = GetResourceFileContent("01-full-table.txt");
-        renderedContent.Should().Be(expectedContent);
+        dataGrid.MinWidth = 50;
+
+        string expected = GetResourceFileContent("03-minwidth-greater.txt");
+        dataGrid.IsEqualTo(expected);
     }
 
     private static DataGrid CreateDummyDataGrid()
@@ -54,16 +60,14 @@ public class StreamTablePrinterTests : TestsBase
         dataGrid.Columns.Add("Column 0");
         dataGrid.Columns.Add("Column 1");
         dataGrid.Columns.Add("Column 2");
-        dataGrid.Columns.Add("Column 3");
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 5; i++)
         {
             string cell0 = $"cell {i:00}:0";
             string cell1 = $"cell {i:00}:1";
             string cell2 = $"cell {i:00}:2";
-            string cell3 = $"cell {i:00}:3";
 
-            dataGrid.Rows.Add(cell0, cell1, cell2, cell3);
+            dataGrid.Rows.Add(cell0, cell1, cell2);
         }
 
         return dataGrid;

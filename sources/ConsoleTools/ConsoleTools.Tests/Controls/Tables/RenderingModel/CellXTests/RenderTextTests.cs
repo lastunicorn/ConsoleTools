@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Tables;
+using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
-using Moq;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXTests;
@@ -27,23 +26,6 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingModel.CellXT
 [TestFixture]
 public class RenderTextTests
 {
-    private List<string> renderingOutput;
-    private Mock<ITablePrinter> tablePrinter;
-
-    [SetUp]
-    public void SetUp()
-    {
-        renderingOutput = new List<string>();
-
-        tablePrinter = new Mock<ITablePrinter>();
-        tablePrinter
-            .Setup(x => x.Write(It.IsAny<string>(), It.IsAny<ConsoleColor?>(), It.IsAny<ConsoleColor?>()))
-            .Callback<string, ConsoleColor?, ConsoleColor?>((line, fg, bg) =>
-            {
-                renderingOutput.Add(line);
-            });
-    }
-
     [Test]
     public void HavingContentShorterThanCellWidth_WhenRendered_LineIsFilledWithSpaces()
     {
@@ -52,7 +34,7 @@ public class RenderTextTests
             Content = "text"
         };
 
-        RenderAllLines(cell, new Size(10, 1));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 1));
 
         Assert.That(renderingOutput, Is.EqualTo(new[] { "text      " }));
     }
@@ -65,7 +47,7 @@ public class RenderTextTests
             Content = "some long text"
         };
 
-        RenderAllLines(cell, new Size(10, 1));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 1));
 
         Assert.That(renderingOutput, Is.EqualTo(new List<string> { "some long text" }));
     }
@@ -78,7 +60,7 @@ public class RenderTextTests
             Content = "text"
         };
 
-        RenderAllLines(cell, new Size(10, 2));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 2));
 
         Assert.That(renderingOutput, Is.EqualTo(new List<string>
         {
@@ -95,7 +77,7 @@ public class RenderTextTests
             Content = new MultilineText("line1", "line2", "line3")
         };
 
-        RenderAllLines(cell, new Size(10, 2));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 2));
 
         Assert.That(renderingOutput, Is.EqualTo(new List<string>
         {
@@ -113,7 +95,7 @@ public class RenderTextTests
             PaddingLeft = 2
         };
 
-        RenderAllLines(cell, new Size(10, 1));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 1));
 
         Assert.That(renderingOutput, Is.EqualTo(new[] { "  text    " }));
     }
@@ -128,14 +110,21 @@ public class RenderTextTests
             HorizontalAlignment = HorizontalAlignment.Right
         };
 
-        RenderAllLines(cell, new Size(10, 1));
+        List<string> renderingOutput = RenderAllLines(cell, new Size(10, 1));
 
         Assert.That(renderingOutput, Is.EqualTo(new[] { "    text  " }));
     }
 
-    private void RenderAllLines(CellX cellX, Size size)
+    private static List<string> RenderAllLines(CellX cellX, Size size)
     {
+        StringLinesTablePrinter stringTablePrinter = new();
+
         for (int i = 0; i < size.Height; i++)
-            cellX.RenderNextLine(tablePrinter.Object, size);
+        {
+            cellX.RenderNextLine(stringTablePrinter, size);
+            stringTablePrinter.WriteLine();
+        }
+
+        return stringTablePrinter.GetLines().ToList();
     }
 }

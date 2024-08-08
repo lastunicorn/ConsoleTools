@@ -42,7 +42,7 @@ internal class CellX
 
     public HorizontalAlignment HorizontalAlignment { get; set; }
 
-    public int HorizontalMerge { get; set; }
+    public int ColumnSpan { get; set; }
 
     public void CalculateLayout()
     {

@@ -46,6 +46,11 @@ internal class DataGridX
 
     public int ItemCount => items.Count;
 
+    public void AddColumn(ColumnX column)
+    {
+        columnsLayout.AddColumn(column.MinWidth);
+    }
+
     public void Add(SeparatorX separator)
     {
         IItemX lastItem = items.LastOrDefault();
@@ -61,7 +66,20 @@ internal class DataGridX
             lastSeparator.Row2 = rowX;
 
         items.Add(rowX);
-        columnsLayout.AddRow(rowX);
+        UpdateColumnsWidths(rowX);
+    }
+
+    private void UpdateColumnsWidths(RowX rowX)
+    {
+        for (int i = 0; i < rowX.Cells.Count; i++)
+        {
+            CellX cellX = rowX.Cells[i];
+
+            int width = cellX.Size.Width;
+            int span = cellX.ColumnSpan;
+
+            columnsLayout.UpdateColumnWidth(i, width, span);
+        }
     }
 
     public void Finish()

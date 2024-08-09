@@ -37,7 +37,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
             dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
 
-            dataGrid.FooterRow.FooterCell.Content = "Something";
+            dataGrid.Footer = "Something";
 
             dataGrid.DisplayBorderBetweenRows = true;
             dataGrid.HeaderRow.IsVisible = true;

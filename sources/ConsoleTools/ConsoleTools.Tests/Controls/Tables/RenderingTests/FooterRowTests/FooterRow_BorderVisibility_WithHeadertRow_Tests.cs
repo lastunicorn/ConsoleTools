@@ -92,7 +92,7 @@ public class FooterRow_BorderVisibility_WithHeadertRow_Tests : TestsBase
         dataGrid.Columns.Add("Column 1");
         dataGrid.Columns.Add("Column 2");
 
-        dataGrid.FooterRow.FooterCell.Content = "Footer text";
+        dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

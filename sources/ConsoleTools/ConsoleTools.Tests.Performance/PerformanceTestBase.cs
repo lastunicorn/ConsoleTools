@@ -25,7 +25,7 @@ public abstract class PerformanceTestBase
 
     protected PerformanceTestBase(ITestOutputHelper testOutputHelper)
     {
-        this.TestOutputHelper = testOutputHelper;
+        TestOutputHelper = testOutputHelper;
     }
 
     protected (TimeSpan, T) MeasureTime<T>(string title, Func<T> action)

@@ -73,7 +73,7 @@ public class ContentRow_IsVisible_LastRow_Tests : TestsBase
         }
 
         if (addFooter)
-            dataGrid.FooterRow.FooterCell.Content = "Footer text";
+            dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

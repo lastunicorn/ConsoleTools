@@ -101,7 +101,7 @@ public class ContentRow_BorderVisibility_BottomRow_WithFooterRow_Tests : TestsBa
             dataGrid.Rows.Add(cell0, cell1, cell2);
         }
 
-        dataGrid.FooterRow.FooterCell.Content = "Footer text";
+        dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

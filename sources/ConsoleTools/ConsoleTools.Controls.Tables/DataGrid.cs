@@ -151,6 +151,15 @@ public class DataGrid : BlockControl
         }
     }
 
+    /// <summary>
+    /// Gets or sets the footer text for the current instance of the <see cref="DataGrid"/>.
+    /// </summary>
+    public MultilineText Footer
+    {
+        get => FooterRow.FooterCell.Content;
+        set => FooterRow.FooterCell.Content = value;
+    }
+
     #region Obsolete Properties
 
     /// <summary>

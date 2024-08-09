@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal struct ColumnSpanX
 {
-    public int StartIndex { get; set; }
+    //public int StartIndex { get; set; }
 
     public int? Span { get; set; }
 

@@ -30,27 +30,56 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
 
             try
             {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine("Colors Demo");
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine();
-
+                WriteTitle("Colors Demo");
                 RunColorExample();
                 Pause.QuickDisplay();
 
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine("Alignment Demo");
-                CustomConsole.WriteLine("-------------------------------------------------------------------------------");
-                CustomConsole.WriteLine();
-
+                WriteTitle("Alignment Demo");
                 RunAlignmentExample();
             }
 
             finally
             {
                 Pause.QuickDisplay();
+            }
+        }
+
+        private static void DisplayApplicationHeader()
+        {
+            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
+            CustomConsole.WriteLineEmphasized("===============================================================================");
+            CustomConsole.WriteLine();
+        }
+
+        private static void WriteTitle(string text)
+        {
+            CustomConsole.WriteLine();
+            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+            CustomConsole.WriteLine(text);
+            CustomConsole.WriteLine("-------------------------------------------------------------------------------");
+            CustomConsole.WriteLine();
+        }
+
+        private static void RunColorExample()
+        {
+            try
+            {
+                CustomConsole.WriteLine("Normal: This is a normal line of text.");
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLineEmphasized("Emphasized: But I can also write an emphasized text.");
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
+
+                throw new Exception("Some demo exception occurred.");
+            }
+            catch (Exception ex)
+            {
+                CustomConsole.WriteLine();
+                CustomConsole.WriteLineError(ex);
             }
         }
 
@@ -64,36 +93,6 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteText
             CustomConsole.WriteLine();
             CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
             CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");
-        }
-
-        private static void RunColorExample()
-        {
-            try
-            {
-                CustomConsole.WriteLine("Normal: This is a normal line of text.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineEmphasized("Emphasies: But I can also write an emphasized text.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
-
-                throw new Exception("Some demo exception occured.");
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLineError(ex);
-            }
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Write Normal/Emphasized/Warning/Error");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
         }
     }
 }

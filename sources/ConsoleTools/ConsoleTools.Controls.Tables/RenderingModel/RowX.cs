@@ -26,13 +26,17 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class RowX : IItemX
 {
+    public List<CellX> Cells { get; set; }
+
+    public BorderTemplate BorderTemplate { get; set; }
+
+    public ConsoleColor? BorderForegroundColor { get; set; }
+
+    public ConsoleColor? BorderBackgroundColor { get; set; }
+
     public Size PreferredSize { get; private set; }
 
     public Size ActualSize { get; private set; }
-
-    public RowBorderX Border { get; set; }
-
-    public List<CellX> Cells { get; set; }
 
     public void CalculateLayout()
     {
@@ -53,7 +57,7 @@ internal class RowX : IItemX
             }
         }
 
-        if (Border != null)
+        if (BorderTemplate != null)
         {
             int cellsCount = Cells?.Count ?? 0;
 
@@ -66,9 +70,9 @@ internal class RowX : IItemX
         return new Size(width, height);
     }
 
-    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
+    public void Render(ITablePrinter tablePrinter, ColumnXCollection columnXCollection)
     {
-        InitializeCellRendering(columnsLayout);
+        InitializeCellRendering(columnXCollection);
 
         for (int lineIndex = 0; lineIndex < ActualSize.Height; lineIndex++)
         {
@@ -77,7 +81,7 @@ internal class RowX : IItemX
         }
     }
 
-    private void InitializeCellRendering(ColumnsLayout columnsLayout)
+    private void InitializeCellRendering(ColumnXCollection columnXCollection)
     {
         int width = 0;
         int height = 0;
@@ -86,14 +90,14 @@ internal class RowX : IItemX
         {
             CellX cellX = Cells[columnIndex];
 
-            int cellWidth = columnsLayout.GetCellWidth(columnIndex, cellX.ColumnSpan);
+            int cellWidth = columnXCollection.GetCellWidth(columnIndex, cellX.ColumnSpan);
             cellX.InitializeRendering(cellWidth);
 
             width += cellX.ActualContentSize.Width;
             height = Math.Max(height, cellX.ActualContentSize.Height);
         }
 
-        bool hasBorder = Border != null;
+        bool hasBorder = BorderTemplate != null;
         if (hasBorder)
         {
             int cellsCount = Cells?.Count ?? 0;
@@ -109,7 +113,7 @@ internal class RowX : IItemX
 
     private void RenderNextLine(ITablePrinter tablePrinter)
     {
-        Border?.RenderRowLeftBorder(tablePrinter);
+        RenderRowLeftBorder(tablePrinter);
 
         for (int cellIndex = 0; cellIndex < Cells.Count; cellIndex++)
         {
@@ -120,11 +124,30 @@ internal class RowX : IItemX
             bool isLastCell = cellIndex >= Cells.Count - 1;
 
             if (isLastCell)
-                Border?.RenderRowRightBorder(tablePrinter);
+                RenderRowRightBorder(tablePrinter);
             else
-                Border?.RenderRowInsideBorder(tablePrinter);
+                RenderRowInsideBorder(tablePrinter);
         }
     }
+
+    private void RenderRowLeftBorder(ITablePrinter tablePrinter)
+    {
+        if (BorderTemplate != null)
+            tablePrinter.Write(BorderTemplate.Left, BorderForegroundColor, BorderBackgroundColor);
+    }
+
+    private void RenderRowRightBorder(ITablePrinter tablePrinter)
+    {
+        if (BorderTemplate != null)
+            tablePrinter.Write(BorderTemplate.Right, BorderForegroundColor, BorderBackgroundColor);
+    }
+
+    private void RenderRowInsideBorder(ITablePrinter tablePrinter)
+    {
+        if (BorderTemplate != null)
+            tablePrinter.Write(BorderTemplate.Vertical, BorderForegroundColor, BorderBackgroundColor);
+    }
+
 
     public List<bool> ComputeVerticalBorderVisibility(int columnCount)
     {

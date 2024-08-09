@@ -25,53 +25,55 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 /// <summary>
-/// This class contains the analysis of the <see cref="DataGrid"/> needed for rendering.
+/// This class contains the analysis of the <see cref="DataGrid"/> performed at the beginning of
+/// the rendering process.
 /// </summary>
 internal class DataGridX
 {
-    private readonly List<IItemX> items = new();
-    private readonly ColumnsLayout columnsLayout = new();
+    private readonly List<IItemX> rows = new();
+    private readonly ColumnXCollection columns = new();
 
     public bool HasBorders
     {
-        get => columnsLayout.HasBorders;
-        set => columnsLayout.HasBorders = value;
+        get => columns.HasBorders;
+        set => columns.HasBorders = value;
     }
 
     public int MinWidth
     {
-        get => columnsLayout.MinWidth;
-        set => columnsLayout.MinWidth = value;
+        get => columns.MinWidth;
+        set => columns.MinWidth = value;
     }
 
     public int MaxWidth
     {
-        get => columnsLayout.MaxWidth;
-        set => columnsLayout.MaxWidth = value;
+        get => columns.MaxWidth;
+        set => columns.MaxWidth = value;
     }
 
-    public int ItemCount => items.Count;
+    public int RowCount => rows.Count;
 
     public void AddColumn(ColumnX column)
     {
-        columnsLayout.AddColumn(column.MinWidth);
+        columns.AddColumn(column);
     }
 
     public void Add(SeparatorX separator)
     {
-        IItemX lastItem = items.LastOrDefault();
+        IItemX lastItem = rows.LastOrDefault();
         separator.Row1 = lastItem as RowX;
-        items.Add(separator);
+
+        rows.Add(separator);
     }
 
     public void Add(RowX rowX)
     {
-        IItemX lastItem = items.LastOrDefault();
+        IItemX lastItem = rows.LastOrDefault();
 
         if (lastItem is SeparatorX lastSeparator)
             lastSeparator.Row2 = rowX;
 
-        items.Add(rowX);
+        rows.Add(rowX);
         UpdateColumnsWidths(rowX);
     }
 
@@ -80,22 +82,18 @@ internal class DataGridX
         for (int i = 0; i < rowX.Cells.Count; i++)
         {
             CellX cellX = rowX.Cells[i];
-
-            int width = cellX.PreferredSize.Width;
-            int span = cellX.ColumnSpan;
-
-            columnsLayout.UpdateColumnWidth(i, width, span);
+            columns.GetOrCreate(i).AccomodateCell(cellX);
         }
     }
 
     public void Finish()
     {
-        columnsLayout.FinalizeLayout();
+        columns.PerformLayout();
     }
 
     public void Render(ITablePrinter tablePrinter)
     {
-        foreach (IItemX item in items)
-            item.Render(tablePrinter, columnsLayout);
+        foreach (IItemX item in rows)
+            item.Render(tablePrinter, columns);
     }
 }

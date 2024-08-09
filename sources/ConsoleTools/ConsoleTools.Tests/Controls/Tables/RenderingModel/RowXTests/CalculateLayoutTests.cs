@@ -60,17 +60,13 @@ public class CalculateLayoutTests
             Content = "value 1"
         };
         cellX1.CalculateLayout();
-        RowBorderX rowBorderX = new()
-        {
-            Template = BorderTemplate.PlusMinusBorderTemplate
-        };
         RowX rowX = new()
         {
             Cells = new List<CellX>
             {
                 cellX1
             },
-            Border = rowBorderX
+            BorderTemplate = BorderTemplate.PlusMinusBorderTemplate
         };
 
         rowX.CalculateLayout();
@@ -82,14 +78,10 @@ public class CalculateLayoutTests
     [Test]
     public void HavingARowContainingBorderAndNoCell_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
     {
-        RowBorderX rowBorderX = new()
-        {
-            Template = BorderTemplate.PlusMinusBorderTemplate
-        };
         RowX rowX = new()
         {
             Cells = new List<CellX>(),
-            Border = rowBorderX
+            BorderTemplate = BorderTemplate.PlusMinusBorderTemplate
         };
 
         rowX.CalculateLayout();
@@ -101,13 +93,9 @@ public class CalculateLayoutTests
     [Test]
     public void HavingARowContainingBorderAndNoCellList_WhenCalculatingLayout_ThenRowSizeIsEqualToTwiceTheBorderWidth()
     {
-        RowBorderX rowBorderX = new()
-        {
-            Template = BorderTemplate.PlusMinusBorderTemplate
-        };
         RowX rowX = new()
         {
-            Border = rowBorderX
+            BorderTemplate = BorderTemplate.PlusMinusBorderTemplate
         };
 
         rowX.CalculateLayout();

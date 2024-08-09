@@ -33,11 +33,20 @@ internal class RowXBuilder
     {
         RowX rowX = new()
         {
-            Border = rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.AreBordersAllowed
-                ? RowBorderX.CreateFrom(rowBase)
-                : null,
             Cells = CreateCells()
         };
+
+        bool areBordersAllowed = rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.AreBordersAllowed;
+        if (areBordersAllowed)
+        {
+            bool areVerticalBorderVisible = ComputeVerticalBorderVisibility(rowBase);
+            if (areVerticalBorderVisible)
+            {
+                rowX.BorderTemplate = ComputeBorderTemplate(rowBase);
+                rowX.BorderForegroundColor = ComputeBorderForegroundColor(rowBase);
+                rowX.BorderBackgroundColor = ComputeBorderBackgroundColor(rowBase);
+            };
+        }
 
         rowX.CalculateLayout();
 
@@ -49,36 +58,83 @@ internal class RowXBuilder
         switch (rowBase)
         {
             case TitleRow titleRow:
-            {
-                CellX cellX = CellX.CreateFor(titleRow.TitleCell);
-                cellX.ColumnSpan = int.MaxValue;
-                return new List<CellX> { cellX };
-            }
+                {
+                    CellX cellX = CellX.CreateFor(titleRow.TitleCell);
+                    cellX.ColumnSpan = int.MaxValue;
+                    return new List<CellX> { cellX };
+                }
 
             case ContentRow contentRow:
-            {
-                return contentRow.EnumerateVisibleCells()
-                    .Select(CellX.CreateFor)
-                    .ToList();
-            }
+                {
+                    return contentRow.EnumerateVisibleCells()
+                        .Select(CellX.CreateFor)
+                        .ToList();
+                }
 
             case HeaderRow headerRow:
-            {
-                return headerRow.EnumerateVisibleCells()
-                    .Select(CellX.CreateFor)
-                    .ToList();
-            }
+                {
+                    return headerRow.EnumerateVisibleCells()
+                        .Select(CellX.CreateFor)
+                        .ToList();
+                }
 
             case FooterRow footerRow:
-            {
-                CellX cellX = CellX.CreateFor(footerRow.FooterCell);
-                cellX.ColumnSpan = int.MaxValue;
-                return new List<CellX> { cellX };
-            }
+                {
+                    CellX cellX = CellX.CreateFor(footerRow.FooterCell);
+                    cellX.ColumnSpan = int.MaxValue;
+                    return new List<CellX> { cellX };
+                }
 
             default:
                 return new List<CellX>();
         }
+    }
+
+    private static bool ComputeVerticalBorderVisibility(RowBase currentRow)
+    {
+        if (currentRow.BorderVisibility == null)
+            return currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.IsBorderVisible;
+
+        if (currentRow.BorderVisibility.Value.Left == null && currentRow.BorderVisibility.Value.Inside == null && currentRow.BorderVisibility.Value.Right == null)
+            return currentRow.ParentDataGrid == null || currentRow.ParentDataGrid.IsBorderVisible;
+
+        return currentRow.BorderVisibility.Value.Left == true || currentRow.BorderVisibility.Value.Inside == true || currentRow.BorderVisibility.Value.Right == true;
+    }
+
+    private static BorderTemplate ComputeBorderTemplate(RowBase rowBase)
+    {
+        BorderTemplate template = rowBase.BorderTemplate;
+
+        if (template != null)
+            return template;
+
+        template = rowBase.ParentDataGrid?.BorderTemplate;
+
+        return template;
+    }
+
+    private static ConsoleColor? ComputeBorderForegroundColor(RowBase rowBase)
+    {
+        ConsoleColor? color = rowBase.BorderForegroundColor;
+
+        if (color != null)
+            return color;
+
+        color = rowBase.ParentDataGrid?.BorderForegroundColor;
+
+        return color;
+    }
+
+    private static ConsoleColor? ComputeBorderBackgroundColor(RowBase rowBase)
+    {
+        ConsoleColor? color = rowBase.BorderBackgroundColor;
+
+        if (color != null)
+            return color;
+
+        color = rowBase.ParentDataGrid?.BorderBackgroundColor;
+
+        return color;
     }
 
     public static RowXBuilder CreateFor(RowBase rowBase)

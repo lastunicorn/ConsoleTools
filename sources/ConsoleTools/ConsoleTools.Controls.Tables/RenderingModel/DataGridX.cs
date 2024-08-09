@@ -25,7 +25,8 @@ using System.Linq;
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 /// <summary>
-/// This class contains the analysis of the <see cref="DataGrid"/> needed for rendering.
+/// This class contains the analysis of the <see cref="DataGrid"/> performed at the beginning of
+/// the rendering process.
 /// </summary>
 internal class DataGridX
 {

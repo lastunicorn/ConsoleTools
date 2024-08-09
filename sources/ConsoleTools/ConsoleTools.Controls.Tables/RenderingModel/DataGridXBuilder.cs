@@ -151,14 +151,9 @@ internal class DataGridXBuilder
         if (!isTopSeparatorVisible)
             return;
 
-        SeparatorXBuilder separatorXBuilder = new(previousRow, currentRow)
-        {
-            BorderTemplate = dataGrid.BorderTemplate,
-            BorderForegroundColor = dataGrid.BorderForegroundColor,
-            BorderBackgroundColor = dataGrid.BorderBackgroundColor
-        };
-
+        SeparatorXBuilder separatorXBuilder = new(previousRow, currentRow);
         SeparatorX separatorX = separatorXBuilder.Build();
+
         dataGridX.Add(separatorX);
     }
 

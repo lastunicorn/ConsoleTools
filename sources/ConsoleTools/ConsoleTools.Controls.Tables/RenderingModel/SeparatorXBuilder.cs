@@ -23,12 +23,6 @@ internal class SeparatorXBuilder
     private readonly RowBase previousRow;
     private readonly RowBase currentRow;
 
-    public BorderTemplate BorderTemplate { get; set; }
-
-    public ConsoleColor? BorderForegroundColor { get; set; }
-
-    public ConsoleColor? BorderBackgroundColor { get; set; }
-
     public SeparatorXBuilder(RowBase previousRow, RowBase currentRow)
     {
         this.previousRow = previousRow;
@@ -57,7 +51,12 @@ internal class SeparatorXBuilder
         if (template != null)
             return template;
 
-        template = BorderTemplate;
+        template = currentRow?.ParentDataGrid?.BorderTemplate;
+
+        if (template != null)
+            return template;
+
+        template = previousRow?.ParentDataGrid?.BorderTemplate;
 
         return template;
     }
@@ -74,7 +73,12 @@ internal class SeparatorXBuilder
         if (color != null)
             return color;
 
-        color = BorderForegroundColor;
+        color = currentRow?.ParentDataGrid?.BorderForegroundColor;
+
+        if (color != null)
+            return color;
+
+        color = previousRow?.ParentDataGrid?.BorderForegroundColor;
 
         return color;
     }
@@ -91,7 +95,12 @@ internal class SeparatorXBuilder
         if (color != null)
             return color;
 
-        color = BorderBackgroundColor;
+        color = currentRow?.ParentDataGrid?.BorderBackgroundColor;
+
+        if (color != null)
+            return color;
+
+        color = previousRow?.ParentDataGrid?.BorderBackgroundColor;
 
         return color;
     }

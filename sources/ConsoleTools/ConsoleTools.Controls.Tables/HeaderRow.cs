@@ -44,7 +44,7 @@ public class HeaderRow : RowBase
     /// <param name="index">The zero-based index of the cell to get.</param>
     /// <returns>The cell at the specified index.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public HeaderCell this[int index] => columns[index].HeaderCell;
+    public HeaderCell this[int index] => columns[index]?.HeaderCell;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HeaderRow"/> class with

@@ -53,6 +53,8 @@ public abstract class CellBase
     /// </summary>
     public static int DefaultPaddingBottom => 0;
 
+    private int columnSpan = 1;
+
     /// <summary>
     /// Gets or sets the content of the cell.
     /// </summary>
@@ -103,6 +105,22 @@ public abstract class CellBase
     /// border of the cell.
     /// </summary>
     public int? PaddingBottom { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies across how many columns should the cell be displayed.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">Exception thrown when column span is set to a negative or zero value.</exception>
+    public virtual int ColumnSpan
+    {
+        get => columnSpan;
+        set
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(ColumnSpan), "The column span value must be a positive value.");
+
+            columnSpan = value;
+        }
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CellBase" /> class with

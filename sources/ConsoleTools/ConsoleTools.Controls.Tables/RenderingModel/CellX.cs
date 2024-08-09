@@ -118,7 +118,7 @@ internal class CellX
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             PreferredSize = cellBase.CalculatePreferredSize(),
             Content = cellBase.Content,
-            ColumnSpan = 1
+            ColumnSpan = cellBase.ColumnSpan
         };
 
         cellX.CalculateLayout();

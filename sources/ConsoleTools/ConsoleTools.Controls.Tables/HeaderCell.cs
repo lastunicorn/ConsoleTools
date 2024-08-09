@@ -34,6 +34,16 @@ public class HeaderCell : CellBase
     public Column ParentColumn { get; internal set; }
 
     /// <summary>
+    /// For a <see cref="HeaderCell"/>, the column span cannot be changed. It is always 1.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Exception thrown when the column span is set for a <see cref="HeaderCell"/>.</exception>
+    public override int ColumnSpan
+    {
+        get => base.ColumnSpan;
+        set => throw new InvalidOperationException("The column span cannot be set for a header cell.");
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HeaderCell" /> class with
     /// empty content.
     /// </summary>

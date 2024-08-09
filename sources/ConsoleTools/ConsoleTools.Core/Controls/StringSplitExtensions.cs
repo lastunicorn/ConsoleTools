@@ -210,6 +210,7 @@ internal static class StringSplitExtensions
             yield return line;
         }
     }
+
     public static Size MeasureCutAtChar(this string text, int maxWidth)
     {
         int lineWidth = Math.Min(text.Length, maxWidth);
@@ -287,18 +288,16 @@ internal static class StringSplitExtensions
 
             return new Size(maxWidth, 1);
         }
-        else
+
+        for (int i = maxWidth; i >= 0; i--)
         {
-            for (int i = maxWidth; i >= 0; i--)
-            {
-                char currentChar = text[i];
+            char currentChar = text[i];
 
-                if (char.IsWhiteSpace(currentChar))
-                    return new Size(i, 1);
-            }
-
-            return new Size(maxWidth, 1);
+            if (char.IsWhiteSpace(currentChar))
+                return new Size(i, 1);
         }
+
+        return new Size(maxWidth, 1);
     }
 
     public static IEnumerable<string> CutAtWord(this string text, int maxWidth, bool addEllipsis = false)

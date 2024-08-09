@@ -27,10 +27,10 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
         public void Execute()
         {
             DisplayDefaultPaddingExample();
-            
+
             Console.WriteLine();
             DisplayPaddingLeftExample();
-            
+
             Console.WriteLine();
             DisplayPaddingRightExample();
         }

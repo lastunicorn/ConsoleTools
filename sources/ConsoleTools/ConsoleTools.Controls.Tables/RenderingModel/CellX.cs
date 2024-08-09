@@ -41,9 +41,9 @@ internal class CellX
     public int PaddingLeft { get; set; }
 
     public int PaddingRight { get; set; }
-    
+
     public int PaddingTop { get; set; }
-    
+
     public int PaddingBottom { get; set; }
 
     public HorizontalAlignment HorizontalAlignment { get; set; }
@@ -118,8 +118,7 @@ internal class CellX
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             PreferredSize = cellBase.CalculatePreferredSize(),
             Content = cellBase.Content,
-            ColumnSpan = 1,
-            
+            ColumnSpan = 1
         };
 
         cellX.CalculateLayout();

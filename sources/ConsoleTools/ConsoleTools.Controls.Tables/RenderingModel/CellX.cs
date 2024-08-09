@@ -41,6 +41,10 @@ internal class CellX
     public int PaddingLeft { get; set; }
 
     public int PaddingRight { get; set; }
+    
+    public int PaddingTop { get; set; }
+    
+    public int PaddingBottom { get; set; }
 
     public HorizontalAlignment HorizontalAlignment { get; set; }
 
@@ -55,11 +59,13 @@ internal class CellX
     {
         ActualContentSize = CalculateSize(desiredWidth);
 
-        lineEnumerator = new LineEnumerator
+        lineEnumerator = new CellLineEnumerator
         {
             Content = Content,
             PaddingLeft = PaddingLeft,
             PaddingRight = PaddingRight,
+            PaddingTop = PaddingTop,
+            PaddingBottom = PaddingBottom,
             HorizontalAlignment = HorizontalAlignment,
             Size = ActualContentSize
         };
@@ -68,22 +74,17 @@ internal class CellX
 
     private Size CalculateSize(int desiredWidth)
     {
-        int cellWidth;
-        int cellHeight;
+        int cellWidth = PaddingLeft + PaddingRight;
+        int cellHeight = PaddingTop + PaddingBottom;
 
         bool isEmpty = Content == null || Content.IsEmpty;
 
-        if (isEmpty)
-        {
-            cellWidth = PaddingLeft + PaddingRight;
-            cellHeight = 0;
-        }
-        else
+        if (!isEmpty)
         {
             Size contentSize = Content.CalculateSize(desiredWidth);
 
-            cellWidth = PaddingLeft + contentSize.Width + PaddingRight;
-            cellHeight = contentSize.Height;
+            cellWidth += contentSize.Width;
+            cellHeight += contentSize.Height;
         }
 
         if (desiredWidth >= 0 && cellWidth != desiredWidth)
@@ -104,7 +105,7 @@ internal class CellX
         tablePrinter.Write(content, ForegroundColor, BackgroundColor);
     }
 
-    public static CellX CreateFrom(CellBase cellBase)
+    public static CellX CreateFor(CellBase cellBase)
     {
         CellX cellX = new()
         {
@@ -112,10 +113,13 @@ internal class CellX
             BackgroundColor = cellBase.CalculateBackgroundColor(),
             PaddingLeft = cellBase.CalculatePaddingLeft(),
             PaddingRight = cellBase.CalculatePaddingRight(),
+            PaddingTop = cellBase.ComputePaddingTop(),
+            PaddingBottom = cellBase.ComputePaddingBottom(),
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             PreferredSize = cellBase.CalculatePreferredSize(),
             Content = cellBase.Content,
-            ColumnSpan = 1
+            ColumnSpan = 1,
+            
         };
 
         cellX.CalculateLayout();

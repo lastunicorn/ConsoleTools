@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
-internal class LineEnumerator : IEnumerator<string>
+internal sealed class CellLineEnumerator : IEnumerator<string>
 {
     private int cellContentWidth;
     private IEnumerator<string> contentLineEnumerator;
@@ -30,6 +30,10 @@ internal class LineEnumerator : IEnumerator<string>
     public int PaddingLeft { get; set; }
 
     public int PaddingRight { get; set; }
+
+    public int PaddingTop { get; set; }
+
+    public int PaddingBottom { get; set; }
 
     public HorizontalAlignment HorizontalAlignment { get; set; }
 
@@ -58,6 +62,18 @@ internal class LineEnumerator : IEnumerator<string>
         {
             Current = null;
             return false;
+        }
+
+        if (lineIndex < PaddingTop)
+        {
+            Current = new string(' ', Size.Width);
+            return true;
+        }
+
+        if (Size.Height - lineIndex <= PaddingBottom)
+        {
+            Current = new string(' ', Size.Width);
+            return true;
         }
 
         bool success = contentLineEnumerator.MoveNext();
@@ -91,5 +107,6 @@ internal class LineEnumerator : IEnumerator<string>
 
     public void Dispose()
     {
+        contentLineEnumerator.Dispose();
     }
 }

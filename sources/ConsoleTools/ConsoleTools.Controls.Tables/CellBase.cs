@@ -34,14 +34,24 @@ public abstract class CellBase
     public static HorizontalAlignment DefaultHorizontalAlignment => HorizontalAlignment.Left;
 
     /// <summary>
-    /// Gets the default left padding applied for a cell.
+    /// Gets the default left padding applied to a cell's content.
     /// </summary>
     public static int DefaultPaddingLeft => 1;
 
     /// <summary>
-    /// Gets the default left padding applied for a cell.
+    /// Gets the default left padding applied to a cell's content.
     /// </summary>
     public static int DefaultPaddingRight => 1;
+
+    /// <summary>
+    /// Gets the default top padding applied to a cell's content.
+    /// </summary>
+    public static int DefaultPaddingTop => 0;
+
+    /// <summary>
+    /// Gets the default bottom padding applied to a cell's content.
+    /// </summary>
+    public static int DefaultPaddingBottom => 0;
 
     /// <summary>
     /// Gets or sets the content of the cell.
@@ -71,14 +81,28 @@ public abstract class CellBase
     public HorizontalAlignment HorizontalAlignment { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the left side of the cell.
+    /// Gets or sets the number of spaces to be applied between the content and the left border of
+    /// the cell.
     /// </summary>
     public int? PaddingLeft { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the right side of the cell.
+    /// Gets or sets the number of spaces to be applied between the content and the right border of
+    /// the cell.
     /// </summary>
     public int? PaddingRight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of empty lines to be applied between the content and the top border
+    /// of the cell.
+    /// </summary>
+    public int? PaddingTop { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of empty lines to be applied between the content and the bottom
+    /// border of the cell.
+    /// </summary>
+    public int? PaddingBottom { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CellBase" /> class with
@@ -173,6 +197,30 @@ public abstract class CellBase
     /// </summary>
     [Obsolete("Intended for internal usage only.")]
     public abstract int CalculatePaddingRight();
+
+    internal int ComputePaddingTop()
+    {
+        int? paddingTop = PaddingTop;
+
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingTop;
+
+        return paddingTop.Value;
+    }
+
+    internal int ComputePaddingBottom()
+    {
+        int? paddingTop = PaddingBottom;
+
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingBottom;
+
+        return paddingTop.Value;
+    }
 
     /// <summary>
     /// Returns the calculated horizontal alignment for the content of the current instance.

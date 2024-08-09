@@ -84,7 +84,7 @@ public class ContentCell_PaddingBottom_Tests : TestsBase
             dataGrid.Rows.Add(cell0, cell1, cell2);
         }
 
-        dataGrid.FooterRow.FooterCell.Content = "Footer text";
+        dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

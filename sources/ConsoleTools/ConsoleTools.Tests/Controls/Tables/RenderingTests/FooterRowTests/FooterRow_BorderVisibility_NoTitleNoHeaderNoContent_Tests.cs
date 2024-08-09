@@ -86,7 +86,7 @@ public class FooterRow_BorderVisibility_NoTitleNoHeaderNoContent_Tests : TestsBa
     {
         DataGrid dataGrid = new();
 
-        dataGrid.FooterRow.FooterCell.Content = "Footer text";
+        dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

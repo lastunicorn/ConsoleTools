@@ -87,8 +87,7 @@ public class TitleRow_BorderVisibility_WithFooterRow_Tests : TestsBase
         DataGrid dataGrid = new();
 
         dataGrid.Title = "Border Visibility Tests";
-
-        dataGrid.FooterRow.FooterCell.Content = "Footer text";
+        dataGrid.Footer = "Footer text";
 
         return dataGrid;
     }

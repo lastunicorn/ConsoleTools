@@ -60,7 +60,6 @@ internal class RowXBuilder
             case TitleRow titleRow:
                 {
                     CellX cellX = CellX.CreateFor(titleRow.TitleCell);
-                    cellX.ColumnSpan = int.MaxValue;
                     return new List<CellX> { cellX };
                 }
 
@@ -81,7 +80,6 @@ internal class RowXBuilder
             case FooterRow footerRow:
                 {
                     CellX cellX = CellX.CreateFor(footerRow.FooterCell);
-                    cellX.ColumnSpan = int.MaxValue;
                     return new List<CellX> { cellX };
                 }
 

@@ -16,6 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
@@ -30,8 +31,12 @@ public class ColumnSpanTests
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        foreach (CellBase cellBase in dataGrid.Rows.SelectMany(x => x))
-            cellBase.ColumnSpan.Should().Be(1);
+        IEnumerable<ContentCell> allContentCells = dataGrid.Rows
+            .SelectMany(x => x)
+            .Cast<ContentCell>();
+
+        foreach (ContentCell contentCell in allContentCells)
+            contentCell.ColumnSpan.Should().Be(1);
     }
 
     [Test]

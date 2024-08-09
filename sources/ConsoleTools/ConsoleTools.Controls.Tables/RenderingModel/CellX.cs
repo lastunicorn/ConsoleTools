@@ -118,7 +118,14 @@ internal class CellX
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             PreferredSize = cellBase.CalculatePreferredSize(),
             Content = cellBase.Content,
-            ColumnSpan = 1
+            ColumnSpan = cellBase switch
+            {
+                TitleCell => int.MaxValue,
+                HeaderCell => 1,
+                ContentCell contentCell => contentCell.ColumnSpan,
+                FooterCell => int.MaxValue,
+                _ => 1
+            }
         };
 
         cellX.CalculateLayout();

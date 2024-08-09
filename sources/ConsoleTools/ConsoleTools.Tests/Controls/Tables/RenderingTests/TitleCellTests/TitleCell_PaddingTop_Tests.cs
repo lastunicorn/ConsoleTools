@@ -17,10 +17,10 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.ContentCellTests;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.TitleCellTests;
 
 [TestFixture]
-public class ContentCell_PaddingTop_Tests : TestsBase
+public class TitleCell_PaddingTop_Tests : TestsBase
 {
     [Test]
     public void HavingNoPaddingTopSpecified_WhenRendered_TheCellContainsNoPaddingLine()
@@ -36,7 +36,7 @@ public class ContentCell_PaddingTop_Tests : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 0;
+        dataGrid.TitleRow.TitleCell.PaddingTop = 0;
 
         string expected = GetResourceFileContent("02-paddingtop-0.txt");
         dataGrid.IsEqualTo(expected);
@@ -47,7 +47,7 @@ public class ContentCell_PaddingTop_Tests : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 1;
+        dataGrid.TitleRow.TitleCell.PaddingTop = 1;
 
         string expected = GetResourceFileContent("03-paddingtop-1.txt");
         dataGrid.IsEqualTo(expected);
@@ -58,7 +58,7 @@ public class ContentCell_PaddingTop_Tests : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 2;
+        dataGrid.TitleRow.TitleCell.PaddingTop = 2;
 
         string expected = GetResourceFileContent("04-paddingtop-2.txt");
         dataGrid.IsEqualTo(expected);
@@ -68,8 +68,6 @@ public class ContentCell_PaddingTop_Tests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "Cell Padding Tests";
-
-        dataGrid.DisplayBorderBetweenRows = true;
 
         dataGrid.Columns.Add("Column 0");
         dataGrid.Columns.Add("Column 1");

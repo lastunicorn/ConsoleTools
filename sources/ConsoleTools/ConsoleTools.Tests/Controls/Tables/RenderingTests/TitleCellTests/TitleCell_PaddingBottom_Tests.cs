@@ -17,50 +17,50 @@
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.ContentCellTests;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.TitleCellTests;
 
 [TestFixture]
-public class ContentCell_PaddingTop_Tests : TestsBase
+public class TitleCell_PaddingBottom_Tests : TestsBase
 {
     [Test]
-    public void HavingNoPaddingTopSpecified_WhenRendered_TheCellContainsNoPaddingLine()
+    public void HavingNoPaddingBottomSpecified_WhenRendered_TheCellContainsNoPaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        string expected = GetResourceFileContent("01-paddingtop-unspecified.txt");
+        string expected = GetResourceFileContent("01-paddingbottom-unspecified.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingPaddingTop0_WhenRendered_TheCellContainsNoPaddingLine()
+    public void HavingPaddingBottom0_WhenRendered_TheCellContainsNoPaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 0;
+        dataGrid.TitleRow.TitleCell.PaddingBottom = 0;
 
-        string expected = GetResourceFileContent("02-paddingtop-0.txt");
+        string expected = GetResourceFileContent("02-paddingbottom-0.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingPaddingTop1_WhenRendered_TheCellContainsOnePaddingLine()
+    public void HavingPaddingBottom1_WhenRendered_TheCellContainsOnePaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 1;
+        dataGrid.TitleRow.TitleCell.PaddingBottom = 1;
 
-        string expected = GetResourceFileContent("03-paddingtop-1.txt");
+        string expected = GetResourceFileContent("03-paddingbottom-1.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingPaddingTop2_WhenRendered_TheCellContainsTwoPaddingLines()
+    public void HavingPaddingBottom2_WhenRendered_TheCellContainsTwoPaddingLines()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[2][1].PaddingTop = 2;
+        dataGrid.TitleRow.TitleCell.PaddingBottom = 2;
 
-        string expected = GetResourceFileContent("04-paddingtop-2.txt");
+        string expected = GetResourceFileContent("04-paddingbottom-2.txt");
         dataGrid.IsEqualTo(expected);
     }
 
@@ -68,8 +68,6 @@ public class ContentCell_PaddingTop_Tests : TestsBase
     {
         DataGrid dataGrid = new();
         dataGrid.Title = "Cell Padding Tests";
-
-        dataGrid.DisplayBorderBetweenRows = true;
 
         dataGrid.Columns.Add("Column 0");
         dataGrid.Columns.Add("Column 1");

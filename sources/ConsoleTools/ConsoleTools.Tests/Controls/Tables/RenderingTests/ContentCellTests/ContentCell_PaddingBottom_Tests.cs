@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.Conten
 public class ContentCell_PaddingBottom_Tests : TestsBase
 {
     [Test]
-    public void HavingNoPaddingTopSpecified_WhenRendered_TheCellContainsNoPaddingLine()
+    public void HavingNoPaddingBottomSpecified_WhenRendered_TheCellContainsNoPaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
@@ -32,16 +32,18 @@ public class ContentCell_PaddingBottom_Tests : TestsBase
     }
 
     [Test]
-    public void HavingPaddingTop0_WhenRendered_TheCellContainsNoPaddingLine()
+    public void HavingPaddingBottom0_WhenRendered_TheCellContainsNoPaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
+
+        dataGrid.Rows[2][1].PaddingBottom = 0;
 
         string expected = GetResourceFileContent("02-paddingbottom-0.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingPaddingTop1_WhenRendered_TheCellContainsOnePaddingLine()
+    public void HavingPaddingBottom1_WhenRendered_TheCellContainsOnePaddingLine()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
@@ -52,7 +54,7 @@ public class ContentCell_PaddingBottom_Tests : TestsBase
     }
 
     [Test]
-    public void HavingPaddingTop2_WhenRendered_TheCellContainsTwoPaddingLines()
+    public void HavingPaddingBottom2_WhenRendered_TheCellContainsTwoPaddingLines()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 

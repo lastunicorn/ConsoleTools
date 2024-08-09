@@ -19,16 +19,16 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
-internal class ColumnsLayout : IEnumerable<int>
+internal class ColumnXCollection : IEnumerable<ColumnX>
 {
-    private readonly List<int> columnsWidth = new();
-    private readonly List<ColumnSpanX> columnsSpan = new();
+    private readonly List<ColumnX> columns = new();
 
     public bool HasBorders { get; set; }
 
@@ -38,102 +38,86 @@ internal class ColumnsLayout : IEnumerable<int>
 
     public int ActualWidth { get; private set; }
 
-    public int this[int index] => columnsWidth[index];
+    public ColumnX this[int index] => columns[index];
 
-    public int Count => columnsWidth.Count;
+    public int Count => columns.Count;
 
-    public void AddColumn(int initialWidth)
+    public void AddColumn(ColumnX column)
     {
-        columnsWidth.Add(initialWidth);
+        if (column == null) throw new ArgumentNullException(nameof(column));
+
+        columns.Add(column);
     }
 
     /// <summary>
-    /// Increase the column width if necessary.
+    /// After all columns were added, the column span and grid min width information must be
+    /// processed and the columns to be adjusted accordingly.
     /// </summary>
-    public void UpdateColumnWidth(int index, int minWidth, int span)
+    public void PerformLayout()
     {
-        while (columnsWidth.Count <= index)
-            columnsWidth.Add(0);
-
-        if (span > 1)
-        {
-            ColumnSpanX columnSpanX = new()
-            {
-                StartIndex = index,
-                Span = span,
-                MinWidth = minWidth
-            };
-            columnsSpan.Add(columnSpanX);
-        }
-        else
-        {
-            if (minWidth > columnsWidth[index])
-                columnsWidth[index] = minWidth;
-        }
-    }
-
-    /// <summary>
-    /// At the end, the columns need to be adjusted to accomodate
-    /// cell's column spans and the grid min width constraints.
-    /// </summary>
-    public void FinalizeLayout()
-    {
-        if (columnsWidth.Count <= 0)
+        if (columns.Count <= 0)
             return;
 
-        // Distribute column span spaces
+        AccomodateColumnSpans();
+        AdjustForMinWidthAndMaxWidth();
+    }
 
-        foreach (ColumnSpanX columnSpan in columnsSpan)
+    private void AccomodateColumnSpans()
+    {
+        for (int i = 0; i < columns.Count; i++)
         {
-            int startIndex = columnSpan.StartIndex;
-            int span = columnSpan.Span ?? int.MaxValue;
-            int minWidth = columnSpan.MinWidth;
+            ColumnX column = columns[i];
 
-            InflateColumns(startIndex, span, minWidth);
+            foreach (ColumnSpanX columnSpanX in column.Spans)
+            {
+                int span = columnSpanX.Span ?? int.MaxValue;
+                int minWidth = columnSpanX.MinWidth;
+
+                InflateColumns(i, span, minWidth);
+            }
         }
 
-        // Distribute space to reach min width.
+        ActualWidth = CalculateTotalWidth();
+    }
 
-        int totalWidth = CalculateTotalWidth();
-
-        if (totalWidth < MinWidth)
+    private void AdjustForMinWidthAndMaxWidth()
+    {
+        if (ActualWidth < MinWidth)
         {
-            int delta = MinWidth - totalWidth;
+            int delta = MinWidth - ActualWidth;
             InflateEntireGrid(delta);
 
-            totalWidth = CalculateTotalWidth();
+            ActualWidth = CalculateTotalWidth();
         }
-        else if (totalWidth > MaxWidth)
+        else if (ActualWidth > MaxWidth)
         {
-            int delta = totalWidth - MaxWidth;
+            int delta = ActualWidth - MaxWidth;
             DeflateEntireGrid(delta);
 
-            totalWidth = CalculateTotalWidth();
+            ActualWidth = CalculateTotalWidth();
         }
-
-        ActualWidth = totalWidth;
     }
 
     private int CalculateTotalWidth()
     {
-        int totalWidth = columnsWidth
-            .Sum();
+        int totalWidth = columns
+            .Sum(x => x.Width);
 
         if (HasBorders)
-            totalWidth += columnsWidth.Count + 1;
+            totalWidth += columns.Count + 1;
 
         return totalWidth;
     }
 
     private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth)
     {
-        int[] spanColumns = columnsWidth
+        ColumnX[] spanColumns = columns
             .Skip(startColumnIndex)
             .Take(columnCount)
             .ToArray();
 
         int actualWidth = spanColumns
-            .Sum();
+            .Sum(x => x.Width);
 
         if (HasBorders)
             actualWidth += spanColumns.Length - 1;
@@ -148,25 +132,25 @@ internal class ColumnsLayout : IEnumerable<int>
             int bigColumnCount = diffWidth % spanColumns.Length;
 
             for (int i = startColumnIndex; i < startColumnIndex + bigColumnCount; i++)
-                columnsWidth[i] += bigIncreaseWidth;
+                columns[i].Width += bigIncreaseWidth;
 
             for (int i = startColumnIndex + bigColumnCount; i < startColumnIndex + spanColumns.Length; i++)
-                columnsWidth[i] += smallIncreaseWidth;
+                columns[i].Width += smallIncreaseWidth;
         }
     }
 
     public int GetCellWidth(int cellIndex, int columnSpan = 1)
     {
         if (columnSpan == 1)
-            return columnsWidth[cellIndex];
+            return columns[cellIndex].Width;
 
-        int[] spannedColumns = columnsWidth
+        ColumnX[] spannedColumns = columns
             .Skip(cellIndex)
             .Take(columnSpan)
             .ToArray();
 
         int contentWidth = spannedColumns
-            .Sum();
+            .Sum(x => x.Width);
 
         bool shouldAddBorders = HasBorders && spannedColumns.Length > 0;
 
@@ -177,39 +161,47 @@ internal class ColumnsLayout : IEnumerable<int>
 
     private void InflateEntireGrid(int deltaWidth)
     {
-        int smallIncreaseWidth = deltaWidth / columnsWidth.Count;
+        int smallIncreaseWidth = deltaWidth / columns.Count;
         int bigIncreaseWidth = smallIncreaseWidth + 1;
 
-        int bigColumnCount = deltaWidth % columnsWidth.Count;
+        int bigColumnCount = deltaWidth % columns.Count;
 
         for (int i = 0; i < bigColumnCount; i++)
-            columnsWidth[i] += bigIncreaseWidth;
+            columns[i].Width += bigIncreaseWidth;
 
-        for (int i = bigColumnCount; i < columnsWidth.Count; i++)
-            columnsWidth[i] += smallIncreaseWidth;
+        for (int i = bigColumnCount; i < columns.Count; i++)
+            columns[i].Width += smallIncreaseWidth;
     }
 
     private void DeflateEntireGrid(int deltaWidth)
     {
-        int smallDecreaseWidth = deltaWidth / columnsWidth.Count;
+        int smallDecreaseWidth = deltaWidth / columns.Count;
         int bigDecreaseWidth = smallDecreaseWidth + 1;
 
-        int bigColumnCount = deltaWidth % columnsWidth.Count;
+        int bigColumnCount = deltaWidth % columns.Count;
 
         for (int i = 0; i < bigColumnCount; i++)
-            columnsWidth[i] -= bigDecreaseWidth;
+            columns[i].Width -= bigDecreaseWidth;
 
-        for (int i = bigColumnCount; i < columnsWidth.Count; i++)
-            columnsWidth[i] -= smallDecreaseWidth;
+        for (int i = bigColumnCount; i < columns.Count; i++)
+            columns[i].Width -= smallDecreaseWidth;
     }
 
-    public IEnumerator<int> GetEnumerator()
+    public IEnumerator<ColumnX> GetEnumerator()
     {
-        return columnsWidth.GetEnumerator();
+        return columns.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public ColumnX GetOrCreate(int index)
+    {
+        while (columns.Count <= index)
+            columns.Add(new ColumnX());
+
+        return columns[index];
     }
 }

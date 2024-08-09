@@ -42,35 +42,35 @@ internal class SeparatorX : IItemX
 
     public ConsoleColor? BackgroundColor { get; set; }
 
-    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
+    public void Render(ITablePrinter tablePrinter, ColumnXCollection columnXCollection)
     {
         if (BorderTemplate == null)
             return;
 
-        string line = BuildLine(columnsLayout);
+        string line = BuildLine(columnXCollection);
         tablePrinter.Write(line, ForegroundColor, BackgroundColor);
         tablePrinter.WriteLine();
     }
 
-    private string BuildLine(ColumnsLayout columnsLayout)
+    private string BuildLine(ColumnXCollection columnXCollection)
     {
-        verticalBorderCount = columnsLayout.Count + 1;
-        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
-        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnsLayout.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        verticalBorderCount = columnXCollection.Count + 1;
+        row1VerticalBorders = Row1?.ComputeVerticalBorderVisibility(columnXCollection.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
+        row2VerticalBorders = Row2?.ComputeVerticalBorderVisibility(columnXCollection.Count) ?? Enumerable.Repeat(false, verticalBorderCount).ToList();
 
         StringBuilder sb = new();
 
-        for (int i = 0; i < columnsLayout.Count; i++)
+        for (int i = 0; i < columnXCollection.Count; i++)
         {
             char cornerChar = CalculateCornerChar(i);
             sb.Append(cornerChar);
 
             char bodyChar = CalculateBodyChar();
-            string bodyLine = new(bodyChar, columnsLayout[i]);
+            string bodyLine = new(bodyChar, columnXCollection[i].Width);
             sb.Append(bodyLine);
         }
 
-        char endingCorner = CalculateCornerChar(columnsLayout.Count);
+        char endingCorner = CalculateCornerChar(columnXCollection.Count);
         sb.Append(endingCorner);
 
         return sb.ToString();

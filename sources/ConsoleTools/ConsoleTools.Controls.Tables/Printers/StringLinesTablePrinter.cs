@@ -85,15 +85,15 @@ internal class StringLinesTablePrinter : ITablePrinter
 
     public void Flush()
     {
-        if (buffer.Length > 0)
-        {
-            if (shouldReplaceLastLine)
-                lines[lines.Count - 1] = buffer.ToString();
-            else
-                lines.Add(buffer.ToString());
+        if (buffer.Length <= 0)
+            return;
 
-            shouldReplaceLastLine = true;
-        }
+        if (shouldReplaceLastLine)
+            lines[lines.Count - 1] = buffer.ToString();
+        else
+            lines.Add(buffer.ToString());
+
+        shouldReplaceLastLine = true;
     }
 
     public IReadOnlyCollection<string> GetLines()

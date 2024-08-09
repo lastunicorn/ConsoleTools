@@ -19,11 +19,49 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class ColumnX
 {
-    public int MinWidth { get; set; }
+    private int minWidth;
+
+    public int MinWidth
+    {
+        get => minWidth;
+        set
+        {
+            minWidth = value;
+
+            if (Width < value)
+                Width = value;
+        }
+    }
 
     public int Width { get; set; }
+
+    public List<ColumnSpanX> Spans { get; } = new();
+
+    public void AccomodateCell(CellX cellX)
+    {
+        int width = cellX.PreferredSize.Width;
+        int span = cellX.ColumnSpan;
+
+        if (span > 1)
+        {
+            ColumnSpanX columnSpanX = new()
+            {
+                Span = span,
+                MinWidth = width
+            };
+
+            Spans.Add(columnSpanX);
+        }
+        else
+        {
+            if (width > Width)
+                Width = width;
+        }
+    }
 }

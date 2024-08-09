@@ -70,9 +70,9 @@ internal class RowX : IItemX
         return new Size(width, height);
     }
 
-    public void Render(ITablePrinter tablePrinter, ColumnsLayout columnsLayout)
+    public void Render(ITablePrinter tablePrinter, ColumnXCollection columnXCollection)
     {
-        InitializeCellRendering(columnsLayout);
+        InitializeCellRendering(columnXCollection);
 
         for (int lineIndex = 0; lineIndex < ActualSize.Height; lineIndex++)
         {
@@ -81,7 +81,7 @@ internal class RowX : IItemX
         }
     }
 
-    private void InitializeCellRendering(ColumnsLayout columnsLayout)
+    private void InitializeCellRendering(ColumnXCollection columnXCollection)
     {
         int width = 0;
         int height = 0;
@@ -90,7 +90,7 @@ internal class RowX : IItemX
         {
             CellX cellX = Cells[columnIndex];
 
-            int cellWidth = columnsLayout.GetCellWidth(columnIndex, cellX.ColumnSpan);
+            int cellWidth = columnXCollection.GetCellWidth(columnIndex, cellX.ColumnSpan);
             cellX.InitializeRendering(cellWidth);
 
             width += cellX.ActualContentSize.Width;

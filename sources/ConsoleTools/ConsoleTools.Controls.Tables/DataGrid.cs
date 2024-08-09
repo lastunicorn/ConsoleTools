@@ -297,6 +297,11 @@ public class DataGrid : BlockControl
     }
 
     /// <summary>
+    /// Gets or sets the text to be displayed in the content area when there is no data.
+    /// </summary>
+    public MultilineText EmptyText { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DataGrid"/> class.
     /// </summary>
     public DataGrid()

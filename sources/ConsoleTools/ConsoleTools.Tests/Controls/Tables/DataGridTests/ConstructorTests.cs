@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.DataGridTests;
 
 [TestFixture]
 public class ConstructorTests

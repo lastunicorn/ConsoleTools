@@ -66,7 +66,7 @@ public class Pause : ErasableControl
 
         lastLineLength = 0;
 
-        IEnumerable<string> lines = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CharCut);
+        IEnumerable<string> lines = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CutChar);
 
         foreach (string line in lines)
         {

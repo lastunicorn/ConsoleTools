@@ -27,7 +27,7 @@ public class CalculateSize_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        Size size = multilineText.CalculateSize(15, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(15, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(10, 1)));
     }
@@ -37,7 +37,7 @@ public class CalculateSize_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        Size size = multilineText.CalculateSize(10, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(10, 1)));
     }
@@ -47,7 +47,7 @@ public class CalculateSize_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        Size size = multilineText.CalculateSize(7, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(7, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(7, 1)));
     }
@@ -57,7 +57,7 @@ public class CalculateSize_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        Size size = multilineText.CalculateSize(0, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(0, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(Size.Empty));
     }

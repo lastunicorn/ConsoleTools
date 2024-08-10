@@ -66,7 +66,7 @@ public class TextBlock : BlockControl
         if (Text == null)
             return;
 
-        IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CharCut);
+        IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CutChar);
 
         foreach (string chunk in chunks)
             display.WriteRow(chunk);

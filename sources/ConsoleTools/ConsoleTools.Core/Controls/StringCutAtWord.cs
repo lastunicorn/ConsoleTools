@@ -62,12 +62,12 @@ internal class StringCutAtWord
 
                 if (char.IsWhiteSpace(currentChar))
                 {
-                    Length = i + 3;
+                    Length = i;
                     return;
                 }
             }
 
-            Length = maxLength;
+            Length = maxLength - 3;
             return;
         }
 

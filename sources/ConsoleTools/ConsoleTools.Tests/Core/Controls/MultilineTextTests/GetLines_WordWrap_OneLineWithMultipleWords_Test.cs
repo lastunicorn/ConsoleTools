@@ -28,7 +28,7 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(25, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(25, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps", "over the lazy dog." }));
     }
@@ -38,7 +38,7 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(26, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(26, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps", "over the lazy dog." }));
     }
@@ -48,7 +48,7 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(28, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(28, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps", "over the lazy dog." }));
     }
@@ -58,7 +58,7 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(0, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(0, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.Empty);
     }
@@ -68,7 +68,7 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("word1 word2 longword");
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "word1", "word2", "longword" }));
     }

@@ -27,7 +27,7 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(25, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(25, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(25, 2)));
     }
@@ -37,7 +37,7 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(26, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(26, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(25, 2)));
     }
@@ -47,7 +47,7 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(28, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(28, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(25, 2)));
     }
@@ -57,7 +57,7 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(0, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(0, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(Size.Empty));
     }
@@ -67,7 +67,7 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("word1 word2 longword");
 
-        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(8, 3)));
     }

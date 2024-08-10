@@ -28,7 +28,7 @@ public class GetLines_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new();
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.Empty);
     }
@@ -38,7 +38,7 @@ public class GetLines_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new(string.Empty);
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { string.Empty }));
     }
@@ -48,7 +48,7 @@ public class GetLines_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new(string.Empty, string.Empty);
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { string.Empty, string.Empty }));
     }

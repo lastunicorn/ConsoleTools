@@ -187,9 +187,9 @@ public class MultilineText : IEnumerable<string>
     /// Calculates the size of the text.
     /// </summary>
     /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
-    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.CharWrap"/>.</param>
+    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.WrapChar"/>.</param>
     /// <returns>Returns a new instance of <see cref="Size"/> representing the size of the text.</returns>
-    public Size CalculateSize(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.CharWrap)
+    public Size CalculateSize(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.WrapChar)
     {
         if (maxWidth < 0)
             return Size;
@@ -214,20 +214,20 @@ public class MultilineText : IEnumerable<string>
             case OverflowBehavior.Overflow:
                 return new[] { Size };
 
-            case OverflowBehavior.CharCut:
-            case OverflowBehavior.CharCutWithEllipsis:
+            case OverflowBehavior.CutChar:
+            case OverflowBehavior.CutCharWithEllipsis:
                 return Lines.Select(x => x.MeasureCutAtChar(maxWidth));
 
-            case OverflowBehavior.WordCut:
+            case OverflowBehavior.CutWord:
                 return Lines.Select(x => x.MeasureCutAtWord(maxWidth));
 
-            case OverflowBehavior.WordCutWithEllipsis:
+            case OverflowBehavior.CutWordWithEllipsis:
                 return Lines.Select(x => x.MeasureCutAtWord(maxWidth, true));
 
-            case OverflowBehavior.CharWrap:
+            case OverflowBehavior.WrapChar:
                 return Lines.Select(x => x.MeasureWrapAtChar(maxWidth));
 
-            case OverflowBehavior.WordWrap:
+            case OverflowBehavior.WrapWord:
                 return Lines.Select(x => x.MeasureWrapAtWord(maxWidth));
 
             default:
@@ -240,9 +240,9 @@ public class MultilineText : IEnumerable<string>
     /// it may be cut in chunks with the length of <see cref="P:maxWidth"/> or wrapped based on the <see cref="P:overflowBehavior"/> value.
     /// </summary>
     /// <param name="maxWidth">The maximum width allowed. Negative value means no limit.</param>
-    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.CharWrap"/>.</param>
+    /// <param name="overflowBehavior">Specifies what to do with the overflow text when the full text is actually bigger than the required width. Default value: <see cref="OverflowBehavior.WrapChar"/>.</param>
     /// <returns></returns>
-    public IEnumerable<string> GetLines(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.CharWrap)
+    public IEnumerable<string> GetLines(int maxWidth = -1, OverflowBehavior overflowBehavior = OverflowBehavior.WrapChar)
     {
         if (maxWidth < 0)
             return Lines;
@@ -253,12 +253,12 @@ public class MultilineText : IEnumerable<string>
         return overflowBehavior switch
         {
             OverflowBehavior.Overflow => Lines,
-            OverflowBehavior.CharCut => Lines.Select(x => x.CutAtChar(maxWidth)),
-            OverflowBehavior.WordCut => Lines.Select(x => x.CutAtWord(maxWidth)),
-            OverflowBehavior.CharCutWithEllipsis => Lines.Select(x => x.CutAtChar(maxWidth, true)),
-            OverflowBehavior.WordCutWithEllipsis => Lines.Select(x => x.CutAtWord(maxWidth, true)),
-            OverflowBehavior.CharWrap => Lines.SelectMany(x => x.WrapAtChar(maxWidth)),
-            OverflowBehavior.WordWrap => Lines.SelectMany(x => x.WrapAtWord(maxWidth)),
+            OverflowBehavior.CutChar => Lines.Select(x => x.CutAtChar(maxWidth)),
+            OverflowBehavior.CutWord => Lines.Select(x => x.CutAtWord(maxWidth)),
+            OverflowBehavior.CutCharWithEllipsis => Lines.Select(x => x.CutAtChar(maxWidth, true)),
+            OverflowBehavior.CutWordWithEllipsis => Lines.Select(x => x.CutAtWord(maxWidth, true)),
+            OverflowBehavior.WrapChar => Lines.SelectMany(x => x.WrapAtChar(maxWidth)),
+            OverflowBehavior.WrapWord => Lines.SelectMany(x => x.WrapAtWord(maxWidth)),
             _ => throw new ArgumentOutOfRangeException(nameof(overflowBehavior), overflowBehavior, null)
         };
     }

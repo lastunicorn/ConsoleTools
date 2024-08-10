@@ -39,7 +39,7 @@ public class ContentCell_OverflowBehavior_Tests : TestsBase
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.Overflow;
+        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.PreserveOverflow;
         dataGrid.MaxWidth = 100;
 
         string expected = GetResourceFileContent("01-overflow.txt");

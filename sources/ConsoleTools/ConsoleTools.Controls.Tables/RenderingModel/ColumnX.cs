@@ -63,23 +63,26 @@ internal class ColumnX
 
     public void AccomodateCell(CellX cellX)
     {
-        int width = cellX.PreferredSize.Width;
-        int span = cellX.ColumnSpan;
-
-        if (span > 1)
+        if (cellX.ColumnSpan > 1)
         {
             ColumnSpanX columnSpanX = new()
             {
-                Span = span,
-                MinWidth = width
+                Span = cellX.ColumnSpan,
+                MinWidth = cellX.PreferredSize.Width
             };
 
             Spans.Add(columnSpanX);
         }
         else
         {
-            if (width > ActualWidth)
-                ActualWidth = width;
+            if (ActualWidth < cellX.PreferredSize.Width)
+                ActualWidth = cellX.PreferredSize.Width;
+        }
+
+        if (cellX.OverflowBehavior == OverflowBehavior.PreserveOverflow)
+        {
+            if (MinWidth < cellX.PreferredSize.Width)
+                minWidth = cellX.PreferredSize.Width;
         }
     }
 

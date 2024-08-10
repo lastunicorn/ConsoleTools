@@ -211,7 +211,7 @@ public class MultilineText : IEnumerable<string>
     {
         switch (overflowBehavior)
         {
-            case OverflowBehavior.Overflow:
+            case OverflowBehavior.PreserveOverflow:
                 return new[] { Size };
 
             case OverflowBehavior.CutChar:
@@ -252,7 +252,7 @@ public class MultilineText : IEnumerable<string>
 
         return overflowBehavior switch
         {
-            OverflowBehavior.Overflow => Lines,
+            OverflowBehavior.PreserveOverflow => Lines,
             OverflowBehavior.CutChar => Lines.Select(x => x.CutAtChar(maxWidth)),
             OverflowBehavior.CutWord => Lines.Select(x => x.CutAtWord(maxWidth)),
             OverflowBehavior.CutCharWithEllipsis => Lines.Select(x => x.CutAtChar(maxWidth, true)),

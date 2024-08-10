@@ -38,7 +38,6 @@ internal class CellXBuilder
             PaddingTop = cellBase.ComputePaddingTop(),
             PaddingBottom = cellBase.ComputePaddingBottom(),
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
-            //PreferredSize = cellBase.CalculatePreferredSize(),
             Content = cellBase.Content,
             ColumnSpan = ComputeColumnSpan(),
             OverflowBehavior = cellBase.OverflowBehavior

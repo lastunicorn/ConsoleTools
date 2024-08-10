@@ -183,4 +183,15 @@ public class FooterCell : CellBase
     {
         return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
     }
+
+    internal override CellContentOverflow ComputeContentOverflow()
+    {
+        CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = DefaultContentOverflow;
+
+        return contentOverflow;
+    }
 }

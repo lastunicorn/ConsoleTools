@@ -28,7 +28,7 @@ public class GetLines_WordWrap_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
     }
@@ -38,7 +38,7 @@ public class GetLines_WordWrap_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(7, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(7, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "1234567", "890" }));
     }
@@ -48,7 +48,7 @@ public class GetLines_WordWrap_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(0, OverflowBehavior.WordWrap).ToArray();
+        string[] lines = multilineText.GetLines(0, OverflowBehavior.WrapWord).ToArray();
 
         Assert.That(lines, Is.Empty);
     }

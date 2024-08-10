@@ -30,9 +30,9 @@ internal class CellX
 
     public MultilineText Content { get; set; }
 
-    public Size PreferredSize { get; set; }
+    public Size PreferredSize { get; private set; }
 
-    public Size ActualContentSize { get; set; }
+    public Size ActualSize { get; private set; }
 
     public ConsoleColor? ForegroundColor { get; set; }
 
@@ -50,6 +50,8 @@ internal class CellX
 
     public int ColumnSpan { get; set; }
 
+    public CellContentOverflow ContentOverflow { get; set; }
+
     public void CalculateLayout()
     {
         PreferredSize = CalculateSize(-1);
@@ -57,7 +59,7 @@ internal class CellX
 
     public void InitializeRendering(int desiredWidth)
     {
-        ActualContentSize = CalculateSize(desiredWidth);
+        ActualSize = CalculateSize(desiredWidth);
 
         lineEnumerator = new CellLineEnumerator
         {
@@ -67,7 +69,8 @@ internal class CellX
             PaddingTop = PaddingTop,
             PaddingBottom = PaddingBottom,
             HorizontalAlignment = HorizontalAlignment,
-            Size = ActualContentSize
+            Size = ActualSize,
+            ContentOverflow = ContentOverflow
         };
         lineEnumerator.Reset();
     }
@@ -81,7 +84,10 @@ internal class CellX
 
         if (!isEmpty)
         {
-            Size contentSize = Content.CalculateSize(desiredWidth);
+            int desiredContentWidth = desiredWidth - PaddingLeft - PaddingRight;
+            OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
+
+            Size contentSize = Content.CalculateSize(desiredContentWidth, overflowBehavior);
 
             cellWidth += contentSize.Width;
             cellHeight += contentSize.Height;
@@ -100,36 +106,8 @@ internal class CellX
 
         string content = lineEnumerator.MoveNext()
             ? lineEnumerator.Current
-            : new string(' ', ActualContentSize.Width);
+            : new string(' ', ActualSize.Width);
 
         tablePrinter.Write(content, ForegroundColor, BackgroundColor);
-    }
-
-    public static CellX CreateFor(CellBase cellBase)
-    {
-        CellX cellX = new()
-        {
-            ForegroundColor = cellBase.CalculateForegroundColor(),
-            BackgroundColor = cellBase.CalculateBackgroundColor(),
-            PaddingLeft = cellBase.CalculatePaddingLeft(),
-            PaddingRight = cellBase.CalculatePaddingRight(),
-            PaddingTop = cellBase.ComputePaddingTop(),
-            PaddingBottom = cellBase.ComputePaddingBottom(),
-            HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
-            PreferredSize = cellBase.CalculatePreferredSize(),
-            Content = cellBase.Content,
-            ColumnSpan = cellBase switch
-            {
-                TitleCell => int.MaxValue,
-                HeaderCell => 1,
-                ContentCell contentCell => contentCell.ColumnSpan,
-                FooterCell => int.MaxValue,
-                _ => 1
-            }
-        };
-
-        cellX.CalculateLayout();
-
-        return cellX;
     }
 }

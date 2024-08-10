@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
@@ -26,6 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 internal class ColumnX
 {
     private int minWidth;
+    private int actualWidth;
 
     public int MinWidth
     {
@@ -34,34 +36,67 @@ internal class ColumnX
         {
             minWidth = value;
 
-            if (Width < value)
-                Width = value;
+            if (ActualWidth < value)
+                ActualWidth = value;
         }
     }
 
-    public int Width { get; set; }
+    public int ActualWidth
+    {
+        get => actualWidth;
+        set
+        {
+            if (value == actualWidth || (value < actualWidth && !AllowToShrink))
+                return;
+
+            actualWidth = value;
+        }
+    }
+
+    public bool AllowToShrink { get; set; } = true;
 
     public List<ColumnSpanX> Spans { get; } = new();
 
     public void AccomodateCell(CellX cellX)
     {
-        int width = cellX.PreferredSize.Width;
-        int span = cellX.ColumnSpan;
-
-        if (span > 1)
+        if (cellX.ColumnSpan > 1)
         {
             ColumnSpanX columnSpanX = new()
             {
-                Span = span,
-                MinWidth = width
+                Span = cellX.ColumnSpan,
+                PreferredWidth = cellX.PreferredSize.Width,
+                MinWidth = cellX.ContentOverflow == CellContentOverflow.PreserveOverflow
+                    ? cellX.PreferredSize.Width
+                    : 0
             };
 
             Spans.Add(columnSpanX);
         }
         else
         {
-            if (width > Width)
-                Width = width;
+            if (ActualWidth < cellX.PreferredSize.Width)
+                ActualWidth = cellX.PreferredSize.Width;
+
+            if (cellX.ContentOverflow == CellContentOverflow.PreserveOverflow)
+            {
+                if (MinWidth < cellX.PreferredSize.Width)
+                    minWidth = cellX.PreferredSize.Width;
+            }
         }
+    }
+
+    public void ShrinkToMinimum()
+    {
+        if (AllowToShrink)
+            ActualWidth = minWidth;
+    }
+
+    public void ShrinkBy(int delta)
+    {
+        if (!AllowToShrink)
+            return;
+
+        int newWidth = ActualWidth - delta;
+        ActualWidth = Math.Max(minWidth, newWidth);
     }
 }

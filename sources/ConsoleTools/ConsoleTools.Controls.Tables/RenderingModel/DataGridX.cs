@@ -19,7 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
@@ -30,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 /// </summary>
 internal class DataGridX
 {
-    private readonly List<IItemX> rows = new();
+    private readonly ItemXCollection rows = new();
     private readonly ColumnXCollection columns = new();
 
     public bool HasBorders
@@ -53,26 +52,18 @@ internal class DataGridX
 
     public int RowCount => rows.Count;
 
-    public void AddColumn(ColumnX column)
+    public void Add(ColumnX column)
     {
         columns.AddColumn(column);
     }
 
     public void Add(SeparatorX separator)
     {
-        IItemX lastItem = rows.LastOrDefault();
-        separator.Row1 = lastItem as RowX;
-
         rows.Add(separator);
     }
 
     public void Add(RowX rowX)
     {
-        IItemX lastItem = rows.LastOrDefault();
-
-        if (lastItem is SeparatorX lastSeparator)
-            lastSeparator.Row2 = rowX;
-
         rows.Add(rowX);
         UpdateColumnsWidths(rowX);
     }

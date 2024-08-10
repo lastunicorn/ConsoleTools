@@ -66,7 +66,7 @@ internal class SeparatorX : IItemX
             sb.Append(cornerChar);
 
             char bodyChar = CalculateBodyChar();
-            string bodyLine = new(bodyChar, columnXCollection[i].Width);
+            string bodyLine = new(bodyChar, columnXCollection[i].ActualWidth);
             sb.Append(bodyLine);
         }
 

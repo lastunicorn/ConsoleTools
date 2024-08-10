@@ -288,6 +288,37 @@ public class ContentCell : CellBase
         return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
     }
 
+    internal override CellContentOverflow ComputeContentOverflow()
+    {
+        CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ComputeContentOverflowAtColumnLevel();
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ComputeContentOverflowAtTableLevel();
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = DefaultContentOverflow;
+
+        return contentOverflow;
+    }
+
+    private CellContentOverflow ComputeContentOverflowAtColumnLevel()
+    {
+        Column column = GetColumn();
+        return column?.CellContentOverflow ?? CellContentOverflow.Default;
+    }
+
+    private CellContentOverflow ComputeContentOverflowAtTableLevel()
+    {
+        DataGrid dataGrid = ParentRow?.ParentDataGrid;
+        return dataGrid?.CellContentOverflow ?? CellContentOverflow.Default;
+    }
+
     /// <summary>
     /// Converts a <see cref="string"/> into a <see cref="ContentCell"/> instance.
     /// </summary>

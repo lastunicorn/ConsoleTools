@@ -242,6 +242,17 @@ public class HeaderCell : CellBase
         return ParentColumn?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
     }
 
+    internal override CellContentOverflow ComputeContentOverflow()
+    {
+        CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = DefaultContentOverflow;
+
+        return contentOverflow;
+    }
+
     /// <summary>
     /// Converts the specified text into a <see cref="HeaderCell"/> instance.
     /// The text is used as the content for the cell.

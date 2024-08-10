@@ -24,21 +24,21 @@ public enum OverflowBehavior
 {
     /// <summary>
     /// If the text is longer than the required length, it allows overflow.
-    /// Practically ignores the length constrain.
+    /// Practically ignores the length constrain, if any.
     /// </summary>
-    Overflow,
+    PreserveOverflow,
 
     /// <summary>
     /// If the text is longer than the required length, it simply cuts the text at the exact
     /// length, loosing the overflow part.
     /// </summary>
-    CharCut,
+    CutChar,
 
     /// <summary>
     /// If the text is longer than the required length, it cuts the text after the last full word,
     /// loosing the overflow part.
     /// </summary>
-    WordCut,
+    CutWord,
 
     /// <summary>
     /// If the text is longer than the required length, it cuts the text, and it adds an ellipsis
@@ -46,7 +46,7 @@ public enum OverflowBehavior
     /// The length of the remaining text together with the three ellipsis characters will be
     /// exactly the requested length.
     /// </summary>
-    CharCutWithEllipsis,
+    CutCharWithEllipsis,
 
     /// <summary>
     /// If the text is longer than the required length, it cuts the text after the last full word,
@@ -54,19 +54,19 @@ public enum OverflowBehavior
     /// The length of the remaining text together with the three ellipsis characters will be less
     /// or equal to the requested length.
     /// </summary>
-    WordCutWithEllipsis,
+    CutWordWithEllipsis,
 
     /// <summary>
     /// If the text is longer than the required length, it wraps the text by cutting each line at
     /// the exact required length in characters.
     /// </summary>
-    CharWrap,
+    WrapChar,
 
     /// <summary>
     /// If the text is longer than the required length, it wraps the text by cutting each line
     /// after the last full word, thus preserving the words.
-    /// If a word is bigger than the line it will fall back to <see cref="CharWrap"/> for that
+    /// If a word is bigger than the line it will fall back to <see cref="WrapChar"/> for that
     /// specific word.
     /// </summary>
-    WordWrap
+    WrapWord
 }

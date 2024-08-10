@@ -253,10 +253,10 @@ public class MultilineText : IEnumerable<string>
         return overflowBehavior switch
         {
             OverflowBehavior.Overflow => Lines,
-            OverflowBehavior.CharCut => Lines.SelectMany(x => x.CutAtChar(maxWidth)),
-            OverflowBehavior.WordCut => Lines.SelectMany(x => x.CutAtWord(maxWidth)),
-            OverflowBehavior.CharCutWithEllipsis => Lines.SelectMany(x => x.CutAtChar(maxWidth, true)),
-            OverflowBehavior.WordCutWithEllipsis => Lines.SelectMany(x => x.CutAtWord(maxWidth, true)),
+            OverflowBehavior.CharCut => Lines.Select(x => x.CutAtChar(maxWidth)),
+            OverflowBehavior.WordCut => Lines.Select(x => x.CutAtWord(maxWidth)),
+            OverflowBehavior.CharCutWithEllipsis => Lines.Select(x => x.CutAtChar(maxWidth, true)),
+            OverflowBehavior.WordCutWithEllipsis => Lines.Select(x => x.CutAtWord(maxWidth, true)),
             OverflowBehavior.CharWrap => Lines.SelectMany(x => x.WrapAtChar(maxWidth)),
             OverflowBehavior.WordWrap => Lines.SelectMany(x => x.WrapAtWord(maxWidth)),
             _ => throw new ArgumentOutOfRangeException(nameof(overflowBehavior), overflowBehavior, null)

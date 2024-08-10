@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.DataGr
 public class Grid_MaxWidth_Tests : TestsBase
 {
     [Test]
-    public void HavingColumnMinWidthNotSpecified()
+    public void HavingColumnMaxWidthNotSpecified()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
@@ -32,7 +32,7 @@ public class Grid_MaxWidth_Tests : TestsBase
     }
 
     [Test]
-    public void HavingColumnMinWidthLessThanContent()
+    public void HavingColumnMaxWidthLessThanContent()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
@@ -43,7 +43,7 @@ public class Grid_MaxWidth_Tests : TestsBase
     }
 
     [Test]
-    public void HavingColumnMinWidthGreaterThanContent()
+    public void HavingColumnMaxWidthGreaterThanContent()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 

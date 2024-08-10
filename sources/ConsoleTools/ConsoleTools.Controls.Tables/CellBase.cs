@@ -105,6 +105,12 @@ public abstract class CellBase
     public int? PaddingBottom { get; set; }
 
     /// <summary>
+    /// Gets or sets a value specifying how the overflow text is handled when the cell has the
+    /// width too small for displaying it.
+    /// </summary>
+    public OverflowBehavior OverflowBehavior { get; set; } = OverflowBehavior.WordWrap;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="CellBase" /> class with
     /// empty content.
     /// </summary>

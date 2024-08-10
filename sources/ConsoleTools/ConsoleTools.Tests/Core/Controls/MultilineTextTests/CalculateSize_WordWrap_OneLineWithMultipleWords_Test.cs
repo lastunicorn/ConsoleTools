@@ -61,4 +61,14 @@ public class CalculateSize_WordWrap_OneLineWithMultipleWords_Test
 
         Assert.That(size, Is.EqualTo(Size.Empty));
     }
+
+    [Test]
+    public void line_ends_in_the_middle_of_a_word_and_next_word_does_not_fit()
+    {
+        MultilineText multilineText = new("word1 word2 longword");
+
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+
+        Assert.That(size, Is.EqualTo(new Size(8, 3)));
+    }
 }

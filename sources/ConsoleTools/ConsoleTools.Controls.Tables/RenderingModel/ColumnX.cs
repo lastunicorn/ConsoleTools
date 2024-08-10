@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
@@ -26,6 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 internal class ColumnX
 {
     private int minWidth;
+    private int actualWidth;
 
     public int MinWidth
     {
@@ -34,14 +36,30 @@ internal class ColumnX
         {
             minWidth = value;
 
-            if (Width < value)
-                Width = value;
+            if (ActualWidth < value)
+                ActualWidth = value;
         }
     }
 
-    public int Width { get; set; }
+    public int ActualWidth
+    {
+        get => actualWidth;
+        set
+        {
+            if (value == actualWidth || (value < actualWidth && !AllowToShrink))
+                return;
+
+            actualWidth = value;
+        }
+    }
+
+    public bool AllowToShrink { get; set; } = true;
 
     public List<ColumnSpanX> Spans { get; } = new();
+
+    public int FlexibleWidthDelta => AllowToShrink
+        ? ActualWidth - MinWidth
+        : 0;
 
     public void AccomodateCell(CellX cellX)
     {
@@ -60,8 +78,23 @@ internal class ColumnX
         }
         else
         {
-            if (width > Width)
-                Width = width;
+            if (width > ActualWidth)
+                ActualWidth = width;
         }
+    }
+
+    public void ShrinkToMinimum()
+    {
+        if (AllowToShrink)
+            ActualWidth = minWidth;
+    }
+
+    public void ShrinkBy(int delta)
+    {
+        if (!AllowToShrink)
+            return;
+
+        int newWidth = ActualWidth - delta;
+        ActualWidth = Math.Max(minWidth, newWidth);
     }
 }

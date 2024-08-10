@@ -62,4 +62,14 @@ public class GetLines_WordWrap_OneLineWithMultipleWords_Test
 
         Assert.That(lines, Is.Empty);
     }
+
+    [Test]
+    public void line_ends_in_the_middle_of_a_word_and_next_word_does_not_fit()
+    {
+        MultilineText multilineText = new("word1 word2 longword");
+
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.WordWrap).ToArray();
+
+        Assert.That(lines, Is.EqualTo(new[] { "word1", "word2", "longword" }));
+    }
 }

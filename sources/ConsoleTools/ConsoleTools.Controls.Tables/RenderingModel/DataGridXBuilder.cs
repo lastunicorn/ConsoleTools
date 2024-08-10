@@ -79,7 +79,7 @@ internal class DataGridXBuilder
                 MinWidth = column.MinWidth
             };
 
-            dataGridX.AddColumn(columnX);
+            dataGridX.Add(columnX);
         }
     }
 

@@ -14,17 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.ContentCellTests;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.ColumnTests;
 
 [TestFixture]
-public class ContentCell_OverflowBehavior_Tests : TestsBase
+public class Column_CellContentOverflow_Tests : TestsBase
 {
     [Test]
-    public void HavingOverflowBehaviorUnspecified()
+    public void HavingContentOverflowUnspecified()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
@@ -35,93 +34,105 @@ public class ContentCell_OverflowBehavior_Tests : TestsBase
     }
 
     [Test]
-    public void HavingOverflowBehaviorOverflow()
+    public void HavingContentOverflowDefault()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.PreserveOverflow;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.Default;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("01-overflow.txt");
+        string expected = GetResourceFileContent("01-default.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorCutChar()
+    public void HavingContentOverflowPreserveOverflow()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.CutChar;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.PreserveOverflow;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("02-cutchar.txt");
+        string expected = GetResourceFileContent("02-preserveoverflow.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorCutCharWithEllipsis()
+    public void HavingContentOverflowCutChar()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.CutCharWithEllipsis;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.CutChar;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("03-cutcharwithellipsis.txt");
+        string expected = GetResourceFileContent("03-cutchar.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorCutWord()
+    public void HavingContentOverflowCutCharWithEllipsis()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.CutWord;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.CutCharWithEllipsis;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("04-cutword.txt");
+        string expected = GetResourceFileContent("04-cutcharwithellipsis.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorCutWordWithEllipsis()
+    public void HavingContentOverflowCutWord()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.CutWordWithEllipsis;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.CutWord;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("05-cutwordwithellipsis.txt");
+        string expected = GetResourceFileContent("05-cutword.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorWrapChar()
+    public void HavingContentOverflowCutWordWithEllipsis()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.WrapChar;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.CutWordWithEllipsis;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("06-wrapchar.txt");
+        string expected = GetResourceFileContent("06-cutwordwithellipsis.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     [Test]
-    public void HavingOverflowBehaviorWordWrap()
+    public void HavingContentOverflowWrapChar()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        dataGrid.Rows[1][1].OverflowBehavior = OverflowBehavior.WrapWord;
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.WrapChar;
         dataGrid.MaxWidth = 100;
 
-        string expected = GetResourceFileContent("07-wrapword.txt");
+        string expected = GetResourceFileContent("07-wrapchar.txt");
+        dataGrid.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingContentOverflowWordWrap()
+    {
+        DataGrid dataGrid = CreateDummyDataGrid();
+
+        dataGrid.Columns[1].CellContentOverflow = CellContentOverflow.WrapWord;
+        dataGrid.MaxWidth = 100;
+
+        string expected = GetResourceFileContent("08-wrapword.txt");
         dataGrid.IsEqualTo(expected);
     }
 
     private static DataGrid CreateDummyDataGrid()
     {
         DataGrid dataGrid = new();
-        dataGrid.Title = "Cell OverflowBehavior Tests";
+        dataGrid.Title = "Column CellContentOverflow Tests";
 
         dataGrid.DisplayBorderBetweenRows = true;
 

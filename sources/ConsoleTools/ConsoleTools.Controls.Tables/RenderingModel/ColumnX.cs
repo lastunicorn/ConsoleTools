@@ -57,10 +57,6 @@ internal class ColumnX
 
     public List<ColumnSpanX> Spans { get; } = new();
 
-    public int FlexibleWidthDelta => AllowToShrink
-        ? ActualWidth - MinWidth
-        : 0;
-
     public void AccomodateCell(CellX cellX)
     {
         if (cellX.ColumnSpan > 1)
@@ -68,7 +64,10 @@ internal class ColumnX
             ColumnSpanX columnSpanX = new()
             {
                 Span = cellX.ColumnSpan,
-                MinWidth = cellX.PreferredSize.Width
+                PreferredWidth = cellX.PreferredSize.Width,
+                MinWidth = cellX.ContentOverflow == CellContentOverflow.PreserveOverflow
+                    ? cellX.PreferredSize.Width
+                    : 0
             };
 
             Spans.Add(columnSpanX);
@@ -77,12 +76,12 @@ internal class ColumnX
         {
             if (ActualWidth < cellX.PreferredSize.Width)
                 ActualWidth = cellX.PreferredSize.Width;
-        }
 
-        if (cellX.OverflowBehavior == OverflowBehavior.PreserveOverflow)
-        {
-            if (MinWidth < cellX.PreferredSize.Width)
-                minWidth = cellX.PreferredSize.Width;
+            if (cellX.ContentOverflow == CellContentOverflow.PreserveOverflow)
+            {
+                if (MinWidth < cellX.PreferredSize.Width)
+                    minWidth = cellX.PreferredSize.Width;
+            }
         }
     }
 

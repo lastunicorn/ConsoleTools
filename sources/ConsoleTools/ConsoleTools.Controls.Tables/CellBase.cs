@@ -34,6 +34,11 @@ public abstract class CellBase
     public static HorizontalAlignment DefaultHorizontalAlignment => HorizontalAlignment.Left;
 
     /// <summary>
+    /// Gets the default content overflow for a cell.
+    /// </summary>
+    public static CellContentOverflow DefaultContentOverflow => CellContentOverflow.WrapWord;
+
+    /// <summary>
     /// Gets the default left padding applied to a cell's content.
     /// </summary>
     public static int DefaultPaddingLeft => 1;
@@ -108,7 +113,7 @@ public abstract class CellBase
     /// Gets or sets a value specifying how the overflow text is handled when the cell has the
     /// width too small for displaying it.
     /// </summary>
-    public OverflowBehavior OverflowBehavior { get; set; } = OverflowBehavior.WrapWord;
+    public CellContentOverflow ContentOverflow { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CellBase" /> class with
@@ -236,6 +241,8 @@ public abstract class CellBase
     /// </summary>
     [Obsolete("Intended for internal usage only.")]
     public abstract HorizontalAlignment CalculateHorizontalAlignment();
+
+    internal abstract CellContentOverflow ComputeContentOverflow();
 
     /// <summary>
     /// Returns the string representation of the content of the cell.

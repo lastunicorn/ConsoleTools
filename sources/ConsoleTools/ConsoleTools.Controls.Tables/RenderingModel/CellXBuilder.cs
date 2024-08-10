@@ -40,7 +40,7 @@ internal class CellXBuilder
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             Content = cellBase.Content,
             ColumnSpan = ComputeColumnSpan(),
-            OverflowBehavior = cellBase.OverflowBehavior
+            ContentOverflow = cellBase.ComputeContentOverflow()
         };
 
         cellX.CalculateLayout();

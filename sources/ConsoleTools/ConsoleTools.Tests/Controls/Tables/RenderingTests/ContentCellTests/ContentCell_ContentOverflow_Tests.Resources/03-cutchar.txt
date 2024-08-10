@@ -1,12 +1,12 @@
 ﻿+--------------------------------------------------------------------------------------------------+
-| Cell OverflowBehavior Tests                                                                      |
+| Cell ContentOverflow Tests                                                                       |
 +--------------------------------+--------------------------------+--------------------------------+
 | Column 0                       | Column 1                       | Column 2                       |
 +--------------------------------+--------------------------------+--------------------------------+
 | cell 00:0 Lorem ipsum          | cell 00:1 Lorem ipsum          | cell 00:2 Lorem ipsum          |
 | consectetur adipiscing elit    | consectetur adipiscing elit    | consectetur adipiscing elit    |
 +--------------------------------+--------------------------------+--------------------------------+
-| cell 01:0 Lorem ipsum          | cell 01:1 Lorem ipsum          | cell 01:2 Lorem ipsum          |
+| cell 01:0 Lorem ipsum          | cell 01:1 Lorem ipsum consecte | cell 01:2 Lorem ipsum          |
 | consectetur adipiscing elit    |                                | consectetur adipiscing elit    |
 +--------------------------------+--------------------------------+--------------------------------+
 | cell 02:0 Lorem ipsum          | cell 02:1 Lorem ipsum          | cell 02:2 Lorem ipsum          |

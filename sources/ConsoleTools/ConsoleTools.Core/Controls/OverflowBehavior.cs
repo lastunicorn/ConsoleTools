@@ -24,7 +24,7 @@ public enum OverflowBehavior
 {
     /// <summary>
     /// If the text is longer than the required length, it allows overflow.
-    /// Practically ignores the length constrain if any.
+    /// Practically ignores the length constrain, if any.
     /// </summary>
     PreserveOverflow,
 

@@ -50,7 +50,7 @@ internal class CellX
 
     public int ColumnSpan { get; set; }
 
-    public OverflowBehavior OverflowBehavior { get; set; }
+    public CellContentOverflow ContentOverflow { get; set; }
 
     public void CalculateLayout()
     {
@@ -70,7 +70,7 @@ internal class CellX
             PaddingBottom = PaddingBottom,
             HorizontalAlignment = HorizontalAlignment,
             Size = ActualSize,
-            OverflowBehavior = OverflowBehavior
+            ContentOverflow = ContentOverflow
         };
         lineEnumerator.Reset();
     }
@@ -85,7 +85,9 @@ internal class CellX
         if (!isEmpty)
         {
             int desiredContentWidth = desiredWidth - PaddingLeft - PaddingRight;
-            Size contentSize = Content.CalculateSize(desiredContentWidth, OverflowBehavior);
+            OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
+
+            Size contentSize = Content.CalculateSize(desiredContentWidth, overflowBehavior);
 
             cellWidth += contentSize.Width;
             cellHeight += contentSize.Height;

@@ -71,9 +71,11 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             foreach (ColumnSpanX columnSpanX in column.Spans)
             {
                 int span = columnSpanX.Span ?? int.MaxValue;
+                int preferredWidth = columnSpanX.PreferredWidth;
                 int minWidth = columnSpanX.MinWidth;
 
-                InflateColumns(i, span, minWidth);
+                InflateColumns(i, span, minWidth, true);
+                InflateColumns(i, span, preferredWidth, false);
             }
         }
 
@@ -109,7 +111,7 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
         return totalWidth;
     }
 
-    private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth)
+    private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth, bool ensureWidth)
     {
         ColumnX[] spanColumns = columns
             .Skip(startColumnIndex)
@@ -132,10 +134,20 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             int bigColumnCount = diffWidth % spanColumns.Length;
 
             for (int i = startColumnIndex; i < startColumnIndex + bigColumnCount; i++)
+            {
                 columns[i].ActualWidth += bigIncreaseWidth;
 
+                if (ensureWidth)
+                    columns[i].MinWidth += columns[i].ActualWidth;
+            }
+
             for (int i = startColumnIndex + bigColumnCount; i < startColumnIndex + spanColumns.Length; i++)
+            {
                 columns[i].ActualWidth += smallIncreaseWidth;
+
+                if (ensureWidth)
+                    columns[i].MinWidth += columns[i].ActualWidth;
+            }
         }
     }
 
@@ -195,20 +207,6 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             }
         }
     }
-
-    //private void DeflateEntireGrid(int deltaWidth)
-    //{
-    //    int smallDecreaseWidth = deltaWidth / columns.Count;
-    //    int bigDecreaseWidth = smallDecreaseWidth + 1;
-
-    //    int bigColumnCount = deltaWidth % columns.Count;
-
-    //    for (int i = 0; i < bigColumnCount; i++)
-    //        columns[i].Width -= bigDecreaseWidth;
-
-    //    for (int i = bigColumnCount; i < columns.Count; i++)
-    //        columns[i].Width -= smallDecreaseWidth;
-    //}
 
     public IEnumerator<ColumnX> GetEnumerator()
     {

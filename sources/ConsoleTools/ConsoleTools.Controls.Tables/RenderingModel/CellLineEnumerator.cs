@@ -43,14 +43,15 @@ internal sealed class CellLineEnumerator : IEnumerator<string>
 
     object IEnumerator.Current => Current;
 
-    public OverflowBehavior OverflowBehavior { get; set; }
+    public CellContentOverflow ContentOverflow { get; set; }
 
     public void Reset()
     {
         cellContentWidth = Size.Width - PaddingLeft - PaddingRight;
+        OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
 
         contentLineEnumerator = Content
-            .GetLines(cellContentWidth, OverflowBehavior)
+            .GetLines(cellContentWidth, overflowBehavior)
             .GetEnumerator();
 
         lineIndex = -1;

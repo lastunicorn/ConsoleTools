@@ -28,7 +28,7 @@ public class GetLines_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(15, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(15, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
     }
@@ -38,7 +38,7 @@ public class GetLines_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "1234567890" }));
     }
@@ -48,7 +48,7 @@ public class GetLines_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(7, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(7, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "1234567" }));
     }
@@ -58,7 +58,7 @@ public class GetLines_CharCut_OneLineWithNoSpaces_Test
     {
         MultilineText multilineText = new("1234567890");
 
-        string[] lines = multilineText.GetLines(0, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(0, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.Empty);
     }

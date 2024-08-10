@@ -59,27 +59,31 @@ internal class RowXBuilder
         {
             case TitleRow titleRow:
                 {
-                    CellX cellX = CellX.CreateFor(titleRow.TitleCell);
+                    CellX cellX = CellXBuilder.CreateFor(titleRow.TitleCell)
+                        .Build();
+
                     return new List<CellX> { cellX };
                 }
 
             case ContentRow contentRow:
                 {
                     return contentRow.EnumerateVisibleCells()
-                        .Select(CellX.CreateFor)
+                        .Select(x => CellXBuilder.CreateFor(x).Build())
                         .ToList();
                 }
 
             case HeaderRow headerRow:
                 {
                     return headerRow.EnumerateVisibleCells()
-                        .Select(CellX.CreateFor)
+                        .Select(x => CellXBuilder.CreateFor(x).Build())
                         .ToList();
                 }
 
             case FooterRow footerRow:
                 {
-                    CellX cellX = CellX.CreateFor(footerRow.FooterCell);
+                    CellX cellX = CellXBuilder.CreateFor(footerRow.FooterCell)
+                        .Build();
+
                     return new List<CellX> { cellX };
                 }
 

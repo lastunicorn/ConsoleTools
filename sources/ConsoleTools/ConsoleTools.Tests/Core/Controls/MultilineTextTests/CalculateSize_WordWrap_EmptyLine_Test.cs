@@ -27,7 +27,7 @@ public class CalculateSize_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new();
 
-        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(Size.Empty));
     }
@@ -37,7 +37,7 @@ public class CalculateSize_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new(string.Empty);
 
-        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(0, 1)));
     }
@@ -47,7 +47,7 @@ public class CalculateSize_WordWrap_EmptyLine_Test
     {
         MultilineText multilineText = new(string.Empty, string.Empty);
 
-        Size size = multilineText.CalculateSize(10, OverflowBehavior.WordWrap);
+        Size size = multilineText.CalculateSize(10, OverflowBehavior.WrapWord);
 
         Assert.That(size, Is.EqualTo(new Size(0, 2)));
     }

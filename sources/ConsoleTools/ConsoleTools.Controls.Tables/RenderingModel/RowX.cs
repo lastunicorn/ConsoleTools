@@ -93,8 +93,8 @@ internal class RowX : IItemX
             int cellWidth = columnXCollection.GetCellWidth(columnIndex, cellX.ColumnSpan);
             cellX.InitializeRendering(cellWidth);
 
-            width += cellX.ActualContentSize.Width;
-            height = Math.Max(height, cellX.ActualContentSize.Height);
+            width += cellX.ActualSize.Width;
+            height = Math.Max(height, cellX.ActualSize.Height);
         }
 
         bool hasBorder = BorderTemplate != null;

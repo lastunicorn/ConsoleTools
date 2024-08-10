@@ -71,9 +71,11 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             foreach (ColumnSpanX columnSpanX in column.Spans)
             {
                 int span = columnSpanX.Span ?? int.MaxValue;
+                int preferredWidth = columnSpanX.PreferredWidth;
                 int minWidth = columnSpanX.MinWidth;
 
-                InflateColumns(i, span, minWidth);
+                InflateColumns(i, span, minWidth, true);
+                InflateColumns(i, span, preferredWidth, false);
             }
         }
 
@@ -101,7 +103,7 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
     private int CalculateTotalWidth()
     {
         int totalWidth = columns
-            .Sum(x => x.Width);
+            .Sum(x => x.ActualWidth);
 
         if (HasBorders)
             totalWidth += columns.Count + 1;
@@ -109,7 +111,7 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
         return totalWidth;
     }
 
-    private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth)
+    private void InflateColumns(int startColumnIndex, int columnCount, int desiredInnerWidth, bool ensureWidth)
     {
         ColumnX[] spanColumns = columns
             .Skip(startColumnIndex)
@@ -117,7 +119,7 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             .ToArray();
 
         int actualWidth = spanColumns
-            .Sum(x => x.Width);
+            .Sum(x => x.ActualWidth);
 
         if (HasBorders)
             actualWidth += spanColumns.Length - 1;
@@ -132,17 +134,27 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             int bigColumnCount = diffWidth % spanColumns.Length;
 
             for (int i = startColumnIndex; i < startColumnIndex + bigColumnCount; i++)
-                columns[i].Width += bigIncreaseWidth;
+            {
+                columns[i].ActualWidth += bigIncreaseWidth;
+
+                if (ensureWidth)
+                    columns[i].MinWidth += columns[i].ActualWidth;
+            }
 
             for (int i = startColumnIndex + bigColumnCount; i < startColumnIndex + spanColumns.Length; i++)
-                columns[i].Width += smallIncreaseWidth;
+            {
+                columns[i].ActualWidth += smallIncreaseWidth;
+
+                if (ensureWidth)
+                    columns[i].MinWidth += columns[i].ActualWidth;
+            }
         }
     }
 
     public int GetCellWidth(int cellIndex, int columnSpan = 1)
     {
         if (columnSpan == 1)
-            return columns[cellIndex].Width;
+            return columns[cellIndex].ActualWidth;
 
         ColumnX[] spannedColumns = columns
             .Skip(cellIndex)
@@ -150,7 +162,7 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
             .ToArray();
 
         int contentWidth = spannedColumns
-            .Sum(x => x.Width);
+            .Sum(x => x.ActualWidth);
 
         bool shouldAddBorders = HasBorders && spannedColumns.Length > 0;
 
@@ -167,24 +179,33 @@ internal class ColumnXCollection : IEnumerable<ColumnX>
         int bigColumnCount = deltaWidth % columns.Count;
 
         for (int i = 0; i < bigColumnCount; i++)
-            columns[i].Width += bigIncreaseWidth;
+            columns[i].ActualWidth += bigIncreaseWidth;
 
         for (int i = bigColumnCount; i < columns.Count; i++)
-            columns[i].Width += smallIncreaseWidth;
+            columns[i].ActualWidth += smallIncreaseWidth;
     }
 
     private void DeflateEntireGrid(int deltaWidth)
     {
-        int smallDecreaseWidth = deltaWidth / columns.Count;
-        int bigDecreaseWidth = smallDecreaseWidth + 1;
+        int columnContentTotalWidth = columns
+            .Where(x => x.AllowToShrink)
+            .Sum(x => x.ActualWidth - x.MinWidth);
 
-        int bigColumnCount = deltaWidth % columns.Count;
+        if (columnContentTotalWidth < deltaWidth)
+        {
+            foreach (ColumnX column in columns)
+                column.ShrinkToMinimum();
+        }
+        else
+        {
+            double reductionPercentage = (double)deltaWidth * 100 / columnContentTotalWidth;
 
-        for (int i = 0; i < bigColumnCount; i++)
-            columns[i].Width -= bigDecreaseWidth;
-
-        for (int i = bigColumnCount; i < columns.Count; i++)
-            columns[i].Width -= smallDecreaseWidth;
+            foreach (ColumnX column in columns)
+            {
+                int columnDelta = (int)Math.Round(reductionPercentage * column.ActualWidth / 100);
+                column.ShrinkBy(columnDelta);
+            }
+        }
     }
 
     public IEnumerator<ColumnX> GetEnumerator()

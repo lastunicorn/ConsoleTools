@@ -27,7 +27,7 @@ public class CalculateSize_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(25, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(25, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(25, 1)));
     }
@@ -37,7 +37,7 @@ public class CalculateSize_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(26, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(26, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(26, 1)));
     }
@@ -47,7 +47,7 @@ public class CalculateSize_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(28, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(28, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(new Size(28, 1)));
     }
@@ -57,7 +57,7 @@ public class CalculateSize_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        Size size = multilineText.CalculateSize(0, OverflowBehavior.CharCut);
+        Size size = multilineText.CalculateSize(0, OverflowBehavior.CutChar);
 
         Assert.That(size, Is.EqualTo(Size.Empty));
     }

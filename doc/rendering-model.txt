@@ -1,0 +1,34 @@
+The rendering model (X classes) store the data in a printable friendly format.
+The most important classes from the model are:
+- DataGridX
+- ColumnX
+- RowX : IItemX
+- SeparatorX : IItemX
+
+
+While items (SeparatorX and RowX) are added to the DataGridX:
+
+- The preferred size for each cell is calculated.
+	- The preferred size is the size of the cell when no specific width or height are imposed.
+	- The preferred size include the content size and paddings (left, top, right, bottom).
+
+- The preferred size for each entire item added to the grid is calculated:
+	- The preferred size of a SeparatorX item is the minimum size; when cells have no content.
+		- Only the paddings and vertical borders contribute to its preferred width.
+		- The height is always 1.
+	- The preferred size of a RowX item is the minimum size that accommodate all the cells at their preferred sizes and also the vertical borders, if visible.
+
+- The preferred width of each column is calculated:
+	- The width of each column is increased so that it accommodate all the cells displayed on that column.
+	- The column's min and max widths are honored at this step.
+	- The cells that span across multiple columns are ignored for the time being.
+	- The grid's min and max widths are ignored for the time being.
+
+After all the items are added:
+
+- The columns' width are recalculated to accommodate:
+	- cells that span across multiple columns;
+	- grid's min and max widths.
+	- Note: The column's min and max widths are still honored.
+
+After all 

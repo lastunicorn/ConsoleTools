@@ -28,7 +28,7 @@ public class GetLines_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(25, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(25, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps" }));
     }
@@ -38,7 +38,7 @@ public class GetLines_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(26, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(26, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps " }));
     }
@@ -48,7 +48,7 @@ public class GetLines_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(28, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(28, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "The quick brown fox jumps ov" }));
     }
@@ -58,7 +58,7 @@ public class GetLines_CharCut_OneLineWithMultipleWords_Test
     {
         MultilineText multilineText = new("The quick brown fox jumps over the lazy dog.");
 
-        string[] lines = multilineText.GetLines(0, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(0, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.Empty);
     }

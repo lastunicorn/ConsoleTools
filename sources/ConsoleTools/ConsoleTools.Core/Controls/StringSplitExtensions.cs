@@ -60,155 +60,23 @@ internal static class StringSplitExtensions
         int width = 0;
         int height = 0;
 
-        IEnumerable<int> lineLengths = MeasureLinesForWrapAtWord(text, maxWidth);
+        StringSplitAtWord stringSplitAtWord = new(text, maxWidth);
 
-        foreach (int lineLength in lineLengths)
+        while (stringSplitAtWord.MoveNext())
         {
-            width = Math.Max(width, lineLength);
+            width = Math.Max(width, stringSplitAtWord.Length);
             height++;
         }
 
         return new Size(width, height);
     }
 
-    private static IEnumerable<int> MeasureLinesForWrapAtWord(this string text, int maxWidth)
-    {
-        if (text == null)
-            yield break;
-
-        if (text.Length == 0)
-        {
-            yield return 0;
-            yield break;
-        }
-
-        int startIndex = 0;
-        int currentLineLength = 0;
-        bool isInsideWord = false;
-        int lastSpaceIndex = -1;
-
-        for (int i = 0; i < text.Length; i++)
-        {
-            char currentChar = text[i];
-
-            if (char.IsWhiteSpace(currentChar))
-            {
-                if (isInsideWord)
-                    isInsideWord = false;
-
-                lastSpaceIndex = i;
-            }
-            else
-            {
-                if (!isInsideWord)
-                    isInsideWord = true;
-            }
-
-            currentLineLength++;
-
-            // Check if the line has reached its maximum width.
-            if (currentLineLength > maxWidth)
-            {
-                if (lastSpaceIndex > startIndex)
-                {
-                    // Break at the last space found
-                    int lineLength = lastSpaceIndex - startIndex;
-                    yield return lineLength;
-
-                    startIndex = lastSpaceIndex + 1;
-                }
-                else
-                {
-                    // No space found, break at the maximum width.
-                    int lineLength = i - startIndex;
-                    yield return lineLength;
-
-                    startIndex = i;
-                }
-
-                // Reset tracking variables.
-                currentLineLength = 0;
-                isInsideWord = false;
-                lastSpaceIndex = -1;
-            }
-        }
-
-        // Process any remaining text.
-        if (startIndex < text.Length)
-        {
-            int lineLength = text.Length - startIndex;
-            yield return lineLength;
-        }
-    }
-
     public static IEnumerable<string> WrapAtWord(this string text, int maxWidth)
     {
-        if (text == null)
-            yield break;
+        StringSplitAtWord stringSplitAtWord = new(text, maxWidth);
 
-        if (text.Length == 0)
-        {
-            yield return string.Empty;
-            yield break;
-        }
-
-        int startIndex = 0;
-        int currentLineLength = 0;
-        bool isInsideWord = false;
-        int lastSpaceIndex = -1;
-
-        for (int i = 0; i < text.Length; i++)
-        {
-            char currentChar = text[i];
-
-            if (char.IsWhiteSpace(currentChar))
-            {
-                if (isInsideWord)
-                    isInsideWord = false;
-
-                lastSpaceIndex = i;
-            }
-            else
-            {
-                if (!isInsideWord)
-                    isInsideWord = true;
-            }
-
-            currentLineLength++;
-
-            // Check if the line has reached its maximum width.
-            if (currentLineLength > maxWidth)
-            {
-                if (lastSpaceIndex > startIndex)
-                {
-                    // Break at the last space found
-                    string line = text.Substring(startIndex, lastSpaceIndex - startIndex);
-                    yield return line;
-
-                    startIndex = lastSpaceIndex + 1;
-                }
-                else
-                {
-                    // No space found, break at the maximum width.
-                    string line = text.Substring(startIndex, i - startIndex);
-                    yield return line;
-
-                    startIndex = i;
-                }
-
-                // Reset tracking variables.
-                currentLineLength = 0;
-                isInsideWord = false;
-                lastSpaceIndex = -1;
-            }
-        }
-
-        // Process any remaining text.
-        if (startIndex < text.Length)
-        {
-            string line = text.Substring(startIndex, text.Length - startIndex);
-            yield return line;
-        }
+        while (stringSplitAtWord.MoveNext())
+            yield return stringSplitAtWord.GetLine();
     }
 
     public static Size MeasureCutAtChar(this string text, int maxWidth)
@@ -219,156 +87,48 @@ internal static class StringSplitExtensions
         return new Size(lineWidth, lineHeight);
     }
 
-    public static IEnumerable<string> CutAtChar(this string text, int maxWidth, bool addEllipsis = false)
+    public static string CutAtChar(this string text, int maxWidth, bool addEllipsis = false)
     {
         if (maxWidth == 0)
-            yield break;
+            return string.Empty;
 
         if (maxWidth < 0)
-        {
-            yield return text;
-            yield break;
-        }
+            return text;
 
         if (text.Length <= maxWidth)
-        {
-            yield return text;
-            yield break;
-        }
+            return text;
 
         if (addEllipsis)
         {
             if (maxWidth == 1)
-            {
-                yield return ".";
-                yield break;
-            }
+                return ".";
 
             if (maxWidth == 2)
-            {
-                yield return "..";
-                yield break;
-            }
+                return "..";
 
             if (maxWidth == 3)
-            {
-                yield return "...";
-                yield break;
-            }
+                return "...";
 
             string chunk = text.Substring(0, maxWidth - 3);
-            yield return chunk + "...";
+            return chunk + "...";
         }
-        else
-        {
-            yield return text.Substring(0, maxWidth);
-        }
+        
+        return text.Substring(0, maxWidth);
     }
 
     public static Size MeasureCutAtWord(this string text, int maxWidth, bool addEllipsis = false)
     {
-        if (string.IsNullOrEmpty(text) || maxWidth == 0)
-            return Size.Empty;
+        StringCutAtWord stringCutAtWord = new(text, maxWidth, addEllipsis);
+        stringCutAtWord.Execute();
 
-        if (maxWidth < 0 || text.Length <= maxWidth)
-            return new Size(text.Length, 1);
-
-        if (addEllipsis)
-        {
-            if (maxWidth <= 3)
-                return new Size(maxWidth, 1);
-
-            for (int i = maxWidth - 3; i >= 0; i--)
-            {
-                char currentChar = text[i];
-
-                if (char.IsWhiteSpace(currentChar))
-                    return new Size(i + 3, 1);
-            }
-
-            return new Size(maxWidth, 1);
-        }
-
-        for (int i = maxWidth; i >= 0; i--)
-        {
-            char currentChar = text[i];
-
-            if (char.IsWhiteSpace(currentChar))
-                return new Size(i, 1);
-        }
-
-        return new Size(maxWidth, 1);
+        int width = stringCutAtWord.Length;
+        return new Size(width, 1);
     }
 
-    public static IEnumerable<string> CutAtWord(this string text, int maxWidth, bool addEllipsis = false)
+    public static string CutAtWord(this string text, int maxWidth, bool addEllipsis = false)
     {
-        if (maxWidth == 0)
-            yield break;
-
-        if (maxWidth < 0)
-        {
-            yield return text;
-            yield break;
-        }
-
-        if (text.Length <= maxWidth)
-        {
-            yield return text;
-            yield break;
-        }
-
-        if (addEllipsis)
-        {
-            if (maxWidth == 1)
-            {
-                yield return ".";
-                yield break;
-            }
-
-            if (maxWidth == 2)
-            {
-                yield return "..";
-                yield break;
-            }
-
-            if (maxWidth == 3)
-            {
-                yield return "...";
-                yield break;
-            }
-
-            for (int i = maxWidth - 3; i >= 0; i--)
-            {
-                char currentChar = text[i];
-
-                if (char.IsWhiteSpace(currentChar))
-                {
-                    string chunk = text.Substring(0, i);
-                    yield return chunk + "...";
-                    yield break;
-                }
-            }
-
-            {
-                string chunk = text.Substring(0, maxWidth - 3);
-                yield return chunk + "...";
-            }
-        }
-        else
-        {
-            for (int i = maxWidth; i >= 0; i--)
-            {
-                char currentChar = text[i];
-
-                if (char.IsWhiteSpace(currentChar))
-                {
-                    string line = text.Substring(0, i);
-                    yield return line;
-                    yield break;
-                }
-            }
-
-            yield return text.Substring(0, maxWidth);
-        }
+        StringCutAtWord stringCutAtWord = new(text, maxWidth, addEllipsis);
+        stringCutAtWord.Execute();
+        return stringCutAtWord.ToString();
     }
 }

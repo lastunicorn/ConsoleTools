@@ -28,7 +28,7 @@ public class GetLines_CharCut_EmptyLine_Test
     {
         MultilineText multilineText = new();
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.Empty);
     }
@@ -38,7 +38,7 @@ public class GetLines_CharCut_EmptyLine_Test
     {
         MultilineText multilineText = new(string.Empty);
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { string.Empty }));
     }
@@ -48,7 +48,7 @@ public class GetLines_CharCut_EmptyLine_Test
     {
         MultilineText multilineText = new("", "");
 
-        string[] lines = multilineText.GetLines(10, OverflowBehavior.CharCut).ToArray();
+        string[] lines = multilineText.GetLines(10, OverflowBehavior.CutChar).ToArray();
 
         Assert.That(lines, Is.EqualTo(new[] { "", "" }));
     }

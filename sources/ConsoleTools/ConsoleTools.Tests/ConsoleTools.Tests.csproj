@@ -141,6 +141,15 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\ContentCellTests\ContentCell_MultilineContent_Tests.Resources\03-crlf.txt" />
       <None Remove="Controls\Tables\RenderingTests\ContentCellTests\ContentCell_MultilineContent_Tests.Resources\04-multiline-objects.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_MinWidth_Test.Resources\04-minwidth-greater-alignright.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\01-title.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\02-title-header.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\03-title-header-footer.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\04-title-header-content-footer.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\02-title-emptytext.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\03-title-header-emptytext.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\04-title-header-emptytext-footer.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\05-contentrows-emptytext.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\06-multiline-emptytext.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\01-maxwidth-notspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\02-maxwidth-less.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\03-maxwidth-greater.txt" />
@@ -153,6 +162,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
+      <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\01-no-title-no-header-emptytext-no-footer.txt" />
       <None Remove="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\01-paddingbottom-unspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\02-paddingbottom-0.txt" />
       <None Remove="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\03-paddingbottom-1.txt" />
@@ -461,6 +471,15 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_CellContentOverflow_Tests.Resources\06-cutwordwithellipsis.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_CellContentOverflow_Tests.Resources\07-wrapchar.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_CellContentOverflow_Tests.Resources\08-wrapword.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\01-title.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\02-title-header.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\03-title-header-footer.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_NotSet_Tests.Resources\04-title-header-content-footer.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\06-multiline-emptytext.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\05-contentrows-emptytext.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\04-title-header-emptytext-footer.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\03-title-header-emptytext.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\02-title-emptytext.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\01-maxwidth-notspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\02-maxwidth-less.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_MaxWidth_Tests.Resources\03-maxwidth-greater.txt" />
@@ -474,6 +493,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\02-visibility-true.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\03-visibility-false.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_Visibility_Test.Resources\01-visibility-notspecified.txt" />
+      <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_EmptyText_Set_Tests.Resources\01-no-title-no-header-emptytext-no-footer.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\01-paddingbottom-unspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\02-paddingbottom-0.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\HeaderCellTests\HeaderCell_PaddingBottom_Tests.Resources\03-paddingbottom-1.txt" />

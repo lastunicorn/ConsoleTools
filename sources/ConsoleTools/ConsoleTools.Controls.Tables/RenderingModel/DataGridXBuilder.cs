@@ -108,11 +108,20 @@ internal class DataGridXBuilder
 
     private void ProcessContentRows()
     {
-        bool areNormalRowsVisible = dataGrid.Rows.Count > 0;
+        bool contentExists = dataGrid.Rows.Count > 0;
 
-        if (!areNormalRowsVisible)
-            return;
+        if (contentExists)
+        {
+            AddContentRows();
+        }
+        else if (dataGrid.EmptyMessageRow?.HasContent == true)
+        {
+            AddEmptyTextRow();
+        }
+    }
 
+    private void AddContentRows()
+    {
         IEnumerable<ContentRow> visibleRows = dataGrid.Rows
             .Where(x => x.IsVisible);
 
@@ -121,6 +130,12 @@ internal class DataGridXBuilder
             AddTopSeparatorForRow(currentRow);
             AddRow(currentRow);
         }
+    }
+
+    private void AddEmptyTextRow()
+    {
+        AddTopSeparatorForRow(dataGrid.EmptyMessageRow);
+        AddRow(dataGrid.EmptyMessageRow);
     }
 
     private void ProcessFooterRow()

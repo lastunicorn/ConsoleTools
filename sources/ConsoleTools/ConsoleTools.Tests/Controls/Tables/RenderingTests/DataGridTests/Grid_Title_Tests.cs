@@ -26,9 +26,9 @@ public class Grid_Title_Tests : TestsBase
     [Test]
     public void HavingTitleTextShorterThanTableContent_WhenRendered_ThenTitleRowIsExtendedToTableWidth()
     {
-        DataGrid dataGrid = new();
+        DataGrid dataGrid = CreateDummyDataGrid();
+
         dataGrid.Title = "My Title";
-        dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
         string expected = GetResourceFileContent("01-title-shorter.txt");
         dataGrid.IsEqualTo(expected);
@@ -37,9 +37,9 @@ public class Grid_Title_Tests : TestsBase
     [Test]
     public void HavingTitleTextLongerThanTableContent_WhenRendered_ThenTitleColumnsAreExtendedToTitleRowWidth()
     {
-        DataGrid dataGrid = new();
+        DataGrid dataGrid = CreateDummyDataGrid();
+
         dataGrid.Title = "My Title My Title My Title My Title";
-        dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
         string expected = GetResourceFileContent("02-title-longer.txt");
         dataGrid.IsEqualTo(expected);
@@ -48,11 +48,20 @@ public class Grid_Title_Tests : TestsBase
     [Test]
     public void HavingTitleTextOnMultipleLines_WhenRendered_ThenTitleRowContainsMultipleLines()
     {
-        DataGrid dataGrid = new();
+        DataGrid dataGrid = CreateDummyDataGrid();
+
         dataGrid.Title = new List<string> { "My Title1", "My Title2", "My Title3", "My Title4" };
-        dataGrid.Rows.Add("asd", "qwe", "zxczxc");
 
         string expected = GetResourceFileContent("03-title-multiline.txt");
         dataGrid.IsEqualTo(expected);
+    }
+
+    private static DataGrid CreateDummyDataGrid()
+    {
+        DataGrid dataGrid = new();
+        
+        dataGrid.Rows.Add("asd", "qwe", "zxczxc");
+
+        return dataGrid;
     }
 }

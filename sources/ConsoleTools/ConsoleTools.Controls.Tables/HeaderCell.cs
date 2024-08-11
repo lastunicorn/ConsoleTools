@@ -112,7 +112,7 @@ public class HeaderCell : CellBase
         if (paddingLeft != null)
             return paddingLeft.Value;
 
-        paddingLeft = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingLeft;
+        paddingLeft = ParentRow?.CellPaddingLeft;
         if (paddingLeft != null)
             return paddingLeft.Value;
 
@@ -161,42 +161,20 @@ public class HeaderCell : CellBase
     [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateForegroundColor()
     {
-        ConsoleColor? color = ForegroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.ParentDataGrid?.HeaderRow?.ForegroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.ForegroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.ParentDataGrid?.ForegroundColor;
-
-        return color;
+        return ForegroundColor
+               ?? ParentRow?.ForegroundColor
+               ?? ParentColumn?.ForegroundColor
+               ?? ParentColumn?.ParentDataGrid?.ForegroundColor;
     }
 
     /// <inheritdoc />
     [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateBackgroundColor()
     {
-        ConsoleColor? color = BackgroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.ParentDataGrid?.HeaderRow?.BackgroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.BackgroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentColumn?.ParentDataGrid?.BackgroundColor;
-
-        return color;
+        return BackgroundColor
+               ?? ParentRow?.BackgroundColor
+               ?? ParentColumn?.BackgroundColor
+               ?? ParentColumn?.ParentDataGrid?.BackgroundColor;
     }
 
     /// <summary>

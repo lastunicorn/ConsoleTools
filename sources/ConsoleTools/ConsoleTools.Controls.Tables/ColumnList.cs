@@ -32,11 +32,24 @@ public class ColumnList : IEnumerable<Column>
 {
     private readonly DataGrid parentDataGrid;
     private readonly List<Column> columns = new();
+    private HeaderRow headerRow;
 
     /// <summary>
     /// Gets the number of columns contained in the current instance.
     /// </summary>
     public int Count => columns.Count;
+
+    public HeaderRow HeaderRow
+    {
+        get => headerRow;
+        set
+        {
+            headerRow = value;
+
+            foreach (Column column in columns) 
+                column.HeaderCell.ParentRow = value;
+        }
+    }
 
     /// <summary>
     /// Gets the <see cref="Column"/> at the specified index.

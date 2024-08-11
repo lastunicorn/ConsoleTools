@@ -79,6 +79,14 @@ internal class RowXBuilder
                         .ToList();
                 }
 
+            case EmptyMessageRow emptyMessageRow:
+                {
+                    CellX cellX = CellXBuilder.CreateFor(emptyMessageRow.EmptyMessageCell)
+                        .Build();
+
+                    return new List<CellX> { cellX };
+                }
+
             case FooterRow footerRow:
                 {
                     CellX cellX = CellXBuilder.CreateFor(footerRow.FooterCell)

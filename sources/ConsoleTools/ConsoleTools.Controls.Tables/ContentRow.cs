@@ -249,9 +249,12 @@ public class ContentRow : RowBase
     /// Returns the index of the specified cell.
     /// If the cell is not part of the current <see cref="ContentRow"/> instance, returns <c>null</c>.
     /// </summary>
-    public int? IndexOfCell(ContentCell cell)
+    public override int? IndexOfCell(CellBase cell)
     {
-        int indexOfCell = cells.IndexOf(cell);
+        if (cell is not ContentCell contentCell)
+            return null;
+
+        int indexOfCell = cells.IndexOf(contentCell);
 
         return indexOfCell == -1
             ? null

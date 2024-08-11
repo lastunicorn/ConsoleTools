@@ -48,7 +48,8 @@ public abstract class RowBase : IEnumerable<CellBase>
     public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the horizontal alignment for the content of the cells contained by the current instance.
+    /// Gets or sets the horizontal alignment for the content of the cells contained by the current
+    /// instance.
     /// </summary>
     public HorizontalAlignment CellHorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
@@ -58,7 +59,8 @@ public abstract class RowBase : IEnumerable<CellBase>
     public int? CellPaddingLeft { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the right side of every cell.
+    /// Gets or sets the padding applied to the right side of every cell contained by the current
+    /// instance.
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
@@ -106,4 +108,10 @@ public abstract class RowBase : IEnumerable<CellBase>
     {
         return GetEnumerator();
     }
+
+    /// <summary>
+    /// Returns the index of the specified cell.
+    /// If the cell is not part of the current row instance, returns <c>null</c>.
+    /// </summary>
+    public abstract int? IndexOfCell(CellBase cell);
 }

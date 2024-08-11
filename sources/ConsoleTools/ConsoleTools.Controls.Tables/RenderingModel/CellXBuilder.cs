@@ -55,6 +55,7 @@ internal class CellXBuilder
             TitleCell => int.MaxValue,
             HeaderCell => 1,
             ContentCell contentCell => contentCell.ColumnSpan,
+            EmptyMessageCell => int.MaxValue,
             FooterCell => int.MaxValue,
             _ => 1
         };

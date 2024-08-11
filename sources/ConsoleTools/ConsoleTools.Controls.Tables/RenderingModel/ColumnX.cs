@@ -46,7 +46,12 @@ internal class ColumnX
         get => actualWidth;
         set
         {
-            if (value == actualWidth || (value < actualWidth && !AllowToShrink))
+            if (value == actualWidth)
+                return;
+
+            bool requestToShrink = value < actualWidth;
+
+            if (requestToShrink && !AllowToShrink)
                 return;
 
             actualWidth = value;

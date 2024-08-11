@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -58,11 +59,11 @@ public class HeaderRow : RowBase
     }
 
     /// <summary>
-    /// Enumerates the visible cells contained by the current instance.
+    /// Enumerates the visible header cells contained by the current instance.
     /// The cells from the hidden columns are excluded.
     /// </summary>
     /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
-    public IEnumerable<HeaderCell> EnumerateVisibleCells()
+    public override IEnumerable<CellBase> EnumerateVisibleCells()
     {
         return columns
             .Where(x => x.IsVisible)

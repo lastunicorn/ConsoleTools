@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
@@ -33,7 +32,9 @@ internal class RowXBuilder
     {
         RowX rowX = new()
         {
-            Cells = CreateCells()
+            Cells = rowBase.EnumerateVisibleCells()
+                .Select(x => CellXBuilder.CreateFor(x).Build())
+                .ToList()
         };
 
         bool areBordersAllowed = rowBase.ParentDataGrid == null || rowBase.ParentDataGrid.AreBordersAllowed;
@@ -45,59 +46,13 @@ internal class RowXBuilder
                 rowX.BorderTemplate = ComputeBorderTemplate(rowBase);
                 rowX.BorderForegroundColor = ComputeBorderForegroundColor(rowBase);
                 rowX.BorderBackgroundColor = ComputeBorderBackgroundColor(rowBase);
-            };
+            }
+            ;
         }
 
         rowX.CalculateLayout();
 
         return rowX;
-    }
-
-    private List<CellX> CreateCells()
-    {
-        switch (rowBase)
-        {
-            case TitleRow titleRow:
-                {
-                    CellX cellX = CellXBuilder.CreateFor(titleRow.TitleCell)
-                        .Build();
-
-                    return new List<CellX> { cellX };
-                }
-
-            case ContentRow contentRow:
-                {
-                    return contentRow.EnumerateVisibleCells()
-                        .Select(x => CellXBuilder.CreateFor(x).Build())
-                        .ToList();
-                }
-
-            case HeaderRow headerRow:
-                {
-                    return headerRow.EnumerateVisibleCells()
-                        .Select(x => CellXBuilder.CreateFor(x).Build())
-                        .ToList();
-                }
-
-            case EmptyMessageRow emptyMessageRow:
-                {
-                    CellX cellX = CellXBuilder.CreateFor(emptyMessageRow.EmptyMessageCell)
-                        .Build();
-
-                    return new List<CellX> { cellX };
-                }
-
-            case FooterRow footerRow:
-                {
-                    CellX cellX = CellXBuilder.CreateFor(footerRow.FooterCell)
-                        .Build();
-
-                    return new List<CellX> { cellX };
-                }
-
-            default:
-                return new List<CellX>();
-        }
     }
 
     private static bool ComputeVerticalBorderVisibility(RowBase currentRow)

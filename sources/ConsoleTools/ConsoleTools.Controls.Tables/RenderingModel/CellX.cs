@@ -90,6 +90,9 @@ internal class CellX
 
     private Size CalculateSize(int desiredWidth)
     {
+        if (desiredWidth <= 0)
+            return new Size(desiredWidth, 1);
+
         int horizontalPadding = PaddingLeft + PaddingRight;
         int verticalPadding = PaddingTop + PaddingBottom;
 
@@ -101,10 +104,16 @@ internal class CellX
         if (!hasContent)
             return new Size(desiredWidth, 1);
 
+        int desiredContentWidth = desiredWidth - PaddingLeft - PaddingRight;
         OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
-        Size contentSize = Content.CalculateSize(desiredWidth, overflowBehavior);
+        Size contentSize = Content.CalculateSize(desiredContentWidth, overflowBehavior);
 
-        return contentSize.Inflate(horizontalPadding, verticalPadding);
+        contentSize = contentSize.Inflate(horizontalPadding, verticalPadding);
+
+        if (contentSize.Width != desiredWidth)
+            contentSize = new Size(desiredWidth, contentSize.Height);
+
+        return contentSize;
     }
 
     public void RenderNextLine(ITablePrinter tablePrinter)

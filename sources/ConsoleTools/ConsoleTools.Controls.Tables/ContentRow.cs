@@ -266,7 +266,7 @@ public class ContentRow : RowBase
     /// The cells from the hidden columns are excluded.
     /// </summary>
     /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
-    public IEnumerable<CellBase> EnumerateVisibleCells()
+    public override IEnumerable<CellBase> EnumerateVisibleCells()
     {
         return cells
             .Where((x, i) => ParentDataGrid?.Columns[i]?.IsVisible ?? true)

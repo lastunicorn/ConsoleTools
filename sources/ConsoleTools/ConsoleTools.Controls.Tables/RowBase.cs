@@ -99,6 +99,19 @@ public abstract class RowBase : IEnumerable<CellBase>
     public ConsoleColor? BorderBackgroundColor { get; set; }
 
     /// <summary>
+    /// Returns the index of the specified cell.
+    /// If the cell is not part of the current row instance, returns <c>null</c>.
+    /// </summary>
+    public abstract int? IndexOfCell(CellBase cell);
+
+    /// <summary>
+    /// Enumerates the visible header cells contained by the current instance.
+    /// The cells from the hidden columns are excluded.
+    /// </summary>
+    /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
+    public abstract IEnumerable<CellBase> EnumerateVisibleCells();
+
+    /// <summary>
     /// When implemented by an inheritor, enumerates all the cells contained by the current instance.
     /// </summary>
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>
@@ -108,10 +121,4 @@ public abstract class RowBase : IEnumerable<CellBase>
     {
         return GetEnumerator();
     }
-
-    /// <summary>
-    /// Returns the index of the specified cell.
-    /// If the cell is not part of the current row instance, returns <c>null</c>.
-    /// </summary>
-    public abstract int? IndexOfCell(CellBase cell);
 }

@@ -99,6 +99,18 @@ public class HorizontalLine : BlockControl
     }
 
     /// <summary>
+    /// Creates a new instance of a <see cref="HorizontalLine"/> and, before displaying it to the console,
+    /// it allows the caller to make adjustments to it.
+    /// </summary>
+    /// <param name="action">The action called before displaying the control, allowing the caller to make adjustments to it.</param>
+    public static void QuickDisplay(Action<HorizontalLine> action)
+    {
+        HorizontalLine horizontalLine = new();
+        action?.Invoke(horizontalLine);
+        horizontalLine.Display();
+    }
+
+    /// <summary>
     /// Builds a string repeating the specified character and having the length equal to the width of the console's window.
     /// </summary>
     public static string WindowAsString(char c = '-')

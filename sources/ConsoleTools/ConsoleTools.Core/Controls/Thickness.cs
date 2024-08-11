@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// Represents the thickness of a rectangle.
 /// There can be provided different values for the top, bottom, left and right thicknesses.
 /// </summary>
-public struct Thickness : IEquatable<Thickness>
+public readonly struct Thickness : IEquatable<Thickness>
 {
     /// <summary>
     /// Gets the top value.

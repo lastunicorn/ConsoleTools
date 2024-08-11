@@ -231,6 +231,11 @@ public class HeaderCell : CellBase
         return contentOverflow;
     }
 
+    internal override int ComputeColumnSpan()
+    {
+        return 1;
+    }
+
     /// <summary>
     /// Converts the specified text into a <see cref="HeaderCell"/> instance.
     /// The text is used as the content for the cell.

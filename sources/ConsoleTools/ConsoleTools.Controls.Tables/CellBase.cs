@@ -249,6 +249,8 @@ public abstract class CellBase
 
     internal abstract CellContentOverflow ComputeContentOverflow();
 
+    internal abstract int ComputeColumnSpan();
+
     /// <summary>
     /// Returns the string representation of the content of the cell.
     /// </summary>

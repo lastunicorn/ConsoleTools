@@ -19,8 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
@@ -43,7 +41,8 @@ public class TitleRow : RowBase
     public override int CellCount => 1;
 
     /// <summary>
-    /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has a content to be displayed.
+    /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has
+    /// a content to be displayed.
     /// </summary>
     public bool HasContent => TitleCell?.Content?.IsEmpty == false;
 
@@ -102,47 +101,23 @@ public class TitleRow : RowBase
     }
 
     /// <summary>
+    /// Returns 1 if the cell is the single cell of the current instance; <c>null</c> otherwise.
+    /// </summary>
+    public override int? IndexOfCell(CellBase cell)
+    {
+        if (cell is not TitleCell titleCell)
+            return null;
+
+        return titleCell == TitleCell ? 1 : null;
+    }
+
+    /// <summary>
     /// Enumerates all the cells contained by the current instance.
     /// </summary>
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>
     public override IEnumerator<CellBase> GetEnumerator()
     {
-        return new TitleCellEnumerator(this);
+        IEnumerable<CellBase> cellBases = new[] { TitleCell };
+        return cellBases.GetEnumerator();
     }
-
-    #region Enumerator Class
-
-    private class TitleCellEnumerator : IEnumerator<TitleCell>
-    {
-        private readonly TitleRow titleRow;
-
-        public TitleCell Current { get; private set; }
-
-        object IEnumerator.Current => Current;
-
-        public TitleCellEnumerator(TitleRow titleRow)
-        {
-            this.titleRow = titleRow ?? throw new ArgumentNullException(nameof(titleRow));
-        }
-
-        public bool MoveNext()
-        {
-            if (Current != null)
-                return false;
-
-            Current = titleRow.TitleCell;
-            return true;
-        }
-
-        public void Reset()
-        {
-            Current = null;
-        }
-
-        public void Dispose()
-        {
-        }
-    }
-
-    #endregion
 }

@@ -31,11 +31,6 @@ public class ContentCell : CellBase
     private int columnSpan = 1;
 
     /// <summary>
-    /// Gets or sets the row that contains the current cell.
-    /// </summary>
-    public ContentRow ParentRow { get; internal set; }
-
-    /// <summary>
     /// Gets or sets a value that specifies across how many columns should the cell be displayed.
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException">Exception thrown when column span is set to a negative or zero value.</exception>
@@ -188,22 +183,10 @@ public class ContentCell : CellBase
     [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateForegroundColor()
     {
-        ConsoleColor? color = ForegroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentRow?.ForegroundColor;
-        if (color != null)
-            return color;
-
-        Column column = GetColumn();
-        color = column?.ForegroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentRow?.ParentDataGrid?.ForegroundColor;
-
-        return color;
+        return ForegroundColor
+               ?? ParentRow?.ForegroundColor
+               ?? GetColumn()?.ForegroundColor
+               ?? ParentRow?.ParentDataGrid?.ForegroundColor;
     }
 
     /// <summary>
@@ -213,22 +196,10 @@ public class ContentCell : CellBase
     [Obsolete("Intended for internal usage only.")]
     public override ConsoleColor? CalculateBackgroundColor()
     {
-        ConsoleColor? color = BackgroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentRow?.BackgroundColor;
-        if (color != null)
-            return color;
-
-        Column column = GetColumn();
-        color = column?.BackgroundColor;
-        if (color != null)
-            return color;
-
-        color = ParentRow?.ParentDataGrid?.BackgroundColor;
-
-        return color;
+        return BackgroundColor
+               ?? ParentRow?.BackgroundColor
+               ?? GetColumn()?.BackgroundColor
+               ?? ParentRow?.ParentDataGrid?.BackgroundColor;
     }
 
     /// <summary>

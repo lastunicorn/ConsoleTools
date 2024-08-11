@@ -29,11 +29,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 public class TitleCell : CellBase
 {
     /// <summary>
-    /// Gets or sets the <see cref="TitleRow"/> instance that owns the current <see cref="TitleCell"/> instance.
-    /// </summary>
-    public TitleRow ParentRow { get; internal set; }
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="TitleCell" /> class with
     /// empty content.
     /// </summary>

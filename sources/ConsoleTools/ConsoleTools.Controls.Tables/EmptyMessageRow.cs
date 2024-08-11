@@ -14,44 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
-
 using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
 /// <summary>
-/// Represents the footer row of a table.
+/// This is the row that is displayed in the content section of the <see cref="DataGrid"/>
+/// when there are no content rows.
 /// </summary>
-public class FooterRow : RowBase
+public class EmptyMessageRow : RowBase
 {
     /// <summary>
-    /// Gets or sets the cell displayed in the footer row.
-    /// This is the unique cell of the row.
+    /// Gets the only cell contained be this row.
+    /// This cell is automatically created when the row is created.
     /// </summary>
-    public FooterCell FooterCell { get; }
+    public EmptyMessageCell EmptyMessageCell { get; }
 
     /// <summary>
-    /// Gets the number of cells contained by the footer row.
+    /// Gets the number of cells contained in this instance.
     /// It is always 1.
     /// </summary>
     public override int CellCount => 1;
 
     /// <summary>
-    /// Gets a value that specifies if the current instance of the <see cref="FooterRow"/> has a content to be displayed.
+    /// Gets a value that specifies if the current instance of the <see cref="EmptyMessageRow"/>
+    /// has a content to be displayed.
     /// </summary>
-    public bool HasContent => FooterCell?.Content?.IsEmpty == false;
+    public bool HasContent => EmptyMessageCell?.Content?.IsEmpty == false;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FooterRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
     /// empty content.
     /// </summary>
-    public FooterRow()
+    public EmptyMessageRow()
     {
-        FooterCell = new FooterCell
+        EmptyMessageCell = new EmptyMessageCell
         {
             ParentRow = this,
             Content = MultilineText.Empty
@@ -59,12 +56,12 @@ public class FooterRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FooterRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
     /// the text content.
     /// </summary>
-    public FooterRow(string content)
+    public EmptyMessageRow(string content)
     {
-        FooterCell = new FooterCell
+        EmptyMessageCell = new EmptyMessageCell
         {
             ParentRow = this,
             Content = content == null
@@ -74,12 +71,12 @@ public class FooterRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FooterRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
     /// a <see cref="MultilineText"/> content.
     /// </summary>
-    public FooterRow(MultilineText content)
+    public EmptyMessageRow(MultilineText content)
     {
-        FooterCell = new FooterCell
+        EmptyMessageCell = new EmptyMessageCell
         {
             ParentRow = this,
             Content = content ?? MultilineText.Empty
@@ -87,12 +84,12 @@ public class FooterRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FooterRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
     /// an <see cref="object"/> representing the content.
     /// </summary>
-    public FooterRow(object content)
+    public EmptyMessageRow(object content)
     {
-        FooterCell = new FooterCell
+        EmptyMessageCell = new EmptyMessageCell
         {
             ParentRow = this,
             Content = content?.ToString() ?? MultilineText.Empty
@@ -100,23 +97,23 @@ public class FooterRow : RowBase
     }
 
     /// <summary>
-    /// Returns 1 if the cell is the single cell of the current instance; <c>null</c> otherwise.
+    /// Returns 1 if the cell is the single cell contained by the current instance; <c>null</c> otherwise.
     /// </summary>
     public override int? IndexOfCell(CellBase cell)
     {
-        if (cell is not FooterCell footerCell)
+        if (cell is not EmptyMessageCell emptyInfoCell)
             return null;
 
-        return footerCell == FooterCell ? 1 : null;
+        return emptyInfoCell == EmptyMessageCell ? 1 : null;
     }
 
     /// <summary>
-    /// Enumerates all the cells contained by the current instance.
+    /// Enumerates the one cell contained by the current instance.
     /// </summary>
-    /// <returns>An enumeration of all the cell contained by the current instance.</returns>
+    /// <returns>An enumeration containing the single cell contained by the current instance.</returns>
     public override IEnumerator<CellBase> GetEnumerator()
     {
-        IEnumerable<CellBase> cellBases = new[] { FooterCell };
+        IEnumerable<CellBase> cellBases = new[] { EmptyMessageCell };
         return cellBases.GetEnumerator();
     }
 }

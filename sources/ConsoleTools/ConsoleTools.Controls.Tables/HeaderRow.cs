@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,6 +53,8 @@ public class HeaderRow : RowBase
     public HeaderRow(ColumnList columns)
     {
         this.columns = columns ?? throw new ArgumentNullException(nameof(columns));
+
+        this.columns.HeaderRow = this;
     }
 
     /// <summary>
@@ -69,53 +70,39 @@ public class HeaderRow : RowBase
     }
 
     /// <summary>
+    /// Returns 1 if the cell is the single cell of the current instance; <c>null</c> otherwise.
+    /// </summary>
+    public override int? IndexOfCell(CellBase cell)
+    {
+        if (cell is not HeaderCell headerCell)
+            return null;
+
+        IEnumerable<HeaderCell> headerCells = columns
+            .Select(x => x.HeaderCell);
+
+        int index = -1;
+
+        foreach (HeaderCell existingHeaderCell in headerCells)
+        {
+            index++;
+
+            if (existingHeaderCell == headerCell)
+                return index;
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Enumerates all the cells contained by the current instance.
     /// Includes also the cells from the hidden columns.
     /// </summary>
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>
     public override IEnumerator<CellBase> GetEnumerator()
     {
-        return new HeaderCellEnumerator(this);
+        IEnumerable<CellBase> cells = columns
+            .Select(x => x.HeaderCell);
+
+        return cells.GetEnumerator();
     }
-
-    #region Enumerator Class
-
-    private class HeaderCellEnumerator : IEnumerator<HeaderCell>
-    {
-        private readonly HeaderRow headerRow;
-        private int index = -1;
-
-        public HeaderCell Current { get; private set; }
-
-        object IEnumerator.Current => Current;
-
-        public HeaderCellEnumerator(HeaderRow headerRow)
-        {
-            this.headerRow = headerRow ?? throw new ArgumentNullException(nameof(headerRow));
-        }
-
-        public bool MoveNext()
-        {
-            index++;
-
-            if (index >= headerRow.columns.Count)
-                return false;
-
-            Current = headerRow.columns[index].HeaderCell;
-
-            return true;
-        }
-
-        public void Reset()
-        {
-            index = -1;
-            Current = null;
-        }
-
-        public void Dispose()
-        {
-        }
-    }
-
-    #endregion
 }

@@ -114,7 +114,7 @@ internal class DataGridXBuilder
         {
             AddContentRows();
         }
-        else if (dataGrid.EmptyText != null)
+        else if (dataGrid.EmptyMessageRow?.HasContent == true)
         {
             AddEmptyTextRow();
         }
@@ -134,23 +134,8 @@ internal class DataGridXBuilder
 
     private void AddEmptyTextRow()
     {
-        ContentCell cellContents = new(dataGrid.EmptyText)
-        {
-            ColumnSpan = int.MaxValue,
-            PaddingLeft = 10,
-            PaddingTop = 1,
-            PaddingRight = 10,
-            PaddingBottom = 1,
-            HorizontalAlignment = HorizontalAlignment.Center
-        };
-
-        ContentRow emptyContentRow = new(cellContents)
-        {
-            ParentDataGrid = dataGrid
-        };
-
-        AddTopSeparatorForRow(emptyContentRow);
-        AddRow(emptyContentRow);
+        AddTopSeparatorForRow(dataGrid.EmptyMessageRow);
+        AddRow(dataGrid.EmptyMessageRow);
     }
 
     private void ProcessFooterRow()

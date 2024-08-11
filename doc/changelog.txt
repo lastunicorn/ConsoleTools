@@ -11,6 +11,7 @@ ver 1.2.0
 - [feature] DataGrid: Added support for displaying horizontal border lines between any two content rows.
 - [feature] DataGrid: Implemented grid MinWidth and MaxWidth.
 - [feature] DataGrid: Added top and bottom padding to the data grid cells.
+- [feature] DataGrid: Added ContentOverflow property for cells to control the overflow behavior.
 
 
 ver 1.1.0

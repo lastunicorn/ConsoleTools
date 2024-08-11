@@ -24,15 +24,10 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
 /// <summary>
-/// Represents the single cell displayed in the footer row.
+/// Represents the single cell that is displayed in the footer row.
 /// </summary>
 public class FooterCell : CellBase
 {
-    /// <summary>
-    /// Gets or sets the <see cref="FooterRow"/> instance that owns the current <see cref="FooterCell"/> instance.
-    /// </summary>
-    public FooterRow ParentRow { get; internal set; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="FooterCell" /> class with
     /// empty content.

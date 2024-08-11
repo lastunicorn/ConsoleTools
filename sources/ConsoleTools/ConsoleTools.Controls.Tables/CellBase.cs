@@ -59,6 +59,11 @@ public abstract class CellBase
     public static int DefaultPaddingBottom => 0;
 
     /// <summary>
+    /// Gets or sets the row that contains the current cell.
+    /// </summary>
+    public RowBase ParentRow { get; internal set; }
+
+    /// <summary>
     /// Gets or sets the content of the cell.
     /// </summary>
     public MultilineText Content { get; set; }

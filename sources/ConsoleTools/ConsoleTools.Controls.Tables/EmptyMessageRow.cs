@@ -108,6 +108,15 @@ public class EmptyMessageRow : RowBase
     }
 
     /// <summary>
+    /// Returns an enumeration containing the single <see cref="EmptyMessageCell"/> contained by the current instance.
+    /// </summary>
+    /// <returns>An enumeration containing the single <see cref="EmptyMessageCell"/> contained by the current instance.</returns>
+    public override IEnumerable<CellBase> EnumerateVisibleCells()
+    {
+        yield return EmptyMessageCell;
+    }
+
+    /// <summary>
     /// Enumerates the one cell contained by the current instance.
     /// </summary>
     /// <returns>An enumeration containing the single cell contained by the current instance.</returns>

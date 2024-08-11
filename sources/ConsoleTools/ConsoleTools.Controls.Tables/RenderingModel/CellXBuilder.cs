@@ -39,26 +39,13 @@ internal class CellXBuilder
             PaddingBottom = cellBase.ComputePaddingBottom(),
             HorizontalAlignment = cellBase.CalculateHorizontalAlignment(),
             Content = cellBase.Content,
-            ColumnSpan = ComputeColumnSpan(),
+            ColumnSpan = cellBase.ComputeColumnSpan(),
             ContentOverflow = cellBase.ComputeContentOverflow()
         };
 
         cellX.CalculateLayout();
 
         return cellX;
-    }
-
-    private int ComputeColumnSpan()
-    {
-        return cellBase switch
-        {
-            TitleCell => int.MaxValue,
-            HeaderCell => 1,
-            ContentCell contentCell => contentCell.ColumnSpan,
-            EmptyMessageCell => int.MaxValue,
-            FooterCell => int.MaxValue,
-            _ => 1
-        };
     }
 
     public static CellXBuilder CreateFor(CellBase cellBase)

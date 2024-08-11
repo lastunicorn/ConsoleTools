@@ -111,6 +111,15 @@ public class FooterRow : RowBase
     }
 
     /// <summary>
+    /// Returns an enumeration containing the single <see cref="FooterCell"/> contained by the current instance.
+    /// </summary>
+    /// <returns>An enumeration containing the single <see cref="FooterCell"/> contained by the current instance.</returns>
+    public override IEnumerable<CellBase> EnumerateVisibleCells()
+    {
+        yield return FooterCell;
+    }
+
+    /// <summary>
     /// Enumerates all the cells contained by the current instance.
     /// </summary>
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>

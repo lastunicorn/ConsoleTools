@@ -189,4 +189,9 @@ public class TitleCell : CellBase
 
         return contentOverflow;
     }
+
+    internal override int ComputeColumnSpan()
+    {
+        return int.MaxValue;
+    }
 }

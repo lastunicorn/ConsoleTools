@@ -278,6 +278,11 @@ public class ContentCell : CellBase
         return contentOverflow;
     }
 
+    internal override int ComputeColumnSpan()
+    {
+        return ColumnSpan;
+    }
+
     private CellContentOverflow ComputeContentOverflowAtColumnLevel()
     {
         Column column = GetColumn();

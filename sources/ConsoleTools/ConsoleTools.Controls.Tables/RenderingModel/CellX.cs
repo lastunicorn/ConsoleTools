@@ -54,7 +54,21 @@ internal class CellX
 
     public void CalculateLayout()
     {
-        PreferredSize = CalculateSize(-1);
+        PreferredSize = CalculatePreferredSize();
+    }
+
+    private Size CalculatePreferredSize()
+    {
+        int horizontalPadding = PaddingLeft + PaddingRight;
+        int verticalPadding = PaddingTop + PaddingBottom;
+
+        bool hasContent = Content is { IsEmpty: false };
+
+        Size contentSize = hasContent
+            ? Content.CalculateSize()
+            : Size.Empty;
+
+        return contentSize.Inflate(horizontalPadding, verticalPadding);
     }
 
     public void InitializeRendering(int desiredWidth)
@@ -72,31 +86,34 @@ internal class CellX
             Size = ActualSize,
             ContentOverflow = ContentOverflow
         };
-        lineEnumerator.Reset();
     }
 
     private Size CalculateSize(int desiredWidth)
     {
-        int cellWidth = PaddingLeft + PaddingRight;
-        int cellHeight = PaddingTop + PaddingBottom;
+        if (desiredWidth <= 0)
+            return new Size(desiredWidth, 1);
 
-        bool isEmpty = Content == null || Content.IsEmpty;
+        int horizontalPadding = PaddingLeft + PaddingRight;
+        int verticalPadding = PaddingTop + PaddingBottom;
 
-        if (!isEmpty)
-        {
-            int desiredContentWidth = desiredWidth - PaddingLeft - PaddingRight;
-            OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
+        if (horizontalPadding >= desiredWidth)
+            return new Size(desiredWidth, 1);
 
-            Size contentSize = Content.CalculateSize(desiredContentWidth, overflowBehavior);
+        bool hasContent = Content is { IsEmpty: false };
 
-            cellWidth += contentSize.Width;
-            cellHeight += contentSize.Height;
-        }
+        if (!hasContent)
+            return new Size(desiredWidth, 1);
 
-        if (desiredWidth >= 0 && cellWidth != desiredWidth)
-            cellWidth = desiredWidth;
+        int desiredContentWidth = desiredWidth - PaddingLeft - PaddingRight;
+        OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
+        Size contentSize = Content.CalculateSize(desiredContentWidth, overflowBehavior);
 
-        return new Size(cellWidth, cellHeight);
+        contentSize = contentSize.Inflate(horizontalPadding, verticalPadding);
+
+        if (contentSize.Width != desiredWidth)
+            contentSize = new Size(desiredWidth, contentSize.Height);
+
+        return contentSize;
     }
 
     public void RenderNextLine(ITablePrinter tablePrinter)

@@ -59,6 +59,9 @@ internal sealed class CellLineEnumerator : IEnumerator<string>
 
     public bool MoveNext()
     {
+        if (contentLineEnumerator == null)
+            Reset();
+
         lineIndex++;
 
         if (lineIndex == Size.Height)

@@ -88,6 +88,8 @@ public class ColumnList : IEnumerable<Column>
         if (cellHorizontalAlignment != null)
             column.CellHorizontalAlignment = cellHorizontalAlignment.Value;
 
+        column.HeaderCell.ParentRow = headerRow;
+
         columns.Add(column);
 
         return column;
@@ -103,6 +105,8 @@ public class ColumnList : IEnumerable<Column>
         if (column == null) throw new ArgumentNullException(nameof(column));
 
         column.ParentDataGrid = parentDataGrid;
+        column.HeaderCell.ParentRow = headerRow;
+
         columns.Add(column);
 
         return column;

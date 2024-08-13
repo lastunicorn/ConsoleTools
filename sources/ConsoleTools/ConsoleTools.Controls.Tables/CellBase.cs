@@ -69,6 +69,11 @@ public abstract class CellBase
     public MultilineText Content { get; set; }
 
     /// <summary>
+    /// Gets or sets the text to be displayed when the <see cref="Content"/> is empty.
+    /// </summary>
+    public MultilineText DefaultContent { get; set; }
+
+    /// <summary>
     /// Gets a value that specified if the cell contains no data.
     /// </summary>
     public bool IsEmpty => Content == null || Content.IsEmpty;
@@ -160,7 +165,7 @@ public abstract class CellBase
     /// </summary>
     protected CellBase(object content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
     {
-        Content = new MultilineText(content.ToString());
+        Content = new MultilineText(content?.ToString());
         HorizontalAlignment = horizontalAlignment;
     }
 
@@ -236,6 +241,16 @@ public abstract class CellBase
         paddingTop = DefaultPaddingBottom;
 
         return paddingTop.Value;
+    }
+
+    internal MultilineText ComputeContent()
+    {
+        MultilineText content = Content;
+
+        if (content == null || content.IsEmpty)
+            content = DefaultContent;
+
+        return content;
     }
 
     /// <summary>

@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.DataGridTests;
 
 [TestFixture]
-public class Grid_EmptyText_Set_Tests : TestsBase
+public class Grid_EmptyMessage_Set_Tests : TestsBase
 {
     [Test]
     public void HavingGridWithNoTitleNoHeaderNoContentNoFooter_WhenRendered_ThenEmptyTextIsDisplayedInTheContentArea()

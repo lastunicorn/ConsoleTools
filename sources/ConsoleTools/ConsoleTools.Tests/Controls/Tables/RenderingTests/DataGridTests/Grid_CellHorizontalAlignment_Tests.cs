@@ -26,13 +26,9 @@ public class Grid_CellHorizontalAlignment_Tests : TestsBase
     [Test]
     public void HavingAlignmentRightOnTableAndNoColumnsDeclared_WhenRendered_ThenAllCellContentIsAlignedToRight()
     {
-        DataGrid dataGrid = new("This is a cell alignment test");
+        DataGrid dataGrid = CreateDummyDataGrid();
         dataGrid.HeaderRow.IsVisible = false;
         dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
-
-        dataGrid.Rows.Add("0,0", "0,1", "0,2");
-        dataGrid.Rows.Add("1,0", "1,1", "1,2");
-        dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
         string expected = GetResourceFileContent("01-no-columns.txt");
         dataGrid.IsEqualTo(expected);
@@ -41,24 +37,27 @@ public class Grid_CellHorizontalAlignment_Tests : TestsBase
     [Test]
     public void whole_table_is_aligned_to_Right_with_explicit_declared_columns()
     {
-        DataGrid dataGrid = new("This is a cell alignment test");
+        DataGrid dataGrid = CreateDummyDataGrid();
         dataGrid.CellHorizontalAlignment = HorizontalAlignment.Right;
         dataGrid.HeaderRow.IsVisible = false;
 
-        Column column0 = new("Col 0");
-        dataGrid.Columns.Add(column0);
+        dataGrid.Columns.Add("Col 0");
+        dataGrid.Columns.Add("Col 1");
+        dataGrid.Columns.Add("Col 2");
 
-        Column column1 = new("Col 1");
-        dataGrid.Columns.Add(column1);
+        string expected = GetResourceFileContent("02-with-columns.txt");
+        dataGrid.IsEqualTo(expected);
+    }
 
-        Column column2 = new("Col 2");
-        dataGrid.Columns.Add(column2);
+    private static DataGrid CreateDummyDataGrid()
+    {
+        DataGrid dataGrid = new();
+        dataGrid.Title = "This is a cell alignment test";
 
         dataGrid.Rows.Add("0,0", "0,1", "0,2");
         dataGrid.Rows.Add("1,0", "1,1", "1,2");
         dataGrid.Rows.Add("2,0", "2,1", "2,2");
 
-        string expected = GetResourceFileContent("02-with-columns.txt");
-        dataGrid.IsEqualTo(expected);
+        return dataGrid;
     }
 }

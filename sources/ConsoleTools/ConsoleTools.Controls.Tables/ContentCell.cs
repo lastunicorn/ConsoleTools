@@ -115,68 +115,6 @@ public class ContentCell : CellBase
     }
 
     /// <summary>
-    /// Calculates and returns the left padding for the content displayed in the cell.
-    /// The value is calculated taking into account also the parent row, parent column and parent table.
-    /// </summary>
-    [Obsolete("Intended for internal usage only.")]
-    public override int CalculatePaddingLeft()
-    {
-        int? paddingLeft = PaddingLeft;
-
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        paddingLeft = ParentRow?.CellPaddingLeft;
-
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        Column column = GetColumn();
-        paddingLeft = column?.CellPaddingLeft;
-
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        paddingLeft = ParentRow?.ParentDataGrid?.CellPaddingLeft;
-
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        paddingLeft = DefaultPaddingLeft;
-
-        return paddingLeft.Value;
-    }
-
-    /// <summary>
-    /// Calculates and returns the right padding for the content displayed in the cell.
-    /// The value is calculated taking into account also the parent row, parent column and parent table.
-    /// </summary>
-    [Obsolete("Intended for internal usage only.")]
-    public override int CalculatePaddingRight()
-    {
-        int? paddingRight = PaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        paddingRight = ParentRow?.CellPaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        Column column = GetColumn();
-        paddingRight = column?.CellPaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        paddingRight = ParentRow?.ParentDataGrid?.CellPaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        paddingRight = DefaultPaddingRight;
-
-        return paddingRight.Value;
-    }
-
-    /// <summary>
     /// Calculates and returns the foreground color for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row, parent column and parent table.
     /// </summary>
@@ -203,6 +141,108 @@ public class ContentCell : CellBase
     }
 
     /// <summary>
+    /// Calculates and returns the left padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    [Obsolete("Intended for internal usage only.")]
+    public override int CalculatePaddingLeft()
+    {
+        int? paddingLeft = PaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
+        paddingLeft = ParentRow?.CellPaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
+        paddingLeft = GetColumn()?.CellPaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
+        paddingLeft = ParentRow?.ParentDataGrid?.CellPaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
+        paddingLeft = DefaultPaddingLeft;
+
+        return paddingLeft.Value;
+    }
+
+    /// <summary>
+    /// Calculates and returns the right padding for the content displayed in the cell.
+    /// The value is calculated taking into account also the parent row, parent column and parent table.
+    /// </summary>
+    [Obsolete("Intended for internal usage only.")]
+    public override int CalculatePaddingRight()
+    {
+        int? paddingRight = PaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
+
+        paddingRight = ParentRow?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
+
+        paddingRight = GetColumn()?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
+
+        paddingRight = ParentRow?.ParentDataGrid?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
+
+        paddingRight = DefaultPaddingRight;
+
+        return paddingRight.Value;
+    }
+
+    internal override int ComputePaddingTop()
+    {
+        int? paddingTop = PaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = ParentRow?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = GetColumn()?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = ParentRow?.ParentDataGrid?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingTop;
+
+        return paddingTop.Value;
+    }
+
+    internal override int ComputePaddingBottom()
+    {
+        int? paddingBottom = PaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = ParentRow?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = GetColumn()?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = ParentRow?.ParentDataGrid?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = DefaultPaddingBottom;
+
+        return paddingBottom.Value;
+    }
+
+    /// <summary>
     /// Returns the calculated horizontal alignment for the content of the current data cell.
     /// The value is calculated based on the <see cref="HorizontalAlignment"/> property of the current data cell,
     /// and the values specified by the parent row, parent column and parent table.
@@ -215,32 +255,21 @@ public class ContentCell : CellBase
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtRowLevel();
+        alignment = ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtColumnLevel();
+        alignment = GetColumn()?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtTableLevel();
+        alignment = ParentRow?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
         alignment = DefaultHorizontalAlignment;
 
         return alignment;
-    }
-
-    private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
-    {
-        return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-    }
-
-    private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-    {
-        Column column = GetColumn();
-        return column?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
     }
 
     private Column GetColumn()
@@ -253,10 +282,23 @@ public class ContentCell : CellBase
             : null;
     }
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
+    internal override MultilineText ComputeContent()
     {
-        DataGrid dataGrid = ParentRow?.ParentDataGrid;
-        return dataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        MultilineText content = Content;
+
+        if (content == null || content.IsEmpty)
+            content = ParentRow?.CellDefaultContent;
+
+        if (content == null || content.IsEmpty)
+            content = GetColumn()?.CellDefaultContent;
+
+        if (content == null || content.IsEmpty)
+            content = ParentRow?.ParentDataGrid?.CellDefaultContent;
+
+        if (content == null || content.IsEmpty)
+            content = DefaultContent;
+
+        return content;
     }
 
     internal override CellContentOverflow ComputeContentOverflow()
@@ -265,11 +307,15 @@ public class ContentCell : CellBase
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 
-        contentOverflow = ComputeContentOverflowAtColumnLevel();
+        contentOverflow = ParentRow?.CellContentOverflow ?? CellContentOverflow.Default;
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 
-        contentOverflow = ComputeContentOverflowAtTableLevel();
+        contentOverflow = GetColumn()?.CellContentOverflow ?? CellContentOverflow.Default;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ParentRow?.ParentDataGrid?.CellContentOverflow ?? CellContentOverflow.Default;
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 
@@ -281,18 +327,6 @@ public class ContentCell : CellBase
     internal override int ComputeColumnSpan()
     {
         return ColumnSpan;
-    }
-
-    private CellContentOverflow ComputeContentOverflowAtColumnLevel()
-    {
-        Column column = GetColumn();
-        return column?.CellContentOverflow ?? CellContentOverflow.Default;
-    }
-
-    private CellContentOverflow ComputeContentOverflowAtTableLevel()
-    {
-        DataGrid dataGrid = ParentRow?.ParentDataGrid;
-        return dataGrid?.CellContentOverflow ?? CellContentOverflow.Default;
     }
 
     /// <summary>

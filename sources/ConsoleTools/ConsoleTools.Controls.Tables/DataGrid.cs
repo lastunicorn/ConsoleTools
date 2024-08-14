@@ -77,6 +77,12 @@ public class DataGrid : BlockControl
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
+    public int? CellPaddingTop { get; set; }
+
+    public int? CellPaddingBottom { get; set; }
+
+    public MultilineText CellDefaultContent { get; set; }
+
     /// <summary>
     /// Gets or sets the content overflow behavior for all the content cells contained by the current data grid.
     /// The content overflow for title, header and footer cells must be set individually.

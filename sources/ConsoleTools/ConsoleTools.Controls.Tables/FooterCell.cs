@@ -96,6 +96,24 @@ public class FooterCell : CellBase
     {
     }
 
+    /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
+    public override ConsoleColor? CalculateForegroundColor()
+    {
+        return ForegroundColor
+               ?? ParentRow?.ForegroundColor
+               ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+    }
+
+    /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
+    public override ConsoleColor? CalculateBackgroundColor()
+    {
+        return BackgroundColor
+               ?? ParentRow?.BackgroundColor
+               ?? ParentRow?.ParentDataGrid?.BackgroundColor;
+    }
+
     /// <summary>
     /// Calculates and returns the left padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent row and parent table.
@@ -136,22 +154,34 @@ public class FooterCell : CellBase
         return paddingRight.Value;
     }
 
-    /// <inheritdoc />
-    [Obsolete("Intended for internal usage only.")]
-    public override ConsoleColor? CalculateForegroundColor()
+    internal override int ComputePaddingTop()
     {
-        return ForegroundColor
-               ?? ParentRow?.ForegroundColor
-               ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+        int? paddingTop = PaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = ParentRow?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingTop;
+
+        return paddingTop.Value;
     }
 
-    /// <inheritdoc />
-    [Obsolete("Intended for internal usage only.")]
-    public override ConsoleColor? CalculateBackgroundColor()
+    internal override int ComputePaddingBottom()
     {
-        return BackgroundColor
-               ?? ParentRow?.BackgroundColor
-               ?? ParentRow?.ParentDataGrid?.BackgroundColor;
+        int? paddingBottom = PaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = ParentRow?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = DefaultPaddingBottom;
+
+        return paddingBottom.Value;
     }
 
     /// <summary>
@@ -165,7 +195,7 @@ public class FooterCell : CellBase
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtRowLevel();
+        alignment = ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
@@ -174,14 +204,26 @@ public class FooterCell : CellBase
         return alignment;
     }
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
+    internal override MultilineText ComputeContent()
     {
-        return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        MultilineText content = Content;
+
+        if (content == null || content.IsEmpty)
+            content = ParentRow?.CellDefaultContent;
+
+        if (content == null || content.IsEmpty)
+            content = DefaultContent;
+
+        return content;
     }
 
     internal override CellContentOverflow ComputeContentOverflow()
     {
         CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ParentRow?.CellContentOverflow ?? CellContentOverflow.Default;
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 

@@ -64,6 +64,10 @@ public class EmptyMessageCell : CellBase
         if (paddingLeft != null)
             return paddingLeft.Value;
 
+        paddingLeft = ParentRow?.CellPaddingLeft;
+        if (paddingLeft != null)
+            return paddingLeft.Value;
+
         paddingLeft = DefaultPaddingLeft;
 
         return paddingLeft.Value;
@@ -77,9 +81,43 @@ public class EmptyMessageCell : CellBase
         if (paddingRight != null)
             return paddingRight.Value;
 
+        paddingRight = ParentRow?.CellPaddingRight;
+        if (paddingRight != null)
+            return paddingRight.Value;
+
         paddingRight = DefaultPaddingRight;
 
         return paddingRight.Value;
+    }
+
+    internal override int ComputePaddingTop()
+    {
+        int? paddingTop = PaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = ParentRow?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingTop;
+
+        return paddingTop.Value;
+    }
+
+    internal override int ComputePaddingBottom()
+    {
+        int? paddingBottom = PaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = ParentRow?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = DefaultPaddingBottom;
+
+        return paddingBottom.Value;
     }
 
     /// <inheritdoc />
@@ -90,7 +128,7 @@ public class EmptyMessageCell : CellBase
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtRowLevel();
+        alignment = ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
@@ -99,14 +137,26 @@ public class EmptyMessageCell : CellBase
         return alignment;
     }
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtRowLevel()
+    internal override MultilineText ComputeContent()
     {
-        return ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        MultilineText content = Content;
+
+        if (content == null || content.IsEmpty)
+            content = ParentRow?.CellDefaultContent;
+
+        if (content == null || content.IsEmpty)
+            content = DefaultContent;
+
+        return content;
     }
 
     internal override CellContentOverflow ComputeContentOverflow()
     {
         CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ParentRow?.CellContentOverflow ?? CellContentOverflow.Default;
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 

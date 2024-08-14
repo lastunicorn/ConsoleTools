@@ -101,6 +101,24 @@ public class HeaderCell : CellBase
     {
     }
 
+    /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
+    public override ConsoleColor? CalculateForegroundColor()
+    {
+        return ForegroundColor
+               ?? ParentRow?.ForegroundColor
+               ?? ParentRow?.ParentDataGrid?.ForegroundColor;
+    }
+
+    /// <inheritdoc />
+    [Obsolete("Intended for internal usage only.")]
+    public override ConsoleColor? CalculateBackgroundColor()
+    {
+        return BackgroundColor
+               ?? ParentRow?.BackgroundColor
+               ?? ParentRow?.ParentDataGrid?.BackgroundColor;
+    }
+
     /// <summary>
     /// Calculates and returns the left padding for the content displayed in the cell.
     /// The value is calculated taking into account also the parent column and parent table.
@@ -113,14 +131,6 @@ public class HeaderCell : CellBase
             return paddingLeft.Value;
 
         paddingLeft = ParentRow?.CellPaddingLeft;
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        paddingLeft = ParentColumn?.CellPaddingLeft;
-        if (paddingLeft != null)
-            return paddingLeft.Value;
-
-        paddingLeft = ParentColumn?.ParentDataGrid?.CellPaddingLeft;
         if (paddingLeft != null)
             return paddingLeft.Value;
 
@@ -140,15 +150,7 @@ public class HeaderCell : CellBase
         if (paddingRight != null)
             return paddingRight.Value;
 
-        paddingRight = ParentColumn?.ParentDataGrid?.HeaderRow?.CellPaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        paddingRight = ParentColumn?.CellPaddingRight;
-        if (paddingRight != null)
-            return paddingRight.Value;
-
-        paddingRight = ParentColumn?.ParentDataGrid?.CellPaddingRight;
+        paddingRight = ParentRow?.CellPaddingRight;
         if (paddingRight != null)
             return paddingRight.Value;
 
@@ -157,24 +159,34 @@ public class HeaderCell : CellBase
         return paddingRight.Value;
     }
 
-    /// <inheritdoc />
-    [Obsolete("Intended for internal usage only.")]
-    public override ConsoleColor? CalculateForegroundColor()
+    internal override int ComputePaddingTop()
     {
-        return ForegroundColor
-               ?? ParentRow?.ForegroundColor
-               ?? ParentColumn?.ForegroundColor
-               ?? ParentColumn?.ParentDataGrid?.ForegroundColor;
+        int? paddingTop = PaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = ParentRow?.CellPaddingTop;
+        if (paddingTop != null)
+            return paddingTop.Value;
+
+        paddingTop = DefaultPaddingTop;
+
+        return paddingTop.Value;
     }
 
-    /// <inheritdoc />
-    [Obsolete("Intended for internal usage only.")]
-    public override ConsoleColor? CalculateBackgroundColor()
+    internal override int ComputePaddingBottom()
     {
-        return BackgroundColor
-               ?? ParentRow?.BackgroundColor
-               ?? ParentColumn?.BackgroundColor
-               ?? ParentColumn?.ParentDataGrid?.BackgroundColor;
+        int? paddingBottom = PaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = ParentRow?.CellPaddingBottom;
+        if (paddingBottom != null)
+            return paddingBottom.Value;
+
+        paddingBottom = DefaultPaddingBottom;
+
+        return paddingBottom.Value;
     }
 
     /// <summary>
@@ -188,15 +200,15 @@ public class HeaderCell : CellBase
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtHeaderRowLevel();
+        alignment = ParentRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtColumnLevel();
+        alignment = ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
-        alignment = CalculateHorizontalAlignmentAtTableLevel();
+        alignment = ParentRow?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
         if (alignment != HorizontalAlignment.Default)
             return alignment;
 
@@ -205,24 +217,26 @@ public class HeaderCell : CellBase
         return alignment;
     }
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtHeaderRowLevel()
+    internal override MultilineText ComputeContent()
     {
-        return ParentColumn?.ParentDataGrid?.HeaderRow?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-    }
+        MultilineText content = Content;
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtColumnLevel()
-    {
-        return ParentColumn?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
-    }
+        if (content == null || content.IsEmpty)
+            content = ParentRow?.CellDefaultContent;
 
-    private HorizontalAlignment CalculateHorizontalAlignmentAtTableLevel()
-    {
-        return ParentColumn?.ParentDataGrid?.CellHorizontalAlignment ?? HorizontalAlignment.Default;
+        if (content == null || content.IsEmpty)
+            content = DefaultContent;
+
+        return content;
     }
 
     internal override CellContentOverflow ComputeContentOverflow()
     {
         CellContentOverflow contentOverflow = ContentOverflow;
+        if (contentOverflow != CellContentOverflow.Default)
+            return contentOverflow;
+
+        contentOverflow = ParentRow?.CellContentOverflow ?? CellContentOverflow.Default;
         if (contentOverflow != CellContentOverflow.Default)
             return contentOverflow;
 

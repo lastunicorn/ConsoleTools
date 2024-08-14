@@ -65,11 +65,21 @@ public class Column
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
+    public int? CellPaddingTop { get; set; }
+
+    public int? CellPaddingBottom { get; set; }
+
     /// <summary>
     /// Gets or sets the overflow behavior for the content of the content cells represented by the current instance of the <see cref="Column"/>.
     /// The overflow behavior for the header cell must be specifically set on the <see cref="HeaderCell"/>.
     /// </summary>
     public CellContentOverflow CellContentOverflow { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default content to be displayed in a cell from the current column if
+    /// it has no specific content.
+    /// </summary>
+    public MultilineText CellDefaultContent { get; set; }
 
     /// <summary>
     /// Gets or sets the visibility of the column.

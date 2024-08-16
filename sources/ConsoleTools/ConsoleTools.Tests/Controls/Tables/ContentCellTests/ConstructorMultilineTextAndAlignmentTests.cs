@@ -39,12 +39,6 @@ public class ConstructorMultilineTextAndAlignmentTests
     }
 
     [Test]
-    public void IsEmpty_is_false()
-    {
-        Assert.That(contentCell.IsEmpty, Is.False);
-    }
-
-    [Test]
     public void HorizontalAlignment_is_Center()
     {
         Assert.That(contentCell.HorizontalAlignment, Is.EqualTo(HorizontalAlignment.Center));

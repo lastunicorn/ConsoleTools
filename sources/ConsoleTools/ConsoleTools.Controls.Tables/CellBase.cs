@@ -28,6 +28,11 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 /// </summary>
 public abstract class CellBase
 {
+    private int? paddingLeft;
+    private int? paddingRight;
+    private int? paddingTop;
+    private int? paddingBottom;
+
     /// <summary>
     /// Gets the default horizontal alignment for a cell.
     /// </summary>
@@ -69,9 +74,21 @@ public abstract class CellBase
     public MultilineText Content { get; set; }
 
     /// <summary>
+    /// Gets or sets the text to be displayed when the <see cref="Content"/> is empty.
+    /// </summary>
+    public MultilineText DefaultContent { get; set; }
+
+    /// <summary>
     /// Gets a value that specified if the cell contains no data.
     /// </summary>
     public bool IsEmpty => Content == null || Content.IsEmpty;
+
+    /// <summary>
+    /// Gets a value that specifies if the current instance has a content to be displayed.
+    /// This property may return <c>true</c> even if there is no explicit content set on the cell,
+    /// but there is a default content specified at row, column or grid level.
+    /// </summary>
+    public abstract bool HasVisibleContent { get; }
 
     /// <summary>
     /// Gets or sets the foreground color for the cell.
@@ -94,25 +111,65 @@ public abstract class CellBase
     /// Gets or sets the number of spaces to be applied between the content and the left border of
     /// the cell.
     /// </summary>
-    public int? PaddingLeft { get; set; }
+    public int? PaddingLeft
+    {
+        get => paddingLeft;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(PaddingLeft), "Padding value must be positive or zero.");
+
+            paddingLeft = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the number of spaces to be applied between the content and the right border of
     /// the cell.
     /// </summary>
-    public int? PaddingRight { get; set; }
+    public int? PaddingRight
+    {
+        get => paddingRight;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(PaddingRight), "Padding value must be positive or zero.");
+
+            paddingRight = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the number of empty lines to be applied between the content and the top border
     /// of the cell.
     /// </summary>
-    public int? PaddingTop { get; set; }
+    public int? PaddingTop
+    {
+        get => paddingTop;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(PaddingTop), "Padding value must be positive or zero.");
+
+            paddingTop = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the number of empty lines to be applied between the content and the bottom
     /// border of the cell.
     /// </summary>
-    public int? PaddingBottom { get; set; }
+    public int? PaddingBottom
+    {
+        get => paddingBottom;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(PaddingBottom), "Padding value must be positive or zero.");
+
+            paddingBottom = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets a value specifying how the overflow text is handled when the cell has the
@@ -160,7 +217,7 @@ public abstract class CellBase
     /// </summary>
     protected CellBase(object content, HorizontalAlignment horizontalAlignment = HorizontalAlignment.Default)
     {
-        Content = new MultilineText(content.ToString());
+        Content = new MultilineText(content?.ToString());
         HorizontalAlignment = horizontalAlignment;
     }
 
@@ -173,17 +230,18 @@ public abstract class CellBase
         int cellWidth;
         int cellHeight;
 
-        int paddingLeft = CalculatePaddingLeft();
-        int paddingRight = CalculatePaddingRight();
+        int preferredPaddingLeft = CalculatePaddingLeft();
+        int preferredPaddingRight = CalculatePaddingRight();
 
-        if (IsEmpty)
+        bool isEmpty = Content == null || Content.IsEmpty;
+        if (isEmpty)
         {
-            cellWidth = paddingLeft + paddingRight;
+            cellWidth = preferredPaddingLeft + preferredPaddingRight;
             cellHeight = 0;
         }
         else
         {
-            cellWidth = paddingLeft + Content.Size.Width + paddingRight;
+            cellWidth = preferredPaddingLeft + Content.Size.Width + preferredPaddingRight;
             cellHeight = Content.Size.Height;
         }
 
@@ -214,29 +272,9 @@ public abstract class CellBase
     [Obsolete("Intended for internal usage only.")]
     public abstract int CalculatePaddingRight();
 
-    internal int ComputePaddingTop()
-    {
-        int? paddingTop = PaddingTop;
+    internal abstract int ComputePaddingTop();
 
-        if (paddingTop != null)
-            return paddingTop.Value;
-
-        paddingTop = DefaultPaddingTop;
-
-        return paddingTop.Value;
-    }
-
-    internal int ComputePaddingBottom()
-    {
-        int? paddingTop = PaddingBottom;
-
-        if (paddingTop != null)
-            return paddingTop.Value;
-
-        paddingTop = DefaultPaddingBottom;
-
-        return paddingTop.Value;
-    }
+    internal abstract int ComputePaddingBottom();
 
     /// <summary>
     /// Returns the calculated horizontal alignment for the content of the current instance.
@@ -246,6 +284,8 @@ public abstract class CellBase
     /// </summary>
     [Obsolete("Intended for internal usage only.")]
     public abstract HorizontalAlignment CalculateHorizontalAlignment();
+
+    internal abstract MultilineText ComputeContent();
 
     internal abstract CellContentOverflow ComputeContentOverflow();
 

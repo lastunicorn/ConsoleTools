@@ -44,7 +44,7 @@ public class TitleRow : RowBase
     /// Gets a value that specifies if the current instance of the <see cref="TitleRow"/> has
     /// a content to be displayed.
     /// </summary>
-    public bool HasContent => TitleCell?.Content?.IsEmpty == false;
+    public bool HasContent => TitleCell?.HasVisibleContent == true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TitleRow"/> class with

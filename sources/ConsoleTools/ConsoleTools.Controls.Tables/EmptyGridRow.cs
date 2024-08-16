@@ -22,13 +22,13 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 /// This is the row that is displayed in the content section of the <see cref="DataGrid"/>
 /// when there are no content rows.
 /// </summary>
-public class EmptyMessageRow : RowBase
+public class EmptyGridRow : RowBase
 {
     /// <summary>
     /// Gets the only cell contained be this row.
     /// This cell is automatically created when the row is created.
     /// </summary>
-    public EmptyMessageCell EmptyMessageCell { get; }
+    public EmptyGridCell EmptyGridCell { get; }
 
     /// <summary>
     /// Gets the number of cells contained in this instance.
@@ -37,18 +37,18 @@ public class EmptyMessageRow : RowBase
     public override int CellCount => 1;
 
     /// <summary>
-    /// Gets a value that specifies if the current instance of the <see cref="EmptyMessageRow"/>
+    /// Gets a value that specifies if the current instance of the <see cref="EmptyGridRow"/>
     /// has a content to be displayed.
     /// </summary>
-    public bool HasContent => EmptyMessageCell?.Content?.IsEmpty == false;
+    public bool HasContent => EmptyGridCell?.HasVisibleContent == true;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyGridRow"/> class with
     /// empty content.
     /// </summary>
-    public EmptyMessageRow()
+    public EmptyGridRow()
     {
-        EmptyMessageCell = new EmptyMessageCell
+        EmptyGridCell = new EmptyGridCell
         {
             ParentRow = this,
             Content = MultilineText.Empty
@@ -56,12 +56,12 @@ public class EmptyMessageRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyGridRow"/> class with
     /// the text content.
     /// </summary>
-    public EmptyMessageRow(string content)
+    public EmptyGridRow(string content)
     {
-        EmptyMessageCell = new EmptyMessageCell
+        EmptyGridCell = new EmptyGridCell
         {
             ParentRow = this,
             Content = content == null
@@ -71,12 +71,12 @@ public class EmptyMessageRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyGridRow"/> class with
     /// a <see cref="MultilineText"/> content.
     /// </summary>
-    public EmptyMessageRow(MultilineText content)
+    public EmptyGridRow(MultilineText content)
     {
-        EmptyMessageCell = new EmptyMessageCell
+        EmptyGridCell = new EmptyGridCell
         {
             ParentRow = this,
             Content = content ?? MultilineText.Empty
@@ -84,12 +84,12 @@ public class EmptyMessageRow : RowBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmptyMessageRow"/> class with
+    /// Initializes a new instance of the <see cref="EmptyGridRow"/> class with
     /// an <see cref="object"/> representing the content.
     /// </summary>
-    public EmptyMessageRow(object content)
+    public EmptyGridRow(object content)
     {
-        EmptyMessageCell = new EmptyMessageCell
+        EmptyGridCell = new EmptyGridCell
         {
             ParentRow = this,
             Content = content?.ToString() ?? MultilineText.Empty
@@ -101,19 +101,19 @@ public class EmptyMessageRow : RowBase
     /// </summary>
     public override int? IndexOfCell(CellBase cell)
     {
-        if (cell is not EmptyMessageCell emptyInfoCell)
+        if (cell is not EmptyGridCell emptyInfoCell)
             return null;
 
-        return emptyInfoCell == EmptyMessageCell ? 1 : null;
+        return emptyInfoCell == EmptyGridCell ? 1 : null;
     }
 
     /// <summary>
-    /// Returns an enumeration containing the single <see cref="EmptyMessageCell"/> contained by the current instance.
+    /// Returns an enumeration containing the single <see cref="EmptyGridCell"/> contained by the current instance.
     /// </summary>
-    /// <returns>An enumeration containing the single <see cref="EmptyMessageCell"/> contained by the current instance.</returns>
+    /// <returns>An enumeration containing the single <see cref="EmptyGridCell"/> contained by the current instance.</returns>
     public override IEnumerable<CellBase> EnumerateVisibleCells()
     {
-        yield return EmptyMessageCell;
+        yield return EmptyGridCell;
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class EmptyMessageRow : RowBase
     /// <returns>An enumeration containing the single cell contained by the current instance.</returns>
     public override IEnumerator<CellBase> GetEnumerator()
     {
-        IEnumerable<CellBase> cellBases = new[] { EmptyMessageCell };
+        IEnumerable<CellBase> cellBases = new[] { EmptyGridCell };
         return cellBases.GetEnumerator();
     }
 }

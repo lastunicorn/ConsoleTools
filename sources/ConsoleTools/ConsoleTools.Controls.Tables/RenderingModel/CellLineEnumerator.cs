@@ -16,6 +16,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
@@ -50,9 +51,11 @@ internal sealed class CellLineEnumerator : IEnumerator<string>
         cellContentWidth = Size.Width - PaddingLeft - PaddingRight;
         OverflowBehavior overflowBehavior = ContentOverflow.ToOverflowBehavior();
 
-        contentLineEnumerator = Content
-            .GetLines(cellContentWidth, overflowBehavior)
-            .GetEnumerator();
+        contentLineEnumerator = Content == null
+            ? Enumerable.Empty<string>().GetEnumerator()
+            : Content
+                .GetLines(cellContentWidth, overflowBehavior)
+                .GetEnumerator();
 
         lineIndex = -1;
     }

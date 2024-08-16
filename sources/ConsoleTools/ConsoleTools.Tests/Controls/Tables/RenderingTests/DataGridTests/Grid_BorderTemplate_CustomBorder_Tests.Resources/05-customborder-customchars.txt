@@ -1,9 +1,9 @@
-﻿122222222222222222222222222222222223
-8 My Title                         4
-beeeeeeeeeee9eeeeeeeeee9eeeeeeeeeee0
-8   One     d   Two    d   Three   4
-beeeeeeeeeeeceeeeeeeeeeceeeeeeeeeee0
-8   one     d   ichi   d   eins    4
-8   two     d   ni     d   zwei    4
-8   three   d   san    d   drei    4
-766666666666a6666666666a666666666665
+﻿12222222222222222222222222222222223
+8 My Title                        4
+beeeeeeeeeee9eeeeeeeeee9eeeeeeeeee0
+8 One       d Two      d Three    4
+beeeeeeeeeeeceeeeeeeeeeceeeeeeeeee0
+8   one     d   ichi   d   eins   4
+8   two     d   ni     d   zwei   4
+8   three   d   san    d   drei   4
+766666666666a6666666666a66666666665

@@ -64,6 +64,18 @@ public abstract class RowBase : IEnumerable<CellBase>
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
+    public int? CellPaddingTop { get; set; }
+    
+    public int? CellPaddingBottom { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default content to be displayed in a cell from the current row if  it has
+    /// no specific content.
+    /// </summary>
+    public MultilineText CellDefaultContent { get; set; }
+
+    public CellContentOverflow CellContentOverflow { get; set; }
+
     /// <summary>
     /// Gets the number of cells contained by the row.
     /// </summary>

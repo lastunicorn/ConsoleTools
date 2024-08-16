@@ -14,6 +14,7 @@ ver 1.2.0
 - [feature] DataGrid: Added ContentOverflow property for cells to control the overflow behavior.
 - [feature] DataGrid: Added an optional EmptyMessage to be displayed when there are no content rows in the grid.
 - [feature] HorizontalLine: Added a QuickDisplay method that allows the caller to change properties on the control before displaying it.
+- [feature] DataGrid: Added DefaultContent for cells to be displayed when the cell has no explicit content.
 
 ver 1.1.0
 ---------

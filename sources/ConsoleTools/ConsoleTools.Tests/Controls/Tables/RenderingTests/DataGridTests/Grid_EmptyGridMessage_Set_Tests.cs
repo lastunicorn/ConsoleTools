@@ -21,14 +21,14 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.RenderingTests.DataGridTests;
 
 [TestFixture]
-public class Grid_EmptyMessage_Set_Tests : TestsBase
+public class Grid_EmptyGridMessage_Set_Tests : TestsBase
 {
     [Test]
     public void HavingGridWithNoTitleNoHeaderNoContentNoFooter_WhenRendered_ThenEmptyTextIsDisplayedInTheContentArea()
     {
         DataGrid dataGrid = new();
 
-        dataGrid.EmptyMessage = "No data here...";
+        dataGrid.EmptyGridMessage = "No data here...";
 
         string expected = GetResourceFileContent("01-no-title-no-header-emptytext-no-footer.txt");
         dataGrid.IsEqualTo(expected);
@@ -40,7 +40,7 @@ public class Grid_EmptyMessage_Set_Tests : TestsBase
         DataGrid dataGrid = new();
         dataGrid.Title = "Test empty grid";
 
-        dataGrid.EmptyMessage = "No data here...";
+        dataGrid.EmptyGridMessage = "No data here...";
 
         string expected = GetResourceFileContent("02-title-emptytext.txt");
         dataGrid.IsEqualTo(expected);
@@ -56,7 +56,7 @@ public class Grid_EmptyMessage_Set_Tests : TestsBase
         dataGrid.Columns.Add("Column 1");
         dataGrid.Columns.Add("Column 2");
 
-        dataGrid.EmptyMessage = "No data here...";
+        dataGrid.EmptyGridMessage = "No data here...";
 
         string expected = GetResourceFileContent("03-title-header-emptytext.txt");
         dataGrid.IsEqualTo(expected);
@@ -72,7 +72,7 @@ public class Grid_EmptyMessage_Set_Tests : TestsBase
         dataGrid.Columns.Add("Column 1");
         dataGrid.Columns.Add("Column 2");
 
-        dataGrid.EmptyMessage = "No data here...";
+        dataGrid.EmptyGridMessage = "No data here...";
 
         dataGrid.Footer = "Footer text";
 
@@ -93,7 +93,7 @@ public class Grid_EmptyMessage_Set_Tests : TestsBase
         dataGrid.Rows.Add("Cell 1", "Cell 2", "Cell 3");
         dataGrid.Rows.Add("Cell 4", "Cell 5", "Cell 6");
 
-        dataGrid.EmptyMessage = "No data here...";
+        dataGrid.EmptyGridMessage = "No data here...";
 
         dataGrid.Footer = "Footer text";
 
@@ -111,7 +111,7 @@ public class Grid_EmptyMessage_Set_Tests : TestsBase
         dataGrid.Columns.Add("Column 1");
         dataGrid.Columns.Add("Column 2");
 
-        dataGrid.EmptyMessage = new MultilineText("No data here...", "Please adjust the filters and try again.");
+        dataGrid.EmptyGridMessage = new MultilineText("No data here...", "Please adjust the filters and try again.");
 
         dataGrid.Footer = "Footer text";
 

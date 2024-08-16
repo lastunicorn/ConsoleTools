@@ -47,6 +47,17 @@ public class ContentCell : CellBase
     }
 
     /// <summary>
+    /// Gets a value that specifies if the current instance of the <see cref="ContentCell"/> has
+    /// a content to be displayed.
+    /// </summary>
+    public override bool HasVisibleContent =>
+        Content?.IsEmpty == false ||
+        DefaultContent?.IsEmpty == false ||
+        ParentRow?.CellDefaultContent?.IsEmpty == false ||
+        GetColumn()?.CellDefaultContent?.IsEmpty == false ||
+        ParentRow?.ParentDataGrid?.CellDefaultContent?.IsEmpty == false;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ContentCell" /> class with
     /// empty content.
     /// </summary>

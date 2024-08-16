@@ -43,7 +43,7 @@ public class FooterRow : RowBase
     /// <summary>
     /// Gets a value that specifies if the current instance of the <see cref="FooterRow"/> has a content to be displayed.
     /// </summary>
-    public bool HasContent => FooterCell?.Content?.IsEmpty == false;
+    public bool HasContent => FooterCell?.HasVisibleContent == true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FooterRow"/> class with

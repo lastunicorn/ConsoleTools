@@ -37,7 +37,7 @@ public class DataGrid : BlockControl
     private TitleRow titleRow;
     private HeaderRow headerRow;
     private DataGridBorder border;
-    private EmptyMessageRow emptyMessageRow;
+    private EmptyGridRow emptyGridRow;
     private FooterRow footerRow;
 
     /// <summary>
@@ -313,13 +313,13 @@ public class DataGrid : BlockControl
     /// Gets the row containing the message to be displayed in the content area when there is no
     /// data in the grid.
     /// </summary>
-    public EmptyMessageRow EmptyMessageRow
+    public EmptyGridRow EmptyGridRow
     {
-        get => emptyMessageRow;
+        get => emptyGridRow;
         private set
         {
-            emptyMessageRow = value;
-            emptyMessageRow.ParentDataGrid = this;
+            emptyGridRow = value;
+            emptyGridRow.ParentDataGrid = this;
         }
     }
 
@@ -327,10 +327,10 @@ public class DataGrid : BlockControl
     /// Gets or sets the text to be displayed in the content area when there is no data in the
     /// grid.
     /// </summary>
-    public MultilineText EmptyMessage
+    public MultilineText EmptyGridMessage
     {
-        get => EmptyMessageRow.EmptyMessageCell.Content;
-        set => EmptyMessageRow.EmptyMessageCell.Content = value;
+        get => EmptyGridRow.EmptyGridCell.Content;
+        set => EmptyGridRow.EmptyGridCell.Content = value;
     }
 
     /// <summary>
@@ -343,7 +343,7 @@ public class DataGrid : BlockControl
         HeaderRow = new HeaderRow(Columns);
         TitleRow = new TitleRow();
         FooterRow = new FooterRow();
-        EmptyMessageRow = new EmptyMessageRow();
+        EmptyGridRow = new EmptyGridRow();
         Border = new DataGridBorder();
     }
 
@@ -358,7 +358,7 @@ public class DataGrid : BlockControl
         HeaderRow = new HeaderRow(Columns);
         TitleRow = new TitleRow(title);
         FooterRow = new FooterRow();
-        EmptyMessageRow = new EmptyMessageRow();
+        EmptyGridRow = new EmptyGridRow();
         Border = new DataGridBorder();
     }
 
@@ -373,7 +373,7 @@ public class DataGrid : BlockControl
         HeaderRow = new HeaderRow(Columns);
         TitleRow = new TitleRow(title);
         FooterRow = new FooterRow();
-        EmptyMessageRow = new EmptyMessageRow();
+        EmptyGridRow = new EmptyGridRow();
         Border = new DataGridBorder();
     }
 
@@ -388,7 +388,7 @@ public class DataGrid : BlockControl
         HeaderRow = new HeaderRow(Columns);
         TitleRow = new TitleRow(title);
         FooterRow = new FooterRow();
-        EmptyMessageRow = new EmptyMessageRow();
+        EmptyGridRow = new EmptyGridRow();
         Border = new DataGridBorder();
     }
 

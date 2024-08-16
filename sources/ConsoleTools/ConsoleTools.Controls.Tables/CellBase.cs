@@ -84,6 +84,13 @@ public abstract class CellBase
     public bool IsEmpty => Content == null || Content.IsEmpty;
 
     /// <summary>
+    /// Gets a value that specifies if the current instance has a content to be displayed.
+    /// This property may return <c>true</c> even if there is no explicit content set on the cell,
+    /// but there is a default content specified at row, column or grid level.
+    /// </summary>
+    public abstract bool HasVisibleContent { get; }
+
+    /// <summary>
     /// Gets or sets the foreground color for the cell.
     /// Default value: <c>null</c>
     /// </summary>
@@ -226,7 +233,8 @@ public abstract class CellBase
         int preferredPaddingLeft = CalculatePaddingLeft();
         int preferredPaddingRight = CalculatePaddingRight();
 
-        if (IsEmpty)
+        bool isEmpty = Content == null || Content.IsEmpty;
+        if (isEmpty)
         {
             cellWidth = preferredPaddingLeft + preferredPaddingRight;
             cellHeight = 0;

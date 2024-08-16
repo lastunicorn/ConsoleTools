@@ -29,6 +29,15 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 public class FooterCell : CellBase
 {
     /// <summary>
+    /// Gets a value that specifies if the current instance of the <see cref="FooterCell"/> has
+    /// a content to be displayed.
+    /// </summary>
+    public override bool HasVisibleContent =>
+        Content?.IsEmpty == false ||
+        DefaultContent?.IsEmpty == false ||
+        ParentRow?.CellDefaultContent?.IsEmpty == false;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FooterCell" /> class with
     /// empty content.
     /// </summary>
@@ -209,10 +218,10 @@ public class FooterCell : CellBase
         MultilineText content = Content;
 
         if (content == null || content.IsEmpty)
-            content = ParentRow?.CellDefaultContent;
+            content = DefaultContent;
 
         if (content == null || content.IsEmpty)
-            content = DefaultContent;
+            content = ParentRow?.CellDefaultContent;
 
         return content;
     }

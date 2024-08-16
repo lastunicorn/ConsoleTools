@@ -96,8 +96,7 @@ internal class DataGridXBuilder
 
     private void ProcessHeaderRow()
     {
-        bool isHeaderRowVisible = dataGrid.HeaderRow is { IsVisible: true, CellCount: > 0 } &&
-                                  dataGrid.Columns.Any(x => x.IsVisible && !x.HeaderCell.IsEmpty);
+        bool isHeaderRowVisible = dataGrid.HeaderRow is { IsVisible: true, HasContent: true };
 
         if (!isHeaderRowVisible)
             return;
@@ -114,7 +113,7 @@ internal class DataGridXBuilder
         {
             AddContentRows();
         }
-        else if (dataGrid.EmptyMessageRow?.HasContent == true)
+        else if (dataGrid.EmptyGridRow?.HasContent == true)
         {
             AddEmptyTextRow();
         }
@@ -134,8 +133,8 @@ internal class DataGridXBuilder
 
     private void AddEmptyTextRow()
     {
-        AddTopSeparatorForRow(dataGrid.EmptyMessageRow);
-        AddRow(dataGrid.EmptyMessageRow);
+        AddTopSeparatorForRow(dataGrid.EmptyGridRow);
+        AddRow(dataGrid.EmptyGridRow);
     }
 
     private void ProcessFooterRow()

@@ -152,6 +152,7 @@ public class ContentRow_CellDefaultContent_Tests : TestsBase
 
             dataGrid.Rows.Add(cell0, cell1, cell2, cell3, cell4);
         }
+
         dataGrid.Footer = "Footer text";
 
         return dataGrid;

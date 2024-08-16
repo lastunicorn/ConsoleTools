@@ -34,6 +34,15 @@ public class HeaderCell : CellBase
     public Column ParentColumn { get; internal set; }
 
     /// <summary>
+    /// Gets a value that specifies if the current instance of the <see cref="HeaderCell"/> has
+    /// a content to be displayed.
+    /// </summary>
+    public override bool HasVisibleContent =>
+        Content?.IsEmpty == false ||
+        DefaultContent?.IsEmpty == false ||
+        ParentRow?.CellDefaultContent?.IsEmpty == false;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HeaderCell" /> class with
     /// empty content.
     /// </summary>
@@ -107,6 +116,7 @@ public class HeaderCell : CellBase
     {
         return ForegroundColor
                ?? ParentRow?.ForegroundColor
+               ?? ParentColumn.ForegroundColor
                ?? ParentRow?.ParentDataGrid?.ForegroundColor;
     }
 
@@ -116,6 +126,7 @@ public class HeaderCell : CellBase
     {
         return BackgroundColor
                ?? ParentRow?.BackgroundColor
+               ?? ParentColumn.BackgroundColor
                ?? ParentRow?.ParentDataGrid?.BackgroundColor;
     }
 

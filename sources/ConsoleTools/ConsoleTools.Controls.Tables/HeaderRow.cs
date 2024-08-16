@@ -35,7 +35,7 @@ public class HeaderRow : RowBase
     /// <summary>
     /// Gets the number of cells contained by the header row.
     /// </summary>
-    public override int CellCount => columns.Count();
+    public override int CellCount => columns.Count;
 
     /// <summary>
     /// Gets the cell at the specified index.
@@ -44,6 +44,12 @@ public class HeaderRow : RowBase
     /// <returns>The cell at the specified index.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public HeaderCell this[int index] => columns[index]?.HeaderCell;
+
+    /// <summary>
+    /// Gets a value that specifies if the current instance of the <see cref="HeaderRow"/> has
+    /// a content to be displayed.
+    /// </summary>
+    public bool HasContent => columns.Count > 0 && columns.Any(x => x.IsVisible && x.HeaderCell.HasVisibleContent);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HeaderRow"/> class with

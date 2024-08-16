@@ -56,17 +56,27 @@ public class Column
     public HorizontalAlignment CellHorizontalAlignment { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the left side of every cell.
+    /// Gets or sets the padding applied to the left side of every cell, between the border and
+    /// the content.
     /// </summary>
     public int? CellPaddingLeft { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the right side of every cell.
+    /// Gets or sets the padding applied to the right side of every cell, between the border and
+    /// the content.
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
+    /// <summary>
+    /// Gets or sets the padding applied to the top of every cell, between the border and
+    /// the content.
+    /// </summary>
     public int? CellPaddingTop { get; set; }
 
+    /// <summary>
+    /// Gets or sets the padding applied to the bottom of every cell, between the border and
+    /// the content.
+    /// </summary>
     public int? CellPaddingBottom { get; set; }
 
     /// <summary>

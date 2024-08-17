@@ -26,7 +26,7 @@ using System.Reflection;
 // associated with an assembly.
 [assembly: AssemblyCompany("Dust in the Wind")]
 [assembly: AssemblyProduct("Console Tools")]
-[assembly: AssemblyCopyright("Copyright © 2017-2020 Dust in the Wind")]
+[assembly: AssemblyCopyright("Copyright © 2017-2024 Dust in the Wind")]
 [assembly: AssemblyTrademark("")]
 
 // Version information for an assembly consists of the following four values:

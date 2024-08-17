@@ -11,7 +11,7 @@
 		<projectUrl>https://github.com/lastunicorn/ConsoleTools</projectUrl>
 		<description>A set of tools and "controls" for the .net Console. It contains: List Input/Output Controls, Text Input/Output Controls, Progress Bar, Spinner, Data Table, Prompter, Menus, etc.</description>
 		<summary>A set of tools and "controls" for the .net Console.</summary>
-		<copyright>Copyright © Dust in the Wind 2017-2021</copyright>
+		<copyright>Copyright © Dust in the Wind 2017-2024</copyright>
 		<tags>console cli prompter menu progressbar spinner table read write textblock inlinetextblock blockcontrol inlinecontrol</tags>
 		<readme>readme.md</readme>
 		<repository type="git" url="https://github.com/lastunicorn/ConsoleTools" />

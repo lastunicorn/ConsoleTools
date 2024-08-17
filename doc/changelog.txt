@@ -3,6 +3,10 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+ver 1.3.0
+---------
+
+
 ver 1.2.0
 ---------
 - [bugfix ] DataGrid: Automatically hide empty header row if it has no header content.

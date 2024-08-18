@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
-using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -68,23 +67,34 @@ public class DataGrid : BlockControl
     public HorizontalAlignment CellHorizontalAlignment { get; set; } = Controls.HorizontalAlignment.Default;
 
     /// <summary>
-    /// Gets or sets the padding applied to the left side of every cell.
+    /// Gets or sets the padding applied to the left side of every content cell.
     /// </summary>
     public int? CellPaddingLeft { get; set; }
 
     /// <summary>
-    /// Gets or sets the padding applied to the right side of every cell.
+    /// Gets or sets the padding applied to the right side of every content cell.
     /// </summary>
     public int? CellPaddingRight { get; set; }
 
+    /// <summary>
+    /// Gets or sets the padding applied to the top side of every content cell.
+    /// </summary>
     public int? CellPaddingTop { get; set; }
 
+    /// <summary>
+    /// Gets or sets the padding applied to the bottom side of every content cell.
+    /// </summary>
     public int? CellPaddingBottom { get; set; }
 
+    /// <summary>
+    /// Gets or sets the default content to be displayed in a content cell if it has no explicitly
+    /// set content.
+    /// </summary>
     public MultilineText CellDefaultContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the content overflow behavior for all the content cells contained by the current data grid.
+    /// Gets or sets the content overflow behavior for all the content cells contained by the
+    /// current data grid.
     /// The content overflow for title, header and footer cells must be set individually.
     /// </summary>
     public CellContentOverflow CellContentOverflow { get; set; }
@@ -397,7 +407,11 @@ public class DataGrid : BlockControl
     /// </summary>
     protected override void DoDisplayContent(ControlDisplay display)
     {
-        ConsoleTablePrinter consoleTablePrinter = new();
+        ConsoleTablePrinter consoleTablePrinter = new()
+        {
+            ForegroundColor = ForegroundColor,
+            BackgroundColor = BackgroundColor
+        };
         RenderInternal(consoleTablePrinter);
     }
 
@@ -412,11 +426,20 @@ public class DataGrid : BlockControl
 
     private void RenderInternal(ITablePrinter tablePrinter)
     {
-        DataGridX dataGridX = new DataGridXBuilder(this)
-            .Build();
+        IControlRenderer controlRenderer = GetRenderer();
 
-        dataGridX.Render(tablePrinter);
+        while (controlRenderer.HasMoreLines) 
+            controlRenderer.RenderNextLine(tablePrinter);
+        
         tablePrinter.Flush();
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="IControlRenderer"/> for the current instance.
+    /// </summary>
+    public IControlRenderer GetRenderer()
+    {
+        return new DataGridRenderer(this);
     }
 
     /// <summary>

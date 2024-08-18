@@ -14,18 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
-internal interface IItemX
+internal class DataGridRenderer : IControlRenderer
 {
-    bool HasMoreLines { get; }
+    private readonly DataGridX dataGridX;
 
-    void InitializeRendering(ColumnXCollection columnXCollection);
+    public bool HasMoreLines => dataGridX.HasMoreLines;
 
-    void RenderNextLine(ITablePrinter tablePrinter);
+    public DataGridRenderer(DataGrid dataGrid)
+    {
+        dataGridX = new DataGridXBuilder(dataGrid).Build();
+        dataGridX.InitializeRendering();
+    }
+
+    public void RenderNextLine(ITablePrinter tablePrinter)
+    {
+        dataGridX.RenderNextLine(tablePrinter);
+    }
 }

@@ -33,6 +33,17 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
 
     private readonly Stream stream;
     private readonly StreamWriter streamWriter;
+    private readonly bool isRoot;
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StreamTablePrinter"/> class with
@@ -43,6 +54,21 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
         this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
 
         streamWriter = new StreamWriter(stream);
+        isRoot = true;
+    }
+
+    private StreamTablePrinter(StreamWriter streamWriter)
+    {
+        this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
+        isRoot = false;
+    }
+
+    /// <summary>
+    /// It is not used by the current instance.
+    /// Writes nothing to the output stream.
+    /// </summary>
+    public void StartLine()
+    {
     }
 
     /// <summary>
@@ -62,19 +88,12 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
     }
 
     /// <summary>
-    /// Writes the specified text in the underlying <see cref="Stream"/>, followed by a line terminator.
-    /// </summary>
-    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        streamWriter.WriteLine(text);
-    }
-
-    /// <summary>
     /// Writes the line terminator in the underlying <see cref="Stream"/>.
     /// </summary>
-    public void WriteLine()
+    public void EndLine()
     {
-        streamWriter.WriteLine();
+        if (isRoot)
+            streamWriter.WriteLine();
     }
 
     /// <summary>
@@ -83,6 +102,16 @@ public class StreamTablePrinter : ITablePrinter, IDisposable
     public void Flush()
     {
         streamWriter.Flush();
+    }
+
+    /// <summary>
+    /// Creates a new child instance of the current <see cref="StreamTablePrinter"/> instance that
+    /// writes in the same <see cref="Stream"/> as the current instance.
+    /// </summary>
+    /// <returns>The newly created <see cref="StreamTablePrinter"/> instance.</returns>
+    public ITablePrinter CreateChild()
+    {
+        return new StreamTablePrinter(streamWriter);
     }
 
     /// <summary>

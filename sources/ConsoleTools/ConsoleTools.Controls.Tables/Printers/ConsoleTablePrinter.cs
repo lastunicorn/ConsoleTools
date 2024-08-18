@@ -29,36 +29,71 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 /// </summary>
 public class ConsoleTablePrinter : ITablePrinter
 {
+    private readonly bool isRoot;
+
+    /// <summary>
+    /// Gets or sets the foreground color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ConsoleTablePrinter"/> class
+    /// as root printer.
+    /// </summary>
+    public ConsoleTablePrinter()
+    {
+        isRoot = true;
+    }
+
+    private ConsoleTablePrinter(bool isRoot)
+    {
+        this.isRoot = isRoot;
+    }
+
+    /// <summary>
+    /// It is not used by the current instance.
+    /// Writes nothing to the output stream.
+    /// </summary>
+    public void StartLine()
+    {
+    }
+
     /// <summary>
     /// Writes the specified character to the <see cref="Console"/>.
     /// </summary>
-    public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
     {
-        Write(foregroundColor, backgroundColor, c);
+        ConsoleColor? fg = foregroundColor ?? ForegroundColor;
+        ConsoleColor? bg = backgroundColor ?? BackgroundColor;
+
+        Write(fg, bg, c);
     }
 
     /// <summary>
     /// Writes the specified text to the <see cref="Console"/>.
     /// </summary>
-    public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
     {
-        Write(foregroundColor, backgroundColor, text);
-    }
+        ConsoleColor? fg = foregroundColor ?? ForegroundColor;
+        ConsoleColor? bg = backgroundColor ?? BackgroundColor;
 
-    /// <summary>
-    /// Writes the specified text to the <see cref="Console"/>, followed by a line terminator.
-    /// </summary>
-    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        WriteLine(foregroundColor, backgroundColor, text);
+        Write(fg, bg, text);
     }
 
     /// <summary>
     /// Writes the line terminator to the <see cref="Console"/>.
     /// </summary>
-    public void WriteLine()
+    public void EndLine()
     {
-        Console.WriteLine();
+        if (isRoot)
+            Console.WriteLine();
     }
 
     /// <summary>
@@ -67,6 +102,19 @@ public class ConsoleTablePrinter : ITablePrinter
     public void Flush()
     {
         Console.Out.Flush();
+    }
+
+    /// <summary>
+    /// Creates a new child instance of the current <see cref="ConsoleTablePrinter"/> instance.
+    /// </summary>
+    /// <returns>The newly created <see cref="ConsoleTablePrinter"/> instance.</returns>
+    public ITablePrinter CreateChild()
+    {
+        return new ConsoleTablePrinter(false)
+        {
+            ForegroundColor = ForegroundColor,
+            BackgroundColor = BackgroundColor
+        };
     }
 
     private static void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
@@ -87,24 +135,6 @@ public class ConsoleTablePrinter : ITablePrinter
         }
     }
 
-    private static void WriteLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
-    {
-        if (foregroundColor.HasValue)
-        {
-            if (backgroundColor.HasValue)
-                CustomConsole.WriteLine(foregroundColor.Value, backgroundColor.Value, text);
-            else
-                CustomConsole.WriteLine(foregroundColor.Value, text);
-        }
-        else
-        {
-            if (backgroundColor.HasValue)
-                CustomConsole.WriteLineBackgroundColor(backgroundColor.Value, text);
-            else
-                CustomConsole.WriteLine(text);
-        }
-    }
-
     private static void Write(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
     {
         if (foregroundColor.HasValue)
@@ -120,24 +150,6 @@ public class ConsoleTablePrinter : ITablePrinter
                 CustomConsole.WriteBackgroundColor(backgroundColor.Value, c);
             else
                 CustomConsole.Write(c);
-        }
-    }
-
-    private static void WriteLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, char c)
-    {
-        if (foregroundColor.HasValue)
-        {
-            if (backgroundColor.HasValue)
-                CustomConsole.WriteLine(foregroundColor.Value, backgroundColor.Value, c);
-            else
-                CustomConsole.WriteLine(foregroundColor.Value, c);
-        }
-        else
-        {
-            if (backgroundColor.HasValue)
-                CustomConsole.WriteLineBackgroundColor(backgroundColor.Value, c);
-            else
-                CustomConsole.WriteLine(c);
         }
     }
 }

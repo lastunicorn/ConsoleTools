@@ -30,6 +30,23 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables;
 public interface ITablePrinter
 {
     /// <summary>
+    /// Gets or sets the foreground color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Writes the left empty space, left margin and left padding.
+    /// </summary>
+    void StartLine();
+
+    /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
     void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
@@ -40,18 +57,19 @@ public interface ITablePrinter
     void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
     /// <summary>
-    /// Writes the specified text, using the specified colors,
-    /// followed by the current line terminator.
+    /// Writes the right padding, right margin and right empty space.
     /// </summary>
-    void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
-
-    /// <summary>
-    /// Writes the current line terminator.
-    /// </summary>
-    void WriteLine();
+    void EndLine();
 
     /// <summary>
     /// Writes all the buffered data into the output.
     /// </summary>
     void Flush();
+
+    /// <summary>
+    /// Creates a new child instance of the current printer that writes in the same output as the
+    /// current instance.
+    /// </summary>
+    /// <returns>The newly created instance.</returns>
+    ITablePrinter CreateChild();
 }

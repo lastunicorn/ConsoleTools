@@ -55,6 +55,11 @@ public readonly struct Thickness : IEquatable<Thickness>
     public int Right { get; }
 
     /// <summary>
+    /// Gets an instance representing thickness zero.
+    /// </summary>
+    public static Thickness Zero { get; } = new(0);
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific lengths applied to each side of the rectangle.
     /// </summary>
     /// <param name="left">The thickness for the left side of the rectangle.</param>

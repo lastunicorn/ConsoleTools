@@ -24,7 +24,8 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Calculates the space needed for each component of the control: each margin, padding, content dimensions, empty spaces, etc.
+/// Calculates the space needed for each part of the control: margins, paddings, content size,
+/// empty spaces, etc.
 /// </summary>
 public class ControlLayout
 {
@@ -226,7 +227,7 @@ public class ControlLayout
 
         int calculatedMaxFullWidth = AvailableWidth;
         int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
-        int calculatedMaxClientWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
+        int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
 
         // Calculate actual widths.
 
@@ -234,18 +235,18 @@ public class ControlLayout
         {
             ActualFullWidth = calculatedMaxFullWidth;
             ActualWidth = calculatedMaxWidth;
-            ActualClientWidth = calculatedMaxClientWidth;
+            ActualClientWidth = calculatedMaxContentWidth;
 
             int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
-            ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth);
+            ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth);
         }
         else
         {
             int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
 
             ActualContentWidth = calculatedDesiredContentWidth.HasValue
-                ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxClientWidth)
-                : calculatedMaxClientWidth;
+                ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth)
+                : calculatedMaxContentWidth;
 
             ActualClientWidth = ActualContentWidth;
             ActualWidth = ActualClientWidth + Control.Padding.Left + Control.Padding.Right;

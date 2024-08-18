@@ -26,6 +26,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 internal class RowX : IItemX
 {
+    private int nextRenderIndex;
+
     public List<CellX> Cells { get; set; }
 
     public BorderTemplate BorderTemplate { get; set; }
@@ -37,6 +39,8 @@ internal class RowX : IItemX
     public Size PreferredSize { get; private set; }
 
     public Size ActualSize { get; private set; }
+
+    public bool HasMoreLines => nextRenderIndex < ActualSize.Height;
 
     public void CalculateLayout()
     {
@@ -70,18 +74,7 @@ internal class RowX : IItemX
         return new Size(width, height);
     }
 
-    public void Render(ITablePrinter tablePrinter, ColumnXCollection columnXCollection)
-    {
-        InitializeCellRendering(columnXCollection);
-
-        for (int lineIndex = 0; lineIndex < ActualSize.Height; lineIndex++)
-        {
-            RenderNextLine(tablePrinter);
-            tablePrinter.WriteLine();
-        }
-    }
-
-    private void InitializeCellRendering(ColumnXCollection columnXCollection)
+    public void InitializeRendering(ColumnXCollection columnXCollection)
     {
         int width = 0;
         int height = 0;
@@ -109,10 +102,14 @@ internal class RowX : IItemX
         }
 
         ActualSize = new Size(width, height);
+
+        nextRenderIndex = 0;
     }
 
-    private void RenderNextLine(ITablePrinter tablePrinter)
+    public void RenderNextLine(ITablePrinter tablePrinter)
     {
+        tablePrinter.StartLine();
+
         RenderRowLeftBorder(tablePrinter);
 
         for (int cellIndex = 0; cellIndex < Cells.Count; cellIndex++)
@@ -128,6 +125,10 @@ internal class RowX : IItemX
             else
                 RenderRowInsideBorder(tablePrinter);
         }
+
+        tablePrinter.EndLine();
+
+        nextRenderIndex++;
     }
 
     private void RenderRowLeftBorder(ITablePrinter tablePrinter)

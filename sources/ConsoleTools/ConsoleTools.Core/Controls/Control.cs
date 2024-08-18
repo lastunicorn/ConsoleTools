@@ -37,6 +37,18 @@ public abstract class Control
     public bool? CursorVisibility { get; set; }
 
     /// <summary>
+    /// Gets or sets the foreground color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background color used to write the text.
+    /// Default value: <c>null</c>
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
     /// Gets or sets a value that specifies if the visibility of the cursor should be set back
     /// to the value it was before displaying the control.
     /// </summary>
@@ -105,5 +117,10 @@ public abstract class Control
     protected virtual void OnAfterDisplay()
     {
         AfterDisplay?.Invoke(this, EventArgs.Empty);
+    }
+
+    public virtual Size CalculateNaturalSize()
+    {
+        return Size.Empty;
     }
 }

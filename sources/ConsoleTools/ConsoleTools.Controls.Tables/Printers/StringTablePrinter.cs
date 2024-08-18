@@ -30,14 +30,43 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 /// </summary>
 public class StringTablePrinter : ITablePrinter
 {
-    private readonly StringBuilder sb;
+    private readonly StringBuilder stringBuilder;
+    private readonly bool isRoot;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringTablePrinter"/> class.
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringTablePrinter"/> class as root.
     /// </summary>
     public StringTablePrinter()
     {
-        sb = new StringBuilder();
+        stringBuilder = new StringBuilder();
+        isRoot = true;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringTablePrinter"/> class as child.
+    /// </summary>
+    public StringTablePrinter(StringBuilder stringBuilder)
+    {
+        this.stringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
+        isRoot = false;
+    }
+
+    /// <summary>
+    /// It is not used by the current instance.
+    /// Writes nothing to the output stream.
+    /// </summary>
+    public void StartLine()
+    {
     }
 
     /// <summary>
@@ -45,7 +74,7 @@ public class StringTablePrinter : ITablePrinter
     /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
-        sb.Append(c);
+        stringBuilder.Append(c);
     }
 
     /// <summary>
@@ -53,23 +82,16 @@ public class StringTablePrinter : ITablePrinter
     /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
-        sb.Append(text);
-    }
-
-    /// <summary>
-    /// Stores the specified text in the internal <see cref="StringBuilder"/>, followed by a line terminator.
-    /// </summary>
-    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        sb.AppendLine(text);
+        stringBuilder.Append(text);
     }
 
     /// <summary>
     /// Stores the line terminator in the internal <see cref="StringBuilder"/>.
     /// </summary>
-    public void WriteLine()
+    public void EndLine()
     {
-        sb.AppendLine();
+        if (isRoot)
+            stringBuilder.AppendLine();
     }
 
     /// <summary>
@@ -79,11 +101,16 @@ public class StringTablePrinter : ITablePrinter
     {
     }
 
+    public ITablePrinter CreateChild()
+    {
+        return new StringTablePrinter(stringBuilder);
+    }
+
     /// <summary>
     /// Returns the <see cref="string"/> built until now. 
     /// </summary>
     public override string ToString()
     {
-        return sb.ToString();
+        return stringBuilder.ToString();
     }
 }

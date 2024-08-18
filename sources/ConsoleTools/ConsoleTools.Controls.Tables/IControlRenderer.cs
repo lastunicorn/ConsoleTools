@@ -14,18 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
-
-internal interface IItemX
+/// <summary>
+/// Renders the underlying control line by line into the specified <see cref="ITablePrinter"/>.
+/// </summary>
+public interface IControlRenderer
 {
+    /// <summary>
+    /// Gets a value specifying if the rendered still has more lines to render.
+    /// </summary>
     bool HasMoreLines { get; }
 
-    void InitializeRendering(ColumnXCollection columnXCollection);
-
+    /// <summary>
+    /// Renders the next line into the specified <see cref="ITablePrinter"/>.
+    /// </summary>
     void RenderNextLine(ITablePrinter tablePrinter);
 }

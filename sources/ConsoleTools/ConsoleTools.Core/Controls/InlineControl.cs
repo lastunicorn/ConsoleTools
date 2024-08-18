@@ -54,18 +54,6 @@ public abstract class InlineControl : Control
     public int PaddingRight { get; set; }
 
     /// <summary>
-    /// Gets or sets the foreground color used to write the text.
-    /// Default value: <c>null</c>
-    /// </summary>
-    public ConsoleColor? ForegroundColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the background color used to write the text.
-    /// Default value: <c>null</c>
-    /// </summary>
-    public ConsoleColor? BackgroundColor { get; set; }
-
-    /// <summary>
     /// Displays the margins and the content of the control.
     /// </summary>
     protected override void DoDisplay()

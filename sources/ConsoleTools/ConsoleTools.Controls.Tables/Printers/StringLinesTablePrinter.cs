@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
@@ -27,6 +28,24 @@ internal class StringLinesTablePrinter : ITablePrinter
     private readonly StringBuilder buffer = new();
     private bool shouldReplaceLastLine;
 
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? ForegroundColor { get; set; }
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public ConsoleColor? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// It is not used by the current instance.
+    /// Writes nothing to the output stream.
+    /// </summary>
+    public void StartLine()
+    {
+    }
+
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(c);
@@ -37,31 +56,7 @@ internal class StringLinesTablePrinter : ITablePrinter
         buffer.Append(text);
     }
 
-    public void WriteLine(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        if (buffer.Length > 0)
-        {
-            buffer.Append(text);
-
-            if (shouldReplaceLastLine)
-            {
-                lines[lines.Count - 1] = buffer.ToString();
-                shouldReplaceLastLine = false;
-            }
-            else
-            {
-                lines.Add(buffer.ToString());
-            }
-
-            buffer.Clear();
-        }
-        else
-        {
-            lines.Add(text);
-        }
-    }
-
-    public void WriteLine()
+    public void EndLine()
     {
         if (buffer.Length > 0)
         {
@@ -94,6 +89,11 @@ internal class StringLinesTablePrinter : ITablePrinter
             lines.Add(buffer.ToString());
 
         shouldReplaceLastLine = true;
+    }
+
+    public ITablePrinter CreateChild()
+    {
+        return new StringTablePrinter(buffer);
     }
 
     public IReadOnlyCollection<string> GetLines()

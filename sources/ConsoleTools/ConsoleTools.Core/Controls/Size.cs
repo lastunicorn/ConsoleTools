@@ -120,6 +120,17 @@ public struct Size
     }
 
     /// <summary>
+    /// Creates a new <see cref="Size"/> object having the <see cref="Width"/> and <see cref="Height"/>
+    /// increased with the thickness value specified as parameter.
+    /// </summary>
+    /// <param name="thickness">The thickness to be added to the current size.</param>
+    /// <returns>A new <see cref="Size"/> object.</returns>
+    public Size Inflate(Thickness thickness)
+    {
+        return new Size(Width + thickness.Left + thickness.Right, Height + thickness.Top + thickness.Bottom);
+    }
+
+    /// <summary>
     /// Creates a new <see cref="Size"/> object having only the <see cref="Width"/>
     /// incremented with the specified value.
     /// </summary>
@@ -187,5 +198,23 @@ public struct Size
     public static Size operator -(Size size, int value)
     {
         return new Size(size.Width - value, size.Height - value);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Size"/> instance having the width and height equal to the original values
+    /// increased by the provided thickness.
+    /// </summary>
+    public static Size operator +(Size size, Thickness thickness)
+    {
+        return new Size(size.Width + thickness.Left + thickness.Right, size.Height + thickness.Top + thickness.Bottom);
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Size"/> instance having the width and height equal to the original values
+    /// decreased by the provided thickness.
+    /// </summary>
+    public static Size operator -(Size size, Thickness thickness)
+    {
+        return new Size(size.Width - thickness.Left - thickness.Right, size.Height - thickness.Top - thickness.Bottom);
     }
 }

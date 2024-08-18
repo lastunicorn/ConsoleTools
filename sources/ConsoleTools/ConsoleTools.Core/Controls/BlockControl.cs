@@ -53,18 +53,6 @@ public abstract partial class BlockControl : Control
     public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
     /// <summary>
-    /// Gets or sets the foreground color used to write the text.
-    /// Default value: <c>null</c>
-    /// </summary>
-    public ConsoleColor? ForegroundColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the background color used to write the text.
-    /// Default value: <c>null</c>
-    /// </summary>
-    public ConsoleColor? BackgroundColor { get; set; }
-
-    /// <summary>
     /// Displays the margins and the content of the control.
     /// It also ensures that the control is displayed starting from a new line.
     /// </summary>
@@ -84,16 +72,6 @@ public abstract partial class BlockControl : Control
         WriteBottomMargin();
     }
 
-    private void CreateControlDisplay()
-    {
-        ControlDisplay = new ControlDisplay
-        {
-            Layout = Layout,
-            ForegroundColor = ForegroundColor,
-            BackgroundColor = BackgroundColor
-        };
-    }
-
     private static void MoveToNextLineIfNecessary()
     {
         if (Console.CursorLeft != 0)
@@ -110,6 +88,16 @@ public abstract partial class BlockControl : Control
         };
 
         Layout.Calculate();
+    }
+
+    private void CreateControlDisplay()
+    {
+        ControlDisplay = new ControlDisplay
+        {
+            Layout = Layout,
+            ForegroundColor = ForegroundColor,
+            BackgroundColor = BackgroundColor
+        };
     }
 
     /// <summary>

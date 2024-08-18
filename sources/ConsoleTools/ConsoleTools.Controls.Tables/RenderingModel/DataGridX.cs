@@ -19,8 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System.Linq;
-
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 /// <summary>
@@ -31,6 +29,8 @@ internal class DataGridX
 {
     private readonly ItemXCollection rows = new();
     private readonly ColumnXCollection columns = new();
+
+    private int renderItemIndex;
 
     public bool HasBorders
     {
@@ -82,9 +82,47 @@ internal class DataGridX
         columns.PerformLayout();
     }
 
-    public void Render(ITablePrinter tablePrinter)
+    public bool HasMoreLines => renderItemIndex < rows.Count;
+
+    public void InitializeRendering()
     {
-        foreach (IItemX item in rows)
-            item.Render(tablePrinter, columns);
+        renderItemIndex = 0;
+
+        if (renderItemIndex < rows.Count)
+        {
+            IItemX itemX = rows[renderItemIndex];
+            itemX.InitializeRendering(columns);
+        }
+    }
+
+    public void RenderNextLine(ITablePrinter tablePrinter)
+    {
+        IItemX itemX = GetNextItemToRender();
+        itemX?.RenderNextLine(tablePrinter);
+    }
+
+    private IItemX GetNextItemToRender()
+    {
+        bool isNewLine = false;
+
+        while (renderItemIndex < rows.Count)
+        {
+            IItemX itemX = rows[renderItemIndex];
+
+            if (isNewLine)
+                itemX.InitializeRendering(columns);
+
+            if (!itemX.HasMoreLines)
+            {
+                renderItemIndex++;
+                isNewLine = true;
+            }
+            else
+            {
+                return itemX;
+            }
+        }
+
+        return null;
     }
 }

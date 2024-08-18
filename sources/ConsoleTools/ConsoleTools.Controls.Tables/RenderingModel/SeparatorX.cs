@@ -31,6 +31,7 @@ internal class SeparatorX : IItemX
     private List<bool> row1VerticalBorders;
     private List<bool> row2VerticalBorders;
     private int verticalBorderCount;
+    private string line;
 
     public RowX Row1 { get; set; }
 
@@ -42,14 +43,21 @@ internal class SeparatorX : IItemX
 
     public ConsoleColor? BackgroundColor { get; set; }
 
-    public void Render(ITablePrinter tablePrinter, ColumnXCollection columnXCollection)
-    {
-        if (BorderTemplate == null)
-            return;
+    public bool HasMoreLines { get; private set; }
 
-        string line = BuildLine(columnXCollection);
+    public void InitializeRendering(ColumnXCollection columnXCollection)
+    {
+        line = BuildLine(columnXCollection);
+        HasMoreLines = true;
+    }
+
+    public void RenderNextLine(ITablePrinter tablePrinter)
+    {
+        tablePrinter.StartLine();
         tablePrinter.Write(line, ForegroundColor, BackgroundColor);
-        tablePrinter.WriteLine();
+        tablePrinter.EndLine();
+
+        HasMoreLines = false;
     }
 
     private string BuildLine(ColumnXCollection columnXCollection)

@@ -405,39 +405,41 @@ public class DataGrid : BlockControl
     /// <summary>
     /// Renders the current instance into the console.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
-        ConsoleTablePrinter consoleTablePrinter = new()
-        {
-            ForegroundColor = ForegroundColor,
-            BackgroundColor = BackgroundColor
-        };
-        RenderInternal(consoleTablePrinter);
+        //ConsoleDisplay consoleDisplay = new()
+        //{
+        //    Layout = Layout,
+        //    ForegroundColor = ForegroundColor,
+        //    BackgroundColor = BackgroundColor,
+        //    MaxLineLength = int.MaxValue
+        //};
+        RenderInternal(display);
     }
 
     /// <summary>
-    /// Renders the current instance into the specified <see cref="ITablePrinter"/>.
+    /// Renders the current instance into the specified <see cref="IDisplay"/>.
     /// </summary>
-    /// <param name="tablePrinter">The <see cref="ITablePrinter"/> instance used to render the data.</param>
-    public void Render(ITablePrinter tablePrinter)
+    /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
+    public void Render(IDisplay display)
     {
-        RenderInternal(tablePrinter);
+        RenderInternal(display);
     }
 
-    private void RenderInternal(ITablePrinter tablePrinter)
+    private void RenderInternal(IDisplay display)
     {
-        IControlRenderer controlRenderer = GetRenderer();
+        IRenderer renderer = GetRenderer();
 
-        while (controlRenderer.HasMoreLines) 
-            controlRenderer.RenderNextLine(tablePrinter);
-        
-        tablePrinter.Flush();
+        while (renderer.HasMoreLines)
+            renderer.RenderNextLine(display);
+
+        display.Flush();
     }
 
     /// <summary>
-    /// Creates a new <see cref="IControlRenderer"/> for the current instance.
+    /// Creates a new <see cref="IRenderer"/> for the current instance.
     /// </summary>
-    public IControlRenderer GetRenderer()
+    public override IRenderer GetRenderer()
     {
         return new DataGridRenderer(this);
     }
@@ -448,10 +450,23 @@ public class DataGrid : BlockControl
     /// <returns>The string representation of the current instance.</returns>
     public override string ToString()
     {
-        StringTablePrinter tablePrinter = new();
-        RenderInternal(tablePrinter);
+        ControlLayout controlLayout = new()
+        {
+            Control = this,
+            DesiredContentWidth = DesiredContentWidth
+        };
+        controlLayout.Calculate();
 
-        return tablePrinter.ToString();
+        StringDisplay display = new()
+        {
+            Layout = controlLayout,
+            ForegroundColor = ForegroundColor,
+            BackgroundColor = BackgroundColor,
+            MaxLineLength = int.MaxValue
+        };
+        RenderInternal(display);
+
+        return display.ToString();
     }
 
     /// <summary>

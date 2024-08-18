@@ -16,12 +16,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
-internal class StringLinesTablePrinter : ITablePrinter
+internal class StringLinesDisplay : IDisplay
 {
     private readonly List<string> lines = new();
 
@@ -37,6 +36,8 @@ internal class StringLinesTablePrinter : ITablePrinter
     /// This property is ignored.
     /// </summary>
     public ConsoleColor? BackgroundColor { get; set; }
+
+    public int LineCount => lines.Count;
 
     /// <summary>
     /// It is not used by the current instance.
@@ -78,6 +79,13 @@ internal class StringLinesTablePrinter : ITablePrinter
         }
     }
 
+    public void WriteLine(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
+    {
+        StartLine();
+        Write(text, foregroundColor, backgroundColor);
+        EndLine();
+    }
+
     public void Flush()
     {
         if (buffer.Length <= 0)
@@ -91,9 +99,9 @@ internal class StringLinesTablePrinter : ITablePrinter
         shouldReplaceLastLine = true;
     }
 
-    public ITablePrinter CreateChild()
+    public IDisplay CreateChild()
     {
-        return new StringTablePrinter(buffer);
+        return new StringDisplay(buffer);
     }
 
     public IReadOnlyCollection<string> GetLines()

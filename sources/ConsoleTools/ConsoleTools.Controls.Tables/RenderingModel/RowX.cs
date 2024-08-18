@@ -106,47 +106,47 @@ internal class RowX : IItemX
         nextRenderIndex = 0;
     }
 
-    public void RenderNextLine(ITablePrinter tablePrinter)
+    public void RenderNextLine(IDisplay display)
     {
-        tablePrinter.StartLine();
+        display.StartLine();
 
-        RenderRowLeftBorder(tablePrinter);
+        RenderRowLeftBorder(display);
 
         for (int cellIndex = 0; cellIndex < Cells.Count; cellIndex++)
         {
             CellX cellX = Cells[cellIndex];
 
-            cellX.RenderNextLine(tablePrinter);
+            cellX.RenderNextLine(display);
 
             bool isLastCell = cellIndex >= Cells.Count - 1;
 
             if (isLastCell)
-                RenderRowRightBorder(tablePrinter);
+                RenderRowRightBorder(display);
             else
-                RenderRowInsideBorder(tablePrinter);
+                RenderRowInsideBorder(display);
         }
 
-        tablePrinter.EndLine();
+        display.EndLine();
 
         nextRenderIndex++;
     }
 
-    private void RenderRowLeftBorder(ITablePrinter tablePrinter)
+    private void RenderRowLeftBorder(IDisplay display)
     {
         if (BorderTemplate != null)
-            tablePrinter.Write(BorderTemplate.Left, BorderForegroundColor, BorderBackgroundColor);
+            display.Write(BorderTemplate.Left, BorderForegroundColor, BorderBackgroundColor);
     }
 
-    private void RenderRowRightBorder(ITablePrinter tablePrinter)
+    private void RenderRowRightBorder(IDisplay display)
     {
         if (BorderTemplate != null)
-            tablePrinter.Write(BorderTemplate.Right, BorderForegroundColor, BorderBackgroundColor);
+            display.Write(BorderTemplate.Right, BorderForegroundColor, BorderBackgroundColor);
     }
 
-    private void RenderRowInsideBorder(ITablePrinter tablePrinter)
+    private void RenderRowInsideBorder(IDisplay display)
     {
         if (BorderTemplate != null)
-            tablePrinter.Write(BorderTemplate.Vertical, BorderForegroundColor, BorderBackgroundColor);
+            display.Write(BorderTemplate.Vertical, BorderForegroundColor, BorderBackgroundColor);
     }
 
 

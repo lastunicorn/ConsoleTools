@@ -116,7 +116,7 @@ internal class CellX
         return contentSize;
     }
 
-    public void RenderNextLine(ITablePrinter tablePrinter)
+    public void RenderNextLine(IDisplay display)
     {
         if (lineEnumerator == null)
             throw new Exception("The cell rendering was not initialized yet.");
@@ -125,6 +125,6 @@ internal class CellX
             ? lineEnumerator.Current
             : new string(' ', ActualSize.Width);
 
-        tablePrinter.Write(content, ForegroundColor, BackgroundColor);
+        display.Write(content, ForegroundColor, BackgroundColor);
     }
 }

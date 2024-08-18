@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables;
+namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Renders the underlying control line by line into the specified <see cref="ITablePrinter"/>.
+/// Renders the underlying control line by line into the specified <see cref="IDisplay"/>.
 /// </summary>
-public interface IControlRenderer
+public interface IRenderer
 {
     /// <summary>
     /// Gets a value specifying if the rendered still has more lines to render.
@@ -27,7 +27,7 @@ public interface IControlRenderer
     bool HasMoreLines { get; }
 
     /// <summary>
-    /// Renders the next line into the specified <see cref="ITablePrinter"/>.
+    /// Renders the next line into the specified <see cref="IDisplay"/>.
     /// </summary>
-    void RenderNextLine(ITablePrinter tablePrinter);
+    void RenderNextLine(IDisplay display);
 }

@@ -39,7 +39,7 @@ public class ControlLayout
     /// <summary>
     /// Gets or sets the available width in which the control can be displayed.
     /// </summary>
-    public int AvailableWidth { get; set; }
+    public int? AvailableWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the horizontal alignment of the content.
@@ -225,7 +225,7 @@ public class ControlLayout
     {
         // Calculate max widths.
 
-        int calculatedMaxFullWidth = AvailableWidth;
+        int calculatedMaxFullWidth = AvailableWidth ?? DesiredContentWidth ?? 0;
         int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
         int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
 
@@ -265,34 +265,28 @@ public class ControlLayout
             {
                 return DesiredContentWidth;
             }
-            else
-            {
-                int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+            int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
-                return DesiredContentWidth == null
-                    ? clientMaxWidth
-                    : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
-            }
+            return DesiredContentWidth == null
+                ? clientMaxWidth
+                : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
+        }
+        if (Control.MaxWidth == null)
+        {
+            int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+            return DesiredContentWidth == null
+                ? clientMinWidth
+                : Math.Max(clientMinWidth, DesiredContentWidth.Value);
         }
         else
         {
-            if (Control.MaxWidth == null)
-            {
-                int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+            int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+            int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
-                return DesiredContentWidth == null
-                    ? clientMinWidth
-                    : Math.Max(clientMinWidth, DesiredContentWidth.Value);
-            }
-            else
-            {
-                int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-                int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
-
-                return DesiredContentWidth == null
-                    ? clientMinWidth
-                    : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
-            }
+            return DesiredContentWidth == null
+                ? clientMinWidth
+                : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
         }
     }
 
@@ -331,7 +325,9 @@ public class ControlLayout
 
     private void CalculateOuterEmptySpace()
     {
-        int outerEmptySpaceTotal = AvailableWidth - ActualFullWidth;
+        int outerEmptySpaceTotal = AvailableWidth.HasValue
+            ? AvailableWidth.Value - ActualFullWidth
+            : 0;
 
         switch (calculatedHorizontalAlignment)
         {

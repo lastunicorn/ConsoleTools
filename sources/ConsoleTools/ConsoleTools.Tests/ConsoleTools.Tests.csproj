@@ -34,7 +34,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
+      <None Remove="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\02-preserveoverflow.txt" />
@@ -492,7 +492,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Controls\Tables\Printers\StreamTablePrinterTests.Resources\01-full-table.txt" />
+      <EmbeddedResource Include="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\02-preserveoverflow.txt" />

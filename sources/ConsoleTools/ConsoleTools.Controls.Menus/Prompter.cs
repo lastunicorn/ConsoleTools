@@ -135,7 +135,7 @@ public class Prompter : BlockControl, IRepeatableSupport
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         bool success = false;
 
@@ -143,13 +143,13 @@ public class Prompter : BlockControl, IRepeatableSupport
         {
             WriteLeftMargin();
 
-            display.StartRow();
+            display.StartLine();
             string text = TextFormat == null
                 ? Text
                 : string.Format(TextFormat, Text);
             CustomConsole.Write(text);
             success = ReadUserInput();
-            display.EndRow();
+            display.EndLine();
 
             WriteRightMargin();
         }
@@ -220,6 +220,11 @@ public class Prompter : BlockControl, IRepeatableSupport
             if (!isHandled)
                 UnhandledItemCommand?.Execute(LastCommand);
         }
+    }
+
+    public override IRenderer GetRenderer()
+    {
+        throw new NotImplementedException();
     }
 
     private bool AnnounceNewCommand()

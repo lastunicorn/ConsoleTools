@@ -68,7 +68,7 @@ public class ControlRepeater : BlockControl
     /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
     /// until the <see cref="RequestClose"/> method is called.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         isRunning = true;
         try

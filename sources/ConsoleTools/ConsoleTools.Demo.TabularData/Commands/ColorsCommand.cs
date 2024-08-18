@@ -42,7 +42,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             DataGrid dataGrid = CreateTable();
             dataGrid.Title = "No colors";
 
-            dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
+            dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.IsVisible = true;
@@ -59,8 +59,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
 
             dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
 
-            dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.ForegroundColor = ConsoleColor.DarkGreen;
+            dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            dataGrid.BorderForegroundColor = ConsoleColor.DarkGreen;
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
@@ -80,8 +80,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
             dataGrid.TitleRow.BackgroundColor = ConsoleColor.DarkYellow;
 
-            dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.ForegroundColor = ConsoleColor.DarkGreen;
+            dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            dataGrid.BorderForegroundColor = ConsoleColor.DarkGreen;
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;
@@ -102,9 +102,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData.Commands
             dataGrid.TitleRow.ForegroundColor = ConsoleColor.Yellow;
             dataGrid.TitleRow.BackgroundColor = ConsoleColor.DarkYellow;
 
-            dataGrid.Border.Template = BorderTemplate.SingleLineBorderTemplate;
-            dataGrid.Border.ForegroundColor = ConsoleColor.DarkGreen;
-            dataGrid.Border.BackgroundColor = ConsoleColor.White;
+            dataGrid.BorderTemplate = BorderTemplate.SingleLineBorderTemplate;
+            dataGrid.BorderForegroundColor = ConsoleColor.DarkGreen;
+            dataGrid.BorderBackgroundColor = ConsoleColor.White;
             dataGrid.DisplayBorderBetweenRows = true;
 
             dataGrid.HeaderRow.ForegroundColor = ConsoleColor.DarkYellow;

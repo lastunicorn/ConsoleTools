@@ -51,7 +51,7 @@ public abstract class ErasableControl : BlockControl
     /// When implemented by an inheritor it displays the content of the control to the console.
     /// The inheritor must also calculate and set the <see cref="InnerSize"/> property.
     /// </summary>
-    protected abstract override void DoDisplayContent(ControlDisplay display);
+    protected abstract override void DoDisplayContent(IDisplay display);
 
     /// <summary>
     /// Method called at the very end, after all the control was displayed.
@@ -59,7 +59,7 @@ public abstract class ErasableControl : BlockControl
     /// </summary>
     protected override void OnAfterDisplay()
     {
-        if (EraseAfterClose && ControlDisplay.RowCount > 0)
+        if (EraseAfterClose && ControlDisplay.LineCount > 0)
             EraseControl();
 
         base.OnAfterDisplay();
@@ -69,7 +69,7 @@ public abstract class ErasableControl : BlockControl
     {
         string emptyLine = new(' ', Console.BufferWidth);
 
-        int outerHeight = Margin.Top + ControlDisplay.RowCount + Margin.Bottom;
+        int outerHeight = Margin.Top + ControlDisplay.LineCount + Margin.Bottom;
 
         Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
 

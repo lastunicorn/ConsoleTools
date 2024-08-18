@@ -14,24 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
+namespace DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables;
-
-internal class DataGridRenderer : IRenderer
+/// <summary>
+/// Exposes a <see cref="IRenderer"/> instance that can render the current instance into
+/// an output.
+/// </summary>
+public interface IRenderable
 {
-    private readonly DataGridX dataGridX;
-
-    public bool HasMoreLines => dataGridX.HasMoreLines;
-
-    public DataGridRenderer(DataGrid dataGrid)
-    {
-        dataGridX = new DataGridXBuilder(dataGrid).Build();
-        dataGridX.InitializeRendering();
-    }
-
-    public void RenderNextLine(IDisplay display)
-    {
-        dataGridX.RenderNextLine(display);
-    }
+    /// <summary>
+    /// Creates a new <see cref="IRenderer"/> for the current instance.
+    /// </summary>
+    IRenderer GetRenderer();
 }

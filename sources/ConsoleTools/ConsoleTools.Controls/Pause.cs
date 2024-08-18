@@ -59,7 +59,7 @@ public class Pause : ErasableControl
     /// <summary>
     /// Displays the pause text and waits for the user to press a key.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         if (Text == null)
             return;
@@ -72,7 +72,7 @@ public class Pause : ErasableControl
         {
             lastLineLength = line.Length;
 
-            display.WriteRow(line);
+            display.WriteLine(line);
         }
     }
 

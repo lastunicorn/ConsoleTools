@@ -21,13 +21,13 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables;
+namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// The implementors of this interface represent the target where a <see cref="DataGrid"/> is rendered.
-/// They provide methods to sequentially render the parts of the <see cref="DataGrid"/> instance.
+/// The implementors of this interface represent the target where a <see cref="Control"/> is rendered.
+/// They provide methods to sequentially render the parts of the <see cref="Control"/> instance.
 /// </summary>
-public interface ITablePrinter
+public interface IDisplay
 {
     /// <summary>
     /// Gets or sets the foreground color used to write the text.
@@ -41,6 +41,8 @@ public interface ITablePrinter
     /// </summary>
     ConsoleColor? BackgroundColor { get; set; }
 
+    int LineCount { get; }
+
     /// <summary>
     /// Writes the left empty space, left margin and left padding.
     /// </summary>
@@ -49,17 +51,25 @@ public interface ITablePrinter
     /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
-    void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
     /// <summary>
     /// Writes the specified text, using the specified colors.
     /// </summary>
-    void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
     /// <summary>
     /// Writes the right padding, right margin and right empty space.
     /// </summary>
     void EndLine();
+
+    /// <summary>
+    /// Writes an entire row including necessary empty space, margins and paddings.
+    /// </summary>
+    /// <param name="text">The text to be included in the row.</param>
+    /// <param name="foregroundColor"></param>
+    /// <param name="backgroundColor"></param>
+    void WriteLine(string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
     /// <summary>
     /// Writes all the buffered data into the output.
@@ -71,5 +81,5 @@ public interface ITablePrinter
     /// current instance.
     /// </summary>
     /// <returns>The newly created instance.</returns>
-    ITablePrinter CreateChild();
+    IDisplay CreateChild();
 }

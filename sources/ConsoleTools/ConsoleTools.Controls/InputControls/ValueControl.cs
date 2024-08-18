@@ -128,7 +128,7 @@ public class ValueControl<T> : BlockControl
     /// <summary>
     /// Displays the label and waits for the user to provide a value.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         switch (ReadWriteMode)
         {
@@ -196,9 +196,9 @@ public class ValueControl<T> : BlockControl
         }
     }
 
-    private void WriteValue(ControlDisplay display)
+    private void WriteValue(IDisplay display)
     {
-        display.WriteRow(Value?.ToString());
+        display.WriteLine(Value?.ToString());
     }
 
     private void DisplayLabel()

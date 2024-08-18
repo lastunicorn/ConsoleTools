@@ -56,11 +56,11 @@ public class HorizontalLine : BlockControl
     /// <summary>
     /// Displays the horizontal line.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         int actualContentWidth = Layout.ActualContentWidth;
         string text = new(Character, actualContentWidth);
-        display.WriteRow(text);
+        display.WriteLine(text);
     }
 
     /// <summary>

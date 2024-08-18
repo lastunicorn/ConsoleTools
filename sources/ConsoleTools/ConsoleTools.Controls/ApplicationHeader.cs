@@ -85,7 +85,7 @@ public class ApplicationHeader : BlockControl
     /// Can be overwritten in order to fully control what is displayed.
     /// </summary>
     /// <param name="display">This instance can be used in order to interact with the console.</param>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         Version version = applicationInformation.GetVersion();
 
@@ -103,12 +103,12 @@ public class ApplicationHeader : BlockControl
             titleRowText.Append(version.ToString(3));
         }
 
-        display.StartRow();
+        display.StartLine();
         display.Write(titleRowText.ToString());
         Console.WriteLine();
 
         if (ShowSeparator)
-            display.WriteRow(new string('=', Console.WindowWidth - 1));
+            display.WriteLine(new string('=', Console.WindowWidth - 1));
     }
 
     private string BuildTitle()
@@ -125,5 +125,10 @@ public class ApplicationHeader : BlockControl
     protected virtual void OnTitleDisplay(TitleDisplayEventArgs e)
     {
         TitleDisplay?.Invoke(this, e);
+    }
+
+    public override IRenderer GetRenderer()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -26,7 +26,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// <summary>
 /// Provides base functionality for a control.
 /// </summary>
-public abstract class Control
+public abstract class Control : IRenderable
 {
     private bool originalCursorVisibility;
 
@@ -122,5 +122,10 @@ public abstract class Control
     public virtual Size CalculateNaturalSize()
     {
         return Size.Empty;
+    }
+
+    public virtual IRenderer GetRenderer()
+    {
+        throw new NotImplementedException();
     }
 }

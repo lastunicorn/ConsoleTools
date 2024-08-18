@@ -95,10 +95,10 @@ internal class DataGridX
         }
     }
 
-    public void RenderNextLine(ITablePrinter tablePrinter)
+    public void RenderNextLine(IDisplay display)
     {
         IItemX itemX = GetNextItemToRender();
-        itemX?.RenderNextLine(tablePrinter);
+        itemX?.RenderNextLine(display);
     }
 
     private IItemX GetNextItemToRender()

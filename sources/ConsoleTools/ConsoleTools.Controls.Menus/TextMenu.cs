@@ -179,7 +179,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         if (TitleText != null)
             DrawTitle(display);
@@ -188,32 +188,33 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         ReadUserSelection(display);
     }
 
-    private void DrawTitle(ControlDisplay display)
+    private void DrawTitle(IDisplay display)
     {
-        display.WriteRow(TitleText);
-        display.WriteRow();
-        display.WriteRow();
+        display.WriteLine(TitleText);
+        display.WriteLine();
+        display.WriteLine();
 
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DrawMenu(ControlDisplay display)
+    private void DrawMenu(IDisplay display)
     {
         IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
             .Where(x => x.IsVisible);
 
         foreach (TextMenuItem menuItem in menuItemsToDisplay)
         {
+            display.StartLine();
             menuItem.Display();
-            display.WriteRow();
+            display.EndLine();
 
             //InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
         }
     }
 
-    private void ReadUserSelection(ControlDisplay display)
+    private void ReadUserSelection(IDisplay display)
     {
-        display.WriteRow();
+        display.WriteLine();
         //Console.WriteLine();
         //InnerSize = InnerSize.InflateHeight(1);
 
@@ -266,10 +267,10 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(questionHeight);
     }
 
-    private void DisplayInvalidOptionWarning(ControlDisplay display)
+    private void DisplayInvalidOptionWarning(IDisplay display)
     {
-        display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, InvalidOptionText);
-        display.WriteRow();
+        display.WriteLine(InvalidOptionText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
+        display.WriteLine();
 
         //CustomConsole.WriteLineWarning(InvalidOptionText);
         //Console.WriteLine();
@@ -277,10 +278,10 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DisplayDisabledItemWarning(ControlDisplay display)
+    private void DisplayDisabledItemWarning(IDisplay display)
     {
-        display.WriteRow(CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor, OptionDisabledText);
-        display.WriteRow();
+        display.WriteLine(OptionDisabledText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
+        display.WriteLine();
 
         //CustomConsole.WriteLineWarning(OptionDisabledText);
         //Console.WriteLine();

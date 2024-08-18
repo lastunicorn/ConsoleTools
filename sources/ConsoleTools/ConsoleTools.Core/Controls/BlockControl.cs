@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -35,7 +36,7 @@ public abstract partial class BlockControl : Control
     /// Gets an instance that represents the display available for the control to write on.
     /// It also provides helper methods to write partial or entire rows.
     /// </summary>
-    protected ControlDisplay ControlDisplay { get; private set; }
+    protected IDisplay ControlDisplay { get; private set; }
 
     /// <summary>
     /// Gets the calculated layout for the current instance.
@@ -92,16 +93,24 @@ public abstract partial class BlockControl : Control
 
     private void CreateControlDisplay()
     {
-        ControlDisplay = new ControlDisplay
+        //ControlDisplay = new ControlDisplay
+        //{
+        //    Layout = Layout,
+        //    ForegroundColor = ForegroundColor,
+        //    BackgroundColor = BackgroundColor
+        //};
+
+        ControlDisplay = new ConsoleDisplay()
         {
             Layout = Layout,
             ForegroundColor = ForegroundColor,
-            BackgroundColor = BackgroundColor
+            BackgroundColor = BackgroundColor,
+            MaxLineLength = int.MaxValue
         };
     }
 
     /// <summary>
     /// When implemented by an inheritor, it displays the content of the control to the console.
     /// </summary>
-    protected abstract void DoDisplayContent(ControlDisplay display);
+    protected abstract void DoDisplayContent(IDisplay display);
 }

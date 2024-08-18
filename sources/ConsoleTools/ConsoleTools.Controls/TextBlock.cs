@@ -61,7 +61,7 @@ public class TextBlock : BlockControl
     /// <summary>
     /// Displays the lines of text together with the left and right margins.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         if (Text == null)
             return;
@@ -69,7 +69,7 @@ public class TextBlock : BlockControl
         IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CutChar);
 
         foreach (string chunk in chunks)
-            display.WriteRow(chunk);
+            display.WriteLine(chunk);
     }
 
     //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;

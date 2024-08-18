@@ -75,7 +75,7 @@ partial class BlockControl
         string text = new(' ', Layout.ActualContentWidth);
 
         for (int i = 0; i < Layout.PaddingTop; i++)
-            ControlDisplay.WriteRow(text);
+            ControlDisplay.WriteLine(text);
     }
 
     private void WriteBottomPadding()
@@ -86,7 +86,7 @@ partial class BlockControl
         string text = new(' ', Layout.ActualContentWidth);
 
         for (int i = 0; i < Layout.PaddingBottom; i++)
-            ControlDisplay.WriteRow(text);
+            ControlDisplay.WriteLine(text);
     }
 
     /// <summary>

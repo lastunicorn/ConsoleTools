@@ -51,11 +51,11 @@ internal class SeparatorX : IItemX
         HasMoreLines = true;
     }
 
-    public void RenderNextLine(ITablePrinter tablePrinter)
+    public void RenderNextLine(IDisplay display)
     {
-        tablePrinter.StartLine();
-        tablePrinter.Write(line, ForegroundColor, BackgroundColor);
-        tablePrinter.EndLine();
+        display.StartLine();
+        display.Write(line, ForegroundColor, BackgroundColor);
+        display.EndLine();
 
         HasMoreLines = false;
     }

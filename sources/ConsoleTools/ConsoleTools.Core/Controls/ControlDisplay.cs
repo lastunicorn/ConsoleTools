@@ -61,9 +61,9 @@ public class ControlDisplay
     /// The left and right margins and paddings are added automatically.
     /// </summary>
     /// <param name="text">The text to be written as the content of th row.</param>
-    public void WriteRow(string text)
+    public void WriteLine(string text)
     {
-        WriteRow(ForegroundColor, BackgroundColor, text);
+        WriteLine(ForegroundColor, BackgroundColor, text);
     }
 
     /// <summary>
@@ -73,21 +73,21 @@ public class ControlDisplay
     /// <param name="backgroundColor">The background color to be used for the content of the row.</param>
     /// <param name="foregroundColor">The foreground color to be used for the content of the row.</param>
     /// <param name="text">The text representing the content of th row.</param>
-    public void WriteRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
+    public void WriteLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, string text)
     {
-        StartRow(foregroundColor, backgroundColor);
+        StartLine(foregroundColor, backgroundColor);
         Write(text);
-        EndRow();
+        EndLine();
     }
 
     /// <summary>
     /// Writes an empty row.
     /// The left and right margins and paddings are added automatically.
     /// </summary>
-    public void WriteRow()
+    public void WriteLine()
     {
-        StartRow();
-        EndRow();
+        StartLine();
+        EndLine();
     }
 
     /// <summary>
@@ -95,16 +95,16 @@ public class ControlDisplay
     /// and <see cref="BackgroundColor"/> values.
     /// It includes the left margin and padding.
     /// </summary>
-    public void StartRow()
+    public void StartLine()
     {
-        StartRow(ForegroundColor, BackgroundColor);
+        StartLine(ForegroundColor, BackgroundColor);
     }
 
     /// <summary>
     /// Writes the starting of a row using the specified foreground and background values.
     /// It includes the left margin and padding.
     /// </summary>
-    public void StartRow(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void StartLine(ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         WriteOuterLeftEmptySpace();
         WriteLeftMargin();
@@ -149,7 +149,7 @@ public class ControlDisplay
     /// Writes the ending of a row.
     /// It includes the right margin and padding.
     /// </summary>
-    public void EndRow()
+    public void EndLine()
     {
         FillContentEmptySpace();
         WriteRightPadding();

@@ -16,6 +16,7 @@
 
 using System;
 using System.IO;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 using FluentAssertions;
@@ -24,27 +25,42 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.Tables.Printers;
 
 [TestFixture]
-public class StreamTablePrinterTests : TestsBase
+public class StreamDisplayTests : TestsBase
 {
     [Test]
     public void HavingDataGrid_WhenRenderedIntoStreamTablePrinter_ThenAllTableIsRendered()
     {
         DataGrid dataGrid = CreateDummyDataGrid();
 
-        using MemoryStream memoryStream = new();
+        StreamDisplay streamDisplay = CreateDisplayFor(dataGrid);
+        dataGrid.Render(streamDisplay);
 
-        StreamTablePrinter streamTablePrinter = new(memoryStream);
-        dataGrid.Render(streamTablePrinter);
+        streamDisplay.Stream.Position = 0;
 
-        memoryStream.Position = 0;
-
-        StreamReader streamReader = new(memoryStream);
+        StreamReader streamReader = new(streamDisplay.Stream);
         string renderedContent = streamReader.ReadToEnd();
 
         Console.WriteLine(renderedContent);
 
         string expectedContent = GetResourceFileContent("01-full-table.txt");
         renderedContent.Should().Be(expectedContent);
+    }
+
+    private static StreamDisplay CreateDisplayFor(DataGrid dataGrid)
+    {
+        MemoryStream memoryStream = new();
+
+        ControlLayout controlLayout = new()
+        {
+            Control = dataGrid
+        };
+
+        StreamDisplay streamDisplay = new(memoryStream)
+        {
+            Layout = controlLayout,
+            MaxLineLength = int.MaxValue
+        };
+        return streamDisplay;
     }
 
     private static DataGrid CreateDummyDataGrid()

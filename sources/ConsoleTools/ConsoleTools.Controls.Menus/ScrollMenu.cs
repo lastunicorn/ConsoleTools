@@ -176,7 +176,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(ControlDisplay display)
+    protected override void DoDisplayContent(IDisplay display)
     {
         menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 

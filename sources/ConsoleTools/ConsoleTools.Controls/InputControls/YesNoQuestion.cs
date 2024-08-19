@@ -151,7 +151,7 @@ public class YesNoQuestion : BlockControl
     /// <summary> 
     /// Displays the question to the user and waits for the answer.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
     {
         if (QuestionText != null)
             DisplayQuestion();

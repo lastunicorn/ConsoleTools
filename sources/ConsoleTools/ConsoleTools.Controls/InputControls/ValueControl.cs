@@ -128,7 +128,7 @@ public class ValueControl<T> : BlockControl
     /// <summary>
     /// Displays the label and waits for the user to provide a value.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
     {
         switch (ReadWriteMode)
         {

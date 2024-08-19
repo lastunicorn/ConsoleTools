@@ -403,45 +403,11 @@ public class DataGrid : BlockControl
     }
 
     /// <summary>
-    /// Renders the current instance into the console.
-    /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
-    {
-        //ConsoleDisplay consoleDisplay = new()
-        //{
-        //    Layout = Layout,
-        //    ForegroundColor = ForegroundColor,
-        //    BackgroundColor = BackgroundColor,
-        //    MaxLineLength = int.MaxValue
-        //};
-        RenderInternal(display);
-    }
-
-    /// <summary>
-    /// Renders the current instance into the specified <see cref="IDisplay"/>.
-    /// </summary>
-    /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
-    public void Render(IDisplay display)
-    {
-        RenderInternal(display);
-    }
-
-    private void RenderInternal(IDisplay display)
-    {
-        IRenderer renderer = GetRenderer();
-
-        while (renderer.HasMoreLines)
-            renderer.RenderNextLine(display);
-
-        display.Flush();
-    }
-
-    /// <summary>
     /// Creates a new <see cref="IRenderer"/> for the current instance.
     /// </summary>
-    public override IRenderer GetRenderer()
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
     {
-        return new DataGridRenderer(this);
+        return new DataGridRenderer(this, renderingOptions);
     }
 
     /// <summary>
@@ -450,21 +416,8 @@ public class DataGrid : BlockControl
     /// <returns>The string representation of the current instance.</returns>
     public override string ToString()
     {
-        ControlLayout controlLayout = new()
-        {
-            Control = this,
-            DesiredContentWidth = DesiredContentWidth
-        };
-        controlLayout.Calculate();
-
-        StringDisplay display = new()
-        {
-            Layout = controlLayout,
-            ForegroundColor = ForegroundColor,
-            BackgroundColor = BackgroundColor,
-            MaxLineLength = int.MaxValue
-        };
-        RenderInternal(display);
+        StringDisplay display = new();
+        DoDisplayContent(display);
 
         return display.ToString();
     }

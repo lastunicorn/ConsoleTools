@@ -71,27 +71,32 @@ public abstract class Control : IRenderable
     {
         OnBeforeDisplay();
 
-        if (CursorVisibility.HasValue)
+        try
         {
-            originalCursorVisibility = Console.CursorVisible;
-            Console.CursorVisible = CursorVisibility.Value;
+            if (CursorVisibility.HasValue)
+            {
+                originalCursorVisibility = Console.CursorVisible;
+                Console.CursorVisible = CursorVisibility.Value;
 
-            try
+                try
+                {
+                    DoDisplay();
+                }
+                finally
+                {
+                    if (RestoreCursorVisibilityAfterDisplay)
+                        Console.CursorVisible = originalCursorVisibility;
+                }
+            }
+            else
             {
                 DoDisplay();
             }
-            finally
-            {
-                if (RestoreCursorVisibilityAfterDisplay)
-                    Console.CursorVisible = originalCursorVisibility;
-            }
         }
-        else
+        finally
         {
-            DoDisplay();
+            OnAfterDisplay();
         }
-
-        OnAfterDisplay();
     }
 
     /// <summary>
@@ -124,8 +129,29 @@ public abstract class Control : IRenderable
         return Size.Empty;
     }
 
-    public virtual IRenderer GetRenderer()
+    /// <summary>
+    /// Returns a renderer object that is able to render the current <see cref="Control"/>
+    /// instance into a provided <see cref="IDisplay"/>.
+    /// </summary>
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
+    public virtual IRenderer GetRenderer(RenderingOptions renderingOptions = null)
     {
+        // todo: make this method abstract.
+
         throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Renders the current instance into the specified <see cref="IDisplay"/>.
+    /// </summary>
+    /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
+    public void Render(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        IRenderer renderer = GetRenderer(renderingOptions);
+
+        while (renderer.HasMoreLines)
+            renderer.RenderNextLine(display);
+
+        display.Flush();
     }
 }

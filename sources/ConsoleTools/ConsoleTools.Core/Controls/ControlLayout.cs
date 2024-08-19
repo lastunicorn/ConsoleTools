@@ -29,6 +29,9 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// </summary>
 public class ControlLayout
 {
+    private Size maxAllowedSize; // including margins and paddings
+    private Size actualSize; // including margins and paddings
+
     private HorizontalAlignment calculatedHorizontalAlignment;
 
     /// <summary>
@@ -41,6 +44,8 @@ public class ControlLayout
     /// </summary>
     public int? AvailableWidth { get; set; }
 
+    public int? AvailableHeight { get; set; }
+
     /// <summary>
     /// Gets or sets the horizontal alignment of the content.
     /// It is used to calculate the left and right empty space around the content.
@@ -52,45 +57,19 @@ public class ControlLayout
     /// </summary>
     public int? DesiredContentWidth { get; set; }
 
-    /// <summary>
-    /// Gets the calculated thickness of the left margin.
-    /// </summary>
-    public int MarginLeft { get; private set; }
+    public Thickness EmptySpace { get; set; }
 
     /// <summary>
-    /// Gets the calculated thickness of the right margin.
+    /// Gets the calculated margin.
     /// </summary>
-    public int MarginRight { get; private set; }
+    public Thickness Margin { get; private set; }
 
     /// <summary>
-    /// Gets the calculated thickness of the top margin.
+    /// Gets the calculated padding.
     /// </summary>
-    public int MarginTop { get; private set; }
+    public Thickness Padding { get; private set; }
 
-    /// <summary>
-    /// Gets the calculated thickness of the bottom margin.
-    /// </summary>
-    public int MarginBottom { get; private set; }
-
-    /// <summary>
-    /// Gets the calculated thickness of the left padding.
-    /// </summary>
-    public int PaddingLeft { get; private set; }
-
-    /// <summary>
-    /// Gets the calculated thickness of the right padding.
-    /// </summary>
-    public int PaddingRight { get; private set; }
-
-    /// <summary>
-    /// Gets the calculated thickness of the top padding.
-    /// </summary>
-    public int PaddingTop { get; private set; }
-
-    /// <summary>
-    /// Gets the calculated thickness of the bottom padding.
-    /// </summary>
-    public int PaddingBottom { get; private set; }
+    public Size ContentSize { get; set; }
 
     /// <summary>
     /// Gets the actual calculated width of the control including the left and right margins.
@@ -98,7 +77,7 @@ public class ControlLayout
     /// <remarks>
     /// This value is equal to the available width if the control is stretched.
     /// </remarks>
-    public int ActualFullWidth { get; private set; }
+    public int ActualFullWidth => ContentSize.Width + Margin.Left + Margin.Right + Padding.Left + Padding.Right;
 
     /// <summary>
     /// Gets the actual calculated width of the control without the left and right margins.
@@ -115,70 +94,87 @@ public class ControlLayout
     /// </summary>
     public int ActualContentWidth { get; private set; }
 
-    /// <summary>
-    /// Gets the empty space at the left of the content.
-    /// </summary>
-    public int InnerEmptySpaceLeft { get; private set; }
+    ///// <summary>
+    ///// Gets the empty space at the left of the content.
+    ///// </summary>
+    //public int InnerEmptySpaceLeft { get; private set; }
 
-    /// <summary>
-    /// Gets the empty space at the right of the content.
-    /// </summary>
-    public int InnerEmptySpaceRight { get; private set; }
+    ///// <summary>
+    ///// Gets the empty space at the right of the content.
+    ///// </summary>
+    //public int InnerEmptySpaceRight { get; private set; }
 
-    /// <summary>
-    /// Gets the empty space at the left of the control.
-    /// This may be greater than 0 when the control is centered on the screen or aligned to the right.
-    /// </summary>
-    public int OuterEmptySpaceLeft { get; private set; }
+    ///// <summary>
+    ///// Gets the empty space at the left of the control.
+    ///// This may be greater than 0 when the control is centered on the screen or aligned to the right.
+    ///// </summary>
+    //public int OuterEmptySpaceLeft { get; private set; }
 
-    /// <summary>
-    /// Gets the empty space at the right of the control.
-    /// This may be greater than 0 when the control is centered on the screen or aligned to the left.
-    /// </summary>
-    public int OuterEmptySpaceRight { get; private set; }
+    ///// <summary>
+    ///// Gets the empty space at the right of the control.
+    ///// This may be greater than 0 when the control is centered on the screen or aligned to the left.
+    ///// </summary>
+    //public int OuterEmptySpaceRight { get; private set; }
 
     /// <summary>
     /// Calculates the position and dimensions of all the parts that must be displayed.
     /// </summary>
     public void Calculate()
     {
+        maxAllowedSize = CalculateMaxAllowedSize();
         CalculateMargins();
         CalculatePaddings();
         calculatedHorizontalAlignment = ComputeHorizontalAlignment();
         CalculateActualWidths();
-        CalculateInnerEmptySpace();
+        //CalculateInnerEmptySpace();
         CalculateOuterEmptySpace();
+    }
+
+    /// <remarks>
+    /// If the control has a MaxWidth restriction, than the maximum allowed width is not the whole
+    /// available space.
+    /// </remarks>>
+    private Size CalculateMaxAllowedSize()
+    {
+        int width;
+
+        if (Control.MaxWidth == null)
+        {
+            width = AvailableWidth ?? int.MaxValue;
+        }
+        else
+        {
+            width = AvailableWidth == null
+                ? Control.MaxWidth.Value
+                : Math.Min(AvailableWidth.Value, Control.MaxWidth.Value);
+        }
+
+        int height = AvailableHeight ?? int.MaxValue;
+
+        return new Size(width, height);
     }
 
     private void CalculateMargins()
     {
-        MarginLeft = Control.Margin.Left;
-        MarginTop = Control.Margin.Top;
-        MarginRight = Control.Margin.Right;
-        MarginBottom = Control.Margin.Bottom;
+        Size remainingAllowedSize = maxAllowedSize - actualSize;
+        ControlActualMargins controlActualMargins = new(Control, remainingAllowedSize);
+        Margin = controlActualMargins.Compute();
+        actualSize += Margin;
     }
 
     private void CalculatePaddings()
     {
-        PaddingLeft = Control.Padding.Left;
-        PaddingTop = Control.Padding.Top;
-        PaddingRight = Control.Padding.Right;
-        PaddingBottom = Control.Padding.Bottom;
+        Size remainingAllowedSize = maxAllowedSize - actualSize;
+        ControlActualPaddings controlActualPaddings = new(Control, remainingAllowedSize);
+        Padding = controlActualPaddings.Compute();
+        actualSize += Padding;
     }
 
     private HorizontalAlignment ComputeHorizontalAlignment()
     {
-        bool widthIsProvided = Control.Width != null || Control.MinWidth != null || Control.MaxWidth != null;
-
-        return widthIsProvided
-            ? ComputeHorizontalAlignment_WhenWidthIsProvided()
-            : ComputeHorizontalAlignment_WhenNoWidthProvided();
-    }
-
-    private HorizontalAlignment ComputeHorizontalAlignment_WhenWidthIsProvided()
-    {
         switch (Control.HorizontalAlignment)
         {
+            case null:
             case HorizontalAlignment.Default:
             case HorizontalAlignment.Left:
                 return HorizontalAlignment.Left;
@@ -190,30 +186,6 @@ public class ControlLayout
                 return HorizontalAlignment.Right;
 
             case HorizontalAlignment.Stretch:
-                return HorizontalAlignment.Left;
-
-            case null:
-                return HorizontalAlignment.Left;
-
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    private HorizontalAlignment ComputeHorizontalAlignment_WhenNoWidthProvided()
-    {
-        switch (Control.HorizontalAlignment)
-        {
-            case HorizontalAlignment.Default:
-                return HorizontalAlignment.Left;
-
-            case HorizontalAlignment.Left:
-            case HorizontalAlignment.Center:
-            case HorizontalAlignment.Right:
-            case HorizontalAlignment.Stretch:
-                return Control.HorizontalAlignment.Value;
-
-            case null:
                 return HorizontalAlignment.Stretch;
 
             default:
@@ -223,35 +195,72 @@ public class ControlLayout
 
     private void CalculateActualWidths()
     {
-        // Calculate max widths.
+        Size remainingAllowedSize = maxAllowedSize - actualSize;
 
-        int calculatedMaxFullWidth = AvailableWidth ?? DesiredContentWidth ?? 0;
-        int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
-        int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
-
-        // Calculate actual widths.
-
-        if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch)
+        if (remainingAllowedSize.Width <= 0)
         {
-            ActualFullWidth = calculatedMaxFullWidth;
-            ActualWidth = calculatedMaxWidth;
-            ActualClientWidth = calculatedMaxContentWidth;
+            ContentSize = Size.Empty;
+            return;
+        }
 
-            int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
-            ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth);
+        if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch && AvailableWidth.HasValue)
+        {
+            int width = maxAllowedSize.Width - Margin.Left - Padding.Left - Padding.Right - Margin.Right;
+            int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
+
+            ContentSize = new Size(width, height);
         }
         else
         {
+            int calculatedMaxFullWidth = AvailableWidth ?? DesiredContentWidth ?? 0;
+            int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
+            int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
+
             int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
 
-            ActualContentWidth = calculatedDesiredContentWidth.HasValue
+            int width = calculatedDesiredContentWidth.HasValue
                 ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth)
                 : calculatedMaxContentWidth;
 
-            ActualClientWidth = ActualContentWidth;
-            ActualWidth = ActualClientWidth + Control.Padding.Left + Control.Padding.Right;
-            ActualFullWidth = ActualWidth + Control.Margin.Left + Control.Margin.Right;
+            int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
+
+            ContentSize = new Size(width, height);
         }
+
+
+
+        // -----------------
+
+
+        //// Calculate max widths.
+
+        //int calculatedMaxFullWidth = AvailableWidth ?? DesiredContentWidth ?? 0;
+        //int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
+        //int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
+
+        //// Calculate actual widths.
+
+        //if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch && AvailableWidth.HasValue)
+        //{
+        //    ActualFullWidth = calculatedMaxFullWidth;
+        //    ActualWidth = calculatedMaxWidth;
+        //    ActualClientWidth = calculatedMaxContentWidth;
+
+        //    int? calculatedDesiredContentWidth = DesiredContentWidth ?? int.MaxValue;
+        //    ActualContentWidth = Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth);
+        //}
+        //else
+        //{
+        //    int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
+
+        //    ActualContentWidth = calculatedDesiredContentWidth.HasValue
+        //        ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth)
+        //        : calculatedMaxContentWidth;
+
+        //    ActualClientWidth = ActualContentWidth;
+        //    ActualWidth = ActualClientWidth + Control.Padding.Left + Control.Padding.Right;
+        //    ActualFullWidth = ActualWidth + Control.Margin.Left + Control.Margin.Right;
+        //}
     }
 
     private int? CalculateDesiredContentWidth()
@@ -290,67 +299,65 @@ public class ControlLayout
         }
     }
 
-    private void CalculateInnerEmptySpace()
-    {
-        int innerEmptySpaceTotal = ActualClientWidth - ActualContentWidth;
+    //private void CalculateInnerEmptySpace()
+    //{
+    //    int innerEmptySpaceTotal = ActualClientWidth - ActualContentWidth;
 
-        switch (ContentHorizontalAlignment)
-        {
-            case HorizontalAlignment.Default:
-            case HorizontalAlignment.Left:
-                InnerEmptySpaceLeft = 0;
-                InnerEmptySpaceRight = innerEmptySpaceTotal;
-                break;
+    //    switch (ContentHorizontalAlignment)
+    //    {
+    //        case HorizontalAlignment.Default:
+    //        case HorizontalAlignment.Left:
+    //            InnerEmptySpaceLeft = 0;
+    //            InnerEmptySpaceRight = innerEmptySpaceTotal;
+    //            break;
 
-            case HorizontalAlignment.Center:
-                double emptySpaceHalf = (double)innerEmptySpaceTotal / 2;
-                InnerEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
-                InnerEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
-                break;
+    //        case HorizontalAlignment.Center:
+    //            double emptySpaceHalf = (double)innerEmptySpaceTotal / 2;
+    //            InnerEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
+    //            InnerEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
+    //            break;
 
-            case HorizontalAlignment.Right:
-                InnerEmptySpaceLeft = innerEmptySpaceTotal;
-                InnerEmptySpaceRight = 0;
-                break;
+    //        case HorizontalAlignment.Right:
+    //            InnerEmptySpaceLeft = innerEmptySpaceTotal;
+    //            InnerEmptySpaceRight = 0;
+    //            break;
 
-            case HorizontalAlignment.Stretch:
-                InnerEmptySpaceLeft = 0;
-                InnerEmptySpaceRight = 0;
-                break;
+    //        case HorizontalAlignment.Stretch:
+    //            InnerEmptySpaceLeft = 0;
+    //            InnerEmptySpaceRight = 0;
+    //            break;
 
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
+    //        default:
+    //            throw new ArgumentOutOfRangeException();
+    //    }
+    //}
 
     private void CalculateOuterEmptySpace()
     {
         int outerEmptySpaceTotal = AvailableWidth.HasValue
-            ? AvailableWidth.Value - ActualFullWidth
+            ? AvailableWidth.Value - actualSize.Width
             : 0;
 
         switch (calculatedHorizontalAlignment)
         {
             case HorizontalAlignment.Default:
             case HorizontalAlignment.Left:
-                OuterEmptySpaceLeft = 0;
-                OuterEmptySpaceRight = outerEmptySpaceTotal;
+                EmptySpace = new Thickness(0, 0, outerEmptySpaceTotal, 0);
                 break;
 
             case HorizontalAlignment.Center:
                 double emptySpaceHalf = (double)outerEmptySpaceTotal / 2;
-                OuterEmptySpaceLeft = (int)Math.Floor(emptySpaceHalf);
-                OuterEmptySpaceRight = (int)Math.Ceiling(emptySpaceHalf);
+                int left = (int)Math.Floor(emptySpaceHalf);
+                int right = (int)Math.Ceiling(emptySpaceHalf);
+                EmptySpace = new Thickness(left, 0, right, 0);
                 break;
 
             case HorizontalAlignment.Right:
-                OuterEmptySpaceLeft = outerEmptySpaceTotal;
-                OuterEmptySpaceRight = 0;
+                EmptySpace = new Thickness(outerEmptySpaceTotal, 0, 0, 0);
                 break;
 
             case HorizontalAlignment.Stretch:
-                OuterEmptySpaceLeft = 0;
-                OuterEmptySpaceRight = 0;
+                EmptySpace = new Thickness(0, 0, 0, 0);
                 break;
 
             default:

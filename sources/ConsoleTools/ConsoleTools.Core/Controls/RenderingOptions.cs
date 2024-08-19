@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,16 +17,13 @@
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Calculates the space needed for each part of the control: margins, paddings, content size,
-/// empty spaces, etc.
+/// Provides options for creating an instance of <see cref="IRenderer"/>.
 /// </summary>
-public class ControlLayout2
+public class RenderingOptions
 {
-    public Thickness EmptySpace { get; set; }
-
-    public Thickness Margin { get; set; }
-
-    public Thickness Padding { get; set; }
-
-    public Size ContentSize { get; set; }
+    /// <summary>
+    /// Gets or sets the available with into which the control should be rendered.
+    /// If <c>null</c> no restriction is imposed. Infinite available space is assumed.
+    /// </summary>
+    public int? AvailableWidth { get; set; }
 }

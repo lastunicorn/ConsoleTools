@@ -19,7 +19,10 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -58,23 +61,19 @@ public class TextBlock : BlockControl
         Text = text;
     }
 
+    public override int DesiredContentWidth => Text?.Size.Width ?? 0;
+
     /// <summary>
-    /// Displays the lines of text together with the left and right margins.
+    /// Returns the string representation of the current instance.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    /// <returns>The string representation of the current instance.</returns>
+    public override string ToString()
     {
-        if (Text == null)
-            return;
+        StringDisplay display = new();
+        DoDisplayContent(display);
 
-        IEnumerable<string> chunks = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CutChar);
-
-        foreach (string chunk in chunks)
-            display.WriteLine(chunk);
+        return display.ToString();
     }
-
-    //protected override int ActualContentHeight => Text?.CalculateSize(ActualContentWidth).Height ?? 0;
-
-    protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Displays the specified text into the console.
@@ -87,5 +86,42 @@ public class TextBlock : BlockControl
             Text = text
         };
         textBlock.Display();
+    }
+
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    {
+        return new TextBlockRenderer(this, renderingOptions);
+    }
+
+    private class TextBlockRenderer : BlockControlRenderer<TextBlock>
+    {
+        private IEnumerator<string> chunksEnumerator;
+
+        public TextBlockRenderer(TextBlock textBlock, RenderingOptions renderingOptions)
+            : base(textBlock, renderingOptions)
+        {
+        }
+
+        protected override bool DoInitializeContentRendering()
+        {
+            if (Control.Text == null)
+            {
+                chunksEnumerator = Enumerable.Empty<string>().GetEnumerator();
+                return false;
+            }
+
+            int contentWidth = ControlLayout.ActualContentWidth;
+            chunksEnumerator = Control.Text.GetLines(contentWidth, OverflowBehavior.CutChar)
+                .GetEnumerator();
+
+            return chunksEnumerator.MoveNext();
+        }
+
+        protected override bool DoRenderNextContentLine(IDisplay display)
+        {
+            display.WriteLine(chunksEnumerator.Current);
+
+            return chunksEnumerator.MoveNext();
+        }
     }
 }

@@ -130,7 +130,7 @@ public class ValueList<T> : BlockControl
     /// The control reads values until the user inserts an empty string.
     /// </summary>
     /// <returns>The list with the values provided by the user.</returns>
-    protected override void DoDisplayContent(IDisplay display)
+    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
     {
         switch (ReadWriteMode)
         {

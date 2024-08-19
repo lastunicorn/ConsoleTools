@@ -25,9 +25,9 @@ public abstract class DisplayBase : IDisplay
 
     public ControlLayout Layout { get; set; }
 
-    public ConsoleColor? ForegroundColor { get; set; }
+    public abstract ConsoleColor ForegroundColor { get; set; }
 
-    public ConsoleColor? BackgroundColor { get; set; }
+    public abstract ConsoleColor BackgroundColor { get; set; }
 
     public int? MaxLineLength { get; set; }
 
@@ -40,9 +40,9 @@ public abstract class DisplayBase : IDisplay
 
     public void StartLine()
     {
-        WriteSpaces(Layout.OuterEmptySpaceLeft, null, null);
-        WriteSpaces(Layout.MarginLeft, null, null);
-        WriteSpaces(Layout.PaddingLeft, null, BackgroundColor);
+        WriteSpaces(Layout.EmptySpace.Left, null, null);
+        WriteSpaces(Layout.Margin.Left, null, null);
+        WriteSpaces(Layout.Padding.Left, null, BackgroundColor);
     }
 
     public void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
@@ -84,11 +84,11 @@ public abstract class DisplayBase : IDisplay
 
     public void EndLine()
     {
-        FillContentEmptySpace();
-        WriteSpaces(Layout.PaddingRight, null, BackgroundColor);
+        //FillContentEmptySpace();
+        WriteSpaces(Layout.Padding.Right, null, BackgroundColor);
 
-        WriteSpaces(Layout.MarginRight, null, null);
-        WriteSpaces(Layout.OuterEmptySpaceRight, null, null);
+        WriteSpaces(Layout.Margin.Right, null, null);
+        //WriteSpaces(Layout.OuterEmptySpaceRight, null, null);
 
         if (isRoot)
             DoWriteRootEndLine();
@@ -104,24 +104,24 @@ public abstract class DisplayBase : IDisplay
         EndLine();
     }
 
-    private void FillContentEmptySpace()
-    {
-        if (Layout == null)
-            return;
+    //private void FillContentEmptySpace()
+    //{
+    //    if (Layout == null)
+    //        return;
 
-        if (currentLineLength >= Layout.ActualFullWidth)
-            return;
+    //    if (currentLineLength >= Layout.ActualFullWidth)
+    //        return;
 
-        int marginRight = Layout.MarginRight;
-        int paddingRight = Layout.PaddingRight;
-        int emptySpaceRight = Layout.ActualFullWidth - currentLineLength - paddingRight - marginRight;
+    //    int marginRight = Layout.Margin.Right;
+    //    int paddingRight = Layout.Padding.Right;
+    //    int emptySpaceRight = Layout.ActualFullWidth - currentLineLength - paddingRight - marginRight;
 
-        if (emptySpaceRight <= 0)
-            return;
+    //    if (emptySpaceRight <= 0)
+    //        return;
 
-        string text = new(' ', emptySpaceRight);
-        DoWrite(text, null, null);
-    }
+    //    string text = new(' ', emptySpaceRight);
+    //    DoWrite(text, null, null);
+    //}
 
     private void WriteSpaces(int count, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
@@ -140,11 +140,11 @@ public abstract class DisplayBase : IDisplay
         }
     }
 
-    protected abstract void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    public abstract void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
-    protected abstract void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+    public abstract void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
 
-    protected abstract void DoWriteRootEndLine();
+    public abstract void DoWriteRootEndLine();
 
     public abstract void Flush();
 

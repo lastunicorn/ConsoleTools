@@ -135,7 +135,7 @@ public class Prompter : BlockControl, IRepeatableSupport
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
     {
         bool success = false;
 
@@ -155,7 +155,16 @@ public class Prompter : BlockControl, IRepeatableSupport
         }
     }
 
-    protected override int DesiredContentWidth => int.MaxValue;
+    public override int DesiredContentWidth => int.MaxValue;
+
+    public override Size CalculateNaturalSize()
+    {
+        string text = TextFormat == null
+            ? Text
+            : string.Format(TextFormat, Text);
+
+        return new Size(text.Length, 1);
+    }
 
     private void WriteLeftMargin()
     {
@@ -222,7 +231,7 @@ public class Prompter : BlockControl, IRepeatableSupport
         }
     }
 
-    public override IRenderer GetRenderer()
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions)
     {
         throw new NotImplementedException();
     }

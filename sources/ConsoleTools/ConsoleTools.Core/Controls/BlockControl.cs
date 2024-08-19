@@ -32,19 +32,19 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// </summary>
 public abstract partial class BlockControl : Control
 {
-    /// <summary>
-    /// Gets an instance that represents the display available for the control to write on.
-    /// It also provides helper methods to write partial or entire rows.
-    /// </summary>
-    protected IDisplay ControlDisplay { get; private set; }
+    ///// <summary>
+    ///// Gets an instance that represents the display available for the control to write on.
+    ///// It also provides helper methods to write partial or entire rows.
+    ///// </summary>
+    //protected IDisplay ControlDisplay { get; private set; }
 
-    /// <summary>
-    /// Gets the calculated layout for the current instance.
-    /// This value is calculated at the beginning of the display process and it is available throughout
-    /// the entire display process.
-    /// Before and after the display has unknown value.
-    /// </summary>
-    protected ControlLayout Layout { get; private set; }
+    ///// <summary>
+    ///// Gets the calculated layout for the current instance.
+    ///// This value is calculated at the beginning of the display process and it is available throughout
+    ///// the entire display process.
+    ///// Before and after the display has unknown value.
+    ///// </summary>
+    //protected ControlLayout Layout { get; private set; }
 
     /// <summary>
     /// Gets or sets a value that specifies who should be considered the parent if none is specified.
@@ -59,18 +59,18 @@ public abstract partial class BlockControl : Control
     /// </summary>
     protected override void DoDisplay()
     {
-        MoveToNextLineIfNecessary();
+        //MoveToNextLineIfNecessary();
 
-        CalculateLayout();
-        CreateControlDisplay();
+        ControlLayout controlLayout = CalculateLayout();
+        IDisplay display = CreateControlDisplay(controlLayout);
 
-        WriteTopMargin();
-        WriteTopPadding();
+        //WriteTopMargin();
+        //WriteTopPadding();
 
-        DoDisplayContent(ControlDisplay);
+        DoDisplayContent(display);
 
-        WriteBottomPadding();
-        WriteBottomMargin();
+        //WriteBottomPadding();
+        //WriteBottomMargin();
     }
 
     private static void MoveToNextLineIfNecessary()
@@ -79,38 +79,48 @@ public abstract partial class BlockControl : Control
             Console.WriteLine();
     }
 
-    private void CalculateLayout()
+    private ControlLayout CalculateLayout()
     {
-        Layout = new ControlLayout
+        ControlLayout layout = new()
         {
             Control = this,
             AvailableWidth = AvailableWidth,
             DesiredContentWidth = DesiredContentWidth
         };
 
-        Layout.Calculate();
+        layout.Calculate();
+
+        return layout;
     }
 
-    private void CreateControlDisplay()
+    private IDisplay CreateControlDisplay(ControlLayout controlLayout)
     {
-        //ControlDisplay = new ControlDisplay
-        //{
-        //    Layout = Layout,
-        //    ForegroundColor = ForegroundColor,
-        //    BackgroundColor = BackgroundColor
-        //};
-
-        ControlDisplay = new ConsoleDisplay()
+        ConsoleDisplay controlDisplay = new()
         {
-            Layout = Layout,
-            ForegroundColor = ForegroundColor,
-            BackgroundColor = BackgroundColor,
-            MaxLineLength = int.MaxValue
+            Layout = controlLayout
         };
+
+        if (ForegroundColor.HasValue)
+            controlDisplay.ForegroundColor = ForegroundColor.Value;
+
+        if (BackgroundColor.HasValue)
+            controlDisplay.BackgroundColor = BackgroundColor.Value;
+
+        return controlDisplay;
     }
 
     /// <summary>
-    /// When implemented by an inheritor, it displays the content of the control to the console.
+    /// Displays the control to the Console.
+    /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
+    /// by the <see cref="Control.GetRenderer"/> method.
     /// </summary>
-    protected abstract void DoDisplayContent(IDisplay display);
+    protected virtual void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        IRenderer renderer = GetRenderer(renderingOptions);
+
+        while (renderer.HasMoreLines)
+            renderer.RenderNextLine(display);
+
+        display.Flush();
+    }
 }

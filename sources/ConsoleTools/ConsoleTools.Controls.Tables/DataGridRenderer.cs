@@ -18,20 +18,32 @@ using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
-internal class DataGridRenderer : IRenderer
+internal class DataGridRenderer : BlockControlRenderer<DataGrid>
 {
-    private readonly DataGridX dataGridX;
+    private DataGridX dataGridX;
 
-    public bool HasMoreLines => dataGridX.HasMoreLines;
-
-    public DataGridRenderer(DataGrid dataGrid)
+    public DataGridRenderer(DataGrid dataGrid, RenderingOptions renderingOptions = null)
+        : base(dataGrid, renderingOptions)
     {
-        dataGridX = new DataGridXBuilder(dataGrid).Build();
-        dataGridX.InitializeRendering();
     }
 
-    public void RenderNextLine(IDisplay display)
+    protected override bool DoInitializeContentRendering()
     {
+        dataGridX = new DataGridXBuilder(Control).Build();
+        dataGridX.InitializeRendering();
+
+        return dataGridX.HasMoreLines;
+    }
+
+    protected override bool DoRenderNextContentLine(IDisplay display)
+    {
+        if (dataGridX == null)
+            return false;
+        
+        StartLine(display);
         dataGridX.RenderNextLine(display);
+        EndLine(display);
+
+        return dataGridX.HasMoreLines;
     }
 }

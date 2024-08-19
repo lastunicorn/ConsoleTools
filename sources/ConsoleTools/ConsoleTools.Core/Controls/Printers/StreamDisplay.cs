@@ -34,6 +34,16 @@ public class StreamDisplay : DisplayBase, IDisposable
     private readonly StreamWriter streamWriter;
 
     /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public override ConsoleColor ForegroundColor { get; set; }
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public override ConsoleColor BackgroundColor { get; set; }
+
+    /// <summary>
     /// Gets the underlying stream into which the data is written.
     /// </summary>
     public Stream Stream => stream;
@@ -56,17 +66,17 @@ public class StreamDisplay : DisplayBase, IDisposable
         this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
     }
 
-    protected override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         streamWriter.Write(c);
     }
 
-    protected override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         streamWriter.Write(text);
     }
 
-    protected override void DoWriteRootEndLine()
+    public override void DoWriteRootEndLine()
     {
         streamWriter.WriteLine();
     }

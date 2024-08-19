@@ -33,13 +33,13 @@ public interface IDisplay
     /// Gets or sets the foreground color used to write the text.
     /// Default value: <c>null</c>
     /// </summary>
-    ConsoleColor? ForegroundColor { get; set; }
+    ConsoleColor ForegroundColor { get; set; }
 
     /// <summary>
     /// Gets or sets the background color used to write the text.
     /// Default value: <c>null</c>
     /// </summary>
-    ConsoleColor? BackgroundColor { get; set; }
+    ConsoleColor BackgroundColor { get; set; }
 
     int LineCount { get; }
 
@@ -82,4 +82,10 @@ public interface IDisplay
     /// </summary>
     /// <returns>The newly created instance.</returns>
     IDisplay CreateChild();
+
+    void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+
+    void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
+
+    void DoWriteRootEndLine();
 }

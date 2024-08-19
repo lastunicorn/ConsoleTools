@@ -45,48 +45,48 @@ partial class BlockControl
     /// </summary>
     public event EventHandler AfterBottomMargin;
 
-    private void WriteTopMargin()
+    private void WriteTopMargin(ControlLayout layout)
     {
         OnBeforeTopMargin();
 
-        if (Layout.MarginTop <= 0)
+        if (layout.Margin.Top <= 0)
             return;
 
-        for (int i = 0; i < Layout.MarginTop; i++)
+        for (int i = 0; i < layout.Margin.Top; i++)
             CustomConsole.WriteLine();
     }
 
-    private void WriteBottomMargin()
+    private void WriteBottomMargin(ControlLayout layout)
     {
-        if (Layout.MarginBottom > 0)
+        if (layout.Margin.Bottom > 0)
         {
-            for (int i = 0; i < Layout.MarginBottom; i++)
+            for (int i = 0; i < layout.Margin.Bottom; i++)
                 CustomConsole.WriteLine();
         }
 
         OnAfterBottomMargin();
     }
 
-    private void WriteTopPadding()
+    private void WriteTopPadding(IDisplay display, ControlLayout layout)
     {
-        if (Layout.PaddingTop <= 0)
+        if (layout.Padding.Top <= 0)
             return;
 
-        string text = new(' ', Layout.ActualContentWidth);
+        string text = new(' ', layout.ContentSize.Width);
 
-        for (int i = 0; i < Layout.PaddingTop; i++)
-            ControlDisplay.WriteLine(text);
+        for (int i = 0; i < layout.Padding.Top; i++)
+            display.WriteLine(text);
     }
 
-    private void WriteBottomPadding()
+    private void WriteBottomPadding(IDisplay display, ControlLayout layout)
     {
-        if (Layout.PaddingBottom <= 0)
+        if (layout.Padding.Bottom <= 0)
             return;
 
-        string text = new(' ', Layout.ActualContentWidth);
+        string text = new(' ', layout.ContentSize.Width);
 
-        for (int i = 0; i < Layout.PaddingBottom; i++)
-            ControlDisplay.WriteLine(text);
+        for (int i = 0; i < layout.Padding.Bottom; i++)
+            display.WriteLine(text);
     }
 
     /// <summary>

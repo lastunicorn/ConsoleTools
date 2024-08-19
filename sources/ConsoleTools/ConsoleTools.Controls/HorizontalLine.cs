@@ -43,7 +43,7 @@ public class HorizontalLine : BlockControl
     /// Gets the <see cref="int.MaxValue"/> value.
     /// The horizontal line is willing to be as wide as necessary.
     /// </summary>
-    protected override int DesiredContentWidth => int.MaxValue;
+    public override int DesiredContentWidth => int.MaxValue;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HorizontalLine"/> class.
@@ -53,14 +53,38 @@ public class HorizontalLine : BlockControl
         Margin = "0 1";
     }
 
-    /// <summary>
-    /// Displays the horizontal line.
-    /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
     {
-        int actualContentWidth = Layout.ActualContentWidth;
-        string text = new(Character, actualContentWidth);
-        display.WriteLine(text);
+        return new HorizontalLineRenderer(this, renderingOptions);
+    }
+
+    internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
+    {
+        private string text;
+
+        public HorizontalLineRenderer(HorizontalLine horizontalLine, RenderingOptions renderingOptions)
+            : base(horizontalLine, renderingOptions)
+        {
+        }
+
+        protected override bool DoInitializeContentRendering()
+        {
+            int width = ControlLayout.ContentSize.Width;
+
+            if (width <= 0)
+                return false;
+
+            text = new string(Control.Character, width);
+
+            return true;
+        }
+
+        protected override bool DoRenderNextContentLine(IDisplay display)
+        {
+            WriteLine(display, text);
+
+            return false;
+        }
     }
 
     /// <summary>

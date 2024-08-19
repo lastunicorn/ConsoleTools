@@ -80,35 +80,55 @@ public class ApplicationHeader : BlockControl
         Margin = "0 0 0 1";
     }
 
-    /// <summary>
-    /// This method actually displays the header.
-    /// Can be overwritten in order to fully control what is displayed.
-    /// </summary>
-    /// <param name="display">This instance can be used in order to interact with the console.</param>
-    protected override void DoDisplayContent(IDisplay display)
-    {
-        Version version = applicationInformation.GetVersion();
+    ///// <summary>
+    ///// This method actually displays the header.
+    ///// Can be overwritten in order to fully control what is displayed.
+    ///// </summary>
+    ///// <param name="display">This instance can be used in order to interact with the console.</param>
+    //protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    //{
+    //    Version version = applicationInformation.GetVersion();
 
-        StringBuilder titleRowText = new();
+    //    StringBuilder titleRowText = new();
+
+    //    string title = BuildTitle();
+    //    if (title != null)
+    //        titleRowText.Append(title);
+
+    //    if (ShowVersion)
+    //    {
+    //        if (titleRowText.Length > 0)
+    //            titleRowText.Append(" ");
+
+    //        titleRowText.Append(version.ToString(3));
+    //    }
+
+    //    display.StartLine();
+    //    display.Write(titleRowText.ToString());
+    //    Console.WriteLine();
+
+    //    if (ShowSeparator)
+    //        display.WriteLine(new string('=', Console.WindowWidth - 1));
+    //}
+
+    private string BuildTitleRow()
+    {
+        StringBuilder sb = new();
 
         string title = BuildTitle();
         if (title != null)
-            titleRowText.Append(title);
+            sb.Append(title);
 
         if (ShowVersion)
         {
-            if (titleRowText.Length > 0)
-                titleRowText.Append(" ");
+            if (sb.Length > 0)
+                sb.Append(" ");
 
-            titleRowText.Append(version.ToString(3));
+            Version version = applicationInformation.GetVersion();
+            sb.Append(version.ToString(3));
         }
 
-        display.StartLine();
-        display.Write(titleRowText.ToString());
-        Console.WriteLine();
-
-        if (ShowSeparator)
-            display.WriteLine(new string('=', Console.WindowWidth - 1));
+        return sb.ToString();
     }
 
     private string BuildTitle()
@@ -127,8 +147,66 @@ public class ApplicationHeader : BlockControl
         TitleDisplay?.Invoke(this, e);
     }
 
-    public override IRenderer GetRenderer()
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
     {
-        throw new NotImplementedException();
+        return new ApplicationHeaderRenderer(this, renderingOptions);
+    }
+
+    private class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeader>
+    {
+        private string text;
+        private RenderingStep step;
+
+        public ApplicationHeaderRenderer(ApplicationHeader control, RenderingOptions renderingOptions)
+            : base(control, renderingOptions)
+        {
+        }
+
+        protected override bool DoInitializeContentRendering()
+        {
+            text = Control.BuildTitleRow();
+            step = RenderingStep.TitleText;
+            return true;
+        }
+
+        protected override bool DoRenderNextContentLine(IDisplay display)
+        {
+            return step switch
+            {
+                RenderingStep.TitleText => ExecuteTitleTextStep(display),
+                RenderingStep.Separator => ExecuteSeparatorStep(display),
+                _ => false
+            };
+        }
+
+        private bool ExecuteTitleTextStep(IDisplay display)
+        {
+            WriteLine(display, text);
+
+            if (Control.ShowSeparator)
+            {
+                step = RenderingStep.Separator;
+                return true;
+            }
+            
+            step = RenderingStep.End;
+            return false;
+        }
+
+        private bool ExecuteSeparatorStep(IDisplay display)
+        {
+            string separatorText = new('=', Console.WindowWidth - 1);
+            WriteLine(display, separatorText);
+
+            step = RenderingStep.End;
+            return false;
+        }
+    }
+
+    private enum RenderingStep
+    {
+        TitleText,
+        Separator,
+        End
     }
 }

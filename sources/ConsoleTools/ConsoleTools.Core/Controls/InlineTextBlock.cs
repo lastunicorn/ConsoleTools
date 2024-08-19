@@ -124,7 +124,7 @@ public class InlineTextBlock : InlineControl
         return inlineTextBlock.Text;
     }
 
-    public override IRenderer GetRenderer()
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions)
     {
         throw new NotImplementedException();
     }

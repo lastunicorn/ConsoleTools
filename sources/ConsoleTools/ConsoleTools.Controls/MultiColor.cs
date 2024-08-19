@@ -20,30 +20,71 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-public class MultiColor : Control
+public class MultiColor : BlockControl
 {
-    protected override void DoDisplay()
+    public string Text { get; set; }
+
+    public List<ConsoleColor> Colors { get; set; } = new()
     {
-        CustomConsole.WriteLine("Player", ConsoleColor.Black);
-        CustomConsole.WriteLine("Player", ConsoleColor.White);
-        CustomConsole.WriteLine("Player", ConsoleColor.Gray);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkGray);
+        ConsoleColor.Black,
+        ConsoleColor.White,
+        ConsoleColor.Gray,
+        ConsoleColor.DarkGray,
 
-        CustomConsole.WriteLine("Player", ConsoleColor.Blue);
-        CustomConsole.WriteLine("Player", ConsoleColor.Green);
-        CustomConsole.WriteLine("Player", ConsoleColor.Cyan);
-        CustomConsole.WriteLine("Player", ConsoleColor.Red);
-        CustomConsole.WriteLine("Player", ConsoleColor.Magenta);
-        CustomConsole.WriteLine("Player", ConsoleColor.Yellow);
+        ConsoleColor.Blue,
+        ConsoleColor.Green,
+        ConsoleColor.Cyan,
+        ConsoleColor.Red,
+        ConsoleColor.Magenta,
+        ConsoleColor.Yellow,
 
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkBlue);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkGreen);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkCyan);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkRed);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkMagenta);
-        CustomConsole.WriteLine("Player", ConsoleColor.DarkYellow);
+        ConsoleColor.DarkBlue,
+        ConsoleColor.DarkGreen,
+        ConsoleColor.DarkCyan,
+        ConsoleColor.DarkRed,
+        ConsoleColor.DarkMagenta,
+        ConsoleColor.DarkYellow
+    };
+
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    {
+        return new MultiColorRenderer(this, renderingOptions);
+    }
+
+    private class MultiColorRenderer : BlockControlRenderer<MultiColor>
+    {
+        private int index;
+
+        public MultiColorRenderer(MultiColor control, RenderingOptions renderingOptions)
+            : base(control, renderingOptions)
+        {
+        }
+
+        protected override bool DoInitializeContentRendering()
+        {
+            if (Control.Text == null)
+                return false;
+
+            index = 0;
+            return index < Control.Colors?.Count;
+        }
+
+        protected override bool DoRenderNextContentLine(IDisplay display)
+        {
+            if (Control.Text == null || Control.Colors == null || index >= Control.Colors.Count)
+                return false;
+
+            string text = Control.Text;
+            ConsoleColor color = Control.Colors[index];
+
+            display.WriteLine(text, color);
+
+            index++;
+            return index < Control.Colors.Count;
+        }
     }
 }

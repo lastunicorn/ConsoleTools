@@ -47,11 +47,11 @@ public abstract class ErasableControl : BlockControl
     /// </summary>
     public bool EraseAfterClose { get; set; }
 
-    /// <summary>
-    /// When implemented by an inheritor it displays the content of the control to the console.
-    /// The inheritor must also calculate and set the <see cref="InnerSize"/> property.
-    /// </summary>
-    protected abstract override void DoDisplayContent(IDisplay display);
+    ///// <summary>
+    ///// When implemented by an inheritor it displays the content of the control to the console.
+    ///// The inheritor must also calculate and set the <see cref="InnerSize"/> property.
+    ///// </summary>
+    //protected abstract override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null);
 
     /// <summary>
     /// Method called at the very end, after all the control was displayed.
@@ -59,23 +59,24 @@ public abstract class ErasableControl : BlockControl
     /// </summary>
     protected override void OnAfterDisplay()
     {
-        if (EraseAfterClose && ControlDisplay.LineCount > 0)
-            EraseControl();
+        // todo: reimplement this after rendering mechanism is in place.
+        //if (EraseAfterClose && ControlDisplay.LineCount > 0)
+        //    EraseControl();
 
         base.OnAfterDisplay();
     }
 
-    private void EraseControl()
-    {
-        string emptyLine = new(' ', Console.BufferWidth);
+    //private void EraseControl()
+    //{
+    //    string emptyLine = new(' ', Console.BufferWidth);
 
-        int outerHeight = Margin.Top + ControlDisplay.LineCount + Margin.Bottom;
+    //    int outerHeight = Margin.Top + ControlDisplay.LineCount + Margin.Bottom;
 
-        Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
+    //    Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
 
-        for (int i = 0; i < outerHeight; i++)
-            Console.Write(emptyLine);
+    //    for (int i = 0; i < outerHeight; i++)
+    //        Console.Write(emptyLine);
 
-        Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
-    }
+    //    Console.SetCursorPosition(0, Console.CursorTop - outerHeight);
+    //}
 }

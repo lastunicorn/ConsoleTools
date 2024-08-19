@@ -46,7 +46,7 @@ public class Pause : ErasableControl
     /// <summary>
     /// Gets the width of the displayed Text.
     /// </summary>
-    protected override int DesiredContentWidth => Text?.Size.Width ?? 0;
+    public override int DesiredContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Pause"/> class.
@@ -56,23 +56,35 @@ public class Pause : ErasableControl
         Margin = "0 1";
     }
 
-    /// <summary>
-    /// Displays the pause text and waits for the user to press a key.
-    /// </summary>
-    protected override void DoDisplayContent(IDisplay display)
+    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
     {
-        if (Text == null)
-            return;
+        return new PauseRenderer(this, renderingOptions);
+    }
 
-        lastLineLength = 0;
+    private class PauseRenderer : BlockControlRenderer<Pause>
+    {
+        private IEnumerator<string> linesEnumerator;
 
-        IEnumerable<string> lines = Text.GetLines(Layout.ActualContentWidth, OverflowBehavior.CutChar);
-
-        foreach (string line in lines)
+        public PauseRenderer(Pause control, RenderingOptions renderingOptions)
+            : base(control, renderingOptions)
         {
-            lastLineLength = line.Length;
+        }
 
-            display.WriteLine(line);
+        protected override bool DoInitializeContentRendering()
+        {
+            if (Control.Text == null)
+                return false;
+
+            linesEnumerator = Control.Text.GetLines(ControlLayout.ActualContentWidth, OverflowBehavior.CutChar)
+                .GetEnumerator();
+
+            return linesEnumerator.MoveNext();
+        }
+
+        protected override bool DoRenderNextContentLine(IDisplay display)
+        {
+            WriteLine(display, linesEnumerator.Current);
+            return linesEnumerator.MoveNext();
         }
     }
 

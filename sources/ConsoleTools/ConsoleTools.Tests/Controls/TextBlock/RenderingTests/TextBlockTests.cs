@@ -14,19 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Controls;
+using NUnit.Framework;
 
-/// <summary>
-/// Calculates the space needed for each part of the control: margins, paddings, content size,
-/// empty spaces, etc.
-/// </summary>
-public class ControlLayout2
+namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlock.RenderingTests;
+
+[TestFixture]
+public class TextBlockTests : TestsBase
 {
-    public Thickness EmptySpace { get; set; }
+    [Test]
+    public void HavingNoPaddingTopSpecified_WhenRendered_TheCellContainsNoPaddingLine()
+    {
+        ConsoleTools.Controls.TextBlock textBlock = new("this is a text");
 
-    public Thickness Margin { get; set; }
-
-    public Thickness Padding { get; set; }
-
-    public Size ContentSize { get; set; }
+        string expected = GetResourceFileContent("01-oneline.txt");
+        textBlock.IsEqualTo(expected);
+    }
 }

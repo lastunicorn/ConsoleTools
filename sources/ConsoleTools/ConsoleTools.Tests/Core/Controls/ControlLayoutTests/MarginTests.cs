@@ -42,24 +42,24 @@ public class MarginTests
     [Test]
     public void MarginLeft_is_set_to_left_margin_value()
     {
-        Assert.That(controlLayout.MarginLeft, Is.EqualTo(1));
+        Assert.That(controlLayout.Margin.Left, Is.EqualTo(1));
     }
 
     [Test]
     public void MarginRight_is_set_to_right_margin_value()
     {
-        Assert.That(controlLayout.MarginRight, Is.EqualTo(3));
+        Assert.That(controlLayout.Margin.Right, Is.EqualTo(3));
     }
 
     [Test]
     public void MarginTop_is_set_to_top_margin_value()
     {
-        Assert.That(controlLayout.MarginTop, Is.EqualTo(2));
+        Assert.That(controlLayout.Margin.Top, Is.EqualTo(2));
     }
 
     [Test]
     public void MarginBottom_is_set_to_bottom_margin_value()
     {
-        Assert.That(controlLayout.MarginBottom, Is.EqualTo(4));
+        Assert.That(controlLayout.Margin.Bottom, Is.EqualTo(4));
     }
 }

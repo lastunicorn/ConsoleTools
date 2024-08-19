@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// Represents the size of a rectangle.
 /// Immutable.
 /// </summary>
-public struct Size
+public readonly struct Size
 {
     /// <summary>
     /// Gets the width component.
@@ -42,12 +42,28 @@ public struct Size
     /// <summary>
     /// Gets the empty size: width = 0, height = 0
     /// </summary>
-    public static Size Empty { get; } = new(0, 0);
+    public static Size Empty => Zero;
+
+    /// <summary>
+    /// Gets the zero size: width = 0, height = 0
+    /// </summary>
+    public static Size Zero { get; } = new(0, 0);
 
     /// <summary>
     /// Gets a value that specifies if the current instance represents the empty size (width = 0, height = 0)
     /// </summary>
     public bool IsEmpty => Width == 0 && Height == 0;
+
+    /// <summary>
+    /// Gets a value that specifies if the current instance represents the zero size (width = 0, height = 0)
+    /// </summary>
+    public bool IsZero => Width == 0 && Height == 0;
+
+    /// <summary>
+    /// Gets the biggest size possible.
+    /// Both width and height are <see cref="int.MaxValue"/>.
+    /// </summary>
+    public static Size MaxValue { get; } = new(int.MaxValue, int.MaxValue);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Size"/> structure with
@@ -68,10 +84,9 @@ public struct Size
     /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
     public override bool Equals(object obj)
     {
-        if (!(obj is Size))
+        if (obj is not Size size)
             return false;
 
-        Size size = (Size)obj;
         return size.Width == Width && size.Height == Height;
     }
 

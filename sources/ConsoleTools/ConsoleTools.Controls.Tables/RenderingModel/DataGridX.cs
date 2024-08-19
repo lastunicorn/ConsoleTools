@@ -52,6 +52,8 @@ internal class DataGridX
 
     public int RowCount => rows.Count;
 
+    public bool HasMoreLines => renderItemIndex < rows.Count;
+
     public void Add(ColumnX column)
     {
         columns.AddColumn(column);
@@ -81,8 +83,6 @@ internal class DataGridX
     {
         columns.PerformLayout();
     }
-
-    public bool HasMoreLines => renderItemIndex < rows.Count;
 
     public void InitializeRendering()
     {

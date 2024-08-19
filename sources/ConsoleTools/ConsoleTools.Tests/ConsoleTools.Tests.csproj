@@ -489,6 +489,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\01-title-shorter.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\02-title-longer.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\03-title-multiline.txt" />
+      <None Remove="Controls\TextBlock\RenderingTests\TextBlockTests.Resources\01-oneline.txt" />
     </ItemGroup>
 
     <ItemGroup>
@@ -947,6 +948,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\03-title^-headers^.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\02-title^-headers.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\01-title-headers.txt" />
+      <EmbeddedResource Include="Controls\TextBlock\RenderingTests\TextBlockTests.Resources\01-oneline.txt" />
     </ItemGroup>
 
     <ItemGroup>

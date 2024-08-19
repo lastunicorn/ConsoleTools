@@ -88,5 +88,5 @@ partial class BlockControl
     /// When implemented by an inheritor, gets the width of the content when there are no other restrictions applied to the control.
     /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
     /// </summary>
-    protected virtual int DesiredContentWidth { get; }
+    public virtual int DesiredContentWidth { get; }
 }

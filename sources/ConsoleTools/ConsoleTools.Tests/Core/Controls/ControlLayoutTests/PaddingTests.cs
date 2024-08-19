@@ -42,24 +42,24 @@ public class PaddingTests
     [Test]
     public void PaddingLeft_is_set_to_left_padding_value()
     {
-        Assert.That(controlLayout.PaddingLeft, Is.EqualTo(1));
+        Assert.That(controlLayout.Padding.Left, Is.EqualTo(1));
     }
 
     [Test]
     public void PaddingRight_is_set_to_right_padding_value()
     {
-        Assert.That(controlLayout.PaddingRight, Is.EqualTo(3));
+        Assert.That(controlLayout.Padding.Right, Is.EqualTo(3));
     }
 
     [Test]
     public void PaddingTop_is_set_to_top_padding_value()
     {
-        Assert.That(controlLayout.PaddingTop, Is.EqualTo(2));
+        Assert.That(controlLayout.Padding.Top, Is.EqualTo(2));
     }
 
     [Test]
     public void PaddingBottom_is_set_to_bottom_padding_value()
     {
-        Assert.That(controlLayout.PaddingBottom, Is.EqualTo(4));
+        Assert.That(controlLayout.Padding.Bottom, Is.EqualTo(4));
     }
 }

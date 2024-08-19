@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using FluentAssertions;
 
@@ -25,6 +26,19 @@ internal static class CustomAssert
     public static void IsEqualTo(this DataGrid dataGrid, string expected)
     {
         string actual = dataGrid.ToString();
+
+        Console.WriteLine("actual:");
+        Console.WriteLine(actual);
+
+        Console.WriteLine("expected:");
+        Console.WriteLine(expected);
+
+        actual.Should().Be(expected);
+    }
+
+    public static void IsEqualTo(this TextBlock textBlock, string expected)
+    {
+        string actual = textBlock.ToString();
 
         Console.WriteLine("actual:");
         Console.WriteLine(actual);

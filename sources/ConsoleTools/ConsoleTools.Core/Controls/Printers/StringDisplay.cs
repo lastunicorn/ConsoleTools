@@ -21,7 +21,6 @@
 
 using System;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
@@ -33,6 +32,16 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 public class StringDisplay : DisplayBase
 {
     private readonly StringBuilder stringBuilder;
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public override ConsoleColor ForegroundColor { get; set; }
+
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public override ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
@@ -52,17 +61,17 @@ public class StringDisplay : DisplayBase
         this.stringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
     }
 
-    protected override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         stringBuilder.Append(c);
     }
 
-    protected override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         stringBuilder.Append(text);
     }
 
-    protected override void DoWriteRootEndLine()
+    public override void DoWriteRootEndLine()
     {
         stringBuilder.AppendLine();
     }

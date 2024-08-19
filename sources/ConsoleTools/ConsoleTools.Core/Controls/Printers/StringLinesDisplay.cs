@@ -30,12 +30,12 @@ internal class StringLinesDisplay : IDisplay
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public ConsoleColor? ForegroundColor { get; set; }
+    public ConsoleColor ForegroundColor { get; set; }
 
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public ConsoleColor? BackgroundColor { get; set; }
+    public ConsoleColor BackgroundColor { get; set; }
 
     public int LineCount => lines.Count;
 
@@ -55,6 +55,21 @@ internal class StringLinesDisplay : IDisplay
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(text);
+    }
+
+    public void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        buffer.Append(c);
+    }
+
+    public void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    {
+        buffer.Append(text);
+    }
+
+    public void DoWriteRootEndLine()
+    {
+        EndLine();
     }
 
     public void EndLine()

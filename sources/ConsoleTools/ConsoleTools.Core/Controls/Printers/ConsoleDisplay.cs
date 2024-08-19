@@ -24,11 +24,23 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 /// <summary>
-/// Writes the parts of a <see cref="DataGrid"/> instance to the <see cref="Console"/>,
-/// using different colors for each type of part.
+/// Writes the parts of a <see cref="Control"/> instance to the <see cref="Console"/>,
+/// using different colors for each part.
 /// </summary>
 public class ConsoleDisplay : DisplayBase
 {
+    public override ConsoleColor ForegroundColor
+    {
+        get => Console.ForegroundColor;
+        set => Console.ForegroundColor = value;
+    }
+
+    public override ConsoleColor BackgroundColor
+    {
+        get => Console.BackgroundColor;
+        set => Console.BackgroundColor = value;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ConsoleDisplay"/> class
     /// as root printer.
@@ -43,7 +55,7 @@ public class ConsoleDisplay : DisplayBase
     {
     }
 
-    protected override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         if (foregroundColor.HasValue)
         {
@@ -61,7 +73,7 @@ public class ConsoleDisplay : DisplayBase
         }
     }
 
-    protected override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         if (foregroundColor.HasValue)
         {
@@ -79,7 +91,7 @@ public class ConsoleDisplay : DisplayBase
         }
     }
 
-    protected override void DoWriteRootEndLine()
+    public override void DoWriteRootEndLine()
     {
         Console.WriteLine();
     }

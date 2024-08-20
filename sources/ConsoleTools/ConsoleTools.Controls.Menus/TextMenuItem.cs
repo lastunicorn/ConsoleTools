@@ -102,4 +102,9 @@ public class TextMenuItem : InlineControl
     {
         Command?.Execute();
     }
+
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+    }
 }

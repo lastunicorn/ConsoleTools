@@ -50,41 +50,8 @@ public class MultiColor : BlockControl
         ConsoleColor.DarkYellow
     };
 
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new MultiColorRenderer(this, renderingOptions);
-    }
-
-    private class MultiColorRenderer : BlockControlRenderer<MultiColor>
-    {
-        private int index;
-
-        public MultiColorRenderer(MultiColor control, RenderingOptions renderingOptions)
-            : base(control, renderingOptions)
-        {
-        }
-
-        protected override bool DoInitializeContentRendering()
-        {
-            if (Control.Text == null)
-                return false;
-
-            index = 0;
-            return index < Control.Colors?.Count;
-        }
-
-        protected override bool DoRenderNextContentLine(IDisplay display)
-        {
-            if (Control.Text == null || Control.Colors == null || index >= Control.Colors.Count)
-                return false;
-
-            string text = Control.Text;
-            ConsoleColor color = Control.Colors[index];
-
-            display.WriteLine(text, color);
-
-            index++;
-            return index < Control.Colors.Count;
-        }
+        return new MultiColorRenderer(this, display, renderingOptions);
     }
 }

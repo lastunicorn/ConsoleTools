@@ -148,10 +148,15 @@ public class YesNoQuestion : BlockControl
         return Answer;
     }
 
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary> 
     /// Displays the question to the user and waits for the answer.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         if (QuestionText != null)
             DisplayQuestion();

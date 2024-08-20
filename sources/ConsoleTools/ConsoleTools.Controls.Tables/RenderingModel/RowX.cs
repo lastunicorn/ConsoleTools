@@ -106,7 +106,7 @@ internal class RowX : IItemX
         nextRenderIndex = 0;
     }
 
-    public void RenderNextLine(IDisplay display)
+    public void RenderNextLine(ControlDisplay display)
     {
         display.StartLine();
 
@@ -131,19 +131,19 @@ internal class RowX : IItemX
         nextRenderIndex++;
     }
 
-    private void RenderRowLeftBorder(IDisplay display)
+    private void RenderRowLeftBorder(ControlDisplay display)
     {
         if (BorderTemplate != null)
             display.Write(BorderTemplate.Left, BorderForegroundColor, BorderBackgroundColor);
     }
 
-    private void RenderRowRightBorder(IDisplay display)
+    private void RenderRowRightBorder(ControlDisplay display)
     {
         if (BorderTemplate != null)
             display.Write(BorderTemplate.Right, BorderForegroundColor, BorderBackgroundColor);
     }
 
-    private void RenderRowInsideBorder(IDisplay display)
+    private void RenderRowInsideBorder(ControlDisplay display)
     {
         if (BorderTemplate != null)
             display.Write(BorderTemplate.Vertical, BorderForegroundColor, BorderBackgroundColor);

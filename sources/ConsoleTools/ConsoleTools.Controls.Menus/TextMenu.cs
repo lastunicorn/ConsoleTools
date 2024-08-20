@@ -42,6 +42,8 @@ public class TextMenu : ErasableControl, IRepeatableSupport
 
     private TextMenuItem selectedItem;
 
+    public IReadOnlyCollection<TextMenuItem> MenuItems => menuItems;
+
     /// <summary>
     /// Gets or sets the title to be displayed at the top of the control, before the list of items.
     /// </summary>
@@ -69,7 +71,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     };
 
     /// <summary>
-    /// Gets or sets the text displayed when the user chooses an inexistent option.
+    /// Gets or sets the text displayed when the user chooses an nonexistent option.
     /// </summary>
     public string InvalidOptionText { get; set; } = TextMenuResources.InvalidOptionMessage;
 
@@ -84,7 +86,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     public TextMenuItem SelectedItem
     {
         get => selectedItem;
-        private set
+        set
         {
             selectedItem = value;
 
@@ -114,14 +116,14 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     public event EventHandler Closed;
 
     /// <summary>
-    /// Initialize a new instace of the <see cref="TextMenu"/> calss.
+    /// Initialize a new instance of the <see cref="TextMenu"/> class.
     /// </summary>
     public TextMenu()
     {
     }
 
     /// <summary>
-    /// Initialize a new instace of the <see cref="TextMenu"/> calss with
+    /// Initialize a new instance of the <see cref="TextMenu"/> class with
     /// the list of items to be displayed.
     /// </summary>
     /// <param name="menuItems">The list of items to be displayed by the menu.</param>
@@ -162,7 +164,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     /// <summary>
     /// Erases all the information of the previous display.
     /// </summary>
-    protected override void OnBeforeDisplay()
+    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {
         bool existsItems = menuItems.Any(x => x.IsVisible);
         if (!existsItems)
@@ -172,23 +174,45 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         closeWasRequested = false;
         //InnerSize = Size.Empty;
 
-        base.OnBeforeDisplay();
+        base.OnBeforeDisplay(e);
+    }
+
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+
+        //return new TextMenuRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        if (TitleText != null)
-            DrawTitle(display);
+        ControlLayout controlLayout = new()
+        {
+            Control = this,
+            AvailableWidth = renderingOptions?.AvailableWidth,
+            DesiredContentWidth = DesiredContentWidth
+        };
 
-        DrawMenu(display);
-        ReadUserSelection(display);
+        controlLayout.Calculate();
+
+        ControlDisplay controlDisplay = new ControlDisplay(display, controlLayout)
+        {
+            MaxLineLength = renderingOptions?.AvailableWidth,
+            IsRoot = renderingOptions?.IsRoot ?? true
+        };
+
+        if (TitleText != null)
+            DrawTitle(controlDisplay);
+
+        DrawMenu(controlDisplay);
+        ReadUserSelection(controlDisplay);
     }
 
-    private void DrawTitle(IDisplay display)
+    private void DrawTitle(ControlDisplay display)
     {
         display.WriteLine(TitleText);
         display.WriteLine();
@@ -197,7 +221,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DrawMenu(IDisplay display)
+    private void DrawMenu(ControlDisplay display)
     {
         IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
             .Where(x => x.IsVisible);
@@ -212,7 +236,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         }
     }
 
-    private void ReadUserSelection(IDisplay display)
+    private void ReadUserSelection(ControlDisplay display)
     {
         display.WriteLine();
         //Console.WriteLine();
@@ -267,7 +291,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(questionHeight);
     }
 
-    private void DisplayInvalidOptionWarning(IDisplay display)
+    private void DisplayInvalidOptionWarning(ControlDisplay display)
     {
         display.WriteLine(InvalidOptionText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
         display.WriteLine();
@@ -278,7 +302,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DisplayDisabledItemWarning(IDisplay display)
+    private void DisplayDisabledItemWarning(ControlDisplay display)
     {
         display.WriteLine(OptionDisabledText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
         display.WriteLine();
@@ -295,6 +319,8 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     protected override void OnAfterDisplay()
     {
         base.OnAfterDisplay();
+
+        OnClosed();
 
         SelectedItem?.Execute();
     }

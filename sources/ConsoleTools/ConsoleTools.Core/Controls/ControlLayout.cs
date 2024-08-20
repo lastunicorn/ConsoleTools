@@ -92,7 +92,7 @@ public class ControlLayout
     /// <summary>
     /// Gets the calculated width of the content.
     /// </summary>
-    public int ActualContentWidth { get; private set; }
+    public int ActualContentWidth => ContentSize.Width;
 
     ///// <summary>
     ///// Gets the empty space at the left of the content.

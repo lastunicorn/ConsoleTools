@@ -125,10 +125,15 @@ public class ValueControl<T> : BlockControl
         Display();
     }
 
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Displays the label and waits for the user to provide a value.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         switch (ReadWriteMode)
         {
@@ -198,7 +203,8 @@ public class ValueControl<T> : BlockControl
 
     private void WriteValue(IDisplay display)
     {
-        display.WriteLine(Value?.ToString());
+        display.Write(Value?.ToString());
+        display.DoWriteRootEndLine();
     }
 
     private void DisplayLabel()

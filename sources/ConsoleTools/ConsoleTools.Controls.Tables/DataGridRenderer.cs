@@ -22,8 +22,8 @@ internal class DataGridRenderer : BlockControlRenderer<DataGrid>
 {
     private DataGridX dataGridX;
 
-    public DataGridRenderer(DataGrid dataGrid, RenderingOptions renderingOptions = null)
-        : base(dataGrid, renderingOptions)
+    public DataGridRenderer(DataGrid dataGrid, IDisplay display, RenderingOptions renderingOptions = null)
+        : base(dataGrid, display, renderingOptions)
     {
     }
 
@@ -35,14 +35,14 @@ internal class DataGridRenderer : BlockControlRenderer<DataGrid>
         return dataGridX.HasMoreLines;
     }
 
-    protected override bool DoRenderNextContentLine(IDisplay display)
+    protected override bool DoRenderNextContentLine()
     {
         if (dataGridX == null)
             return false;
-        
-        StartLine(display);
-        dataGridX.RenderNextLine(display);
-        EndLine(display);
+
+        Display.StartLine();
+        dataGridX.RenderNextLine(Display);
+        Display.EndLine();
 
         return dataGridX.HasMoreLines;
     }

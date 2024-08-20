@@ -125,12 +125,17 @@ public class ValueList<T> : BlockControl
         Display();
     }
 
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Displays the label and waits for the user to type the values.
     /// The control reads values until the user inserts an empty string.
     /// </summary>
     /// <returns>The list with the values provided by the user.</returns>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         switch (ReadWriteMode)
         {

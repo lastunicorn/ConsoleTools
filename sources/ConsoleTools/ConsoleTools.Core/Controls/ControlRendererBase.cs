@@ -1,135 +1,150 @@
-﻿// ConsoleTools
-// Copyright (C) 2017-2024 Dust in the Wind
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+﻿//// ConsoleTools
+//// Copyright (C) 2017-2024 Dust in the Wind
+//// 
+//// This program is free software: you can redistribute it and/or modify
+//// it under the terms of the GNU General Public License as published by
+//// the Free Software Foundation, either version 3 of the License, or
+//// (at your option) any later version.
+//// 
+//// This program is distributed in the hope that it will be useful,
+//// but WITHOUT ANY WARRANTY; without even the implied warranty of
+//// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//// GNU General Public License for more details.
+//// 
+//// You should have received a copy of the GNU General Public License
+//// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+//using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+//namespace DustInTheWind.ConsoleTools.Controls;
 
-public abstract class ControlRendererBase<TControl> : IRenderer
-    where TControl : BlockControl
-{
-    private int currentLineLength;
+//public abstract class ControlRendererBase : IRenderer
+//{
+//    //private int currentLineLength;
 
-    public abstract bool HasMoreLines { get; }
+//    public abstract bool HasMoreLines { get; }
 
-    protected TControl Control { get; }
+//    //public int? MaxLineLength { get; set; }
 
-    protected ControlLayout ControlLayout { get; }
+//    //public int LineCount { get; protected set; }
 
-    public int? MaxLineLength { get; set; }
+//    public abstract void RenderNextLine();
 
-    public int LineCount { get; protected set; }
+//    //protected bool IsRoot { get; set; } = true;
 
-    protected ControlRendererBase(TControl control, RenderingOptions renderingOptions)
-    {
-        Control = control ?? throw new ArgumentNullException(nameof(control));
+//    protected IDisplay Display { get; private set; }
 
-        ControlLayout = new ControlLayout
-        {
-            Control = control,
-            AvailableWidth = renderingOptions?.AvailableWidth,
-            DesiredContentWidth = control.DesiredContentWidth
-        };
+//    public virtual void Initialize(IDisplay display)
+//    {
+//        Display = display ?? throw new ArgumentNullException(nameof(display));
+//    }
 
-        ControlLayout.Calculate();
+//    //protected void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
+//    //{
+//    //    if (text == null)
+//    //        return;
 
-    }
+//    //    int availableCharacterCount = MaxLineLength.HasValue
+//    //        ? MaxLineLength.Value - currentLineLength
+//    //        : int.MaxValue;
 
-    public abstract void RenderNextLine(IDisplay display);
+//    //    if (availableCharacterCount <= 0)
+//    //        return;
 
-    protected void Write(IDisplay display, string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
-    {
-        if (text == null)
-            return;
+//    //    string textToWrite = text.Length <= availableCharacterCount
+//    //        ? text
+//    //        : text.Substring(0, availableCharacterCount);
 
-        int availableCharacterCount = MaxLineLength.HasValue
-            ? MaxLineLength.Value - currentLineLength
-            : int.MaxValue;
+//    //    Display.DoWrite(textToWrite, foregroundColor, backgroundColor);
 
-        if (availableCharacterCount <= 0)
-            return;
+//    //    currentLineLength += textToWrite.Length;
+//    //}
 
-        string textToWrite = text.Length <= availableCharacterCount
-            ? text
-            : text.Substring(0, availableCharacterCount);
+//    //protected void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
+//    //{
+//    //    int availableCharacterCount = MaxLineLength.HasValue
+//    //        ? MaxLineLength.Value - currentLineLength
+//    //        : int.MaxValue;
 
-        ConsoleColor? fg = foregroundColor ?? display.ForegroundColor;
-        ConsoleColor? bg = backgroundColor ?? display.BackgroundColor;
+//    //    if (availableCharacterCount <= 0)
+//    //        return;
 
-        display.DoWrite(textToWrite, fg, bg);
+//    //    Display.DoWrite(c, foregroundColor, backgroundColor);
 
-        currentLineLength += textToWrite.Length;
-    }
+//    //    currentLineLength++;
+//    //}
 
-    protected void WriteSpaces(IDisplay display, int count, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        int availableCharacterCount = MaxLineLength.HasValue
-            ? MaxLineLength.Value - currentLineLength
-            : int.MaxValue;
+//    //protected void WritePadding(int count)
+//    //{
+//    //    WriteSpaces(count, null, null);
+//    //}
 
-        int spacesCount = Math.Min(count, availableCharacterCount);
+//    ////protected void WriteSpaces(int count, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+//    ////{
+//    ////    int availableCharacterCount = MaxLineLength.HasValue
+//    ////        ? MaxLineLength.Value - currentLineLength
+//    ////        : int.MaxValue;
 
-        if (spacesCount > 0)
-        {
-            string text = new(' ', spacesCount);
-            display.DoWrite(text, foregroundColor, backgroundColor);
+//    ////    int spacesCount = Math.Min(count, availableCharacterCount);
 
-            currentLineLength += spacesCount;
-        }
-    }
+//    ////    if (spacesCount > 0)
+//    ////    {
+//    ////        string text = new(' ', spacesCount);
+//    ////        Display.DoWrite(text, foregroundColor, backgroundColor);
 
-    protected void WriteLine(IDisplay display, string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
-    {
-        StartLine(display);
-        Write(display, text, foregroundColor, backgroundColor);
-        EndLine(display);
-    }
+//    ////        currentLineLength += spacesCount;
+//    ////    }
+//    ////}
 
-    protected void StartLine(IDisplay display)
-    {
-        OnBeforeStartLine(display);
-        OnAfterStartLine(display);
-    }
+//    ////protected void WriteLine(string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
+//    ////{
+//    ////    StartLine();
+//    ////    Write(text, foregroundColor, backgroundColor);
+//    ////    EndLine();
+//    ////}
 
-    protected virtual void OnBeforeStartLine(IDisplay display)
-    {
-    }
+//    ////protected void StartLine()
+//    ////{
+//    ////    OnBeforeStartLine();
+//    ////    OnAfterStartLine();
+//    ////}
 
-    protected virtual void OnAfterStartLine(IDisplay display)
-    {
-    }
+//    //protected virtual void OnBeforeStartLine()
+//    //{
+//    //}
 
-    protected virtual void EndLine(IDisplay display)
-    {
-        OnBeforeEndLine(display);
+//    //protected virtual void OnAfterStartLine()
+//    //{
+//    //}
 
-        //if (isRoot)
-        display.DoWriteRootEndLine();
+//    //protected virtual void EndLine()
+//    //{
+//    //    OnBeforeEndLine();
 
-        LineCount++;
-        currentLineLength = 0;
+//    //    int remainingLength = MaxLineLength.HasValue
+//    //        ? MaxLineLength.Value - currentLineLength
+//    //        : 0;
 
-        OnAfterEndLine(display);
-    }
+//    //    if (remainingLength > 0)
+//    //    {
+//    //        string text = new(' ', remainingLength);
+//    //        Write(text);
+//    //    }
 
-    protected virtual void OnBeforeEndLine(IDisplay display)
-    {
-    }
+//    //    if (IsRoot)
+//    //        Display.DoWriteRootEndLine();
 
-    protected virtual void OnAfterEndLine(IDisplay display)
-    {
-    }
-}
+//    //    LineCount++;
+//    //    currentLineLength = 0;
+
+//    //    OnAfterEndLine();
+//    //}
+
+//    //protected virtual void OnBeforeEndLine()
+//    //{
+//    //}
+
+//    //protected virtual void OnAfterEndLine()
+//    //{
+//    //}
+//}

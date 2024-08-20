@@ -34,6 +34,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\01-content-oneline.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\02-content-twolines.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\03-content-oneline-margins.txt" />
       <None Remove="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
@@ -489,10 +492,26 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\01-title-shorter.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\02-title-longer.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\03-title-multiline.txt" />
-      <None Remove="Controls\TextBlock\RenderingTests\TextBlockTests.Resources\01-oneline.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\01-maxwidth-long.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\02-maxwidth-short.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\03-maxwidth-exact.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\01-minwidth-long.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\02-minwidth-short.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\03-minwidth-exact.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\01-padding-2-width-long.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\02-padding-2-width-short.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\03-padding-2-width-exact.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\01-width-long.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\01-oneline.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\02-twolines.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\02-width-short.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\03-width-exact.txt" />
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\03-content-oneline-margins.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\02-content-twolines.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\01-content-oneline.txt" />
       <EmbeddedResource Include="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
@@ -948,7 +967,20 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\03-title^-headers^.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\02-title^-headers.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\01-title-headers.txt" />
-      <EmbeddedResource Include="Controls\TextBlock\RenderingTests\TextBlockTests.Resources\01-oneline.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\01-minwidth-long.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\02-minwidth-short.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\03-minwidth-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\01-maxwidth-long.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\02-maxwidth-short.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\03-maxwidth-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\01-padding-2-width-long.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\02-padding-2-width-short.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\03-padding-2-width-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\03-width-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\02-width-short.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\01-width-long.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\02-twolines.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\01-oneline.txt" />
     </ItemGroup>
 
     <ItemGroup>

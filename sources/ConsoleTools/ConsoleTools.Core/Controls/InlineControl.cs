@@ -56,7 +56,7 @@ public abstract class InlineControl : Control
     /// <summary>
     /// Displays the margins and the content of the control.
     /// </summary>
-    protected override void DoDisplay()
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         if (MarginLeft > 0)
             DisplayLeftMargin();

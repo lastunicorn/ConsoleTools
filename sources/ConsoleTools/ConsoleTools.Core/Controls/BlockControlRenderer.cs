@@ -18,17 +18,63 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-public abstract class BlockControlRenderer<TControl> : ControlRendererBase<TControl>
+public abstract class BlockControlRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
     private RenderingStep step;
     private IRenderer currentRenderer;
 
-    public override bool HasMoreLines => currentRenderer?.HasMoreLines ?? false;
+    protected ControlDisplay Display { get; }
 
-    protected BlockControlRenderer(TControl control, RenderingOptions renderingOptions)
-        : base(control, renderingOptions)
+    /// <summary>
+    /// Gets the control being rendered.
+    /// </summary>
+    protected TControl Control { get; }
+
+    /// <summary>
+    /// Gets the calculated layout information of the control being rendered.
+    /// </summary>
+    protected ControlLayout ControlLayout { get; }
+
+    /// <summary>
+    /// Gets a value specifying if there are still lines awaiting to be rendered.
+    /// </summary>
+    public bool HasMoreLines => currentRenderer?.HasMoreLines ?? false;
+
+    /// <summary>
+    /// Initializes a new instance of teh <see cref="BlockControlRenderer{TControl}"/> class with
+    /// the control being rendered and rendering options.
+    /// </summary>
+    ///
+    /// <param name="control">The control being rendered.</param>
+    ///
+    /// <param name="renderingOptions">
+    /// Rendering options based on which the <see cref="IRenderer"/> is created.
+    /// If <c>null</c> is provided, the renderer is created using default options.
+    /// </param>
+    ///
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if the provided <see cref="control"/> is null.
+    /// </exception>
+    protected BlockControlRenderer(TControl control, IDisplay display, RenderingOptions renderingOptions)
     {
+        Control = control ?? throw new ArgumentNullException(nameof(control));
+
+        ControlLayout = new ControlLayout
+        {
+            Control = control,
+            AvailableWidth = renderingOptions?.AvailableWidth,
+            DesiredContentWidth = control.DesiredContentWidth
+        };
+
+        ControlLayout.Calculate();
+
+        Display = new ControlDisplay(display, ControlLayout)
+        {
+            MaxLineLength = renderingOptions?.AvailableWidth,
+            IsRoot = renderingOptions?.IsRoot ?? true
+        };
+
         step = RenderingStep.Start;
         MoveNext();
     }
@@ -64,7 +110,6 @@ public abstract class BlockControlRenderer<TControl> : ControlRendererBase<TCont
             MoveToBottomPadding();
         }
 
-
         if (step == RenderingStep.BottomPadding)
         {
             if (currentRenderer.HasMoreLines)
@@ -90,19 +135,13 @@ public abstract class BlockControlRenderer<TControl> : ControlRendererBase<TCont
     private void MoveToTopMargin()
     {
         step = RenderingStep.TopMargin;
-        currentRenderer = new TopMarginRenderer(ControlLayout);
+        currentRenderer = new TopMarginRenderer(Display, ControlLayout);
     }
 
     private void MoveToTopPadding()
     {
         step = RenderingStep.TopPadding;
-        currentRenderer = new PaddingRenderer
-        {
-            Height = ControlLayout.Padding.Top,
-            PaddingLeft = ControlLayout.Padding.Left,
-            PaddingRight = ControlLayout.Padding.Right,
-            ContentWidth = ControlLayout.ContentSize.Width
-        };
+        currentRenderer = new TopPaddingRenderer(Display, ControlLayout);
     }
 
     private void MoveToContent()
@@ -117,19 +156,13 @@ public abstract class BlockControlRenderer<TControl> : ControlRendererBase<TCont
     private void MoveToBottomPadding()
     {
         step = RenderingStep.BottomPadding;
-        currentRenderer = new PaddingRenderer
-        {
-            Height = ControlLayout.Padding.Bottom,
-            PaddingLeft = ControlLayout.Padding.Left,
-            PaddingRight = ControlLayout.Padding.Right,
-            ContentWidth = ControlLayout.ContentSize.Width
-        };
+        currentRenderer = new BottomPaddingRenderer(Display, ControlLayout);
     }
 
     private void MoveToBottomMargin()
     {
         step = RenderingStep.BottomMargin;
-        currentRenderer = new BottomMarginRenderer(ControlLayout);
+        currentRenderer = new BottomMarginRenderer(Display, ControlLayout);
     }
 
     private void MoveToEnd()
@@ -138,29 +171,31 @@ public abstract class BlockControlRenderer<TControl> : ControlRendererBase<TCont
         currentRenderer = null;
     }
 
-    public override void RenderNextLine(IDisplay display)
+    public void RenderNextLine()
     {
         if (currentRenderer == null)
             return;
 
-        currentRenderer.RenderNextLine(display);
+        currentRenderer.RenderNextLine();
+        //display.DoWriteRootEndLine();
+
         MoveNext();
     }
 
     protected abstract bool DoInitializeContentRendering();
 
-    protected abstract bool DoRenderNextContentLine(IDisplay display);
+    protected abstract bool DoRenderNextContentLine();
 
-    protected override void OnAfterStartLine(IDisplay display)
-    {
-        WriteSpaces(display, ControlLayout.EmptySpace.Left, null, null);
-        WriteSpaces(display, ControlLayout.Margin.Left, null, null);
-        WriteSpaces(display, ControlLayout.Padding.Left, null, display.BackgroundColor);
-    }
+    //protected void OnAfterStartLine()
+    //{
+    //    Display.WriteSpaces(ControlLayout.EmptySpace.Left, null, null);
+    //    Display.WriteSpaces(ControlLayout.Margin.Left, null, null);
+    //    Display.WritePadding(ControlLayout.Padding.Left);
+    //}
 
-    protected override void OnBeforeEndLine(IDisplay display)
-    {
-        WriteSpaces(display, ControlLayout.Padding.Right, null, display.BackgroundColor);
-        WriteSpaces(display, ControlLayout.Margin.Right, null, null);
-    }
+    //protected void OnBeforeEndLine()
+    //{
+    //    Display.WritePadding(ControlLayout.Padding.Right);
+    //    Display.WriteSpaces(ControlLayout.Margin.Right, null, null);
+    //}
 }

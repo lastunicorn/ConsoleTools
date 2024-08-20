@@ -24,30 +24,28 @@ using System.Text;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
-
 /// <summary>
 /// Collects the rendered parts of a <see cref="DataGrid"/> instance as a plain text that is later
 /// returned by the <see cref="ToString"/> method.
 /// </summary>
-public class StringDisplay : DisplayBase
+public class StringDisplay : IDisplay
 {
     private readonly StringBuilder stringBuilder;
 
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public override ConsoleColor ForegroundColor { get; set; }
+    public ConsoleColor ForegroundColor { get; set; }
 
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public override ConsoleColor BackgroundColor { get; set; }
+    public ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
     /// </summary>
     public StringDisplay()
-        : base(true)
     {
         stringBuilder = new StringBuilder();
     }
@@ -56,22 +54,21 @@ public class StringDisplay : DisplayBase
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as child.
     /// </summary>
     public StringDisplay(StringBuilder stringBuilder)
-    : base(false)
     {
         this.stringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
     }
 
-    public override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         stringBuilder.Append(c);
     }
 
-    public override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         stringBuilder.Append(text);
     }
 
-    public override void DoWriteRootEndLine()
+    public void DoWriteRootEndLine()
     {
         stringBuilder.AppendLine();
     }
@@ -79,13 +76,8 @@ public class StringDisplay : DisplayBase
     /// <summary>
     /// Does nothing. The underlying <see cref="StringBuilder"/> does not have a buffer to be flushed.
     /// </summary>
-    public override void Flush()
+    public void Flush()
     {
-    }
-
-    public override IDisplay CreateChild()
-    {
-        return new StringDisplay(stringBuilder);
     }
 
     /// <summary>

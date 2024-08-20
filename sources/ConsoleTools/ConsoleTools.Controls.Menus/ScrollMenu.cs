@@ -71,7 +71,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     public bool KeepHighlightingOnClose { get; set; }
 
     /// <summary>
-    /// Gets or sets a vlue that specifies if circular selection is allowed.
+    /// Gets or sets a value that specifies if circular selection is allowed.
     /// When reaching the first item go to the last item.
     /// When reaching the last item go to the first item.
     /// Default value: <c>true</c>
@@ -154,7 +154,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     /// Erases oll the information of the previous display.
     /// Calculates the inner size (without the margins) of the control.
     /// </summary>
-    protected override void OnBeforeDisplay()
+    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {
         if (menuItems.SelectableItemsCount == 0)
             throw new ApplicationException("There are no menu items to be displayed.");
@@ -169,14 +169,19 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
         //Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
 
-        base.OnBeforeDisplay();
+        base.OnBeforeDisplay(e);
+    }
+
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
     /// Displays the menu and waits for the user to choose an item.
     /// This method blocks until the user chooses an item.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         menuItems.CurrentIndexChanged += HandleCurrentIndexChanged;
 

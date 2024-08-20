@@ -26,4 +26,6 @@ public class RenderingOptions
     /// If <c>null</c> no restriction is imposed. Infinite available space is assumed.
     /// </summary>
     public int? AvailableWidth { get; set; }
+
+    public bool IsRoot { get; set; } = true;
 }

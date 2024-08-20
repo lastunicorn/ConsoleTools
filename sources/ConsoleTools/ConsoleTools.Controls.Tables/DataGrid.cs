@@ -405,9 +405,9 @@ public class DataGrid : BlockControl
     /// <summary>
     /// Creates a new <see cref="IRenderer"/> for the current instance.
     /// </summary>
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new DataGridRenderer(this, renderingOptions);
+        return new DataGridRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
@@ -417,7 +417,7 @@ public class DataGrid : BlockControl
     public override string ToString()
     {
         StringDisplay display = new();
-        DoDisplayContent(display);
+        DoRender(display);
 
         return display.ToString();
     }

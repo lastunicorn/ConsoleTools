@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -28,14 +29,6 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// </summary>
 public abstract class Control : IRenderable
 {
-    private bool originalCursorVisibility;
-
-    /// <summary>
-    /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
-    /// Default value: <c>true</c>
-    /// </summary>
-    public bool? CursorVisibility { get; set; }
-
     /// <summary>
     /// Gets or sets the foreground color used to write the text.
     /// Default value: <c>null</c>
@@ -49,15 +42,9 @@ public abstract class Control : IRenderable
     public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Gets or sets a value that specifies if the visibility of the cursor should be set back
-    /// to the value it was before displaying the control.
-    /// </summary>
-    protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
-
-    /// <summary>
     /// Event raised at the beginning of the <see cref="Display"/> method, before doing anything else.
     /// </summary>
-    public virtual event EventHandler BeforeDisplay;
+    public virtual event EventHandler<BeforeDisplayEventArgs> BeforeDisplay;
 
     /// <summary>
     /// Event raised at the very end of the <see cref="Display"/> method, before returning.
@@ -69,29 +56,15 @@ public abstract class Control : IRenderable
     /// </summary>
     public void Display()
     {
-        OnBeforeDisplay();
+        BeforeDisplayEventArgs beforeDisplayEventArgs = new();
+        OnBeforeDisplay(beforeDisplayEventArgs);
 
         try
         {
-            if (CursorVisibility.HasValue)
-            {
-                originalCursorVisibility = Console.CursorVisible;
-                Console.CursorVisible = CursorVisibility.Value;
+            IDisplay display = CreateDisplay();
+            RenderingOptions renderingOptions = beforeDisplayEventArgs.RenderingOptions;
 
-                try
-                {
-                    DoDisplay();
-                }
-                finally
-                {
-                    if (RestoreCursorVisibilityAfterDisplay)
-                        Console.CursorVisible = originalCursorVisibility;
-                }
-            }
-            else
-            {
-                DoDisplay();
-            }
+            DoRender(display, renderingOptions);
         }
         finally
         {
@@ -99,19 +72,78 @@ public abstract class Control : IRenderable
         }
     }
 
+    private IDisplay CreateDisplay()
+    {
+        ConsoleDisplay consoleDisplay = new();
+
+        if (ForegroundColor.HasValue)
+            consoleDisplay.ForegroundColor = ForegroundColor.Value;
+
+        if (BackgroundColor.HasValue)
+            consoleDisplay.BackgroundColor = BackgroundColor.Value;
+
+        return consoleDisplay;
+    }
+
+    public virtual Size CalculateNaturalSize()
+    {
+        return Size.Empty;
+    }
+
     /// <summary>
-    /// When implemented by an inheritor, displays the margins and the content of the control.
+    /// Renders the current instance using the specified <see cref="IDisplay"/>.
+    /// Optionally, some rendering options may be provided.
     /// </summary>
-    protected abstract void DoDisplay();
+    /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
+    /// <param name="renderingOptions">A set of options based on which the renderer is created.</param>
+    public void Render(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        DoRender(display, renderingOptions);
+    }
+
+    /// <summary>
+    /// Returns the string representation of the current instance.
+    /// </summary>
+    /// <returns>The string representation of the current instance.</returns>
+    public override string ToString()
+    {
+        StringDisplay stringDisplay = new();
+        DoRender(stringDisplay);
+        stringDisplay.Flush();
+
+        return stringDisplay.ToString();
+    }
+
+    /// <summary>
+    /// Returns a renderer object that is able to render the current <see cref="Control"/>
+    /// instance using a specified <see cref="IDisplay"/>.
+    /// </summary>
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
+    public abstract IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
+
+    /// <summary>
+    /// Displays the control to the Console in root mode.
+    /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
+    /// by the <see cref="GetRenderer"/> method.
+    /// </summary>
+    protected virtual void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        IRenderer renderer = GetRenderer(display, renderingOptions);
+
+        while (renderer.HasMoreLines)
+            renderer.RenderNextLine();
+
+        display.Flush();
+    }
 
     /// <summary>
     /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
     /// to raise the <see cref="BeforeDisplay"/> event.
     /// When overwritten, the base method must be called in order to allow the event to be raised.
     /// </summary>
-    protected virtual void OnBeforeDisplay()
+    protected virtual void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {
-        BeforeDisplay?.Invoke(this, EventArgs.Empty);
+        BeforeDisplay?.Invoke(this, e);
     }
 
     /// <summary>
@@ -122,36 +154,5 @@ public abstract class Control : IRenderable
     protected virtual void OnAfterDisplay()
     {
         AfterDisplay?.Invoke(this, EventArgs.Empty);
-    }
-
-    public virtual Size CalculateNaturalSize()
-    {
-        return Size.Empty;
-    }
-
-    /// <summary>
-    /// Returns a renderer object that is able to render the current <see cref="Control"/>
-    /// instance into a provided <see cref="IDisplay"/>.
-    /// </summary>
-    /// <returns>The <see cref="IRenderer"/> instance.</returns>
-    public virtual IRenderer GetRenderer(RenderingOptions renderingOptions = null)
-    {
-        // todo: make this method abstract.
-
-        throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// Renders the current instance into the specified <see cref="IDisplay"/>.
-    /// </summary>
-    /// <param name="display">The <see cref="IDisplay"/> instance used to render the data.</param>
-    public void Render(IDisplay display, RenderingOptions renderingOptions = null)
-    {
-        IRenderer renderer = GetRenderer(renderingOptions);
-
-        while (renderer.HasMoreLines)
-            renderer.RenderNextLine(display);
-
-        display.Flush();
     }
 }

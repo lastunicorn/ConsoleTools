@@ -64,11 +64,16 @@ public class ControlRepeater : BlockControl
     /// </summary>
     protected bool CloseWasRequested => closeWasRequested;
 
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
     /// until the <see cref="RequestClose"/> method is called.
     /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
         isRunning = true;
         try

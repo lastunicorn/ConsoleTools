@@ -204,40 +204,40 @@ public class BorderTemplate
     /// Generates the border displayed at the top of the column header row.
     /// This border is used only when title is hidden and the column header row is visible, being the first row of the table.
     /// </summary>
-    public string GenerateTopBorder(params int[] columnWidths)
+    public string GenerateTopBorder(params int[] cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        return GenerateTopBorder((IList<int>)columnWidths);
+        return GenerateTopBorder((IList<int>)cellWidths);
     }
 
     /// <summary>
     /// Generates the border displayed at the top of the column header row.
     /// This border is used only when title is hidden and the column header row is visible, being the first row of the table.
     /// </summary>
-    public string GenerateTopBorder(IList<int> columnWidths)
+    public string GenerateTopBorder(IList<int> cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        if (columnWidths == null || columnWidths.Count == 0)
+        if (cellWidths == null || cellWidths.Count == 0)
             return string.Empty;
 
         StringBuilder sb = new();
 
         sb.Append(TopLeft);
 
-        for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
+        for (int cellIndex = 0; cellIndex < cellWidths.Count; cellIndex++)
         {
-            int columnWidth = columnWidths[columnIndex];
-            sb.Append(new string(Top, columnWidth));
+            int cellWidth = cellWidths[cellIndex];
+            sb.Append(new string(Top, cellWidth));
 
-            char columnBorderRight = columnIndex < columnWidths.Count - 1
+            char cellBorderRight = cellIndex < cellWidths.Count - 1
                 ? TopIntersection
                 : TopRight;
 
-            sb.Append(columnBorderRight);
+            sb.Append(cellBorderRight);
         }
 
         return sb.ToString();
@@ -247,40 +247,40 @@ public class BorderTemplate
     /// Generates the border displayed between title and column header rows.
     /// This border is used only when both title and column header rows are visible.
     /// </summary>
-    public string GenerateHorizontalSeparator(params int[] columnWidths)
+    public string GenerateHorizontalSeparator(params int[] cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        return GenerateHorizontalSeparator((IList<int>)columnWidths);
+        return GenerateHorizontalSeparator((IList<int>)cellWidths);
     }
 
     /// <summary>
     /// Generates the border displayed between title and column header rows.
     /// This border is used only when both title and column header rows are visible.
     /// </summary>
-    public string GenerateHorizontalSeparator(IList<int> columnWidths)
+    public string GenerateHorizontalSeparator(IList<int> cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        if (columnWidths == null || columnWidths.Count == 0)
+        if (cellWidths == null || cellWidths.Count == 0)
             return string.Empty;
 
         StringBuilder sb = new();
 
         sb.Append(LeftIntersection);
 
-        for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
+        for (int cellIndex = 0; cellIndex < cellWidths.Count; cellIndex++)
         {
-            int columnWidth = columnWidths[columnIndex];
+            int columnWidth = cellWidths[cellIndex];
             sb.Append(new string(Horizontal, columnWidth));
 
-            char columnBorderRight = columnIndex < columnWidths.Count - 1
+            char cellBorderRight = cellIndex < cellWidths.Count - 1
                 ? MiddleIntersection
                 : RightIntersection;
 
-            sb.Append(columnBorderRight);
+            sb.Append(cellBorderRight);
         }
 
         return sb.ToString();
@@ -324,39 +324,39 @@ public class BorderTemplate
     /// <summary>
     /// Generates the border displayed at the bottom of the last data row.
     /// </summary>
-    public string GenerateBottomBorder(params int[] columnWidths)
+    public string GenerateBottomBorder(params int[] cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        return GenerateBottomBorder((IList<int>)columnWidths);
+        return GenerateBottomBorder((IList<int>)cellWidths);
     }
 
     /// <summary>
     /// Generates the border displayed at the bottom of the last data row.
     /// </summary>
-    public string GenerateBottomBorder(IList<int> columnWidths)
+    public string GenerateBottomBorder(IList<int> cellWidths)
     {
         if (isEmpty)
             return string.Empty;
 
-        if (columnWidths == null || columnWidths.Count == 0)
+        if (cellWidths == null || cellWidths.Count == 0)
             return string.Empty;
 
         StringBuilder sb = new();
 
         sb.Append(BottomLeft);
 
-        for (int columnIndex = 0; columnIndex < columnWidths.Count; columnIndex++)
+        for (int cellIndex = 0; cellIndex < cellWidths.Count; cellIndex++)
         {
-            int columnWidth = columnWidths[columnIndex];
-            sb.Append(new string(Bottom, columnWidth));
+            int cellWidth = cellWidths[cellIndex];
+            sb.Append(new string(Bottom, cellWidth));
 
-            char columnBorderRight = columnIndex < columnWidths.Count - 1
+            char cellBorderRight = cellIndex < cellWidths.Count - 1
                 ? BottomIntersection
                 : BottomRight;
 
-            sb.Append(columnBorderRight);
+            sb.Append(cellBorderRight);
         }
 
         return sb.ToString();

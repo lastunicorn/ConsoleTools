@@ -25,5 +25,5 @@ public interface IRenderable
     /// <summary>
     /// Creates a new <see cref="IRenderer"/> for the current instance.
     /// </summary>
-    IRenderer GetRenderer(RenderingOptions renderingOptions = null);
+    IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
 }

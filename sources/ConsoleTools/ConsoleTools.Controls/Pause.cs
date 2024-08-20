@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -56,36 +55,9 @@ public class Pause : ErasableControl
         Margin = "0 1";
     }
 
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new PauseRenderer(this, renderingOptions);
-    }
-
-    private class PauseRenderer : BlockControlRenderer<Pause>
-    {
-        private IEnumerator<string> linesEnumerator;
-
-        public PauseRenderer(Pause control, RenderingOptions renderingOptions)
-            : base(control, renderingOptions)
-        {
-        }
-
-        protected override bool DoInitializeContentRendering()
-        {
-            if (Control.Text == null)
-                return false;
-
-            linesEnumerator = Control.Text.GetLines(ControlLayout.ActualContentWidth, OverflowBehavior.CutChar)
-                .GetEnumerator();
-
-            return linesEnumerator.MoveNext();
-        }
-
-        protected override bool DoRenderNextContentLine(IDisplay display)
-        {
-            WriteLine(display, linesEnumerator.Current);
-            return linesEnumerator.MoveNext();
-        }
+        return new PauseRenderer(this, display, renderingOptions);
     }
 
     /// <summary>

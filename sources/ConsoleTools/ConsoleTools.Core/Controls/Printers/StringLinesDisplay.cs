@@ -37,16 +37,6 @@ internal class StringLinesDisplay : IDisplay
     /// </summary>
     public ConsoleColor BackgroundColor { get; set; }
 
-    public int LineCount => lines.Count;
-
-    /// <summary>
-    /// It is not used by the current instance.
-    /// Writes nothing to the output stream.
-    /// </summary>
-    public void StartLine()
-    {
-    }
-
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(c);
@@ -57,22 +47,7 @@ internal class StringLinesDisplay : IDisplay
         buffer.Append(text);
     }
 
-    public void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        buffer.Append(c);
-    }
-
-    public void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
-    {
-        buffer.Append(text);
-    }
-
     public void DoWriteRootEndLine()
-    {
-        EndLine();
-    }
-
-    public void EndLine()
     {
         if (buffer.Length > 0)
         {
@@ -94,13 +69,6 @@ internal class StringLinesDisplay : IDisplay
         }
     }
 
-    public void WriteLine(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
-    {
-        StartLine();
-        Write(text, foregroundColor, backgroundColor);
-        EndLine();
-    }
-
     public void Flush()
     {
         if (buffer.Length <= 0)
@@ -112,11 +80,6 @@ internal class StringLinesDisplay : IDisplay
             lines.Add(buffer.ToString());
 
         shouldReplaceLastLine = true;
-    }
-
-    public IDisplay CreateChild()
-    {
-        return new StringDisplay(buffer);
     }
 
     public IReadOnlyCollection<string> GetLines()

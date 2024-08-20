@@ -14,19 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using NUnit.Framework;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 
-namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlock.RenderingTests;
+namespace DustInTheWind.ConsoleTools.Controls;
 
-[TestFixture]
-public class TextBlockTests : TestsBase
+public class Border : BlockControl
 {
-    [Test]
-    public void HavingNoPaddingTopSpecified_WhenRendered_TheCellContainsNoPaddingLine()
-    {
-        ConsoleTools.Controls.TextBlock textBlock = new("this is a text");
+    public BlockControl Content { get; set; }
 
-        string expected = GetResourceFileContent("01-oneline.txt");
-        textBlock.IsEqualTo(expected);
+    public BorderTemplate Template { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
+
+    public override int DesiredContentWidth => Content.DesiredContentWidth + 2;
+
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    {
+        return new BorderRenderer(this, display, renderingOptions);
     }
 }

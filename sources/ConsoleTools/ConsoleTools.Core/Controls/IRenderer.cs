@@ -14,11 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
+
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
 /// Renders the underlying control line by line into the specified <see cref="IDisplay"/>.
 /// </summary>
+/// 
+/// <remarks>
+/// This approach of rendering line by line is necessary when the control being rendered is
+/// embedded into another one.
+/// The parent control will need to render each child control's line into its own lines.
+/// </remarks>
 public interface IRenderer
 {
     /// <summary>
@@ -26,8 +34,22 @@ public interface IRenderer
     /// </summary>
     bool HasMoreLines { get; }
 
+    ///// <summary>
+    ///// Initializes the current instance with the <see cref="IDisplay"/> to be used for, later,
+    ///// rendering the control into. 
+    ///// </summary>
+    /////
+    ///// <param name="display">
+    ///// The <see cref="IDisplay"/> instance to be used for rendering the control into.
+    ///// </param>
+    /////
+    ///// <exception cref="ArgumentNullException">
+    ///// Thrown if the provided <see cref="display"/> is null.
+    ///// </exception>
+    //void Initialize(IDisplay display);
+
     /// <summary>
-    /// Renders the next line into the specified <see cref="IDisplay"/>.
+    /// Renders the next line using the underlying <see cref="IDisplay"/>.
     /// </summary>
-    void RenderNextLine(IDisplay display);
+    void RenderNextLine();
 }

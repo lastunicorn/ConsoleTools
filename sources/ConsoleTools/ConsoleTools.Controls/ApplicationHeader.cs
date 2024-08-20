@@ -111,7 +111,7 @@ public class ApplicationHeader : BlockControl
     //        display.WriteLine(new string('=', Console.WindowWidth - 1));
     //}
 
-    private string BuildTitleRow()
+    public string BuildTitleRow()
     {
         StringBuilder sb = new();
 
@@ -147,66 +147,8 @@ public class ApplicationHeader : BlockControl
         TitleDisplay?.Invoke(this, e);
     }
 
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new ApplicationHeaderRenderer(this, renderingOptions);
-    }
-
-    private class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeader>
-    {
-        private string text;
-        private RenderingStep step;
-
-        public ApplicationHeaderRenderer(ApplicationHeader control, RenderingOptions renderingOptions)
-            : base(control, renderingOptions)
-        {
-        }
-
-        protected override bool DoInitializeContentRendering()
-        {
-            text = Control.BuildTitleRow();
-            step = RenderingStep.TitleText;
-            return true;
-        }
-
-        protected override bool DoRenderNextContentLine(IDisplay display)
-        {
-            return step switch
-            {
-                RenderingStep.TitleText => ExecuteTitleTextStep(display),
-                RenderingStep.Separator => ExecuteSeparatorStep(display),
-                _ => false
-            };
-        }
-
-        private bool ExecuteTitleTextStep(IDisplay display)
-        {
-            WriteLine(display, text);
-
-            if (Control.ShowSeparator)
-            {
-                step = RenderingStep.Separator;
-                return true;
-            }
-            
-            step = RenderingStep.End;
-            return false;
-        }
-
-        private bool ExecuteSeparatorStep(IDisplay display)
-        {
-            string separatorText = new('=', Console.WindowWidth - 1);
-            WriteLine(display, separatorText);
-
-            step = RenderingStep.End;
-            return false;
-        }
-    }
-
-    private enum RenderingStep
-    {
-        TitleText,
-        Separator,
-        End
+        return new ApplicationHeaderRenderer(this, display, renderingOptions);
     }
 }

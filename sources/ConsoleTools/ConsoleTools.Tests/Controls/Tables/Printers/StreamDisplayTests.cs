@@ -55,11 +55,7 @@ public class StreamDisplayTests : TestsBase
             Control = dataGrid
         };
 
-        StreamDisplay streamDisplay = new(memoryStream)
-        {
-            Layout = controlLayout,
-            MaxLineLength = int.MaxValue
-        };
+        StreamDisplay streamDisplay = new(memoryStream);
         return streamDisplay;
     }
 

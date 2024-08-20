@@ -23,60 +23,58 @@ using System;
 using System.IO;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+
 /// <summary>
 /// Stores the rendered parts of a <see cref="DataGrid"/> instance in a <see cref="System.IO.Stream"/>.
 /// </summary>
-public class StreamDisplay : DisplayBase, IDisposable
+public class StreamDisplay : IDisplay, IDisposable
 {
     private bool isDisposed;
 
-    private readonly Stream stream;
     private readonly StreamWriter streamWriter;
 
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public override ConsoleColor ForegroundColor { get; set; }
+    public ConsoleColor ForegroundColor { get; set; }
 
     /// <summary>
     /// This property is ignored.
     /// </summary>
-    public override ConsoleColor BackgroundColor { get; set; }
+    public ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
     /// Gets the underlying stream into which the data is written.
     /// </summary>
-    public Stream Stream => stream;
+    public Stream Stream { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
     /// the <see cref="System.IO.Stream"/> into which the table will be written.
     /// </summary>
     public StreamDisplay(Stream stream)
-        :base(true)
     {
-        this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
+        this.Stream = stream ?? throw new ArgumentNullException(nameof(stream));
 
         streamWriter = new StreamWriter(stream);
     }
 
     private StreamDisplay(StreamWriter streamWriter)
-        :base(false)
     {
         this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
     }
 
-    public override void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         streamWriter.Write(c);
     }
 
-    public override void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         streamWriter.Write(text);
     }
 
-    public override void DoWriteRootEndLine()
+    public void DoWriteRootEndLine()
     {
         streamWriter.WriteLine();
     }
@@ -84,19 +82,9 @@ public class StreamDisplay : DisplayBase, IDisposable
     /// <summary>
     /// Writes all the buffered data into the underlying stream.
     /// </summary>
-    public override void Flush()
+    public void Flush()
     {
         streamWriter.Flush();
-    }
-
-    /// <summary>
-    /// Creates a new child instance of the current <see cref="StreamDisplay"/> instance that
-    /// writes in the same <see cref="System.IO.Stream"/> as the current instance.
-    /// </summary>
-    /// <returns>The newly created <see cref="StreamDisplay"/> instance.</returns>
-    public override IDisplay CreateChild()
-    {
-        return new StreamDisplay(streamWriter);
     }
 
     /// <summary>
@@ -113,7 +101,7 @@ public class StreamDisplay : DisplayBase, IDisposable
             streamWriter?.Dispose();
         }
 
-        stream?.Dispose();
+        Stream?.Dispose();
 
         isDisposed = true;
     }

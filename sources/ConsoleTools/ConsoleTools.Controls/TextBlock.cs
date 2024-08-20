@@ -20,8 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 namespace DustInTheWind.ConsoleTools.Controls;
@@ -32,9 +30,18 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public class TextBlock : BlockControl
 {
     /// <summary>
-    /// Gets or sets the text.
+    /// Gets or sets the text to be displayed.
     /// </summary>
     public MultilineText Text { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value specifying how to render the text that falls outside of the required
+    /// available rendering space.
+    /// The rendering space may be limited by the <see cref="BlockControl.Width"/>,
+    /// <see cref="BlockControl.MaxWidth"/>, <see cref="BlockControl.MinWidth"/> or some external
+    /// limitations from a possible parent control.
+    /// </summary>
+    public OverflowBehavior OverflowBehavior { get; set; } = OverflowBehavior.WrapWord;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TextBlock"/> class.
@@ -61,18 +68,25 @@ public class TextBlock : BlockControl
         Text = text;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TextBlock"/> class
+    /// with multiple text lines to be displayed.
+    /// </summary>
+    public TextBlock(params string[] lines)
+    {
+        Text = new MultilineText(lines);
+    }
+
     public override int DesiredContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
-    /// Returns the string representation of the current instance.
+    /// Returns a renderer object that is able to render the current <see cref="Control"/>
+    /// instance using a specified <see cref="IDisplay"/>.
     /// </summary>
-    /// <returns>The string representation of the current instance.</returns>
-    public override string ToString()
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        StringDisplay display = new();
-        DoDisplayContent(display);
-
-        return display.ToString();
+        return new TextBlockRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
@@ -86,42 +100,5 @@ public class TextBlock : BlockControl
             Text = text
         };
         textBlock.Display();
-    }
-
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
-    {
-        return new TextBlockRenderer(this, renderingOptions);
-    }
-
-    private class TextBlockRenderer : BlockControlRenderer<TextBlock>
-    {
-        private IEnumerator<string> chunksEnumerator;
-
-        public TextBlockRenderer(TextBlock textBlock, RenderingOptions renderingOptions)
-            : base(textBlock, renderingOptions)
-        {
-        }
-
-        protected override bool DoInitializeContentRendering()
-        {
-            if (Control.Text == null)
-            {
-                chunksEnumerator = Enumerable.Empty<string>().GetEnumerator();
-                return false;
-            }
-
-            int contentWidth = ControlLayout.ActualContentWidth;
-            chunksEnumerator = Control.Text.GetLines(contentWidth, OverflowBehavior.CutChar)
-                .GetEnumerator();
-
-            return chunksEnumerator.MoveNext();
-        }
-
-        protected override bool DoRenderNextContentLine(IDisplay display)
-        {
-            display.WriteLine(chunksEnumerator.Current);
-
-            return chunksEnumerator.MoveNext();
-        }
     }
 }

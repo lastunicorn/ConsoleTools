@@ -31,9 +31,9 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// <remarks>
 /// In order to be able to successfully erase the control, the inheritor must
 /// calculate and set the <see cref="InnerSize"/> of the control until the end
-/// of the <see cref="BlockControl.DoDisplayContent"/> method.
+/// of the <see cref="Control.DoRender"/> method.
 /// </remarks>
-public abstract class ErasableControl : BlockControl
+public abstract class ErasableControl : InteractiveControl
 {
     /// <summary>
     /// Gets the size of the control after it was displayed.

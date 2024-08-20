@@ -41,13 +41,6 @@ public interface IDisplay
     /// </summary>
     ConsoleColor BackgroundColor { get; set; }
 
-    int LineCount { get; }
-
-    /// <summary>
-    /// Writes the left empty space, left margin and left padding.
-    /// </summary>
-    void StartLine();
-
     /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
@@ -58,34 +51,10 @@ public interface IDisplay
     /// </summary>
     void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
-    /// <summary>
-    /// Writes the right padding, right margin and right empty space.
-    /// </summary>
-    void EndLine();
-
-    /// <summary>
-    /// Writes an entire row including necessary empty space, margins and paddings.
-    /// </summary>
-    /// <param name="text">The text to be included in the row.</param>
-    /// <param name="foregroundColor"></param>
-    /// <param name="backgroundColor"></param>
-    void WriteLine(string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
+    void DoWriteRootEndLine();
 
     /// <summary>
     /// Writes all the buffered data into the output.
     /// </summary>
     void Flush();
-
-    /// <summary>
-    /// Creates a new child instance of the current printer that writes in the same output as the
-    /// current instance.
-    /// </summary>
-    /// <returns>The newly created instance.</returns>
-    IDisplay CreateChild();
-
-    void DoWrite(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
-
-    void DoWrite(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor);
-
-    void DoWriteRootEndLine();
 }

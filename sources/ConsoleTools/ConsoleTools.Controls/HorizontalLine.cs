@@ -53,38 +53,9 @@ public class HorizontalLine : BlockControl
         Margin = "0 1";
     }
 
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions = null)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new HorizontalLineRenderer(this, renderingOptions);
-    }
-
-    internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
-    {
-        private string text;
-
-        public HorizontalLineRenderer(HorizontalLine horizontalLine, RenderingOptions renderingOptions)
-            : base(horizontalLine, renderingOptions)
-        {
-        }
-
-        protected override bool DoInitializeContentRendering()
-        {
-            int width = ControlLayout.ContentSize.Width;
-
-            if (width <= 0)
-                return false;
-
-            text = new string(Control.Character, width);
-
-            return true;
-        }
-
-        protected override bool DoRenderNextContentLine(IDisplay display)
-        {
-            WriteLine(display, text);
-
-            return false;
-        }
+        return new HorizontalLineRenderer(this, display, renderingOptions);
     }
 
     /// <summary>

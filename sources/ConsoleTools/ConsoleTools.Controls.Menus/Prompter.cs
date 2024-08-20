@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 /// <summary>
 /// Provides a way for the user to type a command at the console.
 /// </summary>
-public class Prompter : BlockControl, IRepeatableSupport
+public class Prompter : InteractiveControl, IRepeatableSupport
 {
     private bool closeWasRequested;
 
@@ -123,37 +123,37 @@ public class Prompter : BlockControl, IRepeatableSupport
     /// <summary>
     /// Erases all the information of the previous display.
     /// </summary>
-    protected override void OnBeforeDisplay()
+    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {
         LastCommand = null;
         closeWasRequested = false;
 
-        base.OnBeforeDisplay();
+        base.OnBeforeDisplay(e);
     }
 
-    /// <summary>
-    /// Displays the menu and waits for the user to choose an item.
-    /// This method blocks until the user chooses an item.
-    /// </summary>
-    protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
-    {
-        bool success = false;
+    ///// <summary>
+    ///// Displays the menu and waits for the user to choose an item.
+    ///// This method blocks until the user chooses an item.
+    ///// </summary>
+    //protected override void DoDisplay(IDisplay display, RenderingOptions renderingOptions = null)
+    //{
+    //    bool success = false;
 
-        while (!success && !closeWasRequested)
-        {
-            WriteLeftMargin();
+    //    while (!success && !closeWasRequested)
+    //    {
+    //        WriteLeftMargin();
 
-            display.StartLine();
-            string text = TextFormat == null
-                ? Text
-                : string.Format(TextFormat, Text);
-            CustomConsole.Write(text);
-            success = ReadUserInput();
-            display.EndLine();
+    //        display.StartLine();
+    //        string text = TextFormat == null
+    //            ? Text
+    //            : string.Format(TextFormat, Text);
+    //        CustomConsole.Write(text);
+    //        success = ReadUserInput();
+    //        display.EndLine();
 
-            WriteRightMargin();
-        }
-    }
+    //        WriteRightMargin();
+    //    }
+    //}
 
     public override int DesiredContentWidth => int.MaxValue;
 
@@ -231,9 +231,33 @@ public class Prompter : BlockControl, IRepeatableSupport
         }
     }
 
-    public override IRenderer GetRenderer(RenderingOptions renderingOptions)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions)
     {
-        throw new NotImplementedException();
+        return new PrompterRenderer(this, display, renderingOptions);
+    }
+
+    protected override void OnAfterInteractiveDisplay(AfterInteractiveDisplayEventArgs e)
+    {
+        base.OnAfterInteractiveDisplay(e);
+
+        if (e.Renderer is PrompterRenderer prompterRenderer)
+        {
+            LastCommand = prompterRenderer.LastCommand;
+
+            if (LastCommand != null)
+            {
+                bool isHandled = AnnounceNewCommand();
+
+                if (!isHandled)
+                    isHandled = ExecuteAssociatedItem();
+
+                if (!isHandled)
+                    AnnounceUnhandledCommand();
+
+                if (!isHandled)
+                    UnhandledItemCommand?.Execute(LastCommand);
+            }
+        }
     }
 
     private bool AnnounceNewCommand()

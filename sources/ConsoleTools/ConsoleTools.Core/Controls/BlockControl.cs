@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -30,22 +29,8 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// It also force the rendering to start from the beginning of the next line if the cursor is
 /// in the middle of a line.
 /// </summary>
-public abstract partial class BlockControl : Control
+public abstract class BlockControl : Control
 {
-    ///// <summary>
-    ///// Gets an instance that represents the display available for the control to write on.
-    ///// It also provides helper methods to write partial or entire rows.
-    ///// </summary>
-    //protected IDisplay ControlDisplay { get; private set; }
-
-    ///// <summary>
-    ///// Gets the calculated layout for the current instance.
-    ///// This value is calculated at the beginning of the display process and it is available throughout
-    ///// the entire display process.
-    ///// Before and after the display has unknown value.
-    ///// </summary>
-    //protected ControlLayout Layout { get; private set; }
-
     /// <summary>
     /// Gets or sets a value that specifies who should be considered the parent if none is specified.
     /// This is useful when calculating the alignment.
@@ -54,24 +39,64 @@ public abstract partial class BlockControl : Control
     public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
 
     /// <summary>
-    /// Displays the margins and the content of the control.
-    /// It also ensures that the control is displayed starting from a new line.
+    /// Gets or sets the amount of space that should be empty outside the control.
     /// </summary>
-    protected override void DoDisplay()
+    public Thickness Margin { get; set; }
+
+    /// <summary>
+    /// Gets or sets the amount of space between the content and the margin of the control.
+    /// </summary>
+    public Thickness Padding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the control. The margins are not included.
+    /// </summary>
+    public int? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum width allowed for the control.
+    /// </summary>
+    public int? MinWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width allowed for the control.
+    /// </summary>
+    public int? MaxWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
+    /// </summary>
+    public HorizontalAlignment? HorizontalAlignment { get; set; }
+
+    /// <summary>
+    /// Gets the width available for the control to render itself.
+    /// </summary>
+    /// <remarks>
+    /// The parent's control is deciding this space.
+    /// </remarks>
+    protected int AvailableWidth
     {
-        //MoveToNextLineIfNecessary();
+        get
+        {
+            switch (DefaultParent)
+            {
+                case DefaultParent.ConsoleBuffer:
+                    return Console.BufferWidth - 1;
 
-        ControlLayout controlLayout = CalculateLayout();
-        IDisplay display = CreateControlDisplay(controlLayout);
+                case DefaultParent.ConsoleWindow:
+                    return Console.WindowWidth - 1;
 
-        //WriteTopMargin();
-        //WriteTopPadding();
-
-        DoDisplayContent(display);
-
-        //WriteBottomPadding();
-        //WriteBottomMargin();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
+
+    /// <summary>
+    /// When implemented by an inheritor, gets the width of the content when there are no other restrictions applied to the control.
+    /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
+    /// </summary>
+    public virtual int DesiredContentWidth { get; }
 
     private static void MoveToNextLineIfNecessary()
     {
@@ -79,48 +104,13 @@ public abstract partial class BlockControl : Control
             Console.WriteLine();
     }
 
-    private ControlLayout CalculateLayout()
-    {
-        ControlLayout layout = new()
-        {
-            Control = this,
-            AvailableWidth = AvailableWidth,
-            DesiredContentWidth = DesiredContentWidth
-        };
-
-        layout.Calculate();
-
-        return layout;
-    }
-
-    private IDisplay CreateControlDisplay(ControlLayout controlLayout)
-    {
-        ConsoleDisplay controlDisplay = new()
-        {
-            Layout = controlLayout
-        };
-
-        if (ForegroundColor.HasValue)
-            controlDisplay.ForegroundColor = ForegroundColor.Value;
-
-        if (BackgroundColor.HasValue)
-            controlDisplay.BackgroundColor = BackgroundColor.Value;
-
-        return controlDisplay;
-    }
-
     /// <summary>
-    /// Displays the control to the Console.
-    /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
-    /// by the <see cref="Control.GetRenderer"/> method.
+    /// Erases all the information of the previous display.
     /// </summary>
-    protected virtual void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
+    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {
-        IRenderer renderer = GetRenderer(renderingOptions);
+        e.RenderingOptions.AvailableWidth = AvailableWidth;
 
-        while (renderer.HasMoreLines)
-            renderer.RenderNextLine(display);
-
-        display.Flush();
+        base.OnBeforeDisplay(e);
     }
 }

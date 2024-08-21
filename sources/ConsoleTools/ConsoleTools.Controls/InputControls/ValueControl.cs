@@ -256,4 +256,6 @@ public class ValueControl<T> : BlockControl
         };
         valueControl.Write();
     }
+
+    public override int NaturalContentWidth { get; }
 }

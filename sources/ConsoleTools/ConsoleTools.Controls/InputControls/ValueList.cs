@@ -272,4 +272,6 @@ public class ValueList<T> : BlockControl
         };
         valueList.Write();
     }
+
+    public override int NaturalContentWidth { get; }
 }

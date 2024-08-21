@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables;
+namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
 /// Builds the border that separates two rows.

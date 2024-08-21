@@ -312,4 +312,6 @@ public class YesNoQuestion : BlockControl
 
         return yesNoQuestion.ReadAnswer();
     }
+
+    public override int NaturalContentWidth { get; }
 }

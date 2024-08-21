@@ -50,6 +50,8 @@ public class MultiColor : BlockControl
         ConsoleColor.DarkYellow
     };
 
+    public override int NaturalContentWidth { get; }
+
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new MultiColorRenderer(this, display, renderingOptions);

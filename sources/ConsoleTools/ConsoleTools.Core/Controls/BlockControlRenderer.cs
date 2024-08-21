@@ -54,9 +54,13 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// the control being rendered and rendering options.
     /// </summary>
     /// 
-    /// <param name="control">The control being rendered.</param>
+    /// <param name="control">
+    /// The control being rendered.
+    /// </param>
     ///
-    /// <param name="display">The display into which the control is rendered.</param>
+    /// <param name="display">
+    /// The display into which the control is rendered.
+    /// </param>
     /// 
     /// <param name="renderingOptions">
     /// Rendering options based on which the <see cref="IRenderer"/> is created.
@@ -182,6 +186,9 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         currentRenderer = null;
     }
 
+    /// <summary>
+    /// Renders the next line of the control into the display provided on the constructor.
+    /// </summary>
     public void RenderNextLine()
     {
         if (currentRenderer == null)
@@ -192,7 +199,23 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         MoveNext();
     }
 
+    /// <summary>
+    /// This method is called just before the content is rendered.
+    /// When implemented by an inheritor, it allows to perform any needed initialization for
+    /// rendering the content.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// <c>true</c> if the content has lines that can be serialized; <c>false</c> otherwise.
+    /// </returns>
     protected abstract bool InitializeContentRendering();
 
+    /// <summary>
+    /// When implemented by an inheritor, it renders the next line of the content.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// <c>true</c> if the content has more lines that can be serialized; <c>false</c> otherwise.
+    /// </returns>
     protected abstract bool RenderNextContentLine();
 }

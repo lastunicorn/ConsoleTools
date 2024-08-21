@@ -17,8 +17,8 @@
 using System;
 using System.IO;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Displays;
 using DustInTheWind.ConsoleTools.Controls.Tables;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 using FluentAssertions;
 using NUnit.Framework;
 

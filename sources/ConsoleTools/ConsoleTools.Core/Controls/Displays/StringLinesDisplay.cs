@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+namespace DustInTheWind.ConsoleTools.Controls.Displays;
 
 internal class StringLinesDisplay : IDisplay
 {

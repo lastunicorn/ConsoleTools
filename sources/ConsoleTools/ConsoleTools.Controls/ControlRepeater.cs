@@ -103,4 +103,6 @@ public class ControlRepeater : BlockControl
         if (Control is IRepeatableSupport repeatableControl)
             repeatableControl.RequestClose();
     }
+
+    public override int NaturalContentWidth { get; }
 }

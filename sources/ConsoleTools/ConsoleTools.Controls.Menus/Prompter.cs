@@ -155,57 +155,58 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     //    }
     //}
 
-    public override int NaturalContentWidth => int.MaxValue;
-
-    public override int ComputeNaturalContentWidth()
+    public override int NaturalContentWidth
     {
-        string text = TextFormat == null
-            ? Text
-            : string.Format(TextFormat, Text);
-
-        return text.Length;
-    }
-
-    private void WriteLeftMargin()
-    {
-        if (MarginLeft <= 0)
-            return;
-
-        string leftMargin = new(' ', MarginLeft);
-        Console.Write(leftMargin);
-    }
-
-    private void WriteRightMargin()
-    {
-        if (MarginRight <= 0)
-            return;
-
-        string rightMargin = new(' ', MarginRight);
-        Console.Write(rightMargin);
-    }
-
-    private bool ReadUserInput()
-    {
-        string commandText = Console.ReadLine();
-
-        if (commandText == null)
+        get
         {
-            RequestClose();
-            return false;
+            string text = TextFormat == null
+                ? Text
+                : string.Format(TextFormat, Text);
+
+            return text.Length;
         }
-
-        if (commandText.Length == 0)
-            return false;
-
-        CliCommand newCommand = CliCommand.Parse(commandText);
-
-        if (newCommand.IsEmpty)
-            return false;
-
-        LastCommand = newCommand;
-
-        return true;
     }
+
+    //private void WriteLeftMargin()
+    //{
+    //    if (MarginLeft <= 0)
+    //        return;
+
+    //    string leftMargin = new(' ', MarginLeft);
+    //    Console.Write(leftMargin);
+    //}
+
+    //private void WriteRightMargin()
+    //{
+    //    if (MarginRight <= 0)
+    //        return;
+
+    //    string rightMargin = new(' ', MarginRight);
+    //    Console.Write(rightMargin);
+    //}
+
+    //private bool ReadUserInput()
+    //{
+    //    string commandText = Console.ReadLine();
+
+    //    if (commandText == null)
+    //    {
+    //        RequestClose();
+    //        return false;
+    //    }
+
+    //    if (commandText.Length == 0)
+    //        return false;
+
+    //    CliCommand newCommand = CliCommand.Parse(commandText);
+
+    //    if (newCommand.IsEmpty)
+    //        return false;
+
+    //    LastCommand = newCommand;
+
+    //    return true;
+    //}
 
     /// <summary>
     /// If a command is available it is processed by raising the <see cref="NewCommand"/> event,

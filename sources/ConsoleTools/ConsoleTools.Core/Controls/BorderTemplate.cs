@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables;
+namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
 /// Represents a border template that can be applied on a <see cref="DataGrid"/> instance.

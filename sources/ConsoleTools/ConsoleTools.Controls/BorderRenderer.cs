@@ -28,7 +28,7 @@ internal class BorderRenderer : BlockControlRenderer<Border>
 
     protected override bool InitializeContentRendering()
     {
-        int naturalContentWidth = Control.ComputeNaturalContentWidth();
+        int naturalContentWidth = Control.CalculateNaturalContentWidth();
         int contentWidth = naturalContentWidth - Control.Padding.Left - Control.Padding.Right - 2;
 
         ChildRenderingOptions renderingOptions = new()

@@ -106,11 +106,6 @@ public class InlineTextBlock : InlineControl
         return length;
     }
 
-    public override int ComputeNaturalContentWidth()
-    {
-        return Text.Length;
-    }
-
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions)
     {
         throw new NotImplementedException();

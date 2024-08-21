@@ -20,7 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+using DustInTheWind.ConsoleTools.Controls.Displays;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -84,8 +84,6 @@ public abstract class Control : IRenderable
 
         return consoleDisplay;
     }
-
-    public abstract int ComputeNaturalContentWidth();
 
     /// <summary>
     /// Renders the current instance using the specified <see cref="IDisplay"/>.

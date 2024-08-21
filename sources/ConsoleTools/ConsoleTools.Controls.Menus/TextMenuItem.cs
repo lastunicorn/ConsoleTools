@@ -103,11 +103,6 @@ public class TextMenuItem : InlineControl
         Command?.Execute();
     }
 
-    public override int ComputeNaturalContentWidth()
-    {
-        throw new NotImplementedException();
-    }
-
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         throw new NotImplementedException();

@@ -99,16 +99,27 @@ public abstract class BlockControl : Control
     }
 
     /// <summary>
-    /// When implemented by an inheritor, gets the width of the content when there are no other restrictions applied to the control.
-    /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
+    /// When implemented by an inheritor, gets the width of the control's content calculated when
+    /// there are no other space restrictions applied to it. Not even the control's <see cref="Width"/>,
+    /// <see cref="MinWidth"/> or <see cref="MaxWidth"/> limitations.
     /// </summary>
-    public virtual int NaturalContentWidth { get; }
-    
+    public abstract int NaturalContentWidth { get; }
+
+    /// <summary>
+    /// Gets the width of the content's natural width including paddings.
+    /// </summary>
     public int NaturalWidth => NaturalContentWidth + Padding.Left + Padding.Right;
 
+    /// <summary>
+    /// Gets the width of the content's natural width including paddings and margins.
+    /// </summary>
     public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
 
-    public override int ComputeNaturalContentWidth()
+    /// <summary>
+    /// Calculates the natural width of the content when control's limitations like <see cref="Width"/>,
+    /// <see cref="MinWidth"/> and <see cref="MaxWidth"/> are applied.
+    /// </summary>
+    public int CalculateNaturalContentWidth()
     {
         int width = Width.HasValue
             ? Width.Value - Padding.Left - Padding.Right
@@ -127,32 +138,6 @@ public abstract class BlockControl : Control
         }
 
         return width;
-
-        //int normalWidth = NormalContentWidth;
-
-        //if (MinWidth == null)
-        //{
-        //    if (MaxWidth == null)
-        //        return normalWidth;
-
-        //    int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
-
-        //    return Math.Min(contentMaxWidth, normalWidth);
-        //}
-
-        //if (MaxWidth == null)
-        //{
-        //    int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
-
-        //    return Math.Max(contentMinWidth, normalWidth);
-        //}
-        //else
-        //{
-        //    int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
-        //    int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
-
-        //    return Math.Min(Math.Max(contentMinWidth, normalWidth), contentMaxWidth);
-        //}
     }
 
     private static void MoveToNextLineIfNecessary()
@@ -162,7 +147,7 @@ public abstract class BlockControl : Control
     }
 
     /// <summary>
-    /// Erases all the information of the previous display.
+    /// Method called before the control is displayed.
     /// </summary>
     protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
     {

@@ -161,6 +161,8 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         this.menuItems.AddRange(menuItems);
     }
 
+    public override int NaturalContentWidth => 0;
+
     /// <summary>
     /// Erases all the information of the previous display.
     /// </summary>

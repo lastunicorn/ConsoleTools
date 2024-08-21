@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+namespace DustInTheWind.ConsoleTools.Controls.Displays;
 
 /// <summary>
 /// Writes the parts of a <see cref="Control"/> instance to the <see cref="Console"/>,
@@ -29,12 +29,18 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.Printers;
 /// </summary>
 public class ConsoleDisplay : IInteractiveDisplay
 {
+    /// <summary>
+    /// Gets or sets the color used for writing the text to the console.
+    /// </summary>
     public ConsoleColor ForegroundColor
     {
         get => Console.ForegroundColor;
         set => Console.ForegroundColor = value;
     }
 
+    /// <summary>
+    /// Gets or sets the color used for writing the background of the text to the console.
+    /// </summary>
     public ConsoleColor BackgroundColor
     {
         get => Console.BackgroundColor;
@@ -49,6 +55,9 @@ public class ConsoleDisplay : IInteractiveDisplay
     {
     }
 
+    /// <summary>
+    /// Writes the specified character, using the specified colors to the console.
+    /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         if (foregroundColor.HasValue)
@@ -67,6 +76,9 @@ public class ConsoleDisplay : IInteractiveDisplay
         }
     }
 
+    /// <summary>
+    /// Writes the specified text, using the specified colors to the console.
+    /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         if (foregroundColor.HasValue)
@@ -85,6 +97,9 @@ public class ConsoleDisplay : IInteractiveDisplay
         }
     }
 
+    /// <summary>
+    /// Writes the line terminator to the console.
+    /// </summary>
     public void EndLine()
     {
         Console.WriteLine();

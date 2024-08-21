@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
+using DustInTheWind.ConsoleTools.Controls.Displays;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -401,6 +401,8 @@ public class DataGrid : BlockControl
         EmptyGridRow = new EmptyGridRow();
         Border = new DataGridBorder();
     }
+
+    public override int NaturalContentWidth => 0;
 
     /// <summary>
     /// Creates a new <see cref="IRenderer"/> for the current instance.

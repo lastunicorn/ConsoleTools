@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// Represents a location in the 2D plane.
 /// Immutable.
 /// </summary>
-public struct Location
+public readonly struct Location
 {
     /// <summary>
     /// Gets the left component.
@@ -68,10 +68,9 @@ public struct Location
     /// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
     public override bool Equals(object obj)
     {
-        if (!(obj is Location))
+        if (obj is not Location location)
             return false;
 
-        Location location = (Location)obj;
         return location.Left == Left && location.Top == Top;
     }
 

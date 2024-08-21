@@ -54,6 +54,8 @@ public class ApplicationHeader : BlockControl
     /// </summary>
     public bool ShowSeparator { get; set; } = true;
 
+    public override int NaturalContentWidth { get; }
+
     /// <summary>
     /// Event raised before the title is displayed.
     /// It allows to alter the title before it is displayed. 

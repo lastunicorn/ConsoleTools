@@ -500,6 +500,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\01-title-shorter.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\02-title-longer.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\03-title-multiline.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\01-margin-2-width-long.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\02-margin-2-width-short.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\03-margin-2-width-exact.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\01-maxwidth-long.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\02-maxwidth-short.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\03-maxwidth-exact.txt" />
@@ -989,6 +992,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\01-maxwidth-long.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\02-maxwidth-short.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MaxWidth_Tests.Resources\03-maxwidth-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\01-margin-2-width-long.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\02-margin-2-width-short.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\03-margin-2-width-exact.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\01-padding-2-width-long.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\02-padding-2-width-short.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\03-padding-2-width-exact.txt" />

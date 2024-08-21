@@ -51,6 +51,9 @@ public interface IDisplay
     /// </summary>
     void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
+    /// <summary>
+    /// Writes the line terminator.
+    /// </summary>
     void EndLine();
 
     /// <summary>

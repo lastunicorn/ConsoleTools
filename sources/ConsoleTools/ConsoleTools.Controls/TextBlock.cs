@@ -19,9 +19,6 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-using System;
-using DustInTheWind.ConsoleTools.Controls.Tables.Printers;
-
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
@@ -42,6 +39,11 @@ public class TextBlock : BlockControl
     /// limitations from a possible parent control.
     /// </summary>
     public OverflowBehavior OverflowBehavior { get; set; } = OverflowBehavior.WrapWord;
+
+    /// <summary>
+    /// Gets the size of the underlying text when no restrictions are applied.
+    /// </summary>
+    public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TextBlock"/> class.
@@ -76,8 +78,6 @@ public class TextBlock : BlockControl
     {
         Text = new MultilineText(lines);
     }
-
-    public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="Control"/>

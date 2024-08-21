@@ -14,33 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class PauseRenderer : BlockControlRenderer<Pause>
+internal class MarginTopRenderingPart : RenderingPart
 {
-    private IEnumerator<string> linesEnumerator;
+    private int actualCount;
 
-    public PauseRenderer(Pause control, IDisplay display, RenderingOptions renderingOptions)
-        : base(control, display, renderingOptions)
+    public override bool HasMoreLines => actualCount < RenderingContext.ControlLayout.Margin.Top;
+
+    public MarginTopRenderingPart(RenderingContext renderingContext)
+        : base(renderingContext)
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    public override void RenderNextLine()
     {
-        if (Control.Text == null)
-            return false;
+        if (actualCount >= RenderingContext.ControlLayout.Margin.Top)
+            return;
 
-        linesEnumerator = Control.Text.GetLines(ControlLayout.ActualContentWidth, OverflowBehavior.CutChar)
-            .GetEnumerator();
+        RenderingContext.WriteMarginLine();
 
-        return linesEnumerator.MoveNext();
-    }
-
-    protected override bool DoRenderNextContentLine()
-    {
-        RenderingContext.WriteLine(linesEnumerator.Current);
-        return linesEnumerator.MoveNext();
+        actualCount++;
     }
 }

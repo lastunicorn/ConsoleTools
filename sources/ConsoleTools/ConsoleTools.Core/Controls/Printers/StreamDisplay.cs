@@ -74,7 +74,7 @@ public class StreamDisplay : IDisplay, IDisposable
         streamWriter.Write(text);
     }
 
-    public void DoWriteRootEndLine()
+    public void EndLine()
     {
         streamWriter.WriteLine();
     }

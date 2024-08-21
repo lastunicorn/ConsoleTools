@@ -14,30 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class BottomMarginRenderer : IRenderer
+internal class MarginBottomRenderingPart : RenderingPart
 {
-    private readonly ControlDisplay controlDisplay;
-    private readonly ControlLayout controlLayout;
     private int actualCount;
 
-    public bool HasMoreLines => actualCount < controlLayout.Margin.Bottom;
+    public override bool HasMoreLines => actualCount < RenderingContext.ControlLayout.Margin.Bottom;
 
-    public BottomMarginRenderer(ControlDisplay controlDisplay, ControlLayout controlLayout)
+    public MarginBottomRenderingPart(RenderingContext renderingContext)
+        : base(renderingContext)
     {
-        this.controlDisplay = controlDisplay ?? throw new ArgumentNullException(nameof(controlDisplay));
-        this.controlLayout = controlLayout ?? throw new ArgumentNullException(nameof(controlLayout));
     }
 
-    public void RenderNextLine()
+    public override void RenderNextLine()
     {
-        if (actualCount >= controlLayout.Margin.Bottom)
+        if (actualCount >= RenderingContext.ControlLayout.Margin.Bottom)
             return;
 
-        controlDisplay.WriteLine();
+        RenderingContext.WriteMarginLine();
 
         actualCount++;
     }

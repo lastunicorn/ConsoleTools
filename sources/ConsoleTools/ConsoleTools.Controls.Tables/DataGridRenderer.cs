@@ -40,9 +40,9 @@ internal class DataGridRenderer : BlockControlRenderer<DataGrid>
         if (dataGridX == null)
             return false;
 
-        Display.StartLine();
-        dataGridX.RenderNextLine(Display);
-        Display.EndLine();
+        RenderingContext.StartLine();
+        dataGridX.RenderNextLine(RenderingContext);
+        RenderingContext.EndLine();
 
         return dataGridX.HasMoreLines;
     }

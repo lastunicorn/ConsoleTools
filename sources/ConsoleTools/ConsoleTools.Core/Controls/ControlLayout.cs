@@ -52,10 +52,10 @@ public class ControlLayout
     /// </summary>
     public HorizontalAlignment ContentHorizontalAlignment { get; set; }
 
-    /// <summary>
-    /// Gets or sets the width of the content when the parent control does not enforce any restrictions.
-    /// </summary>
-    public int? DesiredContentWidth { get; set; }
+    ///// <summary>
+    ///// Gets or sets the width of the content when the parent control does not enforce any restrictions.
+    ///// </summary>
+    //public int? NormalWidth { get; set; }
 
     public Thickness EmptySpace { get; set; }
 
@@ -77,17 +77,12 @@ public class ControlLayout
     /// <remarks>
     /// This value is equal to the available width if the control is stretched.
     /// </remarks>
-    public int ActualFullWidth => ContentSize.Width + Margin.Left + Margin.Right + Padding.Left + Padding.Right;
+    public int ActualFullWidth => ContentSize.Width + Padding.Left + Padding.Right + Margin.Left + Margin.Right;
 
     /// <summary>
     /// Gets the actual calculated width of the control without the left and right margins.
     /// </summary>
-    public int ActualWidth { get; private set; }
-
-    /// <summary>
-    /// Gets the actual calculated width of the client area (without the left and right paddings).
-    /// </summary>
-    public int ActualClientWidth { get; private set; }
+    public int ActualWidth => ContentSize.Width + Padding.Left + Padding.Right;
 
     /// <summary>
     /// Gets the calculated width of the content.
@@ -125,7 +120,7 @@ public class ControlLayout
         CalculateMargins();
         CalculatePaddings();
         calculatedHorizontalAlignment = ComputeHorizontalAlignment();
-        CalculateActualWidths();
+        CalculateContentSize();
         //CalculateInnerEmptySpace();
         CalculateOuterEmptySpace();
     }
@@ -193,7 +188,7 @@ public class ControlLayout
         }
     }
 
-    private void CalculateActualWidths()
+    private void CalculateContentSize()
     {
         Size remainingAllowedSize = maxAllowedSize - actualSize;
 
@@ -212,25 +207,28 @@ public class ControlLayout
         }
         else
         {
-            int calculatedMaxFullWidth = AvailableWidth ?? DesiredContentWidth ?? 0;
-            int calculatedMaxWidth = calculatedMaxFullWidth - Control.Margin.Left - Control.Margin.Right;
-            int calculatedMaxContentWidth = calculatedMaxWidth - Control.Padding.Left - Control.Padding.Right;
+            int width;
 
-            int? calculatedDesiredContentWidth = CalculateDesiredContentWidth();
+            if (AvailableWidth == null)
+            {
+                width = Control.ComputeNaturalContentWidth();
+            }
+            else
+            {
+                int contentPaddingMarginWidth = AvailableWidth.Value;
+                int contentPaddingWidth = contentPaddingMarginWidth - Control.Margin.Left - Control.Margin.Right;
 
-            int width = calculatedDesiredContentWidth.HasValue
-                ? Math.Min(calculatedDesiredContentWidth.Value, calculatedMaxContentWidth)
-                : calculatedMaxContentWidth;
+                width = contentPaddingWidth - Control.Padding.Left - Control.Padding.Right;
+            }
 
             int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
 
             ContentSize = new Size(width, height);
         }
 
-
+        actualSize += ContentSize;
 
         // -----------------
-
 
         //// Calculate max widths.
 
@@ -263,41 +261,40 @@ public class ControlLayout
         //}
     }
 
-    private int? CalculateDesiredContentWidth()
-    {
-        if (Control.Width != null)
-            return Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
+    //private int? CalculateDesiredContentWidth()
+    //{
+    //    if (Control.Width != null)
+    //    {
+    //        int contentWidth = Control.Width.Value - Control.Padding.Left - Control.Padding.Right;
+    //        return contentWidth;
+    //    }
 
-        if (Control.MinWidth == null)
-        {
-            if (Control.MaxWidth == null)
-            {
-                return DesiredContentWidth;
-            }
-            int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+    //    int normalWidth = Control.NormalContentWidth;
 
-            return DesiredContentWidth == null
-                ? clientMaxWidth
-                : Math.Min(clientMaxWidth, DesiredContentWidth.Value);
-        }
-        if (Control.MaxWidth == null)
-        {
-            int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+    //    if (Control.MinWidth == null)
+    //    {
+    //        if (Control.MaxWidth == null)
+    //            return normalWidth;
 
-            return DesiredContentWidth == null
-                ? clientMinWidth
-                : Math.Max(clientMinWidth, DesiredContentWidth.Value);
-        }
-        else
-        {
-            int clientMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
-            int clientMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+    //        int contentMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
 
-            return DesiredContentWidth == null
-                ? clientMinWidth
-                : Math.Min(Math.Max(clientMinWidth, DesiredContentWidth.Value), clientMaxWidth);
-        }
-    }
+    //        return Math.Min(contentMaxWidth, normalWidth);
+    //    }
+
+    //    if (Control.MaxWidth == null)
+    //    {
+    //        int contentMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+    //        return Math.Max(contentMinWidth, normalWidth);
+    //    }
+    //    else
+    //    {
+    //        int contentMinWidth = Control.MinWidth.Value - Control.Padding.Left - Control.Padding.Right;
+    //        int contentMaxWidth = Control.MaxWidth.Value - Control.Padding.Left - Control.Padding.Right;
+
+    //        return Math.Min(Math.Max(contentMinWidth, normalWidth), contentMaxWidth);
+    //    }
+    //}
 
     //private void CalculateInnerEmptySpace()
     //{

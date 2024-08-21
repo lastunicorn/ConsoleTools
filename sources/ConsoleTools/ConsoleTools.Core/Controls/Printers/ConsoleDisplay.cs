@@ -85,7 +85,7 @@ public class ConsoleDisplay : IInteractiveDisplay
         }
     }
 
-    public void DoWriteRootEndLine()
+    public void EndLine()
     {
         Console.WriteLine();
     }

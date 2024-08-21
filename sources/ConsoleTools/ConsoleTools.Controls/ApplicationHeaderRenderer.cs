@@ -47,7 +47,7 @@ internal class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeade
 
     private bool ExecuteTitleTextStep()
     {
-        Display.WriteLine(text);
+        RenderingContext.WriteLine(text);
 
         if (Control.ShowSeparator)
         {
@@ -62,7 +62,7 @@ internal class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeade
     private bool ExecuteSeparatorStep()
     {
         string separatorText = new('=', Console.WindowWidth - 1);
-        Display.WriteLine(separatorText);
+        RenderingContext.WriteLine(separatorText);
 
         step = ApplicationHeaderRenderingStep.End;
         return false;

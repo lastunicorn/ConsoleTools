@@ -95,7 +95,7 @@ internal class DataGridX
         }
     }
 
-    public void RenderNextLine(ControlDisplay display)
+    public void RenderNextLine(RenderingContext display)
     {
         IItemX itemX = GetNextItemToRender();
         itemX?.RenderNextLine(display);

@@ -18,13 +18,17 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
+/// <summary>
+/// This base renderer provides support for rendering a <see cref="BlockControl"/>.
+/// </summary>
+/// <typeparam name="TControl"></typeparam>
 public abstract class BlockControlRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
     private RenderingStep step;
     private IRenderer currentRenderer;
 
-    protected ControlDisplay Display { get; }
+    protected RenderingContext RenderingContext { get; }
 
     /// <summary>
     /// Gets the control being rendered.
@@ -63,16 +67,16 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         ControlLayout = new ControlLayout
         {
             Control = control,
-            AvailableWidth = renderingOptions?.AvailableWidth,
-            DesiredContentWidth = control.DesiredContentWidth
+            AvailableWidth = renderingOptions?.AvailableWidth
         };
 
         ControlLayout.Calculate();
 
-        Display = new ControlDisplay(display, ControlLayout)
+        RenderingContext = new RenderingContext(display, ControlLayout)
         {
-            MaxLineLength = renderingOptions?.AvailableWidth,
-            IsRoot = renderingOptions?.IsRoot ?? true
+            LineLength = renderingOptions?.AvailableWidth,
+            IsRoot = renderingOptions?.IsRoot ?? true,
+            OnLineWritten = renderingOptions?.OnWrite
         };
 
         step = RenderingStep.Start;
@@ -135,18 +139,19 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private void MoveToTopMargin()
     {
         step = RenderingStep.TopMargin;
-        currentRenderer = new TopMarginRenderer(Display, ControlLayout);
+        currentRenderer = new MarginTopRenderingPart(RenderingContext);
     }
 
     private void MoveToTopPadding()
     {
         step = RenderingStep.TopPadding;
-        currentRenderer = new TopPaddingRenderer(Display, ControlLayout);
+        currentRenderer = new PaddingTopRenderingPart(RenderingContext);
     }
 
     private void MoveToContent()
     {
         step = RenderingStep.Content;
+
         currentRenderer = new RelayRenderer(DoInitializeContentRendering)
         {
             RenderNextLineAction = DoRenderNextContentLine
@@ -156,13 +161,13 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private void MoveToBottomPadding()
     {
         step = RenderingStep.BottomPadding;
-        currentRenderer = new BottomPaddingRenderer(Display, ControlLayout);
+        currentRenderer = new PaddingBottomRenderingPart(RenderingContext);
     }
 
     private void MoveToBottomMargin()
     {
         step = RenderingStep.BottomMargin;
-        currentRenderer = new BottomMarginRenderer(Display, ControlLayout);
+        currentRenderer = new MarginBottomRenderingPart(RenderingContext);
     }
 
     private void MoveToEnd()
@@ -177,7 +182,6 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
             return;
 
         currentRenderer.RenderNextLine();
-        //display.DoWriteRootEndLine();
 
         MoveNext();
     }
@@ -185,17 +189,4 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     protected abstract bool DoInitializeContentRendering();
 
     protected abstract bool DoRenderNextContentLine();
-
-    //protected void OnAfterStartLine()
-    //{
-    //    Display.WriteSpaces(ControlLayout.EmptySpace.Left, null, null);
-    //    Display.WriteSpaces(ControlLayout.Margin.Left, null, null);
-    //    Display.WritePadding(ControlLayout.Padding.Left);
-    //}
-
-    //protected void OnBeforeEndLine()
-    //{
-    //    Display.WritePadding(ControlLayout.Padding.Right);
-    //    Display.WriteSpaces(ControlLayout.Margin.Right, null, null);
-    //}
 }

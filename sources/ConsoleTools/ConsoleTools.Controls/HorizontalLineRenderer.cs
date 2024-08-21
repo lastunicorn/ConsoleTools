@@ -39,7 +39,7 @@ internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
 
     protected override bool DoRenderNextContentLine()
     {
-        Display.WriteLine(text);
+        RenderingContext.WriteLine(text);
 
         return false;
     }

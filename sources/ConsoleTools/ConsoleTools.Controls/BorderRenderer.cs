@@ -28,11 +28,15 @@ internal class BorderRenderer : BlockControlRenderer<Border>
 
     protected override bool DoInitializeContentRendering()
     {
-        RenderingOptions renderingOptions = new()
+        int naturalContentWidth = Control.ComputeNaturalContentWidth();
+        int contentWidth = naturalContentWidth - Control.Padding.Left - Control.Padding.Right - 2;
+
+        ChildRenderingOptions renderingOptions = new()
         {
-            IsRoot = false
+            AvailableWidth = contentWidth
         };
-        contentRenderer = Control.Content.GetRenderer(Display.Display, renderingOptions);
+
+        contentRenderer = RenderingContext.CreateChildRenderer(Control.Content, renderingOptions);
 
         step = BorderRendererStep.Top;
         return true;
@@ -42,8 +46,8 @@ internal class BorderRenderer : BlockControlRenderer<Border>
     {
         if (step == BorderRendererStep.Top)
         {
-            string text = Control.Template.GenerateTopBorder(ControlLayout.ContentSize.Width);
-            Display.WriteLine(text);
+            string text = Control.Template.GenerateTopBorder(ControlLayout.ContentSize.Width - 2);
+            RenderingContext.WriteLine(text);
 
             step = BorderRendererStep.Content;
             return true;
@@ -51,17 +55,17 @@ internal class BorderRenderer : BlockControlRenderer<Border>
 
         if (step == BorderRendererStep.Content)
         {
-            Display.StartLine();
+            RenderingContext.StartLine();
 
             char left = Control.Template.Left;
-            Display.Write(left);
+            RenderingContext.Write(left);
 
             contentRenderer.RenderNextLine();
 
             char right = Control.Template.Left;
-            Display.Write(right);
+            RenderingContext.Write(right);
 
-            Display.EndLine();
+            RenderingContext.EndLine();
 
             if (!contentRenderer.HasMoreLines)
                 step = BorderRendererStep.Bottom;
@@ -71,8 +75,8 @@ internal class BorderRenderer : BlockControlRenderer<Border>
 
         if (step == BorderRendererStep.Bottom)
         {
-            string text = Control.Template.GenerateBottomBorder(ControlLayout.ContentSize.Width);
-            Display.WriteLine(text);
+            string text = Control.Template.GenerateBottomBorder(ControlLayout.ContentSize.Width - 2);
+            RenderingContext.WriteLine(text);
 
             step = BorderRendererStep.End;
             return false;

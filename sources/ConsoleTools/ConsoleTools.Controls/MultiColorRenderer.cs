@@ -44,7 +44,7 @@ internal class MultiColorRenderer : BlockControlRenderer<MultiColor>
         string text = Control.Text;
         ConsoleColor color = Control.Colors[index];
 
-        Display.WriteLine(text, color);
+        RenderingContext.WriteLine(text, color);
 
         index++;
         return index < Control.Colors.Count;

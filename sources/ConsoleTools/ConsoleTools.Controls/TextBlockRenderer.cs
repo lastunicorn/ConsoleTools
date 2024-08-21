@@ -45,7 +45,7 @@ internal class TextBlockRenderer : BlockControlRenderer<TextBlock>
 
     protected override bool DoRenderNextContentLine()
     {
-        Display.WriteLine(chunksEnumerator.Current);
+        RenderingContext.WriteLine(chunksEnumerator.Current);
 
         return chunksEnumerator.MoveNext();
     }

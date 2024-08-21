@@ -18,14 +18,30 @@ using DustInTheWind.ConsoleTools.Controls.Tables;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
+/// <summary>
+/// Displays a border around other controls.
+/// </summary>
 public class Border : BlockControl
 {
+    /// <summary>
+    /// Gets or sets the control contained inside the border.
+    /// </summary>
     public BlockControl Content { get; set; }
 
+    /// <summary>
+    /// Gets or sets the template used for the border. It provides the characters to be used as
+    /// border.
+    /// </summary>
     public BorderTemplate Template { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
 
-    public override int DesiredContentWidth => Content.DesiredContentWidth + 2;
+    /// <summary>
+    /// Gets the full width of the control when it is not restricted by external factors.
+    /// </summary>
+    public override int NaturalContentWidth => Content.NaturalContentWidth + 2;
 
+    /// <summary>
+    /// Returns an object capable of rendering the current control into a display.
+    /// </summary>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new BorderRenderer(this, display, renderingOptions);

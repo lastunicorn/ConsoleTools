@@ -51,7 +51,7 @@ public interface IDisplay
     /// </summary>
     void Write(string text, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);
 
-    void DoWriteRootEndLine();
+    void EndLine();
 
     /// <summary>
     /// Writes all the buffered data into the output.

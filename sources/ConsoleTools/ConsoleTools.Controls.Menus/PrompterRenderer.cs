@@ -44,13 +44,13 @@ internal class PrompterRenderer : BlockControlRenderer<Prompter>
 
     protected override bool DoRenderNextContentLine()
     {
-        Display.StartLine();
+        RenderingContext.StartLine();
         string text = Control.TextFormat == null
             ? Control.Text
             : string.Format(Control.TextFormat, Control.Text);
-        Display.Write(text);
+        RenderingContext.Write(text);
         success = ReadUserInput();
-        Display.EndLine();
+        RenderingContext.EndLine();
 
         return !success && !closeWasRequested;
     }

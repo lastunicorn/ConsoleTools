@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
@@ -33,20 +31,6 @@ public interface IRenderer
     /// Gets a value specifying if the rendered still has more lines to render.
     /// </summary>
     bool HasMoreLines { get; }
-
-    ///// <summary>
-    ///// Initializes the current instance with the <see cref="IDisplay"/> to be used for, later,
-    ///// rendering the control into. 
-    ///// </summary>
-    /////
-    ///// <param name="display">
-    ///// The <see cref="IDisplay"/> instance to be used for rendering the control into.
-    ///// </param>
-    /////
-    ///// <exception cref="ArgumentNullException">
-    ///// Thrown if the provided <see cref="display"/> is null.
-    ///// </exception>
-    //void Initialize(IDisplay display);
 
     /// <summary>
     /// Renders the next line using the underlying <see cref="IDisplay"/>.

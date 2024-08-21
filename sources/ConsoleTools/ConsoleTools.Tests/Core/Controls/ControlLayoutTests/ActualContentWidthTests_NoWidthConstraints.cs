@@ -69,11 +69,14 @@ public class ActualContentWidthTests_NoWidthConstraints
         control.Object.Margin = 10;
         control.Object.Padding = 7;
 
+        control
+            .SetupGet(x => x.NaturalContentWidth)
+            .Returns(20);
+
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 100,
-            DesiredContentWidth = 20
+            AvailableWidth = 100
         };
         controlLayout.Calculate();
 
@@ -89,12 +92,15 @@ public class ActualContentWidthTests_NoWidthConstraints
         control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
         control.Object.Margin = 10;
         control.Object.Padding = 7;
+        
+        control
+            .SetupGet(x => x.NaturalContentWidth)
+            .Returns(200);
 
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 102,
-            DesiredContentWidth = 200
+            AvailableWidth = 102
         };
         controlLayout.Calculate();
 

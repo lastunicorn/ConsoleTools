@@ -51,7 +51,7 @@ internal class SeparatorX : IItemX
         HasMoreLines = true;
     }
 
-    public void RenderNextLine(ControlDisplay display)
+    public void RenderNextLine(RenderingContext display)
     {
         display.StartLine();
         display.Write(line, ForegroundColor, BackgroundColor);

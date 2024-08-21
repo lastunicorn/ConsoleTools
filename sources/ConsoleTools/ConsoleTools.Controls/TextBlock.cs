@@ -77,7 +77,7 @@ public class TextBlock : BlockControl
         Text = new MultilineText(lines);
     }
 
-    public override int DesiredContentWidth => Text?.Size.Width ?? 0;
+    public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="Control"/>

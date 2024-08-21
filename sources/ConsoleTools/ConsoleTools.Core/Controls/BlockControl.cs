@@ -50,6 +50,12 @@ public abstract class BlockControl : Control
 
     /// <summary>
     /// Gets or sets the width of the control. The margins are not included.
+    /// 
+    /// If <see cref="MinWidth"/> is set and the <see cref="Width"/> is smaller,
+    /// than <see cref="MinWidth"/> is used.
+    /// 
+    /// If <see cref="MaxWidth"/> is set and the <see cref="Width"/> is larger,
+    /// than <see cref="MaxWidth"/> is used.
     /// </summary>
     public int? Width { get; set; }
 
@@ -96,7 +102,58 @@ public abstract class BlockControl : Control
     /// When implemented by an inheritor, gets the width of the content when there are no other restrictions applied to the control.
     /// If the value is not provided, <see cref="int.MaxValue"/> is assumed.
     /// </summary>
-    public virtual int DesiredContentWidth { get; }
+    public virtual int NaturalContentWidth { get; }
+    
+    public int NaturalWidth => NaturalContentWidth + Padding.Left + Padding.Right;
+
+    public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
+
+    public override int ComputeNaturalContentWidth()
+    {
+        int width = Width.HasValue
+            ? Width.Value - Padding.Left - Padding.Right
+            : NaturalContentWidth;
+
+        if (MinWidth.HasValue)
+        {
+            int minWidth = MinWidth.Value - Padding.Left - Padding.Right;
+            width = Math.Max(width, minWidth);
+        }
+
+        if (MaxWidth.HasValue)
+        {
+            int maxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+            width = Math.Min(width, maxWidth);
+        }
+
+        return width;
+
+        //int normalWidth = NormalContentWidth;
+
+        //if (MinWidth == null)
+        //{
+        //    if (MaxWidth == null)
+        //        return normalWidth;
+
+        //    int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+
+        //    return Math.Min(contentMaxWidth, normalWidth);
+        //}
+
+        //if (MaxWidth == null)
+        //{
+        //    int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+
+        //    return Math.Max(contentMinWidth, normalWidth);
+        //}
+        //else
+        //{
+        //    int contentMinWidth = MinWidth.Value - Padding.Left - Padding.Right;
+        //    int contentMaxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
+
+        //    return Math.Min(Math.Max(contentMinWidth, normalWidth), contentMaxWidth);
+        //}
+    }
 
     private static void MoveToNextLineIfNecessary()
     {

@@ -193,26 +193,25 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         ControlLayout controlLayout = new()
         {
             Control = this,
-            AvailableWidth = renderingOptions?.AvailableWidth,
-            DesiredContentWidth = DesiredContentWidth
+            AvailableWidth = renderingOptions?.AvailableWidth
         };
 
         controlLayout.Calculate();
 
-        ControlDisplay controlDisplay = new ControlDisplay(display, controlLayout)
+        RenderingContext renderingContext = new(display, controlLayout)
         {
-            MaxLineLength = renderingOptions?.AvailableWidth,
+            LineLength = renderingOptions?.AvailableWidth,
             IsRoot = renderingOptions?.IsRoot ?? true
         };
 
         if (TitleText != null)
-            DrawTitle(controlDisplay);
+            DrawTitle(renderingContext);
 
-        DrawMenu(controlDisplay);
-        ReadUserSelection(controlDisplay);
+        DrawMenu(renderingContext);
+        ReadUserSelection(renderingContext);
     }
 
-    private void DrawTitle(ControlDisplay display)
+    private void DrawTitle(RenderingContext display)
     {
         display.WriteLine(TitleText);
         display.WriteLine();
@@ -221,7 +220,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DrawMenu(ControlDisplay display)
+    private void DrawMenu(RenderingContext display)
     {
         IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
             .Where(x => x.IsVisible);
@@ -236,7 +235,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         }
     }
 
-    private void ReadUserSelection(ControlDisplay display)
+    private void ReadUserSelection(RenderingContext display)
     {
         display.WriteLine();
         //Console.WriteLine();
@@ -291,7 +290,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(questionHeight);
     }
 
-    private void DisplayInvalidOptionWarning(ControlDisplay display)
+    private void DisplayInvalidOptionWarning(RenderingContext display)
     {
         display.WriteLine(InvalidOptionText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
         display.WriteLine();
@@ -302,7 +301,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         //InnerSize = InnerSize.InflateHeight(2);
     }
 
-    private void DisplayDisabledItemWarning(ControlDisplay display)
+    private void DisplayDisabledItemWarning(RenderingContext display)
     {
         display.WriteLine(OptionDisabledText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
         display.WriteLine();

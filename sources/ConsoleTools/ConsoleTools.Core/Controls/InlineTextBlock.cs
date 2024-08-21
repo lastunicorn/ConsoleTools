@@ -106,6 +106,16 @@ public class InlineTextBlock : InlineControl
         return length;
     }
 
+    public override int ComputeNaturalContentWidth()
+    {
+        return Text.Length;
+    }
+
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions)
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Converts a simple string into a <see cref="InlineTextBlock"/> object containing that string.
     /// </summary>
@@ -122,10 +132,5 @@ public class InlineTextBlock : InlineControl
     public static implicit operator string(InlineTextBlock inlineTextBlock)
     {
         return inlineTextBlock.Text;
-    }
-
-    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions)
-    {
-        throw new NotImplementedException();
     }
 }

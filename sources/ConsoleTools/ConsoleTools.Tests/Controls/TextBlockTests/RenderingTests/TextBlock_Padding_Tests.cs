@@ -23,11 +23,11 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlockTests.RenderingTest
 public class TextBlock_Padding_Tests : TestsBase
 {
     [Test]
-    public void HavingPadding2AllAroundAndLongerWidth()
+    public void HavingPadding2AllAroundAndBiggerMaxWidth()
     {
         TextBlock textBlock = new("The quick brown fox jumps over the lazy dog.")
         {
-            Width = 100,
+            MaxWidth = 100,
             Padding = 2
         };
 
@@ -36,11 +36,11 @@ public class TextBlock_Padding_Tests : TestsBase
     }
 
     [Test]
-    public void HavingPadding2AllAroundAndShorterWidth()
+    public void HavingPadding2AllAroundAndSmallerMaxWidth()
     {
         TextBlock textBlock = new("The quick brown fox jumps over the lazy dog.")
         {
-            Width = 20,
+            MaxWidth = 20,
             Padding = 2
         };
 
@@ -49,11 +49,11 @@ public class TextBlock_Padding_Tests : TestsBase
     }
 
     [Test]
-    public void HavingPadding2AllAroundAndExactWidth()
+    public void HavingPadding2AllAroundAndExactMaxWidth()
     {
         TextBlock textBlock = new("The quick brown fox jumps over the lazy dog.")
         {
-            Width = 44,
+            MaxWidth = 44 + 2 + 2,
             Padding = 2
         };
 

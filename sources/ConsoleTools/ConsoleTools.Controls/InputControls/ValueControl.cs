@@ -204,7 +204,7 @@ public class ValueControl<T> : BlockControl
     private void WriteValue(IDisplay display)
     {
         display.Write(Value?.ToString());
-        display.DoWriteRootEndLine();
+        display.EndLine();
     }
 
     private void DisplayLabel()

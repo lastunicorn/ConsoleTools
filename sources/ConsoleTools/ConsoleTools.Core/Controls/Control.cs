@@ -85,10 +85,7 @@ public abstract class Control : IRenderable
         return consoleDisplay;
     }
 
-    public virtual Size CalculateNaturalSize()
-    {
-        return Size.Empty;
-    }
+    public abstract int ComputeNaturalContentWidth();
 
     /// <summary>
     /// Renders the current instance using the specified <see cref="IDisplay"/>.

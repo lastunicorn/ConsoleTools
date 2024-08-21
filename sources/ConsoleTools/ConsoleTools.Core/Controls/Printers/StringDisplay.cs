@@ -68,7 +68,7 @@ public class StringDisplay : IDisplay
         stringBuilder.Append(text);
     }
 
-    public void DoWriteRootEndLine()
+    public void EndLine()
     {
         stringBuilder.AppendLine();
     }

@@ -45,7 +45,7 @@ public class Pause : ErasableControl
     /// <summary>
     /// Gets the width of the displayed Text.
     /// </summary>
-    public override int DesiredContentWidth => Text?.Size.Width ?? 0;
+    public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Pause"/> class.

@@ -155,15 +155,15 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     //    }
     //}
 
-    public override int DesiredContentWidth => int.MaxValue;
+    public override int NaturalContentWidth => int.MaxValue;
 
-    public override Size CalculateNaturalSize()
+    public override int ComputeNaturalContentWidth()
     {
         string text = TextFormat == null
             ? Text
             : string.Format(TextFormat, Text);
 
-        return new Size(text.Length, 1);
+        return text.Length;
     }
 
     private void WriteLeftMargin()

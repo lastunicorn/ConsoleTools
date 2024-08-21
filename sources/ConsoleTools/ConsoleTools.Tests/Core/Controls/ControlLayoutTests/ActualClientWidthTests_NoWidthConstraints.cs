@@ -37,7 +37,7 @@ public class ActualClientWidthTests_NoWidthConstraints
         };
         controlLayout.Calculate();
 
-        int actual = controlLayout.ActualClientWidth;
+        int actual = controlLayout.ContentSize.Width;
 
         Assert.That(actual, Is.EqualTo(66));
     }
@@ -57,7 +57,7 @@ public class ActualClientWidthTests_NoWidthConstraints
         };
         controlLayout.Calculate();
 
-        int actual = controlLayout.ActualClientWidth;
+        int actual = controlLayout.ContentSize.Width;
 
         Assert.That(actual, Is.EqualTo(68));
     }

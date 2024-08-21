@@ -34,9 +34,12 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\01-content-oneline.txt" />
-      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\02-content-twolines.txt" />
-      <None Remove="Controls\BorderTests\RenderingTests\Border_Tests.Resources\03-content-oneline-margins.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-maxwidth-bigger.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\01-content-oneline.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\03-content-oneline-margins.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\04-content-twolines-margins.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-maxwidth-smaller.txt" />
       <None Remove="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
@@ -509,9 +512,12 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\03-content-oneline-margins.txt" />
-      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\02-content-twolines.txt" />
-      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Tests.Resources\01-content-oneline.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-maxwidth-smaller.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-maxwidth-bigger.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\04-content-twolines-margins.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\03-content-oneline-margins.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\01-content-oneline.txt" />
       <EmbeddedResource Include="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />

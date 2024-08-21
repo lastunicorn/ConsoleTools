@@ -116,7 +116,7 @@ internal class CellX
         return contentSize;
     }
 
-    public void RenderNextLine(ControlDisplay display)
+    public void RenderNextLine(RenderingContext display)
     {
         if (lineEnumerator == null)
             throw new Exception("The cell rendering was not initialized yet.");

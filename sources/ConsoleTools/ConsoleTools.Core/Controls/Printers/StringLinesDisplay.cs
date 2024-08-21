@@ -47,7 +47,7 @@ internal class StringLinesDisplay : IDisplay
         buffer.Append(text);
     }
 
-    public void DoWriteRootEndLine()
+    public void EndLine()
     {
         if (buffer.Length > 0)
         {

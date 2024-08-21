@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.ConsoleTools.Tests.Controls.BorderTests.RenderingTests;
 
 [TestFixture]
-public class Border_Tests : TestsBase
+public class Border_Content_Tests : TestsBase
 {
     [Test]
     public void HavingContentOneLine()
@@ -60,6 +60,20 @@ public class Border_Tests : TestsBase
         };
 
         string expected = GetResourceFileContent("03-content-oneline-margins.txt");
+        border.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingContentTwoLinesAndMargin()
+    {
+        Border border = new()
+        {
+            Content = new TextBlock("The quick brown fox jumps over the lazy dog.", "I am not young enough to know everything."),
+            Template = BorderTemplate.SingleLineBorderTemplate,
+            Margin = "2 1"
+        };
+
+        string expected = GetResourceFileContent("04-content-twolines-margins.txt");
         border.IsEqualTo(expected);
     }
 }

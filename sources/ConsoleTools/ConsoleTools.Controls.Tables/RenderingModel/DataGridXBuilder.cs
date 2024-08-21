@@ -61,7 +61,7 @@ internal class DataGridXBuilder
         ProcessContentRows();
         ProcessFooterRow();
 
-        if (dataGridX.RowCount > 0)
+        if (dataGridX.SectionCount > 0)
             AddTopSeparatorForRow(null);
 
         dataGridX.Finish();

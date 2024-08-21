@@ -27,7 +27,7 @@ internal class DataGridRenderer : BlockControlRenderer<DataGrid>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         dataGridX = new DataGridXBuilder(Control).Build();
         dataGridX.InitializeRendering();
@@ -35,15 +35,12 @@ internal class DataGridRenderer : BlockControlRenderer<DataGrid>
         return dataGridX.HasMoreLines;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         if (dataGridX == null)
             return false;
 
-        RenderingContext.StartLine();
         dataGridX.RenderNextLine(RenderingContext);
-        RenderingContext.EndLine();
-
         return dataGridX.HasMoreLines;
     }
 }

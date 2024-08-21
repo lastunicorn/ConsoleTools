@@ -193,7 +193,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         ControlLayout controlLayout = new()
         {
             Control = this,
-            AvailableWidth = renderingOptions?.AvailableWidth
+            AllocatedWidth = renderingOptions?.AvailableWidth
         };
 
         controlLayout.Calculate();

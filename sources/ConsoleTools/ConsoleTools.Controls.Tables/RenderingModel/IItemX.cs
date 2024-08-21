@@ -27,5 +27,5 @@ internal interface IItemX
 
     void InitializeRendering(ColumnXCollection columnXCollection);
 
-    void RenderNextLine(RenderingContext display);
+    void RenderNextLine(RenderingContext renderingContext);
 }

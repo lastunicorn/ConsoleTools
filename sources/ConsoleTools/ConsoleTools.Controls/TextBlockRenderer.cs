@@ -28,7 +28,7 @@ internal class TextBlockRenderer : BlockControlRenderer<TextBlock>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         if (Control.Text == null)
         {
@@ -43,7 +43,7 @@ internal class TextBlockRenderer : BlockControlRenderer<TextBlock>
         return chunksEnumerator.MoveNext();
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         RenderingContext.WriteLine(chunksEnumerator.Current);
 

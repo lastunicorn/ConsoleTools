@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal abstract class RenderingPart : IRenderer
+internal abstract class SectionRenderer : IRenderer
 {
     protected RenderingContext RenderingContext { get; }
 
@@ -27,7 +27,7 @@ internal abstract class RenderingPart : IRenderer
     /// </summary>
     public abstract bool HasMoreLines { get; }
 
-    protected RenderingPart(RenderingContext renderingContext)
+    protected SectionRenderer(RenderingContext renderingContext)
     {
         RenderingContext = renderingContext ?? throw new ArgumentNullException(nameof(renderingContext));
     }

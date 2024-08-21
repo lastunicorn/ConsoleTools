@@ -26,7 +26,7 @@ internal class BorderRenderer : BlockControlRenderer<Border>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         int naturalContentWidth = Control.ComputeNaturalContentWidth();
         int contentWidth = naturalContentWidth - Control.Padding.Left - Control.Padding.Right - 2;
@@ -42,7 +42,7 @@ internal class BorderRenderer : BlockControlRenderer<Border>
         return true;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         if (step == BorderRendererStep.Top)
         {

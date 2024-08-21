@@ -29,7 +29,7 @@
 //    {
 //    }
 
-//    protected override bool DoInitializeContentRendering()
+//    protected override bool InitializeContentRendering()
 //    {
 //        throw new NotImplementedException();
 //    }

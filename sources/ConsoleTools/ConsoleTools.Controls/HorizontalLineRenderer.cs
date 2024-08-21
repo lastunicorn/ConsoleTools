@@ -25,7 +25,7 @@ internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         int width = ControlLayout.ContentSize.Width;
 
@@ -37,7 +37,7 @@ internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
         return true;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         RenderingContext.WriteLine(text);
 

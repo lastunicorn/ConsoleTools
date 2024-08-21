@@ -28,6 +28,10 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private RenderingStep step;
     private IRenderer currentRenderer;
 
+    /// <summary>
+    /// Provides a context for the rendering process.
+    /// It contains the control being rendered, its layout information and the display.
+    /// </summary>
     protected RenderingContext RenderingContext { get; }
 
     /// <summary>
@@ -49,14 +53,16 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// Initializes a new instance of teh <see cref="BlockControlRenderer{TControl}"/> class with
     /// the control being rendered and rendering options.
     /// </summary>
-    ///
+    /// 
     /// <param name="control">The control being rendered.</param>
     ///
+    /// <param name="display">The display into which the control is rendered.</param>
+    /// 
     /// <param name="renderingOptions">
     /// Rendering options based on which the <see cref="IRenderer"/> is created.
     /// If <c>null</c> is provided, the renderer is created using default options.
     /// </param>
-    ///
+    /// 
     /// <exception cref="ArgumentNullException">
     /// Thrown if the provided <see cref="control"/> is null.
     /// </exception>
@@ -67,7 +73,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         ControlLayout = new ControlLayout
         {
             Control = control,
-            AvailableWidth = renderingOptions?.AvailableWidth
+            AllocatedWidth = renderingOptions?.AvailableWidth
         };
 
         ControlLayout.Calculate();
@@ -139,35 +145,35 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private void MoveToTopMargin()
     {
         step = RenderingStep.TopMargin;
-        currentRenderer = new MarginTopRenderingPart(RenderingContext);
+        currentRenderer = new MarginTopSectionRenderer(RenderingContext);
     }
 
     private void MoveToTopPadding()
     {
         step = RenderingStep.TopPadding;
-        currentRenderer = new PaddingTopRenderingPart(RenderingContext);
+        currentRenderer = new PaddingTopSectionRenderer(RenderingContext);
     }
 
     private void MoveToContent()
     {
         step = RenderingStep.Content;
 
-        currentRenderer = new RelayRenderer(DoInitializeContentRendering)
+        currentRenderer = new RelayRenderer(InitializeContentRendering)
         {
-            RenderNextLineAction = DoRenderNextContentLine
+            RenderNextLineAction = RenderNextContentLine
         };
     }
 
     private void MoveToBottomPadding()
     {
         step = RenderingStep.BottomPadding;
-        currentRenderer = new PaddingBottomRenderingPart(RenderingContext);
+        currentRenderer = new PaddingBottomSectionRenderer(RenderingContext);
     }
 
     private void MoveToBottomMargin()
     {
         step = RenderingStep.BottomMargin;
-        currentRenderer = new MarginBottomRenderingPart(RenderingContext);
+        currentRenderer = new MarginBottomSectionRenderer(RenderingContext);
     }
 
     private void MoveToEnd()
@@ -186,7 +192,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         MoveNext();
     }
 
-    protected abstract bool DoInitializeContentRendering();
+    protected abstract bool InitializeContentRendering();
 
-    protected abstract bool DoRenderNextContentLine();
+    protected abstract bool RenderNextContentLine();
 }

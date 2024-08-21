@@ -28,14 +28,14 @@ internal class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeade
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         text = Control.BuildTitleRow();
         step = ApplicationHeaderRenderingStep.TitleText;
         return true;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         return step switch
         {

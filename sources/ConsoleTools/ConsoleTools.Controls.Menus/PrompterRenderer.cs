@@ -34,7 +34,7 @@ internal class PrompterRenderer : BlockControlRenderer<Prompter>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         success = false;
         closeWasRequested = false;
@@ -42,7 +42,7 @@ internal class PrompterRenderer : BlockControlRenderer<Prompter>
         return !success && !closeWasRequested;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         RenderingContext.StartLine();
         string text = Control.TextFormat == null

@@ -24,7 +24,7 @@ namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests;
 public class ActualContentWidthTests_NoWidthConstraints
 {
     [Test]
-    public void HorizontalAlignment_is_null_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
+    public void HorizontalAlignment_is_null_NaturalContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
     {
         Mock<BlockControl> control = new();
         control.Object.Margin = 10;
@@ -33,7 +33,7 @@ public class ActualContentWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 100
+            AllocatedWidth = 100
         };
         controlLayout.Calculate();
 
@@ -43,7 +43,7 @@ public class ActualContentWidthTests_NoWidthConstraints
     }
 
     [Test]
-    public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
+    public void HorizontalAlignment_is_Stretch_NaturalContentWidth_is_not_specified__returns_AvailableWidth_without_Margins_and_Paddings()
     {
         Mock<BlockControl> control = new();
         control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -53,7 +53,7 @@ public class ActualContentWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 102
+            AllocatedWidth = 102
         };
         controlLayout.Calculate();
 
@@ -63,7 +63,7 @@ public class ActualContentWidthTests_NoWidthConstraints
     }
 
     [Test]
-    public void HorizontalAlignment_is_null_DesiredContentWidth_is_less_than_available_space__returns_ContentDesiredWidth()
+    public void HorizontalAlignment_is_notset_NaturalContentWidth_is_less_than_allocated_space__returns_maximum_content_width()
     {
         Mock<BlockControl> control = new();
         control.Object.Margin = 10;
@@ -76,17 +76,17 @@ public class ActualContentWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 100
+            AllocatedWidth = 100
         };
         controlLayout.Calculate();
 
         int actual = controlLayout.ActualContentWidth;
 
-        Assert.That(actual, Is.EqualTo(20));
+        Assert.That(actual, Is.EqualTo(100 - 10 - 10 - 7 - 7));
     }
 
     [Test]
-    public void HorizontalAlignment_is_Stretch_DesiredContentWidth_is_more_than_available_space__returns_AvailableWidth_without_Margins_and_Paddings()
+    public void HorizontalAlignment_is_Stretch_NaturalContentWidth_is_more_than_available_space__returns_AvailableWidth_without_Margins_and_Paddings()
     {
         Mock<BlockControl> control = new();
         control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -100,7 +100,7 @@ public class ActualContentWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 102
+            AllocatedWidth = 102
         };
         controlLayout.Calculate();
 

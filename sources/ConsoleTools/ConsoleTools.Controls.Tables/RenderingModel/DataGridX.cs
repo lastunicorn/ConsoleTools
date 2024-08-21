@@ -19,6 +19,8 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System.Collections.Generic;
+
 namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 /// <summary>
@@ -27,10 +29,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 /// </summary>
 internal class DataGridX
 {
-    private readonly ItemXCollection rows = new();
+    private readonly ItemXCollection sections = new();
     private readonly ColumnXCollection columns = new();
 
-    private int renderItemIndex;
+    private IEnumerator<IItemX> sectionEnumerator;
 
     public bool HasBorders
     {
@@ -50,10 +52,10 @@ internal class DataGridX
         set => columns.MaxWidth = value;
     }
 
-    public int RowCount => rows.Count;
+    public int SectionCount => sections.Count;
 
-    public bool HasMoreLines => renderItemIndex < rows.Count;
-
+    public bool HasMoreLines => sectionEnumerator != null;
+    
     public void Add(ColumnX column)
     {
         columns.AddColumn(column);
@@ -61,12 +63,12 @@ internal class DataGridX
 
     public void Add(SeparatorX separator)
     {
-        rows.Add(separator);
+        sections.Add(separator);
     }
 
     public void Add(RowX rowX)
     {
-        rows.Add(rowX);
+        sections.Add(rowX);
         UpdateColumnsWidths(rowX);
     }
 
@@ -86,43 +88,42 @@ internal class DataGridX
 
     public void InitializeRendering()
     {
-        renderItemIndex = 0;
-
-        if (renderItemIndex < rows.Count)
-        {
-            IItemX itemX = rows[renderItemIndex];
-            itemX.InitializeRendering(columns);
-        }
+        sectionEnumerator = sections.GetEnumerator();
+        MoveToNextSection();
     }
 
-    public void RenderNextLine(RenderingContext display)
+    public void RenderNextLine(RenderingContext renderingContext)
     {
-        IItemX itemX = GetNextItemToRender();
-        itemX?.RenderNextLine(display);
+        if (sectionEnumerator == null)
+            return;
+
+        sectionEnumerator.Current.RenderNextLine(renderingContext);
+
+        if (!sectionEnumerator.Current.HasMoreLines)
+            MoveToNextSection();
     }
 
-    private IItemX GetNextItemToRender()
+    private void MoveToNextSection()
     {
-        bool isNewLine = false;
+        if (sectionEnumerator == null)
+            return;
 
-        while (renderItemIndex < rows.Count)
+        while (true)
         {
-            IItemX itemX = rows[renderItemIndex];
+            bool success = sectionEnumerator.MoveNext();
 
-            if (isNewLine)
-                itemX.InitializeRendering(columns);
-
-            if (!itemX.HasMoreLines)
+            if (success)
             {
-                renderItemIndex++;
-                isNewLine = true;
+                sectionEnumerator.Current.InitializeRendering(columns);
+
+                if (sectionEnumerator.Current.HasMoreLines)
+                    return;
             }
             else
             {
-                return itemX;
+                sectionEnumerator = null;
+                return;
             }
         }
-
-        return null;
     }
 }

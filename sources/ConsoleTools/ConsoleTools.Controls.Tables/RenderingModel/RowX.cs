@@ -106,27 +106,27 @@ internal class RowX : IItemX
         nextRenderIndex = 0;
     }
 
-    public void RenderNextLine(RenderingContext display)
+    public void RenderNextLine(RenderingContext renderingContext)
     {
-        display.StartLine();
+        renderingContext.StartLine();
 
-        RenderRowLeftBorder(display);
+        RenderRowLeftBorder(renderingContext);
 
         for (int cellIndex = 0; cellIndex < Cells.Count; cellIndex++)
         {
             CellX cellX = Cells[cellIndex];
 
-            cellX.RenderNextLine(display);
+            cellX.RenderNextLine(renderingContext);
 
             bool isLastCell = cellIndex >= Cells.Count - 1;
 
             if (isLastCell)
-                RenderRowRightBorder(display);
+                RenderRowRightBorder(renderingContext);
             else
-                RenderRowInsideBorder(display);
+                RenderRowInsideBorder(renderingContext);
         }
 
-        display.EndLine();
+        renderingContext.EndLine();
 
         nextRenderIndex++;
     }

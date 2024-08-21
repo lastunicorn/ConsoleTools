@@ -27,7 +27,7 @@ internal class PauseRenderer : BlockControlRenderer<Pause>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         if (Control.Text == null)
             return false;
@@ -38,7 +38,7 @@ internal class PauseRenderer : BlockControlRenderer<Pause>
         return linesEnumerator.MoveNext();
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         RenderingContext.WriteLine(linesEnumerator.Current);
         return linesEnumerator.MoveNext();

@@ -33,7 +33,7 @@ public class ActualClientWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 100
+            AllocatedWidth = 100
         };
         controlLayout.Calculate();
 
@@ -53,7 +53,7 @@ public class ActualClientWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AvailableWidth = 102
+            AllocatedWidth = 102
         };
         controlLayout.Calculate();
 

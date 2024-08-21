@@ -16,20 +16,20 @@
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class PaddingBottomRenderingPart : RenderingPart
+internal class PaddingTopSectionRenderer : SectionRenderer
 {
     private int lineIndex;
 
-    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Padding.Bottom;
+    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Padding.Top;
 
-    public PaddingBottomRenderingPart(RenderingContext renderingContext)
+    public PaddingTopSectionRenderer(RenderingContext renderingContext)
         : base(renderingContext)
     {
     }
 
     public override void RenderNextLine()
     {
-        if (lineIndex >= RenderingContext.ControlLayout.Padding.Bottom)
+        if (lineIndex >= RenderingContext.ControlLayout.Padding.Top)
             return;
 
         RenderingContext.WritePaddingLine();

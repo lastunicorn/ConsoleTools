@@ -27,7 +27,7 @@ internal class MultiColorRenderer : BlockControlRenderer<MultiColor>
     {
     }
 
-    protected override bool DoInitializeContentRendering()
+    protected override bool InitializeContentRendering()
     {
         if (Control.Text == null)
             return false;
@@ -36,7 +36,7 @@ internal class MultiColorRenderer : BlockControlRenderer<MultiColor>
         return index < Control.Colors?.Count;
     }
 
-    protected override bool DoRenderNextContentLine()
+    protected override bool RenderNextContentLine()
     {
         if (Control.Text == null || Control.Colors == null || index >= Control.Colors.Count)
             return false;

@@ -42,7 +42,7 @@ public class ControlLayout
     /// <summary>
     /// Gets or sets the available width in which the control can be displayed.
     /// </summary>
-    public int? AvailableWidth { get; set; }
+    public int? AllocatedWidth { get; set; }
 
     public int? AvailableHeight { get; set; }
 
@@ -135,13 +135,13 @@ public class ControlLayout
 
         if (Control.MaxWidth == null)
         {
-            width = AvailableWidth ?? int.MaxValue;
+            width = AllocatedWidth ?? int.MaxValue;
         }
         else
         {
-            width = AvailableWidth == null
+            width = AllocatedWidth == null
                 ? Control.MaxWidth.Value
-                : Math.Min(AvailableWidth.Value, Control.MaxWidth.Value);
+                : Math.Min(AllocatedWidth.Value, Control.MaxWidth.Value);
         }
 
         int height = AvailableHeight ?? int.MaxValue;
@@ -198,7 +198,7 @@ public class ControlLayout
             return;
         }
 
-        if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch && AvailableWidth.HasValue)
+        if (calculatedHorizontalAlignment == HorizontalAlignment.Stretch && AllocatedWidth.HasValue)
         {
             int width = maxAllowedSize.Width - Margin.Left - Padding.Left - Padding.Right - Margin.Right;
             int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
@@ -209,13 +209,13 @@ public class ControlLayout
         {
             int width;
 
-            if (AvailableWidth == null)
+            if (AllocatedWidth == null)
             {
                 width = Control.ComputeNaturalContentWidth();
             }
             else
             {
-                int contentPaddingMarginWidth = AvailableWidth.Value;
+                int contentPaddingMarginWidth = AllocatedWidth.Value;
                 int contentPaddingWidth = contentPaddingMarginWidth - Control.Margin.Left - Control.Margin.Right;
 
                 width = contentPaddingWidth - Control.Padding.Left - Control.Padding.Right;
@@ -331,8 +331,8 @@ public class ControlLayout
 
     private void CalculateOuterEmptySpace()
     {
-        int outerEmptySpaceTotal = AvailableWidth.HasValue
-            ? AvailableWidth.Value - actualSize.Width
+        int outerEmptySpaceTotal = AllocatedWidth.HasValue
+            ? AllocatedWidth.Value - actualSize.Width
             : 0;
 
         switch (calculatedHorizontalAlignment)

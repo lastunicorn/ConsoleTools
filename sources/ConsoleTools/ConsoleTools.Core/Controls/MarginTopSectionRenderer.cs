@@ -16,13 +16,13 @@
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class MarginTopRenderingPart : RenderingPart
+internal class MarginTopSectionRenderer : SectionRenderer
 {
     private int actualCount;
 
     public override bool HasMoreLines => actualCount < RenderingContext.ControlLayout.Margin.Top;
 
-    public MarginTopRenderingPart(RenderingContext renderingContext)
+    public MarginTopSectionRenderer(RenderingContext renderingContext)
         : base(renderingContext)
     {
     }

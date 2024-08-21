@@ -76,7 +76,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         {
             LineLength = renderingOptions?.AvailableWidth,
             IsRoot = renderingOptions?.IsRoot ?? true,
-            OnLineWritten = renderingOptions?.OnWrite
+            OnLineWritten = renderingOptions?.OnLineWritten
         };
 
         step = RenderingStep.Start;

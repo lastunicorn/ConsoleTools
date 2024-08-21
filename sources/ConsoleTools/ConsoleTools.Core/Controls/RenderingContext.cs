@@ -170,7 +170,7 @@ public class RenderingContext
             if (ControlLayout.Padding.Right > 0)
                 WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor);
 
-            if (ControlLayout.Margin.Right > 0)
+            if (!IsRoot && ControlLayout.Margin.Right > 0)
                 WriteSpaces(ControlLayout.Margin.Right, null, null);
 
             if (!IsRoot && ControlLayout.EmptySpace.Right > 0)
@@ -250,13 +250,21 @@ public class RenderingContext
         }
     }
 
+
+    /// <summary>
+    /// Creates and returns a new renderer for the specified control.
+    /// 
+    /// </summary>
+    /// <param name="control"></param>
+    /// <param name="renderingOptions"></param>
+    /// <returns></returns>
     public IRenderer CreateChildRenderer(BlockControl control, ChildRenderingOptions renderingOptions)
     {
         RenderingOptions options = new()
         {
             AvailableWidth = renderingOptions.AvailableWidth,
             IsRoot = false,
-            OnWrite = count =>
+            OnLineWritten = count =>
             {
                 currentLineLength += count;
             }

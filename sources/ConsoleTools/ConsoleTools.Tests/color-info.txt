@@ -1,0 +1,20 @@
+﻿0 - Black
+1 - White
+2 - Gray
+3 - DarkGray
+
+4 - Blue
+5 - Green
+6 - Cyan
+7 - Red
+8 - Magenta
+9 - Yellow
+
+a - DarkBlue
+b - DarkGreen
+c - DarkCyan
+d - DarkRed
+e - DarkMagenta
+f - DarkYellow
+
+. - not specified

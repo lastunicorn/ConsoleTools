@@ -34,12 +34,17 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-maxwidth-bigger.txt" />
+      <None Remove="color-info.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.bg" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.fg" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-lines-1-maxwidth-100.txt" />
       <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\01-content-oneline.txt" />
       <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.txt" />
       <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\03-content-oneline-margins.txt" />
       <None Remove="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\04-content-twolines-margins.txt" />
-      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-maxwidth-smaller.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-lines-1-maxwidth-30.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\03-lines-1-maxwidth-30-margin-1.txt" />
+      <None Remove="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\04-lines-2-maxwidth-30-margin-1.txt" />
       <None Remove="Controls\Tables\Printers\StreamDisplayTests.Resources\01-full-table.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\00-unspecified.txt" />
       <None Remove="Controls\Tables\RenderingTests\ColumnTests\Column_CellContentOverflow_Tests.Resources\01-default.txt" />
@@ -512,8 +517,13 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-maxwidth-smaller.txt" />
-      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-maxwidth-bigger.txt" />
+      <EmbeddedResource Include="color-info.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.bg" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.fg" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\04-lines-2-maxwidth-30-margin-1.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\03-lines-1-maxwidth-30-margin-1.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\02-lines-1-maxwidth-30.txt" />
+      <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_MaxWidth_Tests.Resources\01-lines-1-maxwidth-100.txt" />
       <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\04-content-twolines-margins.txt" />
       <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\03-content-oneline-margins.txt" />
       <EmbeddedResource Include="Controls\BorderTests\RenderingTests\Border_Content_Tests.Resources\02-content-twolines.txt" />

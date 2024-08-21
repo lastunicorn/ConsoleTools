@@ -14,26 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
 /// Provides options for creating an instance of <see cref="IRenderer"/>.
 /// </summary>
-public class RenderingOptions
+public class ChildRenderingOptions
 {
     /// <summary>
     /// Gets or sets the available with into which the control should be rendered.
     /// If <c>null</c> no restriction is imposed. Infinite available space is assumed.
     /// </summary>
     public int? AvailableWidth { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value specifying if the requested renderer should be a root or a child.
-    /// Default value: true (Root).
-    /// </summary>
-    public bool IsRoot { get; set; } = true;
-
-    public Action<int> OnLineWritten { get; set; }
 }

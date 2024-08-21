@@ -31,7 +31,7 @@ public class Border_MaxWidth_Tests : TestsBase
             MaxWidth = 100
         };
 
-        string expected = GetResourceFileContent("01-maxwidth-bigger.txt");
+        string expected = GetResourceFileContent("01-lines-1-maxwidth-100.txt");
         border.IsEqualTo(expected);
     }
 
@@ -44,7 +44,35 @@ public class Border_MaxWidth_Tests : TestsBase
             MaxWidth = 30
         };
 
-        string expected = GetResourceFileContent("02-maxwidth-smaller.txt");
+        string expected = GetResourceFileContent("02-lines-1-maxwidth-30.txt");
+        border.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingMarginsAndMaxWidthSmallerThanContent()
+    {
+        Border border = new()
+        {
+            Content = new TextBlock("The quick brown fox jumps over the lazy dog."),
+            MaxWidth = 30,
+            Margin = 1
+        };
+
+        string expected = GetResourceFileContent("03-lines-1-maxwidth-30-margin-1.txt");
+        border.IsEqualTo(expected);
+    }
+
+    [Test]
+    public void HavingTwoLinesWithMarginsAndMaxWidthSmallerThanContent()
+    {
+        Border border = new()
+        {
+            Content = new TextBlock("The quick brown fox jumps over the lazy dog.", "I am not young enough to know everything."),
+            MaxWidth = 30,
+            Margin = 1
+        };
+
+        string expected = GetResourceFileContent("04-lines-2-maxwidth-30-margin-1.txt");
         border.IsEqualTo(expected);
     }
 }

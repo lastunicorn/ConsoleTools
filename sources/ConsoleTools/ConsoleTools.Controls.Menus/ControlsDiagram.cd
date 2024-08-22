@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DustInTheWind.ConsoleTools.Controls.BlockControl" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Control" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.LongRunningControl" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Menus.Prompter" Collapsed="true">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBRAAAANSgAARAAAAAEAgAiABAAGCACEAACACAAAE=</HashCode>
+      <FileName>Prompter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Menus.TextMenu" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAgAAAHEQCQBBIgAAQIAgAgABAgCAAANAAAICQAQE=</HashCode>
+      <FileName>TextMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.ErasableControl" Collapsed="true">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.InteractiveControl" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Menus.ScrollMenu" Collapsed="true">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEAEAEEQAAABAogAQAAAAgABMgCCAAdAAAECAACE=</HashCode>
+      <FileName>ScrollMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

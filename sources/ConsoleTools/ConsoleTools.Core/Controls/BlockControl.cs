@@ -32,7 +32,8 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public abstract class BlockControl : Control
 {
     /// <summary>
-    /// Gets or sets a value that specifies who should be considered the parent if none is specified.
+    /// Gets or sets a value that specifies who should be considered the parent if none is
+    /// specified.
     /// This is useful when calculating the alignment.
     /// Default value: ConsoleWindow
     /// </summary>
@@ -60,17 +61,18 @@ public abstract class BlockControl : Control
     public int? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum width allowed for the control.
+    /// Gets or sets the minimum width allowed for the control, including the paddings.
     /// </summary>
     public int? MinWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum width allowed for the control.
+    /// Gets or sets the maximum width allowed for the control, including the paddings.
     /// </summary>
     public int? MaxWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets a value that specifies the horizontal position of the control in respect to its parent container.
+    /// Gets or sets a value that specifies the horizontal position of the control in respect to
+    /// its parent container.
     /// </summary>
     public HorizontalAlignment? HorizontalAlignment { get; set; }
 
@@ -100,8 +102,8 @@ public abstract class BlockControl : Control
 
     /// <summary>
     /// When implemented by an inheritor, gets the width of the control's content calculated when
-    /// there are no other space restrictions applied to it. Not even the control's <see cref="Width"/>,
-    /// <see cref="MinWidth"/> or <see cref="MaxWidth"/> limitations.
+    /// there are no other space restrictions applied to it. Not even the control's
+    /// <see cref="Width"/>, <see cref="MinWidth"/> or <see cref="MaxWidth"/> limitations.
     /// </summary>
     public abstract int NaturalContentWidth { get; }
 
@@ -116,28 +118,28 @@ public abstract class BlockControl : Control
     public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
 
     /// <summary>
-    /// Calculates the natural width of the content when control's limitations like <see cref="Width"/>,
-    /// <see cref="MinWidth"/> and <see cref="MaxWidth"/> are applied.
+    /// Calculates the natural width of the content when control's limitations like
+    /// <see cref="Width"/>, <see cref="MinWidth"/> and <see cref="MaxWidth"/> are applied.
     /// </summary>
     public int CalculateNaturalContentWidth()
     {
-        int width = Width.HasValue
+        int contentWidth = Width.HasValue
             ? Width.Value - Padding.Left - Padding.Right
             : NaturalContentWidth;
 
         if (MinWidth.HasValue)
         {
             int minWidth = MinWidth.Value - Padding.Left - Padding.Right;
-            width = Math.Max(width, minWidth);
+            contentWidth = Math.Max(contentWidth, minWidth);
         }
 
         if (MaxWidth.HasValue)
         {
             int maxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
-            width = Math.Min(width, maxWidth);
+            contentWidth = Math.Min(contentWidth, maxWidth);
         }
 
-        return width;
+        return contentWidth;
     }
 
     private static void MoveToNextLineIfNecessary()

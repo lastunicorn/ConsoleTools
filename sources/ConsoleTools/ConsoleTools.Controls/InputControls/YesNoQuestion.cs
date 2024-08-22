@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls.InputControls;
 /// <summary>
 /// This control reads a yes/no answer from the console.
 /// </summary>
-public class YesNoQuestion : BlockControl
+public class YesNoQuestion : InteractiveControl
 {
     /// <summary>
     /// Gets or sets the question that is displayed to the user.

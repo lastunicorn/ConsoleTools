@@ -45,7 +45,13 @@ internal class TextBlockRenderer : BlockControlRenderer<TextBlock>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.WriteLine(chunksEnumerator.Current);
+        AlignedText alignedText = new()
+        {
+            Text = chunksEnumerator.Current,
+            HorizontalAlignment = Control.TextHorizontalAlignment,
+            Width = ControlLayout.ActualContentWidth
+        };
+        RenderingContext.WriteLine(alignedText);
 
         return chunksEnumerator.MoveNext();
     }

@@ -45,6 +45,8 @@ public class TextBlock : BlockControl
     /// </summary>
     public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
+    public HorizontalAlignment TextHorizontalAlignment { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="TextBlock"/> class.
     /// </summary>

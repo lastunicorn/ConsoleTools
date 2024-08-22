@@ -500,6 +500,15 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\01-title-shorter.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\02-title-longer.txt" />
       <None Remove="Controls\Tables\RenderingTests\DataGridTests\Grid_Title_Tests.Resources\03-title-multiline.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\05-halign-default.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\01-halign-unpecifies.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\02-halign-left.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\03-halign-center.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\04-halign-right.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\01-halign-unpecifies.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\02-halign-left.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\03-halign-center.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\04-halign-right.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\01-margin-2-width-long.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\02-margin-2-width-short.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Margin_Tests.Resources\03-margin-2-width-exact.txt" />
@@ -512,6 +521,7 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\01-padding-2-width-long.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\02-padding-2-width-short.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\03-padding-2-width-exact.txt" />
+      <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\06-halign-invalid.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\01-width-long.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\01-oneline.txt" />
       <None Remove="Controls\TextBlockTests\RenderingTests\TextBlock_Lines_Tests.Resources\02-twolines.txt" />
@@ -986,6 +996,13 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\03-title^-headers^.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\02-title^-headers.txt" />
       <EmbeddedResource Include="Controls\Tables\RenderingTests\DataGridTests\Grid_IsBorderVisible_Tests.Resources\01-title-headers.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\06-halign-invalid.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\05-halign-default.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\01-halign-unpecifies.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\02-halign-left.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\03-halign-center.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_TextHorizontalAlignment_Tests.Resources\04-halign-right.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\04-halign-right.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\01-minwidth-long.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\02-minwidth-short.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_MinWidth_Tests.Resources\03-minwidth-exact.txt" />
@@ -998,6 +1015,9 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\01-padding-2-width-long.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\02-padding-2-width-short.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Padding_Tests.Resources\03-padding-2-width-exact.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\02-halign-left.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\01-halign-unpecifies.txt" />
+      <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_HorizontalAlignment_Tests.Resources\03-halign-center.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\03-width-exact.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\02-width-short.txt" />
       <EmbeddedResource Include="Controls\TextBlockTests\RenderingTests\TextBlock_Width_Tests.Resources\01-width-long.txt" />

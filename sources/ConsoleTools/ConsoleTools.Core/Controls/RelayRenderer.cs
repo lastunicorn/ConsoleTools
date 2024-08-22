@@ -20,12 +20,16 @@ namespace DustInTheWind.ConsoleTools.Controls;
 
 public class RelayRenderer : IRenderer
 {
+    private readonly Func<bool> initializeAction;
+
     public bool HasMoreLines { get; private set; }
 
     public Func<bool> RenderNextLineAction { get; set; }
 
     public RelayRenderer(Func<bool> initializeAction)
     {
+        this.initializeAction = initializeAction;
+
         bool? hasMoreLines = initializeAction?.Invoke();
         HasMoreLines = hasMoreLines ?? false;
     }
@@ -34,6 +38,12 @@ public class RelayRenderer : IRenderer
     {
         bool? hasMoreLines = RenderNextLineAction?.Invoke();
 
+        HasMoreLines = hasMoreLines ?? false;
+    }
+
+    public void Reset()
+    {
+        bool? hasMoreLines = initializeAction?.Invoke();
         HasMoreLines = hasMoreLines ?? false;
     }
 }

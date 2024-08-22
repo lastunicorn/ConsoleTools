@@ -237,29 +237,29 @@ public class Prompter : InteractiveControl, IRepeatableSupport
         return new PrompterRenderer(this, display, renderingOptions);
     }
 
-    protected override void OnAfterInteractiveDisplay(AfterInteractiveDisplayEventArgs e)
-    {
-        base.OnAfterInteractiveDisplay(e);
+    //protected override void OnAfterInteractiveDisplay(AfterInteractiveDisplayEventArgs e)
+    //{
+    //    base.OnAfterInteractiveDisplay(e);
 
-        if (e.Renderer is PrompterRenderer prompterRenderer)
-        {
-            LastCommand = prompterRenderer.LastCommand;
+    //    if (e.Renderer is PrompterRenderer prompterRenderer)
+    //    {
+    //        LastCommand = prompterRenderer.LastCommand;
 
-            if (LastCommand != null)
-            {
-                bool isHandled = AnnounceNewCommand();
+    //        if (LastCommand != null)
+    //        {
+    //            bool isHandled = AnnounceNewCommand();
 
-                if (!isHandled)
-                    isHandled = ExecuteAssociatedItem();
+    //            if (!isHandled)
+    //                isHandled = ExecuteAssociatedItem();
 
-                if (!isHandled)
-                    AnnounceUnhandledCommand();
+    //            if (!isHandled)
+    //                AnnounceUnhandledCommand();
 
-                if (!isHandled)
-                    UnhandledItemCommand?.Execute(LastCommand);
-            }
-        }
-    }
+    //            if (!isHandled)
+    //                UnhandledItemCommand?.Execute(LastCommand);
+    //        }
+    //    }
+    //}
 
     private bool AnnounceNewCommand()
     {

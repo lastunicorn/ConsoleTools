@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands;
@@ -25,9 +24,6 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
     {
         private static void Main()
         {
-            Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(160, 512);
-
             DisplayApplicationHeader();
             RunDemos();
 
@@ -48,8 +44,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
             ICommand[] commands =
             {
                 new SingleShortLineCommand(),
-                new SingleLongLineCommand(),
                 new MultipleShortLinesCommand(),
+                new SingleLongLineCommand(),
                 new MultipleLongLinesCommand(),
                 new MarginsCommand(),
                 new PaddingsCommand(),

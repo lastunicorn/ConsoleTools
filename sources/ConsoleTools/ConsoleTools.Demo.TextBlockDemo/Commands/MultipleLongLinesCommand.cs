@@ -28,9 +28,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
             {
                 Text = new[]
                 {
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus."
+                    "1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
+                    "2) Sed sollicitudin non enim sit amet interdum. Vivamus sem nisl, commodo in posuere sed, ultrices quis nulla. Etiam justo nibh, lacinia vel ornare a, luctus quis quam.",
+                    "3) Nullam quis nisl a dolor convallis rhoncus at sit amet eros. Suspendisse quis ipsum et eros ornare placerat. Fusce euismod eros eu est ullamcorper eleifend."
                 }
             };
             textBlock.Display();

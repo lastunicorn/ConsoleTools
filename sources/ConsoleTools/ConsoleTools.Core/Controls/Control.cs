@@ -76,11 +76,11 @@ public abstract class Control : IRenderable
     {
         ConsoleDisplay consoleDisplay = new();
 
-        if (ForegroundColor.HasValue)
-            consoleDisplay.ForegroundColor = ForegroundColor.Value;
+        //if (ForegroundColor.HasValue)
+        //    consoleDisplay.ForegroundColor = ForegroundColor.Value;
 
-        if (BackgroundColor.HasValue)
-            consoleDisplay.BackgroundColor = BackgroundColor.Value;
+        //if (BackgroundColor.HasValue)
+        //    consoleDisplay.BackgroundColor = BackgroundColor.Value;
 
         return consoleDisplay;
     }

@@ -18,9 +18,9 @@ namespace DustInTheWind.ConsoleTools.Controls;
 
 internal class MarginTopSectionRenderer : SectionRenderer
 {
-    private int actualCount;
+    private int lineIndex;
 
-    public override bool HasMoreLines => actualCount < RenderingContext.ControlLayout.Margin.Top;
+    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Margin.Top;
 
     public MarginTopSectionRenderer(RenderingContext renderingContext)
         : base(renderingContext)
@@ -29,11 +29,16 @@ internal class MarginTopSectionRenderer : SectionRenderer
 
     public override void RenderNextLine()
     {
-        if (actualCount >= RenderingContext.ControlLayout.Margin.Top)
+        if (lineIndex >= RenderingContext.ControlLayout.Margin.Top)
             return;
 
         RenderingContext.WriteMarginLine();
 
-        actualCount++;
+        lineIndex++;
+    }
+
+    public override void Reset()
+    {
+        lineIndex = 0;
     }
 }

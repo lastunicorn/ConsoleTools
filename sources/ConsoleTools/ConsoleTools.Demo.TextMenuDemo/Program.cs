@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
 
                 mainMenuRepeater = new ControlRepeater
                 {
-                    Control = new MainMenu(gameApplication)
+                    Content = new MainMenu(gameApplication)
                 };
 
                 gameApplication.Exited += HandleGameApplicationExited;

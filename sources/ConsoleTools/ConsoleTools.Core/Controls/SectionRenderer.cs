@@ -36,4 +36,6 @@ internal abstract class SectionRenderer : IRenderer
     /// Renders the next line using the underlying <see cref="IDisplay"/>.
     /// </summary>
     public abstract void RenderNextLine();
+
+    public abstract void Reset();
 }

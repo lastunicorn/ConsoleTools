@@ -29,7 +29,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
                 Margin = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
+                BackgroundColor = ConsoleColor.DarkGray // Added to easier see the margins.
             };
             textBlock.Display();
         }

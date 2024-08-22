@@ -26,7 +26,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
     private RenderingStep step;
-    private IRenderer currentRenderer;
+    private IRenderer sectionRenderer;
 
     /// <summary>
     /// Provides a context for the rendering process.
@@ -47,7 +47,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// <summary>
     /// Gets a value specifying if there are still lines awaiting to be rendered.
     /// </summary>
-    public bool HasMoreLines => currentRenderer?.HasMoreLines ?? false;
+    public bool HasMoreLines => sectionRenderer?.HasMoreLines ?? false;
 
     /// <summary>
     /// Initializes a new instance of teh <see cref="BlockControlRenderer{TControl}"/> class with
@@ -86,10 +86,14 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         {
             LineLength = renderingOptions?.AvailableWidth,
             IsRoot = renderingOptions?.IsRoot ?? true,
-            OnLineWritten = renderingOptions?.OnLineWritten
+            OnLineWritten = renderingOptions?.OnLineWritten,
+            ForegroundColor = Control.ForegroundColor,
+            BackgroundColor = Control.BackgroundColor
         };
 
         step = RenderingStep.Start;
+        OnRenderingStart();
+
         MoveNext();
     }
 
@@ -102,7 +106,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
         if (step == RenderingStep.TopMargin)
         {
-            if (currentRenderer.HasMoreLines)
+            if (sectionRenderer.HasMoreLines)
                 return;
 
             MoveToTopPadding();
@@ -110,7 +114,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
         if (step == RenderingStep.TopPadding)
         {
-            if (currentRenderer.HasMoreLines)
+            if (sectionRenderer.HasMoreLines)
                 return;
 
             MoveToContent();
@@ -118,7 +122,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
         if (step == RenderingStep.Content)
         {
-            if (currentRenderer.HasMoreLines)
+            if (sectionRenderer.HasMoreLines)
                 return;
 
             MoveToBottomPadding();
@@ -126,7 +130,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
         if (step == RenderingStep.BottomPadding)
         {
-            if (currentRenderer.HasMoreLines)
+            if (sectionRenderer.HasMoreLines)
                 return;
 
             MoveToBottomMargin();
@@ -134,7 +138,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
         if (step == RenderingStep.BottomMargin)
         {
-            if (currentRenderer.HasMoreLines)
+            if (sectionRenderer.HasMoreLines)
                 return;
 
             MoveToEnd();
@@ -149,20 +153,20 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private void MoveToTopMargin()
     {
         step = RenderingStep.TopMargin;
-        currentRenderer = new MarginTopSectionRenderer(RenderingContext);
+        sectionRenderer = new MarginTopSectionRenderer(RenderingContext);
     }
 
     private void MoveToTopPadding()
     {
         step = RenderingStep.TopPadding;
-        currentRenderer = new PaddingTopSectionRenderer(RenderingContext);
+        sectionRenderer = new PaddingTopSectionRenderer(RenderingContext);
     }
 
     private void MoveToContent()
     {
         step = RenderingStep.Content;
 
-        currentRenderer = new RelayRenderer(InitializeContentRendering)
+        sectionRenderer = new RelayRenderer(InitializeContentRendering)
         {
             RenderNextLineAction = RenderNextContentLine
         };
@@ -171,19 +175,21 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     private void MoveToBottomPadding()
     {
         step = RenderingStep.BottomPadding;
-        currentRenderer = new PaddingBottomSectionRenderer(RenderingContext);
+        sectionRenderer = new PaddingBottomSectionRenderer(RenderingContext);
     }
 
     private void MoveToBottomMargin()
     {
         step = RenderingStep.BottomMargin;
-        currentRenderer = new MarginBottomSectionRenderer(RenderingContext);
+        sectionRenderer = new MarginBottomSectionRenderer(RenderingContext);
     }
 
     private void MoveToEnd()
     {
         step = RenderingStep.End;
-        currentRenderer = null;
+        sectionRenderer = null;
+
+        OnRenderingEnd();
     }
 
     /// <summary>
@@ -191,12 +197,20 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// </summary>
     public void RenderNextLine()
     {
-        if (currentRenderer == null)
+        if (sectionRenderer == null)
             return;
 
-        currentRenderer.RenderNextLine();
+        sectionRenderer.RenderNextLine();
 
         MoveNext();
+    }
+
+    protected virtual void OnRenderingStart()
+    {
+    }
+
+    protected virtual void OnRenderingEnd()
+    {
     }
 
     /// <summary>
@@ -218,4 +232,10 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// <c>true</c> if the content has more lines that can be serialized; <c>false</c> otherwise.
     /// </returns>
     protected abstract bool RenderNextContentLine();
+
+    public void Reset()
+    {
+        step = RenderingStep.Start;
+        MoveNext();
+    }
 }

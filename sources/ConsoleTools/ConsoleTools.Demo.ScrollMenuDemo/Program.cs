@@ -43,7 +43,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
                 menuRepeater = new ControlRepeater
                 {
-                    Control = menu
+                    Content = menu
                 };
 
                 menuRepeater.Display();

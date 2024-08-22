@@ -96,7 +96,8 @@ public class Pause : ErasableControl
     /// </summary>
     public static void QuickDisplay()
     {
-        new Pause().Display();
+        Pause pause = new();
+        pause.Display();
     }
 
     /// <summary>
@@ -105,7 +106,10 @@ public class Pause : ErasableControl
     /// <param name="text">The text to be displayed by the <see cref="Pause"/> control.</param>
     public static void QuickDisplay(string text)
     {
-        Pause pause = new() { Text = text };
+        Pause pause = new()
+        {
+            Text = text
+        };
         pause.Display();
     }
 

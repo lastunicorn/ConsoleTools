@@ -59,20 +59,12 @@ public class RenderingContext
     /// <summary>
     /// Gets or sets the color used for writing the text.
     /// </summary>
-    public ConsoleColor ForegroundColor
-    {
-        get => display.ForegroundColor;
-        set => display.ForegroundColor = value;
-    }
+    public ConsoleColor? ForegroundColor { get; set; }
 
     /// <summary>
     /// Gets or sets the color used for writing the background of the text.
     /// </summary>
-    public ConsoleColor BackgroundColor
-    {
-        get => display.BackgroundColor;
-        set => display.BackgroundColor = value;
-    }
+    public ConsoleColor? BackgroundColor { get; set; }
 
     public Action<int> OnLineWritten { get; set; }
 
@@ -203,7 +195,8 @@ public class RenderingContext
             return;
 
         string text = new(' ', remainingContentLength);
-        display.Write(text);
+        display.Write(text, ForegroundColor, BackgroundColor);
+
         currentLineLength += text.Length;
     }
 
@@ -253,16 +246,14 @@ public class RenderingContext
 
     /// <summary>
     /// Creates and returns a new renderer for the specified control.
-    /// 
+    /// The new renderer is reporting back to the parent whenever a new line is written, so that
+    /// the parent can be aware of the line length written so far.
     /// </summary>
-    /// <param name="control"></param>
-    /// <param name="renderingOptions"></param>
-    /// <returns></returns>
     public IRenderer CreateChildRenderer(BlockControl control, ChildRenderingOptions renderingOptions)
     {
         RenderingOptions options = new()
         {
-            AvailableWidth = renderingOptions.AvailableWidth,
+            AvailableWidth = renderingOptions?.AvailableWidth,
             IsRoot = false,
             OnLineWritten = count =>
             {
@@ -271,5 +262,10 @@ public class RenderingContext
         };
 
         return control.GetRenderer(display, options);
+    }
+
+    public IRenderer CreateRenderer(BlockControl control, RenderingOptions renderingOptions)
+    {
+        return control.GetRenderer(display, renderingOptions);
     }
 }

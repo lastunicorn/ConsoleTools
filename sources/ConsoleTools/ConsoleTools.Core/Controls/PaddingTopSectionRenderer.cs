@@ -36,4 +36,9 @@ internal class PaddingTopSectionRenderer : SectionRenderer
 
         lineIndex++;
     }
+
+    public override void Reset()
+    {
+        lineIndex = 0;
+    }
 }

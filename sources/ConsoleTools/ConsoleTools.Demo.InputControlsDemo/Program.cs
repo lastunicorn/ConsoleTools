@@ -32,7 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo
 
             menuRepeater = new ControlRepeater
             {
-                Control = new MainMenu()
+                Content = new MainMenu()
             };
 
             menuRepeater.Display();

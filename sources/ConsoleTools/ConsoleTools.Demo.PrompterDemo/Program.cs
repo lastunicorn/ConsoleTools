@@ -44,7 +44,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
         {
             prompterRepeater = new ControlRepeater
             {
-                Control = new OceanPrompter()
+                Content = new OceanPrompter()
             };
 
             prompterRepeater.Display();

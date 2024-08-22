@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
@@ -30,7 +31,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
             TextBlock textBlock = new TextBlock
             {
                 Text = $"- {Title}:",
-                ForegroundColor = CustomConsole.EmphasizedColor,
+                ForegroundColor = ConsoleColor.DarkYellow,
                 Margin = "0 2 0 1"
             };
             textBlock.Display();

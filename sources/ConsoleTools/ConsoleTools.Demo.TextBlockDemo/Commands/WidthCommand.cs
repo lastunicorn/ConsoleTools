@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
 {
     internal class WidthCommand : CommandBase
     {
-        public override string Title => "Custom Width (50)";
+        public override string Title => "Custom Width (Width = 50)";
 
         protected override void DoExecute()
         {

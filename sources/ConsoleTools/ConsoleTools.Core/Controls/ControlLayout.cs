@@ -191,30 +191,26 @@ public class ControlLayout
 
         if (actualHorizontalAlignment == HorizontalAlignment.Stretch && AllocatedWidth.HasValue)
         {
-            int width = maxAllowedSize.Width - Margin.Left - Padding.Left - Padding.Right - Margin.Right;
-            int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
+            int contentWidth = maxAllowedSize.Width - Margin.Left - Padding.Left - Padding.Right - Margin.Right;
+            int contentHeight = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
 
-            ContentSize = new Size(width, height);
+            ContentSize = new Size(contentWidth, contentHeight);
         }
         else
         {
-            int width;
+            int contentWidth = Control.CalculateNaturalContentWidth();
 
-            if (AllocatedWidth == null)
+            if (AllocatedWidth != null)
             {
-                width = Control.CalculateNaturalContentWidth();
-            }
-            else
-            {
-                int contentPaddingMarginWidth = AllocatedWidth.Value;
-                int contentPaddingWidth = contentPaddingMarginWidth - Control.Margin.Left - Control.Margin.Right;
+                int allocatedContentWidth = AllocatedWidth.Value - Control.Padding.Left - Control.Padding.Right - Control.Margin.Left - Control.Margin.Right;
 
-                width = contentPaddingWidth - Control.Padding.Left - Control.Padding.Right;
+                if (allocatedContentWidth < contentWidth)
+                    contentWidth = allocatedContentWidth;
             }
 
-            int height = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
+            int contentHeight = maxAllowedSize.Height - Margin.Top - Padding.Top - Padding.Bottom - Margin.Bottom;
 
-            ContentSize = new Size(width, height);
+            ContentSize = new Size(contentWidth, contentHeight);
         }
 
         actualSize += ContentSize;

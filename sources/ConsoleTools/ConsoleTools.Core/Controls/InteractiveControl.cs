@@ -58,43 +58,4 @@ public abstract class InteractiveControl : BlockControl
         if (originalCursorVisibility.HasValue && RestoreCursorVisibilityAfterDisplay)
             Console.CursorVisible = originalCursorVisibility.Value;
     }
-
-    /// <summary>
-    /// Displays the control to the Console.
-    /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
-    /// by the <see cref="Control.GetRenderer"/> method.
-    /// </summary>
-    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
-    {
-        if (display is IInteractiveDisplay interactiveDisplay)
-            DoRender(interactiveDisplay);
-
-        throw new ArgumentException(nameof(display), $"The display must be of type {typeof(IInteractiveDisplay).FullName}");
-    }
-
-    /// <summary>
-    /// Displays the control to the Console.
-    /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
-    /// by the <see cref="Control.GetRenderer"/> method.
-    /// </summary>
-    protected virtual void DoRender(IInteractiveDisplay display, RenderingOptions renderingOptions = null)
-    {
-        IRenderer renderer = GetRenderer(display, renderingOptions);
-
-        while (renderer.HasMoreLines)
-            renderer.RenderNextLine();
-
-        display.Flush();
-
-        AfterInteractiveDisplayEventArgs afterInteractiveDisplayEventArgs = new()
-        {
-            Renderer = renderer
-        };
-        OnAfterInteractiveDisplay(afterInteractiveDisplayEventArgs);
-    }
-
-    protected virtual void OnAfterInteractiveDisplay(AfterInteractiveDisplayEventArgs e)
-    {
-        AfterInteractiveDisplay?.Invoke(this, e);
-    }
 }

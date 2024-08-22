@@ -29,27 +29,30 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public class ControlRepeater : BlockControl
 {
     private volatile bool closeWasRequested;
-    private BlockControl control;
-
+    private BlockControl content;
     private bool isRunning;
+
+    public bool RenderContentAsRoot { get; set; } = true;
+
+    public override int NaturalContentWidth => Content?.CalculateNaturalContentWidth() ?? 0;
 
     /// <summary>
     /// Gets or sets the control that is to be displayed repeatedly.
     /// </summary>
-    public BlockControl Control
+    public BlockControl Content
     {
-        get => control;
+        get => content;
         set
         {
-            if (control is IRepeatableSupport repeatableControl1)
+            if (content is IRepeatableSupport repeatableControl1)
                 repeatableControl1.Closed -= HandleControlClosed;
 
             if (isRunning)
                 throw new Exception("The control cannot be changed while the Display method is running.");
 
-            control = value;
+            content = value;
 
-            if (control is IRepeatableSupport repeatableControl2)
+            if (content is IRepeatableSupport repeatableControl2)
                 repeatableControl2.Closed += HandleControlClosed;
         }
     }
@@ -66,31 +69,31 @@ public class ControlRepeater : BlockControl
 
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        throw new NotImplementedException();
+        return new ControlRepeaterRenderer(this, display, renderingOptions);
     }
 
-    /// <summary>
-    /// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
-    /// until the <see cref="RequestClose"/> method is called.
-    /// </summary>
-    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
-    {
-        isRunning = true;
-        try
-        {
-            if (Control == null)
-                return;
+    ///// <summary>
+    ///// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
+    ///// until the <see cref="RequestClose"/> method is called.
+    ///// </summary>
+    //protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
+    //{
+    //    isRunning = true;
+    //    try
+    //    {
+    //        if (Control == null)
+    //            return;
 
-            closeWasRequested = false;
+    //        closeWasRequested = false;
 
-            while (!closeWasRequested)
-                Control.Display();
-        }
-        finally
-        {
-            isRunning = false;
-        }
-    }
+    //        while (!closeWasRequested)
+    //            Control.Display();
+    //    }
+    //    finally
+    //    {
+    //        isRunning = false;
+    //    }
+    //}
 
     /// <summary>
     /// Sets the <see cref="CloseWasRequested"/> flag.
@@ -100,9 +103,7 @@ public class ControlRepeater : BlockControl
     {
         closeWasRequested = true;
 
-        if (Control is IRepeatableSupport repeatableControl)
+        if (Content is IRepeatableSupport repeatableControl)
             repeatableControl.RequestClose();
     }
-
-    public override int NaturalContentWidth { get; }
 }

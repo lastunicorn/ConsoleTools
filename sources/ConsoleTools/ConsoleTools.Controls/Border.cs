@@ -33,7 +33,8 @@ public class Border : BlockControl
     public BorderTemplate Template { get; set; } = BorderTemplate.PlusMinusBorderTemplate;
 
     /// <summary>
-    /// Gets the full width of the control when it is not restricted by external factors.
+    /// Gets the width of the content (no margins, no paddings) when it is not restricted by
+    /// external factors.
     /// </summary>
     public override int NaturalContentWidth => Content.NaturalContentWidth + 2;
 

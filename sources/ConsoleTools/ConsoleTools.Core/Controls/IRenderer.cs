@@ -36,4 +36,6 @@ public interface IRenderer
     /// Renders the next line using the underlying <see cref="IDisplay"/>.
     /// </summary>
     void RenderNextLine();
+
+    void Reset();
 }

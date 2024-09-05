@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Controls.Menus.MenuItems;
 using DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo.Commands;
@@ -28,8 +29,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
         {
             if (application == null) throw new ArgumentNullException(nameof(application));
 
-            EraseAfterClose = true;
             Margin = "0 1";
+            HorizontalAlignment = HorizontalAlignment.Center;
             SelectFirstByDefault = true;
 
             IEnumerable<IMenuItem> menuItems = CreateMenuItems(application);

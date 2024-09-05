@@ -28,19 +28,8 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// It is sometime useful for the controls that wait for an user input
 /// and then must get themselves out of the way.
 /// </summary>
-/// <remarks>
-/// In order to be able to successfully erase the control, the inheritor must
-/// calculate and set the <see cref="InnerSize"/> of the control until the end
-/// of the <see cref="BlockControl.DoDisplayContent"/> method.
-/// </remarks>
 public abstract class ErasableControl : BlockControl
 {
-    /// <summary>
-    /// Gets the size of the control after it was displayed.
-    /// Does not include the margins
-    /// </summary>
-    public Size InnerSize { get; protected set; }
-
     /// <summary>
     /// Gets or sets a value that specifies if the control is erased from the Console
     /// after it was displayed.
@@ -49,7 +38,6 @@ public abstract class ErasableControl : BlockControl
 
     /// <summary>
     /// When implemented by an inheritor it displays the content of the control to the console.
-    /// The inheritor must also calculate and set the <see cref="InnerSize"/> property.
     /// </summary>
     protected abstract override void DoDisplayContent(ControlDisplay display);
 

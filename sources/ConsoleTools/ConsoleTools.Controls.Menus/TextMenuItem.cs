@@ -107,4 +107,9 @@ public class TextMenuItem : InlineControl
     {
         throw new NotImplementedException();
     }
+
+    public override string ToString()
+    {
+        return $"{Id} - {Text}";
+    }
 }

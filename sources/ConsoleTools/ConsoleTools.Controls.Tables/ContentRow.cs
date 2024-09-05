@@ -54,6 +54,13 @@ public class ContentRow : RowBase
     }
 
     /// <summary>
+    /// Gets the last cell of the row.
+    /// </summary>
+    public ContentCell LastCell => cells.Count > 0
+        ? cells[cells.Count - 1]
+        : null;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ContentRow"/> class with default values.
     /// </summary>
     public ContentRow()

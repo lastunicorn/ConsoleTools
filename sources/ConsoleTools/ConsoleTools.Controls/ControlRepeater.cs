@@ -67,33 +67,12 @@ public class ControlRepeater : BlockControl
     /// </summary>
     protected bool CloseWasRequested => closeWasRequested;
 
+    public int RepeatCount { get; set; } = 1;
+
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new ControlRepeaterRenderer(this, display, renderingOptions);
     }
-
-    ///// <summary>
-    ///// Runs a loop in which the <see cref="Control"/> is displayed repeatedly
-    ///// until the <see cref="RequestClose"/> method is called.
-    ///// </summary>
-    //protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
-    //{
-    //    isRunning = true;
-    //    try
-    //    {
-    //        if (Control == null)
-    //            return;
-
-    //        closeWasRequested = false;
-
-    //        while (!closeWasRequested)
-    //            Control.Display();
-    //    }
-    //    finally
-    //    {
-    //        isRunning = false;
-    //    }
-    //}
 
     /// <summary>
     /// Sets the <see cref="CloseWasRequested"/> flag.

@@ -32,7 +32,7 @@ internal class ControlRepeaterRenderer : BlockControlRenderer<ControlRepeater>
 
     protected override bool InitializeContentRendering()
     {
-        if (Control?.Content == null)
+        if (Control.RepeatCount == 0 || Control?.Content == null)
         {
             childRenderer = null;
             return false;
@@ -73,7 +73,7 @@ internal class ControlRepeaterRenderer : BlockControlRenderer<ControlRepeater>
 
         count++;
 
-        if (count < 2)
+        if (Control.RepeatCount < 0 || count < Control.RepeatCount)
         {
             childRenderer.Reset();
             return childRenderer.HasMoreLines;

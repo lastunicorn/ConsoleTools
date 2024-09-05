@@ -30,59 +30,36 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public abstract class Control : IRenderable
 {
     /// <summary>
-    /// Gets or sets the foreground color used to write the text.
+    /// Gets or sets the foreground color used to write the text of the control.
     /// Default value: <c>null</c>
     /// </summary>
     public ConsoleColor? ForegroundColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the background color used to write the text.
+    /// Gets or sets the background color of the text.
     /// Default value: <c>null</c>
     /// </summary>
     public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
-    /// Event raised at the beginning of the <see cref="Display"/> method, before doing anything else.
+    /// Event raised at the beginning of the rendering process.
     /// </summary>
-    public virtual event EventHandler<BeforeDisplayEventArgs> BeforeDisplay;
+    public virtual event EventHandler<BeforeRenderEventArgs> BeforeRender;
 
     /// <summary>
-    /// Event raised at the very end of the <see cref="Display"/> method, before returning.
+    /// Event raised at the very end of the rendering process.
     /// </summary>
-    public virtual event EventHandler AfterDisplay;
+    public virtual event EventHandler AfterRender;
 
     /// <summary>
-    /// Displays the control in the console.
+    /// Displays the control in the console as a root control (not embedded into another parent
+    /// control).
     /// </summary>
     public void Display()
     {
-        BeforeDisplayEventArgs beforeDisplayEventArgs = new();
-        OnBeforeDisplay(beforeDisplayEventArgs);
-
-        try
-        {
-            IDisplay display = CreateDisplay();
-            RenderingOptions renderingOptions = beforeDisplayEventArgs.RenderingOptions;
-
-            DoRender(display, renderingOptions);
-        }
-        finally
-        {
-            OnAfterDisplay();
-        }
-    }
-
-    private IDisplay CreateDisplay()
-    {
         ConsoleDisplay consoleDisplay = new();
-
-        //if (ForegroundColor.HasValue)
-        //    consoleDisplay.ForegroundColor = ForegroundColor.Value;
-
-        //if (BackgroundColor.HasValue)
-        //    consoleDisplay.BackgroundColor = BackgroundColor.Value;
-
-        return consoleDisplay;
+        DoRender(consoleDisplay);
+        consoleDisplay.Flush();
     }
 
     /// <summary>
@@ -111,43 +88,56 @@ public abstract class Control : IRenderable
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="Control"/>
-    /// instance using a specified <see cref="IDisplay"/>.
+    /// instance using the specified <see cref="IDisplay"/>.
     /// </summary>
     /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public abstract IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
 
     /// <summary>
-    /// Displays the control to the Console in root mode.
+    /// Renders the control into the specified <see cref="IDisplay"/>.
     /// The default implementation is doing the display using the <see cref="IRenderer"/> returned
     /// by the <see cref="GetRenderer"/> method.
     /// </summary>
     protected virtual void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        IRenderer renderer = GetRenderer(display, renderingOptions);
+        BeforeRenderEventArgs beforeRenderEventArgs = new()
+        {
+            RenderingOptions = renderingOptions ?? new RenderingOptions()
+        };
+        OnBeforeRender(beforeRenderEventArgs);
 
-        while (renderer.HasMoreLines)
-            renderer.RenderNextLine();
+        try
+        {
+            IRenderer renderer = GetRenderer(display, renderingOptions);
 
-        display.Flush();
+            while (renderer.HasMoreLines)
+                renderer.RenderNextLine();
+
+            display.Flush();
+        }
+        finally
+        {
+            OnAfterRender();
+        }
     }
 
     /// <summary>
-    /// Method called at the beginning of the <see cref="Display"/> method, before doing anything else
-    /// to raise the <see cref="BeforeDisplay"/> event.
+    /// Raises the <see cref="BeforeRender"/> event. This method is called at the beginning of the
+    /// rendering process.
     /// When overwritten, the base method must be called in order to allow the event to be raised.
     /// </summary>
-    protected virtual void OnBeforeDisplay(BeforeDisplayEventArgs e)
+    protected virtual void OnBeforeRender(BeforeRenderEventArgs e)
     {
-        BeforeDisplay?.Invoke(this, e);
+        BeforeRender?.Invoke(this, e);
     }
 
     /// <summary>
-    /// Method called at the very end of the <see cref="Display"/> method, before returning
-    /// to raise the <see cref="AfterDisplay"/> event.
+    /// Raises the <see cref="AfterRender"/> event. This method is called at the very end of the
+    /// rendering process.
     /// When overwritten, the base method must be called in order to allow the event to be raised.
     /// </summary>
-    protected virtual void OnAfterDisplay()
+    protected virtual void OnAfterRender()
     {
-        AfterDisplay?.Invoke(this, EventArgs.Empty);
+        AfterRender?.Invoke(this, EventArgs.Empty);
     }
 }

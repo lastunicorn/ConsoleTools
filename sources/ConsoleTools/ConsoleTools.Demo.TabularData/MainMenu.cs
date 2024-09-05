@@ -30,6 +30,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
 
             Margin = "0 1";
 
+            TitleText = "This demo shows how to display data in tables.";
+
             QuestionText = new InlineTextBlock
             {
                 Text = "Make your choice:",
@@ -107,11 +109,11 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
             };
         }
 
-        protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
+        protected override void OnBeforeRender(BeforeRenderEventArgs e)
         {
             CustomConsole.WriteLine(new string('-', 79));
 
-            base.OnBeforeDisplay(e);
+            base.OnBeforeRender(e);
         }
     }
 }

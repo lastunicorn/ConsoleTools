@@ -26,7 +26,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
         {
             menuRepeater = new ControlRepeater
             {
-                Content = new MainMenu(this)
+                Content = new MainMenu(this),
+                RepeatCount = -1
             };
         }
 

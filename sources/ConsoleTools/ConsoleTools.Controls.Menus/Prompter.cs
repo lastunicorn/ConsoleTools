@@ -123,12 +123,12 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     /// <summary>
     /// Erases all the information of the previous display.
     /// </summary>
-    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
+    protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         LastCommand = null;
         closeWasRequested = false;
 
-        base.OnBeforeDisplay(e);
+        base.OnBeforeRender(e);
     }
 
     ///// <summary>
@@ -213,9 +213,9 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above succeeded,
     /// by raising the <see cref="UnhandledCommand"/> event.
     /// </summary>
-    protected override void OnAfterDisplay()
+    protected override void OnAfterRender()
     {
-        base.OnAfterDisplay();
+        base.OnAfterRender();
 
         if (LastCommand != null)
         {

@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.ConsoleTools.Controls;
 
 namespace DustInTheWind.ConsoleTools.Demo.TabularData
 {
@@ -37,11 +38,14 @@ namespace DustInTheWind.ConsoleTools.Demo.TabularData
 
         private static void DisplayApplicationHeader()
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TabularData");
-            CustomConsole.WriteLineEmphasized(new string('=', 79));
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how to display data in tables.");
-            CustomConsole.WriteLine();
+            ApplicationHeader applicationHeader = new ApplicationHeader()
+            {
+                Title = "ConsoleTools Demo - TabularData"
+            };
+            applicationHeader.Display();
+
+            //CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TabularData");
+            //CustomConsole.WriteLineEmphasized(new string('=', 79));
         }
     }
 }

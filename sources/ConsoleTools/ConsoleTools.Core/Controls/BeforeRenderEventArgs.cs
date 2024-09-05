@@ -19,13 +19,13 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Provides event data for the <see cref="Control.BeforeDisplay"/> event.
+/// Provides event data for the <see cref="Control.BeforeRender"/> event.
 /// </summary>
-public class BeforeDisplayEventArgs : EventArgs
+public class BeforeRenderEventArgs : EventArgs
 {
     /// <summary>
     /// Gets the rendering options that will be used for creating the <see cref="IRenderer"/>,
     /// during the rendering process.
     /// </summary>
-    public RenderingOptions RenderingOptions { get; } = new();
+    public RenderingOptions RenderingOptions { get; set; }
 }

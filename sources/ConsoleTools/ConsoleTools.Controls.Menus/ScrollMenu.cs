@@ -156,7 +156,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     /// Erases oll the information of the previous display.
     /// Calculates the inner size (without the margins) of the control.
     /// </summary>
-    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
+    protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         if (menuItems.SelectableItemsCount == 0)
             throw new ApplicationException("There are no menu items to be displayed.");
@@ -171,7 +171,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
         //Console.SetCursorPosition(0, Console.CursorTop - InnerSize.Height);
 
-        base.OnBeforeDisplay(e);
+        base.OnBeforeRender(e);
     }
 
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
@@ -366,9 +366,9 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
         return true;
     }
 
-    protected override void OnAfterDisplay()
+    protected override void OnAfterRender()
     {
-        base.OnAfterDisplay();
+        base.OnAfterRender();
 
         SelectedItem?.Command?.Execute();
     }

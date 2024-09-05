@@ -24,7 +24,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DustInTheWind.ConsoleTools.Controls.Displays;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
@@ -410,18 +409,6 @@ public class DataGrid : BlockControl
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new DataGridRenderer(this, display, renderingOptions);
-    }
-
-    /// <summary>
-    /// Returns the string representation of the current instance.
-    /// </summary>
-    /// <returns>The string representation of the current instance.</returns>
-    public override string ToString()
-    {
-        StringDisplay display = new();
-        DoRender(display);
-
-        return display.ToString();
     }
 
     /// <summary>

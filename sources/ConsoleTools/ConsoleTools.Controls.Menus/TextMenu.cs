@@ -34,14 +34,12 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 public class TextMenu : ErasableControl, IRepeatableSupport
 {
     private bool closeWasRequested;
-
-    /// <summary>
-    /// Gets the list of items contained by the current instance.
-    /// </summary>
     private readonly List<TextMenuItem> menuItems = new();
-
     private TextMenuItem selectedItem;
 
+    /// <summary>
+    /// Gets the collection of items contained by the current instance.
+    /// </summary>
     public IReadOnlyCollection<TextMenuItem> MenuItems => menuItems;
 
     /// <summary>
@@ -109,9 +107,10 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     /// </summary>
     public int? SelectedIndex { get; private set; }
 
+    public override int NaturalContentWidth => 0;
+
     /// <summary>
-    /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
-    /// The <see cref="ControlRepeater"/> must also end its display loop.
+    /// Event raised when the display of the control finished.
     /// </summary>
     public event EventHandler Closed;
 
@@ -148,25 +147,24 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     /// <summary>
     /// Adds a list of items to the current instance.
     /// </summary>
-    /// <param name="menuItems">The list of items to be added to the current instance.</param>
-    public void AddItems(IEnumerable<TextMenuItem> menuItems)
+    /// <param name="items">The list of items to be added to the current instance.</param>
+    public void AddItems(IEnumerable<TextMenuItem> items)
     {
-        if (menuItems == null) throw new ArgumentNullException(nameof(menuItems));
+        if (items == null) throw new ArgumentNullException(nameof(items));
 
-        bool existsNullItems = menuItems.Any(x => x == null);
+        foreach (TextMenuItem menuItem in items)
+        {
+            if (menuItem == null)
+                throw new ArgumentException("Null items are not accepted.", nameof(items));
 
-        if (existsNullItems)
-            throw new ArgumentException("Null items are not accepted.", nameof(menuItems));
-
-        this.menuItems.AddRange(menuItems);
+            menuItems.Add(menuItem);
+        }
     }
-
-    public override int NaturalContentWidth => 0;
 
     /// <summary>
     /// Erases all the information of the previous display.
     /// </summary>
-    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
+    protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         bool existsItems = menuItems.Any(x => x.IsVisible);
         if (!existsItems)
@@ -174,152 +172,26 @@ public class TextMenu : ErasableControl, IRepeatableSupport
 
         SelectedItem = null;
         closeWasRequested = false;
-        //InnerSize = Size.Empty;
 
-        base.OnBeforeDisplay(e);
-    }
-
-    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
-    {
-        throw new NotImplementedException();
-
-        //return new TextMenuRenderer(this, display, renderingOptions);
+        base.OnBeforeRender(e);
     }
 
     /// <summary>
-    /// Displays the menu and waits for the user to choose an item.
-    /// This method blocks until the user chooses an item.
+    /// Returns a renderer object that is able to render the current <see cref="TextMenu"/>
+    /// instance using the specified <see cref="IDisplay"/>.
     /// </summary>
-    protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        ControlLayout controlLayout = new()
-        {
-            Control = this,
-            AllocatedWidth = renderingOptions?.AvailableWidth
-        };
-
-        controlLayout.Calculate();
-
-        RenderingContext renderingContext = new(display, controlLayout)
-        {
-            LineLength = renderingOptions?.AvailableWidth,
-            IsRoot = renderingOptions?.IsRoot ?? true
-        };
-
-        if (TitleText != null)
-            DrawTitle(renderingContext);
-
-        DrawMenu(renderingContext);
-        ReadUserSelection(renderingContext);
-    }
-
-    private void DrawTitle(RenderingContext display)
-    {
-        display.WriteLine(TitleText);
-        display.WriteLine();
-        display.WriteLine();
-
-        //InnerSize = InnerSize.InflateHeight(2);
-    }
-
-    private void DrawMenu(RenderingContext display)
-    {
-        IEnumerable<TextMenuItem> menuItemsToDisplay = menuItems
-            .Where(x => x.IsVisible);
-
-        foreach (TextMenuItem menuItem in menuItemsToDisplay)
-        {
-            display.StartLine();
-            menuItem.Display();
-            display.EndLine();
-
-            //InnerSize = InnerSize.InflateHeight(menuItem.Size.Height);
-        }
-    }
-
-    private void ReadUserSelection(RenderingContext display)
-    {
-        display.WriteLine();
-        //Console.WriteLine();
-        //InnerSize = InnerSize.InflateHeight(1);
-
-        while (!closeWasRequested)
-        {
-            DisplayQuestion();
-
-            string inputValue = Console.ReadLine();
-
-            if (inputValue == null)
-            {
-                OnClosed();
-                return;
-            }
-
-            if (inputValue.Length == 0)
-                continue;
-
-            TextMenuItem selectedMenuItem = menuItems
-                .FirstOrDefault(x => x.Id == inputValue);
-
-            if (selectedMenuItem == null || !selectedMenuItem.IsVisible)
-            {
-                DisplayInvalidOptionWarning(display);
-                continue;
-            }
-
-            if (!selectedMenuItem.CanBeSelected())
-            {
-                DisplayDisabledItemWarning(display);
-                continue;
-            }
-
-            SelectedItem = selectedMenuItem;
-
-            return;
-        }
-    }
-
-    private void DisplayQuestion()
-    {
-        if (QuestionText == null)
-            return;
-
-        QuestionText.Display();
-
-        //int textLength = QuestionText.CalculateOuterLength();
-
-        //int questionHeight = (int)Math.Ceiling((double)textLength / Console.BufferWidth);
-        //InnerSize = InnerSize.InflateHeight(questionHeight);
-    }
-
-    private void DisplayInvalidOptionWarning(RenderingContext display)
-    {
-        display.WriteLine(InvalidOptionText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
-        display.WriteLine();
-
-        //CustomConsole.WriteLineWarning(InvalidOptionText);
-        //Console.WriteLine();
-
-        //InnerSize = InnerSize.InflateHeight(2);
-    }
-
-    private void DisplayDisabledItemWarning(RenderingContext display)
-    {
-        display.WriteLine(OptionDisabledText, CustomConsole.WarningColor, CustomConsole.WarningBackgroundColor);
-        display.WriteLine();
-
-        //CustomConsole.WriteLineWarning(OptionDisabledText);
-        //Console.WriteLine();
-
-        //InnerSize = InnerSize.InflateHeight(2);
+        return new TextMenuRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
     /// Executes the selected item.
     /// </summary>
-    protected override void OnAfterDisplay()
+    protected override void OnAfterRender()
     {
-        base.OnAfterDisplay();
+        base.OnAfterRender();
 
         OnClosed();
 
@@ -338,7 +210,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     }
 
     /// <summary>
-    /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+    /// An internal flag is set to request that the display process to finish.
     /// </summary>
     public void RequestClose()
     {
@@ -351,5 +223,10 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     protected virtual void OnClosed()
     {
         Closed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public override string ToString()
+    {
+        return $"TextMenu has {MenuItems.Count} items.";
     }
 }

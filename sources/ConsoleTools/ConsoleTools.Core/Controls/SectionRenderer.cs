@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal abstract class SectionRenderer : IRenderer
+public abstract class SectionRenderer : IRenderer
 {
     protected RenderingContext RenderingContext { get; }
 

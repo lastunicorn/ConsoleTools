@@ -30,8 +30,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             {
                 DisplayApplicationHeader();
 
-                Console.SetWindowSize(80, 50);
-                Console.SetBufferSize(80, 50);
+                //Console.SetWindowSize(80, 50);
+                //Console.SetBufferSize(80, 50);
 
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
@@ -39,7 +39,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
                 gameApplication.Exited += HandleGameApplicationExited;
 
                 MainMenu menu = new MainMenu(gameApplication);
-                menu.BeforeDisplay += HandleMenuBeforeDisplay;
+                menu.BeforeRender += HandleMenuBeforeRender;
 
                 menuRepeater = new ControlRepeater
                 {
@@ -66,7 +66,7 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             gameApplication.Exited -= HandleGameApplicationExited;
         }
 
-        private static void HandleMenuBeforeDisplay(object sender, EventArgs args)
+        private static void HandleMenuBeforeRender(object sender, EventArgs args)
         {
             HorizontalLine horizontalLine = new HorizontalLine();
             horizontalLine.Display();

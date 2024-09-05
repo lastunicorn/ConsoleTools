@@ -28,7 +28,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public interface IRenderer
 {
     /// <summary>
-    /// Gets a value specifying if the rendered still has more lines to render.
+    /// Gets a value specifying if the current instance still has more lines to render.
     /// </summary>
     bool HasMoreLines { get; }
 
@@ -37,5 +37,8 @@ public interface IRenderer
     /// </summary>
     void RenderNextLine();
 
+    /// <summary>
+    /// Resets the state of the renderer to be able to start a new rendering.
+    /// </summary>
     void Reset();
 }

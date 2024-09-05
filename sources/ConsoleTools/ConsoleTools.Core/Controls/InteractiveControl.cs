@@ -36,7 +36,7 @@ public abstract class InteractiveControl : BlockControl
 
     public event EventHandler<AfterInteractiveDisplayEventArgs> AfterInteractiveDisplay;
 
-    protected override void OnBeforeDisplay(BeforeDisplayEventArgs e)
+    protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         if (CursorVisibility.HasValue)
         {
@@ -48,12 +48,12 @@ public abstract class InteractiveControl : BlockControl
             originalCursorVisibility = null;
         }
 
-        base.OnBeforeDisplay(e);
+        base.OnBeforeRender(e);
     }
 
-    protected override void OnAfterDisplay()
+    protected override void OnAfterRender()
     {
-        base.OnAfterDisplay();
+        base.OnAfterRender();
 
         if (originalCursorVisibility.HasValue && RestoreCursorVisibilityAfterDisplay)
             Console.CursorVisible = originalCursorVisibility.Value;

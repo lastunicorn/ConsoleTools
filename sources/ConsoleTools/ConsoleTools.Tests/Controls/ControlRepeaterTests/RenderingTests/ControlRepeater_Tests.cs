@@ -32,7 +32,8 @@ public class ControlRepeater_Tests : TestsBase
                 MaxWidth = 20,
                 Margin = "2 1"
             },
-            RenderContentAsRoot = true
+            RenderContentAsRoot = true,
+            RepeatCount = 2
         };
 
         string expected = GetResourceFileContent("01-as-root.txt");
@@ -49,7 +50,8 @@ public class ControlRepeater_Tests : TestsBase
                 MaxWidth = 20,
                 Margin = "2 1"
             },
-            RenderContentAsRoot = false
+            RenderContentAsRoot = false,
+            RepeatCount = 2
         };
 
         string expected = GetResourceFileContent("02-as-child-block.txt");

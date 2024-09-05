@@ -34,13 +34,15 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
     private readonly MenuItemCollection menuItems = new();
     private bool closeWasRequested;
-    private Location menuLocation;
+    private Location itemsLocation;
 
     /// <summary>
     /// The size of the control after it was displayed.
     /// Does not include the margins
     /// </summary>
     private Size menuSize;
+
+    private Size itemsSize;
 
     /// <summary>
     /// Gets the item that is currently selected.
@@ -164,7 +166,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
             throw new ApplicationException("There are no menu items to be displayed.");
 
         closeWasRequested = false;
-        menuLocation = Location.Origin;
+        itemsLocation = Location.Origin;
 
         //for (int i = 0; i < InnerSize.Height; i++)
         //    Console.WriteLine();
@@ -184,27 +186,28 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
         try
         {
-            menuSize = CalculateItemsSize();
+            itemsSize = CalculateItemsSize();
+            menuSize = itemsSize + new Size(Padding.Left + Padding.Right, Padding.Top + Padding.Bottom);
 
-            menuLocation = CalculateMenuLocation();
+            itemsLocation = CalculateMenuLocation();
 
             IEnumerable<IMenuItem> visibleMenuItems = menuItems
                 .Where(x => x.IsVisible);
 
             foreach (IMenuItem menuItem in visibleMenuItems)
             {
-                int left = menuLocation.Left;
+                int left = itemsLocation.Left;
                 int top = Console.CursorTop;
 
                 Console.SetCursorPosition(left, top);
 
-                Size menuItemSize = new(menuSize.Width, 1);
+                Size menuItemSize = new(itemsSize.Width, 1);
                 menuItem.Display(menuItemSize, false);
 
                 Console.WriteLine();
             }
 
-            menuLocation = new Location(menuLocation.Left, Console.CursorTop - menuSize.Height);
+            itemsLocation = new Location(itemsLocation.Left, Console.CursorTop - itemsSize.Height);
 
             if (SelectFirstByDefault)
                 menuItems.SelectFirst();
@@ -218,7 +221,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
             menuItems.CurrentIndexChanged -= HandleCurrentIndexChanged;
 
-            int lastMenuLine = menuLocation.Top + menuSize.Height - 1;
+            int lastMenuLine = itemsLocation.Top + itemsSize.Height - 1;
             Console.SetCursorPosition(0, lastMenuLine);
             Console.WriteLine();
         }
@@ -245,16 +248,16 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
                 return new Location(0, menuTop);
 
             case HorizontalAlignment.Center:
-            {
-                int menuLeft = (Console.BufferWidth - menuSize.Width) / 2;
-                return new Location(menuLeft, menuTop);
-            }
+                {
+                    int menuLeft = (Console.BufferWidth - menuSize.Width) / 2;
+                    return new Location(menuLeft, menuTop);
+                }
 
             case HorizontalAlignment.Right:
-            {
-                int menuLeft = Console.BufferWidth - menuSize.Width;
-                return new Location(menuLeft, menuTop);
-            }
+                {
+                    int menuLeft = Console.BufferWidth - menuSize.Width;
+                    return new Location(menuLeft, menuTop);
+                }
         }
     }
 
@@ -284,12 +287,12 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
         if (visibleIndex.HasValue && visibleIndex.Value >= 0)
         {
-            int left = menuLocation.Left;
-            int top = menuLocation.Top + visibleIndex.Value;
+            int left = itemsLocation.Left;
+            int top = itemsLocation.Top + visibleIndex.Value;
 
             Console.SetCursorPosition(left, top);
 
-            Size menuItemSize = new(menuSize.Width, 1);
+            Size menuItemSize = new(itemsSize.Width, 1);
             bool isHighlighted = menuItemToDraw == menuItems.CurrentItem;
 
             menuItemToDraw.Display(menuItemSize, isHighlighted);
@@ -375,6 +378,10 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
     protected override void OnAfterDisplay()
     {
         base.OnAfterDisplay();
+
+        //int lastMenuLine = itemsLocation.Top + menuSize.Height - 1;
+        //Console.SetCursorPosition(0, lastMenuLine);
+        //Console.WriteLine();
 
         SelectedItem?.Command?.Execute();
     }

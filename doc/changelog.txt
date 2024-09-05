@@ -3,8 +3,9 @@ ConsoleTools
 
 Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
-ver 1.3.0
+ver 1.2.1
 ---------
+- [bugfix ] ScrollMenu: Failing to leave the cursor below the menu when the menu was closing.
 
 
 ver 1.2.0

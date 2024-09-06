@@ -16,20 +16,22 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class MarginsCommand : CommandBase
+    internal class HorizontalAlignmentCenterDemoTask : DemoTaskBase
     {
-        public override string Title => "Custom Margins (3 3 3 3)";
+        public override string Title => "Custom HorizontalAlignment Center (Width = 50)";
 
         protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                Margin = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easier see the margins.
+                Width = 50,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                BackgroundColor = ConsoleColor.DarkGray
             };
             textBlock.Display();
         }

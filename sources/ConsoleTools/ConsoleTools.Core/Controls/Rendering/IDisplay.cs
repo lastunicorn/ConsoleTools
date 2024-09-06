@@ -42,6 +42,11 @@ public interface IDisplay
     ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
+    /// Gets or sets a value that specifies if the cursor of the display is visible.
+    /// </summary>
+    bool IsCursorVisible { get; set; }
+
+    /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
     void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);

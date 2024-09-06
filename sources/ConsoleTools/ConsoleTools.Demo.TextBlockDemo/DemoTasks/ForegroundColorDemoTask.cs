@@ -16,10 +16,11 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class ForegroundColorCommand : CommandBase
+    internal class ForegroundColorDemoTask : DemoTaskBase
     {
         public override string Title => "Foreground Color (Magenta)";
 

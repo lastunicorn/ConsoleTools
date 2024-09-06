@@ -24,18 +24,25 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Must be implemented by a control in order to offer additional support when used in the <see cref="ControlRepeater"/>.
+/// Must be implemented by a control in order to offer additional support for closing.
+/// Usually it is used by interactive controls and long running controls.
 /// </summary>
-public interface IRepeatableSupport
+public interface ICloseSupport
 {
     /// <summary>
-    /// Event raised when the control cannot be displayed anymore and it is in the "Closed" state.
-    /// The <see cref="ControlRepeater"/> must also end its display loop.
+    /// Gets a values specifying if the control is requested to be closed.
+    /// The associated renderer must stop its job.
     /// </summary>
-    event EventHandler Closed;
+    public bool IsClosed { get; }
 
     /// <summary>
-    /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
+    /// Event raised when the control is requested to close itself.
+    /// </summary>
+    event EventHandler CloseRequested;
+
+    /// <summary>
+    /// Call this method to announce the control that it should end its process.
+    /// This method does not force the control to close.
     /// </summary>
     void RequestClose();
 }

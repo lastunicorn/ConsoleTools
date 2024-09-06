@@ -16,18 +16,19 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Controls.ErasableControl">
-    <Position X="12.5" Y="8.75" Width="2.25" />
+    <Position X="12.75" Y="9" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controls\ErasableControl.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Controls.InteractiveControl">
-    <Position X="9.5" Y="7.25" Width="2.25" />
+    <Position X="9.5" Y="7.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAACAAAQAAAAAAQAAAAAAAAAAAAEAAEA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAADAAAQAAAAAQQAAAEAAAAUAAAEAAEA=</HashCode>
       <FileName>Controls\InteractiveControl.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Controls.InlineControl">
     <Position X="3.5" Y="5.25" Width="2.25" />

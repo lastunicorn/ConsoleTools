@@ -14,21 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
-
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.Core
 {
-    internal class SingleLongLineCommand : CommandBase
+    public interface IDemo
     {
-        public override string Title => "Single long line (text wrapping)";
+        string Name { get; }
 
-        protected override void DoExecute()
-        {
-            TextBlock textBlock = new TextBlock
-            {
-                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus."
-            };
-            textBlock.Display();
-        }
+        void Execute();
     }
 }

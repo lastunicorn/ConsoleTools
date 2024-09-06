@@ -30,10 +30,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 /// <summary>
 /// Provides a way for the user to type a command at the console.
 /// </summary>
-public class Prompter : InteractiveControl, IRepeatableSupport
+public class Prompter : InteractiveControl
 {
-    private bool closeWasRequested;
-
     /// <summary>
     /// Gets the list of items contained by the current instance.
     /// </summary>
@@ -74,12 +72,6 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     /// Event raised when the user writes a new command at the console.
     /// </summary>
     public event EventHandler<NewCommandEventArgs> NewCommand;
-
-    /// <summary>
-    /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
-    /// The <see cref="ControlRepeater"/> must also end its display loop.
-    /// </summary>
-    public event EventHandler Closed;
 
     /// <summary>
     /// Event raised when a command was not handled.
@@ -127,7 +119,7 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         LastCommand = null;
-        closeWasRequested = false;
+        ResetClosed();
 
         base.OnBeforeRender(e);
     }
@@ -214,9 +206,9 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     /// by calling the associated <see cref="IPrompterCommand"/> and, if none of the above succeeded,
     /// by raising the <see cref="UnhandledCommand"/> event.
     /// </summary>
-    protected override void OnAfterRender()
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
-        base.OnAfterRender();
+        base.OnAfterRender(e);
 
         if (LastCommand != null)
         {
@@ -296,29 +288,12 @@ public class Prompter : InteractiveControl, IRepeatableSupport
     }
 
     /// <summary>
-    /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
-    /// </summary>
-    public void RequestClose()
-    {
-        closeWasRequested = true;
-        OnClosed();
-    }
-
-    /// <summary>
     /// Raises the <see cref="NewCommand"/> event.
     /// </summary>
     /// <param name="e">A <see cref="NewCommandEventArgs"/> that contains the event data.</param>
     protected virtual void OnNewCommand(NewCommandEventArgs e)
     {
         NewCommand?.Invoke(null, e);
-    }
-
-    /// <summary>
-    /// Raises the <see cref="Closed"/> event.
-    /// </summary>
-    protected virtual void OnClosed()
-    {
-        Closed?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>

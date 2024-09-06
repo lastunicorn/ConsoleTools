@@ -30,11 +30,10 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 /// <summary>
 /// A menu in which the user can navigate by using the up/down arrow keys.
 /// </summary>
-public class ScrollMenu : ErasableControl, IRepeatableSupport
+public class ScrollMenu : ErasableControl
 {
     private const HorizontalAlignment DefaultHorizontalAlignment = HorizontalAlignment.Center;
     private readonly MenuItemCollection menuItems = new();
-    private bool closeWasRequested;
     private Location menuLocation;
     private Location itemsLocation;
 
@@ -84,12 +83,6 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
         get => menuItems.AllowWrapAround;
         set => menuItems.AllowWrapAround = value;
     }
-
-    /// <summary>
-    /// Event raised when the current instance cannot be displayed anymore and it is in the "Closed" state.
-    /// The <see cref="ControlRepeater"/> must also end its display loop.
-    /// </summary>
-    public event EventHandler Closed;
 
     /// <inheritdoc />
     /// <summary>
@@ -162,7 +155,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
         if (menuItems.SelectableItemsCount == 0)
             throw new ApplicationException("There are no menu items to be displayed.");
 
-        closeWasRequested = false;
+        ResetClosed();
         //InnerSize = Size.Empty;
         menuLocation = Location.Origin;
         itemsLocation = Location.Origin;
@@ -242,7 +235,7 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
 
     private Location CalculateMenuLocation()
     {
-        HorizontalAlignment calcualtedHorizontalAlignment = CalcualteHorizontalAlignment();
+        HorizontalAlignment calcualtedHorizontalAlignment = CalculateHorizontalAlignment();
 
         int menuTop = Console.CursorTop;
 
@@ -291,19 +284,19 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
         }
     }
 
-    private HorizontalAlignment CalcualteHorizontalAlignment()
+    private HorizontalAlignment CalculateHorizontalAlignment()
     {
-        HorizontalAlignment calcualtedHorizontalAlignment = HorizontalAlignment;
+        HorizontalAlignment calculatedHorizontalAlignment = HorizontalAlignment;
 
-        if (calcualtedHorizontalAlignment == HorizontalAlignment.Default)
-            calcualtedHorizontalAlignment = DefaultHorizontalAlignment;
+        if (calculatedHorizontalAlignment == HorizontalAlignment.Default)
+            calculatedHorizontalAlignment = DefaultHorizontalAlignment;
 
-        return calcualtedHorizontalAlignment;
+        return calculatedHorizontalAlignment;
     }
 
     private void ReadUserSelection()
     {
-        while (!closeWasRequested)
+        while (!IsClosed)
         {
             if (!Console.KeyAvailable)
             {
@@ -367,18 +360,10 @@ public class ScrollMenu : ErasableControl, IRepeatableSupport
         return true;
     }
 
-    protected override void OnAfterRender()
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
-        base.OnAfterRender();
+        base.OnAfterRender(e);
 
         SelectedItem?.Command?.Execute();
-    }
-
-    /// <summary>
-    /// The <see cref="ControlRepeater"/> calls this method to announce the control that it should end its process.
-    /// </summary>
-    public void RequestClose()
-    {
-        closeWasRequested = true;
     }
 }

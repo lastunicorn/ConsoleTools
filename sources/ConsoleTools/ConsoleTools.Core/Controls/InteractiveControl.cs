@@ -19,30 +19,48 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-public abstract class InteractiveControl : BlockControl
+/// <summary>
+/// Base class for a control that supports input from the user.
+/// </summary>
+public abstract class InteractiveControl : BlockControl, ICloseSupport
 {
+    private volatile bool isClosed;
     private bool? originalCursorVisibility;
+
+    /// <summary>
+    /// Gets a value that specifies if the control was requested to close.
+    /// </summary>
+    public bool IsClosed => isClosed;
 
     /// <summary>
     /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
     /// Default value: <c>true</c>
     /// </summary>
-    public bool? CursorVisibility { get; set; }
+    public bool? CursorVisibility { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value that specifies if the visibility of the cursor should be set back
-    /// to the value it was before displaying the control.
+    /// to the original value (before displaying the control).
+    /// Default value: <c>true</c>
     /// </summary>
     protected bool RestoreCursorVisibilityAfterDisplay { get; set; } = true;
 
     public event EventHandler<AfterInteractiveDisplayEventArgs> AfterInteractiveDisplay;
 
+    /// <summary>
+    /// Event raised when the control is requested to close itself.
+    /// </summary>
+    public event EventHandler CloseRequested;
+
+    /// <summary>
+    /// Method called before the control is rendered.
+    /// </summary>
     protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         if (CursorVisibility.HasValue)
         {
-            originalCursorVisibility = Console.CursorVisible;
-            Console.CursorVisible = CursorVisibility.Value;
+            originalCursorVisibility = e.Display.IsCursorVisible;
+            e.Display.IsCursorVisible = CursorVisibility.Value;
         }
         else
         {
@@ -52,11 +70,41 @@ public abstract class InteractiveControl : BlockControl
         base.OnBeforeRender(e);
     }
 
-    protected override void OnAfterRender()
+    /// <summary>
+    /// Raises the <see cref="Control.AfterRender"/> event. This method is called at the very end of the
+    /// rendering process.
+    /// </summary>
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
-        base.OnAfterRender();
+        base.OnAfterRender(e);
 
         if (originalCursorVisibility.HasValue && RestoreCursorVisibilityAfterDisplay)
-            Console.CursorVisible = originalCursorVisibility.Value;
+            e.Display.IsCursorVisible = originalCursorVisibility.Value;
+    }
+
+    /// <summary>
+    /// Call this method to announce the control that it should end its process.
+    /// This method does not force the control to close.
+    /// </summary>
+    public void RequestClose()
+    {
+        isClosed = true;
+        OnCloseRequested();
+    }
+
+    /// <summary>
+    /// Resets the "closed" state of the control and allows it to be rendered again.
+    /// </summary>
+    protected void ResetClosed()
+    {
+        isClosed = false;
+    }
+
+    /// <summary>
+    /// Raises the <see cref="CloseRequested"/> event.
+    /// </summary>
+    protected virtual void OnCloseRequested()
+    {
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

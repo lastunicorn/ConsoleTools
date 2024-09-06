@@ -149,11 +149,11 @@ public abstract class BlockControl : Control
     }
 
     /// <summary>
-    /// Method called before the control is displayed.
+    /// Method called before the control is rendered.
     /// </summary>
     protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
-        //e.RenderingOptions.AvailableWidth = AvailableWidth;
+        e.RenderingOptions.AvailableWidth = AvailableWidth;
 
         base.OnBeforeRender(e);
     }

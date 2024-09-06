@@ -14,17 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
 internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
 {
-    private volatile bool closeWasRequested;
-    private bool isRunning;
     private IRenderer childRenderer;
     private int count;
+    private BlockControl content;
 
     public ControlRepeaterRenderer(ControlRepeater control, IDisplay display, RenderingOptions renderingOptions)
         : base(control, display, renderingOptions)
@@ -35,38 +33,32 @@ internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
     {
         if (Control.RepeatCount == 0 || Control?.Content == null)
         {
+            content = null;
             childRenderer = null;
             return false;
         }
 
-        closeWasRequested = false;
-
-        if (Control.Content is IRepeatableSupport repeatableControl)
-            repeatableControl.Closed += HandleControlClosed;
+        content = Control.Content;
 
         count = 0;
-        childRenderer = Control.RenderContentAsRoot
-            ? RenderingContext.CreateRenderer(Control.Content, null)
-            : RenderingContext.CreateChildRenderer(Control.Content, null);
-        return childRenderer.HasMoreLines;
-    }
+        childRenderer = Control.IsRootControl
+            ? RenderingContext.CreateRenderer(content, null)
+            : RenderingContext.CreateChildRenderer(content, null);
 
-    private void HandleControlClosed(object sender, EventArgs e)
-    {
-        closeWasRequested = true;
+        return childRenderer.HasMoreLines;
     }
 
     protected override bool RenderNextContentLine()
     {
-        if (closeWasRequested)
+        if (Control.IsClosed || content is ICloseSupport { IsClosed: true })
             return false;
 
-        if (!Control.RenderContentAsRoot)
+        if (!Control.IsRootControl)
             RenderingContext.StartLine();
 
         childRenderer.RenderNextLine();
 
-        if (!Control.RenderContentAsRoot)
+        if (!Control.IsRootControl)
             RenderingContext.EndLine();
 
         if (childRenderer.HasMoreLines)
@@ -81,19 +73,5 @@ internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
         }
 
         return false;
-    }
-
-    protected override void OnRenderingStart()
-    {
-        isRunning = true;
-
-        base.OnRenderingStart();
-    }
-
-    protected override void OnRenderingEnd()
-    {
-        base.OnRenderingEnd();
-
-        isRunning = false;
     }
 }

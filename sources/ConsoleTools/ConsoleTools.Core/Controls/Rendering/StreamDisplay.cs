@@ -43,6 +43,11 @@ public class StreamDisplay : IDisplay, IDisposable
     public ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public bool IsCursorVisible { get; set; }
+
+    /// <summary>
     /// Gets the underlying stream into which the data is written.
     /// </summary>
     public Stream Stream { get; }

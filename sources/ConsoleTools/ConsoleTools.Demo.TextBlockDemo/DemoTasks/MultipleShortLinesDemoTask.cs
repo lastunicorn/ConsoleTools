@@ -14,31 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal abstract class CommandBase : ICommand
+    internal class MultipleShortLinesDemoTask : DemoTaskBase
     {
-        public bool IsActive { get; } = true;
+        public override string Title => "Multiple short lines";
 
-        public abstract string Title { get; }
-
-        public void Execute()
+        protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
-                Text = $"- {Title}:",
-                ForegroundColor = ConsoleColor.DarkYellow,
-                Margin = "0 2 0 1"
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "Nam orci purus, luctus in est a, tempor luctus tortor.",
+                    "In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
+                    "Vestibulum tristique sapien dui, et hendrerit justo iaculis non."
+                }
             };
             textBlock.Display();
-
-            DoExecute();
         }
-
-        protected abstract void DoExecute();
     }
 }

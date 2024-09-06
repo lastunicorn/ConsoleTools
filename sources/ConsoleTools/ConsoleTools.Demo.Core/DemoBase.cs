@@ -14,24 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Controls;
-
-/// <summary>
-/// Provides event data for the <see cref="Control.BeforeRender"/> event.
-/// </summary>
-public class BeforeRenderEventArgs : EventArgs
+namespace DustInTheWind.ConsoleTools.Demo.Core
 {
-    /// <summary>
-    /// Gets the rendering options that will be used for creating the <see cref="IRenderer"/>,
-    /// during the rendering process.
-    /// </summary>
-    public RenderingOptions RenderingOptions { get; set; }
+    public abstract class DemoBase : IDemo
+    {
+        public abstract string Name { get; }
 
-    /// <summary>
-    /// Gets the <see cref="IDisplay"/> instance used for rendering the control.
-    /// </summary>
-    public IDisplay Display { get; set; }
+        protected List<DemoTaskBase> DemoTasks { get; } = new List<DemoTaskBase>();
+
+        public void Execute()
+        {
+            foreach (DemoTaskBase demoTask in DemoTasks)
+                demoTask.Execute();
+        }
+    }
 }

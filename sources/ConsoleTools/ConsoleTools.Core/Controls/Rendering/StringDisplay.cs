@@ -42,6 +42,11 @@ public class StringDisplay : IDisplay
     public ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public bool IsCursorVisible { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
     /// </summary>
     public StringDisplay()

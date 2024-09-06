@@ -14,18 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using System;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Controls;
+
+/// <summary>
+/// Provides event data for the <see cref="Control.AfterRender"/> event.
+/// </summary>
+public class AfterRenderEventArgs : EventArgs
 {
-    internal class SingleShortLineCommand : CommandBase
-    {
-        public override string Title => "Single short line";
-
-        protected override void DoExecute()
-        {
-            TextBlock textBlock = new TextBlock("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-            textBlock.Display();
-        }
-    }
+    /// <summary>
+    /// Gets the <see cref="IDisplay"/> instance used for rendering the control.
+    /// </summary>
+    public IDisplay Display { get; set; }
 }

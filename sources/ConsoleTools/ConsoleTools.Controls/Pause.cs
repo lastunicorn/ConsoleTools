@@ -65,7 +65,7 @@ public class Pause : ErasableControl
     /// Moves the cursor back to the end of the text and waits for the user to press the unlock key.
     /// After the user presses the unlock key the cursor is moved back to the end of the control (after the bottom margin).
     /// </summary>
-    protected override void OnAfterRender()
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
         int oldCursorLeft = Console.CursorLeft;
         int oldCursorTop = Console.CursorTop;
@@ -78,7 +78,7 @@ public class Pause : ErasableControl
 
         Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
 
-        base.OnAfterRender();
+        base.OnAfterRender(e);
     }
 
     private void WaitForUnlockKey()

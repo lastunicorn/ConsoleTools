@@ -16,10 +16,11 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class MinWidthCommand : CommandBase
+    internal class MinWidthDemoTask : DemoTaskBase
     {
         public override string Title => "Custom MinWidth (50)";
 

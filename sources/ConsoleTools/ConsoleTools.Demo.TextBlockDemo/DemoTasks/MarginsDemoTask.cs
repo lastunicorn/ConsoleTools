@@ -16,19 +16,21 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class BackgroundColorCommand : CommandBase
+    internal class MarginsDemoTask : DemoTaskBase
     {
-        public override string Title => "Background Color (Blue)";
+        public override string Title => "Custom Margins (3 3 3 3)";
 
         protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                BackgroundColor = ConsoleColor.Blue
+                Margin = 3,
+                BackgroundColor = ConsoleColor.DarkGray // Added to easier see the margins.
             };
             textBlock.Display();
         }

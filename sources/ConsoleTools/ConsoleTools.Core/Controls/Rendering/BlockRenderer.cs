@@ -25,6 +25,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 public abstract class BlockRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
+    private bool isInitialized;
     private RenderingStep step;
     private IRenderer sectionRenderer;
 
@@ -47,7 +48,16 @@ public abstract class BlockRenderer<TControl> : IRenderer
     /// <summary>
     /// Gets a value specifying if there are still lines awaiting to be rendered.
     /// </summary>
-    public bool HasMoreLines => sectionRenderer?.HasMoreLines ?? false;
+    public bool HasMoreLines
+    {
+        get
+        {
+            if (!isInitialized)
+                Initialize();
+
+            return sectionRenderer?.HasMoreLines ?? false;
+        }
+    }
 
     /// <summary>
     /// Initializes a new instance of teh <see cref="BlockRenderer{TControl}"/> class with
@@ -93,13 +103,19 @@ public abstract class BlockRenderer<TControl> : IRenderer
 
         step = RenderingStep.Start;
         OnRenderingStart();
+    }
 
+    private void Initialize()
+    {
+        isInitialized = true;
+
+        step = RenderingStep.Start;
         MoveNext();
     }
 
     private void MoveNext()
     {
-        if (step == RenderingStep.Start) 
+        if (step == RenderingStep.Start)
             MoveToTopMargin();
 
         if (step == RenderingStep.TopMargin)
@@ -195,6 +211,9 @@ public abstract class BlockRenderer<TControl> : IRenderer
     /// </summary>
     public void RenderNextLine()
     {
+        if (!isInitialized)
+            Initialize();
+
         if (sectionRenderer == null)
             return;
 
@@ -233,6 +252,9 @@ public abstract class BlockRenderer<TControl> : IRenderer
 
     public void Reset()
     {
+        if (!isInitialized)
+            Initialize();
+
         step = RenderingStep.Start;
         MoveNext();
     }

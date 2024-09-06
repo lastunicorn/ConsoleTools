@@ -32,7 +32,7 @@ public class ControlRepeater_Tests : TestsBase
                 MaxWidth = 20,
                 Margin = "2 1"
             },
-            RenderContentAsRoot = true,
+            IsRootControl = true,
             RepeatCount = 2
         };
 
@@ -50,7 +50,7 @@ public class ControlRepeater_Tests : TestsBase
                 MaxWidth = 20,
                 Margin = "2 1"
             },
-            RenderContentAsRoot = false,
+            IsRootControl = false,
             RepeatCount = 2
         };
 

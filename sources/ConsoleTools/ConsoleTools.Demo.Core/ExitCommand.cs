@@ -15,23 +15,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Controls;
-
-/// <summary>
-/// Provides event data for the <see cref="Control.BeforeRender"/> event.
-/// </summary>
-public class BeforeRenderEventArgs : EventArgs
+namespace DustInTheWind.ConsoleTools.Demo.Core
 {
-    /// <summary>
-    /// Gets the rendering options that will be used for creating the <see cref="IRenderer"/>,
-    /// during the rendering process.
-    /// </summary>
-    public RenderingOptions RenderingOptions { get; set; }
+    internal class ExitCommand : ICommand
+    {
+        private readonly DemoApplication demoApplication;
 
-    /// <summary>
-    /// Gets the <see cref="IDisplay"/> instance used for rendering the control.
-    /// </summary>
-    public IDisplay Display { get; set; }
+        public ExitCommand(DemoApplication demoApplication)
+        {
+            this.demoApplication = demoApplication ?? throw new ArgumentNullException(nameof(demoApplication));
+        }
+
+        public bool IsActive => true;
+
+        public void Execute()
+        {
+            demoApplication.RequestExit();
+        }
+    }
 }

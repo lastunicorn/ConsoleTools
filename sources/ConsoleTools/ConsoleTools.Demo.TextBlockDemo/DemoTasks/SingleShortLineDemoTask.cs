@@ -14,24 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Controls;
-
-/// <summary>
-/// Provides event data for the <see cref="Control.BeforeRender"/> event.
-/// </summary>
-public class BeforeRenderEventArgs : EventArgs
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    /// <summary>
-    /// Gets the rendering options that will be used for creating the <see cref="IRenderer"/>,
-    /// during the rendering process.
-    /// </summary>
-    public RenderingOptions RenderingOptions { get; set; }
+    internal class SingleShortLineDemoTask : DemoTaskBase
+    {
+        public override string Title => "Single short line";
 
-    /// <summary>
-    /// Gets the <see cref="IDisplay"/> instance used for rendering the control.
-    /// </summary>
-    public IDisplay Display { get; set; }
+        protected override void DoExecute()
+        {
+            TextBlock textBlock = new TextBlock("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+            textBlock.Display();
+        }
+    }
 }

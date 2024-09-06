@@ -27,63 +27,80 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// <summary>
 /// Displays a control repeatedly until the <see cref="RequestClose"/> method is called.
 /// </summary>
-public class ControlRepeater : BlockControl
+public class ControlRepeater : BlockControl, ICloseSupport
 {
-    private volatile bool closeWasRequested;
-    private BlockControl content;
-    private bool isRunning;
+    private volatile bool isClosed;
 
-    public bool RenderContentAsRoot { get; set; } = true;
+    /// <summary>
+    /// Gets or sets a value that specifies if the control is rendered as a root control.
+    /// A root control is not embedded in another parent control.
+    /// </summary>
+    public bool IsRootControl { get; set; } = true;
 
+    /// <summary>
+    /// Gets the natural width of the control.
+    /// The natural width is the width of the control when no external constraints are applied.
+    /// </summary>
     public override int NaturalContentWidth => Content?.CalculateNaturalContentWidth() ?? 0;
 
     /// <summary>
     /// Gets or sets the control that is to be displayed repeatedly.
     /// </summary>
-    public BlockControl Content
-    {
-        get => content;
-        set
-        {
-            if (content is IRepeatableSupport repeatableControl1)
-                repeatableControl1.Closed -= HandleControlClosed;
-
-            if (isRunning)
-                throw new Exception("The control cannot be changed while the Display method is running.");
-
-            content = value;
-
-            if (content is IRepeatableSupport repeatableControl2)
-                repeatableControl2.Closed += HandleControlClosed;
-        }
-    }
-
-    private void HandleControlClosed(object sender, EventArgs e)
-    {
-        closeWasRequested = true;
-    }
+    public BlockControl Content { get; set; }
 
     /// <summary>
     /// Gets a value that specifies if the control was requested to close.
     /// </summary>
-    protected bool CloseWasRequested => closeWasRequested;
+    public bool IsClosed => isClosed;
 
-    public int RepeatCount { get; set; } = 1;
+    /// <summary>
+    /// Gets or sets the number of times that the content should be repeated.
+    /// A negative value means the content is repeated an infinite number of times.
+    /// Zero will not render the content at all.
+    /// Default value = 0
+    /// </summary>
+    public int RepeatCount { get; set; }
 
+    /// <summary>
+    /// Event raised when the control is requested to close itself.
+    /// If the <see cref="Content"/> has <see cref="ICloseSupport"/> it is also requested to close.
+    /// The repeat loop is then interrupted and the rendering process stopped.
+    /// </summary>
+    public event EventHandler CloseRequested;
+
+    /// <summary>
+    /// Returns a renderer object that is able to render the current <see cref="ControlRepeater"/>
+    /// instance using the specified <see cref="IDisplay"/>.
+    /// </summary>
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new ControlRepeaterRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
-    /// Sets the <see cref="CloseWasRequested"/> flag.
-    /// The control will exit next time when it checks the flag.
+    /// Call this method to announce the control that it should end its process.
+    /// This method does not force the control to close.
+    /// Instead it will wait for the current iteration of the <see cref="Content"/> to end its
+    /// rendering than also ends its own repeat loop.
+    /// If the <see cref="Content"/> has <see cref="ICloseSupport"/> it is also requested to close,
+    /// to speed up the close process.
     /// </summary>
     public void RequestClose()
     {
-        closeWasRequested = true;
+        isClosed = true;
 
-        if (Content is IRepeatableSupport repeatableControl)
-            repeatableControl.RequestClose();
+        if (Content is ICloseSupport contentWithCloseSupport)
+            contentWithCloseSupport.RequestClose();
+
+        OnCloseRequested();
+    }
+
+    /// <summary>
+    /// Raises the <see cref="CloseRequested"/> event.
+    /// </summary>
+    protected virtual void OnCloseRequested()
+    {
+        CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 }

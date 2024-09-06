@@ -17,22 +17,27 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.Core
 {
-    internal class HorizontalAlignmentRightCommand : CommandBase
+    public abstract class DemoTaskBase
     {
-        public override string Title => "Custom HorizontalAlignment Right (Width = 50)";
+        public bool IsActive => true;
 
-        protected override void DoExecute()
+        public abstract string Title { get; }
+
+        public void Execute()
         {
             TextBlock textBlock = new TextBlock
             {
-                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                Width = 50,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                BackgroundColor = ConsoleColor.DarkGray
+                Text = $"- {Title}:",
+                ForegroundColor = ConsoleColor.DarkYellow,
+                Margin = "0 2 0 1"
             };
             textBlock.Display();
+
+            DoExecute();
         }
+
+        protected abstract void DoExecute();
     }
 }

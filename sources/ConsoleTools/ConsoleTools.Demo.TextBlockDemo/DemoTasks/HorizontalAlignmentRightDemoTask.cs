@@ -16,12 +16,13 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class WidthCommand : CommandBase
+    internal class HorizontalAlignmentRightDemoTask : DemoTaskBase
     {
-        public override string Title => "Custom Width (Width = 50)";
+        public override string Title => "Custom HorizontalAlignment Right (Width = 50)";
 
         protected override void DoExecute()
         {
@@ -29,6 +30,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
                 Width = 50,
+                HorizontalAlignment = HorizontalAlignment.Right,
                 BackgroundColor = ConsoleColor.DarkGray
             };
             textBlock.Display();

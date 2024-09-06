@@ -61,7 +61,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo.NetCore", "Demo.NetCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests.Utils", "ConsoleTools.Tests.Utils\ConsoleTools.Tests.Utils.csproj", "{F2B7FE1C-2F4F-4CFE-A70E-89FACA04608F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Tests.Performance", "ConsoleTools.Tests.Performance\ConsoleTools.Tests.Performance.csproj", "{5553E8FA-3247-443C-95FD-40502F5714DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests.Performance", "ConsoleTools.Tests.Performance\ConsoleTools.Tests.Performance.csproj", "{5553E8FA-3247-443C-95FD-40502F5714DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.Core", "ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj", "{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo", "ConsoleTools.Demo\ConsoleTools.Demo.csproj", "{B1681E0C-770C-420D-A634-CC229BB6A8D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -299,6 +303,26 @@ Global
 		{5553E8FA-3247-443C-95FD-40502F5714DE}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
 		{5553E8FA-3247-443C-95FD-40502F5714DE}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{5553E8FA-3247-443C-95FD-40502F5714DE}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Debug-Net6|Any CPU.ActiveCfg = Debug|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Debug-Net6|Any CPU.Build.0 = Debug|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Debug-Net6|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Debug-Net6|Any CPU.Build.0 = Debug|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -319,6 +343,8 @@ Global
 		{1A139874-D3ED-48F0-8AAF-B6390BAF0A23} = {68EB131C-40B9-47CC-A96F-0C9F9871F0C6}
 		{9EC116AF-EF51-49F4-BDB1-921DD586C7CE} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{19C2ED8D-48C0-4CCB-A008-2F4B3F175A17} = {68EB131C-40B9-47CC-A96F-0C9F9871F0C6}
+		{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{B1681E0C-770C-420D-A634-CC229BB6A8D8} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

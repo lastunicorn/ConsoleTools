@@ -37,6 +37,11 @@ internal class StringLinesDisplay : IDisplay
     /// </summary>
     public ConsoleColor BackgroundColor { get; set; }
 
+    /// <summary>
+    /// This property is ignored.
+    /// </summary>
+    public bool IsCursorVisible { get; set; }
+
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(c);

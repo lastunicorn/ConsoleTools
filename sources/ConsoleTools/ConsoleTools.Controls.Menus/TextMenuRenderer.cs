@@ -20,7 +20,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
 internal class TextMenuRenderer : BlockRenderer<TextMenu>
 {
-    private bool closeWasRequested;
     private readonly MultiSectionRenderer multiSectionRenderer = new();
 
     public TextMenuRenderer(TextMenu textMenu, IDisplay display, RenderingOptions renderingOptions)
@@ -31,6 +30,9 @@ internal class TextMenuRenderer : BlockRenderer<TextMenu>
 
         TextMenuItemsSection textMenuItemsSection = new(Control, RenderingContext);
         multiSectionRenderer.Add(textMenuItemsSection);
+
+        EmptySection emptySection = new(RenderingContext, 1);
+        multiSectionRenderer.Add(emptySection);
 
         TextMenuSelectionSection textMenuSelectionSection = new(Control, RenderingContext);
         multiSectionRenderer.Add(textMenuSelectionSection);

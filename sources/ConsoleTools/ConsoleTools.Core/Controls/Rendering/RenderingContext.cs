@@ -249,7 +249,7 @@ public class RenderingContext
     /// The new renderer is reporting back to the parent whenever a new line is written, so that
     /// the parent can be aware of the line length written so far.
     /// </summary>
-    public IRenderer CreateChildRenderer(BlockControl control, ChildRenderingOptions renderingOptions)
+    public IRenderer CreateChildRenderer(BlockControl control, ChildRenderingOptions renderingOptions = null)
     {
         RenderingOptions options = new()
         {

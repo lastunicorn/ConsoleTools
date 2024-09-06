@@ -38,6 +38,9 @@ internal class TextMenuTitleSection : SectionRenderer
 
     private IEnumerable<string> GetLines()
     {
+        if (textMenu.TitleText == null)
+            yield break;
+
         yield return textMenu.TitleText;
         yield return string.Empty;
         yield return string.Empty;

@@ -16,23 +16,37 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.Core
 {
-    internal class HorizontalAlignmentCenterCommand : CommandBase
+    internal class DemoCommand : ICommand
     {
-        public override string Title => "Custom HorizontalAlignment Center (Width = 50)";
+        private readonly IDemo demo;
 
-        protected override void DoExecute()
+        public bool IsActive => true;
+
+        public DemoCommand(IDemo demo)
         {
-            TextBlock textBlock = new TextBlock
+            this.demo = demo ?? throw new ArgumentNullException(nameof(demo));
+        }
+
+        public void Execute()
+        {
+            try
             {
-                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                Width = 50,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                BackgroundColor = ConsoleColor.DarkGray
-            };
-            textBlock.Display();
+                demo.Execute();
+            }
+            finally
+            {
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = $"Demo {demo.Name} has finished.",
+                    Margin = "0 1",
+                    ForegroundColor = ConsoleColor.Cyan
+                };
+                textBlock.Display();
+            }
         }
     }
 }

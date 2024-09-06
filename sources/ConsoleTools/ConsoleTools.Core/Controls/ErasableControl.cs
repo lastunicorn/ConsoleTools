@@ -57,13 +57,14 @@ public abstract class ErasableControl : InteractiveControl
     /// Method called at the very end, after all the control was displayed.
     /// It Erases the control if requested.
     /// </summary>
-    protected override void OnAfterRender()
+    /// <param name="e"></param>
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
         // todo: reimplement this after rendering mechanism is in place.
         //if (EraseAfterClose && ControlDisplay.LineCount > 0)
         //    EraseControl();
 
-        base.OnAfterRender();
+        base.OnAfterRender(e);
     }
 
     //private void EraseControl()

@@ -14,24 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
-/// <summary>
-/// Provides event data for the <see cref="Control.BeforeRender"/> event.
-/// </summary>
-public class BeforeRenderEventArgs : EventArgs
+internal class EmptySection : SectionRenderer
 {
-    /// <summary>
-    /// Gets the rendering options that will be used for creating the <see cref="IRenderer"/>,
-    /// during the rendering process.
-    /// </summary>
-    public RenderingOptions RenderingOptions { get; set; }
+    private readonly int lineCount;
+    private int actualLineCount;
 
-    /// <summary>
-    /// Gets the <see cref="IDisplay"/> instance used for rendering the control.
-    /// </summary>
-    public IDisplay Display { get; set; }
+    public override bool HasMoreLines => actualLineCount < lineCount;
+
+    public EmptySection(RenderingContext renderingContext, int lineCount)
+        : base(renderingContext)
+    {
+        this.lineCount = lineCount;
+    }
+
+    public override void RenderNextLine()
+    {
+        RenderingContext.WriteLine();
+        actualLineCount++;
+    }
+
+    public override void Reset()
+    {
+        actualLineCount = 0;
+    }
 }

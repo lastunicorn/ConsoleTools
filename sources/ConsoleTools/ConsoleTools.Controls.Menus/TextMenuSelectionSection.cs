@@ -43,7 +43,7 @@ internal class TextMenuSelectionSection : SectionRenderer
 
     private void ReadUserSelection()
     {
-        RenderingContext.WriteLine();
+        //RenderingContext.WriteLine();
 
         //while (!closeWasRequested)
         while (true)

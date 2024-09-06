@@ -47,6 +47,12 @@ public class ConsoleDisplay : IInteractiveDisplay
         set => Console.BackgroundColor = value;
     }
 
+    public bool IsCursorVisible
+    {
+        get => Console.CursorVisible;
+        set => Console.CursorVisible = value;
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ConsoleDisplay"/> class
     /// as root printer.

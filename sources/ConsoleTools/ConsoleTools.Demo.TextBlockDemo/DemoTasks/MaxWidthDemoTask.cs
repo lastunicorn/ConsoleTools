@@ -14,24 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
 {
-    internal class MultipleLongLinesCommand : CommandBase
+    internal class MaxWidthDemoTask : DemoTaskBase
     {
-        public override string Title => "Multiple long lines (text wrapping)";
+        public override string Title => "Custom MaxWidth (50)";
 
         protected override void DoExecute()
         {
             TextBlock textBlock = new TextBlock
             {
-                Text = new[]
-                {
-                    "1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
-                    "2) Sed sollicitudin non enim sit amet interdum. Vivamus sem nisl, commodo in posuere sed, ultrices quis nulla. Etiam justo nibh, lacinia vel ornare a, luctus quis quam.",
-                    "3) Nullam quis nisl a dolor convallis rhoncus at sit amet eros. Suspendisse quis ipsum et eros ornare placerat. Fusce euismod eros eu est ullamcorper eleifend."
-                }
+                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus.",
+                MaxWidth = 50,
+                BackgroundColor = ConsoleColor.DarkGray
             };
             textBlock.Display();
         }

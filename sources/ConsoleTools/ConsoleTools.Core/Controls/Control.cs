@@ -49,7 +49,7 @@ public abstract class Control : IRenderable
     /// <summary>
     /// Event raised at the very end of the rendering process.
     /// </summary>
-    public virtual event EventHandler AfterRender;
+    public virtual event EventHandler<AfterRenderEventArgs> AfterRender;
 
     /// <summary>
     /// Displays the control in the console as a root control (not embedded into another parent
@@ -70,6 +70,8 @@ public abstract class Control : IRenderable
     /// <param name="renderingOptions">A set of options based on which the renderer is created.</param>
     public void Render(IDisplay display, RenderingOptions renderingOptions = null)
     {
+        if (display == null) throw new ArgumentNullException(nameof(display));
+
         DoRender(display, renderingOptions);
     }
 
@@ -102,6 +104,7 @@ public abstract class Control : IRenderable
     {
         BeforeRenderEventArgs beforeRenderEventArgs = new()
         {
+            Display = display,
             RenderingOptions = renderingOptions ?? new RenderingOptions()
         };
         OnBeforeRender(beforeRenderEventArgs);
@@ -117,7 +120,11 @@ public abstract class Control : IRenderable
         }
         finally
         {
-            OnAfterRender();
+            AfterRenderEventArgs afterRenderEventArgs = new()
+            {
+                Display = display
+            };
+            OnAfterRender(afterRenderEventArgs);
         }
     }
 
@@ -136,8 +143,8 @@ public abstract class Control : IRenderable
     /// rendering process.
     /// When overwritten, the base method must be called in order to allow the event to be raised.
     /// </summary>
-    protected virtual void OnAfterRender()
+    protected virtual void OnAfterRender(AfterRenderEventArgs e)
     {
-        AfterRender?.Invoke(this, EventArgs.Empty);
+        AfterRender?.Invoke(this, e);
     }
 }

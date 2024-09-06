@@ -32,9 +32,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 /// <remarks>
 /// Alternatively, if there is no Command associated with the item, the selected item can be retrieved and some decisions can be taken based on it.
 /// </remarks>
-public class TextMenu : ErasableControl, IRepeatableSupport
+public class TextMenu : ErasableControl
 {
-    private bool closeWasRequested;
     private readonly List<TextMenuItem> menuItems = new();
     private TextMenuItem selectedItem;
 
@@ -111,11 +110,6 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     public override int NaturalContentWidth => 0;
 
     /// <summary>
-    /// Event raised when the display of the control finished.
-    /// </summary>
-    public event EventHandler Closed;
-
-    /// <summary>
     /// Initialize a new instance of the <see cref="TextMenu"/> class.
     /// </summary>
     public TextMenu()
@@ -172,7 +166,7 @@ public class TextMenu : ErasableControl, IRepeatableSupport
             throw new ApplicationException("There are no menu items to be displayed.");
 
         SelectedItem = null;
-        closeWasRequested = false;
+        ResetClosed();
 
         base.OnBeforeRender(e);
     }
@@ -190,11 +184,11 @@ public class TextMenu : ErasableControl, IRepeatableSupport
     /// <summary>
     /// Executes the selected item.
     /// </summary>
-    protected override void OnAfterRender()
+    protected override void OnAfterRender(AfterRenderEventArgs e)
     {
-        base.OnAfterRender();
+        base.OnAfterRender(e);
 
-        OnClosed();
+        OnCloseRequested();
 
         SelectedItem?.Execute();
     }
@@ -208,22 +202,6 @@ public class TextMenu : ErasableControl, IRepeatableSupport
         TextMenu textMenu = new(menuItems);
         textMenu.Display();
         return textMenu.SelectedItem;
-    }
-
-    /// <summary>
-    /// An internal flag is set to request that the display process to finish.
-    /// </summary>
-    public void RequestClose()
-    {
-        closeWasRequested = true;
-    }
-
-    /// <summary>
-    /// Raises the <see cref="Closed"/> event.
-    /// </summary>
-    protected virtual void OnClosed()
-    {
-        Closed?.Invoke(this, EventArgs.Empty);
     }
 
     public override string ToString()

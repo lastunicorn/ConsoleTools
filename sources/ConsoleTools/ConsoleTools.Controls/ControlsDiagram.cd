@@ -3,7 +3,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Controls.Pause" Collapsed="true">
     <Position X="15.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAQCAAAAAAAAAAAAgACAACAAAAAACAAAAAE=</HashCode>
+      <HashCode>AAgAAAAAAgACAAAAAAAAAAAAgACAACAAAAAACAAAAAE=</HashCode>
       <FileName>Pause.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="DustInTheWind.ConsoleTools.Controls.ControlRepeater" Collapsed="true">
     <Position X="8.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAABARAAAAEAAAAAAAAgCAAAEAAAAAAAAE=</HashCode>
+      <HashCode>AgACAAAAAgAAAARAAAAEAAAAAAAAACAAAEAAACAAAAE=</HashCode>
       <FileName>ControlRepeater.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,7 +42,6 @@
   <Class Name="DustInTheWind.ConsoleTools.Controls.Control" Collapsed="true">
     <Position X="14" Y="0.5" Width="1.5" />
     <TypeIdentifier />
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Controls.InlineControl" Collapsed="true">
     <Position X="22" Y="1.5" Width="1.5" />
@@ -160,10 +159,6 @@
   </Class>
   <Class Name="DustInTheWind.ConsoleTools.Controls.ErasableControl" Collapsed="true">
     <Position X="15.75" Y="4.5" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="DustInTheWind.ConsoleTools.Controls.InteractiveControl" Collapsed="true">
-    <Position X="15.75" Y="3" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />

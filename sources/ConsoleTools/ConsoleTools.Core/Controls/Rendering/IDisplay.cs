@@ -21,7 +21,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
 /// The implementors of this interface represent the target where a <see cref="Control"/> is rendered.

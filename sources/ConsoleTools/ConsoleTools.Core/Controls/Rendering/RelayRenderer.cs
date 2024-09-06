@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 public class RelayRenderer : IRenderer
 {

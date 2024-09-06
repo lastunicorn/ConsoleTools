@@ -20,19 +20,22 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using System.Text;
+using System.IO;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls.Displays;
 
 /// <summary>
-/// It is used by a <see cref="Control"/> to render itself into as a string.
+/// It is used by a <see cref="Control"/> to render itself into a <see cref="System.IO.Stream"/>.
 /// </summary>
-public class StringDisplay : IDisplay
+public class StreamDisplay : IDisplay, IDisposable
 {
-    private readonly StringBuilder stringBuilder;
+    private bool isDisposed;
+
+    private readonly StreamWriter streamWriter;
 
     /// <summary>
-    /// This property is ignored.
+    /// This property is ignored. 
     /// </summary>
     public ConsoleColor ForegroundColor { get; set; }
 
@@ -42,48 +45,68 @@ public class StringDisplay : IDisplay
     public ConsoleColor BackgroundColor { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
+    /// Gets the underlying stream into which the data is written.
     /// </summary>
-    public StringDisplay()
-    {
-        stringBuilder = new StringBuilder();
-    }
+    public Stream Stream { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringDisplay"/> class as child.
+    /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
+    /// the <see cref="System.IO.Stream"/> into which the table will be written.
     /// </summary>
-    public StringDisplay(StringBuilder stringBuilder)
+    public StreamDisplay(Stream stream)
     {
-        this.stringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
+        Stream = stream ?? throw new ArgumentNullException(nameof(stream));
+
+        streamWriter = new StreamWriter(stream);
+    }
+
+    private StreamDisplay(StreamWriter streamWriter)
+    {
+        this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
     }
 
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
-        stringBuilder.Append(c);
+        streamWriter.Write(c);
     }
 
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
-        stringBuilder.Append(text);
-    }
-
-    public void EndLine()
-    {
-        stringBuilder.AppendLine();
+        streamWriter.Write(text);
     }
 
     /// <summary>
-    /// Does nothing. The underlying <see cref="StringBuilder"/> does not have a buffer to be flushed.
+    /// Writes the line terminator to the underlying stream.
+    /// </summary>
+    public void EndLine()
+    {
+        streamWriter.WriteLine();
+    }
+
+    /// <summary>
+    /// Writes all the buffered data into the underlying stream.
     /// </summary>
     public void Flush()
     {
+        streamWriter.Flush();
     }
 
     /// <summary>
-    /// Returns the <see cref="string"/> built until now. 
+    /// Disposes the underlying <see cref="System.IO.Stream"/>.
     /// </summary>
-    public override string ToString()
+    public void Dispose()
     {
-        return stringBuilder.ToString();
+        if (isDisposed)
+            return;
+
+        if (streamWriter != null)
+        {
+            streamWriter?.Flush();
+            streamWriter?.Dispose();
+        }
+
+        Stream?.Dispose();
+
+        isDisposed = true;
     }
 }

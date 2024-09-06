@@ -22,6 +22,7 @@
 using System;
 using System.Reflection;
 using System.Text;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 

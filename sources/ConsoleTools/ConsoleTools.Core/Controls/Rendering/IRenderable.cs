@@ -1,4 +1,4 @@
-﻿// ConsoleTools
+// ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,28 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Controls;
-
-public abstract class SectionRenderer : IRenderer
+/// <summary>
+/// Exposes a <see cref="IRenderer"/> instance that can render the current instance into
+/// an output.
+/// </summary>
+public interface IRenderable
 {
-    protected RenderingContext RenderingContext { get; }
-
     /// <summary>
-    /// Gets a value specifying if the rendered still has more lines to render.
+    /// Creates a new <see cref="IRenderer"/> for the current instance.
     /// </summary>
-    public abstract bool HasMoreLines { get; }
-
-    protected SectionRenderer(RenderingContext renderingContext)
-    {
-        RenderingContext = renderingContext ?? throw new ArgumentNullException(nameof(renderingContext));
-    }
-
-    /// <summary>
-    /// Renders the next line using the underlying <see cref="IDisplay"/>.
-    /// </summary>
-    public abstract void RenderNextLine();
-
-    public abstract void Reset();
+    IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
 }

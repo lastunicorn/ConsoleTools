@@ -16,10 +16,10 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
-/// Provides options for creating an instance of <see cref="IRenderer"/>.
+/// Provides options for configuring an instance of <see cref="IRenderer"/>.
 /// </summary>
 public class RenderingOptions
 {
@@ -35,5 +35,8 @@ public class RenderingOptions
     /// </summary>
     public bool IsRoot { get; set; } = true;
 
-    public Action<int> OnLineWritten { get; set; }
+    /// <summary>
+    /// Method called after each line that is rendered.
+    /// </summary>
+    public Action<int> OnLineRendered { get; set; }
 }

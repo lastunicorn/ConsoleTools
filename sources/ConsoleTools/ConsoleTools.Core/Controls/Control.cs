@@ -21,6 +21,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls.Displays;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 

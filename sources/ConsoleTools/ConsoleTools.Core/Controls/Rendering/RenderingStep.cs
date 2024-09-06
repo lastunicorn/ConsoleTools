@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,14 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-public interface IInteractiveRenderer<TResult> : IRenderer
+internal enum RenderingStep
 {
-    public TResult Result { get; set; }
-
-    /// <summary>
-    /// Renders the next line into the specified <see cref="IDisplay"/>.
-    /// </summary>
-    void RenderNextLine(IInteractiveDisplay display);
+    Start = 0,
+    TopMargin,
+    TopPadding,
+    Content,
+    BottomPadding,
+    BottomMargin,
+    End
 }

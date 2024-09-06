@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,16 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Controls;
+using System;
 
-/// <summary>
-/// Exposes a <see cref="IRenderer"/> instance that can render the current instance into
-/// an output.
-/// </summary>
-public interface IRenderable
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
+
+public class AfterInteractiveDisplayEventArgs : EventArgs
 {
-    /// <summary>
-    /// Creates a new <see cref="IRenderer"/> for the current instance.
-    /// </summary>
-    IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
+    public IRenderer Renderer { get; set; }
 }

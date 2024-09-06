@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
 /// This base renderer provides support for rendering a <see cref="BlockControl"/>.
@@ -86,7 +86,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         {
             LineLength = renderingOptions?.AvailableWidth,
             IsRoot = renderingOptions?.IsRoot ?? true,
-            OnLineWritten = renderingOptions?.OnLineWritten,
+            OnLineWritten = renderingOptions?.OnLineRendered,
             ForegroundColor = Control.ForegroundColor,
             BackgroundColor = Control.BackgroundColor
         };

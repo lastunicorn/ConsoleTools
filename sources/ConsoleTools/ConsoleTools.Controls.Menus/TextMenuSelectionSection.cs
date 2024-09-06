@@ -16,6 +16,7 @@
 
 using System;
 using System.Linq;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls.Menus;
 

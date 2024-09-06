@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DustInTheWind.ConsoleTools.Controls.Control">
+    <Position X="5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAkAACEAAAAAQAACAAAgCAAABAAAAAAAAA=</HashCode>
+      <FileName>Controls\Control.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.BlockControl">
+    <Position X="6.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAgEAAAEAAAAAAAIEAgAIUAAIAABE=</HashCode>
+      <FileName>Controls\BlockControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.ErasableControl">
+    <Position X="12.5" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ErasableControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.InteractiveControl">
+    <Position X="9.5" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAACAAAQAAAAAAQAAAAAAAAAAAAEAAEA=</HashCode>
+      <FileName>Controls\InteractiveControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.InlineControl">
+    <Position X="3.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAIQgAAEAAAAAAAAAAJCAgAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Controls\InlineControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DustInTheWind.ConsoleTools.Controls.LongRunningControl">
+    <Position X="0.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAABABAAAEgCAgQhAAIBAAAiAEAAEKICAAAA=</HashCode>
+      <FileName>Controls\LongRunningControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DustInTheWind.ConsoleTools.Controls.IRenderable">
+    <Position X="8" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\IRenderable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DustInTheWind.ConsoleTools.Controls.IRenderer">
+    <Position X="10" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\IRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DustInTheWind.ConsoleTools.Controls.IDisplay">
+    <Position X="12" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAACAAAIAAAAAAAAAEIAAA=</HashCode>
+      <FileName>Controls\IDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 public class RenderingContext
 {
@@ -75,7 +75,7 @@ public class RenderingContext
     public RenderingContext(IDisplay display, ControlLayout controlLayout)
     {
         this.display = display ?? throw new ArgumentNullException(nameof(display));
-        this.ControlLayout = controlLayout ?? throw new ArgumentNullException(nameof(controlLayout));
+        ControlLayout = controlLayout ?? throw new ArgumentNullException(nameof(controlLayout));
     }
 
     /// <summary>
@@ -255,7 +255,7 @@ public class RenderingContext
         {
             AvailableWidth = renderingOptions?.AvailableWidth,
             IsRoot = false,
-            OnLineWritten = count =>
+            OnLineRendered = count =>
             {
                 currentLineLength += count;
             }

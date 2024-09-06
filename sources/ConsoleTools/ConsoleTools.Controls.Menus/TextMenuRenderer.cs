@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
-internal class TextMenuRenderer : BlockControlRenderer<TextMenu>
+internal class TextMenuRenderer : BlockRenderer<TextMenu>
 {
     private bool closeWasRequested;
     private readonly MultiSectionRenderer multiSectionRenderer = new();

@@ -19,7 +19,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class PauseRenderer : BlockControlRenderer<Pause>
+internal class PauseRenderer : BlockRenderer<Pause>
 {
     private IEnumerator<string> linesEnumerator;
 

@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 /// This base renderer provides support for rendering a <see cref="BlockControl"/>.
 /// </summary>
 /// <typeparam name="TControl"></typeparam>
-public abstract class BlockControlRenderer<TControl> : IRenderer
+public abstract class BlockRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
     private RenderingStep step;
@@ -50,7 +50,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     public bool HasMoreLines => sectionRenderer?.HasMoreLines ?? false;
 
     /// <summary>
-    /// Initializes a new instance of teh <see cref="BlockControlRenderer{TControl}"/> class with
+    /// Initializes a new instance of teh <see cref="BlockRenderer{TControl}"/> class with
     /// the control being rendered and rendering options.
     /// </summary>
     /// 
@@ -70,7 +70,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
     /// <exception cref="ArgumentNullException">
     /// Thrown if the provided <see cref="control"/> is null.
     /// </exception>
-    protected BlockControlRenderer(TControl control, IDisplay display, RenderingOptions renderingOptions)
+    protected BlockRenderer(TControl control, IDisplay display, RenderingOptions renderingOptions)
     {
         Control = control ?? throw new ArgumentNullException(nameof(control));
 
@@ -86,7 +86,7 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
         {
             LineLength = renderingOptions?.AvailableWidth,
             IsRoot = renderingOptions?.IsRoot ?? true,
-            OnLineWritten = renderingOptions?.OnLineRendered,
+            OnLineRendered = renderingOptions?.OnLineRendered,
             ForegroundColor = Control.ForegroundColor,
             BackgroundColor = Control.BackgroundColor
         };
@@ -99,10 +99,8 @@ public abstract class BlockControlRenderer<TControl> : IRenderer
 
     private void MoveNext()
     {
-        if (step == RenderingStep.Start)
-        {
+        if (step == RenderingStep.Start) 
             MoveToTopMargin();
-        }
 
         if (step == RenderingStep.TopMargin)
         {

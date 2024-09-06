@@ -19,7 +19,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class ApplicationHeaderRenderer : BlockControlRenderer<ApplicationHeader>
+internal class ApplicationHeaderRenderer : BlockRenderer<ApplicationHeader>
 {
     private string text;
     private ApplicationHeaderRenderingStep step;

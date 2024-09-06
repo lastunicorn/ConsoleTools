@@ -1,0 +1,25 @@
+<display>
+	<line>
+		<span>                </span>
+	</line>
+	<line>
+		<span>   </span>
+		<span bg="Green">          </span>
+		<span>   </span>
+	</line>
+	<line>
+		<span>   </span>
+		<span bg="Green">   </span>
+		<span fg="Red" bg="Green">Text</span>
+		<span bg="Green">   </span>
+		<span>   </span>
+	</line>
+	<line>
+		<span>   </span>
+		<span bg="Green">          </span>
+		<span>   </span>
+	</line>
+	<line>
+		<span>                </span>
+	</line>
+</display>

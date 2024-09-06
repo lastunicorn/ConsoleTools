@@ -21,9 +21,8 @@
 
 using System;
 using System.Text;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Controls.Displays;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
 /// It is used by a <see cref="Control"/> to render itself into as a string.

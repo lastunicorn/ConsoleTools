@@ -1,0 +1,18 @@
+--- text
+                
+                
+      Text      
+                
+                
+--- background
+                
+   gggggggggg   
+   gggggggggg   
+   gggggggggg   
+                
+--- foreground
+                
+                
+      rrrr      
+                
+                

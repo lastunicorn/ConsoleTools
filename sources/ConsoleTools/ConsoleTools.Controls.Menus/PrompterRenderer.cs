@@ -20,7 +20,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
-internal class PrompterRenderer : BlockControlRenderer<Prompter>
+internal class PrompterRenderer : BlockRenderer<Prompter>
 {
     private bool success;
     private bool closeWasRequested;

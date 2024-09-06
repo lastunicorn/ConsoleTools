@@ -1,0 +1,57 @@
+[
+	[
+		"span": {
+			"text": "                "
+		}
+	],
+	[
+		"span": {
+			"text": "   "
+		},
+		"span": {
+			"bg": "green",
+			"text": "          "
+		},
+		"span": {
+			"text": "   "
+		}
+	],
+	[
+		"span": {
+			"text": "   "
+		},
+		"span": {
+			"bg": "green",
+			"text": "   "
+		},
+		"span": {
+			"fg": "red",
+			"bg": "green",
+			"text": "Text"
+		},
+		"span": {
+			"bg": "green",
+			"text": "   "
+		},
+		"span": {
+			"text": "   "
+		}
+	],
+	[
+		"span": {
+			"text": "   "
+		},
+		"span": {
+			"bg": "green",
+			"text": "          "
+		},
+		"span": {
+			"text": "   "
+		}
+	],
+	[
+		"span": {
+			"text": "                "
+		}
+	]
+]

@@ -20,7 +20,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class TextBlockRenderer : BlockControlRenderer<TextBlock>
+internal class TextBlockRenderer : BlockRenderer<TextBlock>
 {
     private IEnumerator<string> chunksEnumerator;
 

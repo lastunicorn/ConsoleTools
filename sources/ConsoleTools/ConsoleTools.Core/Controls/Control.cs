@@ -20,7 +20,6 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
-using DustInTheWind.ConsoleTools.Controls.Displays;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;

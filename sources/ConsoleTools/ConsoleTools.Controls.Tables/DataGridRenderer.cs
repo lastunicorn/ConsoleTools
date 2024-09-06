@@ -19,7 +19,7 @@ using DustInTheWind.ConsoleTools.Controls.Tables.RenderingModel;
 
 namespace DustInTheWind.ConsoleTools.Controls.Tables;
 
-internal class DataGridRenderer : BlockControlRenderer<DataGrid>
+internal class DataGridRenderer : BlockRenderer<DataGrid>
 {
     private DataGridX dataGridX;
 

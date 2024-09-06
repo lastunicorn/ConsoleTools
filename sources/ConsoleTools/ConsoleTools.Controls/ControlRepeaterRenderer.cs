@@ -19,7 +19,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class ControlRepeaterRenderer : BlockControlRenderer<ControlRepeater>
+internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
 {
     private volatile bool closeWasRequested;
     private bool isRunning;

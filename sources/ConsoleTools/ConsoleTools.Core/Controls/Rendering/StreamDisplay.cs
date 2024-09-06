@@ -21,9 +21,8 @@
 
 using System;
 using System.IO;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Controls.Displays;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
 /// It is used by a <see cref="Control"/> to render itself into a <see cref="System.IO.Stream"/>.
@@ -31,7 +30,6 @@ namespace DustInTheWind.ConsoleTools.Controls.Displays;
 public class StreamDisplay : IDisplay, IDisposable
 {
     private bool isDisposed;
-
     private readonly StreamWriter streamWriter;
 
     /// <summary>
@@ -51,7 +49,7 @@ public class StreamDisplay : IDisplay, IDisposable
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
-    /// the <see cref="System.IO.Stream"/> into which the table will be written.
+    /// the <see cref="System.IO.Stream"/> into which the control will be written.
     /// </summary>
     public StreamDisplay(Stream stream)
     {
@@ -60,7 +58,11 @@ public class StreamDisplay : IDisplay, IDisposable
         streamWriter = new StreamWriter(stream);
     }
 
-    private StreamDisplay(StreamWriter streamWriter)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
+    /// the <see cref="System.IO.StreamWriter"/> into which the control will be written.
+    /// </summary>
+    public StreamDisplay(StreamWriter streamWriter)
     {
         this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
     }

@@ -1,0 +1,17 @@
+0000 - 0 - Black
+0001 - 1 - Dark Blue
+0010 - 2 - Dark Green
+0011 - 3 - Dark Cyan
+0100 - 4 - Dark Red
+0101 - 5 - Dark Magenta
+0110 - 6 - Dark Yellow
+0111 - 7 - Gray
+
+1000 - 8 - Dark Gray
+1001 - 9 - Blue
+1010 - a - Green
+1011 - b - Cyan
+1100 - c - Red
+1101 - d - Magenta
+1110 - e - Yellow
+1111 - f - White

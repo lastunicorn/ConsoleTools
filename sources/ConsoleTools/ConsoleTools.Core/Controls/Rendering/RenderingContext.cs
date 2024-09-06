@@ -66,7 +66,7 @@ public class RenderingContext
     /// </summary>
     public ConsoleColor? BackgroundColor { get; set; }
 
-    public Action<int> OnLineWritten { get; set; }
+    public Action<int> OnLineRendered { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RenderingContext"/> class.
@@ -173,7 +173,7 @@ public class RenderingContext
             display.EndLine();
 
         LineCount++;
-        OnLineWritten?.Invoke(currentLineLength);
+        OnLineRendered?.Invoke(currentLineLength);
         currentLineLength = 0;
     }
 

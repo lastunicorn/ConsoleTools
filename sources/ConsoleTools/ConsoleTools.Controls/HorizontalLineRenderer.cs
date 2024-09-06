@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class HorizontalLineRenderer : BlockControlRenderer<HorizontalLine>
+internal class HorizontalLineRenderer : BlockRenderer<HorizontalLine>
 {
     private string text;
 

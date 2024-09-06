@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 using Moq;
 using NUnit.Framework;
 

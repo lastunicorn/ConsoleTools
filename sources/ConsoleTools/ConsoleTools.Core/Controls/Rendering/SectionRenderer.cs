@@ -18,8 +18,16 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
+/// <summary>
+/// A section renderer is a child of a bigger renderer. It will use its parent
+/// <see cref="RenderingContext"/> instance.
+/// </summary>
 public abstract class SectionRenderer : IRenderer
 {
+    /// <summary>
+    /// Gets the rendering context used during the rendering process.
+    /// This is the instance received from its parent.
+    /// </summary>
     protected RenderingContext RenderingContext { get; }
 
     /// <summary>
@@ -27,15 +35,25 @@ public abstract class SectionRenderer : IRenderer
     /// </summary>
     public abstract bool HasMoreLines { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SectionRenderer"/> class
+    /// with the parent's rendering context.
+    /// </summary>
+    /// <param name="renderingContext">The parent's rendering context.</param>
+    /// <exception cref="ArgumentNullException">Thrown if the received rendering context is null.</exception>
     protected SectionRenderer(RenderingContext renderingContext)
     {
         RenderingContext = renderingContext ?? throw new ArgumentNullException(nameof(renderingContext));
     }
 
     /// <summary>
-    /// Renders the next line using the underlying <see cref="IDisplay"/>.
+    /// Renders the next line.
     /// </summary>
     public abstract void RenderNextLine();
 
+    /// <summary>
+    /// Resets the rendering process. Next call to <see cref="RenderNextLine"/> will render the
+    /// first line.
+    /// </summary>
     public abstract void Reset();
 }

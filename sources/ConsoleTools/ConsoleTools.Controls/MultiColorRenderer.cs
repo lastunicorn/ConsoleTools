@@ -19,7 +19,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class MultiColorRenderer : BlockControlRenderer<MultiColor>
+internal class MultiColorRenderer : BlockRenderer<MultiColor>
 {
     private int index;
 

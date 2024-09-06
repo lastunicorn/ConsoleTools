@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class BorderRenderer : BlockControlRenderer<Border>
+internal class BorderRenderer : BlockRenderer<Border>
 {
     private IRenderer contentRenderer;
     private BorderRendererStep step;

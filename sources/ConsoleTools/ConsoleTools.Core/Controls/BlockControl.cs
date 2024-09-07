@@ -75,42 +75,17 @@ public abstract class BlockControl : Control
     /// </summary>
     public abstract int NaturalContentWidth { get; }
 
-    ///// <summary>
-    ///// Gets the width of the content's natural width including paddings.
-    ///// </summary>
-    //public int NaturalWidth => NaturalContentWidth + Padding.Left + Padding.Right;
-
-    ///// <summary>
-    ///// Gets the width of the content's natural width including paddings and margins.
-    ///// </summary>
-    //public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
-
-    /// <summary>
-    /// Calculates the natural width of the content when control's limitations like
-    /// <see cref="Width"/>, <see cref="MinWidth"/> and <see cref="MaxWidth"/> are applied.
-    /// </summary>
-    public int CalculateNaturalContentWidth()
+    public override int CalculateNaturalWidth()
     {
-        int contentWidth = Width.HasValue
-            ? Width.Value - Padding.Left - Padding.Right
-            : NaturalContentWidth;
-
-        if (MinWidth.HasValue)
-        {
-            int minWidth = MinWidth.Value - Padding.Left - Padding.Right;
-            contentWidth = Math.Max(contentWidth, minWidth);
-        }
-
-        if (MaxWidth.HasValue)
-        {
-            int maxWidth = MaxWidth.Value - Padding.Left - Padding.Right;
-            contentWidth = Math.Min(contentWidth, maxWidth);
-        }
-
-        return contentWidth;
+        return CalculateNaturalWidth(true, true);
     }
 
-    public int CalculateNaturalWidth(bool includePaddings = true, bool includeMargins = true)
+    /// <summary>
+    /// Calculates the natural width of the control. The value is calculated based on the
+    /// <see cref="NaturalContentWidth"/> and the limitations imposed by the <see cref="Width"/>,
+    /// <see cref="MinWidth"/> and <see cref="MaxWidth"/>.
+    /// </summary>
+    public int CalculateNaturalWidth(bool includePaddings, bool includeMargins)
     {
         int width = Width ?? (NaturalContentWidth + Padding.Left + Padding.Right);
 

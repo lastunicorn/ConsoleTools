@@ -261,13 +261,22 @@ public class RenderingContext
         }
     }
 
+    /// <summary>
+    /// Creates and returns a new root renderer for the specified control having the same display
+    /// as output.
+    /// </summary>
+    public IRenderer CreateRootRenderer(Control control, RenderingOptions renderingOptions = null)
+    {
+        return control.GetRenderer(display, renderingOptions);
+    }
+
 
     /// <summary>
-    /// Creates and returns a new renderer for the specified control.
-    /// The new renderer is reporting back to the parent whenever a new line is written, so that
-    /// the parent can be aware of the line length written so far.
+    /// Creates and returns a new child renderer for the specified control.
+    /// The new child renderer is reporting back to the parent whenever a new line is written, so
+    /// that the parent can be aware of the amount of text written so far.
     /// </summary>
-    public IRenderer CreateChildRenderer(BlockControl control, ChildRenderingOptions renderingOptions = null)
+    public IRenderer CreateChildRenderer(Control control, ChildRenderingOptions renderingOptions = null)
     {
         RenderingOptions options = new()
         {
@@ -280,10 +289,5 @@ public class RenderingContext
         };
 
         return control.GetRenderer(display, options);
-    }
-
-    public IRenderer CreateRenderer(BlockControl control, RenderingOptions renderingOptions)
-    {
-        return control.GetRenderer(display, renderingOptions);
     }
 }

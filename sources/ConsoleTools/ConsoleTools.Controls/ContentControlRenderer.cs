@@ -14,49 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-internal class StackPanelRenderer : BlockRenderer<StackPanel>
+internal class ContentControlRenderer : BlockRenderer<ContentControl>
 {
-    private readonly MultiRenderer multiRenderer = new();
+    private IRenderer childRenderer;
 
-    public StackPanelRenderer(StackPanel stackPanel, IDisplay display, RenderingOptions renderingOptions)
-        : base(stackPanel, display, renderingOptions)
+    public ContentControlRenderer(ContentControl contentControl, IDisplay display, RenderingOptions renderingOptions)
+        : base(contentControl, display, renderingOptions)
     {
     }
 
     protected override bool InitializeContentRendering()
     {
-        multiRenderer.Clear();
-        
-        IEnumerable<IRenderer> childRenderers = Control.Children
-            .Select(x =>
-            {
-                ChildRenderingOptions childRenderingOptions = new()
-                {
-                    AvailableWidth = ControlLayout.ActualContentWidth
-                };
+        childRenderer = RenderingContext.CreateChildRenderer(Control.Content);
 
-                return RenderingContext.CreateChildRenderer(x, childRenderingOptions);
-            })
-            .ToList();
-
-        multiRenderer.AddRange(childRenderers);
-        multiRenderer.Reset();
-
-        return multiRenderer.HasMoreLines;
+        return childRenderer.HasMoreLines;
     }
 
     protected override bool RenderNextContentLine()
     {
         RenderingContext.StartLine();
-        multiRenderer.RenderNextLine();
+        childRenderer.RenderNextLine();
         RenderingContext.EndLine();
 
-        return multiRenderer.HasMoreLines;
+        return childRenderer.HasMoreLines;
     }
 }

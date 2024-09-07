@@ -42,7 +42,7 @@ internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
 
         count = 0;
         childRenderer = Control.IsRootControl
-            ? RenderingContext.CreateRenderer(content, null)
+            ? RenderingContext.CreateRootRenderer(content, null)
             : RenderingContext.CreateChildRenderer(content, null);
 
         return childRenderer.HasMoreLines;

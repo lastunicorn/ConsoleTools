@@ -21,6 +21,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
@@ -70,6 +71,8 @@ public class TextMenuItem : InlineControl
         ? Size.Empty
         : new Size(Text.Length, 1);
 
+    public override int NaturalContentWidth => Text?.Length ?? 0;
+
     /// <summary>
     /// Gets a value that specifies if the current instance can be selected.
     /// </summary>
@@ -83,17 +86,17 @@ public class TextMenuItem : InlineControl
     /// </summary>
     protected override void DoDisplayContent()
     {
-        if (CanBeSelected())
-        {
-            CustomConsole.Write($"{Id} - {Text}");
-        }
-        else
-        {
-            if (DisabledForegroundColor.HasValue)
-                CustomConsole.Write(DisabledForegroundColor.Value, $"{Id} - {Text}");
-            else
-                CustomConsole.Write($"{Id} - {Text}");
-        }
+        //if (CanBeSelected())
+        //{
+        //    CustomConsole.Write($"{Id} - {Text}");
+        //}
+        //else
+        //{
+        //    if (DisabledForegroundColor.HasValue)
+        //        CustomConsole.Write(DisabledForegroundColor.Value, $"{Id} - {Text}");
+        //    else
+        //        CustomConsole.Write($"{Id} - {Text}");
+        //}
     }
 
     /// <summary>
@@ -106,7 +109,7 @@ public class TextMenuItem : InlineControl
 
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        throw new NotImplementedException();
+        return new TextMenuItemRenderer(this, display, renderingOptions);
     }
 
     public override string ToString()

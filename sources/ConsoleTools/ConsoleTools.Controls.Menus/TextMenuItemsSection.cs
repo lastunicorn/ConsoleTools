@@ -24,56 +24,38 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 internal class TextMenuItemsSection : SectionRenderer
 {
     private readonly TextMenu textMenu;
-    private IEnumerator<TextMenuItem> enumerator;
+    private readonly MultiRenderer multiRenderer = new();
 
-    public override bool HasMoreLines => enumerator != null;
+    public override bool HasMoreLines => multiRenderer.HasMoreLines;
 
     public TextMenuItemsSection(TextMenu textMenu, RenderingContext renderingContext)
         : base(renderingContext)
     {
         this.textMenu = textMenu ?? throw new ArgumentNullException(nameof(textMenu));
 
-        enumerator = textMenu.MenuItems
-            .Where(x => x.IsVisible)
-            .GetEnumerator();
+        Initialize();
+    }
 
-        MoveNext();
+    private void Initialize()
+    {
+        IEnumerable<IRenderer> childRenderers = textMenu.MenuItems
+            .Where(x => x.IsVisible)
+            .Select(x => RenderingContext.CreateChildRenderer(x))
+            .ToList();
+
+        multiRenderer.AddRange(childRenderers);
+        multiRenderer.Reset();
     }
 
     public override void RenderNextLine()
     {
         RenderingContext.StartLine();
-        enumerator.Current.Display();
+        multiRenderer.RenderNextLine();
         RenderingContext.EndLine();
-
-        MoveNext();
-    }
-
-    private void MoveNext()
-    {
-        if (enumerator == null)
-            return;
-
-        while (true)
-        {
-            bool success = enumerator.MoveNext();
-
-            if (!success)
-            {
-                enumerator.Dispose();
-                enumerator = null;
-            }
-
-            return;
-        }
     }
 
     public override void Reset()
     {
-        enumerator = textMenu.MenuItems
-            .Where(x => x.IsVisible)
-            .GetEnumerator();
-
-        MoveNext();
+        multiRenderer.Reset();
     }
 }

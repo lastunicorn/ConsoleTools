@@ -55,6 +55,17 @@ public abstract class InlineControl : Control
     public int PaddingRight { get; set; }
 
     /// <summary>
+    /// When implemented by an inheritor, gets the width of the control's content calculated when
+    /// there are no other space restrictions applied to it.
+    /// </summary>
+    public abstract int NaturalContentWidth { get; }
+
+    public override int CalculateNaturalWidth()
+    {
+        return NaturalContentWidth + PaddingLeft + PaddingRight + MarginLeft + MarginRight;
+    }
+
+    /// <summary>
     /// Displays the margins and the content of the control.
     /// </summary>
     protected override void DoRender(IDisplay display, RenderingOptions renderingOptions = null)

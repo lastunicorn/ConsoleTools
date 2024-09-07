@@ -33,6 +33,20 @@ public class DemoApplication
 
     public void Run()
     {
+        //ContentControl contentControl = new()
+        //{
+        //    Content = new InlineTextBlock("Alez")
+        //    {
+        //        BackgroundColor = ConsoleColor.Green,
+        //        ForegroundColor = ConsoleColor.DarkGreen
+        //    },
+        //    BackgroundColor = ConsoleColor.Blue,
+        //    ForegroundColor = ConsoleColor.DarkBlue,
+        //    Padding = 2,
+        //    Margin = 2
+        //};
+        //contentControl.Display();
+
         //new StackPanel
         //{
         //    Children =

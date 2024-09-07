@@ -149,4 +149,6 @@ public abstract class Control : IRenderable
     {
         AfterRender?.Invoke(this, e);
     }
+
+    public abstract int CalculateNaturalWidth();
 }

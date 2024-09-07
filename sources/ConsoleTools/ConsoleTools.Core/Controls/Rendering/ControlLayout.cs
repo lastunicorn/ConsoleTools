@@ -35,9 +35,6 @@ public class ControlLayout
     private Size maxAllowedSize;
 
     /// <summary>
-    /// This value stores the total size calculated at any time during the layout calculation
-    /// process.
-    /// 
     /// It includes margins and paddings.
     /// </summary>
     private Size actualSize;

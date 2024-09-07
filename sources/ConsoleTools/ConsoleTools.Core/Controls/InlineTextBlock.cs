@@ -39,6 +39,8 @@ public class InlineTextBlock : InlineControl
     /// </summary>
     public string TextFormat { get; set; }
 
+    public override int NaturalContentWidth => Text?.Length ?? 0;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="InlineTextBlock"/> class.
     /// </summary>
@@ -107,9 +109,9 @@ public class InlineTextBlock : InlineControl
         return length;
     }
 
-    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions)
+    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        throw new NotImplementedException();
+        return new InlineTextBlockRenderer(this, display, renderingOptions);
     }
 
     /// <summary>

@@ -20,35 +20,35 @@ namespace DustInTheWind.ConsoleTools.Controls.Menus;
 
 internal class TextMenuRenderer : BlockRenderer<TextMenu>
 {
-    private readonly MultiSectionRenderer multiSectionRenderer = new();
+    private readonly MultiRenderer multiRenderer = new();
 
     public TextMenuRenderer(TextMenu textMenu, IDisplay display, RenderingOptions renderingOptions)
         : base(textMenu, display, renderingOptions)
     {
         TextMenuTitleSection textMenuTitleSection = new(Control, RenderingContext);
-        multiSectionRenderer.Add(textMenuTitleSection);
+        multiRenderer.Add(textMenuTitleSection);
 
         TextMenuItemsSection textMenuItemsSection = new(Control, RenderingContext);
-        multiSectionRenderer.Add(textMenuItemsSection);
+        multiRenderer.Add(textMenuItemsSection);
 
         EmptySection emptySection = new(RenderingContext, 1);
-        multiSectionRenderer.Add(emptySection);
+        multiRenderer.Add(emptySection);
 
         TextMenuSelectionSection textMenuSelectionSection = new(Control, RenderingContext);
-        multiSectionRenderer.Add(textMenuSelectionSection);
+        multiRenderer.Add(textMenuSelectionSection);
     }
 
     protected override bool InitializeContentRendering()
     {
-        multiSectionRenderer.Reset();
-        return multiSectionRenderer.HasMoreLines;
+        multiRenderer.Reset();
+        return multiRenderer.HasMoreLines;
     }
 
     protected override bool RenderNextContentLine()
     {
-        multiSectionRenderer.RenderNextLine();
+        multiRenderer.RenderNextLine();
 
-        if (multiSectionRenderer.HasMoreLines)
+        if (multiRenderer.HasMoreLines)
             return true;
 
         Control.SelectedItem?.Execute();

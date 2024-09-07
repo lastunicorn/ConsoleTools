@@ -35,7 +35,7 @@ public class StackPanel : BlockControl
     /// space restrictions applied to it.
     /// </summary>
     public override int NaturalContentWidth => Children
-        .Select(x => x.NaturalContentWidth)
+        .Select(x => x.CalculateNaturalWidth())
         .Max();
 
     /// <summary>

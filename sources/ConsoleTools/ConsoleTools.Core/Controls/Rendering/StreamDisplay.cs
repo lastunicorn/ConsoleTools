@@ -53,6 +53,11 @@ public class StreamDisplay : IDisplay, IDisposable
     public Stream Stream { get; }
 
     /// <summary>
+    /// Gets <c>null</c>. The stream does not have a maximum width.
+    /// </summary>
+    public int? MaxWidth => null;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
     /// the <see cref="System.IO.Stream"/> into which the control will be written.
     /// </summary>

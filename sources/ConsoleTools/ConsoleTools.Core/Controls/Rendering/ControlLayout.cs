@@ -95,7 +95,7 @@ public class ControlLayout
     /// <remarks>
     /// This value is equal to the available width if the control is stretched.
     /// </remarks>
-    public int ActualFullWidth => ContentSize.Width + Padding.Left + Padding.Right + Margin.Left + Margin.Right;
+    public int ActualFullWidth => ContentSize.Width + Padding.Left + Padding.Right + Margin.Left + Margin.Right + EmptySpace.Left + EmptySpace.Right;
 
     /// <summary>
     /// Gets the actual calculated width of the control without the left and right margins.
@@ -198,7 +198,7 @@ public class ControlLayout
         }
         else
         {
-            int contentWidth = Control.CalculateNaturalContentWidth();
+            int contentWidth = Control.CalculateNaturalWidth(false, false);
 
             if (AllocatedWidth != null)
             {

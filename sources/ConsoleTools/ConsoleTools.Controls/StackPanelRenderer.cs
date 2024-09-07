@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 
 internal class StackPanelRenderer : BlockRenderer<StackPanel>
 {
-    private IEnumerator<IRenderer> enumerator;
+    private readonly MultiRenderer multiRenderer = new();
 
     public StackPanelRenderer(StackPanel stackPanel, IDisplay display, RenderingOptions renderingOptions)
         : base(stackPanel, display, renderingOptions)
@@ -31,35 +31,27 @@ internal class StackPanelRenderer : BlockRenderer<StackPanel>
 
     protected override bool InitializeContentRendering()
     {
-        enumerator = Control.Children
-            .Select(x => RenderingContext.CreateChildRenderer(x))
-            .GetEnumerator();
+        multiRenderer.Clear();
+        
+        IEnumerable<IRenderer> childRenderers = Control.Children
+            .Select(x => RenderingContext.CreateChildRenderer(x, new ChildRenderingOptions()
+            {
+                AvailableWidth = ControlLayout.ActualContentWidth
+            }))
+            .ToList();
 
-        return enumerator.MoveNext() && (enumerator.Current?.HasMoreLines ?? false);
+        multiRenderer.AddRange(childRenderers);
+        multiRenderer.Reset();
+
+        return multiRenderer.HasMoreLines;
     }
 
     protected override bool RenderNextContentLine()
     {
-        if (enumerator?.Current == null)
-            return false;
-
         RenderingContext.StartLine();
-        enumerator.Current.RenderNextLine();
+        multiRenderer.RenderNextLine();
         RenderingContext.EndLine();
 
-        return MoveNext();
-    }
-
-    private bool MoveNext()
-    {
-        while (enumerator.Current == null || enumerator.Current.HasMoreLines == false)
-        {
-            bool success = enumerator.MoveNext();
-
-            if (!success)
-                return false;
-        }
-
-        return true;
+        return multiRenderer.HasMoreLines;
     }
 }

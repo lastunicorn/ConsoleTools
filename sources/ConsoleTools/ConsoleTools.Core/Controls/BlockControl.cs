@@ -32,14 +32,6 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public abstract class BlockControl : Control
 {
     /// <summary>
-    /// Gets or sets a value that specifies who should be considered the parent if none is
-    /// specified.
-    /// This is useful when calculating the alignment.
-    /// Default value: ConsoleWindow
-    /// </summary>
-    public DefaultParent DefaultParent { get; set; } = DefaultParent.ConsoleWindow;
-
-    /// <summary>
     /// Gets or sets the amount of space that should be empty outside the control.
     /// </summary>
     public Thickness Margin { get; set; }
@@ -77,45 +69,21 @@ public abstract class BlockControl : Control
     public HorizontalAlignment? HorizontalAlignment { get; set; }
 
     /// <summary>
-    /// Gets the width available for the control to render itself.
-    /// </summary>
-    /// <remarks>
-    /// The parent's control is deciding this space.
-    /// </remarks>
-    protected int AvailableWidth
-    {
-        get
-        {
-            switch (DefaultParent)
-            {
-                case DefaultParent.ConsoleBuffer:
-                    return Console.BufferWidth - 1;
-
-                case DefaultParent.ConsoleWindow:
-                    return Console.WindowWidth - 1;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-    }
-
-    /// <summary>
     /// When implemented by an inheritor, gets the width of the control's content calculated when
     /// there are no other space restrictions applied to it. Not even the control's
     /// <see cref="Width"/>, <see cref="MinWidth"/> or <see cref="MaxWidth"/> limitations.
     /// </summary>
     public abstract int NaturalContentWidth { get; }
 
-    /// <summary>
-    /// Gets the width of the content's natural width including paddings.
-    /// </summary>
-    public int NaturalWidth => NaturalContentWidth + Padding.Left + Padding.Right;
+    ///// <summary>
+    ///// Gets the width of the content's natural width including paddings.
+    ///// </summary>
+    //public int NaturalWidth => NaturalContentWidth + Padding.Left + Padding.Right;
 
-    /// <summary>
-    /// Gets the width of the content's natural width including paddings and margins.
-    /// </summary>
-    public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
+    ///// <summary>
+    ///// Gets the width of the content's natural width including paddings and margins.
+    ///// </summary>
+    //public int NaturalFullWidth => NaturalWidth + Margin.Left + Margin.Right;
 
     /// <summary>
     /// Calculates the natural width of the content when control's limitations like
@@ -142,19 +110,28 @@ public abstract class BlockControl : Control
         return contentWidth;
     }
 
+    public int CalculateNaturalWidth(bool includePaddings = true, bool includeMargins = true)
+    {
+        int width = Width ?? (NaturalContentWidth + Padding.Left + Padding.Right);
+
+        if (MinWidth.HasValue)
+            width = Math.Max(width, MinWidth.Value);
+
+        if (MaxWidth.HasValue)
+            width = Math.Min(width, MaxWidth.Value);
+
+        if (!includePaddings)
+            width = width - Padding.Left - Padding.Right;
+
+        if (includeMargins)
+            width = width + Margin.Left + Margin.Right;
+
+        return width;
+    }
+
     private static void MoveToNextLineIfNecessary()
     {
         if (Console.CursorLeft != 0)
             Console.WriteLine();
-    }
-
-    /// <summary>
-    /// Method called before the control is rendered.
-    /// </summary>
-    protected override void OnBeforeRender(BeforeRenderEventArgs e)
-    {
-        e.RenderingOptions.AvailableWidth = AvailableWidth;
-
-        base.OnBeforeRender(e);
     }
 }

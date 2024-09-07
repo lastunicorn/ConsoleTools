@@ -33,6 +33,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                 HorizontalAlignment = HorizontalAlignment.Right,
                 BackgroundColor = ConsoleColor.DarkGray
             };
+
             textBlock.Display();
         }
     }

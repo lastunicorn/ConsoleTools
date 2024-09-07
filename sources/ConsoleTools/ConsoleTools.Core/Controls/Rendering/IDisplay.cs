@@ -47,6 +47,11 @@ public interface IDisplay
     bool IsCursorVisible { get; set; }
 
     /// <summary>
+    /// Gets the maximum width of the display.
+    /// </summary>
+    int? MaxWidth { get; }
+
+    /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
     void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);

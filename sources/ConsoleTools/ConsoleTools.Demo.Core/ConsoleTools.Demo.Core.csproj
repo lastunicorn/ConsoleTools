@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>

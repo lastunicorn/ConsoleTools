@@ -29,6 +29,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
             {
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci purus, luctus in est a, tempor luctus tortor. In tortor metus, lacinia vel sapien suscipit, commodo scelerisque metus."
             };
+
             textBlock.Display();
         }
     }

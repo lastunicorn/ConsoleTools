@@ -47,6 +47,11 @@ public class StringDisplay : IDisplay
     public bool IsCursorVisible { get; set; }
 
     /// <summary>
+    /// Gets <c>null</c>. The string does not have a maximum width.
+    /// </summary>
+    public int? MaxWidth => null;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
     /// </summary>
     public StringDisplay()

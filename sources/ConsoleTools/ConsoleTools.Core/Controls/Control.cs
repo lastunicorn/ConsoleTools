@@ -102,10 +102,12 @@ public abstract class Control : IRenderable
     /// </summary>
     protected virtual void DoRender(IDisplay display, RenderingOptions renderingOptions = null)
     {
+        renderingOptions ??= new RenderingOptions();
+
         BeforeRenderEventArgs beforeRenderEventArgs = new()
         {
             Display = display,
-            RenderingOptions = renderingOptions ?? new RenderingOptions()
+            RenderingOptions = renderingOptions
         };
         OnBeforeRender(beforeRenderEventArgs);
 

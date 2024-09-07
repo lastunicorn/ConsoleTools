@@ -32,6 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                 Margin = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easier see the margins.
             };
+
             textBlock.Display();
         }
     }

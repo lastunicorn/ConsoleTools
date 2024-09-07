@@ -47,11 +47,20 @@ public class ConsoleDisplay : IInteractiveDisplay
         set => Console.BackgroundColor = value;
     }
 
+    /// <summary>
+    /// Gets or sets a value that specifies if the cursor is visible in the console.
+    /// </summary>
     public bool IsCursorVisible
     {
         get => Console.CursorVisible;
         set => Console.CursorVisible = value;
     }
+
+
+    /// <summary>
+    /// Gets the width of the console's buffer.
+    /// </summary>
+    public int? MaxWidth => Console.BufferWidth - 1;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ConsoleDisplay"/> class

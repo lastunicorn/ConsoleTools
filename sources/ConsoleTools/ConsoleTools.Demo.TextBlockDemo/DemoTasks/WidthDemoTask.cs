@@ -32,6 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                 Width = 50,
                 BackgroundColor = ConsoleColor.DarkGray
             };
+
             textBlock.Display();
         }
     }

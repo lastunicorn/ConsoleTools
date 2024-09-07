@@ -38,7 +38,7 @@ public class ActualFullWidthTests_NoWidthConstraints
 
         int actual = controlLayout.ActualFullWidth;
 
-        Assert.That(actual, Is.EqualTo(100));
+        Assert.That(actual, Is.EqualTo(0));
     }
 
     [Test]
@@ -50,12 +50,12 @@ public class ActualFullWidthTests_NoWidthConstraints
         ControlLayout controlLayout = new()
         {
             Control = control.Object,
-            AllocatedWidth = 102
+            AllocatedWidth = 100
         };
         controlLayout.Calculate();
 
         int actual = controlLayout.ActualFullWidth;
 
-        Assert.That(actual, Is.EqualTo(102));
+        Assert.That(actual, Is.EqualTo(100));
     }
 }

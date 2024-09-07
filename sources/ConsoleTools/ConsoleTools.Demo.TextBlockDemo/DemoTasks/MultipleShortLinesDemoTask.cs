@@ -35,6 +35,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                     "Vestibulum tristique sapien dui, et hendrerit justo iaculis non."
                 }
             };
+
             textBlock.Display();
         }
     }

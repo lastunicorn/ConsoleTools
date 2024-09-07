@@ -55,7 +55,7 @@ public class ApplicationHeader : BlockControl
     /// </summary>
     public bool ShowSeparator { get; set; } = true;
 
-    public override int NaturalContentWidth { get; }
+    public override int NaturalContentWidth => int.MaxValue - Padding.Left - Padding.Right - Margin.Left - Margin.Right;
 
     /// <summary>
     /// Event raised before the title is displayed.

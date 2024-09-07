@@ -84,20 +84,51 @@ public class RenderingContext
     /// </summary>
     public void StartLine()
     {
+        if (ControlLayout == null)
+            return;
+
         if (currentLineLength > 0)
             EndLine();
 
-        if (ControlLayout != null)
-        {
-            if (ControlLayout.EmptySpace.Left > 0)
-                WriteSpaces(ControlLayout.EmptySpace.Left, null, null);
+        WriteBeginOfLine();
+    }
 
-            if (ControlLayout.Margin.Left > 0)
-                WriteSpaces(ControlLayout.Margin.Left, null, null);
+    private void WriteBeginOfLine()
+    {
+        if (ControlLayout.EmptySpace.Left > 0)
+            WriteSpaces(ControlLayout.EmptySpace.Left, null, null);
 
-            if (ControlLayout.Padding.Left > 0)
-                WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor);
-        }
+        if (ControlLayout.Margin.Left > 0)
+            WriteSpaces(ControlLayout.Margin.Left, null, null);
+
+        if (ControlLayout.Padding.Left > 0)
+            WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor);
+    }
+
+    /// <summary>
+    /// Ends the current line, by filling in spaces and writing the right padding and margins.
+    /// By te end, the entire length of the line is <see cref="LineLength"/>.
+    /// </summary>
+    public void EndLine()
+    {
+        if (ControlLayout == null)
+            return;
+
+        FillContentEmptySpace();
+        WriteEndOfLine();
+        CloseLine();
+    }
+
+    private void WriteEndOfLine()
+    {
+        if (ControlLayout.Padding.Right > 0)
+            WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor);
+
+        if (!IsRoot && ControlLayout.Margin.Right > 0)
+            WriteSpaces(ControlLayout.Margin.Right, null, null);
+
+        if (!IsRoot && ControlLayout.EmptySpace.Right > 0)
+            WriteSpaces(ControlLayout.EmptySpace.Right, null, null);
     }
 
     /// <summary>
@@ -149,26 +180,8 @@ public class RenderingContext
         currentLineLength += textToWrite.Length;
     }
 
-    /// <summary>
-    /// Ends the current line, by filling in spaces and writing the right padding and margins.
-    /// By te end, the entire length of the line is <see cref="LineLength"/>.
-    /// </summary>
-    public void EndLine()
+    private void CloseLine()
     {
-        if (ControlLayout != null)
-        {
-            FillContentEmptySpace();
-
-            if (ControlLayout.Padding.Right > 0)
-                WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor);
-
-            if (!IsRoot && ControlLayout.Margin.Right > 0)
-                WriteSpaces(ControlLayout.Margin.Right, null, null);
-
-            if (!IsRoot && ControlLayout.EmptySpace.Right > 0)
-                WriteSpaces(ControlLayout.EmptySpace.Right, null, null);
-        }
-
         if (IsRoot)
             display.EndLine();
 
@@ -179,23 +192,21 @@ public class RenderingContext
 
     private void FillContentEmptySpace()
     {
-        if (ControlLayout == null)
-            return;
-
         if (currentLineLength >= ControlLayout.ActualFullWidth)
             return;
 
+        int emptyLeft = ControlLayout.EmptySpace.Left;
         int marginLeft = ControlLayout.Margin.Left;
         int paddingLeft = ControlLayout.Padding.Left;
         int contentWidth = ControlLayout.ContentSize.Width;
 
-        int remainingContentLength = marginLeft + paddingLeft + contentWidth - currentLineLength;
+        int remainingContentLength = emptyLeft + marginLeft + paddingLeft + contentWidth - currentLineLength;
 
         if (remainingContentLength <= 0)
             return;
 
         string text = new(' ', remainingContentLength);
-        display.Write(text, ForegroundColor, BackgroundColor);
+        display.Write(text, null, BackgroundColor);
 
         currentLineLength += text.Length;
     }
@@ -209,19 +220,26 @@ public class RenderingContext
 
     public void WriteMarginLine()
     {
-        if (IsRoot)
-        {
-            display.EndLine();
-        }
-        else
-        {
-            StartLine();
+        if (currentLineLength > 0)
             EndLine();
+
+        if (!IsRoot)
+        {
+            int length = ControlLayout.ActualFullWidth;
+            string text = new(' ', length);
+            display.Write(text);
+
+            currentLineLength = text.Length;
         }
+
+        CloseLine();
     }
 
     public void WritePaddingLine()
     {
+        if (currentLineLength > 0)
+            EndLine();
+
         StartLine();
         EndLine();
     }

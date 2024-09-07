@@ -87,7 +87,7 @@ public abstract class BlockRenderer<TControl> : IRenderer
         ControlLayout = new ControlLayout
         {
             Control = control,
-            AllocatedWidth = renderingOptions?.AvailableWidth
+            AllocatedWidth = renderingOptions?.AvailableWidth ?? display.MaxWidth
         };
 
         ControlLayout.Calculate();

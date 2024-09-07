@@ -34,6 +34,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                     "3) Nullam quis nisl a dolor convallis rhoncus at sit amet eros. Suspendisse quis ipsum et eros ornare placerat. Fusce euismod eros eu est ullamcorper eleifend."
                 }
             };
+
             textBlock.Display();
         }
     }

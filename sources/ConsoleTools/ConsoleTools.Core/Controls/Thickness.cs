@@ -60,8 +60,10 @@ public readonly struct Thickness : IEquatable<Thickness>
     public static Thickness Zero { get; } = new(0);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific lengths applied to each side of the rectangle.
+    /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific
+    /// lengths applied to each side of the rectangle.
     /// </summary>
+    /// 
     /// <param name="left">The thickness for the left side of the rectangle.</param>
     /// <param name="top">The thickness for the upper side of the rectangle.</param>
     /// <param name="right">The thickness for the right side of the rectangle</param>
@@ -75,8 +77,10 @@ public readonly struct Thickness : IEquatable<Thickness>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific lengths applied to horizontal and vertical sides of the rectangle.
+    /// Initializes a new instance of the <see cref="Thickness" /> structure that has specific
+    /// lengths applied to horizontal and vertical sides of the rectangle.
     /// </summary>
+    /// 
     /// <param name="horizontal">The thickness for the horizontal sides of the rectangle.</param>
     /// <param name="vertical">The thickness for the vertical sides of the rectangle.</param>
     public Thickness(int horizontal, int vertical)
@@ -88,8 +92,10 @@ public readonly struct Thickness : IEquatable<Thickness>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Thickness" /> structure that has the specified uniform length on each side.
+    /// Initializes a new instance of the <see cref="Thickness" /> structure that has the specified
+    /// uniform length on each side.
     /// </summary>
+    /// 
     /// <param name="uniformLength">The uniform length applied to all four sides of the bounding rectangle.</param>
     public Thickness(int uniformLength)
     {
@@ -223,7 +229,8 @@ public readonly struct Thickness : IEquatable<Thickness>
     }
 
     /// <summary>
-    /// Converts a <see cref="string"/> representation of margins into a <see cref="Thickness"/> object.
+    /// Converts a <see cref="string"/> representation of margins into a <see cref="Thickness"/>
+    /// object.
     /// </summary>
     public static implicit operator Thickness(string text)
     {
@@ -231,11 +238,41 @@ public readonly struct Thickness : IEquatable<Thickness>
     }
 
     /// <summary>
-    /// Created a <see cref="Thickness"/> object having all the values equal to the specified <see cref="int"/> value.
+    /// Creates a <see cref="Thickness"/> object having all the values equal to the specified
+    /// <see cref="int"/> value.
     /// </summary>
     public static implicit operator Thickness(int value)
     {
         return new Thickness(value);
+    }
+
+    /// <summary>
+    /// Creates a <see cref="Thickness"/> object having all the values equal to the single item of
+    /// the <see cref="Tuple{T1}"/>.
+    /// </summary>
+    public static implicit operator Thickness(Tuple<int> value)
+    {
+        return new Thickness(value.Item1);
+    }
+
+    /// <summary>
+    /// Creates a <see cref="Thickness"/> object having the left and right values both equal to the
+    /// first item of the <see cref="Tuple{T1, T2}"/> and the top and bottom values both equal to
+    /// the second item.
+    /// </summary>
+    public static implicit operator Thickness(Tuple<int, int> value)
+    {
+        return new Thickness(value.Item1, value.Item2);
+    }
+
+    /// <summary>
+    /// Creates a <see cref="Thickness"/> object having the left, top, right and bottom values
+    /// equal to the first, second, third and forth items of the <see cref="Tuple{T1, T2, T3, T4}"/>
+    /// respectively.
+    /// </summary>
+    public static implicit operator Thickness(Tuple<int, int, int, int> value)
+    {
+        return new Thickness(value.Item1, value.Item2, value.Item3, value.Item4);
     }
 
     /// <summary>

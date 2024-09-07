@@ -42,6 +42,11 @@ internal class StringLinesDisplay : IDisplay
     /// </summary>
     public bool IsCursorVisible { get; set; }
 
+    /// <summary>
+    /// Gets <c>null</c>. The string does not have a maximum width.
+    /// </summary>
+    public int? MaxWidth => null;
+
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(c);

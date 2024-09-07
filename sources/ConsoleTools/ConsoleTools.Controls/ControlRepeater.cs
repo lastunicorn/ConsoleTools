@@ -41,7 +41,7 @@ public class ControlRepeater : BlockControl, ICloseSupport
     /// Gets the natural width of the control.
     /// The natural width is the width of the control when no external constraints are applied.
     /// </summary>
-    public override int NaturalContentWidth => Content?.CalculateNaturalContentWidth() ?? 0;
+    public override int NaturalContentWidth => Content?.CalculateNaturalWidth() ?? 0;
 
     /// <summary>
     /// Gets or sets the control that is to be displayed repeatedly.

@@ -32,6 +32,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks
                 Padding = 3,
                 BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
             };
+
             textBlock.Display();
         }
     }

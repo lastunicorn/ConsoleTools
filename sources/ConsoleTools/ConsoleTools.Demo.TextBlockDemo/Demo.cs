@@ -19,11 +19,11 @@ using DustInTheWind.ConsoleTools.Demo.TextBlockDemo.DemoTasks;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo
 {
-    internal class TextBlockDemo : DemoBase
+    internal class Demo : DemoBase
     {
         public override string Name => "TextBlock Demo";
 
-        public TextBlockDemo()
+        public Demo()
         {
             DemoTasks.AddRange(new DemoTaskBase[]
             {

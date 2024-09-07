@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
@@ -62,7 +61,7 @@ internal class ApplicationHeaderRenderer : BlockRenderer<ApplicationHeader>
 
     private bool ExecuteSeparatorStep()
     {
-        string separatorText = new('=', Console.WindowWidth - 1);
+        string separatorText = new('=', ControlLayout.ActualContentWidth);
         RenderingContext.WriteLine(separatorText);
 
         step = ApplicationHeaderRenderingStep.End;

@@ -19,42 +19,115 @@ using System.Collections.Generic;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
+namespace DustInTheWind.ConsoleTools.Demo.Core;
+
+public class DemoApplication
 {
-    public class DemoApplication
+    private static ControlRepeater controlRepeater;
+    private readonly DemoPackages demoPackages = new();
+
+    public void AddPackagesFrom(IEnumerable<Assembly> assemblies)
     {
-        private static ControlRepeater controlRepeater;
-        private readonly DemoPackages demoPackages = new DemoPackages();
+        demoPackages.LoadFrom(assemblies);
+    }
 
-        public void AddPackagesFrom(IEnumerable<Assembly> assemblies)
-        {
-            demoPackages.LoadFrom(assemblies);
-        }
+    public void Run()
+    {
+        //new StackPanel
+        //{
+        //    Children =
+        //    {
+        //        new TextBlock("This is a text")
+        //        {
+        //            BackgroundColor = ConsoleColor.Blue,
+        //            ForegroundColor = ConsoleColor.DarkBlue,
+        //            Padding = 1,
+        //            Margin = 1,
+        //            HorizontalAlignment = HorizontalAlignment.Left,
+        //            TextHorizontalAlignment = HorizontalAlignment.Right
+        //        },
+        //        new TextBlock("This is a text")
+        //        {
+        //            BackgroundColor = ConsoleColor.Green,
+        //            ForegroundColor = ConsoleColor.DarkGreen,
+        //            Padding = "2 1",
+        //            //Margin = "1 1"
+        //        },
 
-        public void Run()
+        //        new ApplicationHeader
+        //        {
+        //            Title = "Console Tools Demo",
+        //            BackgroundColor = ConsoleColor.Blue,
+        //            ForegroundColor = ConsoleColor.DarkBlue,
+        //            //Padding = 1,
+        //            //Margin = 0
+        //        }
+        //    },
+        //    BackgroundColor = ConsoleColor.DarkCyan,
+        //    Padding = new Thickness(1, 2, 3, 4),
+        //    Margin = "1"
+        //}.Display();
+
+        //new ControlRepeater
+        //    {
+        //        Content = new StackPanel
+        //        {
+        //            Children =
+        //            {
+        //                new TextBlock("This is a text")
+        //                {
+        //                    BackgroundColor = ConsoleColor.Blue,
+        //                    ForegroundColor = ConsoleColor.DarkBlue,
+        //                    Padding = 1
+        //                    //Margin = 1
+        //                },
+        //                new TextBlock("This is a text")
+        //                {
+        //                    BackgroundColor = ConsoleColor.Green,
+        //                    ForegroundColor = ConsoleColor.DarkGreen,
+        //                    Padding = 1
+        //                    //Margin = "1 0"
+        //                }
+
+        //                //new ApplicationHeader
+        //                //{
+        //                //    Title = "Console Tools Demo",
+        //                //    BackgroundColor = ConsoleColor.Blue,
+        //                //    ForegroundColor = ConsoleColor.DarkBlue,
+        //                //    Padding = 1,
+        //                //    Margin = 1
+        //                //}
+        //            },
+        //            BackgroundColor = ConsoleColor.DarkCyan,
+        //            //Padding = 1,
+        //            Margin = 1
+        //        },
+        //        RepeatCount = 3,
+        //        Margin = 1
+        //    }
+        //    .Display();
+
+        controlRepeater = new ControlRepeater
         {
-            controlRepeater = new ControlRepeater
+            Content = new StackPanel
             {
-                Content = new StackPanel
+                Children =
                 {
-                    Children =
+                    new ApplicationHeader
                     {
-                        new ApplicationHeader
-                        {
-                            Title = "Console Tools Demo"
-                        },
-                        new MainMenu(demoPackages, this)
-                    }
-                },
-                RepeatCount = -1
-            };
+                        Title = "Console Tools Demo"
+                    },
+                    new MainMenu(demoPackages, this)
+                }
+            },
+            RepeatCount = -1
+        };
 
-            controlRepeater.Display();
-        }
+        controlRepeater.Display();
+    }
 
-        public void RequestExit()
-        {
-            controlRepeater.RequestClose();
-        }
+    public void RequestExit()
+    {
+        controlRepeater.RequestClose();
     }
 }

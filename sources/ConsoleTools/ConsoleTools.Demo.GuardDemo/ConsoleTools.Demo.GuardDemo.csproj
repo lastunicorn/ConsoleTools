@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net48</TargetFramework>
         <Configurations>Debug;Release;Debug-Net6</Configurations>
         <Platforms>AnyCPU</Platforms>

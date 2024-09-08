@@ -25,6 +25,8 @@ public class DemoPackage : DemoPackageBase
 
     public DemoPackage()
     {
+        ForceDisplayMenu = true;
+
         Demos.AddRange(new IDemo[]
         {
             new DefaultDemo(),

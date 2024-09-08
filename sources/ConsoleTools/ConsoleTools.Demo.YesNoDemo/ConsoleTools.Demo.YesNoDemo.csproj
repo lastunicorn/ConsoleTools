@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <Configurations>Debug;Release;Debug-Net6</Configurations>
         <Platforms>AnyCPU</Platforms>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>

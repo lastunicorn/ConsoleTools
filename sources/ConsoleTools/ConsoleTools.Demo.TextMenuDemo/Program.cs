@@ -30,16 +30,14 @@ namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
             {
                 DisplayApplicationHeader();
 
-                Console.SetWindowSize(80, 50);
-                Console.SetBufferSize(80, 50);
-
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
                 gameApplication = new GameApplication();
 
                 mainMenuRepeater = new ControlRepeater
                 {
-                    Content = new MainMenu(gameApplication)
+                    Content = new MainMenu(gameApplication),
+                    RepeatCount = -1
                 };
 
                 gameApplication.Exited += HandleGameApplicationExited;

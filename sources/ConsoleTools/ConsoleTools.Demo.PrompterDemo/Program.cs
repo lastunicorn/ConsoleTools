@@ -16,54 +16,57 @@
 
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo;
+
+internal class Program
 {
-    internal class Program
+    private static ControlRepeater prompterRepeater;
+
+    private static void Main()
     {
-        private static ControlRepeater prompterRepeater;
+        DisplayApplicationHeader();
+        StartDemo();
+        DisplayGoodby();
+    }
 
-        private static void Main()
+    private static void DisplayApplicationHeader()
+    {
+        ApplicationHeader applicationHeader = new()
         {
-            DisplayApplicationHeader();
-            StartDemo();
-            DisplayGoodby();
-        }
+            Title = "Console Tools - Prompter Demo"
+        };
 
-        private static void DisplayApplicationHeader()
+        applicationHeader.Display();
+
+        CustomConsole.WriteEmphasized("Note: ");
+        CustomConsole.WriteLine("type 'help' for a list of commands.");
+        CustomConsole.WriteLine();
+    }
+
+    private static void StartDemo()
+    {
+        prompterRepeater = new ControlRepeater
         {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - Prompter");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
+            Content = new OceanPrompter(),
+            RepeatCount = -1
+        };
 
-            CustomConsole.WriteEmphasized("Note: ");
-            CustomConsole.WriteLine("type 'help' for a list of commands.");
-            CustomConsole.WriteLine();
-        }
+        prompterRepeater.Display();
+    }
 
-        private static void StartDemo()
+    private static void DisplayGoodby()
+    {
+        TextBlock goodbyText = new()
         {
-            prompterRepeater = new ControlRepeater
-            {
-                Content = new OceanPrompter()
-            };
+            Text = "Bye!",
+            ForegroundColor = CustomConsole.EmphasizedColor,
+            Margin = "0 1 0 0"
+        };
+        goodbyText.Display();
+    }
 
-            prompterRepeater.Display();
-        }
-
-        private static void DisplayGoodby()
-        {
-            TextBlock goodbyText = new TextBlock
-            {
-                Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasizedColor,
-                Margin = "0 1 0 0"
-            };
-            goodbyText.Display();
-        }
-
-        public static void RequestClose()
-        {
-            prompterRepeater.RequestClose();
-        }
+    public static void RequestClose()
+    {
+        prompterRepeater.RequestClose();
     }
 }

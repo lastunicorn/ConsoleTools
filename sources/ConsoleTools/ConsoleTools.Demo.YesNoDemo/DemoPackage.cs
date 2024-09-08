@@ -1,5 +1,5 @@
 ﻿// ConsoleTools
-// Copyright (C) 2017-2022 Dust in the Wind
+// Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,22 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.YesNoDemo.Demo;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+namespace DustInTheWind.ConsoleTools.Demo.YesNoDemo;
 
-namespace ConsoleTools.Demo.NetFramework20
+public class DemoPackage : DemoPackageBase
 {
-    class Program
+    public override string Title => "Yes/No Question";
+
+    public DemoPackage()
     {
-        static void Main(string[] args)
+        ForceDisplayMenu = true;
+
+        Demos.AddRange(new IDemo[]
         {
-            Dust Pause.Display();
-        }
+            new SimpleDemo(),
+            new YesNoWithDefaultDemo(),
+            new YesNoCancelDemo()
+        });
     }
 }

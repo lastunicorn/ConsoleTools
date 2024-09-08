@@ -30,9 +30,6 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
             {
                 DisplayApplicationHeader();
 
-                //Console.SetWindowSize(80, 50);
-                //Console.SetBufferSize(80, 50);
-
                 Console.CancelKeyPress += HandleCancelKeyPress;
 
                 gameApplication = new GameApplication();
@@ -43,7 +40,8 @@ namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
 
                 menuRepeater = new ControlRepeater
                 {
-                    Content = menu
+                    Content = menu,
+                    RepeatCount = -1
                 };
 
                 menuRepeater.Display();

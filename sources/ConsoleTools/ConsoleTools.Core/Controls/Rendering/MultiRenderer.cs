@@ -20,12 +20,23 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-public class MultiRenderer : IRenderer
+public class MultiRenderer : IRenderer, IDisposable
 {
+    private bool isInitialized;
     private readonly List<IRenderer> renderers = new();
     private IEnumerator<IRenderer> enumerator;
+    private bool hasMoreLines;
 
-    public bool HasMoreLines => enumerator != null;
+    public bool HasMoreLines
+    {
+        get
+        {
+            if (!isInitialized)
+                Initialize();
+
+            return hasMoreLines;
+        }
+    }
 
     public void Add(IRenderer renderer)
     {
@@ -35,6 +46,8 @@ public class MultiRenderer : IRenderer
         if (renderer == null) throw new ArgumentNullException(nameof(renderer));
 
         renderers.Add(renderer);
+
+        isInitialized = false;
     }
 
     public void AddRange(IEnumerable<IRenderer> renderers)
@@ -45,16 +58,33 @@ public class MultiRenderer : IRenderer
 
         foreach (IRenderer renderer in nonNullRenderers)
             this.renderers.Add(renderer);
+
+        isInitialized = false;
     }
 
     public void Clear()
     {
         renderers.Clear();
+
+        isInitialized = false;
+    }
+
+    private void Initialize()
+    {
+        enumerator?.Dispose();
+
+        enumerator = renderers.GetEnumerator();
+        MoveToNextSection();
+
+        isInitialized = true;
     }
 
     public void RenderNextLine()
     {
-        if (enumerator == null)
+        if (!isInitialized)
+            Initialize();
+
+        if (!hasMoreLines)
             return;
 
         enumerator.Current.RenderNextLine();
@@ -65,9 +95,6 @@ public class MultiRenderer : IRenderer
 
     private void MoveToNextSection()
     {
-        if (enumerator == null)
-            return;
-
         while (true)
         {
             bool success = enumerator.MoveNext();
@@ -77,11 +104,14 @@ public class MultiRenderer : IRenderer
                 enumerator.Current.Reset();
 
                 if (enumerator.Current.HasMoreLines)
+                {
+                    hasMoreLines = true;
                     return;
+                }
             }
             else
             {
-                enumerator = null;
+                hasMoreLines = false;
                 return;
             }
         }
@@ -89,7 +119,24 @@ public class MultiRenderer : IRenderer
 
     public void Reset()
     {
-        enumerator = renderers.GetEnumerator();
+        if (!isInitialized)
+            Initialize();
+
+        enumerator.Reset();
         MoveToNextSection();
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            enumerator?.Dispose();
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

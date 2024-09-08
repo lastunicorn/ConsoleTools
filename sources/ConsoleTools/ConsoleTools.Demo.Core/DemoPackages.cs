@@ -22,24 +22,24 @@ using System.Reflection;
 
 namespace DustInTheWind.ConsoleTools.Demo.Core;
 
-public class DemoPackages : IEnumerable<DemoPackageBase>
+public class DemoPackages : IEnumerable<IDemo>
 {
-    private readonly List<DemoPackageBase> demoPackages = new();
+    private readonly List<IDemo> demoPackages = new();
 
     public void LoadFrom(IEnumerable<Assembly> assemblies)
     {
-        IEnumerable<DemoPackageBase> newDemoPackages = assemblies
+        IEnumerable<IDemo> newDemoPackages = assemblies
             .SelectMany(x => x.GetTypes())
             .Where(x => x.IsClass && !x.IsAbstract && x.IsPublic)
-            .Where(x => typeof(DemoPackageBase).IsAssignableFrom(x))
+            .Where(x => typeof(IDemo).IsAssignableFrom(x))
             .Select(Activator.CreateInstance)
-            .Cast<DemoPackageBase>()
+            .Cast<IDemo>()
             .ToList();
 
         demoPackages.AddRange(newDemoPackages);
     }
 
-    public IEnumerator<DemoPackageBase> GetEnumerator()
+    public IEnumerator<IDemo> GetEnumerator()
     {
         return demoPackages.GetEnumerator();
     }

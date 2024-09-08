@@ -107,10 +107,10 @@ public abstract class BlockRenderer<TControl> : IRenderer
 
     private void Initialize()
     {
-        isInitialized = true;
-
         step = RenderingStep.Start;
         MoveNext();
+
+        isInitialized = true;
     }
 
     private void MoveNext()

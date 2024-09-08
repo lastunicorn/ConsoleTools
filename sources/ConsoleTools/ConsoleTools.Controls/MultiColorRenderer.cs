@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
 internal class MultiColorRenderer : BlockRenderer<MultiColor>
 {
-    private int index;
+    private readonly MultiRenderer multiRenderer = new();
 
     public MultiColorRenderer(MultiColor control, IDisplay display, RenderingOptions renderingOptions)
         : base(control, display, renderingOptions)
@@ -30,24 +30,30 @@ internal class MultiColorRenderer : BlockRenderer<MultiColor>
 
     protected override bool InitializeContentRendering()
     {
-        if (Control.Text == null)
+        if (Control.Text == null || Control.Colors == null || Control.Colors.Count == 0)
             return false;
 
-        index = 0;
-        return index < Control.Colors?.Count;
+        multiRenderer.Clear();
+
+        multiRenderer.AddRange(Control.Colors
+            .Select(x => new TextSectionRenderer(RenderingContext)
+            {
+                Text = Control.Text,
+                ForegroundColor = x
+            }));
+
+        return multiRenderer.HasMoreLines;
     }
 
     protected override bool RenderNextContentLine()
     {
-        if (Control.Text == null || Control.Colors == null || index >= Control.Colors.Count)
+        if (multiRenderer == null)
             return false;
 
-        string text = Control.Text;
-        ConsoleColor color = Control.Colors[index];
+        RenderingContext.StartLine();
+        multiRenderer.RenderNextLine();
+        RenderingContext.EndLine();
 
-        RenderingContext.WriteLine(text, color);
-
-        index++;
-        return index < Control.Colors.Count;
+        return multiRenderer.HasMoreLines;
     }
 }

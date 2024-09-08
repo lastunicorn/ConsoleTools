@@ -25,10 +25,20 @@ using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
+/// <summary>
+/// Displays a text multiple times, each time with a different color.
+/// </summary>
 public class MultiColor : BlockControl
 {
+    /// <summary>
+    /// Gets or sets the text to be displayed in multiple colors.
+    /// </summary>
     public string Text { get; set; }
 
+    /// <summary>
+    /// Gets or sets the colors to be used for displaying the text.
+    /// The text will be displayed once per each color.
+    /// </summary>
     public List<ConsoleColor> Colors { get; set; } = new()
     {
         ConsoleColor.Black,
@@ -51,8 +61,17 @@ public class MultiColor : BlockControl
         ConsoleColor.DarkYellow
     };
 
+    /// <summary>
+    /// Gets the width of the control's content calculated when there are no other space
+    /// restrictions applied to it.
+    /// </summary>
     public override int NaturalContentWidth => Text.Length;
 
+    /// <summary>
+    /// Returns a renderer object that is able to render the current <see cref="MultiColor"/>
+    /// instance using the specified <see cref="IDisplay"/>.
+    /// </summary>
+    /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new MultiColorRenderer(this, display, renderingOptions);

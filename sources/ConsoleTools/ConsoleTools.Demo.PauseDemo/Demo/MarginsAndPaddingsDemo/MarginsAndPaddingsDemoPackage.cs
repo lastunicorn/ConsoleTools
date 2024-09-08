@@ -14,29 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.MarginsAndPaddingsDemo;
 
-internal class MaxWidthDemo : DemoBase
+internal class MarginsAndPaddingsDemoPackage : DemoPackageBase
 {
-    public override string Title => "MaxWidth = 30";
+    public override string Title => "Margins and Paddings";
 
-    protected override void DoExecute()
+    public MarginsAndPaddingsDemoPackage()
     {
-        Border border = new()
+        Demos.AddRange(new IDemo[]
         {
-            Content = new TextBlock
-            {
-                Text = new[]
-                {
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                }
-            },
-            MaxWidth = 30
-        };
-
-        border.Display();
+            new PaddingsDemo(),
+            new MarginsDemo()
+        });
     }
 }

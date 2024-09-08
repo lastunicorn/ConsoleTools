@@ -24,7 +24,7 @@ internal class PaddingDemo : DemoBase
 {
     public override string Title => "Custom Paddings (3 3 3 3)";
 
-    public override string Description => "The background color was added to easier see the paddings.";
+    public override MultilineText Description => "The background color was added to easier see the paddings.";
 
     protected override void DoExecute()
     {

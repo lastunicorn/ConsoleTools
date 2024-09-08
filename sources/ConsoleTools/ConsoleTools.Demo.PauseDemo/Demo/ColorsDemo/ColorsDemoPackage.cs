@@ -14,22 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.ColorsDemo;
+
+internal class ColorsDemoPackage : DemoPackageBase
 {
-    internal class ForegroundColorCommand : CommandBase
-    {
-        public override string Title => "Foreground Color (Magenta)";
+    public override string Title => "Colors";
 
-        protected override void DoExecute()
+    public ColorsDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            Pause pause = new Pause
-            {
-                ForegroundColor = ConsoleColor.Magenta
-            };
-            pause.Display();
-        }
+            new ForegroundColorDemo(),
+            new BackgroundColorDemo()
+        });
     }
 }

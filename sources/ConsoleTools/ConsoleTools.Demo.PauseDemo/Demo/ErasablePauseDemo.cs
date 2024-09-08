@@ -15,14 +15,21 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
-
-public interface IDemo
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo
 {
-    string Title { get; }
+    internal class ErasablePauseDemo : DemoBase
+    {
+        public override string Title => "This pause will erase itself at the end";
 
-    MultilineText Description { get; }
-
-    void Execute();
+        protected override void DoExecute()
+        {
+            Pause pause = new Pause
+            {
+                EraseAfterClose = true
+            };
+            pause.Display();
+        }
+    }
 }

@@ -23,7 +23,7 @@ public class MultiColorDemo : DemoBase
 {
     public override string Title => "Multi Color Text";
 
-    public override string Description => "A dummy control that displays a text in multiple colors, just for fun.";
+    public override MultilineText Description => "A dummy control that displays a text in multiple colors, just for fun.";
 
     protected override void DoExecute()
     {

@@ -24,7 +24,7 @@ public abstract class DemoPackageBase : IDemo
 {
     public abstract string Title { get; }
 
-    public virtual string Description => null;
+    public virtual MultilineText Description => null;
 
     protected List<IDemo> Demos { get; } = new();
 

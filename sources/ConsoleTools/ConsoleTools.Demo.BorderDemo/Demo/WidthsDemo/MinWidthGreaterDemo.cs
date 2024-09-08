@@ -14,22 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
+
+internal class MinWidthGreaterDemo : DemoBase
 {
-    internal abstract class CommandBase : ICommand
+    public override string Title => "MinWidth - Greater";
+
+    public override MultilineText Description => "MinWidth (70) > Text Length (56)";
+
+    protected override void DoExecute()
     {
-        public bool IsActive { get; } = true;
-
-        public abstract string Title { get; }
-
-        public void Execute()
+        Border border = new()
         {
-            DummyText.Display($"- {Title}:", 3);
-            DoExecute();
-        }
+            Content = new TextBlock
+            {
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                }
+            },
+            MinWidth = 70
+        };
 
-        protected abstract void DoExecute();
+        border.Display();
     }
 }

@@ -14,37 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 
-internal class MarginsAndPaddingsDemo : DemoBase
+internal class WidthGreaterDemo : DemoBase
 {
-    public override string Title => "Margin and Padding";
+    public override string Title => "Width - Greater";
 
-    public override string Description => "All margin adn paddings are set to 1.";
+    public override MultilineText Description => "With (70) > Text Length (56).";
 
     protected override void DoExecute()
     {
         Border border = new()
         {
-            Margin = 1,
-            Padding = 1,
-            ForegroundColor = ConsoleColor.DarkBlue,
-            BackgroundColor = ConsoleColor.Blue,
             Content = new TextBlock
             {
-                ForegroundColor = ConsoleColor.DarkGreen,
-                BackgroundColor = ConsoleColor.Green,
                 Text = new[]
                 {
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "Sed sollicitudin non enim sit amet interdum.",
-                    "Nullam quis nisl a dolor convallis rhoncus at sit amet eros."
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 }
-            }
+            },
+            Width = 70
         };
 
         border.Display();

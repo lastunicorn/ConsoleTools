@@ -14,15 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.MarginsAndPaddingsDemo;
 
-public interface IDemo
+internal class MarginsDemo : DemoBase
 {
-    string Title { get; }
+    public override string Title => "Custom margins (3 3 3 3)";
 
-    MultilineText Description { get; }
-
-    void Execute();
+    protected override void DoExecute()
+    {
+        Pause pause = new()
+        {
+            Margin = 3,
+            BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
+        };
+        pause.Display();
+    }
 }

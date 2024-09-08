@@ -16,21 +16,21 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.MarginsAndPaddingsDemo;
+
+internal class PaddingsDemo : DemoBase
 {
-    internal class CustomMarginsCommand : CommandBase
-    {
-        public override string Title => "Custom margins (3 3 3 3)";
+    public override string Title => "Custom paddings (3 3 3 3)";
 
-        protected override void DoExecute()
+    protected override void DoExecute()
+    {
+        Pause pause = new()
         {
-            Pause pause = new Pause
-            {
-                Margin = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the margins.
-            };
-            pause.Display();
-        }
+            Padding = 3,
+            BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
+        };
+        pause.Display();
     }
 }

@@ -14,23 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo;
+
+internal class DefaultDemo : DemoBase
 {
-    internal class CustomUnlockKeyCommand : CommandBase
-    {
-        public override string Title => "This is the pause with custom Text and custom UnlockKey";
+    public override string Title => "Default Pause";
 
-        protected override void DoExecute()
-        {
-            Pause pause = new Pause
-            {
-                Text = "Press P key to continue...",
-                UnlockKey = ConsoleKey.P
-            };
-            pause.Display();
-        }
+    protected override void DoExecute()
+    {
+        Pause.QuickDisplay();
     }
 }

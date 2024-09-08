@@ -23,7 +23,7 @@ public abstract class DemoBase : IDemo
 {
     public abstract string Title { get; }
 
-    public virtual string Description { get; }
+    public virtual MultilineText Description { get; }
 
     public void Execute()
     {
@@ -49,7 +49,7 @@ public abstract class DemoBase : IDemo
             ForegroundColor = ConsoleColor.DarkYellow
         });
 
-        if (!string.IsNullOrEmpty(Description))
+        if (Description is { IsEmpty: false })
         {
             stackPanel.Children.Add(new TextBlock
             {
@@ -61,7 +61,7 @@ public abstract class DemoBase : IDemo
 
         stackPanel.Children.Add(new TextBlock(new string('-', 79))
         {
-            ForegroundColor = ConsoleColor.DarkYellow,
+            ForegroundColor = ConsoleColor.DarkYellow
         });
 
         stackPanel.Display();

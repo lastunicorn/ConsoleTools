@@ -14,15 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
+using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
+using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
 
-public interface IDemo
+public class DemoPackage : DemoPackageBase
 {
-    string Title { get; }
+    public override string Title => "Border Demo";
 
-    MultilineText Description { get; }
-
-    void Execute();
+    public DemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
+        {
+            new TemplateDemoPackage(),
+            new MarginsAndPaddingsDemoPackage(),
+            new WidthsDemoPackage()
+        });
+    }
 }

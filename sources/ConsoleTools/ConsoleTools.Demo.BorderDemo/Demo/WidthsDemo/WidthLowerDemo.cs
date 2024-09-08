@@ -15,14 +15,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 
-public interface IDemo
+internal class WidthLowerDemo : DemoBase
 {
-    string Title { get; }
+    public override string Title => "Width - Lower";
 
-    MultilineText Description { get; }
+    public override MultilineText Description => "With (30) < Text Length (56).";
 
-    void Execute();
+    protected override void DoExecute()
+    {
+        Border border = new()
+        {
+            Content = new TextBlock
+            {
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                }
+            },
+            Width = 30
+        };
+
+        border.Display();
+    }
 }

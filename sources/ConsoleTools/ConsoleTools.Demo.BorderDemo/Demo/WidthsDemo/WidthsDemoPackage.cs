@@ -14,22 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 
-public class BorderDemoPackage : DemoPackageBase
+internal class WidthsDemoPackage : DemoPackageBase
 {
-    public override string Title => "Border Demo";
+    public override string Title => "Widths";
 
-    public BorderDemoPackage()
+    public WidthsDemoPackage()
     {
         Demos.AddRange(new IDemo[]
         {
-            new SimpleBorderDemo(),
-            new MarginsAndPaddingsDemo(),
-            new MaxWidthDemo()
+            new WidthLowerDemo(),
+            new WidthGreaterDemo(),
+
+            new MaxWidthLowerDemo(),
+            new MaxWidthGreaterDemo(),
+
+            new MinWidthLowerDemo(),
+            new MinWidthGreaterDemo()
         });
     }
 }

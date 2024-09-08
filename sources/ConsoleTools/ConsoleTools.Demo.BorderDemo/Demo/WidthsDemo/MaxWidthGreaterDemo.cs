@@ -14,23 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
+
+internal class MaxWidthGreaterDemo : DemoBase
 {
-    internal class CustomPaddingsCommand : CommandBase
-    {
-        public override string Title => "Custom paddings (3 3 3 3)";
+    public override string Title => "MaxWidth - Greater";
 
-        protected override void DoExecute()
+    public override MultilineText Description => "MaxWith (70) > Text Length (56).";
+
+    protected override void DoExecute()
+    {
+        Border border = new()
         {
-            Pause pause = new Pause
+            Content = new TextBlock
             {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easyer see the paddings.
-            };
-            pause.Display();
-        }
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                }
+            },
+            MaxWidth = 70
+        };
+
+        border.Display();
     }
 }

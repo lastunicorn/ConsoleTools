@@ -14,30 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.ColorsDemo;
 
-internal class SimpleBorderDemo : DemoBase
+internal class ForegroundColorDemo : DemoBase
 {
-    public override string Title => "Simple Border";
+    public override string Title => "Foreground Color (Magenta)";
 
     protected override void DoExecute()
     {
-        Border border = new()
+        Pause pause = new()
         {
-            Content = new TextBlock
-            {
-                Text = new[]
-                {
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "Sed sollicitudin non enim sit amet interdum.",
-                    "Nullam quis nisl a dolor convallis rhoncus at sit amet eros."
-                }
-            }
+            ForegroundColor = ConsoleColor.Magenta
         };
 
-        border.Display();
+        pause.Display();
     }
 }

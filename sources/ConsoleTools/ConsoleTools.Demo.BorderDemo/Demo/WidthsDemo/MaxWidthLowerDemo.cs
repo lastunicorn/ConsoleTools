@@ -15,16 +15,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
+
+internal class MaxWidthLowerDemo : DemoBase
 {
-    internal class DefaultCommand : CommandBase
-    {
-        public override string Title => "Default Pause";
+    public override string Title => "MaxWidth - Lower";
 
-        protected override void DoExecute()
+    public override MultilineText Description => "MaxWith (30) < Text Length (56).";
+
+    protected override void DoExecute()
+    {
+        Border border = new()
         {
-            Pause.QuickDisplay();
-        }
+            Content = new TextBlock
+            {
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                }
+            },
+            MaxWidth = 30
+        };
+
+        border.Display();
     }
 }

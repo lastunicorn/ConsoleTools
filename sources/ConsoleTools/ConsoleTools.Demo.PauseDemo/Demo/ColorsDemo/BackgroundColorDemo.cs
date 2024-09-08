@@ -14,21 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.ColorsDemo;
+
+internal class BackgroundColorDemo : DemoBase
 {
-    internal class ErasablePauseCommand : CommandBase
-    {
-        public override string Title => "This pause will erase itself at the end";
+    public override string Title => "Background Color (Blue)";
 
-        protected override void DoExecute()
+    protected override void DoExecute()
+    {
+        Pause pause = new()
         {
-            Pause pause = new Pause
-            {
-                EraseAfterClose = true
-            };
-            pause.Display();
-        }
+            BackgroundColor = ConsoleColor.Blue
+        };
+
+        pause.Display();
     }
 }

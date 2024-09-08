@@ -41,14 +41,14 @@ internal class TextMenuItemRenderer : IRenderer
     {
         if (Control.CanBeSelected())
         {
-            Write($"{Control.Id} - {Control.Text}");
+            Write($"{Control.Id} - {Control.Text}", Control.ForegroundColor);
         }
         else
         {
             if (Control.DisabledForegroundColor.HasValue)
                 Write($"{Control.Id} - {Control.Text}", Control.DisabledForegroundColor.Value);
             else
-                Write($"{Control.Id} - {Control.Text}");
+                Write($"{Control.Id} - {Control.Text}", Control.ForegroundColor);
         }
 
         HasMoreLines = false;

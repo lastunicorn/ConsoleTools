@@ -55,7 +55,8 @@ public abstract class DemoBase : IDemo
             {
                 Text = Description,
                 ForegroundColor = ConsoleColor.DarkGray,
-                Margin = (0, 1, 0, 0)
+                Margin = (0, 1, 0, 0),
+                MaxWidth = 79
             });
         }
 

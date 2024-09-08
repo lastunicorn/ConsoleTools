@@ -24,6 +24,8 @@ internal class MarginsDemo : DemoBase
 {
     public override string Title => "Custom margins (3 3 3 3)";
 
+    public override MultilineText Description => "The background color is added to easier see the margins.";
+
     protected override void DoExecute()
     {
         Pause pause = new()

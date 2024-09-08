@@ -38,7 +38,7 @@ public class Pause : ErasableControl
 
     /// <summary>
     /// Gets or sets the <see cref="ConsoleKey"/> the user must press to break the pause.
-    /// If <c>null</c> is provided, any key unbreaks the pause.
+    /// If <c>null</c> is provided, any key un-breaks the pause.
     /// Default value: null
     /// </summary>
     public ConsoleKey? UnlockKey { get; set; }

@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo;
 
 public class DemoPackage : DemoPackageBase
 {
-    public override string Title => "StackPanel";
+    public override string Title => "Stack Panel";
 
     public DemoPackage()
     {

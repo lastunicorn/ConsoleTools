@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
@@ -47,6 +48,7 @@ public class MainMenu : TextMenu
 
     public MainMenu(IEnumerable<IDemo> demos)
     {
+        TitleForegroundColor = ConsoleColor.Magenta;
         Margin = "0 0 0 1";
 
         CreateItems(demos);
@@ -60,7 +62,9 @@ public class MainMenu : TextMenu
         foreach (IDemo demo in demos)
         {
             string title = demo.Title;
-            if (demo is DemoPackageBase { HasSubPackages: true })
+
+            bool demoWillDisplayMenu = demo is DemoPackageBase demoPackageBase && (demoPackageBase.HasSubPackages || demoPackageBase.ForceDisplayMenu);
+            if (demoWillDisplayMenu)
                 title += " [->]";
 
             AddItem(new TextMenuItem
@@ -83,7 +87,8 @@ public class MainMenu : TextMenu
             Command = new RelayCommand
             {
                 ExecuteAction = RequestClose
-            }
+            },
+            ForegroundColor = ConsoleColor.Magenta
         };
 
         AddItem(exitMenuItem);

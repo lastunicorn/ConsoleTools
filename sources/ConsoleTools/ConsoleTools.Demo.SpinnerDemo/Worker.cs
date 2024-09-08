@@ -19,45 +19,42 @@ using System.Threading;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 
-namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo
+namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo;
+
+internal class Worker
 {
-    internal class Worker
+    public TimeSpan WorkTimeSpan { get; set; }
+
+    public ISpinnerTemplate SpinnerTemplate { get; set; }
+
+    public int SpinnerStepMilliseconds { get; set; }
+
+    public void Run()
     {
-        public TimeSpan WorkTimeSpan { get; set; }
+        using Spinner spinner = new(SpinnerTemplate);
 
-        public ISpinnerTemplate SpinnerTemplate { get; set; }
-
-        public int SpinnerStepMilliseconds { get; set; }
-
-        public void Run()
+        spinner.MarginBottom = 2;
+        spinner.FrameIntervalMilliseconds = SpinnerStepMilliseconds;
+        spinner.Label = new InlineTextBlock
         {
-            using (Spinner spinner = new Spinner(SpinnerTemplate))
-            {
-                spinner.MarginTop = 2;
-                spinner.MarginBottom = 2;
-                spinner.FrameIntervalMilliseconds = SpinnerStepMilliseconds;
-                spinner.Label = new InlineTextBlock
-                {
-                    Text = "Doing some work",
-                    MarginRight = 1
-                };
+            Text = "Doing some work",
+            MarginRight = 1
+        };
 
-                spinner.Display();
+        spinner.Display();
 
-                try
-                {
-                    // Simulate work
-                    Thread.Sleep(WorkTimeSpan);
+        try
+        {
+            // Simulate work
+            Thread.Sleep(WorkTimeSpan);
 
-                    spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
-                    spinner.Close();
-                }
-                catch
-                {
-                    spinner.DoneText = new InlineTextBlock("[Error]", CustomConsole.ErrorColor);
-                    spinner.Close();
-                }
-            }
+            spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
+            spinner.Close();
+        }
+        catch
+        {
+            spinner.DoneText = new InlineTextBlock("[Error]", CustomConsole.ErrorColor);
+            spinner.Close();
         }
     }
 }

@@ -192,6 +192,7 @@ public class ProgressBar : LongRunningControl
     public ProgressBar()
     {
         label.Text = "Progress";
+        ShowCursor = false;
     }
 
     /// <summary>

@@ -73,7 +73,7 @@ public abstract class LongRunningControl
 
     protected LongRunningControl()
     {
-        allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+        allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32NT;
     }
 
     /// <summary>

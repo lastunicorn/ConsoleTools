@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
@@ -30,28 +31,36 @@ public abstract class DemoPackageBase : IDemo
 
     public bool HasSubPackages => Demos.Any(x => x is DemoPackageBase);
 
+    public bool ForceDisplayMenu { get; set; }
+
     public void Execute()
     {
-        if (HasSubPackages)
-        {
-            ControlRepeater controlRepeater = new()
-            {
-                Content = new MainMenu(Demos)
-                {
-                    IsMain = false
-                },
-                RepeatCount = -1,
-                Margin = (0, 2, 0, 0)
-            };
-
-            controlRepeater.Display();
-        }
+        if (HasSubPackages || ForceDisplayMenu)
+            DisplayMenuWithDemos();
         else
-        {
-            IEnumerable<IDemo> notNullDemos = Demos.Where(x => x != null);
+            RunAllDemos();
+    }
 
-            foreach (IDemo demo in notNullDemos)
-                demo.Execute();
-        }
+    private void DisplayMenuWithDemos()
+    {
+        ControlRepeater controlRepeater = new()
+        {
+            Content = new MainMenu(Demos)
+            {
+                IsMain = false
+            },
+            RepeatCount = -1,
+            Margin = (0, 2, 0, 0)
+        };
+
+        controlRepeater.Display();
+    }
+
+    private void RunAllDemos()
+    {
+        IEnumerable<IDemo> notNullDemos = Demos.Where(x => x != null);
+
+        foreach (IDemo demo in notNullDemos)
+            demo.Execute();
     }
 }

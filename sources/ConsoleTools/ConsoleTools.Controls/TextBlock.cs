@@ -97,7 +97,7 @@ public class TextBlock : BlockControl
     /// Displays the specified text into the console.
     /// </summary>
     /// <param name="text">The text to be displayed to the console.</param>
-    private static void QuickDisplay(string text)
+    public static void QuickDisplay(string text)
     {
         TextBlock textBlock = new()
         {

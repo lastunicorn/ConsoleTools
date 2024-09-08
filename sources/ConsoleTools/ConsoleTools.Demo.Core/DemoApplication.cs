@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Controls;
@@ -47,41 +46,7 @@ public class DemoApplication
         //};
         //contentControl.Display();
 
-        //new StackPanel
-        //{
-        //    Children =
-        //    {
-        //        new TextBlock("This is a text")
-        //        {
-        //            BackgroundColor = ConsoleColor.Blue,
-        //            ForegroundColor = ConsoleColor.DarkBlue,
-        //            Padding = 1,
-        //            Margin = 1,
-        //            HorizontalAlignment = HorizontalAlignment.Left,
-        //            TextHorizontalAlignment = HorizontalAlignment.Right
-        //        },
-        //        new TextBlock("This is a text")
-        //        {
-        //            BackgroundColor = ConsoleColor.Green,
-        //            ForegroundColor = ConsoleColor.DarkGreen,
-        //            Padding = "2 1",
-        //            //Margin = "1 1"
-        //        },
-
-        //        new ApplicationHeader
-        //        {
-        //            Title = "Console Tools Demo",
-        //            BackgroundColor = ConsoleColor.Blue,
-        //            ForegroundColor = ConsoleColor.DarkBlue,
-        //            //Padding = 1,
-        //            //Margin = 0
-        //        }
-        //    },
-        //    BackgroundColor = ConsoleColor.DarkCyan,
-        //    Padding = new Thickness(1, 2, 3, 4),
-        //    Margin = "1"
-        //}.Display();
-
+       
         //new ControlRepeater
         //    {
         //        Content = new StackPanel
@@ -131,17 +96,12 @@ public class DemoApplication
                     {
                         Title = "Console Tools Demo"
                     },
-                    new MainMenu(demoPackages, this)
+                    new MainMenu(demoPackages)
                 }
             },
             RepeatCount = -1
         };
 
         controlRepeater.Display();
-    }
-
-    public void RequestExit()
-    {
-        controlRepeater.RequestClose();
     }
 }

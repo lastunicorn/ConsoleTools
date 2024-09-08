@@ -276,6 +276,26 @@ public readonly struct Thickness : IEquatable<Thickness>
     }
 
     /// <summary>
+    /// Creates a <see cref="Thickness"/> object having the left and right values both equal to the
+    /// first item of the <see cref="Tuple{T1, T2}"/> and the top and bottom values both equal to
+    /// the second item.
+    /// </summary>
+    public static implicit operator Thickness((int, int) value)
+    {
+        return new Thickness(value.Item1, value.Item2);
+    }
+
+    /// <summary>
+    /// Creates a <see cref="Thickness"/> object having the left, top, right and bottom values
+    /// equal to the first, second, third and forth items of the <see cref="Tuple{T1, T2, T3, T4}"/>
+    /// respectively.
+    /// </summary>
+    public static implicit operator Thickness((int, int, int, int) value)
+    {
+        return new Thickness(value.Item1, value.Item2, value.Item3, value.Item4);
+    }
+
+    /// <summary>
     /// Converts a <see cref="string"/> object into its <see cref="Thickness"/> representation.
     /// </summary>
     public static implicit operator string(Thickness margins)

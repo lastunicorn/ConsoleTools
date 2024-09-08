@@ -43,7 +43,6 @@ internal class TextMenuTitleSection : SectionRenderer
 
         yield return textMenu.TitleText;
         yield return string.Empty;
-        yield return string.Empty;
     }
 
     public override void RenderNextLine()

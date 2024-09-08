@@ -14,41 +14,78 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
+namespace DustInTheWind.ConsoleTools.Demo.Core;
+
+public class MainMenu : TextMenu
 {
-    public class MainMenu : TextMenu
+    private bool isMain = true;
+
+    private TextMenuItem exitMenuItem;
+
+    public bool IsMain
     {
-        public MainMenu(DemoPackages demoPackages, DemoApplication demoApplication)
+        get => isMain;
+        set
         {
-            CreateItems(demoPackages, demoApplication);
+            isMain = value;
 
-            Margin = "0 0 0 1";
-        }
-
-        private void CreateItems(DemoPackages demoPackages, DemoApplication demoApplication)
-        {
-            int i = 0;
-
-            foreach (IDemo demoPackage in demoPackages)
+            if (isMain)
             {
-                AddItem(new TextMenuItem
-                {
-                    Id = (i + 1).ToString(),
-                    Text = demoPackage.Name,
-                    Command = new DemoCommand(demoPackage)
-                });
-
-                i++;
+                TitleText = null;
+                exitMenuItem.Text = "Exit";
             }
+            else
+            {
+                TitleText = "Sub-Menu";
+                exitMenuItem.Text = "Back";
+            }
+        }
+    }
+
+    public MainMenu(IEnumerable<IDemo> demos)
+    {
+        Margin = "0 0 0 1";
+
+        CreateItems(demos);
+        CreateExitItem();
+    }
+
+    private void CreateItems(IEnumerable<IDemo> demos)
+    {
+        int i = 0;
+
+        foreach (IDemo demo in demos)
+        {
+            string title = demo.Title;
+            if (demo is DemoPackageBase { HasSubPackages: true })
+                title += " [->]";
 
             AddItem(new TextMenuItem
             {
-                Id = 0.ToString(),
-                Text = "Exit",
-                Command = new ExitCommand(demoApplication)
+                Id = (i + 1).ToString(),
+                Text = title,
+                Command = new DemoCommand(demo)
             });
+
+            i++;
         }
+    }
+
+    private void CreateExitItem()
+    {
+        exitMenuItem = new TextMenuItem
+        {
+            Id = 0.ToString(),
+            Text = "Exit",
+            Command = new RelayCommand
+            {
+                ExecuteAction = RequestClose
+            }
+        };
+
+        AddItem(exitMenuItem);
     }
 }

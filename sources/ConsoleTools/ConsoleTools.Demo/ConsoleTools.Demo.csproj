@@ -1,6 +1,6 @@
 ﻿<!--
 ConsoleTools
-Copyright (C) 2017-2022 Dust in the Wind
+Copyright (C) 2017-2024 Dust in the Wind
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,11 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <TargetFramework>net48</TargetFramework>
         <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
         <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\ConsoleTools.Demo.TextBlockDemo\ConsoleTools.Demo.TextBlockDemo.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.StackPanelDemo\ConsoleTools.Demo.StackPanelDemo.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.TabularData\ConsoleTools.Demo.TabularData.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.TextBlockDemo\ConsoleTools.Demo.TextBlockDemo.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

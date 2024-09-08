@@ -14,20 +14,58 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System;
+using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
+namespace DustInTheWind.ConsoleTools.Demo.Core;
+
+public abstract class DemoBase : IDemo
 {
-    public abstract class DemoBase : IDemo
+    public abstract string Title { get; }
+
+    public virtual string Description { get; }
+
+    public void Execute()
     {
-        public abstract string Name { get; }
-
-        protected List<DemoTaskBase> DemoTasks { get; } = new List<DemoTaskBase>();
-
-        public void Execute()
-        {
-            foreach (DemoTaskBase demoTask in DemoTasks)
-                demoTask.Execute();
-        }
+        DisplayDemoTitle();
+        DoExecute();
     }
+
+    private void DisplayDemoTitle()
+    {
+        StackPanel stackPanel = new()
+        {
+            Margin = (0, 2)
+        };
+
+        stackPanel.Children.Add(new TextBlock(new string('-', 79))
+        {
+            ForegroundColor = ConsoleColor.DarkYellow
+        });
+
+        stackPanel.Children.Add(new TextBlock
+        {
+            Text = $"{Title}",
+            ForegroundColor = ConsoleColor.DarkYellow
+        });
+
+        if (!string.IsNullOrEmpty(Description))
+        {
+            stackPanel.Children.Add(new TextBlock
+            {
+                Text = Description,
+                ForegroundColor = ConsoleColor.DarkGray,
+                Margin = (0, 1, 0, 0)
+            });
+        }
+
+        stackPanel.Children.Add(new TextBlock(new string('-', 79))
+        {
+            ForegroundColor = ConsoleColor.DarkYellow,
+        });
+
+        stackPanel.Display();
+    }
+
+    protected abstract void DoExecute();
 }

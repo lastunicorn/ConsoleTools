@@ -20,33 +20,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
+namespace DustInTheWind.ConsoleTools.Demo.Core;
+
+public class DemoPackages : IEnumerable<DemoPackageBase>
 {
-    public class DemoPackages : IEnumerable<IDemo>
+    private readonly List<DemoPackageBase> demoPackages = new();
+
+    public void LoadFrom(IEnumerable<Assembly> assemblies)
     {
-        private readonly List<IDemo> demoPackages = new List<IDemo>();
+        IEnumerable<DemoPackageBase> newDemoPackages = assemblies
+            .SelectMany(x => x.GetTypes())
+            .Where(x => x.IsClass && !x.IsAbstract && x.IsPublic)
+            .Where(x => typeof(DemoPackageBase).IsAssignableFrom(x))
+            .Select(Activator.CreateInstance)
+            .Cast<DemoPackageBase>()
+            .ToList();
 
-        public void LoadFrom(IEnumerable<Assembly> assemblies)
-        {
-            IEnumerable<IDemo> newDemoPackages = assemblies
-                .SelectMany(x => x.GetTypes())
-                .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => typeof(IDemo).IsAssignableFrom(x))
-                .Select(Activator.CreateInstance)
-                .Cast<IDemo>()
-                .ToList();
+        demoPackages.AddRange(newDemoPackages);
+    }
 
-            demoPackages.AddRange(newDemoPackages);
-        }
+    public IEnumerator<DemoPackageBase> GetEnumerator()
+    {
+        return demoPackages.GetEnumerator();
+    }
 
-        public IEnumerator<IDemo> GetEnumerator()
-        {
-            return demoPackages.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

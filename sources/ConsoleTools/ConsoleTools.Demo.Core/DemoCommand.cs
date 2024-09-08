@@ -18,35 +18,41 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
+namespace DustInTheWind.ConsoleTools.Demo.Core;
+
+internal class DemoCommand : ICommand
 {
-    internal class DemoCommand : ICommand
+    private readonly IDemo demo;
+
+    public bool IsActive => true;
+
+    public DemoCommand(IDemo demo)
     {
-        private readonly IDemo demo;
+        this.demo = demo ?? throw new ArgumentNullException(nameof(demo));
+    }
 
-        public bool IsActive => true;
-
-        public DemoCommand(IDemo demo)
+    public void Execute()
+    {
+        try
         {
-            this.demo = demo ?? throw new ArgumentNullException(nameof(demo));
+            demo.Execute();
         }
-
-        public void Execute()
+        finally
         {
-            try
-            {
-                demo.Execute();
-            }
-            finally
-            {
-                TextBlock textBlock = new TextBlock
-                {
-                    Text = $"Demo {demo.Name} has finished.",
-                    Margin = "0 1",
-                    ForegroundColor = ConsoleColor.Cyan
-                };
-                textBlock.Display();
-            }
+            if (demo is DemoPackageBase)
+                DisplayFinishedMessage();
         }
+    }
+
+    private void DisplayFinishedMessage()
+    {
+        TextBlock textBlock = new()
+        {
+            Text = $"Demo {demo.Title} has finished execution.",
+            Margin = (0, 1),
+            ForegroundColor = ConsoleColor.Cyan
+        };
+
+        textBlock.Display();
     }
 }

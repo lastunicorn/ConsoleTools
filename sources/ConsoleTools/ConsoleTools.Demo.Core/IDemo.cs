@@ -14,12 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.Core
-{
-    public interface IDemo
-    {
-        string Name { get; }
+namespace DustInTheWind.ConsoleTools.Demo.Core;
 
-        void Execute();
-    }
+public interface IDemo
+{
+    string Title { get; }
+
+    string Description { get; }
+
+    void Execute();
 }

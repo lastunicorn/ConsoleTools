@@ -20,27 +20,26 @@ using System.Linq;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo
+namespace DustInTheWind.ConsoleTools.Demo;
+
+internal class Program
 {
-    internal class Program
+    private static void Main(string[] args)
     {
-        private static void Main(string[] args)
-        {
-            DemoApplication demoApplication = new DemoApplication();
+        DemoApplication demoApplication = new();
 
-            IEnumerable<Assembly> demoAssemblies = GetDemoAssemblies();
-            demoApplication.AddPackagesFrom(demoAssemblies);
+        IEnumerable<Assembly> demoAssemblies = GetDemoAssemblies();
+        demoApplication.AddPackagesFrom(demoAssemblies);
 
-            demoApplication.Run();
-        }
+        demoApplication.Run();
+    }
 
-        private static IEnumerable<Assembly> GetDemoAssemblies()
-        {
-            Assembly entryAssembly = Assembly.GetEntryAssembly();
-            string applicationRootDirectoryPath = Path.GetDirectoryName(entryAssembly.Location);
+    private static IEnumerable<Assembly> GetDemoAssemblies()
+    {
+        Assembly entryAssembly = Assembly.GetEntryAssembly();
+        string applicationRootDirectoryPath = Path.GetDirectoryName(entryAssembly.Location);
 
-            return Directory.GetFiles(applicationRootDirectoryPath, "*.dll")
-                .Select(Assembly.LoadFrom);
-        }
+        return Directory.GetFiles(applicationRootDirectoryPath, "*.dll")
+            .Select(Assembly.LoadFrom);
     }
 }

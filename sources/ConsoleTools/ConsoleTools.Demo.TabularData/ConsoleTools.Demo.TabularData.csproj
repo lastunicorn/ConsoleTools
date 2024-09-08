@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Controls.Tables\ConsoleTools.Controls.Tables.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" PrivateAssets="All" />

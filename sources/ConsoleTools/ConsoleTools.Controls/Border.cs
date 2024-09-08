@@ -38,7 +38,7 @@ public class Border : BlockControl
     /// Gets the width of the content (no margins, no paddings) when it is not restricted by
     /// external factors.
     /// </summary>
-    public override int NaturalContentWidth => Content.NaturalContentWidth + 2;
+    public override int NaturalContentWidth => Content.CalculateNaturalWidth(true, true) + 2;
 
     /// <summary>
     /// Returns an object capable of rendering the current control into a display.

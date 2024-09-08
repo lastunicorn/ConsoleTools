@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.StackPane
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.MultiColorDemo", "ConsoleTools.Demo.MultiColorDemo\ConsoleTools.Demo.MultiColorDemo.csproj", "{FA290708-9998-4FD6-91C0-328F2AC93873}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTools.Demo.BorderDemo", "ConsoleTools.Demo.BorderDemo\ConsoleTools.Demo.BorderDemo.csproj", "{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -347,6 +349,16 @@ Global
 		{FA290708-9998-4FD6-91C0-328F2AC93873}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
 		{FA290708-9998-4FD6-91C0-328F2AC93873}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
 		{FA290708-9998-4FD6-91C0-328F2AC93873}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Debug-Net6|Any CPU.ActiveCfg = Debug|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Debug-Net6|Any CPU.Build.0 = Debug|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release-Net452|Any CPU.ActiveCfg = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release-Net452|Any CPU.Build.0 = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release-Net461|Any CPU.ActiveCfg = Release|Any CPU
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59}.Release-Net461|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -371,6 +383,7 @@ Global
 		{B1681E0C-770C-420D-A634-CC229BB6A8D8} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{CA760D08-7FA6-4205-BF80-45B8165EC4B6} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 		{FA290708-9998-4FD6-91C0-328F2AC93873} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
+		{8650EF8C-2702-4483-BA9E-0A7EC15DEA59} = {2C2BFA30-8815-4269-AC92-DDE5589BD958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {369B843F-38E3-4477-A766-F70718E83926}

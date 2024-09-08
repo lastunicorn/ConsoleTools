@@ -14,28 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
-
+using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo;
 using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.TabularData.Demo.ColorsDemo;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
 
-internal class ColorsDemoPackage : DemoPackageBase
+public class BorderDemoPackage : DemoPackageBase
 {
-    public override string Title => "Colors";
+    public override string Title => "Border Demo";
 
-    public ColorsDemoPackage()
+    public BorderDemoPackage()
     {
         Demos.AddRange(new IDemo[]
         {
-            new UncoloredTableDemo(),
-            new ColoredTableDemo(),
-            new BackgroundColoredTableDemo(),
-            new BackgroundColoredTableDemo2()
+            new SimpleBorderDemo(),
+            new MarginsAndPaddingsDemo(),
+            new MaxWidthDemo()
         });
-
     }
 }

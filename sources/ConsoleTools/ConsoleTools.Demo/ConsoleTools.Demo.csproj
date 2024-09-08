@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\ConsoleTools.Demo.BorderDemo\ConsoleTools.Demo.BorderDemo.csproj" />
         <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Core.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Demo.MultiColorDemo\ConsoleTools.Demo.MultiColorDemo.csproj" />
         <ProjectReference Include="..\ConsoleTools.Demo.StackPanelDemo\ConsoleTools.Demo.StackPanelDemo.csproj" />

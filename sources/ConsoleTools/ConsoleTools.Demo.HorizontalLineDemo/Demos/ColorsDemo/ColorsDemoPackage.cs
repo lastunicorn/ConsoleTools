@@ -14,23 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.ColorsDemo;
+
+internal class ColorsDemoPackage :DemoPackageBase
 {
-    internal class CustomPaddingCommand : CommandBase
-    {
-        public override string Title => "Custom Paddings (3 3 3 3)";
+    public override string Title => "Colors";
 
-        protected override void DoExecute()
+    public ColorsDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Padding = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easier see the paddings.
-            };
-            horizontalLine.Display();
-        }
+            new ForegroundColorDemo(),
+            new BackgroundColorDemo()
+        });
     }
 }

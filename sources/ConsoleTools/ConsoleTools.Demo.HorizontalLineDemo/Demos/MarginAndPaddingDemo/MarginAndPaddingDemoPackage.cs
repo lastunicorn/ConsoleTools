@@ -14,21 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MarginAndPaddingDemo;
+
+internal class MarginAndPaddingDemoPackage : DemoPackageBase
 {
-    internal class CustomWidthCommand : CommandBase
-    {
-        public override string Title => "Custom Width (50)";
+    public override string Title => "Margins and Paddings";
 
-        protected override void DoExecute()
+    public MarginAndPaddingDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 50
-            };
-            horizontalLine.Display();
-        }
+            new PaddingDemo(),
+            new MarginDemo()
+        });
     }
 }

@@ -16,21 +16,20 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.ColorsDemo;
+
+internal class BackgroundColorDemo : DemoBase
 {
-    internal class CustomMarginCommand : CommandBase
-    {
-        public override string Title => "Custom Margins (3 3 3 3)";
+    public override string Title => "Custom BackgroundColor (Blue)";
 
-        protected override void DoExecute()
+    protected override void DoExecute()
+    {
+        HorizontalLine horizontalLine = new()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Margin = 3,
-                BackgroundColor = ConsoleColor.DarkGray // Added to easier see the margins.
-            };
-            horizontalLine.Display();
-        }
+            BackgroundColor = ConsoleColor.Blue
+        };
+        horizontalLine.Display();
     }
 }

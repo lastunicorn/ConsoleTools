@@ -14,22 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.HorizontalAlignmentDemo;
+
+internal class HorizontalAlignmentDemoPackage : DemoPackageBase
 {
-    internal class CustomForegroundColorCommand : CommandBase
-    {
-        public override string Title => "Custom ForegroundColor (Magenta)";
+    public override string Title => "Horizontal Alignment";
 
-        protected override void DoExecute()
+    public HorizontalAlignmentDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                ForegroundColor = ConsoleColor.Magenta
-            };
-            horizontalLine.Display();
-        }
+            new HorizontalAlignmentLeftDemo(),
+            new HorizontalAlignmentCenterDemo(),
+            new HorizontalAlignmentRightDemo(),
+            new HorizontalAlignmentStretchDemo()
+        });
     }
 }

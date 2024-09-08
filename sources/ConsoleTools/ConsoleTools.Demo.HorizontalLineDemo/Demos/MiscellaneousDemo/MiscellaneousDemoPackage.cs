@@ -14,21 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo;
+
+internal class MiscellaneousDemoPackage : DemoPackageBase
 {
-    internal class CustomCharCommand : CommandBase
-    {
-        public override string Title => "Custom Character (*)";
+    public override string Title => "Miscellaneous";
 
-        protected override void DoExecute()
+    public MiscellaneousDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Character = '*'
-            };
-            horizontalLine.Display();
-        }
+            new DefaultDemo(),
+            new CustomCharDemo(),
+            new WidthDemo()
+        });
     }
 }

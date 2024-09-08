@@ -14,22 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MarginAndPaddingDemo;
+
+internal class PaddingDemo : DemoBase
 {
-    internal class AlignedCenterCommand : CommandBase
-    {
-        public override string Title => "Aligned Center";
+    public override string Title => "Custom Paddings (3 3 3 3)";
 
-        protected override void DoExecute()
+    public override string Description => "The background color was added to easier see the paddings.";
+
+    protected override void DoExecute()
+    {
+        HorizontalLine horizontalLine = new()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 50,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
-            horizontalLine.Display();
-        }
+            Padding = 3,
+            BackgroundColor = ConsoleColor.DarkGray // Added to easier see the paddings.
+        };
+
+        horizontalLine.Display();
     }
 }

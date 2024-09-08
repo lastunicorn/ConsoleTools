@@ -15,21 +15,22 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Core;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.HorizontalAlignmentDemo;
+
+internal class HorizontalAlignmentStretchDemo : DemoBase
 {
-    internal class AlignedRightCommand : CommandBase
-    {
-        public override string Title => "Aligned Right";
+    public override string Title => "Aligned Stretch";
 
-        protected override void DoExecute()
+    protected override void DoExecute()
+    {
+        HorizontalLine horizontalLine = new()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 50,
-                HorizontalAlignment = HorizontalAlignment.Right
-            };
-            horizontalLine.Display();
-        }
+            Width = 50,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
+
+        horizontalLine.Display();
     }
 }

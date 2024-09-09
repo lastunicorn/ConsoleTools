@@ -31,24 +31,22 @@ internal class ColorsDemo : DemoBase
 
     public override MultilineText Description => new[]
     {
-        "Custom characters for filling the bar: '-' and '+'",
-        "Custom label: 'Custom Process'"
+        "Custom fill characters are added to see both foreground and background colors",
+        "Fill characters: '-' and '+'"
     };
 
     public ColorsDemo()
     {
         progressBar = new ProgressBar
         {
-            LabelText = "Colors",
-
             BarEmptyChar = '-',
             BarFillChar = '+',
 
             BarEmptyBackgroundColor = ConsoleColor.Blue,
-            BarFillBackgroundColor = ConsoleColor.DarkBlue,
+            BarEmptyForegroundColor = ConsoleColor.DarkBlue,
 
-            BarEmptyForegroundColor = ConsoleColor.Green,
-            BarFillForegroundColor = ConsoleColor.DarkGreen
+            BarFillBackgroundColor = ConsoleColor.Cyan,
+            BarFillForegroundColor = ConsoleColor.DarkCyan
         };
     }
 

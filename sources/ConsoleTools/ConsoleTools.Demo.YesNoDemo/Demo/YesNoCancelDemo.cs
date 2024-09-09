@@ -24,7 +24,7 @@ internal class YesNoCancelDemo : DemoBase
 {
     public override string Title => "Yes/No/Cancel";
 
-    public override MultilineText Description => "This is a yes/no/cancel control. Hitting Esc will cancel the question.";
+    public override MultilineText Description => "Press Esc to cancel the question.";
 
     protected override void DoExecute()
     {

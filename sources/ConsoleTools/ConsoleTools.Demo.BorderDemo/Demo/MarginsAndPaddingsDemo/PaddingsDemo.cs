@@ -18,38 +18,35 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemo;
 
-internal class StackWithBackgroundColor : DemoBase
+internal class PaddingsDemo : DemoBase
 {
-    public override string Title => "Parent StackPanel has a BackgroundColor";
+    public override string Title => "Paddings (1, 1, 1, 1)";
+
+    public override MultilineText Description => new[]
+    {
+        "Background color was added to easier see the margins.",
+        "[Known bug] Paddings are not displayed correctly."
+    };
 
     protected override void DoExecute()
     {
-        StackPanel stackPanel = new()
+        Border border = new()
         {
-            Children =
-            {
-                new TextBlock("This is a text")
-                {
-                    BackgroundColor = ConsoleColor.Blue,
-                    ForegroundColor = ConsoleColor.DarkBlue,
-                    Padding = 1,
-                    Margin = 1
-                },
-                new TextBlock("This is a different text")
-                {
-                    BackgroundColor = ConsoleColor.Green,
-                    ForegroundColor = ConsoleColor.DarkGreen,
-                    Padding = 1,
-                    Margin = 1
-                }
-            },
-            BackgroundColor = ConsoleColor.DarkMagenta,
             Padding = 1,
-            Margin = 1
+            BackgroundColor = ConsoleColor.DarkGray,
+            Content = new TextBlock
+            {
+                Text = new[]
+                {
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "Sed sollicitudin non enim sit amet interdum.",
+                    "Nullam quis nisl a dolor convallis rhoncus at sit amet eros."
+                }
+            }
         };
 
-        stackPanel.Display();
+        border.Display();
     }
 }

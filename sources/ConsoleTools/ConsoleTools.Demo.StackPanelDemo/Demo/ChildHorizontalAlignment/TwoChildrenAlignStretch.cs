@@ -18,11 +18,11 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.ChildHorizontalAlignment;
 
-internal class TwoChildrenAlignRight : DemoBase
+internal class TwoChildrenAlignStretch : DemoBase
 {
-    public override string Title => "Two Child Controls - Align Right";
+    public override string Title => "Two Child Controls - Align Stretch";
 
     protected override void DoExecute()
     {
@@ -36,8 +36,7 @@ internal class TwoChildrenAlignRight : DemoBase
                     ForegroundColor = ConsoleColor.DarkBlue,
                     Padding = 1,
                     Margin = 1,
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    TextHorizontalAlignment = HorizontalAlignment.Right
+                    HorizontalAlignment = HorizontalAlignment.Stretch
                 },
                 new TextBlock("This is a different text")
                 {

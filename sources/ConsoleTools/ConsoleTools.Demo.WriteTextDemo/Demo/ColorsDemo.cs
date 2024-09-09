@@ -15,6 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.ComponentModel.Design;
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.WriteTextDemo.Demo;
@@ -22,6 +24,8 @@ namespace DustInTheWind.ConsoleTools.Demo.WriteTextDemo.Demo;
 internal class ColorsDemo : DemoBase
 {
     public override string Title => "Colors";
+
+    public override MultilineText Description => "CustomConsole static class is used. Colors are selected automatically based on the type of the text being written: Normal, Emphasized, Success, Warning or Error";
 
     protected override void DoExecute()
     {
@@ -46,6 +50,7 @@ internal class ColorsDemo : DemoBase
         catch (Exception ex)
         {
             CustomConsole.WriteLine();
+            CustomConsole.WriteLineError("Exception:");
             CustomConsole.WriteLineError(ex);
         }
     }

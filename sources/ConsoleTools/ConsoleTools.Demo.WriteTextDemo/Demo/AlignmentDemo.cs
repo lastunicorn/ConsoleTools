@@ -23,6 +23,8 @@ internal class AlignmentDemo : DemoBase
 {
     public override string Title => "Alignment Demo";
 
+    public override MultilineText Description => "The text alignment was obtained using the CustomConsole static class.";
+
     protected override void DoExecute()
     {
         CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");

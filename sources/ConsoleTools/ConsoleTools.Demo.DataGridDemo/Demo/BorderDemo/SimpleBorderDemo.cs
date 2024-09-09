@@ -26,23 +26,9 @@ internal class SimpleBorderDemo : DemoBase
 
     protected override void DoExecute()
     {
-        DataGrid dataGrid = new("Simple Border");
-
-        dataGrid.Columns.Add("One");
-        dataGrid.Columns.Add("Two");
-        dataGrid.Columns.Add("Three");
-        dataGrid.Columns.Add("Four");
-
-        dataGrid.Rows.Add("1,1", "1,2", "1,3", "1,4");
-        dataGrid.Rows.Add("2,1", "2,2", "2,3", "2,4");
-        dataGrid.Rows.Add("3,1", "3,2", "3,3", "3,4");
-        dataGrid.Rows.Add("4,1", "4,2", "4,3", "4,4");
-
-        dataGrid.Footer = "Something";
+        DataGrid dataGrid = DummyDataGrid.Create("Simple Border");
 
         dataGrid.DisplayBorderBetweenRows = true;
-        dataGrid.HeaderRow.IsVisible = true;
-
         dataGrid.BorderTemplate = BorderTemplate.PlusMinusBorderTemplate;
 
         dataGrid.Display();

@@ -27,11 +27,11 @@ internal class PaddingLeftDemo : DemoBase
     {
         DataGrid dataGrid = new("Padding left = 10");
 
-        dataGrid.Rows.Add("First item", 1.ToString());
-        dataGrid.Rows.Add("Second item", 2.ToString());
-        dataGrid.Rows.Add("Third item", 3.ToString());
-        dataGrid.Rows.Add("Forth item", 4.ToString());
-        dataGrid.Rows.Add("Fifth item", 5.ToString());
+        dataGrid.Rows.Add(1.ToString(), "First item");
+        dataGrid.Rows.Add(2.ToString(), "Second item");
+        dataGrid.Rows.Add(3.ToString(), "Third item");
+        dataGrid.Rows.Add(4.ToString(), "Forth item");
+        dataGrid.Rows.Add(5.ToString(), "Fifth item");
 
         dataGrid.CellPaddingLeft = 10;
 

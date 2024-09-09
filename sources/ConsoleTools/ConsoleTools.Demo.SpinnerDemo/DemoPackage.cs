@@ -24,7 +24,7 @@ public class DemoPackage : DemoPackageBase
 {
     public override string Title => "Spinner";
 
-    public override MultilineText Description => "Let's simulate doing some work and display a spinner meanwhile.";
+    public override MultilineText Description => "Let's simulate some work and display a spinner while doing it.";
 
     public DemoPackage()
     {

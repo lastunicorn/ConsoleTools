@@ -24,7 +24,7 @@ internal class YesNoWithDefaultDemo : DemoBase
 {
     public override string Title => "Yes/No with Default Selection";
 
-    public override MultilineText Description => "This is a yes/no control with default value 'Yes'.";
+    public override MultilineText Description => "Press Enter to select the default answer. In this case 'Yes'.";
 
     protected override void DoExecute()
     {

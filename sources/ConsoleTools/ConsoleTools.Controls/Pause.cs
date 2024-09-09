@@ -67,16 +67,16 @@ public class Pause : ErasableControl
     /// </summary>
     protected override void OnAfterRender(AfterRenderEventArgs e)
     {
-        int oldCursorLeft = Console.CursorLeft;
-        int oldCursorTop = Console.CursorTop;
+        //int oldCursorLeft = Console.CursorLeft;
+        //int oldCursorTop = Console.CursorTop;
 
-        int cursorLeft = Margin.Left + Padding.Left + lastLineLength;
-        int cursorTop = Console.CursorTop - 1 - Margin.Bottom - Padding.Bottom;
-        Console.SetCursorPosition(cursorLeft, cursorTop);
+        //int cursorLeft = Margin.Left + Padding.Left + lastLineLength;
+        //int cursorTop = Console.CursorTop - 1 - Margin.Bottom - Padding.Bottom;
+        //Console.SetCursorPosition(cursorLeft, cursorTop);
 
-        WaitForUnlockKey();
+        //WaitForUnlockKey();
 
-        Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
+        //Console.SetCursorPosition(oldCursorLeft, oldCursorTop);
 
         base.OnAfterRender(e);
     }

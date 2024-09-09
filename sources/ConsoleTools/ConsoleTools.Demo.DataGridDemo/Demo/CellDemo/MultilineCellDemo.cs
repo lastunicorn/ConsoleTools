@@ -27,8 +27,8 @@ internal class MultilineCellDemo : DemoBase
     {
         DataGrid dataGrid = new("Multiline Cell Content");
 
-        dataGrid.Rows.Add("You may write also the\rcontent of the table\non multiple lines", "1");
-        dataGrid.Rows.Add("And this is another\nmultiline row", "2");
+        dataGrid.Rows.Add("1", "You may write also the\rcontent of the table\non multiple lines");
+        dataGrid.Rows.Add("2", "And this is another\nmultiline row");
 
         dataGrid.Display();
     }

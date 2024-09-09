@@ -26,7 +26,7 @@ internal class HalfBlockVerticalDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
             SpinnerTemplate = new HalfBlinkSpinnerTemplate(),
             SpinnerStepMilliseconds = 400,

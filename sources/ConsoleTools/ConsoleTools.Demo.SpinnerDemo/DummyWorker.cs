@@ -21,7 +21,7 @@ using DustInTheWind.ConsoleTools.Controls.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo;
 
-internal class Worker
+internal class DummyWorker
 {
     public TimeSpan WorkTimeSpan { get; set; }
 
@@ -35,7 +35,7 @@ internal class Worker
 
         spinner.MarginBottom = 2;
         spinner.FrameIntervalMilliseconds = SpinnerStepMilliseconds;
-        spinner.Label = new InlineTextBlock
+        spinner.Label = new InlineText
         {
             Text = "Doing some work",
             MarginRight = 1
@@ -48,12 +48,12 @@ internal class Worker
             // Simulate work
             Thread.Sleep(WorkTimeSpan);
 
-            spinner.DoneText = new InlineTextBlock("[Done]", CustomConsole.SuccessColor);
+            spinner.DoneText = new InlineText("[Done]", CustomConsole.SuccessColor);
             spinner.Close();
         }
         catch
         {
-            spinner.DoneText = new InlineTextBlock("[Error]", CustomConsole.ErrorColor);
+            spinner.DoneText = new InlineText("[Error]", CustomConsole.ErrorColor);
             spinner.Close();
         }
     }

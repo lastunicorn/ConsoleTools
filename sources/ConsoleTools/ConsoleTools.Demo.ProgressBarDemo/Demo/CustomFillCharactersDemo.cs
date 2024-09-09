@@ -22,17 +22,21 @@ using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.Demo;
 
-internal class DefaultDemo : DemoBase
+internal class CustomFillCharactersDemo : DemoBase
 {
     private readonly ProgressBar progressBar;
 
-    public override string Title => "Default look";
+    public override string Title => "Custom Fill Chars";
 
-    public override MultilineText Description => "Simulate a long running asynchronous process that will update the progress bar while it is running.";
+    public override MultilineText Description => "Custom characters for filling the bar: '-' and '+'";
 
-    public DefaultDemo()
+    public CustomFillCharactersDemo()
     {
-        progressBar = new ProgressBar();
+        progressBar = new ProgressBar
+        {
+            BarEmptyChar = '-',
+            BarFillChar = '+'
+        };
     }
 
     protected override void DoExecute()

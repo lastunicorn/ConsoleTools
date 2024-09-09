@@ -27,9 +27,9 @@ namespace DustInTheWind.ConsoleTools.Controls.Spinners;
 /// Displays value and a graphical display in the form af a horizontal bar.
 /// Usually it is used to display the progress from 0% to 100%.
 /// </summary>
-public class ProgressBar : LongRunningControl
+public class ProgressBar : DynamicControl
 {
-    private readonly InlineTextBlock label = new() { MarginRight = 1 };
+    private readonly InlineText label = new() { MarginRight = 1 };
 
     private int value;
     private int minValue;
@@ -192,18 +192,17 @@ public class ProgressBar : LongRunningControl
     public ProgressBar()
     {
         label.Text = "Progress";
-        ShowCursor = false;
     }
 
     /// <summary>
     /// Defines the accepted range of values by setting both the <see cref="MinValue"/> and <see cref="MaxValue"/>.
     /// </summary>
-    /// <param name="minValue">Gets or sets the left margin of the value range. It must be a number smaller than the <see cref="maxValue"/>.</param>
-    /// <param name="maxValue">Gets or sets the right margin of the value range. It must be a number greater than the <see cref="minValue"/>.</param>
-    public void SetLimitValues(int minValue, int maxValue)
+    /// <param name="minValue">The left margin of the value range. It must be a number smaller than the <see cref="maxValue"/>.</param>
+    /// <param name="maxValue">The right margin of the value range. It must be a number greater than the <see cref="minValue"/>.</param>
+    public void SetLimits(int minValue, int maxValue)
     {
         if (minValue > maxValue)
-            throw new ArgumentOutOfRangeException(nameof(maxValue), "maxValue must be greater than minValue.");
+            throw new ArgumentOutOfRangeException(nameof(maxValue), "Max value must be greater than min value.");
 
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -212,7 +211,7 @@ public class ProgressBar : LongRunningControl
     /// <summary>
     /// Displays the current instance to the Console.
     /// Important: While the <see cref="ProgressBar"/> is displayed, it is important to not write anything else to the Console
-    /// until the <see cref="LongRunningControl.Close"/> method is called.
+    /// until the <see cref="DynamicControl.Close"/> method is called.
     /// In the meantime, you can update its displayed value by setting the <see cref="Value"/> property. The control will
     /// automatically update itself in the Console.
     /// </summary>

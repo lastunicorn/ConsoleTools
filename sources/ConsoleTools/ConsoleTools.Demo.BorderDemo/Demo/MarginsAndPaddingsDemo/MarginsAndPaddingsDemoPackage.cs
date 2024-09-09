@@ -14,29 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Controls.Musical;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.SoundDemo;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemo;
 
-public class SimpleDemo : DemoBase
+internal class MarginsAndPaddingsDemoPackage : DemoPackageBase
 {
-    public override string Title => "Sounds";
+    public override string Title => "Margins and Paddings";
 
-    public override MultilineText Description => "This demo shows how to make sounds in Console.";
-
-    protected override void DoExecute()
+    public MarginsAndPaddingsDemoPackage()
     {
-        CustomConsole.WriteLine("The sound is playing.");
-        PlayGreetingSound();
-        CustomConsole.WriteLine("The sound was stopped.");
-    }
-
-    private static void PlayGreetingSound()
-    {
-        Sound.Play(MusicalNote.C4, 150);
-        Sound.Play(MusicalNote.D4, 150);
-        Sound.Play(MusicalNote.E4, 150);
+        Demos.AddRange(new IDemo[]
+        {
+            new PaddingsDemo(),
+            new MarginsDemo()
+        });
     }
 }

@@ -27,7 +27,7 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// <summary>
 /// Represents a text to be displayed in the console.
 /// </summary>
-public class InlineTextBlock : InlineControl
+public class InlineText : InlineControl
 {
     /// <summary>
     /// Gets or sets the text.
@@ -42,36 +42,36 @@ public class InlineTextBlock : InlineControl
     public override int NaturalContentWidth => Text?.Length ?? 0;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InlineTextBlock"/> class.
+    /// Initializes a new instance of the <see cref="InlineText"/> class.
     /// </summary>
-    public InlineTextBlock()
+    public InlineText()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InlineTextBlock"/> class with
+    /// Initializes a new instance of the <see cref="InlineText"/> class with
     /// the text.
     /// </summary>
-    public InlineTextBlock(string text)
+    public InlineText(string text)
     {
         Text = text;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InlineTextBlock"/> class with
+    /// Initializes a new instance of the <see cref="InlineText"/> class with
     /// the text and the foreground color.
     /// </summary>
-    public InlineTextBlock(string text, ConsoleColor foregroundColor)
+    public InlineText(string text, ConsoleColor foregroundColor)
     {
         Text = text;
         ForegroundColor = foregroundColor;
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InlineTextBlock"/> class with
+    /// Initializes a new instance of the <see cref="InlineText"/> class with
     /// the text, the foreground color and the background color.
     /// </summary>
-    public InlineTextBlock(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+    public InlineText(string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
     {
         Text = text;
         ForegroundColor = foregroundColor;
@@ -111,24 +111,24 @@ public class InlineTextBlock : InlineControl
 
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        return new InlineTextBlockRenderer(this, display, renderingOptions);
+        return new InlineTextRenderer(this, display, renderingOptions);
     }
 
     /// <summary>
-    /// Converts a simple string into a <see cref="InlineTextBlock"/> object containing that string.
+    /// Converts a simple string into a <see cref="InlineText"/> object containing that string.
     /// </summary>
     /// <param name="text">The text to be converted.</param>
-    public static implicit operator InlineTextBlock(string text)
+    public static implicit operator InlineText(string text)
     {
-        return new InlineTextBlock(text);
+        return new InlineText(text);
     }
 
     /// <summary>
-    /// Converts a <see cref="InlineTextBlock"/> object int a string by returning its text.
+    /// Converts a <see cref="InlineText"/> object int a string by returning its text.
     /// </summary>
-    /// <param name="inlineTextBlock">The <see cref="InlineTextBlock"/> object to be converted.</param>
-    public static implicit operator string(InlineTextBlock inlineTextBlock)
+    /// <param name="inlineText">The <see cref="InlineText"/> object to be converted.</param>
+    public static implicit operator string(InlineText inlineText)
     {
-        return inlineTextBlock.Text;
+        return inlineText.Text;
     }
 }

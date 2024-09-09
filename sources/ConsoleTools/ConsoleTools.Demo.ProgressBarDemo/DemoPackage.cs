@@ -30,7 +30,8 @@ public class DemoPackage : DemoPackageBase
         Demos.AddRange(new IDemo[]
         {
             new DefaultDemo(),
-            new CustomizationsDemo(),
+            new CustomFillCharactersDemo(),
+            new CustomLabelDemo(),
             new ColorsDemo()
         });
     }

@@ -16,31 +16,22 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.ProgressBarDemo.Demo;
 
-internal class CustomizationsDemo : DemoBase
+internal class CustomLabelDemo : DemoBase
 {
     private readonly ProgressBar progressBar;
 
-    public override string Title => "Customizations";
+    public override string Title => "Custom Label";
 
-    public override MultilineText Description => new[]
-    {
-        "Custom characters for filling the bar: '-' and '+'",
-        "Custom label."
-    };
-
-    public CustomizationsDemo()
+    public CustomLabelDemo()
     {
         progressBar = new ProgressBar
         {
-            LabelText = "Customizations",
-            BarEmptyChar = '-',
-            BarFillChar = '+'
+            LabelText = "Job progress"
         };
     }
 

@@ -28,7 +28,8 @@ public class Demo : DemoBase
     public override MultilineText Description => new[]
     {
         "Let's simulate that we have a CLI application.",
-        "Type 'help' for a list of available commands."
+        "Type 'help' for a list of available commands.",
+        "[Known Bug] The prompter does not work correctly yet."
     };
 
     protected override void DoExecute()

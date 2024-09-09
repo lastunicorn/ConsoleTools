@@ -26,7 +26,7 @@ internal class StickDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
             SpinnerTemplate = new StickSpinnerTemplate(),
             SpinnerStepMilliseconds = 400,

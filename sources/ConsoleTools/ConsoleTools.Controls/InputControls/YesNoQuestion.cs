@@ -172,7 +172,7 @@ public class YesNoQuestion : InteractiveControl
 
     private void DisplayQuestion()
     {
-        InlineTextBlock labelControl = new()
+        InlineText labelControl = new()
         {
             PaddingRight = 1,
             ForegroundColor = QuestionForegroundColor ?? ForegroundColor,
@@ -186,13 +186,13 @@ public class YesNoQuestion : InteractiveControl
     {
         string space = new(' ', SpaceAfterQuestion);
 
-        InlineTextBlock inlineTextBlock = new()
+        InlineText inlineText = new()
         {
             Text = space,
             ForegroundColor = ForegroundColor,
             BackgroundColor = BackgroundColor
         };
-        inlineTextBlock.Display();
+        inlineText.Display();
     }
 
     /// <summary>
@@ -228,13 +228,13 @@ public class YesNoQuestion : InteractiveControl
 
         sb.Append("]");
 
-        InlineTextBlock inlineTextBlock = new()
+        InlineText inlineText = new()
         {
             Text = sb.ToString(),
             ForegroundColor = ForegroundColor,
             BackgroundColor = BackgroundColor
         };
-        inlineTextBlock.Display();
+        inlineText.Display();
     }
 
     private YesNoAnswer ReadAnswerInternal()

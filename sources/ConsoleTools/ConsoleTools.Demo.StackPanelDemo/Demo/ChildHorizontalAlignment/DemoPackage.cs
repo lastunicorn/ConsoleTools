@@ -14,24 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemo;
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
+namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.ChildHorizontalAlignment;
 
-public class DemoPackage : DemoPackageBase
+internal class ChildHorizontalAlignmentDemoPackage : DemoPackageBase
 {
-    public override string Title => "Border Demo";
+    public override string Title => "Child Horizontal Alignment";
 
-    public DemoPackage()
+    public ChildHorizontalAlignmentDemoPackage()
     {
-        Demos.AddRange(new IDemo[]
+        Demos.AddRange(new DemoBase[]
         {
-            new TemplateDemoPackage(),
-            new MarginsAndPaddingsDemoPackage(),
-            new WidthsDemoPackage()
+            new TwoChildrenAlignLeft(),
+            new TwoChildrenAlignCenter(),
+            new TwoChildrenAlignRight(),
+            new TwoChildrenAlignStretch()
         });
     }
 }

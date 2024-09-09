@@ -24,17 +24,10 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls;
 
 /// <summary>
-/// Provides base functionality for a control that continues to run after it is displayed, until it is explicitly closed.
-/// <para>
-/// The provided functionality is:
-/// <list type="bullet">
-///     <item><description>top/bottom margin,</description></item>
-///     <item><description>optionally hides cursor while displaying,</description></item>
-///     <item><description>optionally ensures the display of the control on a new line.</description></item>
-/// </list>
-/// </para>
+/// Provides base functionality for a control that continues to run after it is displayed. Until it
+/// is explicitly closed, it can be updated multiple times.
 /// </summary>
-public abstract class LongRunningControl
+public abstract class DynamicControl
 {
     private readonly bool allowHidingCursor;
     private bool initialCursorVisible;
@@ -63,7 +56,7 @@ public abstract class LongRunningControl
     /// Gets or sets a value that specifies if the cursor is visible while the control is displayed.
     /// Default value: <c>true</c>
     /// </summary>
-    public bool ShowCursor { get; set; } = true;
+    public bool ShowCursor { get; set; }
 
     /// <summary>
     /// Gets or sets a value that specifies if the control should always be displayed at the beginning of the line.
@@ -71,7 +64,10 @@ public abstract class LongRunningControl
     /// </summary>
     public bool EnsureBeginOfLine { get; set; }
 
-    protected LongRunningControl()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DynamicControl"/> class.
+    /// </summary>
+    protected DynamicControl()
     {
         allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32NT;
     }
@@ -95,9 +91,7 @@ public abstract class LongRunningControl
         }
 
         MoveToNextLineIfNecessary();
-
         WriteTopMargin();
-
         DoDisplayContent();
 
         IsActive = true;

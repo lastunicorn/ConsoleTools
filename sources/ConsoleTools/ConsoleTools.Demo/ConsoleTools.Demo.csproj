@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ProjectReference Include="..\ConsoleTools.Demo.HorizontalLineDemo\ConsoleTools.Demo.HorizontalLineDemo.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Demo.MultiColorDemo\ConsoleTools.Demo.MultiColorDemo.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Demo.PrompterDemo\ConsoleTools.Demo.PrompterDemo.csproj" />
+        <ProjectReference Include="..\ConsoleTools.Demo.ScrollMenuDemo\ConsoleTools.Demo.ScrollMenuDemo.csproj" />
         <ProjectReference Include="..\ConsoleTools.Demo.SoundDemo\ConsoleTools.Demo.SoundDemo.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Demo.PauseDemo\ConsoleTools.Demo.PauseDemo.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Demo.ProgressBarDemo\ConsoleTools.Demo.ProgressBarDemo.csproj" PrivateAssets="All" />

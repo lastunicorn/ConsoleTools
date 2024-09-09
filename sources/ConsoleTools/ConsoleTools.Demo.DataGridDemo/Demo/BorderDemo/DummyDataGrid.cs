@@ -14,20 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.Utils;
+using DustInTheWind.ConsoleTools.Controls.Tables;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
+namespace DustInTheWind.ConsoleTools.Demo.DataGridDemo.Demo.BorderDemo;
 
-internal class MarginsAndPaddingsDemoPackage : DemoPackageBase
+internal static class DummyDataGrid
 {
-    public override string Title => "Margins and Paddings";
-
-    public MarginsAndPaddingsDemoPackage()
+    public static DataGrid Create(string title)
     {
-        Demos.AddRange(new IDemo[]
+        DataGrid dataGrid = new()
         {
-            new PaddingsDemo(),
-            new MarginsDemo()
-        });
+            Title = title
+        };
+
+        dataGrid.Columns.Add("Column 0");
+        dataGrid.Columns.Add("Column 1");
+        dataGrid.Columns.Add("Column 2");
+
+        for (int i = 0; i < 3; i++)
+        {
+            string cell0 = $"cell {i}:0";
+            string cell1 = $"cell {i}:1";
+            string cell2 = $"cell {i}:2";
+
+            dataGrid.Rows.Add(cell0, cell1, cell2);
+        }
+
+        dataGrid.Footer = "Footer text";
+
+        return dataGrid;
     }
 }

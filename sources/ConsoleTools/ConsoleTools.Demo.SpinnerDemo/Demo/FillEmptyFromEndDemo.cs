@@ -26,9 +26,12 @@ internal class FillEmptyFromEndDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
-            SpinnerTemplate = new FillSpinnerTemplate { FilledBehavior = FilledBehavior.EmptyFromEnd },
+            SpinnerTemplate = new FillSpinnerTemplate
+            {
+                FilledBehavior = FilledBehavior.EmptyFromEnd
+            },
             SpinnerStepMilliseconds = 400,
             WorkTimeSpan = TimeSpan.FromSeconds(5)
         };

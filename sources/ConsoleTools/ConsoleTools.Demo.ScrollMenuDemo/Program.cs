@@ -16,86 +16,66 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo
+namespace DustInTheWind.ConsoleTools.Demo.ScrollMenuDemo;
+
+public class Demo : DemoBase
 {
-    internal static class Program
+    private static GameApplication gameApplication;
+    private static ControlRepeater menuRepeater;
+
+    public override string Title => "Scroll Menu";
+
+    public override MultilineText Description => "Press the up/down arrow keys to navigate through the menu.";
+
+    protected override void DoExecute()
     {
-        private static GameApplication gameApplication;
-        private static ControlRepeater menuRepeater;
-
-        private static void Main()
+        try
         {
-            try
+            gameApplication = new GameApplication();
+            gameApplication.Exited += HandleGameApplicationExited;
+
+            MainMenu menu = new(gameApplication);
+            menu.BeforeRender += HandleMenuBeforeRender;
+
+            menuRepeater = new ControlRepeater
             {
-                DisplayApplicationHeader();
-
-                Console.CancelKeyPress += HandleCancelKeyPress;
-
-                gameApplication = new GameApplication();
-                gameApplication.Exited += HandleGameApplicationExited;
-
-                MainMenu menu = new MainMenu(gameApplication);
-                menu.BeforeRender += HandleMenuBeforeRender;
-
-                menuRepeater = new ControlRepeater
-                {
-                    Content = menu,
-                    RepeatCount = -1
-                };
-
-                menuRepeater.Display();
-
-                DisplayGoodby();
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteError(ex);
-            }
-            finally
-            {
-                Pause.QuickDisplay();
-            }
-        }
-
-        private static void HandleGameApplicationExited(object sender, EventArgs e)
-        {
-            menuRepeater?.RequestClose();
-            gameApplication.Exited -= HandleGameApplicationExited;
-        }
-
-        private static void HandleMenuBeforeRender(object sender, EventArgs args)
-        {
-            HorizontalLine horizontalLine = new HorizontalLine();
-            horizontalLine.Display();
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - ScrollMenu");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the ScrollMenu can be used.");
-            CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
-            CustomConsole.WriteLine("Press Enter key to select an item.");
-            CustomConsole.WriteLine();
-        }
-
-        private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
-        {
-            e.Cancel = true;
-            gameApplication.RequestExit();
-        }
-
-        private static void DisplayGoodby()
-        {
-            TextBlock goodbyText = new TextBlock
-            {
-                Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasizedColor,
-                Margin = "0 1 0 0"
+                Content = menu,
+                RepeatCount = -1
             };
-            goodbyText.Display();
+
+            menuRepeater.Display();
+
+            DisplayGoodby();
         }
+        catch (Exception ex)
+        {
+            CustomConsole.WriteError(ex);
+        }
+    }
+
+    private static void HandleGameApplicationExited(object sender, EventArgs e)
+    {
+        menuRepeater?.RequestClose();
+        gameApplication.Exited -= HandleGameApplicationExited;
+    }
+
+    private static void HandleMenuBeforeRender(object sender, EventArgs args)
+    {
+        HorizontalLine horizontalLine = new();
+        horizontalLine.Display();
+    }
+
+    private static void DisplayGoodby()
+    {
+        TextBlock goodbyText = new()
+        {
+            Text = "Bye!",
+            ForegroundColor = CustomConsole.EmphasizedColor,
+            Margin = "0 1 0 0"
+        };
+
+        goodbyText.Display();
     }
 }

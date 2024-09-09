@@ -27,14 +27,14 @@ internal class MultilineTitleDemo : DemoBase
     {
         DataGrid dataGrid = new()
         {
-            Title = "If you need to write the title\ron more then one line you can do that.\nMark the new line with one of the following:\r\nCR (\\r), LF (\\n) or CRLF (\\r\\n)"
+            Title = "Title can be split on multiple lines.\rAny of the characters:\nCR (\\r), LF (\\n) or CRLF (\\r\\n)\r\ncan be used to mark the end of a line."
         };
 
-        dataGrid.Rows.Add("First item", 1.ToString());
-        dataGrid.Rows.Add("Second item", 2.ToString());
-        dataGrid.Rows.Add("Third item", 3.ToString());
-        dataGrid.Rows.Add("Forth item", 4.ToString());
-        dataGrid.Rows.Add("Fifth item", 5.ToString());
+        dataGrid.Rows.Add(1.ToString(), "First item");
+        dataGrid.Rows.Add(2.ToString(), "Second item");
+        dataGrid.Rows.Add(3.ToString(), "Third item");
+        dataGrid.Rows.Add(4.ToString(), "Forth item");
+        dataGrid.Rows.Add(5.ToString(), "Fifth item");
 
         dataGrid.Display();
     }

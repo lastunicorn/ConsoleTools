@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
@@ -41,7 +42,27 @@ internal class PauseRenderer : BlockRenderer<Pause>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.WriteLine(linesEnumerator.Current);
-        return linesEnumerator.MoveNext();
+        RenderingContext.StartLine();
+        RenderingContext.Write(linesEnumerator.Current);
+        bool hasMoreLines = linesEnumerator.MoveNext();
+
+        if (!hasMoreLines) 
+            WaitForUnlockKey();
+
+        RenderingContext.EndLine();
+
+        return hasMoreLines;
+    }
+
+    private void WaitForUnlockKey()
+    {
+        bool isCorrectKey = false;
+
+        while (!isCorrectKey)
+        {
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(true);
+
+            isCorrectKey = !Control.UnlockKey.HasValue || consoleKeyInfo.Key == Control.UnlockKey;
+        }
     }
 }

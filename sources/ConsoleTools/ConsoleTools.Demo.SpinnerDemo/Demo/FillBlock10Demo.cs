@@ -26,7 +26,7 @@ internal class FillBlock10Demo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
             SpinnerTemplate = new FillSpinnerTemplate('▓', 10),
             SpinnerStepMilliseconds = 100,

@@ -24,7 +24,7 @@ internal class SimpleDemo : DemoBase
 {
     public override string Title => "Yes/No";
 
-    public override MultilineText Description => "This is a simple yes/no control with no default value.";
+    public override MultilineText Description => "Press 'y' for yes and 'n' for no. Case insensitive.";
 
     protected override void DoExecute()
     {

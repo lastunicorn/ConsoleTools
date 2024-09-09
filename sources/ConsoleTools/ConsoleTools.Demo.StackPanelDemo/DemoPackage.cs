@@ -14,7 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo;
+using DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.ChildHorizontalAlignment;
+using DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.Colors;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo;
@@ -25,12 +26,9 @@ public class DemoPackage : DemoPackageBase
 
     public DemoPackage()
     {
-        Demos.AddRange(new DemoBase[]
+        Demos.AddRange(new IDemo[]
         {
-            new TwoChildrenAlignLeft(),
-            new TwoChildrenAlignCenter(),
-            new TwoChildrenAlignRight(),
-            new TwoChildrenAlignStretch(),
+            new ChildHorizontalAlignmentDemoPackage(),
             new StackWithBackgroundColor()
         });
     }

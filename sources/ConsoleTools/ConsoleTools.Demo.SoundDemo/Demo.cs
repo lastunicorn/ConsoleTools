@@ -14,26 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.Musical;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Controls;
+namespace DustInTheWind.ConsoleTools.Demo.SoundDemo;
 
-public class InlineTextBlockRenderer : IRenderer
+public class Demo : DemoBase
 {
-    public InlineTextBlockRenderer(InlineTextBlock inlineTextBlock, IDisplay display, RenderingOptions renderingOptions)
+    public override string Title => "Sounds";
+
+    public override MultilineText Description => "You should hear three notes played in the speaker.";
+
+    protected override void DoExecute()
     {
+        CustomConsole.WriteLine("The sound is playing.");
+        PlayGreetingSound();
+        CustomConsole.WriteLine("The sound was stopped.");
     }
 
-    public bool HasMoreLines { get; }
-
-    public void RenderNextLine()
+    private static void PlayGreetingSound()
     {
-        throw new NotImplementedException();
-    }
-
-    public void Reset()
-    {
-        throw new NotImplementedException();
+        Sound.Play(MusicalNote.C4, 150);
+        Sound.Play(MusicalNote.D4, 150);
+        Sound.Play(MusicalNote.E4, 150);
     }
 }

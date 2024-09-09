@@ -26,7 +26,7 @@ internal class FanDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
             SpinnerTemplate = new FanSpinnerTemplate(),
             SpinnerStepMilliseconds = 400,

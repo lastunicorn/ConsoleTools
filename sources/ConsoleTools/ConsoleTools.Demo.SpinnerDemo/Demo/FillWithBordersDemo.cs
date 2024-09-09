@@ -26,9 +26,12 @@ internal class FillWithBordersDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
-            SpinnerTemplate = new FillSpinnerTemplate { ShowBorders = true },
+            SpinnerTemplate = new FillSpinnerTemplate
+            {
+                ShowBorders = true
+            },
             SpinnerStepMilliseconds = 400,
             WorkTimeSpan = TimeSpan.FromSeconds(5)
         };

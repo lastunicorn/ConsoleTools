@@ -18,23 +18,22 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
+namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemo;
 
-internal class PaddingsDemo : DemoBase
+internal class MarginsDemo : DemoBase
 {
-    public override string Title => "Paddings (1, 1, 1, 1)";
+    public override string Title => "Margins (1, 1, 1, 1)";
+
+    public override MultilineText Description => "Background color was added to easier see the margins.";
 
     protected override void DoExecute()
     {
         Border border = new()
         {
-            Padding = 1,
-            ForegroundColor = ConsoleColor.DarkBlue,
-            BackgroundColor = ConsoleColor.Blue,
+            Margin = 1,
+            BackgroundColor = ConsoleColor.DarkGray,
             Content = new TextBlock
             {
-                ForegroundColor = ConsoleColor.DarkGreen,
-                BackgroundColor = ConsoleColor.Green,
                 Text = new[]
                 {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

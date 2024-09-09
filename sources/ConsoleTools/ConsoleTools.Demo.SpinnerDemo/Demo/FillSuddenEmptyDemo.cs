@@ -26,9 +26,12 @@ internal class FillSuddenEmptyDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
-            SpinnerTemplate = new FillSpinnerTemplate { FilledBehavior = FilledBehavior.SuddenEmpty },
+            SpinnerTemplate = new FillSpinnerTemplate
+            {
+                FilledBehavior = FilledBehavior.SuddenEmpty
+            },
             SpinnerStepMilliseconds = 400,
             WorkTimeSpan = TimeSpan.FromSeconds(5)
         };

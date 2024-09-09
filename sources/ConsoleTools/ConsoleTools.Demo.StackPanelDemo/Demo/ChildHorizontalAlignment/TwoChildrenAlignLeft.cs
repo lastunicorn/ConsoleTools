@@ -18,32 +18,36 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
+namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.ChildHorizontalAlignment;
 
-internal class MarginsDemo : DemoBase
+internal class TwoChildrenAlignLeft : DemoBase
 {
-    public override string Title => "Margins (1, 1, 1, 1)";
+    public override string Title => "Two Child Controls - Align Left";
 
     protected override void DoExecute()
     {
-        Border border = new()
+        StackPanel stackPanel = new()
         {
-            Margin = 1,
-            ForegroundColor = ConsoleColor.DarkBlue,
-            BackgroundColor = ConsoleColor.Blue,
-            Content = new TextBlock
+            Children =
             {
-                ForegroundColor = ConsoleColor.DarkGreen,
-                BackgroundColor = ConsoleColor.Green,
-                Text = new[]
+                new TextBlock("This is a text")
                 {
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    "Sed sollicitudin non enim sit amet interdum.",
-                    "Nullam quis nisl a dolor convallis rhoncus at sit amet eros."
+                    BackgroundColor = ConsoleColor.Blue,
+                    ForegroundColor = ConsoleColor.DarkBlue,
+                    Padding = 1,
+                    Margin = 1,
+                    HorizontalAlignment = HorizontalAlignment.Left
+                },
+                new TextBlock("This is a different text")
+                {
+                    BackgroundColor = ConsoleColor.Green,
+                    ForegroundColor = ConsoleColor.DarkGreen,
+                    Padding = 1,
+                    Margin = 1
                 }
             }
         };
 
-        border.Display();
+        stackPanel.Display();
     }
 }

@@ -26,7 +26,7 @@ internal class FillEmptyFromStartDemo : DemoBase
 
     protected override void DoExecute()
     {
-        Worker worker = new()
+        DummyWorker worker = new()
         {
             SpinnerTemplate = new FillSpinnerTemplate(),
             SpinnerStepMilliseconds = 400,

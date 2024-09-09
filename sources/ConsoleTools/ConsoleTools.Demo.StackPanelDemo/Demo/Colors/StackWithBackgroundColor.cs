@@ -18,11 +18,17 @@ using System;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo;
+namespace DustInTheWind.ConsoleTools.Demo.StackPanelDemo.Demo.Colors;
 
-internal class TwoChildrenAlignLeft : DemoBase
+internal class StackWithBackgroundColor : DemoBase
 {
-    public override string Title => "Two Child Controls - Align Left";
+    public override string Title => "Background Color";
+
+    public override MultilineText Description => new[]
+    {
+        "The parent StackPanel has BackgroundColor set to Magenta.",
+        "A Padding and a Margin of 1 was added to easier see the colors."
+    };
 
     protected override void DoExecute()
     {
@@ -35,8 +41,7 @@ internal class TwoChildrenAlignLeft : DemoBase
                     BackgroundColor = ConsoleColor.Blue,
                     ForegroundColor = ConsoleColor.DarkBlue,
                     Padding = 1,
-                    Margin = 1,
-                    HorizontalAlignment = HorizontalAlignment.Left
+                    Margin = 1
                 },
                 new TextBlock("This is a different text")
                 {
@@ -45,7 +50,10 @@ internal class TwoChildrenAlignLeft : DemoBase
                     Padding = 1,
                     Margin = 1
                 }
-            }
+            },
+            BackgroundColor = ConsoleColor.DarkMagenta,
+            Padding = 1,
+            Margin = 1
         };
 
         stackPanel.Display();

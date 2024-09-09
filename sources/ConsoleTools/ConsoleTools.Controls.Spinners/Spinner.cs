@@ -40,14 +40,14 @@ namespace DustInTheWind.ConsoleTools.Controls.Spinners;
 /// </para>
 /// It does not support changing colors while spinning.
 /// </remarks>
-public class Spinner : LongRunningControl, IDisposable
+public class Spinner : DynamicControl, IDisposable
 {
     private readonly ISpinnerTemplate template;
     private string templateText;
     private bool isDisposed;
     private readonly Timer timer;
 
-    private InlineTextBlock label = new(SpinnerResources.DefaultLabelText)
+    private InlineText label = new(SpinnerResources.DefaultLabelText)
     {
         MarginRight = 1
     };
@@ -56,7 +56,7 @@ public class Spinner : LongRunningControl, IDisposable
     /// Gets or sets the label displayed in front of the spinner.
     /// Default value: "Please wait"
     /// </summary>
-    public InlineTextBlock Label
+    public InlineText Label
     {
         get => label;
         set
@@ -75,7 +75,7 @@ public class Spinner : LongRunningControl, IDisposable
     /// <summary>
     /// Gets or sets a text to be displayed instead of the spinner after the control is closed.
     /// </summary>
-    public InlineTextBlock DoneText { get; set; }
+    public InlineText DoneText { get; set; }
 
     /// <summary>
     /// Gets or sets the time interval of the frames in milliseconds.
@@ -140,7 +140,7 @@ public class Spinner : LongRunningControl, IDisposable
     }
 
     /// <summary>
-    /// Displays the spinner and runs it until the <see cref="LongRunningControl.Close"/> method is called.
+    /// Displays the spinner and runs it until the <see cref="DynamicControl.Close"/> method is called.
     /// </summary>
     protected override void DoDisplayContent()
     {
@@ -266,12 +266,12 @@ public class Spinner : LongRunningControl, IDisposable
             {
                 action();
 
-                spinner.DoneText = new InlineTextBlock(SpinnerResources.DoneText, CustomConsole.SuccessColor);
+                spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
                 spinner.Close();
             }
             catch
             {
-                spinner.DoneText = new InlineTextBlock(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
+                spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
                 spinner.Close();
                 throw;
             }
@@ -303,25 +303,24 @@ public class Spinner : LongRunningControl, IDisposable
 
     private static T RunInternal<T>(ISpinnerTemplate template, Func<T> action)
     {
-        using (Spinner spinner = new(template))
+        using Spinner spinner = new(template);
+
+        spinner.Display();
+
+        try
         {
-            spinner.Display();
+            T result = action();
 
-            try
-            {
-                T result = action();
+            spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
+            spinner.Close();
 
-                spinner.DoneText = new InlineTextBlock(SpinnerResources.DoneText, CustomConsole.SuccessColor);
-                spinner.Close();
-
-                return result;
-            }
-            catch
-            {
-                spinner.DoneText = new InlineTextBlock(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
-                spinner.Close();
-                throw;
-            }
+            return result;
+        }
+        catch
+        {
+            spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
+            spinner.Close();
+            throw;
         }
     }
 }

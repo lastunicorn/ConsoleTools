@@ -60,7 +60,7 @@ public class TextMenu : ErasableControl
     /// <summary>
     /// Gets or sets the text displayed after the menu to ask the user to choose an item.
     /// </summary>
-    public InlineTextBlock QuestionText { get; set; } = new()
+    public InlineText QuestionText { get; set; } = new()
     {
         Text = TextMenuResources.QuestionText,
         TextFormat = "{0}:",

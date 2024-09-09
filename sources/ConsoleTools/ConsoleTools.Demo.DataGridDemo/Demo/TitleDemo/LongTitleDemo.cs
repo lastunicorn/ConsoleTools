@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Tables;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
@@ -23,15 +24,17 @@ internal class LongTitleDemo : DemoBase
 {
     public override string Title => "Long title";
 
+    public override MultilineText Description => "Title is longer than the natural width of the DataGrid.";
+
     protected override void DoExecute()
     {
-        DataGrid dataGrid = new("Long title - longer than the content of the table");
+        DataGrid dataGrid = new("This title is longer than the natural width of the DataGrid");
 
-        dataGrid.Rows.Add("First item", 1.ToString());
-        dataGrid.Rows.Add("Second item", 2.ToString());
-        dataGrid.Rows.Add("Third item", 3.ToString());
-        dataGrid.Rows.Add("Forth item", 4.ToString());
-        dataGrid.Rows.Add("Fifth item", 5.ToString());
+        dataGrid.Rows.Add(1.ToString(), "First item");
+        dataGrid.Rows.Add(2.ToString(), "Second item");
+        dataGrid.Rows.Add(3.ToString(), "Third item");
+        dataGrid.Rows.Add(4.ToString(), "Forth item");
+        dataGrid.Rows.Add(5.ToString(), "Fifth item");
 
         dataGrid.Display();
     }

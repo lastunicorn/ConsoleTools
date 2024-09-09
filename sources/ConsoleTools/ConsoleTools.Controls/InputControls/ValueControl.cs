@@ -38,7 +38,7 @@ public class ValueControl<T> : BlockControl
     /// <summary>
     /// Gets or sets the label text to be displayed before the content.
     /// </summary>
-    public InlineTextBlock Label { get; set; } = new()
+    public InlineText Label { get; set; } = new()
     {
         ForegroundColor = CustomConsole.EmphasizedColor,
         MarginRight = 1

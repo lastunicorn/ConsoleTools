@@ -14,24 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemo;
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
-using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
-using DustInTheWind.ConsoleTools.Demo.Utils;
+using System;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
+namespace DustInTheWind.ConsoleTools.Controls;
 
-public class DemoPackage : DemoPackageBase
+internal class InlineTextRenderer : IRenderer
 {
-    public override string Title => "Border Demo";
+    public bool HasMoreLines { get; }
 
-    public DemoPackage()
+    public InlineTextRenderer(InlineText inlineText, IDisplay display, RenderingOptions renderingOptions)
     {
-        Demos.AddRange(new IDemo[]
-        {
-            new TemplateDemoPackage(),
-            new MarginsAndPaddingsDemoPackage(),
-            new WidthsDemoPackage()
-        });
+    }
+
+    public void RenderNextLine()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Reset()
+    {
+        throw new NotImplementedException();
     }
 }

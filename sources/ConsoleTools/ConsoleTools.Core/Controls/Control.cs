@@ -42,6 +42,12 @@ public abstract class Control : IRenderable
     public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
+    /// Gets or sets a value that specifies if the control is rendered when rendering methods are
+    /// called: <see cref="Display"/>, <see cref="Render"/>, <see cref="ToString"/>.
+    /// </summary>
+    public bool IsVisible { get; set; } = true;
+
+    /// <summary>
     /// Event raised at the beginning of the rendering process.
     /// </summary>
     public virtual event EventHandler<BeforeRenderEventArgs> BeforeRender;
@@ -57,6 +63,9 @@ public abstract class Control : IRenderable
     /// </summary>
     public void Display()
     {
+        if (!IsVisible)
+            return;
+
         ConsoleDisplay consoleDisplay = new();
         DoRender(consoleDisplay);
         consoleDisplay.Flush();
@@ -72,6 +81,9 @@ public abstract class Control : IRenderable
     {
         if (display == null) throw new ArgumentNullException(nameof(display));
 
+        if (!IsVisible)
+            return;
+
         DoRender(display, renderingOptions);
     }
 
@@ -81,6 +93,9 @@ public abstract class Control : IRenderable
     /// <returns>The string representation of the current instance.</returns>
     public override string ToString()
     {
+        if (!IsVisible)
+            return string.Empty;
+
         StringDisplay stringDisplay = new();
         DoRender(stringDisplay);
         stringDisplay.Flush();

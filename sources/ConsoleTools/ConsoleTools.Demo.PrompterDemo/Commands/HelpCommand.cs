@@ -17,33 +17,32 @@
 using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
+
+internal class HelpCommand : IPrompterCommand
 {
-    internal class HelpCommand : IPrompterCommand
+    public bool IsActive { get; } = true;
+
+    public void Execute(CliCommand cliCommand)
     {
-        public bool IsActive { get; } = true;
+        DisplayHelp();
+    }
 
-        public void Execute(CliCommand cliCommand)
-        {
-            DisplayHelp();
-        }
+    private static void DisplayHelp()
+    {
+        CustomConsole.WriteLineEmphasized("Valid commands:");
+        CustomConsole.WriteLine();
 
-        private static void DisplayHelp()
-        {
-            CustomConsole.WriteLineEmphasized("Valid commands:");
-            CustomConsole.WriteLine();
+        CustomConsole.WriteEmphasized("  - whale, whales   ");
+        CustomConsole.WriteLine("- Displays a table with whales.");
 
-            CustomConsole.WriteEmphasized("  - whale, whales   ");
-            CustomConsole.WriteLine("- Displays a table with whales.");
+        CustomConsole.WriteEmphasized("  - prompter        ");
+        CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
 
-            CustomConsole.WriteEmphasized("  - prompter        ");
-            CustomConsole.WriteLine("- Asks the user to provide a new prompter text.");
+        CustomConsole.WriteEmphasized("  - help            ");
+        CustomConsole.WriteLine("- Displays this help page");
 
-            CustomConsole.WriteEmphasized("  - help            ");
-            CustomConsole.WriteLine("- Displays this help page");
-
-            CustomConsole.WriteEmphasized("  - quit, q, exit   ");
-            CustomConsole.WriteLine("- Exits the application.");
-        }
+        CustomConsole.WriteEmphasized("  - quit, q, exit   ");
+        CustomConsole.WriteLine("- Exits the application.");
     }
 }

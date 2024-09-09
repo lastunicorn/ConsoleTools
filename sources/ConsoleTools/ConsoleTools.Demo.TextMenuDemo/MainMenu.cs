@@ -19,87 +19,83 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo;
+
+/// <summary>
+/// The main menu of the application.
+/// </summary>
+/// 
+/// <remarks>
+/// 
+/// <para>
+/// The <see cref="TextMenu"/> can be instantiated configured directly in the <see cref="Program"/> class.
+/// There is no need to inherit from it.
+/// </para>
+/// 
+/// <para>
+/// Nevertheless, I suggest to encapsulate the configuration of the menu and the
+/// creation of the items inside a separate class as this one.
+/// They are verbose enough to deserve their own class.
+/// </para>
+/// 
+/// </remarks>
+internal class MainMenu : TextMenu
 {
-    /// <summary>
-    /// The main menu of the application.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// The <see cref="TextMenu"/> can be instantiated configured directly in the <see cref="Program"/> class.
-    /// There is no need to inherit from it.
-    /// </para>
-    /// <para>
-    /// Nevertheless, I suggest to encapsulate the configuration of the menu and the
-    /// creation of the items inside a separate class as this one.
-    /// They are verbose enough to deserve their own class.
-    /// </para>
-    /// </remarks>
-    internal class MainMenu : TextMenu
+    public MainMenu(GameApplication application)
     {
-        public MainMenu(GameApplication application)
+        if (application == null) throw new ArgumentNullException(nameof(application));
+
+        EraseAfterClose = true;
+        Margin = "0 1";
+
+        TitleText = "Demo Game";
+        TitleForegroundColor = ConsoleColor.Cyan;
+
+        IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
+        AddItems(menuItems);
+    }
+
+    private static IEnumerable<TextMenuItem> CreateMenuItems(GameApplication application)
+    {
+        return new[]
         {
-            if (application == null) throw new ArgumentNullException(nameof(application));
-
-            EraseAfterClose = true;
-            Margin = "0 1";
-
-            TitleText = "Demo Application";
-            TitleForegroundColor = ConsoleColor.Cyan;
-
-            IEnumerable<TextMenuItem> menuItems = CreateMenuItems(application);
-            AddItems(menuItems);
-        }
-
-        private static IEnumerable<TextMenuItem> CreateMenuItems(GameApplication application)
-        {
-            return new[]
+            new TextMenuItem
             {
-                new TextMenuItem
-                {
-                    Id = "1",
-                    Text = "New Game",
-                    Command = new NewGameCommand(application.GameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "2",
-                    Text = "Save Game",
-                    Command = new SaveGameCommand(application.GameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "3",
-                    Text = "Load Game",
-                    Command = new LoadGameCommand(application.GameBoard)
-                },
-                new TextMenuItem
-                {
-                    Id = "4",
-                    Text = "Close Game",
-                    Command = new CloseGameCommand(application.GameBoard)
-                },
+                Id = "1",
+                Text = "New Game",
+                Command = new NewGameCommand(application.GameBoard)
+            },
+            new TextMenuItem
+            {
+                Id = "2",
+                Text = "Save Game",
+                Command = new SaveGameCommand(application.GameBoard)
+            },
+            new TextMenuItem
+            {
+                Id = "3",
+                Text = "Load Game",
+                Command = new LoadGameCommand(application.GameBoard)
+            },
+            new TextMenuItem
+            {
+                Id = "4",
+                Text = "Close Game",
+                Command = new CloseGameCommand(application.GameBoard)
+            },
+            new TextMenuItem
+            {
+                Id = "5",
+                Text = "Credits",
+                Command = new CreditsCommand()
+            },
 
-                new TextMenuItem
-                {
-                    Id = "5",
-                    Text = "Settings",
-                    Command = new SettingsCommand()
-                },
-                new TextMenuItem
-                {
-                    Id = "6",
-                    Text = "Credits",
-                    Command = new CreditsCommand()
-                },
-
-                new TextMenuItem
-                {
-                    Id = "0",
-                    Text = "Exit",
-                    Command = new ExitCommand(application)
-                }
-            };
-        }
+            new TextMenuItem
+            {
+                Id = "0",
+                Text = "Exit",
+                Command = new ExitCommand(application)
+            }
+        };
     }
 }

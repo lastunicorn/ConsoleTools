@@ -16,7 +16,7 @@
 
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.Utils;
 
 public interface IDemo
 {

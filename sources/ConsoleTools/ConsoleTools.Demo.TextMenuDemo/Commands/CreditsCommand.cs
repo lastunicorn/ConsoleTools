@@ -16,15 +16,15 @@
 
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands
-{
-    internal class CreditsCommand : ICommand
-    {
-        public bool IsActive => true;
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands;
 
-        public void Execute()
-        {
-            CustomConsole.WriteLineSuccess("Display Credits");
-        }
+internal class CreditsCommand : ICommand
+{
+    public bool IsActive => true;
+
+    public void Execute()
+    {
+        CustomConsole.WriteLineSuccess("This game was created by Dust in the Wind.");
+        CustomConsole.WriteLineSuccess("Thank you for playing.");
     }
 }

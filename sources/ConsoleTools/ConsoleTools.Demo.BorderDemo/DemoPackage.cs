@@ -17,7 +17,7 @@
 using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
 using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
 using DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
-using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.BorderDemo;
 

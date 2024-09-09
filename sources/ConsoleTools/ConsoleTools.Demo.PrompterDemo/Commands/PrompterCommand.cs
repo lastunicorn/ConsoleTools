@@ -19,31 +19,30 @@ using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
+
+internal class PrompterCommand : IPrompterCommand
 {
-    internal class PrompterCommand : IPrompterCommand
+    private readonly Prompter prompter;
+
+    public bool IsActive { get; } = true;
+
+    public PrompterCommand(Prompter prompter)
     {
-        private readonly Prompter prompter;
+        this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
+    }
 
-        public bool IsActive { get; } = true;
+    public void Execute(CliCommand cliCommand)
+    {
+        if (cliCommand.Parameters.Count > 0)
+            prompter.Text = cliCommand.Parameters[0].Value;
+        else
+            ChangePrompter();
+    }
 
-        public PrompterCommand(Prompter prompter)
-        {
-            this.prompter = prompter ?? throw new ArgumentNullException(nameof(prompter));
-        }
-
-        public void Execute(CliCommand cliCommand)
-        {
-            if (cliCommand.Parameters.Count > 0)
-                prompter.Text = cliCommand.Parameters[0].Value;
-            else
-                ChangePrompter();
-        }
-
-        private void ChangePrompter()
-        {
-            ValueControl<string> valueControl = new ValueControl<string>("New Prompter Text:");
-            prompter.Text = valueControl.Read();
-        }
+    private void ChangePrompter()
+    {
+        ValueControl<string> valueControl = new("New Prompter Text:");
+        prompter.Text = valueControl.Read();
     }
 }

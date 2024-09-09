@@ -16,51 +16,50 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Ocean
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Ocean;
+
+internal class WhaleProvider
 {
-    internal class WhaleProvider
+    public IEnumerable<Whale> CreateWhales()
     {
-        public IEnumerable<Whale> CreateWhales()
+        return new List<Whale>
         {
-            return new List<Whale>
+            new()
             {
-                new Whale
-                {
-                    Name = "Blue whale",
-                    Count = "10,000-25,000",
-                    Weight = "50-150 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Humpback whale",
-                    Count = "80,000",
-                    Weight = "25–30 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Killer whale",
-                    Count = "100,000",
-                    Weight = "4.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Beluga",
-                    Count = "100,000",
-                    Weight = "1.5 tonnes"
-                },
-                new Whale
-                {
-                    Name = "Narwhal",
-                    Count = "25,000",
-                    Weight = "900-1,500 kilograms"
-                },
-                new Whale
-                {
-                    Name = "Sperm whale",
-                    Count = "200,000–2,000,000",
-                    Weight = "25–50 tonnes"
-                }
-            };
-        }
+                Name = "Blue whale",
+                Count = "10,000-25,000",
+                Weight = "50-150 tonnes"
+            },
+            new()
+            {
+                Name = "Humpback whale",
+                Count = "80,000",
+                Weight = "25–30 tonnes"
+            },
+            new()
+            {
+                Name = "Killer whale",
+                Count = "100,000",
+                Weight = "4.5 tonnes"
+            },
+            new()
+            {
+                Name = "Beluga",
+                Count = "100,000",
+                Weight = "1.5 tonnes"
+            },
+            new()
+            {
+                Name = "Narwhal",
+                Count = "25,000",
+                Weight = "900-1,500 kilograms"
+            },
+            new()
+            {
+                Name = "Sperm whale",
+                Count = "200,000–2,000,000",
+                Weight = "25–50 tonnes"
+            }
+        };
     }
 }

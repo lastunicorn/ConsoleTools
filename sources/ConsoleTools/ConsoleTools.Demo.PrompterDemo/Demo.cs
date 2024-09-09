@@ -15,43 +15,33 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo;
 
-internal class Program
+public class Demo : DemoBase
 {
     private static ControlRepeater prompterRepeater;
 
-    private static void Main()
+    public override string Title => "Prompter";
+
+    public override MultilineText Description => new[]
     {
-        DisplayApplicationHeader();
-        StartDemo();
-        DisplayGoodby();
-    }
+        "Let's simulate that we have a CLI application.",
+        "Type 'help' for a list of available commands."
+    };
 
-    private static void DisplayApplicationHeader()
+    protected override void DoExecute()
     {
-        ApplicationHeader applicationHeader = new()
-        {
-            Title = "Console Tools - Prompter Demo"
-        };
-
-        applicationHeader.Display();
-
-        CustomConsole.WriteEmphasized("Note: ");
-        CustomConsole.WriteLine("type 'help' for a list of commands.");
-        CustomConsole.WriteLine();
-    }
-
-    private static void StartDemo()
-    {
-        prompterRepeater = new ControlRepeater
+        prompterRepeater = new()
         {
             Content = new OceanPrompter(),
             RepeatCount = -1
         };
 
         prompterRepeater.Display();
+
+        DisplayGoodby();
     }
 
     private static void DisplayGoodby()
@@ -62,6 +52,7 @@ internal class Program
             ForegroundColor = CustomConsole.EmphasizedColor,
             Margin = "0 1 0 0"
         };
+
         goodbyText.Display();
     }
 

@@ -18,41 +18,34 @@ using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.Utils;
 
-public class MainMenu : TextMenu
+public class PackageMenu : TextMenu
 {
-    private bool isMain = true;
-
     private TextMenuItem exitMenuItem;
 
-    public bool IsMain
+    public PackageMenu(DemoPackageBase demoPackage)
     {
-        get => isMain;
-        set
-        {
-            isMain = value;
+        TitleForegroundColor = ConsoleColor.Magenta;
+        Margin = "0 0 0 1";
 
-            if (isMain)
-            {
-                TitleText = null;
-                exitMenuItem.Text = "Exit";
-            }
-            else
-            {
-                TitleText = "Sub-Menu";
-                exitMenuItem.Text = "Back";
-            }
-        }
+        CreateItems(demoPackage.Demos);
+        CreateExitItem();
+        
+        TitleText = demoPackage.Title;
+        exitMenuItem.Text = "Back";
     }
 
-    public MainMenu(IEnumerable<IDemo> demos)
+    public PackageMenu(IEnumerable<IDemo> demos)
     {
         TitleForegroundColor = ConsoleColor.Magenta;
         Margin = "0 0 0 1";
 
         CreateItems(demos);
         CreateExitItem();
+
+        TitleText = null;
+        exitMenuItem.Text = "Exit";
     }
 
     private void CreateItems(IEnumerable<IDemo> demos)
@@ -61,21 +54,27 @@ public class MainMenu : TextMenu
 
         foreach (IDemo demo in demos)
         {
-            string title = demo.Title;
-
-            bool demoWillDisplayMenu = demo is DemoPackageBase demoPackageBase && (demoPackageBase.HasSubPackages || demoPackageBase.ForceDisplayMenu);
-            if (demoWillDisplayMenu)
-                title += " [->]";
-
-            AddItem(new TextMenuItem
-            {
-                Id = (i + 1).ToString(),
-                Text = title,
-                Command = new DemoCommand(demo)
-            });
+            TextMenuItem textMenuItem = CreateMenuItem(demo, i);
+            AddItem(textMenuItem);
 
             i++;
         }
+    }
+
+    private static TextMenuItem CreateMenuItem(IDemo demo, int i)
+    {
+        string title = demo.Title;
+
+        bool itemDisplaysMenu = demo is DemoPackageBase demoPackageBase && (demoPackageBase.HasSubPackages || demoPackageBase.ForceDisplayMenu);
+        if (itemDisplaysMenu)
+            title += " [->]";
+
+        return new TextMenuItem
+        {
+            Id = (i + 1).ToString(),
+            Text = title,
+            Command = new DemoCommand(demo)
+        };
     }
 
     private void CreateExitItem()

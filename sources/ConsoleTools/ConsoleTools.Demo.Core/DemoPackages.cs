@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.Utils;
 
 public class DemoPackages : IEnumerable<IDemo>
 {
@@ -33,8 +33,7 @@ public class DemoPackages : IEnumerable<IDemo>
             .Where(x => x.IsClass && !x.IsAbstract && x.IsPublic)
             .Where(x => typeof(IDemo).IsAssignableFrom(x))
             .Select(Activator.CreateInstance)
-            .Cast<IDemo>()
-            .ToList();
+            .Cast<IDemo>();
 
         demoPackages.AddRange(newDemoPackages);
     }

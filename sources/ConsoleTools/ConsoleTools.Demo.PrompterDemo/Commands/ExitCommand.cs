@@ -18,29 +18,28 @@ using DustInTheWind.ConsoleTools.CommandLine;
 using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
+
+internal class ExitCommand : IPrompterCommand
 {
-    internal class ExitCommand : IPrompterCommand
+    public bool IsActive { get; } = true;
+
+    public void Execute(CliCommand cliCommand)
     {
-        public bool IsActive { get; } = true;
-
-        public void Execute(CliCommand cliCommand)
+        YesNoQuestion yesNoQuestion = new("Are you sure?")
         {
-            YesNoQuestion yesNoQuestion = new YesNoQuestion("Are you sure?")
-            {
-                DefaultAnswer = YesNoAnswer.Yes
-            };
+            DefaultAnswer = YesNoAnswer.Yes
+        };
 
-            YesNoAnswer answer = yesNoQuestion.ReadAnswer();
+        YesNoAnswer answer = yesNoQuestion.ReadAnswer();
 
-            if (answer == YesNoAnswer.Yes)
-            {
-                Program.RequestClose();
-            }
-            else
-            {
-                CustomConsole.WriteLine();
-            }
+        if (answer == YesNoAnswer.Yes)
+        {
+            Demo.RequestClose();
+        }
+        else
+        {
+            CustomConsole.WriteLine();
         }
     }
 }

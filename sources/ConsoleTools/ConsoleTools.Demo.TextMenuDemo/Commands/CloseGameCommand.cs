@@ -17,22 +17,21 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo.Commands;
+
+internal class CloseGameCommand : ICommand
 {
-    internal class CloseGameCommand : ICommand
+    private readonly GameBoard gameBoard;
+
+    public bool IsActive => gameBoard.IsGameStarted;
+
+    public CloseGameCommand(GameBoard gameBoard)
     {
-        private readonly GameBoard gameBoard;
+        this.gameBoard = gameBoard ?? throw new ArgumentNullException(nameof(gameBoard));
+    }
 
-        public bool IsActive => gameBoard.IsGameStarted;
-
-        public CloseGameCommand(GameBoard gameBoard)
-        {
-            this.gameBoard = gameBoard ?? throw new ArgumentNullException(nameof(gameBoard));
-        }
-
-        public void Execute()
-        {
-            gameBoard.StopGame();
-        }
+    public void Execute()
+    {
+        gameBoard.StopGame();
     }
 }

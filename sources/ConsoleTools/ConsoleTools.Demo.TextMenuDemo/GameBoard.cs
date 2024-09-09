@@ -14,47 +14,46 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo;
+
+/// <summary>
+/// This class is representative for all the business classes that can exists in a real application.
+/// It emulates a game that can be started, stopped
+/// </summary>
+internal class GameBoard
 {
-    /// <summary>
-    /// This class is representative for all the business classes that can exists in a real application.
-    /// It emulates a game that can be started, stopped
-    /// </summary>
-    internal class GameBoard
+    public bool IsGameStarted { get; private set; }
+
+    public void StartGame()
     {
-        public bool IsGameStarted { get; private set; }
+        IsGameStarted = true;
+        CustomConsole.WriteLineSuccess("New game started.");
+    }
 
-        public void StartGame()
+    public void StopGame()
+    {
+        if (IsGameStarted)
         {
-            IsGameStarted = true;
-            CustomConsole.WriteLineSuccess("New game started.");
+            IsGameStarted = false;
+            CustomConsole.WriteLineSuccess("Current game stoped.");
         }
+        else
+        {
+            CustomConsole.WriteLine("Current game is already stoped.");
+        }
+    }
 
-        public void StopGame()
-        {
-            if (IsGameStarted)
-            {
-                IsGameStarted = false;
-                CustomConsole.WriteLineSuccess("Current game stoped.");
-            }
-            else
-            {
-                CustomConsole.WriteLine("Current game is already stoped.");
-            }
-        }
+    public void LoadGame()
+    {
+        IsGameStarted = true;
+        CustomConsole.WriteLineSuccess("Game loaded successfully.");
+    }
 
-        public void LoadGame()
-        {
-            IsGameStarted = true;
-            CustomConsole.WriteLineSuccess("Game loaded successfully.");
-        }
-
-        public void Save()
-        {
-            if (IsGameStarted)
-                CustomConsole.WriteLineSuccess("Game saved successfully");
-            else
-                CustomConsole.WriteLineWarning("No game is running.");
-        }
+    public void Save()
+    {
+        if (IsGameStarted)
+            CustomConsole.WriteLineSuccess("Game saved successfully");
+        else
+            CustomConsole.WriteLineWarning("No game is running.");
     }
 }

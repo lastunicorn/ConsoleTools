@@ -1,5 +1,5 @@
 ﻿using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
 

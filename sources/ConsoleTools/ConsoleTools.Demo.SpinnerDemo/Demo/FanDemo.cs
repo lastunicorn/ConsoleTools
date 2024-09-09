@@ -16,7 +16,7 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
-using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Demo;
 

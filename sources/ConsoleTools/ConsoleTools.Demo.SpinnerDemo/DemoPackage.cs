@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls;
-using DustInTheWind.ConsoleTools.Demo.Core;
 using DustInTheWind.ConsoleTools.Demo.SpinnerDemo.Demo;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo;
 
@@ -24,7 +24,7 @@ public class DemoPackage : DemoPackageBase
 {
     public override string Title => "Spinner";
 
-    public override MultilineText Description => "Simulate some work and display the spinner until work is finish.";
+    public override MultilineText Description => "Let's simulate doing some work and display a spinner meanwhile.";
 
     public DemoPackage()
     {

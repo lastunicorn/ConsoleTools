@@ -14,13 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Demo.Core;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.MarginsAndPaddingsDemoPackage;
 
 internal class MarginsAndPaddingsDemoPackage : DemoPackageBase
 {
-    public override string Title => "Margins and Package";
+    public override string Title => "Margins and Paddings";
 
     public MarginsAndPaddingsDemoPackage()
     {

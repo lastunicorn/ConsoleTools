@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.Utils;
 
 public abstract class DemoPackageBase : IDemo
 {
@@ -27,7 +27,7 @@ public abstract class DemoPackageBase : IDemo
 
     public virtual MultilineText Description => null;
 
-    protected List<IDemo> Demos { get; } = new();
+    public List<IDemo> Demos { get; } = new();
 
     public bool HasSubPackages => Demos.Any(x => x is DemoPackageBase);
 
@@ -36,19 +36,35 @@ public abstract class DemoPackageBase : IDemo
     public void Execute()
     {
         if (HasSubPackages || ForceDisplayMenu)
-            DisplayMenuWithDemos();
+            DisplayMenu();
         else
             RunAllDemos();
     }
 
-    private void DisplayMenuWithDemos()
+    private void DisplayMenu()
     {
+        //ControlRepeater controlRepeater = new()
+        //{
+        //    Content = new StackPanel
+        //    {
+        //        Children =
+        //        {
+        //            new TextBlock(Description)
+        //            {
+        //                IsVisible = !string.IsNullOrEmpty(Description),
+        //                Margin = (0, 1),
+        //                ForegroundColor = ConsoleColor.DarkGray
+        //            },
+        //            new PackageMenu(this)
+        //        }
+        //    },
+        //    RepeatCount = -1,
+        //    Margin = (0, 2, 0, 0)
+        //};
+
         ControlRepeater controlRepeater = new()
         {
-            Content = new MainMenu(Demos)
-            {
-                IsMain = false
-            },
+            Content = new PackageMenu(this),
             RepeatCount = -1,
             Margin = (0, 2, 0, 0)
         };

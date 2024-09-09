@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.Core;
+namespace DustInTheWind.ConsoleTools.Demo.Utils;
 
 public class DemoApplication
 {
@@ -96,7 +96,7 @@ public class DemoApplication
                     {
                         Title = "Console Tools Demo"
                     },
-                    new MainMenu(demoPackages)
+                    new PackageMenu(demoPackages)
                 }
             },
             RepeatCount = -1

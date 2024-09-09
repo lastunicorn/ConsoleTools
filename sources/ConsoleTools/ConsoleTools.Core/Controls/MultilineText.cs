@@ -321,7 +321,7 @@ public class MultilineText : IEnumerable<string>
     /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
     public static implicit operator string(MultilineText multilineText)
     {
-        return multilineText.ToString();
+        return multilineText?.ToString();
     }
 
     /// <summary>

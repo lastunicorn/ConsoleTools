@@ -90,6 +90,9 @@ public class TextBlock : BlockControl
     /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
+        if (!IsVisible)
+            return new EmptyRenderer();
+
         return new TextBlockRenderer(this, display, renderingOptions);
     }
 

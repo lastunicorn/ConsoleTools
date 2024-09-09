@@ -17,47 +17,46 @@
 using System;
 using System.ComponentModel;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo;
+
+internal class ApplicationBase
 {
-    internal class ApplicationBase
+    public bool IsExitRequested { get; private set; }
+
+    public event EventHandler<CancelEventArgs> Exiting;
+
+    public event EventHandler ExitCanceled;
+
+    public event EventHandler Exited;
+
+    public void RequestExit()
     {
-        public bool IsExitRequested { get; private set; }
+        CancelEventArgs e = new();
+        OnExiting(e);
 
-        public event EventHandler<CancelEventArgs> Exiting;
-
-        public event EventHandler ExitCanceled;
-
-        public event EventHandler Exited;
-
-        public void RequestExit()
+        if (e.Cancel)
         {
-            CancelEventArgs e = new CancelEventArgs();
-            OnExiting(e);
-
-            if (e.Cancel)
-            {
-                OnExitCanceled();
-                return;
-            }
-
-            IsExitRequested = true;
-
-            OnExited();
+            OnExitCanceled();
+            return;
         }
 
-        protected virtual void OnExiting(CancelEventArgs e)
-        {
-            Exiting?.Invoke(this, e);
-        }
+        IsExitRequested = true;
 
-        protected virtual void OnExitCanceled()
-        {
-            ExitCanceled?.Invoke(this, EventArgs.Empty);
-        }
+        OnExited();
+    }
 
-        protected virtual void OnExited()
-        {
-            Exited?.Invoke(this, EventArgs.Empty);
-        }
+    protected virtual void OnExiting(CancelEventArgs e)
+    {
+        Exiting?.Invoke(this, e);
+    }
+
+    protected virtual void OnExitCanceled()
+    {
+        ExitCanceled?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnExited()
+    {
+        Exited?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -36,6 +36,5 @@ internal class ColorsDemoPackage : DemoPackageBase
             new BackgroundColoredTableDemo(),
             new BackgroundColoredTableDemo2()
         });
-
     }
 }

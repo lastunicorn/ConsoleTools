@@ -17,77 +17,76 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo
+namespace DustInTheWind.ConsoleTools.Demo.TextMenuDemo;
+
+internal static class Program
 {
-    internal static class Program
+    private static GameApplication gameApplication;
+    private static ControlRepeater mainMenuRepeater;
+
+    private static void Main()
     {
-        private static GameApplication gameApplication;
-        private static ControlRepeater mainMenuRepeater;
-
-        private static void Main()
+        try
         {
-            try
+            DisplayApplicationHeader();
+
+            Console.CancelKeyPress += HandleCancelKeyPress;
+
+            gameApplication = new GameApplication();
+
+            mainMenuRepeater = new ControlRepeater
             {
-                DisplayApplicationHeader();
-
-                Console.CancelKeyPress += HandleCancelKeyPress;
-
-                gameApplication = new GameApplication();
-
-                mainMenuRepeater = new ControlRepeater
-                {
-                    Content = new MainMenu(gameApplication),
-                    RepeatCount = -1
-                };
-
-                gameApplication.Exited += HandleGameApplicationExited;
-
-                mainMenuRepeater.Display();
-
-                DisplayGoodby();
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteError(ex);
-            }
-            finally
-            {
-                Pause.QuickDisplay();
-            }
-        }
-
-        private static void HandleGameApplicationExited(object sender, EventArgs e)
-        {
-            mainMenuRepeater?.RequestClose();
-            gameApplication.Exited -= HandleGameApplicationExited;
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TextMenu");
-            CustomConsole.WriteLineEmphasized("===============================================================================");
-            CustomConsole.WriteLine();
-            CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
-            CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
-            CustomConsole.WriteLine("Press Enter key to select an item.");
-            CustomConsole.WriteLine();
-        }
-
-        private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
-        {
-            e.Cancel = true;
-            gameApplication.RequestExit();
-        }
-
-        private static void DisplayGoodby()
-        {
-            TextBlock goodbyText = new TextBlock
-            {
-                Text = "Bye!",
-                ForegroundColor = CustomConsole.EmphasizedColor,
-                Margin = "0 1 0 0"
+                Content = new MainMenu(gameApplication),
+                RepeatCount = -1
             };
-            goodbyText.Display();
+
+            gameApplication.Exited += HandleGameApplicationExited;
+
+            mainMenuRepeater.Display();
+
+            DisplayGoodby();
         }
+        catch (Exception ex)
+        {
+            CustomConsole.WriteError(ex);
+        }
+        finally
+        {
+            Pause.QuickDisplay();
+        }
+    }
+
+    private static void HandleGameApplicationExited(object sender, EventArgs e)
+    {
+        mainMenuRepeater?.RequestClose();
+        gameApplication.Exited -= HandleGameApplicationExited;
+    }
+
+    private static void DisplayApplicationHeader()
+    {
+        CustomConsole.WriteLineEmphasized("ConsoleTools Demo - TextMenu");
+        CustomConsole.WriteLineEmphasized("===============================================================================");
+        CustomConsole.WriteLine();
+        CustomConsole.WriteLine("This demo shows how the TextMenu can be used.");
+        CustomConsole.WriteLine("Press the up/down arrow keys to navigate through the menu.");
+        CustomConsole.WriteLine("Press Enter key to select an item.");
+        CustomConsole.WriteLine();
+    }
+
+    private static void HandleCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+    {
+        e.Cancel = true;
+        gameApplication.RequestExit();
+    }
+
+    private static void DisplayGoodby()
+    {
+        TextBlock goodbyText = new()
+        {
+            Text = "Bye!",
+            ForegroundColor = CustomConsole.EmphasizedColor,
+            Margin = "0 1 0 0"
+        };
+        goodbyText.Display();
     }
 }

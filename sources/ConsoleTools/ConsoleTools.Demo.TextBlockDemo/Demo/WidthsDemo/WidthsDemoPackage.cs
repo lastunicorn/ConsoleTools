@@ -28,7 +28,7 @@ internal class WidthsDemoPackage : DemoPackageBase
         {
             new MinWidthDemo(),
             new MaxWidthDemo(),
-            new WidthDemo(),
+            new WidthDemo()
         });
     }
 }

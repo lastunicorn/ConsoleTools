@@ -18,56 +18,55 @@ using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Menus;
 using DustInTheWind.ConsoleTools.Demo.PrompterDemo.Commands;
 
-namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo
-{
-    internal class OceanPrompter : Prompter
-    {
-        public OceanPrompter()
-        {
-            IEnumerable<PrompterItem> items = CreatePrompterItems();
-            AddItems(items);
-        }
+namespace DustInTheWind.ConsoleTools.Demo.PrompterDemo;
 
-        private IEnumerable<PrompterItem> CreatePrompterItems()
+internal class OceanPrompter : Prompter
+{
+    public OceanPrompter()
+    {
+        IEnumerable<PrompterItem> items = CreatePrompterItems();
+        AddItems(items);
+    }
+
+    private IEnumerable<PrompterItem> CreatePrompterItems()
+    {
+        return new[]
         {
-            return new[]
+            new PrompterItem
             {
-                new PrompterItem
-                {
-                    Name = "q",
-                    Command = new ExitCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "quit",
-                    Command = new ExitCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "exit",
-                    Command = new ExitCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "help",
-                    Command = new HelpCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "whale",
-                    Command = new WhaleCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "whales",
-                    Command = new WhaleCommand()
-                },
-                new PrompterItem
-                {
-                    Name = "prompter",
-                    Command = new PrompterCommand(this)
-                }
-            };
-        }
+                Name = "q",
+                Command = new ExitCommand()
+            },
+            new PrompterItem
+            {
+                Name = "quit",
+                Command = new ExitCommand()
+            },
+            new PrompterItem
+            {
+                Name = "exit",
+                Command = new ExitCommand()
+            },
+            new PrompterItem
+            {
+                Name = "help",
+                Command = new HelpCommand()
+            },
+            new PrompterItem
+            {
+                Name = "whale",
+                Command = new WhaleCommand()
+            },
+            new PrompterItem
+            {
+                Name = "whales",
+                Command = new WhaleCommand()
+            },
+            new PrompterItem
+            {
+                Name = "prompter",
+                Command = new PrompterCommand(this)
+            }
+        };
     }
 }

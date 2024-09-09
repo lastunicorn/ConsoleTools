@@ -46,7 +46,6 @@ public class DemoApplication
         //};
         //contentControl.Display();
 
-       
         //new ControlRepeater
         //    {
         //        Content = new StackPanel

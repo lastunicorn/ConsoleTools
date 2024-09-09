@@ -23,7 +23,7 @@ namespace DustInTheWind.ConsoleTools.Demo.PauseDemo.Demo.MiscellaneousDemo;
 internal class CustomUnlockKeyDemo : DemoBase
 {
     public override string Title => "Custom UnlockKey";
-    
+
     public override MultilineText Description => "The execution will not be allowed to continue unless the specific key is hit.";
 
     protected override void DoExecute()

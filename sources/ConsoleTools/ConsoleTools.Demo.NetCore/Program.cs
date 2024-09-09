@@ -20,7 +20,7 @@ using System.Linq;
 using System.Reflection;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.NetCore;
+namespace DustInTheWind.ConsoleTools.Demo;
 
 internal class Program
 {

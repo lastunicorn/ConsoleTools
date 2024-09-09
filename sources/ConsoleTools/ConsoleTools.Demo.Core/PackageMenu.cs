@@ -31,7 +31,7 @@ public class PackageMenu : TextMenu
 
         CreateItems(demoPackage.Demos);
         CreateExitItem();
-        
+
         TitleText = demoPackage.Title;
         exitMenuItem.Text = "Back";
     }

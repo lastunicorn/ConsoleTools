@@ -26,16 +26,16 @@ internal class ColorsDemo : DemoBase
     protected override void DoExecute()
     {
         CustomConsole.WriteLine("Normal: This is a normal line of text.");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLineEmphasized("Emphasized: But I can also write an emphasized text.");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLineSuccess("Success: And everything is ok if it finishes well :)");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLineWarning("Warning: But I have to warn you about the consequences of something not being done correctly.");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLineError("Error: If some error occurred and the application will crush with an exception, I will display it on the screen immediately.");
 

@@ -33,7 +33,7 @@ public class Demo : DemoBase
 
     protected override void DoExecute()
     {
-        prompterRepeater = new()
+        prompterRepeater = new ControlRepeater
         {
             Content = new OceanPrompter(),
             RepeatCount = -1

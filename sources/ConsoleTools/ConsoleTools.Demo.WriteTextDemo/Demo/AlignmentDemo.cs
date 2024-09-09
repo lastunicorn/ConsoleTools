@@ -27,11 +27,11 @@ internal class AlignmentDemo : DemoBase
     {
         CustomConsole.WriteLine(HorizontalAlignment.Left, "This is a text aligned to left.");
         CustomConsole.WriteLine(HorizontalAlignment.Left, "This is another text aligned to left.");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLine(HorizontalAlignment.Center, "This is a text aligned to center.");
         CustomConsole.WriteLine(HorizontalAlignment.Center, "This is another text aligned to center.");
-        
+
         CustomConsole.WriteLine();
         CustomConsole.WriteLine(HorizontalAlignment.Right, "This is a text aligned to right.");
         CustomConsole.WriteLine(HorizontalAlignment.Right, "This is another text aligned to right.");

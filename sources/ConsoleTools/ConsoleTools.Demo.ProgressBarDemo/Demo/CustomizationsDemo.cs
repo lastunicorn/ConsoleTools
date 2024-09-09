@@ -36,7 +36,7 @@ internal class CustomizationsDemo : DemoBase
 
     public CustomizationsDemo()
     {
-        progressBar = new ProgressBar()
+        progressBar = new ProgressBar
         {
             LabelText = "Customizations",
             BarEmptyChar = '-',

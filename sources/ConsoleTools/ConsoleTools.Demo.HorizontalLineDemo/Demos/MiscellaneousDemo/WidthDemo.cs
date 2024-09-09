@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 // ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
@@ -34,20 +33,19 @@
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo
+namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo;
+
+internal class WidthDemo : DemoBase
 {
-    internal class WidthDemo : DemoBase
+    public override string Title => "Custom Width (50)";
+
+    protected override void DoExecute()
     {
-        public override string Title => "Custom Width (50)";
-
-        protected override void DoExecute()
+        HorizontalLine horizontalLine = new()
         {
-            HorizontalLine horizontalLine = new HorizontalLine
-            {
-                Width = 50
-            };
+            Width = 50
+        };
 
-            horizontalLine.Display();
-        }
+        horizontalLine.Display();
     }
 }

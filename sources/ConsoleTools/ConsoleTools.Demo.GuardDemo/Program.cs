@@ -17,55 +17,54 @@
 using System;
 using DustInTheWind.ConsoleTools.Controls;
 
-namespace DustInTheWind.ConsoleTools.Demo.GuardDemo
+namespace DustInTheWind.ConsoleTools.Demo.GuardDemo;
+
+internal class Program
 {
-    internal class Program
+    private static MachineLevelGuardian guardian;
+
+    private static int Main()
     {
-        private static MachineLevelGuardian guardian;
+        DisplayApplicationHeader();
 
-        private static int Main()
+        try
         {
-            DisplayApplicationHeader();
+            // Ensure that the application is started only once on the current machine.
+            guardian = new MachineLevelGuardian("Alez");
 
-            try
-            {
-                // Ensure that the application is started only once on the current machine.
-                guardian = new MachineLevelGuardian("Alez");
-
-                CustomConsole.WriteLineSuccess("The application was successfully started.");
-                CustomConsole.WriteLine();
-                CustomConsole.WriteLine("But this application cannot be started twice.");
-                CustomConsole.WriteLine("Leave this instance running and try starting another one.");
-
-                Pause.QuickDisplay();
-            }
-            catch (ApplicationException)
-            {
-                CustomConsole.WriteLineError("Another instance of this application is already running.");
-                CustomConsole.WriteLineError("Current instance will shutdown.");
-                Pause.QuickDisplay();
-                return 2;
-            }
-            catch (Exception ex)
-            {
-                CustomConsole.WriteLine(string.Format("Error instantiating the guardian instance. {0}", ex.Message), ConsoleColor.Red);
-                Pause.QuickDisplay();
-                return 1;
-            }
-
-            return 0;
-        }
-
-        private static void DisplayApplicationHeader()
-        {
-            ApplicationHeader applicationHeader = new()
-            {
-                Title = "Console Tool - Guard Demo"
-            };
-            applicationHeader.Display();
-
-            CustomConsole.WriteLine("This demo shows the usage of the Guardian class.");
+            CustomConsole.WriteLineSuccess("The application was successfully started.");
             CustomConsole.WriteLine();
+            CustomConsole.WriteLine("But this application cannot be started twice.");
+            CustomConsole.WriteLine("Leave this instance running and try starting another one.");
+
+            Pause.QuickDisplay();
         }
+        catch (ApplicationException)
+        {
+            CustomConsole.WriteLineError("Another instance of this application is already running.");
+            CustomConsole.WriteLineError("Current instance will shutdown.");
+            Pause.QuickDisplay();
+            return 2;
+        }
+        catch (Exception ex)
+        {
+            CustomConsole.WriteLine(string.Format("Error instantiating the guardian instance. {0}", ex.Message), ConsoleColor.Red);
+            Pause.QuickDisplay();
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private static void DisplayApplicationHeader()
+    {
+        ApplicationHeader applicationHeader = new()
+        {
+            Title = "Console Tool - Guard Demo"
+        };
+        applicationHeader.Display();
+
+        CustomConsole.WriteLine("This demo shows the usage of the Guardian class.");
+        CustomConsole.WriteLine();
     }
 }

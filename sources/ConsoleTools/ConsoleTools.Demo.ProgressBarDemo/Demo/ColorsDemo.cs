@@ -37,7 +37,7 @@ internal class ColorsDemo : DemoBase
 
     public ColorsDemo()
     {
-        progressBar = new ProgressBar()
+        progressBar = new ProgressBar
         {
             LabelText = "Colors",
 

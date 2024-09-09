@@ -18,7 +18,7 @@ using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.ColorsDemo;
 
-internal class ColorsDemoPackage :DemoPackageBase
+internal class ColorsDemoPackage : DemoPackageBase
 {
     public override string Title => "Colors";
 

@@ -107,7 +107,18 @@ public class TextMenu : ErasableControl
     /// </summary>
     public int? SelectedIndex { get; private set; }
 
-    public override int NaturalContentWidth => 0;
+    public override int NaturalContentWidth
+    {
+        get
+        {
+            int width = TitleText?.Length ?? 0;
+
+            width += menuItems
+                .Sum(x => x.CalculateNaturalWidth());
+
+            return width;
+        }
+    }
 
     /// <summary>
     /// Initialize a new instance of the <see cref="TextMenu"/> class.

@@ -177,7 +177,7 @@ public class TextMenu : ErasableControl
             throw new ApplicationException("There are no menu items to be displayed.");
 
         SelectedItem = null;
-        ResetClosed();
+        ResetClose();
 
         base.OnBeforeRender(e);
     }
@@ -199,7 +199,7 @@ public class TextMenu : ErasableControl
     {
         base.OnAfterRender(e);
 
-        OnCloseRequested();
+        OnCloseStateChanged();
 
         SelectedItem?.Execute();
     }

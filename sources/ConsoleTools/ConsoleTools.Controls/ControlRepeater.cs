@@ -30,6 +30,8 @@ namespace DustInTheWind.ConsoleTools.Controls;
 public class ControlRepeater : BlockControl, ICloseSupport
 {
     private volatile bool isClosed;
+    private volatile bool allowClose = true;
+    private Control content;
 
     /// <summary>
     /// Gets or sets a value that specifies if the control is rendered as a root control.
@@ -46,7 +48,32 @@ public class ControlRepeater : BlockControl, ICloseSupport
     /// <summary>
     /// Gets or sets the control that is to be displayed repeatedly.
     /// </summary>
-    public BlockControl Content { get; set; }
+    public Control Content
+    {
+        get => content;
+        set
+        {
+            if (content is ICloseSupport contentWithCloseSupport1)
+                contentWithCloseSupport1.CloseStateChanged -= HandleContentCloseStateChanged;
+
+            content = value;
+
+            if (content is ICloseSupport contentWithCloseSupport2)
+                contentWithCloseSupport2.CloseStateChanged += HandleContentCloseStateChanged;
+        }
+    }
+
+    private void HandleContentCloseStateChanged(object sender, EventArgs e)
+    {
+        if (!allowClose)
+            return;
+
+        if (sender is not ICloseSupport contentWithCloseSupport)
+            return;
+
+        isClosed = contentWithCloseSupport.IsClosed;
+        OnCloseStateChanged();
+    }
 
     /// <summary>
     /// Gets a value that specifies if the control was requested to close.
@@ -66,7 +93,7 @@ public class ControlRepeater : BlockControl, ICloseSupport
     /// If the <see cref="Content"/> has <see cref="ICloseSupport"/> it is also requested to close.
     /// The repeat loop is then interrupted and the rendering process stopped.
     /// </summary>
-    public event EventHandler CloseRequested;
+    public event EventHandler CloseStateChanged;
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="ControlRepeater"/>
@@ -91,16 +118,51 @@ public class ControlRepeater : BlockControl, ICloseSupport
         isClosed = true;
 
         if (Content is ICloseSupport contentWithCloseSupport)
-            contentWithCloseSupport.RequestClose();
+        {
+            allowClose = false;
 
-        OnCloseRequested();
+            try
+            {
+                contentWithCloseSupport.RequestClose();
+            }
+            finally
+            {
+                allowClose = true;
+            }
+        }
+
+        OnCloseStateChanged();
     }
 
     /// <summary>
-    /// Raises the <see cref="CloseRequested"/> event.
+    /// Resets the "closed" state of the control and allows it to be rendered again.
     /// </summary>
-    protected virtual void OnCloseRequested()
+    public void ResetClose()
     {
-        CloseRequested?.Invoke(this, EventArgs.Empty);
+        isClosed = false;
+
+        if (Content is ICloseSupport contentWithCloseSupport)
+        {
+            allowClose = false;
+
+            try
+            {
+                contentWithCloseSupport.ResetClose();
+            }
+            finally
+            {
+                allowClose = true;
+            }
+        }
+
+        OnCloseStateChanged();
+    }
+
+    /// <summary>
+    /// Raises the <see cref="CloseStateChanged"/> event.
+    /// </summary>
+    protected virtual void OnCloseStateChanged()
+    {
+        CloseStateChanged?.Invoke(this, EventArgs.Empty);
     }
 }

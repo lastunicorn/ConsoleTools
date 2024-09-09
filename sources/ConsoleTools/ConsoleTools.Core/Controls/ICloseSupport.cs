@@ -38,11 +38,16 @@ public interface ICloseSupport
     /// <summary>
     /// Event raised when the control is requested to close itself.
     /// </summary>
-    event EventHandler CloseRequested;
+    event EventHandler CloseStateChanged;
 
     /// <summary>
     /// Call this method to announce the control that it should end its process.
     /// This method does not force the control to close.
     /// </summary>
     void RequestClose();
+
+    /// <summary>
+    /// Resets the "closed" state of the control and allows it to be rendered again.
+    /// </summary>
+    void ResetClose();
 }

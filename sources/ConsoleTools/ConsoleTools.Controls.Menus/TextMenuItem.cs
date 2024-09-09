@@ -21,7 +21,6 @@
 
 using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DustInTheWind.ConsoleTools.Controls.Menus;
 

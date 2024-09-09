@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
@@ -23,12 +23,17 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// <summary>
 /// Displays a list of controls in a vertical stack, one after the other.
 /// </summary>
-public class StackPanel : BlockControl
+public class StackPanel : BlockControl, ICloseSupport
 {
+    private bool isClosed;
+    private bool suppressCloseEvent;
+
     /// <summary>
     /// Gets the list of children to be displayed.
     /// </summary>
-    public List<BlockControl> Children { get; } = new();
+    public BlockControlCollection Children { get; } = new();
+
+    public bool IsClosed => isClosed || Children.IsClosed;
 
     /// <summary>
     /// Gets the width of the largest child control's content calculated when there are no other
@@ -38,6 +43,24 @@ public class StackPanel : BlockControl
         .Select(x => x.CalculateNaturalWidth())
         .Max();
 
+    public event EventHandler CloseStateChanged;
+
+    public StackPanel()
+    {
+        Children.CloseStateChanged += HandleCloseStateChanged;
+    }
+
+    private void HandleCloseStateChanged(object sender, EventArgs e)
+    {
+        if (suppressCloseEvent)
+            return;
+
+        if (isClosed)
+            return;
+
+        OnCloseStateChanged();
+    }
+
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="StackPanel"/>
     /// instance using the specified <see cref="IDisplay"/>.
@@ -46,5 +69,48 @@ public class StackPanel : BlockControl
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new StackPanelRenderer(this, display, renderingOptions);
+    }
+
+    public void RequestClose()
+    {
+        bool initialCloseState = IsClosed;
+        suppressCloseEvent = true;
+
+        try
+        {
+            isClosed = true;
+            Children.RequestClose();
+        }
+        finally
+        {
+            suppressCloseEvent = false;
+
+            if (IsClosed != initialCloseState)
+                OnCloseStateChanged();
+        }
+    }
+
+    public void ResetClose()
+    {
+        bool initialCloseState = IsClosed;
+        suppressCloseEvent = true;
+
+        try
+        {
+            isClosed = false;
+            Children.ResetClose();
+        }
+        finally
+        {
+            suppressCloseEvent = false;
+
+            if (IsClosed != initialCloseState)
+                OnCloseStateChanged();
+        }
+    }
+
+    protected virtual void OnCloseStateChanged()
+    {
+        CloseStateChanged?.Invoke(this, EventArgs.Empty);
     }
 }

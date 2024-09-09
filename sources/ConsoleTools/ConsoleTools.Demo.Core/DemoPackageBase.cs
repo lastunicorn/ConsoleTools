@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
@@ -42,28 +43,21 @@ public abstract class DemoPackageBase : IDemo
 
     private void DisplayMenu()
     {
-        //ControlRepeater controlRepeater = new()
-        //{
-        //    Content = new StackPanel
-        //    {
-        //        Children =
-        //        {
-        //            new TextBlock(Description)
-        //            {
-        //                IsVisible = !string.IsNullOrEmpty(Description),
-        //                Margin = (0, 1),
-        //                ForegroundColor = ConsoleColor.DarkGray
-        //            },
-        //            new PackageMenu(this)
-        //        }
-        //    },
-        //    RepeatCount = -1,
-        //    Margin = (0, 2, 0, 0)
-        //};
-
         ControlRepeater controlRepeater = new()
         {
-            Content = new PackageMenu(this),
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new TextBlock(Description)
+                    {
+                        IsVisible = !string.IsNullOrEmpty(Description),
+                        Margin = (0, 1),
+                        ForegroundColor = ConsoleColor.DarkGray
+                    },
+                    new PackageMenu(this)
+                }
+            },
             RepeatCount = -1,
             Margin = (0, 2, 0, 0)
         };

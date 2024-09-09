@@ -119,7 +119,7 @@ public class Prompter : InteractiveControl
     protected override void OnBeforeRender(BeforeRenderEventArgs e)
     {
         LastCommand = null;
-        ResetClosed();
+        ResetClose();
 
         base.OnBeforeRender(e);
     }

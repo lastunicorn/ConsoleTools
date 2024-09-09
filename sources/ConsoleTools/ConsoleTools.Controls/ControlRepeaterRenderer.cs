@@ -22,7 +22,7 @@ internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
 {
     private IRenderer childRenderer;
     private int count;
-    private BlockControl content;
+    private Control content;
 
     public ControlRepeaterRenderer(ControlRepeater control, IDisplay display, RenderingOptions renderingOptions)
         : base(control, display, renderingOptions)

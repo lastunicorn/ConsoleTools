@@ -50,7 +50,7 @@ public abstract class InteractiveControl : BlockControl, ICloseSupport
     /// <summary>
     /// Event raised when the control is requested to close itself.
     /// </summary>
-    public event EventHandler CloseRequested;
+    public event EventHandler CloseStateChanged;
 
     /// <summary>
     /// Method called before the control is rendered.
@@ -89,22 +89,23 @@ public abstract class InteractiveControl : BlockControl, ICloseSupport
     public void RequestClose()
     {
         isClosed = true;
-        OnCloseRequested();
+        OnCloseStateChanged();
     }
 
     /// <summary>
     /// Resets the "closed" state of the control and allows it to be rendered again.
     /// </summary>
-    protected void ResetClosed()
+    public void ResetClose()
     {
         isClosed = false;
+        OnCloseStateChanged();
     }
 
     /// <summary>
-    /// Raises the <see cref="CloseRequested"/> event.
+    /// Raises the <see cref="CloseStateChanged"/> event.
     /// </summary>
-    protected virtual void OnCloseRequested()
+    protected virtual void OnCloseStateChanged()
     {
-        CloseRequested?.Invoke(this, EventArgs.Empty);
+        CloseStateChanged?.Invoke(this, EventArgs.Empty);
     }
 }

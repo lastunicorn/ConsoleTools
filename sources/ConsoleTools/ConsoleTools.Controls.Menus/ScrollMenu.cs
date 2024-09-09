@@ -155,7 +155,7 @@ public class ScrollMenu : ErasableControl
         if (menuItems.SelectableItemsCount == 0)
             throw new ApplicationException("There are no menu items to be displayed.");
 
-        ResetClosed();
+        ResetClose();
         //InnerSize = Size.Empty;
         menuLocation = Location.Origin;
         itemsLocation = Location.Origin;

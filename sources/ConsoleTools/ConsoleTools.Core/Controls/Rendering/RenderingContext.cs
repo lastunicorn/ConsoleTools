@@ -23,6 +23,9 @@ public class RenderingContext
     private int currentLineLength;
     private readonly IDisplay display;
 
+    /// <summary>
+    /// Gets the layout values pre-calculated for the control being displayed.
+    /// </summary>
     public ControlLayout ControlLayout { get; }
 
     /// <summary>
@@ -66,6 +69,15 @@ public class RenderingContext
     /// </summary>
     public ConsoleColor? BackgroundColor { get; set; }
 
+    /// <summary>
+    /// Gets or sets the background color used for the "transparent" parts of the control: margins
+    /// and empty space to be displayed around the control.
+    /// </summary>
+    public ConsoleColor? ParentBackgroundColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets a function that will be called after each line is finished rendering.
+    /// </summary>
     public Action<int> OnLineRendered { get; set; }
 
     /// <summary>
@@ -96,10 +108,10 @@ public class RenderingContext
     private void WriteBeginOfLine()
     {
         if (ControlLayout.EmptySpace.Left > 0)
-            WriteSpaces(ControlLayout.EmptySpace.Left, null, null);
+            WriteSpaces(ControlLayout.EmptySpace.Left, null, ParentBackgroundColor);
 
         if (ControlLayout.Margin.Left > 0)
-            WriteSpaces(ControlLayout.Margin.Left, null, null);
+            WriteSpaces(ControlLayout.Margin.Left, null, ParentBackgroundColor);
 
         if (ControlLayout.Padding.Left > 0)
             WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor);
@@ -125,10 +137,10 @@ public class RenderingContext
             WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor);
 
         if (!IsRoot && ControlLayout.Margin.Right > 0)
-            WriteSpaces(ControlLayout.Margin.Right, null, null);
+            WriteSpaces(ControlLayout.Margin.Right, null, ParentBackgroundColor);
 
         if (!IsRoot && ControlLayout.EmptySpace.Right > 0)
-            WriteSpaces(ControlLayout.EmptySpace.Right, null, null);
+            WriteSpaces(ControlLayout.EmptySpace.Right, null, ParentBackgroundColor);
     }
 
     /// <summary>
@@ -211,6 +223,14 @@ public class RenderingContext
         currentLineLength += text.Length;
     }
 
+    /// <summary>
+    /// Starts a new line, writes the specified text and ends the line.
+    /// If the specified text is shorter than the length of a line, empty spaces are used to fill it.
+    /// If the specified text is longer than the length of a line, it is truncated.
+    /// </summary>
+    /// <param name="text">The text to be written as the content of the line.</param>
+    /// <param name="foregroundColor">The color of the text.</param>
+    /// <param name="backgroundColor">The color of the text's background.</param>
     public void WriteLine(string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
     {
         StartLine();
@@ -227,7 +247,7 @@ public class RenderingContext
         {
             int length = ControlLayout.ActualFullWidth;
             string text = new(' ', length);
-            display.Write(text);
+            display.Write(text, null, ParentBackgroundColor);
 
             currentLineLength = text.Length;
         }
@@ -285,7 +305,8 @@ public class RenderingContext
             OnLineRendered = count =>
             {
                 currentLineLength += count;
-            }
+            },
+            ParentBackgroundColor = renderingOptions?.ParentBackgroundColor
         };
 
         return control.GetRenderer(display, options);

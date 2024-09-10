@@ -1,4 +1,4 @@
-// ConsoleTools
+﻿// ConsoleTools
 // Copyright (C) 2017-2024 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,20 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
+using DustInTheWind.ConsoleTools.Controls;
+using NUnit.Framework;
 
-namespace DustInTheWind.ConsoleTools.Controls.Rendering;
+namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlockTests.RenderingTests;
 
-/// <summary>
-/// Provides options for creating an instance of <see cref="IRenderer"/>.
-/// </summary>
-public class ChildRenderingOptions
+[TestFixture]
+public class TextBlock_IsVisible_Tests : TestsBase
 {
-    /// <summary>
-    /// Gets or sets the available with into which the control should be rendered.
-    /// If <c>null</c> no restriction is imposed. Infinite available space is assumed.
-    /// </summary>
-    public int? AvailableWidth { get; set; }
+    [Test]
+    public void HavingIsVisibleFalse()
+    {
+        TextBlock textBlock = new("The quick brown fox jumps over the lazy dog.")
+        {
+            IsVisible = false
+        };
 
-    public ConsoleColor? ParentBackgroundColor { get; set; }
+        textBlock.IsEqualTo(string.Empty);
+    }
 }

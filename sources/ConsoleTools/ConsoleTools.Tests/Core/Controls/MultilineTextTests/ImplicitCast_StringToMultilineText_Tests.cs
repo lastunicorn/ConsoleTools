@@ -14,50 +14,55 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
 [TestFixture]
-public class ImplicitConversionToMultilineTextTests
+public class ImplicitCast_StringToMultilineText_Tests
 {
     [Test]
-    public void single_line_String_to_MultilineText_conversion()
+    public void HavingNullString_WhenCastToMultilineText_ThenItHasNoLine()
+    {
+        string text = null;
+        MultilineText multilineText = text;
+
+        multilineText.Should().BeEmpty();
+    }
+
+    [Test]
+    public void HavingEmptyString_WhenCastToMultilineText_ThenItHasOneEmptyLine()
+    {
+        string text = "";
+        MultilineText multilineText = text;
+
+        string[] expected = { string.Empty };
+        multilineText.Should().ContainInOrder(expected);
+    }
+
+    [Test]
+    public void HavingSingleLineString_WhenCastToMultilineText_ThenItHasOneLine()
     {
         string text = "this is a text";
         MultilineText multilineText = text;
 
-        Assert.That(multilineText.RawText, Is.EqualTo("this is a text"));
+        string[] expected = { "this is a text" };
+        multilineText.Should().ContainInOrder(expected);
     }
 
     [Test]
-    public void double_line_String_to_MultilineText_conversion()
+    public void HavingStringWithTwoLinesSeparatedByLF_WhenCastToMultilineText_ThenItHasTwoLines()
     {
         string text = "first line\nsecond line";
         MultilineText multilineText = text;
 
-        Assert.That(multilineText.RawText, Is.EqualTo("first line\nsecond line"));
-    }
-
-    [Test]
-    public void single_line_list_of_String_to_MultilineText_conversion()
-    {
-        List<string> text = new() { "this is a text" };
-        MultilineText multilineText = text;
-
-        Assert.That(multilineText.RawText, Is.EqualTo("this is a text"));
-    }
-
-    [Test]
-    public void double_line_list_of_String_to_MultilineText_conversion()
-    {
-        List<string> text = new() { "first line", "second line" };
-        MultilineText multilineText = text;
-
-        string expected = "first line" + Environment.NewLine + "second line";
-        Assert.That(multilineText.RawText, Is.EqualTo(expected));
+        string[] expected =
+        {
+            "first line",
+            "second line"
+        };
+        multilineText.Should().ContainInOrder(expected);
     }
 }

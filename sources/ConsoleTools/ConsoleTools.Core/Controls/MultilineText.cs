@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -51,7 +52,7 @@ public class MultilineText : IEnumerable<string>
     /// <summary>
     /// Gets an instance of the <see cref="MultilineText"/> containing no text.
     /// </summary>
-    public static MultilineText Empty { get; } = new(string.Empty);
+    public static MultilineText Empty { get; } = new();
 
     /// <summary>
     /// Gets a value that specifies if the current instance contains no text.
@@ -160,18 +161,25 @@ public class MultilineText : IEnumerable<string>
     /// </summary>
     public MultilineText(IEnumerable<string> lines)
     {
-        if (lines == null) throw new ArgumentNullException(nameof(lines));
+        if (lines == null)
+        {
+            RawText = null;
+            Lines = new ReadOnlyCollection<string>(Array.Empty<string>());
+            Size = new Size(0, 0);
+        }
+        else
+        {
+            List<string> linesAsList = lines.ToList();
 
-        List<string> linesAsList = lines.ToList();
+            RawText = string.Join(Environment.NewLine, linesAsList);
+            Lines = linesAsList.AsReadOnly();
 
-        RawText = string.Join(Environment.NewLine, linesAsList);
-        Lines = linesAsList.AsReadOnly();
-
-        int width = linesAsList.Count == 0
-            ? 0
-            : linesAsList.Max(x => x.Length);
-        int height = linesAsList.Count;
-        Size = new Size(width, height);
+            int width = linesAsList.Count == 0
+                ? 0
+                : linesAsList.Max(x => x.Length);
+            int height = linesAsList.Count;
+            Size = new Size(width, height);
+        }
     }
 
     /// <summary>
@@ -339,7 +347,7 @@ public class MultilineText : IEnumerable<string>
     /// <param name="multilineText">The <see cref="MultilineText"/> instance to convert.</param>
     public static implicit operator List<string>(MultilineText multilineText)
     {
-        return multilineText.Lines.ToList();
+        return multilineText?.Lines.ToList();
     }
 
     /// <summary>

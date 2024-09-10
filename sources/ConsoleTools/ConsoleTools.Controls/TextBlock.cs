@@ -19,6 +19,7 @@
 // --------------------------------------------------------------------------------
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
+using System;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
@@ -47,6 +48,11 @@ public class TextBlock : BlockControl
     /// </summary>
     public override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
+    /// <summary>
+    /// Gets or sets the horizontal alignment of the text inside the box.
+    /// For positioning the box itself inside its parent, use the
+    /// <see cref="BlockControl.HorizontalAlignment"/> property.
+    /// </summary>
     public HorizontalAlignment TextHorizontalAlignment { get; set; }
 
     /// <summary>
@@ -80,7 +86,7 @@ public class TextBlock : BlockControl
     /// </summary>
     public TextBlock(params string[] lines)
     {
-        Text = new MultilineText(lines);
+        Text = lines;
     }
 
     /// <summary>
@@ -90,9 +96,6 @@ public class TextBlock : BlockControl
     /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
-        if (!IsVisible)
-            return new EmptyRenderer();
-
         return new TextBlockRenderer(this, display, renderingOptions);
     }
 
@@ -106,6 +109,23 @@ public class TextBlock : BlockControl
         {
             Text = text
         };
+
+        textBlock.Display();
+    }
+
+    /// <summary>
+    /// Creates and displays a <see cref="TextBlock"/> into the console.
+    /// Before displaying it, allows the caller to configure it.
+    /// </summary>
+    ///
+    /// <param name="action">
+    /// The action allowing the caller to configure the <see cref="TextBlock"/> instance before
+    /// being displayed.
+    /// </param>
+    public static void QuickDisplay(Action<TextBlock> action)
+    {
+        TextBlock textBlock = new();
+        action?.Invoke(textBlock);
         textBlock.Display();
     }
 }

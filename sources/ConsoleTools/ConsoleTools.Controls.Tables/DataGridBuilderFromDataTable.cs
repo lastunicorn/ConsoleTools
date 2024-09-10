@@ -29,7 +29,11 @@ internal class DataGridBuilderFromDataTable
 
     public DataGridBuilderFromDataTable(DataTable dataTable)
     {
-        DataGrid = new DataGrid(dataTable.TableName);
+        string title = string.IsNullOrEmpty(dataTable.TableName)
+            ? null
+            : dataTable.TableName;
+
+        DataGrid = new DataGrid(title);
 
         foreach (DataColumn dataColumn in dataTable.Columns)
         {

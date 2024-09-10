@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using DustInTheWind.ConsoleTools.Controls;
 using NUnit.Framework;
 
@@ -22,6 +23,22 @@ namespace DustInTheWind.ConsoleTools.Tests.Controls.TextBlockTests.RenderingTest
 [TestFixture]
 public class TextBlock_Lines_Tests : TestsBase
 {
+    [Test]
+    public void HavingTextNotSet()
+    {
+        TextBlock textBlock = new();
+
+        textBlock.IsEqualTo(string.Empty);
+    }
+
+    [Test]
+    public void HavingNoLine()
+    {
+        TextBlock textBlock = new(Array.Empty<string>());
+
+        textBlock.IsEqualTo(string.Empty);
+    }
+
     [Test]
     public void HavingOneLine()
     {

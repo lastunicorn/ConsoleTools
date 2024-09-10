@@ -34,21 +34,24 @@ internal class StackPanelRenderer : BlockRenderer<StackPanel>
         multiRenderer.Clear();
         
         IEnumerable<IRenderer> childRenderers = Control.Children
-            .Select(x =>
-            {
-                ChildRenderingOptions childRenderingOptions = new()
-                {
-                    AvailableWidth = ControlLayout.ActualContentWidth
-                };
-
-                return RenderingContext.CreateChildRenderer(x, childRenderingOptions);
-            })
+            .Select(CreateChildRenderer)
             .ToList();
 
         multiRenderer.AddRange(childRenderers);
         multiRenderer.Reset();
 
         return multiRenderer.HasMoreLines;
+    }
+
+    private IRenderer CreateChildRenderer(Control control)
+    {
+        ChildRenderingOptions childRenderingOptions = new()
+        {
+            AvailableWidth = ControlLayout.ActualContentWidth,
+            ParentBackgroundColor = Control.BackgroundColor
+        };
+
+        return RenderingContext.CreateChildRenderer(control, childRenderingOptions);
     }
 
     protected override bool RenderNextContentLine()

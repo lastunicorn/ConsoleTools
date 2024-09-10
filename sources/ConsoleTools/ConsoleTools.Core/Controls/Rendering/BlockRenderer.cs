@@ -52,6 +52,9 @@ public abstract class BlockRenderer<TControl> : IRenderer
     {
         get
         {
+            if (!Control.IsVisible)
+                return false;
+
             if (!isInitialized)
                 Initialize();
 
@@ -98,7 +101,8 @@ public abstract class BlockRenderer<TControl> : IRenderer
             IsRoot = renderingOptions?.IsRoot ?? true,
             OnLineRendered = renderingOptions?.OnLineRendered,
             ForegroundColor = Control.ForegroundColor,
-            BackgroundColor = Control.BackgroundColor
+            BackgroundColor = Control.BackgroundColor,
+            ParentBackgroundColor = renderingOptions?.ParentBackgroundColor
         };
 
         step = RenderingStep.Start;
@@ -211,6 +215,9 @@ public abstract class BlockRenderer<TControl> : IRenderer
     /// </summary>
     public void RenderNextLine()
     {
+        if (!Control.IsVisible)
+            return;
+
         if (!isInitialized)
             Initialize();
 

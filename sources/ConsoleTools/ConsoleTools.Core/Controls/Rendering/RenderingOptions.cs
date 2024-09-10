@@ -39,4 +39,6 @@ public class RenderingOptions
     /// Method called after each line that is rendered.
     /// </summary>
     public Action<int> OnLineRendered { get; set; }
+
+    public ConsoleColor? ParentBackgroundColor { get; set; }
 }

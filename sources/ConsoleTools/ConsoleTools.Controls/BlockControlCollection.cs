@@ -21,7 +21,7 @@ using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-public class BlockControlCollection : Collection<BlockControl>, ICloseSupport
+public class BlockControlCollection : Collection<Control>, ICloseSupport
 {
     private bool isClosed;
     private bool suppressCloseStateEvent;
@@ -31,7 +31,7 @@ public class BlockControlCollection : Collection<BlockControl>, ICloseSupport
 
     public event EventHandler CloseStateChanged;
 
-    protected override void InsertItem(int index, BlockControl item)
+    protected override void InsertItem(int index, Control item)
     {
         if (item == null) throw new ArgumentNullException(nameof(item));
 
@@ -51,7 +51,7 @@ public class BlockControlCollection : Collection<BlockControl>, ICloseSupport
 
     protected override void RemoveItem(int index)
     {
-        BlockControl item = Items[index];
+        Control item = Items[index];
 
         ExecuteAndCheckCloseState(() =>
         {
@@ -67,13 +67,13 @@ public class BlockControlCollection : Collection<BlockControl>, ICloseSupport
         });
     }
 
-    protected override void SetItem(int index, BlockControl item)
+    protected override void SetItem(int index, Control item)
     {
         if (item == null) throw new ArgumentNullException(nameof(item));
 
         ExecuteAndCheckCloseState(() =>
         {
-            BlockControl itemToRemove = Items[index];
+            Control itemToRemove = Items[index];
 
             if (itemToRemove is ICloseSupport itemToRemoveWithCloseSupport)
             {

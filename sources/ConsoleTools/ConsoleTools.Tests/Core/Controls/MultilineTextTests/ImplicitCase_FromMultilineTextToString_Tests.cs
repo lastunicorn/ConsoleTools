@@ -15,15 +15,33 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.MultilineTextTests;
 
 [TestFixture]
-public class ImplicitConversionFromMultilineTextTests
+public class ImplicitCase_FromMultilineTextToString_Tests
 {
+    [Test]
+    public void HavingNullMultilineText_WhenCastToString_ThenStringIsNull()
+    {
+        MultilineText multilineText = null;
+        string text = multilineText;
+
+        text.Should().BeNull();
+    }
+
+    [Test]
+    public void HavingEmptyMultilineText_WhenCastToString_ThenStringIsEmpty()
+    {
+        MultilineText multilineText = MultilineText.Empty;
+        string text = multilineText;
+
+        text.Should().BeEmpty();
+    }
+
     [Test]
     public void single_line_MultilineText_to_String_conversion()
     {
@@ -41,23 +59,5 @@ public class ImplicitConversionFromMultilineTextTests
 
         string expected = "first line" + Environment.NewLine + "second line";
         Assert.That(text, Is.EqualTo(expected));
-    }
-
-    [Test]
-    public void single_line_MultilineText_to_list_of_String_conversion()
-    {
-        MultilineText multilineText = new("this is a text");
-        List<string> text = multilineText;
-
-        Assert.That(text, Is.EqualTo(new List<string> { "this is a text" }));
-    }
-
-    [Test]
-    public void double_line_MultilineText_to_list_of_String_conversion()
-    {
-        MultilineText multilineText = new("first line", "second line");
-        List<string> text = multilineText;
-
-        Assert.That(text, Is.EqualTo(new List<string> { "first line", "second line" }));
     }
 }

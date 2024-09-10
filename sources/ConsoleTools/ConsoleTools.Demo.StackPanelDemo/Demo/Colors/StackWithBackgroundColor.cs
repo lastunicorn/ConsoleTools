@@ -26,8 +26,8 @@ internal class StackWithBackgroundColor : DemoBase
 
     public override MultilineText Description => new[]
     {
-        "The parent StackPanel has BackgroundColor set to Magenta.",
-        "A Padding and a Margin of 1 was added to easier see the colors."
+        "The StackPanel has BackgroundColor set to Magenta.",
+        "A Padding of 1 was added to easier see the colors."
     };
 
     protected override void DoExecute()
@@ -36,24 +36,29 @@ internal class StackWithBackgroundColor : DemoBase
         {
             Children =
             {
-                new TextBlock("This is a text")
+                new TextBlock("This is a blue text.")
                 {
                     BackgroundColor = ConsoleColor.Blue,
                     ForegroundColor = ConsoleColor.DarkBlue,
                     Padding = 1,
                     Margin = 1
                 },
-                new TextBlock("This is a different text")
+                new TextBlock("This is a green and longer text.")
                 {
                     BackgroundColor = ConsoleColor.Green,
                     ForegroundColor = ConsoleColor.DarkGreen,
+                    Padding = 1,
+                    Margin = 1
+                },
+                new TextBlock("This text has no explicit\ncolor set on it.")
+                {
                     Padding = 1,
                     Margin = 1
                 }
             },
             BackgroundColor = ConsoleColor.DarkMagenta,
             Padding = 1,
-            Margin = 1
+            Margin = 0
         };
 
         stackPanel.Display();

@@ -15,22 +15,33 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.ColorsDemo;
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteValues;
 
-internal class BackgroundColorDemo : DemoBase
+internal class ValueWriteDemo : DemoBase
 {
-    public override string Title => "Custom BackgroundColor (Blue)";
+    public override string Title => "Value Write";
 
     protected override void DoExecute()
     {
-        HorizontalLine horizontalLine = new()
-        {
-            BackgroundColor = ConsoleColor.Blue
-        };
+        StringValue firstNameControl = new("First Name:");
+        firstNameControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
 
-        horizontalLine.Display();
+        StringValue lastNameControl = new("Last Name:");
+        lastNameControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
+
+        Int32Value ageControl = new("Age:");
+        ageControl.Label.ForegroundColor = ConsoleColor.DarkGreen;
+
+        firstNameControl.Value = "John";
+        firstNameControl.Write();
+
+        lastNameControl.Value = "Doe";
+        lastNameControl.Write();
+
+        ageControl.Value = 25;
+        ageControl.Write();
     }
 }

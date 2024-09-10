@@ -15,25 +15,29 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.ConsoleTools.Controls.InputControls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.ReadValues;
+
+internal class ValueReadQuickDemo : DemoBase
 {
-    internal class ValueWriteQuickCommand : ICommand
+    public override string Title => "Value Read - Quick (static method)";
+
+    protected override void DoExecute()
     {
-        public bool IsActive => true;
+        RunExample();
+    }
 
-        public void Execute()
-        {
-            StringValue.QuickWrite("First Name:", "John");
-            StringValue.QuickWrite("Last Name:", "Doe");
-            Int32Value.QuickWrite("Age:", 25);
+    /// <summary>
+    /// The QuickRead static method is used to read values from the console.
+    /// </summary>
+    private static void RunExample()
+    {
+        string firstName = ValueControl<string>.QuickRead("First Name:");
+        string lastName = ValueControl<string>.QuickRead("Last Name:");
 
-            // or
-
-            ValueControl<string>.QuickWrite("First Name:", "John");
-            ValueControl<string>.QuickWrite("Last Name:", "Doe");
-            ValueControl<int>.QuickWrite("Age:", 25);
-        }
+        // Display the read values.
+        CustomConsole.WriteLine();
+        CustomConsole.WriteLine("Hi, {0} {1}!", firstName, lastName);
     }
 }

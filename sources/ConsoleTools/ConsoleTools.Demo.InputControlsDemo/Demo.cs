@@ -14,22 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.ReadList;
+using DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.ReadValues;
+using DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteList;
+using DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteValues;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo;
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo;
 
-internal class CustomCharDemo : DemoBase
+public class DemoPackage : DemoPackageBase
 {
-    public override string Title => "Custom Character (*)";
+    public override string Title => "Input Controls";
 
-    protected override void DoExecute()
+    public DemoPackage()
     {
-        HorizontalLine horizontalLine = new()
+        Demos.AddRange(new IDemo[]
         {
-            Character = '*'
-        };
-
-        horizontalLine.Display();
+            new ReadValuesDemoPackage(),
+            new WriteValuesDemoPackage(),
+            new ReadListDemoPackage(),
+            new WriteListDemoPackage()
+        });
     }
 }

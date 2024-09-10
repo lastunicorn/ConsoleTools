@@ -17,28 +17,27 @@
 using System;
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.InputControls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteList;
+
+internal class ListWriteQuickDemo : DemoBase
 {
-    internal class ListWriteQuickCommand : ICommand
+    public override string Title => "List Write - Quick (static method)";
+
+    protected override void DoExecute()
     {
-        public bool IsActive => true;
+        string[] colors = Enum.GetNames(typeof(ConsoleColor));
 
-        public void Execute()
-        {
-            string[] colors = Enum.GetNames(typeof(ConsoleColor));
+        DisplayColorsQuick(colors);
+    }
 
-            DisplayColorsQuick(colors);
-        }
-
-        /// <summary>
-        /// Using the static method <see cref="ValueList{T}.QuickWrite"/> falls back
-        /// to the default properties for colors, bullet, spaces, etc.
-        /// </summary>
-        private static void DisplayColorsQuick(IEnumerable<string> colors)
-        {
-            ValueList<string>.QuickWrite("Colors:", colors);
-        }
+    /// <summary>
+    /// Using the static method <see cref="ValueList{T}.QuickWrite"/> falls back
+    /// to the default properties for colors, bullet, spaces, etc.
+    /// </summary>
+    private static void DisplayColorsQuick(IEnumerable<string> colors)
+    {
+        ValueList<string>.QuickWrite("Colors:", colors);
     }
 }

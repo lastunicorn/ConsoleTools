@@ -14,22 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo;
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteList;
 
-internal class CustomCharDemo : DemoBase
+internal class WriteListDemoPackage : DemoPackageBase
 {
-    public override string Title => "Custom Character (*)";
+    public override string Title => "Write List of Values";
 
-    protected override void DoExecute()
+    public WriteListDemoPackage()
     {
-        HorizontalLine horizontalLine = new()
+        Demos.AddRange(new IDemo[]
         {
-            Character = '*'
-        };
-
-        horizontalLine.Display();
+            new ListWriteDemo(),
+            new ListWriteQuickDemo()
+        });
     }
 }

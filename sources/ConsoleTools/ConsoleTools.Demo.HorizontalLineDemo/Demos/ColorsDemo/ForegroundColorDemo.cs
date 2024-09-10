@@ -30,6 +30,7 @@ internal class ForegroundColorDemo : DemoBase
         {
             ForegroundColor = ConsoleColor.Magenta
         };
+
         horizontalLine.Display();
     }
 }

@@ -14,22 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.MiscellaneousDemo;
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.ReadValues;
 
-internal class CustomCharDemo : DemoBase
+internal class ValueReadWithDefaultValueDemo : DemoBase
 {
-    public override string Title => "Custom Character (*)";
+    public override string Title => "Value Read - With default value";
 
     protected override void DoExecute()
     {
-        HorizontalLine horizontalLine = new()
-        {
-            Character = '*'
-        };
+        RunExample();
+    }
 
-        horizontalLine.Display();
+    private static void RunExample()
+    {
+        ValueControl<int> numberControl = new("Number ({0}):");
+        numberControl.AcceptDefaultValue = true;
+        numberControl.DefaultValue = 42;
+
+        CustomConsole.WriteLine("Just hit enter. The default value, 42, is returned by the ValueControl control.");
+        CustomConsole.WriteLine();
+
+        int number = numberControl.Read();
+
+        CustomConsole.WriteLine();
+        CustomConsole.WriteLine("You selected {0}.", number);
     }
 }

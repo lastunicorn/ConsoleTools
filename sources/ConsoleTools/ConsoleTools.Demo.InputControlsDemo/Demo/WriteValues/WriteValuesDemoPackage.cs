@@ -14,17 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteValues;
+
+internal class WriteValuesDemoPackage : DemoPackageBase
 {
-    internal class ExitCommand : ICommand
-    {
-        public bool IsActive => true;
+    public override string Title => "Write Values";
 
-        public void Execute()
+    public WriteValuesDemoPackage()
+    {
+        Demos.AddRange(new IDemo[]
         {
-            Program.Stop();
-        }
+            new ValueWriteDemo(),
+            new ValueWriteQuickDemo()
+        });
     }
 }

@@ -16,31 +16,30 @@
 
 using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.InputControls;
-using DustInTheWind.ConsoleTools.Controls.Menus;
+using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Commands
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.ReadList;
+
+internal class ListReadNumbersDemo : DemoBase
 {
-    internal class ListReadNumbersCommand : ICommand
+    public override string Title => "List Read - Numbers";
+
+    protected override void DoExecute()
     {
-        public bool IsActive => true;
+        CustomConsole.WriteLine();
 
-        public void Execute()
-        {
-            CustomConsole.WriteLine();
+        IEnumerable<int> numbers = ReadNumbers();
 
-            IEnumerable<int> numbers = ReadNumbers();
+        CustomConsole.WriteLine();
 
-            CustomConsole.WriteLine();
+        CustomConsole.Write("Your lucky numbers: ");
+        CustomConsole.WriteLineEmphasized(string.Join(", ", numbers));
+    }
 
-            CustomConsole.Write("Your lucky numbers: ");
-            CustomConsole.WriteLineEmphasized(string.Join(", ", numbers));
-        }
-
-        private static IEnumerable<int> ReadNumbers()
-        {
-            ValueList<int> luckyNumbersRead = new ValueList<int>("What are your lucky number?");
-            luckyNumbersRead.Read();
-            return luckyNumbersRead.Values;
-        }
+    private static IEnumerable<int> ReadNumbers()
+    {
+        ValueList<int> luckyNumbersRead = new("What are your lucky number?");
+        luckyNumbersRead.Read();
+        return luckyNumbersRead.Values;
     }
 }

@@ -15,22 +15,42 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls;
+using DustInTheWind.ConsoleTools.Controls.InputControls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
-namespace DustInTheWind.ConsoleTools.Demo.HorizontalLineDemo.Demos.ColorsDemo;
+namespace DustInTheWind.ConsoleTools.Demo.InputControlsDemo.Demo.WriteList;
 
-internal class BackgroundColorDemo : DemoBase
+internal class ListWriteDemo : DemoBase
 {
-    public override string Title => "Custom BackgroundColor (Blue)";
+    public override string Title => "List Write - Custom";
 
     protected override void DoExecute()
     {
-        HorizontalLine horizontalLine = new()
+        string[] colors = Enum.GetNames(typeof(ConsoleColor));
+
+        DisplayColors(colors);
+    }
+
+    /// <summary>
+    /// By creating an instance of the <see cref="ListWrite{T}"/>, additional properties can be set.
+    /// </summary>
+    private static void DisplayColors(string[] colors)
+    {
+        ValueList<string> colorsWrite = new()
         {
-            BackgroundColor = ConsoleColor.Blue
+            Label = new TextBlock
+            {
+                Text = "Colors:",
+                ForegroundColor = ConsoleColor.Cyan
+            },
+            Values = colors.ToList(),
+            Bullet = "#",
+            Margin = "0 2"
+            // etc...
         };
 
-        horizontalLine.Display();
+        colorsWrite.Write();
     }
 }

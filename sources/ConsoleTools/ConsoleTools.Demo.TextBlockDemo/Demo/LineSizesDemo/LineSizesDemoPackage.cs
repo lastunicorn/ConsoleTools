@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.LineSizesDemo;
@@ -21,6 +22,8 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.LineSizesDemo;
 internal class LineSizesDemoPackage : DemoPackageBase
 {
     public override string Title => "Line sizes";
+
+    public override MultilineText Description => "When the line is longer than the available space, by default, the text wrapped. The wrapping algorithm keeps the words. Does not split them.";
 
     public LineSizesDemoPackage()
     {

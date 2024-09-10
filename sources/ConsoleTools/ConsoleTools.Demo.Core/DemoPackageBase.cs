@@ -67,9 +67,59 @@ public abstract class DemoPackageBase : IDemo
 
     private void RunAllDemos()
     {
+        DisplayDemoTitle();
+
         IEnumerable<IDemo> notNullDemos = Demos.Where(x => x != null);
 
         foreach (IDemo demo in notNullDemos)
             demo.Execute();
+    }
+
+    private void DisplayDescription()
+    {
+        TextBlock textBlock = new(Description)
+        {
+            Margin = (0, 2, 0, 0) ,
+            ForegroundColor = ConsoleColor.DarkGray
+        };
+
+        textBlock.Display();
+    }
+
+    private void DisplayDemoTitle()
+    {
+        StackPanel stackPanel = new()
+        {
+            Margin = (0, 2, 0, 0)
+        };
+
+        stackPanel.Children.Add(new TextBlock(new string('=', 79))
+        {
+            ForegroundColor = ConsoleColor.Magenta
+        });
+
+        stackPanel.Children.Add(new TextBlock
+        {
+            Text = $"{Title}",
+            ForegroundColor = ConsoleColor.Magenta
+        });
+
+        if (Description is { IsEmpty: false })
+        {
+            stackPanel.Children.Add(new TextBlock
+            {
+                Text = Description,
+                ForegroundColor = ConsoleColor.DarkGray,
+                Margin = (0, 1, 0, 0),
+                MaxWidth = 79
+            });
+        }
+
+        stackPanel.Children.Add(new TextBlock(new string('=', 79))
+        {
+            ForegroundColor = ConsoleColor.Magenta
+        });
+
+        stackPanel.Display();
     }
 }

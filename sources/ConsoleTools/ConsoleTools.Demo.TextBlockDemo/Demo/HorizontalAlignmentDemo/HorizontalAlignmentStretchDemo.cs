@@ -22,7 +22,9 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.HorizontalAlignment
 
 internal class HorizontalAlignmentStretchDemo : DemoBase
 {
-    public override string Title => "Custom HorizontalAlignment Stretch (Width = 50)";
+    public override string Title => "HorizontalAlignment Stretch (Width = 50)";
+
+    public override MultilineText Description => "If HorizontalAlignment is Stretch, the Width is ignored.";
 
     protected override void DoExecute()
     {

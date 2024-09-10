@@ -22,7 +22,7 @@ namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.HorizontalAlignment
 
 internal class HorizontalAlignmentLeftDemo : DemoBase
 {
-    public override string Title => "Custom HorizontalAlignment Left (Width = 50)";
+    public override string Title => "HorizontalAlignment Left (Width = 50)";
 
     protected override void DoExecute()
     {

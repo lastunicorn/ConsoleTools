@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 
 internal class MaxWidthGreaterDemo : DemoBase
 {
-    public override string Title => "MaxWidth - Greater";
+    public override string Title => "MaxWidth - Greater than Text";
 
     public override MultilineText Description => "MaxWith (70) > Text Length (56).";
 

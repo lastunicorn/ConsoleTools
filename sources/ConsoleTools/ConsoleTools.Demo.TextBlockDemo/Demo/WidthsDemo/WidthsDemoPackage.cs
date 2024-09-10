@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.WidthsDemo;
@@ -22,13 +23,20 @@ internal class WidthsDemoPackage : DemoPackageBase
 {
     public override string Title => "Width";
 
+    public override MultilineText Description => "A background color is added to the TextBlock to easily see its size.";
+
     public WidthsDemoPackage()
     {
         Demos.AddRange(new IDemo[]
         {
-            new MinWidthDemo(),
-            new MaxWidthDemo(),
-            new WidthDemo()
+            new WidthLowerDemo(),
+            new WidthGreaterDemo(),
+            
+            new MinWidthLowerDemo(),
+            new MinWidthGreaterDemo(),
+            
+            new MaxWidthLowerDemo(),
+            new MaxWidthGreaterDemo()
         });
     }
 }

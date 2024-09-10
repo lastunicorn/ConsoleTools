@@ -20,16 +20,18 @@ using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.TextBlockDemo.Demo.WidthsDemo;
 
-internal class MinWidthDemo : DemoBase
+internal class MaxWidthGreaterDemo : DemoBase
 {
-    public override string Title => "Custom MinWidth (50)";
+    public override string Title => "MaxWidth - Greater than Text";
+
+    public override MultilineText Description => "MaxWith (70) > Text Length (56).";
 
     protected override void DoExecute()
     {
         TextBlock textBlock = new()
         {
-            Text = "Lorem ipsum dolor sit amet",
-            MinWidth = 50,
+            Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            MaxWidth = 70,
             BackgroundColor = ConsoleColor.DarkGray
         };
 

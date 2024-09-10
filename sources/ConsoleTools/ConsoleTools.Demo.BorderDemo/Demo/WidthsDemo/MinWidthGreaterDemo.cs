@@ -21,7 +21,7 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.WidthsDemo;
 
 internal class MinWidthGreaterDemo : DemoBase
 {
-    public override string Title => "MinWidth - Greater";
+    public override string Title => "MinWidth - Greater than Text";
 
     public override MultilineText Description => "MinWidth (70) > Text Length (56)";
 

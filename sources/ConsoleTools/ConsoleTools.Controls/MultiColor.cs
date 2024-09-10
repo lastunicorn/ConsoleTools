@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
@@ -39,33 +40,20 @@ public class MultiColor : BlockControl
     /// Gets or sets the colors to be used for displaying the text.
     /// The text will be displayed once per each color.
     /// </summary>
-    public List<ConsoleColor> Colors { get; set; } = new()
-    {
-        ConsoleColor.Black,
-        ConsoleColor.White,
-        ConsoleColor.Gray,
-        ConsoleColor.DarkGray,
-
-        ConsoleColor.Blue,
-        ConsoleColor.Green,
-        ConsoleColor.Cyan,
-        ConsoleColor.Red,
-        ConsoleColor.Magenta,
-        ConsoleColor.Yellow,
-
-        ConsoleColor.DarkBlue,
-        ConsoleColor.DarkGreen,
-        ConsoleColor.DarkCyan,
-        ConsoleColor.DarkRed,
-        ConsoleColor.DarkMagenta,
-        ConsoleColor.DarkYellow
-    };
+    public List<ConsoleColor> Colors { get; set; }
 
     /// <summary>
     /// Gets the width of the control's content calculated when there are no other space
     /// restrictions applied to it.
     /// </summary>
     public override int NaturalContentWidth => Text.Length;
+
+    public MultiColor()
+    {
+        Colors = Enum.GetValues(typeof(ConsoleColor))
+            .Cast<ConsoleColor>()
+            .ToList();
+    }
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="MultiColor"/>

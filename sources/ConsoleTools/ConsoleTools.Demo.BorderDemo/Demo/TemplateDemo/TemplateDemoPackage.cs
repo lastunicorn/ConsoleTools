@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
 namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
@@ -21,6 +22,8 @@ namespace DustInTheWind.ConsoleTools.Demo.BorderDemo.Demo.TemplateDemo;
 internal class TemplateDemoPackage : DemoPackageBase
 {
     public override string Title => "Border Templates";
+
+    public override MultilineText Description => "Let's add a border around a TextBlock.";
 
     public TemplateDemoPackage()
     {

@@ -14,21 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// --------------------------------------------------------------------------------
-// Bugs or feature requests
-// --------------------------------------------------------------------------------
-// Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-using System;
-
-namespace DustInTheWind.ConsoleTools.Controls;
-
-public class TitleDisplayEventArgs : EventArgs
+internal class PaddingBottomSectionRenderer : SectionRenderer
 {
-    public string Title { get; set; }
+    private int lineIndex;
 
-    public TitleDisplayEventArgs(string title)
+    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Padding.Bottom;
+
+    public PaddingBottomSectionRenderer(RenderingContext renderingContext)
+        : base(renderingContext)
     {
-        Title = title;
+    }
+
+    public override void RenderNextLine()
+    {
+        if (lineIndex >= RenderingContext.ControlLayout.Padding.Bottom)
+            return;
+
+        RenderingContext.WritePaddingLine();
+
+        lineIndex++;
+    }
+
+    public override void Reset()
+    {
+        lineIndex = 0;
     }
 }

@@ -58,7 +58,7 @@ internal class BorderRenderer : BlockRenderer<Border>
 
         if (step == BorderRendererStep.Content)
         {
-            RenderingContext.StartLine();
+            RenderingContext.BeginLine();
 
             char left = Control.Template.Left;
             RenderingContext.Write(left);

@@ -93,7 +93,7 @@ public class DemoApplication
                 {
                     new ApplicationHeader
                     {
-                        Title = "Console Tools Demo"
+                        ApplicationName = "Console Tools Demo"
                     },
                     new PackageMenu(demoPackages)
                 }

@@ -14,27 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-namespace DustInTheWind.ConsoleTools.Controls;
-
-internal class MarginTopSectionRenderer : SectionRenderer
+internal class PaddingTopSectionRenderer : SectionRenderer
 {
     private int lineIndex;
 
-    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Margin.Top;
+    public override bool HasMoreLines => lineIndex < RenderingContext.ControlLayout.Padding.Top;
 
-    public MarginTopSectionRenderer(RenderingContext renderingContext)
+    public PaddingTopSectionRenderer(RenderingContext renderingContext)
         : base(renderingContext)
     {
     }
 
     public override void RenderNextLine()
     {
-        if (lineIndex >= RenderingContext.ControlLayout.Margin.Top)
+        if (lineIndex >= RenderingContext.ControlLayout.Padding.Top)
             return;
 
-        RenderingContext.WriteMarginLine();
+        RenderingContext.WritePaddingLine();
 
         lineIndex++;
     }

@@ -53,7 +53,7 @@ public class ScrollMenu : ErasableControl
     /// </summary>
     public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Default;
 
-    public override int NaturalContentWidth { get; }
+    protected override int NaturalContentWidth { get; }
 
     /// <summary>
     /// Specifies the horizontal alignment for the items displayed inside the menu.

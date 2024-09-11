@@ -39,7 +39,7 @@ internal class TextSectionRenderer : SectionRenderer
         }
     }
 
-    public ConsoleColor ForegroundColor { get; set; }
+    public ConsoleColor? ForegroundColor { get; set; }
 
     public TextSectionRenderer(RenderingContext renderingContext)
         : base(renderingContext)
@@ -54,7 +54,7 @@ internal class TextSectionRenderer : SectionRenderer
         if (enumerator?.Current == null)
             return;
 
-        RenderingContext.Write(enumerator.Current, ForegroundColor);
+        RenderingContext.WriteLine(enumerator.Current, ForegroundColor);
         hasMoreLines = enumerator.MoveNext();
     }
 

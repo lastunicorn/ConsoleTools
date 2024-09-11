@@ -36,7 +36,7 @@ internal class ContentControlRenderer : BlockRenderer<ContentControl>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         childRenderer.RenderNextLine();
         RenderingContext.EndLine();
 

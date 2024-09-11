@@ -19,8 +19,9 @@ using System;
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
 /// <summary>
-/// A section renderer is a child of a bigger renderer. It will use its parent
-/// <see cref="RenderingContext"/> instance.
+/// A section renderer is a child of a bigger renderer. Because it is using its parent's
+/// <see cref="RenderingContext"/> instance a section is no more than a developer's way to split
+/// a bigger renderer into smaller pieces.
 /// </summary>
 public abstract class SectionRenderer : IRenderer
 {

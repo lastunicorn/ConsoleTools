@@ -42,7 +42,7 @@ internal class PauseRenderer : BlockRenderer<Pause>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         RenderingContext.Write(linesEnumerator.Current);
         bool hasMoreLines = linesEnumerator.MoveNext();
 

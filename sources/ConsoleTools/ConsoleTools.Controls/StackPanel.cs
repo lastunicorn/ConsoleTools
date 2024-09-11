@@ -39,7 +39,7 @@ public class StackPanel : BlockControl, ICloseSupport
     /// Gets the width of the largest child control's content calculated when there are no other
     /// space restrictions applied to it.
     /// </summary>
-    public override int NaturalContentWidth => Children
+    protected override int NaturalContentWidth => Children
         .Select(x => x.CalculateNaturalWidth())
         .Max();
 

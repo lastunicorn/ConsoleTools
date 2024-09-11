@@ -107,7 +107,7 @@ public class TextMenu : ErasableControl
     /// </summary>
     public int? SelectedIndex { get; private set; }
 
-    public override int NaturalContentWidth
+    protected override int NaturalContentWidth
     {
         get
         {

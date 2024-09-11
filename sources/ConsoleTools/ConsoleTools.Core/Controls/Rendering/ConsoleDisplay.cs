@@ -63,6 +63,11 @@ public class ConsoleDisplay : IInteractiveDisplay
     public int? MaxWidth => Console.BufferWidth - 1;
 
     /// <summary>
+    /// Gets a value specifying if the cursor is placed at the beginning of a new line.
+    /// </summary>
+    public bool IsNewLine => Console.CursorLeft == 0;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ConsoleDisplay"/> class
     /// as root printer.
     /// </summary>
@@ -71,7 +76,7 @@ public class ConsoleDisplay : IInteractiveDisplay
     }
 
     /// <summary>
-    /// Writes the specified character, using the specified colors to the console.
+    /// Writes the specified character to the console, using the specified colors.
     /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
@@ -92,7 +97,7 @@ public class ConsoleDisplay : IInteractiveDisplay
     }
 
     /// <summary>
-    /// Writes the specified text, using the specified colors to the console.
+    /// Writes the specified text to the console, using the specified colors.
     /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
@@ -113,7 +118,7 @@ public class ConsoleDisplay : IInteractiveDisplay
     }
 
     /// <summary>
-    /// Writes the line terminator to the console.
+    /// Writes the line terminator to the console and moves the cursor to a new line.
     /// </summary>
     public void EndLine()
     {

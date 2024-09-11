@@ -58,6 +58,12 @@ public class StreamDisplay : IDisplay, IDisposable
     public int? MaxWidth => null;
 
     /// <summary>
+    /// Gets a value specifying if the index where the next text will be written is placed at the
+    /// beginning of a new line.
+    /// </summary>
+    public bool IsNewLine { get; private set; } = true;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StreamDisplay"/> class with
     /// the <see cref="System.IO.Stream"/> into which the control will be written.
     /// </summary>
@@ -77,14 +83,25 @@ public class StreamDisplay : IDisplay, IDisposable
         this.streamWriter = streamWriter ?? throw new ArgumentNullException(nameof(streamWriter));
     }
 
+    /// <summary>
+    /// Writes the specified character, using the specified colors.
+    /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         streamWriter.Write(c);
+        IsNewLine = false;
     }
 
+    /// <summary>
+    /// Writes the specified text, using the specified colors.
+    /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
+        if (string.IsNullOrEmpty(text))
+            return;
+
         streamWriter.Write(text);
+        IsNewLine = false;
     }
 
     /// <summary>
@@ -93,6 +110,7 @@ public class StreamDisplay : IDisplay, IDisposable
     public void EndLine()
     {
         streamWriter.WriteLine();
+        IsNewLine = true;
     }
 
     /// <summary>

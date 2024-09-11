@@ -46,7 +46,7 @@ public class MultiColor : BlockControl
     /// Gets the width of the control's content calculated when there are no other space
     /// restrictions applied to it.
     /// </summary>
-    public override int NaturalContentWidth => Text.Length;
+    protected override int NaturalContentWidth => Text.Length;
 
     public MultiColor()
     {

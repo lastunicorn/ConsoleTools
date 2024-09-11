@@ -17,6 +17,7 @@
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 using Moq;
+using Moq.Protected;
 using NUnit.Framework;
 
 namespace DustInTheWind.ConsoleTools.Tests.Core.Controls.ControlLayoutTests;
@@ -70,8 +71,8 @@ public class ActualContentWidthTests_NoWidthConstraints
         control.Object.Margin = 10;
         control.Object.Padding = 7;
 
-        control
-            .SetupGet(x => x.NaturalContentWidth)
+        control.Protected()
+            .Setup<int>("NaturalContentWidth")
             .Returns(20);
 
         ControlLayout controlLayout = new()
@@ -93,9 +94,9 @@ public class ActualContentWidthTests_NoWidthConstraints
         control.Object.HorizontalAlignment = HorizontalAlignment.Stretch;
         control.Object.Margin = 10;
         control.Object.Padding = 7;
-        
-        control
-            .SetupGet(x => x.NaturalContentWidth)
+
+        control.Protected()
+            .Setup<int>("NaturalContentWidth")
             .Returns(200);
 
         ControlLayout controlLayout = new()

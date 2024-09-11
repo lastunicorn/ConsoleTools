@@ -30,7 +30,7 @@ internal class TwoChildrenAlignStretch : DemoBase
         {
             Children =
             {
-                new TextBlock("This is a text")
+                new TextBlock("This is a text.")
                 {
                     BackgroundColor = ConsoleColor.Blue,
                     ForegroundColor = ConsoleColor.DarkBlue,
@@ -38,7 +38,7 @@ internal class TwoChildrenAlignStretch : DemoBase
                     Margin = 1,
                     HorizontalAlignment = HorizontalAlignment.Stretch
                 },
-                new TextBlock("This is a different text")
+                new TextBlock("This is a different text.")
                 {
                     BackgroundColor = ConsoleColor.Green,
                     ForegroundColor = ConsoleColor.DarkGreen,

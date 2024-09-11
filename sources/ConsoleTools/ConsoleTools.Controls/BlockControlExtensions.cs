@@ -14,23 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.ConsoleTools.Controls.Rendering;
+using System;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
-public class ContentControl : BlockControl
+public static class BlockControlExtensions
 {
-    public Control Content { get; set; }
-
-    protected override int NaturalContentWidth => Content.CalculateNaturalWidth();
-
     /// <summary>
-    /// Returns a renderer object that is able to render the current <see cref="StackPanel"/>
-    /// instance using the specified <see cref="IDisplay"/>.
+    /// Creates a new <see cref="Border"/> control around the provided control.
     /// </summary>
-    /// <returns>The <see cref="IRenderer"/> instance.</returns>
-    public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
+    /// 
+    /// <param name="control">
+    /// The control to be placed inside the border.
+    /// </param>
+    /// 
+    /// <param name="borderConfigurator">
+    /// An optional action allowing the caller to configure the newly created <see cref="Border"/>
+    /// instance.
+    /// </param>
+    /// <returns></returns>
+    public static Border AddBorder(this BlockControl control, Action<Border> borderConfigurator = null)
     {
-        return new ContentControlRenderer(this, display, renderingOptions);
+        if (control == null) throw new ArgumentNullException(nameof(control));
+
+        Border border = new()
+        {
+            Content = control
+        };
+
+        borderConfigurator?.Invoke(border);
+
+        return border;
     }
 }

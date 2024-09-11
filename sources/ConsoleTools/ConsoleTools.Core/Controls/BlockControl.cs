@@ -73,15 +73,18 @@ public abstract class BlockControl : Control
     /// there are no other space restrictions applied to it. Not even the control's
     /// <see cref="Width"/>, <see cref="MinWidth"/> or <see cref="MaxWidth"/> limitations.
     /// </summary>
-    public abstract int NaturalContentWidth { get; }
+    protected abstract int NaturalContentWidth { get; }
 
+    /// <summary>
+    /// Calculates the natural width of the control including the paddings and margins.
+    /// </summary>
     public override int CalculateNaturalWidth()
     {
         return CalculateNaturalWidth(true, true);
     }
 
     /// <summary>
-    /// Calculates the natural width of the control. The value is calculated based on the
+    /// Calculates the natural width of the control calculated based on the
     /// <see cref="NaturalContentWidth"/> and the limitations imposed by the <see cref="Width"/>,
     /// <see cref="MinWidth"/> and <see cref="MaxWidth"/>.
     /// </summary>
@@ -102,11 +105,5 @@ public abstract class BlockControl : Control
             width = width + Margin.Left + Margin.Right;
 
         return width;
-    }
-
-    private static void MoveToNextLineIfNecessary()
-    {
-        if (Console.CursorLeft != 0)
-            Console.WriteLine();
     }
 }

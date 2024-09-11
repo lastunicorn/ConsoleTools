@@ -99,7 +99,7 @@ public class RenderingContext
     /// Starts a new line and automatically writes the necessary left margins and paddings.
     /// If another line is in progress. It is automatically ended before starting the new line.
     /// </summary>
-    public void StartLine()
+    public void BeginLine()
     {
         if (ControlLayout == null)
             return;
@@ -107,19 +107,22 @@ public class RenderingContext
         if (currentLineLength > 0)
             EndLine();
 
+        if(IsRoot && !display.IsNewLine)
+            display.EndLine();
+
         WriteBeginOfLine();
     }
 
     private void WriteBeginOfLine()
     {
         if (ControlLayout.EmptySpace.Left > 0)
-            WriteSpaces(ControlLayout.EmptySpace.Left, null, ParentBackgroundColor);
+            WriteSpaces(ControlLayout.EmptySpace.Left, ParentBackgroundColor);
 
         if (ControlLayout.Margin.Left > 0)
-            WriteSpaces(ControlLayout.Margin.Left, null, ParentBackgroundColor);
+            WriteSpaces(ControlLayout.Margin.Left, ParentBackgroundColor);
 
         if (ControlLayout.Padding.Left > 0)
-            WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor ?? ParentBackgroundColor);
+            WriteSpaces(ControlLayout.Padding.Left, BackgroundColor ?? ParentBackgroundColor);
     }
 
     /// <summary>
@@ -139,13 +142,13 @@ public class RenderingContext
     private void WriteEndOfLine()
     {
         if (ControlLayout.Padding.Right > 0)
-            WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor ?? ParentBackgroundColor);
+            WriteSpaces(ControlLayout.Padding.Right, BackgroundColor ?? ParentBackgroundColor);
 
         if (!IsRoot && ControlLayout.Margin.Right > 0)
-            WriteSpaces(ControlLayout.Margin.Right, null, ParentBackgroundColor);
+            WriteSpaces(ControlLayout.Margin.Right, ParentBackgroundColor);
 
         if (!IsRoot && ControlLayout.EmptySpace.Right > 0)
-            WriteSpaces(ControlLayout.EmptySpace.Right, null, ParentBackgroundColor);
+            WriteSpaces(ControlLayout.EmptySpace.Right, ParentBackgroundColor);
     }
 
     /// <summary>
@@ -219,13 +222,8 @@ public class RenderingContext
 
         int remainingContentLength = emptyLeft + marginLeft + paddingLeft + contentWidth - currentLineLength;
 
-        if (remainingContentLength <= 0)
-            return;
-
-        string text = new(' ', remainingContentLength);
-        display.Write(text, null, BackgroundColor ?? ParentBackgroundColor);
-
-        currentLineLength += text.Length;
+        if (remainingContentLength > 0)
+            WriteSpaces(remainingContentLength, BackgroundColor ?? ParentBackgroundColor);
     }
 
     /// <summary>
@@ -238,38 +236,48 @@ public class RenderingContext
     /// <param name="backgroundColor">The color of the text's background.</param>
     public void WriteLine(string text = null, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null)
     {
-        StartLine();
+        BeginLine();
         Write(text, foregroundColor, backgroundColor);
         EndLine();
     }
 
+    /// <summary>
+    /// Writes a top/bottom margin line.
+    /// What a top/bottom margin means depends on the control being rendered as root or block.
+    /// - If the control is rendered as root, the top or bottom margin is not written. The cursor
+    /// is just moved to the next line.
+    /// - If the control is rendered as block, a top or a bottom margin is a line filled with
+    /// spaces.
+    /// </summary>
     public void WriteMarginLine()
     {
         if (currentLineLength > 0)
             EndLine();
 
         if (!IsRoot)
-        {
-            int length = ControlLayout.ActualFullWidth;
-            string text = new(' ', length);
-            display.Write(text, null, ParentBackgroundColor);
-
-            currentLineLength = text.Length;
-        }
+            WriteSpaces(ControlLayout.ActualFullWidth, ParentBackgroundColor);
 
         CloseLine();
     }
-
+    /// <summary>
+    /// Writes a top/bottom padding line.
+    /// What a top/bottom padding means depends on the control being rendered as root or block and
+    /// on the control's background color.
+    /// - If the control is rendered as root and has no background color, the top or bottom padding
+    /// is not written. The cursor is moved to the next line.
+    /// - If the control is rendered as block, the top or bottom padding is a line filled with
+    /// spaces colored with the control's background color or its parent's background color.
+    /// </summary>
     public void WritePaddingLine()
     {
         if (currentLineLength > 0)
             EndLine();
 
-        StartLine();
+        BeginLine();
         EndLine();
     }
 
-    private void WriteSpaces(int count, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
+    private void WriteSpaces(int count, ConsoleColor? backgroundColor)
     {
         int availableCharacterCount = LineLength.HasValue
             ? LineLength.Value - currentLineLength
@@ -280,7 +288,7 @@ public class RenderingContext
         if (spacesCount > 0)
         {
             string text = new(' ', spacesCount);
-            display.Write(text, foregroundColor, backgroundColor);
+            display.Write(text, null, backgroundColor);
 
             currentLineLength += spacesCount;
         }

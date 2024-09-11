@@ -40,7 +40,13 @@ public class RenderingOptions
     /// </summary>
     public Action<int> OnLineRendered { get; set; }
 
+    /// <summary>
+    /// Gets or sets the foreground color used by the control's parent.
+    /// </summary>
     public ConsoleColor? ParentForegroundColor { get; set; }
 
+    /// <summary>
+    /// Gets or sets the background color used by the control's parent.
+    /// </summary>
     public ConsoleColor? ParentBackgroundColor { get; set; }
 }

@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
 internal class ApplicationHeaderRenderer : BlockRenderer<ApplicationHeader>
 {
-    private string text;
-    private ApplicationHeaderRenderingStep step;
+    private readonly MultiRenderer multiRenderer = new();
 
     public ApplicationHeaderRenderer(ApplicationHeader control, IDisplay display, RenderingOptions renderingOptions)
         : base(control, display, renderingOptions)
@@ -30,41 +30,40 @@ internal class ApplicationHeaderRenderer : BlockRenderer<ApplicationHeader>
 
     protected override bool InitializeContentRendering()
     {
-        text = Control.BuildTitleRow();
-        step = ApplicationHeaderRenderingStep.TitleText;
-        return true;
+        multiRenderer.Clear();
+
+        multiRenderer.Add(new TextSectionRenderer(RenderingContext)
+        {
+            Text = BuildTitleRow()
+        });
+
+        if (Control.ShowSeparator)
+        {
+            multiRenderer.Add(new TextSectionRenderer(RenderingContext)
+            {
+                Text = new string('=', ControlLayout.ActualContentWidth)
+            });
+        }
+
+        return multiRenderer.HasMoreLines;
+    }
+
+    private string BuildTitleRow()
+    {
+        List<string> parts = new();
+
+        if (Control.ApplicationName != null)
+            parts.Add(Control.ApplicationName);
+
+        if (Control.ShowVersion)
+            parts.Add(Control.ApplicationVersion.ToString(3));
+
+        return string.Join(" ", parts);
     }
 
     protected override bool RenderNextContentLine()
     {
-        return step switch
-        {
-            ApplicationHeaderRenderingStep.TitleText => ExecuteTitleTextStep(),
-            ApplicationHeaderRenderingStep.Separator => ExecuteSeparatorStep(),
-            _ => false
-        };
-    }
-
-    private bool ExecuteTitleTextStep()
-    {
-        RenderingContext.WriteLine(text);
-
-        if (Control.ShowSeparator)
-        {
-            step = ApplicationHeaderRenderingStep.Separator;
-            return true;
-        }
-
-        step = ApplicationHeaderRenderingStep.End;
-        return false;
-    }
-
-    private bool ExecuteSeparatorStep()
-    {
-        string separatorText = new('=', ControlLayout.ActualContentWidth);
-        RenderingContext.WriteLine(separatorText);
-
-        step = ApplicationHeaderRenderingStep.End;
-        return false;
+        multiRenderer.RenderNextLine();
+        return multiRenderer.HasMoreLines;
     }
 }

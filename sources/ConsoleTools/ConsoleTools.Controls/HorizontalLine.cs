@@ -44,7 +44,7 @@ public class HorizontalLine : BlockControl
     /// Gets the <see cref="int.MaxValue"/> value.
     /// The horizontal line is willing to be as wide as necessary.
     /// </summary>
-    public override int NaturalContentWidth => int.MaxValue;
+    protected override int NaturalContentWidth => int.MaxValue;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HorizontalLine"/> class.

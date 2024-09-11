@@ -47,13 +47,28 @@ internal class StringLinesDisplay : IDisplay
     /// </summary>
     public int? MaxWidth => null;
 
+    /// <summary>
+    /// Gets a value specifying if the index where the next text will be written is placed at the
+    /// beginning of a new line.
+    /// </summary>
+    public bool IsNewLine => buffer.Length == 0;
+
+    /// <summary>
+    /// Writes the specified character into the underlying string.
+    /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         buffer.Append(c);
     }
 
+    /// <summary>
+    /// Writes the specified text into the underlying string.
+    /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
+        if (string.IsNullOrEmpty(text))
+            return;
+
         buffer.Append(text);
     }
 

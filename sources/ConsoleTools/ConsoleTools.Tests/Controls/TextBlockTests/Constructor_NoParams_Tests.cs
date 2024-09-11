@@ -48,10 +48,4 @@ public class Constructor_NoParams_Tests
     {
         textBlock.TextHorizontalAlignment.Should().Be(HorizontalAlignment.Default);
     }
-
-    [Test]
-    public void WhenCreatingNewInstance_ThenNaturalContentWidthIsZero()
-    {
-        textBlock.NaturalContentWidth.Should().Be(0);
-    }
 }

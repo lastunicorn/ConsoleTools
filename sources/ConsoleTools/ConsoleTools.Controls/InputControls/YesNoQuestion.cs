@@ -314,5 +314,5 @@ public class YesNoQuestion : InteractiveControl
         return yesNoQuestion.ReadAnswer();
     }
 
-    public override int NaturalContentWidth { get; }
+    protected override int NaturalContentWidth { get; }
 }

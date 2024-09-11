@@ -21,7 +21,6 @@
 
 using System;
 using System.Reflection;
-using System.Text;
 using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
@@ -31,37 +30,40 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// </summary>
 public class ApplicationHeader : BlockControl
 {
-    private readonly ApplicationInformation applicationInformation;
-
     /// <summary>
-    /// Gets or sets the title to be displayed in the header.
-    /// If <c>null</c>, the value of the <see cref="AssemblyProductAttribute"/> attribute will be displayed
-    /// taken from the entry assembly.
-    /// If the attribute is absent, only the version will be displayed.
+    /// Gets or sets the application name to be displayed in the header.
+    /// Default value: The value of the <see cref="AssemblyProductAttribute"/> attribute taken from
+    /// the entry assembly.
     /// </summary>
-    public string Title { get; set; }
+    public string ApplicationName { get; set; }
 
     /// <summary>
     /// Gets or sets a value that specifies if the version of the application should be displayed
-    /// after the title.
+    /// after the application name.
     /// Default value: <c>true</c>
     /// </summary>
     public bool ShowVersion { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value that specifies if a separator line below the title
-    /// should be displayed.
+    /// Gets or sets the application version to be displayed in the header.
+    /// Default value: The value of the <see cref="AssemblyVersionAttribute"/> attribute taken from
+    /// the entry assembly.
+    /// </summary>
+    public Version ApplicationVersion { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value that specifies if a separator line should be displayed below the
+    /// title.
     /// Default value: <c>true</c>
     /// </summary>
     public bool ShowSeparator { get; set; } = true;
 
-    public override int NaturalContentWidth => int.MaxValue - Padding.Left - Padding.Right - Margin.Left - Margin.Right;
-
     /// <summary>
-    /// Event raised before the title is displayed.
-    /// It allows to alter the title before it is displayed. 
+    /// The natural width of the <see cref="ApplicationHeader"/> is infinite.
+    /// Because infinite cannot be represented by an <see cref="Int32"/>, the actual value is
+    /// <see cref="int.MaxValue"/> minus margins and paddings. 
     /// </summary>
-    public event EventHandler<TitleDisplayEventArgs> TitleDisplay;
+    protected override int NaturalContentWidth => int.MaxValue - Padding.Left - Padding.Right - Margin.Left - Margin.Right;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApplicationHeader"/> class.
@@ -77,79 +79,17 @@ public class ApplicationHeader : BlockControl
     /// </summary>
     public ApplicationHeader(string title)
     {
-        applicationInformation = new ApplicationInformation();
-        Title = title ?? applicationInformation.GetProductName();
+        ApplicationInformation applicationInformation = new();
+        ApplicationName = title ?? applicationInformation.GetProductName();
+        ApplicationVersion = applicationInformation.GetVersion();
 
         Margin = "0 0 0 1";
     }
 
-    ///// <summary>
-    ///// This method actually displays the header.
-    ///// Can be overwritten in order to fully control what is displayed.
-    ///// </summary>
-    ///// <param name="display">This instance can be used in order to interact with the console.</param>
-    //protected override void DoDisplayContent(IDisplay display, RenderingOptions renderingOptions = null)
-    //{
-    //    Version version = applicationInformation.GetVersion();
-
-    //    StringBuilder titleRowText = new();
-
-    //    string title = BuildTitle();
-    //    if (title != null)
-    //        titleRowText.Append(title);
-
-    //    if (ShowVersion)
-    //    {
-    //        if (titleRowText.Length > 0)
-    //            titleRowText.Append(" ");
-
-    //        titleRowText.Append(version.ToString(3));
-    //    }
-
-    //    display.StartLine();
-    //    display.Write(titleRowText.ToString());
-    //    Console.WriteLine();
-
-    //    if (ShowSeparator)
-    //        display.WriteLine(new string('=', Console.WindowWidth - 1));
-    //}
-
-    public string BuildTitleRow()
-    {
-        StringBuilder sb = new();
-
-        string title = BuildTitle();
-        if (title != null)
-            sb.Append(title);
-
-        if (ShowVersion)
-        {
-            if (sb.Length > 0)
-                sb.Append(" ");
-
-            Version version = applicationInformation.GetVersion();
-            sb.Append(version.ToString(3));
-        }
-
-        return sb.ToString();
-    }
-
-    private string BuildTitle()
-    {
-        TitleDisplayEventArgs titleDisplayEventArgs = new(Title);
-        OnTitleDisplay(titleDisplayEventArgs);
-
-        return titleDisplayEventArgs.Title;
-    }
-
     /// <summary>
-    /// Method called just before the title is displayed.
+    /// Returns an object that is able to render the current <see cref="ApplicationHeader"/>
+    /// instance into the specified <see cref="IDisplay"/>.
     /// </summary>
-    protected virtual void OnTitleDisplay(TitleDisplayEventArgs e)
-    {
-        TitleDisplay?.Invoke(this, e);
-    }
-
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
         return new ApplicationHeaderRenderer(this, display, renderingOptions);

@@ -60,7 +60,7 @@ internal class Program
     {
         ApplicationHeader applicationHeader = new()
         {
-            Title = "Console Tool - Guard Demo"
+            ApplicationName = "Console Tool - Guard Demo"
         };
         applicationHeader.Display();
 

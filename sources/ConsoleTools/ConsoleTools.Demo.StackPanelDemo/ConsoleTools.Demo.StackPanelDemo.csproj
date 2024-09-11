@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <ProjectReference Include="..\ConsoleTools.Controls.Menus\ConsoleTools.Controls.Menus.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Controls\ConsoleTools.Controls.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\ConsoleTools.Core\ConsoleTools.Core.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\ConsoleTools.Demo.Core\ConsoleTools.Demo.Utils.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\ConsoleTools.Demo.Utils\ConsoleTools.Demo.Utils.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

@@ -54,7 +54,7 @@ internal class ControlRepeaterRenderer : BlockRenderer<ControlRepeater>
             return false;
 
         if (!Control.IsRootControl)
-            RenderingContext.StartLine();
+            RenderingContext.BeginLine();
 
         childRenderer.RenderNextLine();
 

@@ -38,13 +38,19 @@ public class Border : BlockControl
     /// Gets the width of the content (no margins, no paddings) when it is not restricted by
     /// external factors.
     /// </summary>
-    public override int NaturalContentWidth => Content.CalculateNaturalWidth(true, true) + 2;
+    protected override int NaturalContentWidth => Content.CalculateNaturalWidth(true, true) + 2;
 
     /// <summary>
     /// Returns an object capable of rendering the current control into a display.
     /// </summary>
     public override IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null)
     {
+        TextBlock textBlock = new();
+        textBlock.AddBorder(x =>
+        {
+            x.Template = BorderTemplate.DoubleLineBorderTemplate;
+        });
+
         return new BorderRenderer(this, display, renderingOptions);
     }
 }

@@ -46,7 +46,7 @@ public class TextBlock : BlockControl
     /// <summary>
     /// Gets the size of the underlying text when no restrictions are applied.
     /// </summary>
-    public override int NaturalContentWidth => Text?.Size.Width ?? 0;
+    protected override int NaturalContentWidth => Text?.Size.Width ?? 0;
 
     /// <summary>
     /// Gets or sets the horizontal alignment of the text inside the box.

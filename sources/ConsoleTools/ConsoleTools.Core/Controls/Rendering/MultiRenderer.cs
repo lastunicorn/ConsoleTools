@@ -16,17 +16,70 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-public class MultiRenderer : IRenderer, IDisposable
+/// <summary>
+/// A collection of renderers that are rendered one after the other.
+/// </summary>
+public class MultiRenderer : Collection<IRenderer>, IRenderer, IDisposable
 {
     private bool isInitialized;
-    private readonly List<IRenderer> renderers = new();
     private IEnumerator<IRenderer> enumerator;
     private bool hasMoreLines;
 
+    protected override void InsertItem(int index, IRenderer item)
+    {
+        if (item == null) throw new ArgumentNullException(nameof(item));
+
+        base.InsertItem(index, item);
+
+        isInitialized = false;
+    }
+
+    protected override void SetItem(int index, IRenderer item)
+    {
+        if (item == null) throw new ArgumentNullException(nameof(item));
+
+        base.SetItem(index, item);
+
+        isInitialized = false;
+    }
+
+    protected override void RemoveItem(int index)
+    {
+        base.RemoveItem(index);
+
+        isInitialized = false;
+    }
+
+    protected override void ClearItems()
+    {
+        base.ClearItems();
+
+        isInitialized = false;
+    }
+
+    /// <summary>
+    /// Adds a collection of renderers to the end of the list of renderers.
+    /// </summary>
+    public void AddRange(IEnumerable<IRenderer> renderers)
+    {
+        if (renderers == null) throw new ArgumentNullException(nameof(renderers));
+
+        IEnumerable<IRenderer> nonNullRenderers = renderers.Where(x => x != null);
+
+        foreach (IRenderer renderer in nonNullRenderers)
+            Add(renderer);
+
+        isInitialized = false;
+    }
+
+    /// <summary>
+    /// Gets a value specifying if there are more lines to be rendered.
+    /// </summary>
     public bool HasMoreLines
     {
         get
@@ -38,47 +91,19 @@ public class MultiRenderer : IRenderer, IDisposable
         }
     }
 
-    public void Add(IRenderer renderer)
-    {
-        if (enumerator != null)
-            throw new Exception("No renderer can be added once the rendering was started.");
-
-        if (renderer == null) throw new ArgumentNullException(nameof(renderer));
-
-        renderers.Add(renderer);
-
-        isInitialized = false;
-    }
-
-    public void AddRange(IEnumerable<IRenderer> renderers)
-    {
-        if (renderers == null) throw new ArgumentNullException(nameof(renderers));
-
-        IEnumerable<IRenderer> nonNullRenderers = renderers.Where(x => x != null);
-
-        foreach (IRenderer renderer in nonNullRenderers)
-            this.renderers.Add(renderer);
-
-        isInitialized = false;
-    }
-
-    public void Clear()
-    {
-        renderers.Clear();
-
-        isInitialized = false;
-    }
-
     private void Initialize()
     {
         enumerator?.Dispose();
 
-        enumerator = renderers.GetEnumerator();
+        enumerator = Items.GetEnumerator();
         MoveToNextSection();
 
         isInitialized = true;
     }
 
+    /// <summary>
+    /// Renders the next available line.
+    /// </summary>
     public void RenderNextLine()
     {
         if (!isInitialized)
@@ -87,7 +112,7 @@ public class MultiRenderer : IRenderer, IDisposable
         if (!hasMoreLines)
             return;
 
-        enumerator.Current.RenderNextLine();
+        enumerator.Current!.RenderNextLine();
 
         if (!enumerator.Current.HasMoreLines)
             MoveToNextSection();
@@ -101,7 +126,7 @@ public class MultiRenderer : IRenderer, IDisposable
 
             if (success)
             {
-                enumerator.Current.Reset();
+                enumerator.Current!.Reset();
 
                 if (enumerator.Current.HasMoreLines)
                 {
@@ -117,6 +142,10 @@ public class MultiRenderer : IRenderer, IDisposable
         }
     }
 
+    /// <summary>
+    /// Resets the rendering process. Next time when the <see cref="RenderNextLine"/> is called
+    /// it will render the first line of the first renderer in the list.
+    /// </summary>
     public void Reset()
     {
         if (!isInitialized)

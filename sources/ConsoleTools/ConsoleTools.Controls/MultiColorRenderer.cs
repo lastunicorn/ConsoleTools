@@ -50,7 +50,7 @@ internal class MultiColorRenderer : BlockRenderer<MultiColor>
         if (multiRenderer == null)
             return false;
 
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         multiRenderer.RenderNextLine();
         RenderingContext.EndLine();
 

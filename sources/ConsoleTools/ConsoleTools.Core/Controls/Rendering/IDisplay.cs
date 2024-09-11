@@ -52,6 +52,11 @@ public interface IDisplay
     int? MaxWidth { get; }
 
     /// <summary>
+    /// Gets a value specifying if the cursor is placed at the beginning of a new line.
+    /// </summary>
+    bool IsNewLine { get; }
+
+    /// <summary>
     /// Writes the specified character, using the specified colors.
     /// </summary>
     void Write(char c, ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null);

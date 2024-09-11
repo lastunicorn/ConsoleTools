@@ -30,7 +30,7 @@ internal class TwoChildrenAlignRight : DemoBase
         {
             Children =
             {
-                new TextBlock("This is a text")
+                new TextBlock("This is a text.")
                 {
                     BackgroundColor = ConsoleColor.Blue,
                     ForegroundColor = ConsoleColor.DarkBlue,
@@ -39,7 +39,7 @@ internal class TwoChildrenAlignRight : DemoBase
                     HorizontalAlignment = HorizontalAlignment.Right,
                     TextHorizontalAlignment = HorizontalAlignment.Right
                 },
-                new TextBlock("This is a different text")
+                new TextBlock("This is a different text.")
                 {
                     BackgroundColor = ConsoleColor.Green,
                     ForegroundColor = ConsoleColor.DarkGreen,

@@ -49,7 +49,7 @@ internal class TextMenuItemsSection : SectionRenderer
 
     public override void RenderNextLine()
     {
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         multiRenderer.RenderNextLine();
         RenderingContext.EndLine();
     }

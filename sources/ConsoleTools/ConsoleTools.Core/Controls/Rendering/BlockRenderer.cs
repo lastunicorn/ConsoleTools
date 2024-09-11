@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
@@ -25,9 +26,7 @@ namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 public abstract class BlockRenderer<TControl> : IRenderer
     where TControl : BlockControl
 {
-    private bool isInitialized;
-    private RenderingStep step;
-    private IRenderer sectionRenderer;
+    private readonly MultiRenderer multiRenderer = new();
 
     /// <summary>
     /// Provides a context for the rendering process.
@@ -55,10 +54,7 @@ public abstract class BlockRenderer<TControl> : IRenderer
             if (!Control.IsVisible)
                 return false;
 
-            if (!isInitialized)
-                Initialize();
-
-            return sectionRenderer?.HasMoreLines ?? false;
+            return multiRenderer?.HasMoreLines ?? false;
         }
     }
 
@@ -106,109 +102,17 @@ public abstract class BlockRenderer<TControl> : IRenderer
             ParentBackgroundColor = renderingOptions?.ParentBackgroundColor
         };
 
-        step = RenderingStep.Start;
-        OnRenderingStart();
-    }
-
-    private void Initialize()
-    {
-        step = RenderingStep.Start;
-        MoveNext();
-
-        isInitialized = true;
-    }
-
-    private void MoveNext()
-    {
-        if (step == RenderingStep.Start)
-            MoveToTopMargin();
-
-        if (step == RenderingStep.TopMargin)
+        multiRenderer.AddRange(new IRenderer[]
         {
-            if (sectionRenderer.HasMoreLines)
-                return;
-
-            MoveToTopPadding();
-        }
-
-        if (step == RenderingStep.TopPadding)
-        {
-            if (sectionRenderer.HasMoreLines)
-                return;
-
-            MoveToContent();
-        }
-
-        if (step == RenderingStep.Content)
-        {
-            if (sectionRenderer.HasMoreLines)
-                return;
-
-            MoveToBottomPadding();
-        }
-
-        if (step == RenderingStep.BottomPadding)
-        {
-            if (sectionRenderer.HasMoreLines)
-                return;
-
-            MoveToBottomMargin();
-        }
-
-        if (step == RenderingStep.BottomMargin)
-        {
-            if (sectionRenderer.HasMoreLines)
-                return;
-
-            MoveToEnd();
-        }
-
-        if (step == RenderingStep.End)
-            return;
-
-        throw new ArgumentOutOfRangeException();
-    }
-
-    private void MoveToTopMargin()
-    {
-        step = RenderingStep.TopMargin;
-        sectionRenderer = new MarginTopSectionRenderer(RenderingContext);
-    }
-
-    private void MoveToTopPadding()
-    {
-        step = RenderingStep.TopPadding;
-        sectionRenderer = new PaddingTopSectionRenderer(RenderingContext);
-    }
-
-    private void MoveToContent()
-    {
-        step = RenderingStep.Content;
-
-        sectionRenderer = new RelayRenderer(InitializeContentRendering)
-        {
-            RenderNextLineAction = RenderNextContentLine
-        };
-    }
-
-    private void MoveToBottomPadding()
-    {
-        step = RenderingStep.BottomPadding;
-        sectionRenderer = new PaddingBottomSectionRenderer(RenderingContext);
-    }
-
-    private void MoveToBottomMargin()
-    {
-        step = RenderingStep.BottomMargin;
-        sectionRenderer = new MarginBottomSectionRenderer(RenderingContext);
-    }
-
-    private void MoveToEnd()
-    {
-        step = RenderingStep.End;
-        sectionRenderer = null;
-
-        OnRenderingEnd();
+            new MarginTopSectionRenderer(RenderingContext),
+            new PaddingTopSectionRenderer(RenderingContext),
+            new RelayRenderer(InitializeContentRendering)
+            {
+                RenderNextLineAction = RenderNextContentLine
+            },
+            new PaddingBottomSectionRenderer(RenderingContext),
+            new MarginBottomSectionRenderer(RenderingContext)
+        });
     }
 
     /// <summary>
@@ -219,23 +123,7 @@ public abstract class BlockRenderer<TControl> : IRenderer
         if (!Control.IsVisible)
             return;
 
-        if (!isInitialized)
-            Initialize();
-
-        if (sectionRenderer == null)
-            return;
-
-        sectionRenderer.RenderNextLine();
-
-        MoveNext();
-    }
-
-    protected virtual void OnRenderingStart()
-    {
-    }
-
-    protected virtual void OnRenderingEnd()
-    {
+        multiRenderer?.RenderNextLine();
     }
 
     /// <summary>
@@ -258,12 +146,12 @@ public abstract class BlockRenderer<TControl> : IRenderer
     /// </returns>
     protected abstract bool RenderNextContentLine();
 
+    /// <summary>
+    /// Resets the rendering process. Next time when the <see cref="RenderNextLine"/> is called
+    /// it will render the first line.
+    /// </summary>
     public void Reset()
     {
-        if (!isInitialized)
-            Initialize();
-
-        step = RenderingStep.Start;
-        MoveNext();
+        multiRenderer.Reset();
     }
 }

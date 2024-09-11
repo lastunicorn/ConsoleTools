@@ -235,4 +235,5 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</s:S
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Hashtag/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=polyline/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Renderable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=renderers/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Velo/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

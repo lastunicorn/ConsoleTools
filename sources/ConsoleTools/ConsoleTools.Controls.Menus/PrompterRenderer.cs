@@ -45,7 +45,7 @@ internal class PrompterRenderer : BlockRenderer<Prompter>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         string text = Control.TextFormat == null
             ? Control.Text
             : string.Format(Control.TextFormat, Control.Text);

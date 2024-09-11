@@ -52,6 +52,12 @@ public class StringDisplay : IDisplay
     public int? MaxWidth => null;
 
     /// <summary>
+    /// Gets a value specifying if the index where the next text will be written is placed at the
+    /// beginning of a new line.
+    /// </summary>
+    public bool IsNewLine { get; private set; } = true;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="StringDisplay"/> class as root.
     /// </summary>
     public StringDisplay()
@@ -67,19 +73,34 @@ public class StringDisplay : IDisplay
         this.stringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
     }
 
+    /// <summary>
+    /// Writes the specified character into the underlying string.
+    /// </summary>
     public void Write(char c, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
         stringBuilder.Append(c);
+        IsNewLine = false;
     }
 
+    /// <summary>
+    /// Writes the specified text into the underlying string.
+    /// </summary>
     public void Write(string text, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor)
     {
+        if (string.IsNullOrEmpty(text))
+            return;
+
         stringBuilder.Append(text);
+        IsNewLine = false;
     }
 
+    /// <summary>
+    /// Writes the line terminator.
+    /// </summary>
     public void EndLine()
     {
         stringBuilder.AppendLine();
+        IsNewLine = true;
     }
 
     /// <summary>

@@ -148,7 +148,7 @@ public class Prompter : InteractiveControl
     //    }
     //}
 
-    public override int NaturalContentWidth
+    protected override int NaturalContentWidth
     {
         get
         {

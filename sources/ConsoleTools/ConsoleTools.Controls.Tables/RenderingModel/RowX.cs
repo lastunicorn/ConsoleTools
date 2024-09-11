@@ -109,7 +109,7 @@ internal class RowX : IItemX
 
     public void RenderNextLine(RenderingContext renderingContext)
     {
-        renderingContext.StartLine();
+        renderingContext.BeginLine();
 
         RenderRowLeftBorder(renderingContext);
 

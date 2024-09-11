@@ -18,7 +18,7 @@ using System;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
-public class RelayRenderer : IRenderer
+internal class RelayRenderer : IRenderer
 {
     private readonly Func<bool> initializeAction;
 

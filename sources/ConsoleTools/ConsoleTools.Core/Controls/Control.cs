@@ -87,27 +87,26 @@ public abstract class Control : IRenderable
         DoRender(display, renderingOptions);
     }
 
-    ///// <summary>
-    ///// Returns the string representation of the current instance.
-    ///// </summary>
-    ///// <returns>The string representation of the current instance.</returns>
-    //public override string ToString()
-    //{
-    //    if (!IsVisible)
-    //        return string.Empty;
+    /// <summary>
+    /// Returns the string representation of the current instance.
+    /// </summary>
+    /// <returns>The string representation of the current instance.</returns>
+    public override string ToString()
+    {
+        if (!IsVisible)
+            return string.Empty;
 
-    //    StringDisplay stringDisplay = new();
-    //    DoRender(stringDisplay);
-    //    stringDisplay.Flush();
+        StringDisplay stringDisplay = new();
+        DoRender(stringDisplay);
+        stringDisplay.Flush();
 
-    //    return stringDisplay.ToString();
-    //}
+        return stringDisplay.ToString();
+    }
 
     /// <summary>
-    /// Returns a renderer object that is able to render the current <see cref="Control"/>
-    /// instance using the specified <see cref="IDisplay"/>.
+    /// Returns an object that is able to render the current <see cref="Control"/> instance into
+    /// the specified <see cref="IDisplay"/>.
     /// </summary>
-    /// <returns>The <see cref="IRenderer"/> instance.</returns>
     public abstract IRenderer GetRenderer(IDisplay display, RenderingOptions renderingOptions = null);
 
     /// <summary>
@@ -165,5 +164,9 @@ public abstract class Control : IRenderable
         AfterRender?.Invoke(this, e);
     }
 
+    /// <summary>
+    /// When implemented by an inheritor, returns the width of the control when no constraints are
+    /// applied.
+    /// </summary>
     public abstract int CalculateNaturalWidth();
 }

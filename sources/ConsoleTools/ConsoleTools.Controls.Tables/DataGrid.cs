@@ -402,7 +402,7 @@ public class DataGrid : BlockControl
         Border = new DataGridBorder();
     }
 
-    public override int NaturalContentWidth => 0;
+    protected override int NaturalContentWidth => 0;
 
     /// <summary>
     /// Creates a new <see cref="IRenderer"/> for the current instance.

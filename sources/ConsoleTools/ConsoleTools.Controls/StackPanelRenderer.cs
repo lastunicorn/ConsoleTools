@@ -57,7 +57,7 @@ internal class StackPanelRenderer : BlockRenderer<StackPanel>
 
     protected override bool RenderNextContentLine()
     {
-        RenderingContext.StartLine();
+        RenderingContext.BeginLine();
         multiRenderer.RenderNextLine();
         RenderingContext.EndLine();
 

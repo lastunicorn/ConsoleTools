@@ -1048,4 +1048,8 @@ Note: For any bug or feature request please add a new issue on GitHub: https://g
         <ProjectReference Include="..\ConsoleTools.Tests.Utils\ConsoleTools.Tests.Utils.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core\Controls\MultiRendererTests\" />
+    </ItemGroup>
+
 </Project>

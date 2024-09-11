@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests", "Conso
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{2C2BFA30-8815-4269-AC92-DDE5589BD958}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetFramework.GuardDemo", "ConsoleTools.Demo.GuardDemo\ConsoleTools.Demo.NetFramework.GuardDemo.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetFramework.GuardDemo", "ConsoleTools.Demo.NetFramework.GuardDemo\ConsoleTools.Demo.NetFramework.GuardDemo.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.HorizontalLineDemo", "ConsoleTools.Demo.HorizontalLineDemo\ConsoleTools.Demo.HorizontalLineDemo.csproj", "{42ABE719-CA05-421F-99BC-5F5D2D0C385B}"
 EndProject

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.ConsoleTools.Controls.Spinners.Templates;
 using DustInTheWind.ConsoleTools.Demo.Utils;
 
@@ -26,11 +25,9 @@ internal class HalfBlockSpinDemo : DemoBase
 
     protected override void DoExecute()
     {
-        DummyWorker worker = new()
+        Worker worker = new()
         {
-            SpinnerTemplate = new HalfRotateSpinnerTemplate(),
-            SpinnerStepMilliseconds = 400,
-            WorkTimeSpan = TimeSpan.FromSeconds(5)
+            SpinnerTemplate = new HalfRotateSpinnerTemplate()
         };
 
         worker.Run();

@@ -29,5 +29,7 @@ public class ChildRenderingOptions
     /// </summary>
     public int? AvailableWidth { get; set; }
 
+    public ConsoleColor? ParentForegroundColor { get; set; }
+
     public ConsoleColor? ParentBackgroundColor { get; set; }
 }

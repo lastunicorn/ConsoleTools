@@ -26,8 +26,7 @@ internal class PaddingsDemo : DemoBase
 
     public override MultilineText Description => new[]
     {
-        "Background color was added to easier see the margins.",
-        "[Known bug] Paddings are not displayed correctly."
+        "[Known bug] Paddings are displayed outside of the border."
     };
 
     protected override void DoExecute()

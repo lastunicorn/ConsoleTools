@@ -40,5 +40,7 @@ public class RenderingOptions
     /// </summary>
     public Action<int> OnLineRendered { get; set; }
 
+    public ConsoleColor? ParentForegroundColor { get; set; }
+
     public ConsoleColor? ParentBackgroundColor { get; set; }
 }

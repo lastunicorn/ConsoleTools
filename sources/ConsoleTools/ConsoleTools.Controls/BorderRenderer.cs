@@ -34,7 +34,9 @@ internal class BorderRenderer : BlockRenderer<Border>
 
         ChildRenderingOptions renderingOptions = new()
         {
-            AvailableWidth = contentWidth
+            AvailableWidth = contentWidth,
+            ParentForegroundColor = Control.ForegroundColor,
+            ParentBackgroundColor = Control.BackgroundColor
         };
 
         contentRenderer = RenderingContext.CreateChildRenderer(Control.Content, renderingOptions);

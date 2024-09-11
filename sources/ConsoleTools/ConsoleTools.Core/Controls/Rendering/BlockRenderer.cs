@@ -102,6 +102,7 @@ public abstract class BlockRenderer<TControl> : IRenderer
             OnLineRendered = renderingOptions?.OnLineRendered,
             ForegroundColor = Control.ForegroundColor,
             BackgroundColor = Control.BackgroundColor,
+            ParentForegroundColor = renderingOptions?.ParentForegroundColor,
             ParentBackgroundColor = renderingOptions?.ParentBackgroundColor
         };
 

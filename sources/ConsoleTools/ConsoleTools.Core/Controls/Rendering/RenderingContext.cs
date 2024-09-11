@@ -70,6 +70,11 @@ public class RenderingContext
     public ConsoleColor? BackgroundColor { get; set; }
 
     /// <summary>
+    /// Gets or sets the foreground color used for the text when no explicit color is provided.
+    /// </summary>
+    public ConsoleColor? ParentForegroundColor { get; set; }
+
+    /// <summary>
     /// Gets or sets the background color used for the "transparent" parts of the control: margins
     /// and empty space to be displayed around the control.
     /// </summary>
@@ -114,7 +119,7 @@ public class RenderingContext
             WriteSpaces(ControlLayout.Margin.Left, null, ParentBackgroundColor);
 
         if (ControlLayout.Padding.Left > 0)
-            WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor);
+            WriteSpaces(ControlLayout.Padding.Left, null, BackgroundColor ?? ParentBackgroundColor);
     }
 
     /// <summary>
@@ -134,7 +139,7 @@ public class RenderingContext
     private void WriteEndOfLine()
     {
         if (ControlLayout.Padding.Right > 0)
-            WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor);
+            WriteSpaces(ControlLayout.Padding.Right, null, BackgroundColor ?? ParentBackgroundColor);
 
         if (!IsRoot && ControlLayout.Margin.Right > 0)
             WriteSpaces(ControlLayout.Margin.Right, null, ParentBackgroundColor);
@@ -153,8 +158,8 @@ public class RenderingContext
         if (currentLineLength >= LineLength)
             return;
 
-        ConsoleColor? fg = foregroundColor ?? ForegroundColor;
-        ConsoleColor? bg = backgroundColor ?? BackgroundColor;
+        ConsoleColor? fg = foregroundColor ?? ForegroundColor ?? ParentForegroundColor;
+        ConsoleColor? bg = backgroundColor ?? BackgroundColor ?? ParentBackgroundColor;
 
         display.Write(c, fg, bg);
 
@@ -184,8 +189,8 @@ public class RenderingContext
             ? text
             : text.Substring(0, availableCharacterCount);
 
-        ConsoleColor? fg = foregroundColor ?? ForegroundColor;
-        ConsoleColor? bg = backgroundColor ?? BackgroundColor;
+        ConsoleColor? fg = foregroundColor ?? ForegroundColor ?? ParentForegroundColor;
+        ConsoleColor? bg = backgroundColor ?? BackgroundColor ?? ParentBackgroundColor;
 
         display.Write(textToWrite, fg, bg);
 
@@ -218,7 +223,7 @@ public class RenderingContext
             return;
 
         string text = new(' ', remainingContentLength);
-        display.Write(text, null, BackgroundColor);
+        display.Write(text, null, BackgroundColor ?? ParentBackgroundColor);
 
         currentLineLength += text.Length;
     }
@@ -306,6 +311,7 @@ public class RenderingContext
             {
                 currentLineLength += count;
             },
+            ParentForegroundColor = renderingOptions?.ParentForegroundColor,
             ParentBackgroundColor = renderingOptions?.ParentBackgroundColor
         };
 

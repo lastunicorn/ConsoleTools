@@ -15,19 +15,23 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using DustInTheWind.ConsoleTools.Controls;
 using DustInTheWind.ConsoleTools.Controls.Spinners;
 
 namespace DustInTheWind.ConsoleTools.Demo.SpinnerDemo;
 
-internal class DummyWorker
+/// <summary>
+/// This is a dummy worker that simulates some heavy work and displays a spinner during this time.
+/// </summary>
+internal class Worker
 {
-    public TimeSpan WorkTimeSpan { get; set; }
+    public TimeSpan WorkTimeSpan { get; set; } = TimeSpan.FromSeconds(7);
 
     public ISpinnerTemplate SpinnerTemplate { get; set; }
 
-    public int SpinnerStepMilliseconds { get; set; }
+    public int SpinnerStepMilliseconds { get; set; } = 300;
 
     public void Run()
     {
@@ -45,10 +49,12 @@ internal class DummyWorker
 
         try
         {
-            // Simulate work
-            Thread.Sleep(WorkTimeSpan);
+            bool isNormalFinish = SimulateWork();
 
-            spinner.DoneText = new InlineText("[Done]", CustomConsole.SuccessColor);
+            spinner.DoneText = isNormalFinish
+                ? new InlineText("[Done]", CustomConsole.SuccessColor)
+                : new InlineText("[Canceled]", CustomConsole.WarningColor);
+
             spinner.Close();
         }
         catch
@@ -56,5 +62,35 @@ internal class DummyWorker
             spinner.DoneText = new InlineText("[Error]", CustomConsole.ErrorColor);
             spinner.Close();
         }
+    }
+
+    private bool SimulateWork()
+    {
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        while (true)
+        {
+            bool isCanceledByUser = IsCanceledByUser();
+            if (isCanceledByUser)
+                return false;
+
+            Thread.Sleep(50);
+
+            if (stopwatch.Elapsed >= WorkTimeSpan)
+                return true;
+        }
+    }
+
+    private static bool IsCanceledByUser()
+    {
+        while (Console.KeyAvailable)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+
+            if (key.Key == ConsoleKey.Escape)
+                return true;
+        }
+
+        return false;
     }
 }

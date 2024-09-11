@@ -162,7 +162,7 @@ public class Spinner : DynamicControl, IDisposable
     }
 
     /// <summary>
-    /// Stops the animation of the spinner and erases it from the screen by writting spaces over it.
+    /// Stops the animation of the spinner and erases it from the screen by writing spaces over it.
     /// </summary>
     protected override void DoClose()
     {
@@ -258,23 +258,22 @@ public class Spinner : DynamicControl, IDisposable
 
     private static void RunInternal(ISpinnerTemplate template, Action action)
     {
-        using (Spinner spinner = new(template))
+        using Spinner spinner = new(template);
+
+        spinner.Display();
+
+        try
         {
-            spinner.Display();
+            action();
 
-            try
-            {
-                action();
-
-                spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
-                spinner.Close();
-            }
-            catch
-            {
-                spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
-                spinner.Close();
-                throw;
-            }
+            spinner.DoneText = new InlineText(SpinnerResources.DoneText, CustomConsole.SuccessColor);
+            spinner.Close();
+        }
+        catch
+        {
+            spinner.DoneText = new InlineText(SpinnerResources.ErrorText, CustomConsole.ErrorColor);
+            spinner.Close();
+            throw;
         }
     }
 

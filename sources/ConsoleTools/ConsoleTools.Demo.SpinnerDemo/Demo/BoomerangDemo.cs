@@ -26,7 +26,7 @@ internal class BoomerangDemo : DemoBase
 
     protected override void DoExecute()
     {
-        DummyWorker worker = new()
+        Worker worker = new()
         {
             SpinnerTemplate = new BoomerangSpinnerTemplate(),
             SpinnerStepMilliseconds = 400,

@@ -48,6 +48,7 @@ internal class StackPanelRenderer : BlockRenderer<StackPanel>
         ChildRenderingOptions childRenderingOptions = new()
         {
             AvailableWidth = ControlLayout.ActualContentWidth,
+            ParentForegroundColor = Control.ForegroundColor,
             ParentBackgroundColor = Control.BackgroundColor
         };
 

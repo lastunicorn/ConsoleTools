@@ -87,21 +87,21 @@ public abstract class Control : IRenderable
         DoRender(display, renderingOptions);
     }
 
-    /// <summary>
-    /// Returns the string representation of the current instance.
-    /// </summary>
-    /// <returns>The string representation of the current instance.</returns>
-    public override string ToString()
-    {
-        if (!IsVisible)
-            return string.Empty;
+    ///// <summary>
+    ///// Returns the string representation of the current instance.
+    ///// </summary>
+    ///// <returns>The string representation of the current instance.</returns>
+    //public override string ToString()
+    //{
+    //    if (!IsVisible)
+    //        return string.Empty;
 
-        StringDisplay stringDisplay = new();
-        DoRender(stringDisplay);
-        stringDisplay.Flush();
+    //    StringDisplay stringDisplay = new();
+    //    DoRender(stringDisplay);
+    //    stringDisplay.Flush();
 
-        return stringDisplay.ToString();
-    }
+    //    return stringDisplay.ToString();
+    //}
 
     /// <summary>
     /// Returns a renderer object that is able to render the current <see cref="Control"/>

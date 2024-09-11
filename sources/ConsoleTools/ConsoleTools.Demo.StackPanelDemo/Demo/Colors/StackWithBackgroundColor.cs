@@ -43,17 +43,18 @@ internal class StackWithBackgroundColor : DemoBase
                     Padding = 1,
                     Margin = 1
                 },
-                new TextBlock("This is a green and longer text.")
+                new TextBlock("This is a green text. And it is also longer.")
                 {
                     BackgroundColor = ConsoleColor.Green,
                     ForegroundColor = ConsoleColor.DarkGreen,
                     Padding = 1,
                     Margin = 1
                 },
-                new TextBlock("This text has no explicit\ncolor set on it.")
+                new TextBlock("This text has no explicit color set on it.")
                 {
                     Padding = 1,
-                    Margin = 1
+                    Margin = 1,
+                    MaxWidth = 30
                 }
             },
             BackgroundColor = ConsoleColor.DarkMagenta,

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests", "Conso
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{2C2BFA30-8815-4269-AC92-DDE5589BD958}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.GuardDemo.NetFramework", "ConsoleTools.Demo.GuardDemo\ConsoleTools.Demo.GuardDemo.NetFramework.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetFramework.GuardDemo", "ConsoleTools.Demo.GuardDemo\ConsoleTools.Demo.NetFramework.GuardDemo.csproj", "{64FBFC9E-C9A4-46C6-84ED-6A8A811ECFBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.HorizontalLineDemo", "ConsoleTools.Demo.HorizontalLineDemo\ConsoleTools.Demo.HorizontalLineDemo.csproj", "{42ABE719-CA05-421F-99BC-5F5D2D0C385B}"
 EndProject
@@ -57,9 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests.Utils", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Tests.Performance", "ConsoleTools.Tests.Performance\ConsoleTools.Tests.Performance.csproj", "{5553E8FA-3247-443C-95FD-40502F5714DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.Utils", "ConsoleTools.Demo.Core\ConsoleTools.Demo.Utils.csproj", "{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.Utils", "ConsoleTools.Demo.Utils\ConsoleTools.Demo.Utils.csproj", "{270D9B33-2D05-4B5C-ABE4-D43A3A6CA46E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetFramework", "ConsoleTools.Demo\ConsoleTools.Demo.NetFramework.csproj", "{B1681E0C-770C-420D-A634-CC229BB6A8D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.NetFramework", "ConsoleTools.Demo.NetFramework\ConsoleTools.Demo.NetFramework.csproj", "{B1681E0C-770C-420D-A634-CC229BB6A8D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTools.Demo.StackPanelDemo", "ConsoleTools.Demo.StackPanelDemo\ConsoleTools.Demo.StackPanelDemo.csproj", "{CA760D08-7FA6-4205-BF80-45B8165EC4B6}"
 EndProject

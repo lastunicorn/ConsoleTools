@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using DustInTheWind.ConsoleTools.Controls.Rendering;
 
 namespace DustInTheWind.ConsoleTools.Controls;
 
@@ -29,8 +30,8 @@ namespace DustInTheWind.ConsoleTools.Controls;
 /// </summary>
 public abstract class DynamicControl
 {
-    private readonly bool allowHidingCursor;
     private bool initialCursorVisible;
+    private ICursorVisibility cursorVisibility;
 
     /// <summary>
     /// Gets a value that specifies if the control is still active.
@@ -69,7 +70,7 @@ public abstract class DynamicControl
     /// </summary>
     protected DynamicControl()
     {
-        allowHidingCursor = Environment.OSVersion.Platform == PlatformID.Win32NT;
+        cursorVisibility = CursorVisibility.Create();
     }
 
     /// <summary>
@@ -82,13 +83,10 @@ public abstract class DynamicControl
         if (IsActive)
             return;
 
-        if (allowHidingCursor)
-        {
-            initialCursorVisible = Console.CursorVisible;
+        initialCursorVisible = cursorVisibility.IsVisible();
 
-            if (!ShowCursor)
-                Console.CursorVisible = false;
-        }
+        if (!ShowCursor)
+            cursorVisibility.HideCursor();
 
         MoveToNextLineIfNecessary();
         WriteTopMargin();
@@ -176,8 +174,8 @@ public abstract class DynamicControl
 
         WriteBottomMargin();
 
-        if (allowHidingCursor && !ShowCursor)
-            Console.CursorVisible = initialCursorVisible;
+        if (!ShowCursor && initialCursorVisible)
+            cursorVisibility.ShowCursor();
 
         IsActive = false;
 

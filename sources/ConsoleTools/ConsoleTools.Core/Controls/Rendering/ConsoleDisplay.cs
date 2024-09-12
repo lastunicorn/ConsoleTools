@@ -20,6 +20,7 @@
 // Note: For any bug or feature request please add a new issue on GitHub: https://github.com/lastunicorn/ConsoleTools/issues/new/choose
 
 using System;
+using System.Diagnostics;
 
 namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 
@@ -29,6 +30,8 @@ namespace DustInTheWind.ConsoleTools.Controls.Rendering;
 /// </summary>
 public class ConsoleDisplay : IInteractiveDisplay
 {
+    private readonly ICursorVisibility cursorVisibility;
+
     /// <summary>
     /// Gets or sets the color used for writing the text to the console.
     /// </summary>
@@ -52,8 +55,14 @@ public class ConsoleDisplay : IInteractiveDisplay
     /// </summary>
     public bool IsCursorVisible
     {
-        get => Console.CursorVisible;
-        set => Console.CursorVisible = value;
+        get => cursorVisibility.IsVisible();
+        set
+        {
+            if (value)
+                cursorVisibility.ShowCursor();
+            else
+                cursorVisibility.HideCursor();
+        }
     }
 
 
@@ -73,6 +82,7 @@ public class ConsoleDisplay : IInteractiveDisplay
     /// </summary>
     public ConsoleDisplay()
     {
+        cursorVisibility = CursorVisibility.Create();
     }
 
     /// <summary>

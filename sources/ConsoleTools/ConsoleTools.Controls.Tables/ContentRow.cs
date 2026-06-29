@@ -34,12 +34,12 @@ public class ContentRow : RowBase
     /// <summary>
     /// Gets the list of cells contained by the row.
     /// </summary>
-    private readonly List<ContentCell> cells = new();
+    protected List<ContentCell> Cells { get; private set; } = [];
 
     /// <summary>
     /// Gets the number of cells contained by the current instance.
     /// </summary>
-    public override int CellCount => cells.Count;
+    public override int CellCount => Cells.Count;
 
     /// <summary>
     /// Gets or sets the cell at the specified index.
@@ -49,8 +49,8 @@ public class ContentRow : RowBase
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public ContentCell this[int index]
     {
-        get => cells[index];
-        set => cells[index] = value;
+        get => Cells[index];
+        set => Cells[index] = value;
     }
 
     /// <summary>
@@ -183,7 +183,7 @@ public class ContentRow : RowBase
             cell = new ContentCell();
 
         cell.ParentRow = this;
-        cells.Add(cell);
+        Cells.Add(cell);
 
         return cell;
     }
@@ -192,7 +192,7 @@ public class ContentRow : RowBase
     /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
     /// </summary>
     /// <returns>The newly created cell.</returns>
-    public ContentCell AddCell(string cellContent)
+    public ContentCell AddCell(string cellContent, Action<ContentCell> config = null)
     {
         ContentCell cell = new()
         {
@@ -202,7 +202,9 @@ public class ContentRow : RowBase
         if (cellContent != null)
             cell.Content = new MultilineText(cellContent);
 
-        cells.Add(cell);
+        config?.Invoke(cell);
+
+        Cells.Add(cell);
 
         return cell;
     }
@@ -211,7 +213,7 @@ public class ContentRow : RowBase
     /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
     /// </summary>
     /// <returns>The newly created cell.</returns>
-    public ContentCell AddCell(MultilineText cellContent)
+    public ContentCell AddCell(MultilineText cellContent, Action<ContentCell> config = null)
     {
         ContentCell cell = new()
         {
@@ -221,7 +223,9 @@ public class ContentRow : RowBase
         if (cellContent != null)
             cell.Content = cellContent;
 
-        cells.Add(cell);
+        config?.Invoke(cell);
+
+        Cells.Add(cell);
 
         return cell;
     }
@@ -230,7 +234,7 @@ public class ContentRow : RowBase
     /// Adds a new cell to the current instance of <see cref="ContentRow"/>.
     /// </summary>
     /// <returns>The newly created cell.</returns>
-    public ContentCell AddCell(object cellContent)
+    public ContentCell AddCell(object cellContent, Action<ContentCell> config = null)
     {
         ContentCell cell = new()
         {
@@ -240,7 +244,9 @@ public class ContentRow : RowBase
         if (cellContent != null)
             cell.Content = new MultilineText(cellContent.ToString());
 
-        cells.Add(cell);
+        config?.Invoke(cell);
+
+        Cells.Add(cell);
 
         return cell;
     }
@@ -254,7 +260,7 @@ public class ContentRow : RowBase
         if (cell is not ContentCell contentCell)
             return null;
 
-        int indexOfCell = cells.IndexOf(contentCell);
+        int indexOfCell = Cells.IndexOf(contentCell);
 
         return indexOfCell == -1
             ? null
@@ -268,7 +274,7 @@ public class ContentRow : RowBase
     /// <returns>An enumeration of the visible cells contained by the current instance.</returns>
     public override IEnumerable<CellBase> EnumerateVisibleCells()
     {
-        return cells
+        return Cells
             .Where((x, i) => ParentDataGrid?.Columns[i]?.IsVisible ?? true)
             .ToList();
     }
@@ -279,6 +285,6 @@ public class ContentRow : RowBase
     /// <returns>An enumeration of all the cell contained by the current instance.</returns>
     public override IEnumerator<CellBase> GetEnumerator()
     {
-        return cells.GetEnumerator();
+        return Cells.GetEnumerator();
     }
 }
